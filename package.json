@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "npm start --prefix ./back-end/",
-    "postinstall": "npm install --prefix ./back-end/"
+    "postinstall": "npm install --prefix ./back-end/ && npm install --prefix ./front-end/"
   },
   "author": "",
   "license": "ISC"
