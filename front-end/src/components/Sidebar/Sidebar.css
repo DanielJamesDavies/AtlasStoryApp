@@ -1,0 +1,58 @@
+.side-bar {
+	display: inline-block;
+	width: 70px;
+	height: 100vh;
+	background: var(--grey2);
+}
+
+.side-bar-primary-button-container {
+	width: 100%;
+	text-align: center;
+}
+
+.side-bar-story-button-container {
+	margin-top: 80px;
+	width: 100%;
+	text-align: center;
+}
+
+.side-bar-btn {
+	display: inline-block;
+	margin: 16px auto;
+	border: 0;
+	border-radius: 100%;
+
+	width: 46px;
+	height: 46px;
+
+	background: #00000000;
+	color: var(--blue);
+	font-size: 24px;
+	text-align: center;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.side-bar-btn:hover {
+	background: var(--blue);
+	color: #fff;
+}
+
+.side-bar-btn svg {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-end;
+	align-items: center;
+	margin: auto;
+	width: 100%;
+	overflow: hidden;
+}
+
+.side-bar-btn-profile {
+	border: 3px solid var(--grey3);
+	background: var(--blue);
+}
+
+.side-bar-btn-profile:hover {
+	border-width: 1px;
+}
