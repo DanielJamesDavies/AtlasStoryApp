@@ -17,8 +17,10 @@
 }
 
 .side-bar-btn {
+	position: relative;
 	display: inline-block;
 	margin: 16px auto;
+	padding: 0;
 	border: 0;
 	border-radius: 100%;
 
@@ -39,13 +41,11 @@
 }
 
 .side-bar-btn svg {
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: flex-end;
-	align-items: center;
-	margin: auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	width: 100%;
-	overflow: hidden;
 }
 
 .side-bar-btn-profile {

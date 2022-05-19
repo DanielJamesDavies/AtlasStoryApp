@@ -19,6 +19,7 @@ export const BrowserContainer = () => {
 			<Sidebar />
 			<BrowserTopBar />
 			<Routes>
+				<Route path='*' />
 				<Route path='/' />
 			</Routes>
 		</div>
