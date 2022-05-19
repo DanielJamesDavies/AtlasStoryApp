@@ -1,0 +1,28 @@
+:root {
+	--grey1: #010101;
+	--grey2: #090909;
+	--grey3: #171717;
+	--grey4: #1e1e1e;
+	--grey5: #2e2e2e;
+	--blue: #0044ff;
+	--blue2: #0077ff;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Calibri, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+button:focus {
+	outline: 0;
+}
+
+.App {
+	position: relative;
+	z-index: 1;
+	max-height: 100vh;
+	overflow: hidden;
+}
