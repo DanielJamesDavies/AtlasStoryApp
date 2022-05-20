@@ -1,5 +1,6 @@
 // Packages
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // Components
 
@@ -12,7 +13,14 @@ import { useNavigate } from "react-router-dom";
 // Assets
 
 export const SidebarLogic = () => {
+	const [isOnStory, setIsOnStory] = useState(false);
+
 	let navigate = useNavigate();
+	const location = useLocation();
+
+	useEffect(() => {
+		setIsOnStory(location.pathname.split("/")[1] === "story");
+	}, [location]);
 
 	function navigateToProfile() {
 		navigate("/profile");
@@ -34,5 +42,5 @@ export const SidebarLogic = () => {
 		navigate("/world");
 	}
 
-	return { navigateToProfile, navigateToStories, navigateToCharacters, navigateToSubstories, navigateToWorld };
+	return { isOnStory, navigateToProfile, navigateToStories, navigateToCharacters, navigateToSubstories, navigateToWorld };
 };

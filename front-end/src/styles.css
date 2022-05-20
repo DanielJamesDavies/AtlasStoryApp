@@ -5,12 +5,18 @@
 	--grey4: #1e1e1e;
 	--grey5: #2e2e2e;
 	--blue: #0044ff;
-	--blue2: #0077ff;
+	--blue2: #0088ff;
+	--red: #cc0000;
 }
 
 body {
 	margin: 0;
 	padding: 0;
+
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+
 	font-family: Calibri, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -23,10 +29,19 @@ button:focus {
 .App {
 	position: relative;
 	z-index: 1;
+
 	width: 100vw;
 	height: 100vh;
 	max-height: 100vh;
 	overflow: hidden;
+
 	background: var(--grey1);
 	color: #fff;
+}
+
+.page-container {
+	display: inline-block;
+	width: calc(100vw - 70px);
+	height: 100vh;
+	vertical-align: top;
 }

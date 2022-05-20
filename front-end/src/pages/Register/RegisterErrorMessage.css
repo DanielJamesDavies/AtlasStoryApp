@@ -1,0 +1,7 @@
+.register-error-message {
+	padding: 12px 0;
+	padding-right: 12px;
+	padding-top: 6px;
+	text-align: right;
+	color: var(--red);
+}

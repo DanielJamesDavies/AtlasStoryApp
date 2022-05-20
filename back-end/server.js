@@ -7,6 +7,7 @@ require("dotenv").config();
 
 app.use(express.json({ limit: "500mb" }));
 app.use(cors());
+app.listen(port, () => {});
 
 // Mongoose Connection
 mongoose
@@ -18,9 +19,6 @@ mongoose
 		console.log("Connected to MongoDB");
 	});
 
-const server = app.listen(port, () => {
-	console.log("Listening on port: " + port);
-});
-
-const userRoute = require("./routes/UserRoute");
-app.use("/user", userRoute);
+// Routes
+app.use("/user", require("./routes/UserRoute"));
+app.use("/image", require("./routes/ImageRoute"));

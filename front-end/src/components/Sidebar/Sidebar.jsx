@@ -1,5 +1,5 @@
 // Packages
-import { FaBook, FaUser, FaBookOpen, FaGlobeEurope } from "react-icons/fa";
+import { FaBook, FaUser, FaBookOpen, FaGlobeEurope, FaSearch, FaUsers } from "react-icons/fa";
 
 // Components
 
@@ -14,7 +14,7 @@ import "./Sidebar.css";
 // Assets
 
 export const Sidebar = () => {
-	const { navigateToProfile, navigateToStories, navigateToCharacters, navigateToSubstories, navigateToWorld } = SidebarLogic();
+	const { isOnStory, navigateToProfile, navigateToStories, navigateToCharacters, navigateToSubstories, navigateToWorld } = SidebarLogic();
 
 	return (
 		<div className='side-bar'>
@@ -24,17 +24,24 @@ export const Sidebar = () => {
 					<FaBook />
 				</button>
 			</div>
-			<div className='side-bar-story-button-container'>
-				<button className='side-bar-btn' onClick={navigateToCharacters}>
-					<FaUser />
-				</button>
-				<button className='side-bar-btn' onClick={navigateToSubstories}>
-					<FaBookOpen />
-				</button>
-				<button className='side-bar-btn' onClick={navigateToWorld}>
-					<FaGlobeEurope />
-				</button>
-			</div>
+			{!isOnStory ? (
+				<div className='side-bar-placeholder-section' />
+			) : (
+				<>
+					<div className='side-bar-story-button-container'>
+						<button className='side-bar-btn' onClick={navigateToCharacters}>
+							<FaUser />
+						</button>
+						<button className='side-bar-btn' onClick={navigateToSubstories}>
+							<FaBookOpen />
+						</button>
+						<button className='side-bar-btn' onClick={navigateToWorld}>
+							<FaGlobeEurope />
+						</button>
+					</div>
+					<div className='side-bar-placeholder-section side-bar-placeholder-section-story-open' />
+				</>
+			)}
 		</div>
 	);
 };

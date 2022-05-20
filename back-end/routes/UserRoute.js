@@ -1,16 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
 
-// Get User
-router.get("/:id/", async (req, res) => {
-	const user = await User.findById(req.params.id)
-		.exec()
-		.catch((err) => {
-			console.log(err);
-			res.status(500).send({ message: "Error: " + err });
-		});
-	res.status(200).send(user);
-});
+const Authenticate = require("../services/TokenAuthentication");
+const GetUser = require("../services/User/GetUser");
+const GetUserByID = require("../services/User/GetUserByID");
+const CreateNewUser = require("../services/User/CreateNewUser");
+const LoginUser = require("../services/User/LoginUser");
+
+router.get("/", Authenticate, GetUser);
+router.get("/:id", Authenticate, GetUserByID);
+router.post("/", CreateNewUser);
+router.post("/login", LoginUser);
 
 module.exports = router;

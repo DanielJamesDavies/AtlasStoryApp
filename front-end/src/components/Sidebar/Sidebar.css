@@ -2,18 +2,36 @@
 	display: inline-block;
 	width: 70px;
 	height: 100vh;
-	background: var(--grey2);
 }
 
 .side-bar-primary-button-container {
+	margin: 6px;
+	border-radius: 4px;
 	width: 100%;
 	text-align: center;
+	background: var(--grey2);
 }
 
 .side-bar-story-button-container {
-	margin-top: 80px;
+	margin: 6px;
+	border-radius: 4px;
 	width: 100%;
 	text-align: center;
+	background: var(--grey2);
+}
+
+.side-bar-placeholder-section {
+	display: block;
+	content: "";
+	margin: 6px;
+	border-radius: 4px;
+	width: 100%;
+	height: calc(100vh - 172px);
+	background: var(--grey2);
+}
+
+.side-bar-placeholder-section-story-open {
+	height: calc(100vh - 414px);
 }
 
 .side-bar-btn {

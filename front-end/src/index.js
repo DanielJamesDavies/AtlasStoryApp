@@ -11,6 +11,9 @@ import reportWebVitals from "./reportWebVitals";
 
 // Context
 import AppProvider from "./context/AppContext";
+import APIProvider from "./context/APIContext";
+
+// Services
 
 // Styles
 
@@ -21,7 +24,9 @@ root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<AppProvider>
-				<App />
+				<APIProvider>
+					<App />
+				</APIProvider>
 			</AppProvider>
 		</BrowserRouter>
 	</React.StrictMode>

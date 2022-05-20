@@ -1,0 +1,16 @@
+.page {
+	width: calc(100vw - 70px);
+	height: 100vh;
+	vertical-align: top;
+	overflow-y: overlay;
+}
+
+.page::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.page::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--blue);
+}

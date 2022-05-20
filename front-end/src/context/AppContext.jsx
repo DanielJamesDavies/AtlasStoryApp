@@ -11,7 +11,7 @@ const AppProvider = ({ children }) => {
 		if (parseInt(currIsOnElectron) === 1) setIsOnElectron(true);
 	}, []);
 
-	return <AppContext.Provider value={{ isOnElectron, setIsOnElectron }}>{children}</AppContext.Provider>;
+	return <AppContext.Provider value={{ isOnElectron }}>{children}</AppContext.Provider>;
 };
 
 export default AppProvider;
