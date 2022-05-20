@@ -16,11 +16,22 @@ import "./TextInput.css";
 // Assets
 
 export const TextInput = (props) => {
-	const { inputContainerRef, inputRef, focused, setFocused, inputClassName, DynamicIconComponent, selectAll, isHidden, toggleIsHidden } =
-		TextInputLogic(props);
+	const {
+		inputContainerRef,
+		inputRef,
+		focused,
+		inputClassName,
+		DynamicIconComponent,
+		selectAll,
+		focusOnInput,
+		onInputContainerFocus,
+		onInputContainerBlur,
+		isHidden,
+		toggleIsHidden,
+	} = TextInputLogic(props);
 
 	return (
-		<div ref={inputContainerRef} className={inputClassName(props, focused)}>
+		<div ref={inputContainerRef} className={inputClassName(props, focused)} onClick={focusOnInput}>
 			<div className='text-input'>
 				<div className='text-input-label'>
 					{props.icon ? <DynamicIconComponent /> : null}
@@ -34,6 +45,8 @@ export const TextInput = (props) => {
 					id={props.id ? props.id : "input"}
 					type={props.type === undefined ? (!props?.hideValue ? "text" : isHidden ? "password" : "text") : props.type}
 					autoComplete={props.autocomplete}
+					onFocus={onInputContainerFocus}
+					onBlur={onInputContainerBlur}
 				/>
 			</div>
 

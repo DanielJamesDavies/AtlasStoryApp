@@ -1,5 +1,5 @@
 // Packages
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 // Components
 
@@ -19,33 +19,6 @@ export const TextInputLogic = (props) => {
 	const [focused, setFocused] = useState(false);
 	const DynamicIconComponent = props.icon;
 
-	useEffect(() => {
-		if (inputContainerRef?.current) inputContainerRef.current.addEventListener("click", focusOnInput);
-		if (inputRef?.current) {
-			inputRef.current.addEventListener("focus", onInputContainerFocus);
-			inputRef.current.addEventListener("blur", onInputContainerBlur);
-		}
-		return () => {
-			if (inputContainerRef?.current) inputContainerRef.current.removeEventListener("click", focusOnInput);
-			if (inputRef?.current) {
-				inputRef.current.removeEventListener("focus", onInputContainerFocus);
-				inputRef.current.removeEventListener("blur", onInputContainerBlur);
-			}
-		};
-	});
-
-	function focusOnInput() {
-		if (inputRef && inputRef.current) inputRef.current.focus();
-	}
-
-	function onInputContainerFocus() {
-		setFocused(true);
-	}
-
-	function onInputContainerBlur() {
-		setFocused(false);
-	}
-
 	function inputClassName(props, focused) {
 		let className = "text-input-container";
 		if (props.className) className += " " + props.className;
@@ -61,6 +34,18 @@ export const TextInputLogic = (props) => {
 		if (inputRef && inputRef.current) inputRef.current.select();
 	}
 
+	function focusOnInput() {
+		if (inputRef && inputRef.current) inputRef.current.focus();
+	}
+
+	function onInputContainerFocus() {
+		setFocused(true);
+	}
+
+	function onInputContainerBlur() {
+		setFocused(false);
+	}
+
 	// Hide Value
 	const [isHidden, setIsHidden] = useState(true);
 
@@ -69,5 +54,17 @@ export const TextInputLogic = (props) => {
 		setIsHidden((oldIsHidden) => !oldIsHidden);
 	}
 
-	return { inputContainerRef, inputRef, focused, setFocused, inputClassName, DynamicIconComponent, selectAll, isHidden, toggleIsHidden };
+	return {
+		inputContainerRef,
+		inputRef,
+		focused,
+		inputClassName,
+		DynamicIconComponent,
+		selectAll,
+		focusOnInput,
+		onInputContainerFocus,
+		onInputContainerBlur,
+		isHidden,
+		toggleIsHidden,
+	};
 };

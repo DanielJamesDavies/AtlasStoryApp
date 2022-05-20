@@ -1,5 +1,5 @@
 // Packages
-import { FaBook, FaUser, FaBookOpen, FaGlobeEurope, FaSearch, FaUsers } from "react-icons/fa";
+import { FaBook, FaUser, FaBookOpen, FaGlobeEurope } from "react-icons/fa";
 
 // Components
 
