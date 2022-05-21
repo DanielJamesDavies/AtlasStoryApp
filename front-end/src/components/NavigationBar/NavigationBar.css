@@ -1,0 +1,119 @@
+.navigation-bar {
+	display: inline-block;
+	width: 70px;
+	height: 100vh;
+}
+
+.navigation-bar-primary-button-container {
+	margin: 6px;
+	border-radius: 4px;
+	width: 100%;
+	text-align: center;
+	background: var(--grey2);
+}
+
+.navigation-bar-story-button-container {
+	margin: 6px;
+	border-radius: 4px;
+	width: 100%;
+	text-align: center;
+	background: var(--grey2);
+}
+
+.navigation-bar-placeholder-section {
+	display: block;
+	content: "";
+	margin: 6px;
+	border-radius: 4px;
+	width: 100%;
+	height: calc(100vh - 172px);
+	background: var(--grey2);
+}
+
+.navigation-bar-placeholder-section-story-open {
+	height: calc(100vh - 414px);
+}
+
+.navigation-bar-btn {
+	position: relative;
+	display: inline-block;
+	margin: 16px auto;
+	padding: 0;
+	border: 0;
+	border-radius: 100%;
+
+	width: 46px;
+	height: 46px;
+
+	background: #00000000;
+	color: var(--blue);
+	font-size: 24px;
+	text-align: center;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.navigation-bar-btn:hover {
+	background: var(--blue);
+	color: #fff;
+}
+
+.navigation-bar-btn svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+}
+
+.navigation-bar-btn-user {
+	background: var(--blue);
+}
+
+.navigation-bar-btn-user:hover {
+	filter: brightness(0.7);
+}
+
+.navigation-bar-btn-user img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+@media (max-width: 700px) {
+	.navigation-bar {
+		order: 1;
+		height: 70px;
+		width: 100vw;
+	}
+
+	.navigation-bar-primary-button-container,
+	.navigation-bar-story-button-container {
+		display: inline-flex;
+		margin-top: 6px;
+		margin-right: 0;
+		padding: 0 4px;
+		align-items: center;
+		width: fit-content;
+		height: 58px;
+		vertical-align: middle;
+	}
+
+	.navigation-bar-placeholder-section {
+		display: inline-block;
+		margin-top: 6px;
+		width: calc(100vw - 150px);
+		height: 58px;
+		vertical-align: middle;
+	}
+
+	.navigation-bar-placeholder-section-story-open {
+		width: calc(100vw - 350px);
+	}
+
+	.navigation-bar-btn {
+		margin: 8px;
+		vertical-align: middle;
+	}
+}

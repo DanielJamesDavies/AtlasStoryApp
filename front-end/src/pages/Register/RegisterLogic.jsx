@@ -1,5 +1,6 @@
 // Packages
 import { useRef, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Components
 
@@ -75,13 +76,18 @@ export const RegisterLogic = () => {
 	}
 
 	// Submit
-	const { APIRequest } = useContext(APIContext);
+	const { APIRequest, setToken } = useContext(APIContext);
 	const [errors, setErrors] = useState([]);
+	let navigate = useNavigate();
 
 	const submitNewUser = async () => {
 		setErrors([]);
 		const response = await APIRequest("/user", "POST", { username, nickname, email, password, profilePicture });
 		if (response.errors) setErrors(response.errors);
+
+		if (!response?.data?.token || !response?.data?.username) return;
+		setToken(response.data.token);
+		navigate("/user/" + response.data.username);
 	};
 
 	return {

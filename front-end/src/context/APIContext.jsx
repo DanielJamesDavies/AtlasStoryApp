@@ -5,7 +5,7 @@ export const APIContext = createContext();
 const APIProvider = ({ children }) => {
 	const [token, setToken] = useState(false);
 
-	const APIRequest = async (path, method, data) => {
+	const APIRequest = async (path, method, body) => {
 		const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "https://atlas-story-app.herokuapp.com";
 
 		let headers = {
@@ -14,11 +14,10 @@ const APIProvider = ({ children }) => {
 		};
 		if (token) headers.token = token;
 
-		const response = await fetch(API_URL + path, {
-			method,
-			headers,
-			body: JSON.stringify(data),
-		});
+		let data = { method, headers };
+		if (body) data.body = JSON.stringify(body);
+
+		const response = await fetch(API_URL + path, data);
 
 		const responseData = await response.json();
 		return responseData;

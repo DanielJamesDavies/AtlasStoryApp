@@ -1,6 +1,6 @@
 .page {
-	width: calc(100vw - 70px);
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	vertical-align: top;
 	overflow-y: overlay;
 }

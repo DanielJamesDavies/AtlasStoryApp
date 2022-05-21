@@ -38,12 +38,11 @@ export const LoginLogic = () => {
 	const submitLoginUser = async () => {
 		setErrors([]);
 		const response = await APIRequest("/user/login", "POST", { username, password });
-		console.log(response);
 		if (response.errors) return setErrors(response.errors);
-		if (response?.data?.token) {
-			setToken(response.data.token);
-			navigate("/profile");
-		}
+
+		if (!response?.data?.token || !response?.data?.username) return;
+		setToken(response.data.token);
+		navigate("/user/" + response.data.username);
 	};
 
 	return { username, changeUsername, password, changePassword, errors, submitLoginUser };

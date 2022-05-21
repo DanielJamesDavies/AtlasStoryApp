@@ -1,0 +1,24 @@
+.browser-container {
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+}
+
+.page-container {
+	display: inline-block;
+	width: calc(100vw - 70px);
+	height: 100vh;
+	vertical-align: top;
+}
+
+.page-container-unauthorized {
+	width: 100vw;
+	height: calc(100% - 50px);
+}
+
+@media (max-width: 700px) {
+	.page-container {
+		width: 100vw;
+		height: calc(100% - 70px);
+	}
+}

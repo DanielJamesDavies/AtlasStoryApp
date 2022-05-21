@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const User = require("../../models/User");
 const Image = require("../../models/Image");
@@ -38,6 +39,9 @@ module.exports = async (req, res) => {
 		profilePicture: profilePictureID,
 	});
 
+	// Create token
+	const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_SECRET);
+
 	user.save()
 		.then(() => {
 			// New profile
@@ -45,7 +49,7 @@ module.exports = async (req, res) => {
 			profilePicture
 				.save()
 				.then(() => {
-					return res.status(200).send({ message: "Success", data: { user: user, profilePicture: profilePicture } });
+					return res.status(200).send({ message: "Success", data: { token, username: user.username } });
 				})
 				.catch((err) => {
 					return res.status(200).send({ error: err });

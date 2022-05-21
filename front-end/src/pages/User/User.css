@@ -1,38 +1,38 @@
-.register {
+.login {
 	position: relative;
 	width: 100%;
 }
 
-.register-form {
+.login-form {
 	margin: 80px auto;
-	margin-top: 8vh;
+	margin-top: 180px;
 	padding: 20px 24px;
 	border-radius: 4px;
 
-	width: calc(100% - 48px - 24px);
+	width: calc(100% - 16px);
 	max-width: 600px;
 
 	background: var(--grey2);
 	text-align: center;
 }
 
-.register-form-title {
-	margin-bottom: 10px;
+.login-form-title {
+	margin-bottom: 20px;
 	font-size: 24px;
 	font-weight: 700;
 	text-align: left;
 }
 
-.register-form-text-input-container {
+.login-form-text-input-container {
 	margin: 10px 0;
 }
 
-.register-form-submit-container {
+.login-form-submit-container {
 	margin-top: 20px;
 	text-align: right;
 }
 
-.register-form-submit-btn {
+.login-form-submit-btn {
 	margin: 0;
 	padding: 8px 16px;
 	border: 0;
@@ -44,17 +44,17 @@
 	cursor: pointer;
 }
 
-.register-form-submit-btn:hover {
+.login-form-submit-btn:hover {
 	background: var(--blue2);
 }
 
-.register-form-submit-btn-text {
+.login-form-submit-btn-text {
 	display: inline-block;
 	vertical-align: middle;
 	font-size: 14px;
 }
 
-.register-form-submit-btn-icon {
+.login-form-submit-btn-icon {
 	display: inline-block;
 	margin-top: 1px;
 	margin-left: 8px;

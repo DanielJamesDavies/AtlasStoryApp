@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 app.use(express.json({ limit: "500mb" }));
-app.use(cors());
+app.use(cors({ origin: ["http://localhost:3000", "https://atlas-story-app.netlify.app/"], methods: "*" }));
 app.listen(port, () => {});
 
 // Mongoose Connection
