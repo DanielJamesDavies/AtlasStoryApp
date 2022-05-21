@@ -44,8 +44,9 @@ export const NavigationBarLogic = () => {
 		getUsername();
 	}, [token, APIRequest, setUsername, setProfilePicture]);
 
-	function navigateToProfile() {
+	async function navigateToProfile() {
 		navigate("/user/" + username);
+		await APIRequest("/user/logout", "POST");
 	}
 
 	function navigateToStories() {

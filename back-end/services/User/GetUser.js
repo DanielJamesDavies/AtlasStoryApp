@@ -3,7 +3,7 @@ const jwt_decode = require("jwt-decode");
 
 module.exports = async (req, res) => {
 	try {
-		var { user_id } = jwt_decode(req.header("token"));
+		var { user_id } = jwt_decode(req?.cookies?.AtlasStoryAppToken);
 	} catch (error) {
 		return res.status(200).send({ error: "Authentication Error" });
 	}

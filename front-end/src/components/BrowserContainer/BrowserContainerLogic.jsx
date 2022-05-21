@@ -1,6 +1,5 @@
 // Packages
-import { useContext, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useContext } from "react";
 
 // Components
 
@@ -16,16 +15,7 @@ import { APIContext } from "../../context/APIContext";
 // Assets
 
 export const BrowserContainerLogic = () => {
-	const { token } = useContext(APIContext);
-	const location = useLocation();
-	const navigate = useNavigate();
+	const { authorized } = useContext(APIContext);
 
-	useEffect(() => {
-		const unauthorizedPages = ["/", "/login/", "/register/"];
-		if (!token && unauthorizedPages.findIndex((e) => e === location.pathname || e === location.pathname + "/") === -1) {
-			navigate("/login");
-		}
-	}, [location, navigate, token]);
-
-	return { token };
+	return { authorized };
 };

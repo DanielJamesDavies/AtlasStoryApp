@@ -22,12 +22,12 @@ import "./BrowserContainer.css";
 // Assets
 
 export const BrowserContainer = () => {
-	const { token } = BrowserContainerLogic();
+	const { authorized } = BrowserContainerLogic();
 
 	return (
 		<div className='browser-container'>
-			{!token ? <UnauthorizedNavigationBar /> : <NavigationBar />}
-			<div className={!token ? "page-container page-container-unauthorized" : "page-container"}>
+			{!authorized ? <UnauthorizedNavigationBar /> : <NavigationBar />}
+			<div className={!authorized ? "page-container page-container-unauthorized" : "page-container"}>
 				<StoryTopBar />
 				<Routes>
 					<Route path='*' />

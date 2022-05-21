@@ -31,7 +31,7 @@ export const LoginLogic = () => {
 	}
 
 	// Submit
-	const { APIRequest, setToken } = useContext(APIContext);
+	const { APIRequest } = useContext(APIContext);
 	const [errors, setErrors] = useState([]);
 	let navigate = useNavigate();
 
@@ -40,8 +40,7 @@ export const LoginLogic = () => {
 		const response = await APIRequest("/user/login", "POST", { username, password });
 		if (response.errors) return setErrors(response.errors);
 
-		if (!response?.data?.token || !response?.data?.username) return;
-		setToken(response.data.token);
+		if (!response?.data?.username) return;
 		navigate("/user/" + response.data.username);
 	};
 
