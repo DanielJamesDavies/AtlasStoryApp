@@ -20,13 +20,12 @@ export const BrowserContainerLogic = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	const unauthorizedPages = ["/", "/login/", "/register/"];
-
 	useEffect(() => {
+		const unauthorizedPages = ["/", "/login/", "/register/"];
 		if (!token && unauthorizedPages.findIndex((e) => e === location.pathname || e === location.pathname + "/") === -1) {
 			navigate("/login");
 		}
-	}, [location]);
+	}, [location, navigate, token]);
 
 	return { token };
 };
