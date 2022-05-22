@@ -24,18 +24,14 @@ module.exports = async (req, res) => {
 	if (!isCorrectPassword) return res.status(200).send({ error: "Incorrect Password." });
 
 	// Create token
-	const token = jwt.sign(
-		{ user_id: user._id, expires: new Date((Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365) * 1000) },
-		process.env.TOKEN_SECRET
-	);
+	const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_SECRET);
 
-	// res.status(200).clearCookie("AtlasStoryAppToken").send({ message: "Success" });
 	res.status(200)
 		.cookie("AtlasStoryAppToken", token, {
 			httpOnly: true,
 			secure: process.env.NODE_ENV !== "development",
-			sameSite: "strict",
-			expires: new Date((Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 365) * 1000),
+			sameSite: process.env.NODE_ENV === "development" ? "strict" : "none",
+			expires: new Date(Math.floor(Date.now()) + 60 * 60 * 24 * 365 * 1000),
 			path: "/",
 		})
 		.send({ message: "Success", data: { username: user.username } });
