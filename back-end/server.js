@@ -1,4 +1,4 @@
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -24,7 +24,9 @@ mongoose
 app.use("/api/user", require("./routes/UserRoute"));
 app.use("/api/image", require("./routes/ImageRoute"));
 
-app.use(express.static(path.join(__dirname, "../front-end/build")));
-app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname + "/../front-end/build/index.html"));
-});
+if (process.env.NODE_ENV !== "development") {
+	app.use(express.static(path.join(__dirname, "../front-end/build")));
+	app.get("*", (req, res) => {
+		res.sendFile(path.join(__dirname + "/../front-end/build/index.html"));
+	});
+}

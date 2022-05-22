@@ -7,11 +7,10 @@ const APIProvider = ({ children }) => {
 	const [authorized, setIsAuthorized] = useState(true);
 	const navigate = useNavigate();
 	const location = useLocation();
+	const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api" : "https://www.atlas-story.app/api";
 	const unauthorizedPages = ["/", "/login/", "/register/"];
 
 	const APIRequest = async (path, method, body) => {
-		let isInDevelopment = false;
-		const API_URL = isInDevelopment ? "http://localhost:3000/api" : "https://atlas-story-app.herokuapp.com/api";
 		let data = {
 			method,
 			crossDomain: true,

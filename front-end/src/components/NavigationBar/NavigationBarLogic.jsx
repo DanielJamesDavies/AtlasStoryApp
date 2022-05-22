@@ -24,7 +24,9 @@ export const NavigationBarLogic = () => {
 
 	useEffect(() => {
 		setIsOnStory(location.pathname.split("/")[1] === "story");
-	}, [location]);
+
+		if (username && location.pathname === "/") navigate("/user/" + username);
+	}, [location, username, navigate]);
 
 	useEffect(() => {
 		async function getUsername() {

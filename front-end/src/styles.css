@@ -1,16 +1,16 @@
 :root {
 	--grey1: #010101;
-	--grey2: #090909;
-	--grey3: #171717;
-	--grey4: #1e1e1e;
-	--grey5: #2e2e2e;
+	--grey2: #151515;
+	--grey3: #202020;
+	--grey4: #303030;
+	--grey5: #404040;
 	--blue: #0044ff;
 	--blue2: #0088ff;
 	--red: #cc0000;
-	--viewport-height: 100%;
 }
 
-html {
+html,
+#root {
 	height: 100%;
 }
 
@@ -25,10 +25,6 @@ body {
 	font-family: Calibri, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-#root {
-	height: 100%;
 }
 
 button:focus {
@@ -46,4 +42,36 @@ button:focus {
 
 	background: var(--grey1);
 	color: #fff;
+}
+
+.grey2 {
+	display: block;
+	content: "";
+	width: 250px;
+	height: 250px;
+	background: var(--grey2);
+}
+
+.grey3 {
+	display: block;
+	content: "";
+	width: 200px;
+	height: 200px;
+	background: var(--grey3);
+}
+
+.grey4 {
+	display: block;
+	content: "";
+	width: 150px;
+	height: 150px;
+	background: var(--grey4);
+}
+
+.grey5 {
+	display: block;
+	content: "";
+	width: 100px;
+	height: 100px;
+	background: var(--grey5);
 }
