@@ -1,23 +1,14 @@
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const express = require("express");
 const app = express();
-const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 app.use(express.json({ limit: "500mb" }));
-const allowedOrigins = ["http://localhost:3000", "https://atlas-story-app.netlify.app"];
-app.use(cors({ origin: allowedOrigins, methods: "GET, PUT, POST, DELETE, HEAD, OPTIONS", credentials: true, maxAge: 60 }));
 app.listen(port, () => {});
-app.all("*", function (req, res, next) {
-	if (allowedOrigins.includes(req.headers.origin)) res.header("Access-Control-Allow-Origin", req.headers.origin);
-	res.header("Access-Control-Allow-Headers", "Authorization, Origin, X-Requested-With, Content-Type, Set-Cookie, Accept");
-	res.header("Access-Control-Expose-Headers", "*, Authorization");
-	next();
-});
 app.use(cookieParser());
-app.set("trust proxy", 1);
 
 // Mongoose Connection
 mongoose
@@ -30,5 +21,10 @@ mongoose
 	});
 
 // Routes
-app.use("/user", require("./routes/UserRoute"));
-app.use("/image", require("./routes/ImageRoute"));
+app.use("/api/user", require("./routes/UserRoute"));
+app.use("/api/image", require("./routes/ImageRoute"));
+
+app.use(express.static(path.join(__dirname, "../front-end/build")));
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname + "/../front-end/build/index.html"));
+});

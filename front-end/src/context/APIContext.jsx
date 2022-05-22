@@ -10,14 +10,15 @@ const APIProvider = ({ children }) => {
 	const unauthorizedPages = ["/", "/login/", "/register/"];
 
 	const APIRequest = async (path, method, body) => {
-		const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "https://atlas-story-app.herokuapp.com";
+		let isInDevelopment = false;
+		const API_URL = isInDevelopment ? "http://localhost:3000/api" : "https://atlas-story-app.herokuapp.com/api";
 		let data = {
 			method,
+			crossDomain: true,
 			headers: {
 				Accept: "application/json",
 				"Content-Type": "application/json",
 				withCredentials: true,
-				credentials: "include",
 			},
 		};
 		if (body) data.body = JSON.stringify(body);
