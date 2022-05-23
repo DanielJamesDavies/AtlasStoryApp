@@ -1,6 +1,5 @@
 // Packages
 import { useRef, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 // Components
 
@@ -8,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 // Context
 import { APIContext } from "../../context/APIContext";
+import { RoutesContext } from "../../context/RoutesContext";
 
 // Services
 
@@ -77,8 +77,8 @@ export const RegisterLogic = () => {
 
 	// Submit
 	const { APIRequest, setToken } = useContext(APIContext);
+	const { changeLocation } = useContext(RoutesContext);
 	const [errors, setErrors] = useState([]);
-	let navigate = useNavigate();
 
 	const submitNewUser = async () => {
 		setErrors([]);
@@ -87,7 +87,7 @@ export const RegisterLogic = () => {
 
 		if (!response?.data?.token || !response?.data?.username) return;
 		setToken(response.data.token);
-		navigate("/user/" + response.data.username);
+		changeLocation("/user/" + response.data.username);
 	};
 
 	return {
