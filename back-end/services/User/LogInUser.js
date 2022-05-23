@@ -26,6 +26,7 @@ module.exports = async (req, res) => {
 	// Create token
 	const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_SECRET);
 
+	// Token Cookies
 	let cookieOptions = {
 		httpOnly: true,
 		secure: process.env.NODE_ENV !== "development",
@@ -33,8 +34,7 @@ module.exports = async (req, res) => {
 		expires: new Date(Math.floor(Date.now()) + 60 * 60 * 24 * 365 * 1000),
 		path: "/",
 	};
+	res.cookie("AtlasStoryAppToken", token, cookieOptions);
 
-	res.status(200)
-		.cookie("AtlasStoryAppToken", token, cookieOptions)
-		.send({ message: "Success", data: { username: user.username } });
+	res.status(200).send({ message: "Success", data: { username: user.username } });
 };

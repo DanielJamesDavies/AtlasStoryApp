@@ -26,10 +26,10 @@ export const NavigationBarLogic = () => {
 	useEffect(() => {
 		async function getUsername() {
 			const response = await APIRequest("/user/", "GET");
-			if (response?.error || !response?.data?.username) return;
+			if (response?.error || !response?.data?.user?.username) return;
 
-			setUsername(response.data.username);
-			getUserProfilePicture(response.data.profilePicture);
+			setUsername(response.data.user.username);
+			getUserProfilePicture(response.data.user.profilePicture);
 		}
 
 		async function getUserProfilePicture(profilePictureID) {
@@ -47,7 +47,6 @@ export const NavigationBarLogic = () => {
 
 	async function navigateToStories() {
 		changeLocation("/stories");
-		await APIRequest("/user/logout", "POST");
 	}
 
 	function navigateToCharacters() {

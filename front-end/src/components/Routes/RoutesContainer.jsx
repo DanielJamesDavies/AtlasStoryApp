@@ -27,7 +27,7 @@ export const RoutesContainer = () => {
 		<RoutesProvider>
 			<div className='routes-container'>
 				{!authorized ? <UnauthorizedNavigationBar /> : <NavigationBar />}
-				<div className={!authorized ? "page-container page-container-unauthorized" : "page-container"}>
+				<div className={!authorized ? "content-container content-container-unauthorized" : "content-container"}>
 					<StoryTopBar />
 					<Routes />
 				</div>

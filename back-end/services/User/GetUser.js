@@ -10,7 +10,10 @@ module.exports = async (req, res) => {
 			});
 		if (!user) return res.status(200).send({ error: "User Not Found" });
 
-		return res.status(200).send({ message: "Success", data: user });
+		return res.status(200).send({
+			message: "Success",
+			data: { user, isAuthorizedUser: getIsAuthorizedUser(req?.cookies?.AtlasStoryAppToken, user._id) },
+		});
 	}
 
 	try {
@@ -26,5 +29,15 @@ module.exports = async (req, res) => {
 		});
 	if (!user) return res.status(200).send({ error: "User Not Found" });
 
-	res.status(200).send({ message: "Success", data: user });
+	res.status(200).send({ message: "Success", data: { user, isAuthorizedUser: true } });
 };
+
+function getIsAuthorizedUser(AtlasStoryAppToken, user_id) {
+	// Is Authorized User
+	var isAuthorizedUser = false;
+	try {
+		isAuthorizedUser = jwt_decode(AtlasStoryAppToken)?.user_id === user_id.toString();
+	} catch (error) {}
+
+	return isAuthorizedUser;
+}

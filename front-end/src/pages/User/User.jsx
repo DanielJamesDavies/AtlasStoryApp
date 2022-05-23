@@ -3,18 +3,21 @@
 // Components
 
 // Logic
-import { UserLogic } from "./UserLogic";
+import { UserPrimary } from "./UserPrimary/UserPrimary";
 
 // Context
 
 // Services
 
 // Styles
+import "./User.css";
 
 // Assets
 
-export const User = ({ user_id }) => {
-	const { user } = UserLogic({ user_id });
-
-	return <div className='user'>{user?.username}</div>;
+export const User = () => {
+	return (
+		<div className='user'>
+			<UserPrimary />
+		</div>
+	);
 };

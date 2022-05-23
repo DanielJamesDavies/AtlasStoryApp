@@ -1,21 +1,23 @@
 .navigation-bar {
 	display: inline-block;
-	width: 82px;
+	width: 76px;
 	height: 100%;
 }
 
 .navigation-bar-primary-button-container {
 	margin: 6px;
+	margin-right: 0;
 	border-radius: 4px;
-	width: calc(100% - 12px);
+	width: calc(100% - 6px);
 	text-align: center;
 	background: var(--grey2);
 }
 
 .navigation-bar-story-button-container {
 	margin: 6px;
+	margin-right: 0;
 	border-radius: 4px;
-	width: calc(100% - 12px);
+	width: calc(100% - 6px);
 	text-align: center;
 	background: var(--grey2);
 }
@@ -24,8 +26,9 @@
 	display: block;
 	content: "";
 	margin: 6px;
+	margin-right: 0;
 	border-radius: 4px;
-	width: calc(100% - 12px);
+	width: calc(100% - 6px);
 	height: calc(100% - 156px - 12px - 6px);
 	background: var(--grey2);
 }

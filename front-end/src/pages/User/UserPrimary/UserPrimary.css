@@ -1,0 +1,104 @@
+.user-primary {
+	padding: 12px 24px;
+	border-radius: 4px;
+	background: var(--grey2);
+}
+
+.user-primary-profile-picture {
+	display: inline-block;
+	margin-right: 24px;
+	border-radius: 100%;
+	width: 75px;
+	height: 75px;
+	vertical-align: middle;
+}
+
+.user-primary-profile-picture img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.user-primary-names {
+	display: inline-block;
+	width: calc(100% - 75px - 24px - 108px);
+	vertical-align: middle;
+}
+
+.user-primary-names-nickname {
+	font-weight: 700;
+	font-size: 24px;
+}
+
+.user-primary-names-username {
+	font-weight: 400;
+	font-size: 18px;
+}
+
+.user-primary-auth-buttons-container {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.user-primary-edit-profile-btn {
+	position: relative;
+	display: inline-block;
+	margin: 4px;
+	padding: 0;
+	border: 0;
+	border-radius: 100%;
+
+	width: 46px;
+	height: 46px;
+
+	background: var(--grey1);
+	color: var(--blue);
+	font-size: 20px;
+	text-align: center;
+	vertical-align: middle;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.user-primary-edit-profile-btn:hover {
+	background: var(--blue);
+	color: #fff;
+}
+
+.user-primary-edit-profile-btn svg {
+	margin: auto;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.user-primary-edit-profile-btn-edit svg {
+	margin-top: -2px;
+	margin-left: 1px;
+}
+
+.user-primary-edit-profile-btn-log-out {
+	font-size: 22px;
+}
+
+.user-primary-edit-profile-btn-log-out svg {
+	margin-left: 1px;
+}
+
+@media (max-width: 700px) {
+	.user-primary-profile-picture {
+		width: 60px;
+		height: 60px;
+	}
+	.user-primary-names-nickname {
+		font-size: 20px;
+	}
+
+	.user-primary-names-username {
+		font-weight: 400;
+		font-size: 16px;
+	}
+}

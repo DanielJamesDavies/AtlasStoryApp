@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 // Components
 import { Login } from "../../pages/Login/Login";
 import { Register } from "../../pages/Register/Register";
-import { User } from "../../pages/User/User";
+import { UserContainer } from "../../pages/User/UserContainer";
 
 // Logic
 
@@ -43,7 +43,7 @@ export const RoutesLogic = () => {
 				setRenderComponent(<Register />);
 				break;
 			case "user":
-				setRenderComponent(<User user_id={locationSplit[1]} />);
+				setRenderComponent(<UserContainer user_username={locationSplit[1]} />);
 				break;
 			default:
 				setRenderComponent(null);
