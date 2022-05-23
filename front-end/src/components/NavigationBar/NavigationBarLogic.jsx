@@ -20,7 +20,7 @@ export const NavigationBarLogic = () => {
 	const { location, changeLocation } = useContext(RoutesContext);
 
 	useEffect(() => {
-		setIsOnStory(location.split("/")[1] === "story");
+		setIsOnStory(location.split("/")[1] === "s");
 	}, [location]);
 
 	useEffect(() => {
@@ -42,27 +42,23 @@ export const NavigationBarLogic = () => {
 	}, [token, APIRequest, setUsername, setProfilePicture]);
 
 	function navigateToProfile() {
-		if (username) changeLocation("/user/" + username);
-	}
-
-	async function navigateToStories() {
-		changeLocation("/stories");
+		if (username) changeLocation("/u/" + username);
 	}
 
 	function navigateToCharacters() {
-		if (location.split("/")[1] === "story" && location.split("/").length < 3) return;
-		changeLocation("/story/" + location.pathname.split("/")[2] + "/characters");
+		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
+		changeLocation("/s/" + location.split("/")[2] + "/characters");
 	}
 
 	function navigateToSubstories() {
-		if (location.split("/")[1] === "story" && location.split("/").length < 3) return;
-		changeLocation("/story/" + location.pathname.split("/")[2] + "/substories");
+		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
+		changeLocation("/s/" + location.split("/")[2] + "/substories");
 	}
 
 	function navigateToWorld() {
-		if (location.split("/")[1] === "story" && location.split("/").length < 3) return;
-		changeLocation("/story/" + location.pathname.split("/")[2] + "/world");
+		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
+		changeLocation("/s/" + location.split("/")[2] + "/world");
 	}
 
-	return { isOnStory, profilePicture, navigateToProfile, navigateToStories, navigateToCharacters, navigateToSubstories, navigateToWorld };
+	return { isOnStory, profilePicture, navigateToProfile, navigateToCharacters, navigateToSubstories, navigateToWorld };
 };

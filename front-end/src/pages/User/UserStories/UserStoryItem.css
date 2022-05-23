@@ -1,0 +1,119 @@
+.user-stories-story-item {
+	position: relative;
+	display: inline-block;
+	margin: 10px;
+	border-radius: 4px;
+	width: 250px;
+	height: 355px;
+	background: var(--grey2);
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.user-stories-story-item-spine {
+	display: inline-block;
+	border: 3px solid var(--grey1);
+	border-width: 0 2px 0 0;
+	width: 25px;
+	height: 100%;
+	vertical-align: middle;
+	transition: 0.2s;
+}
+
+.user-stories-story-item:hover .user-stories-story-item-spine {
+	width: 18px;
+}
+
+.user-stories-story-item-content {
+	position: relative;
+	display: inline-block;
+	width: calc(100% - 28px);
+	height: 100%;
+	vertical-align: middle;
+	transition: 0.2s;
+}
+
+.user-stories-story-item:hover .user-stories-story-item-content {
+	width: calc(100% - 25px);
+}
+
+.user-stories-story-item-title {
+	position: absolute;
+	left: 50%;
+	top: 120px;
+	transform: translateX(-50%);
+	margin: 0 auto;
+	width: calc(100% - 20px);
+	font-size: 32px;
+	font-weight: 700;
+	text-align: center;
+	transition: 0.2s;
+}
+
+.user-stories-story-item-owner {
+	position: absolute;
+	left: 50%;
+	bottom: 20px;
+	transform: translateX(-50%);
+	margin: 0 auto;
+
+	width: 100%;
+
+	text-align: center;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.user-stories-story-item-page {
+	position: absolute;
+	top: 1px;
+	right: 8px;
+	display: inline-block;
+	content: "";
+	border-radius: 2px;
+	width: 12px;
+	height: calc(100% - 2px);
+	background: #ffeedd;
+	transition: 0.1s;
+}
+
+.user-stories-story-item-page:nth-child(1) {
+	z-index: -1;
+	background: #ffffff;
+}
+
+.user-stories-story-item:hover .user-stories-story-item-page:nth-child(1) {
+	right: -3px;
+}
+
+.user-stories-story-item-page:nth-child(2) {
+	z-index: -2;
+	background: #ffdddd;
+}
+
+.user-stories-story-item:hover .user-stories-story-item-page:nth-child(2) {
+	right: -6px;
+}
+
+.user-stories-story-item-page:nth-child(3) {
+	z-index: -3;
+	background: #eecccc;
+}
+
+.user-stories-story-item:hover .user-stories-story-item-page:nth-child(3) {
+	right: -9px;
+}
+
+@media (max-width: 700px) {
+	.user-stories-story-item {
+		width: 240px;
+		height: 340px;
+	}
+}
+
+@media (max-width: 572px) {
+	.user-stories-story-item {
+		width: 320px;
+		height: 454px;
+	}
+}

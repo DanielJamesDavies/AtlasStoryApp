@@ -27,7 +27,7 @@ export const RoutesLogic = () => {
 		if (location === "/" && authorized && username) {
 			console.log(location);
 			setRenderComponent(null);
-			return changeLocation("/user/" + username);
+			return changeLocation("/u/" + username);
 		}
 
 		let locationSplit = location.split("/");
@@ -42,7 +42,7 @@ export const RoutesLogic = () => {
 			case "register":
 				setRenderComponent(<Register />);
 				break;
-			case "user":
+			case "u":
 				setRenderComponent(<UserContainer user_username={locationSplit[1]} />);
 				break;
 			default:

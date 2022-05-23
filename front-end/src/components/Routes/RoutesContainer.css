@@ -7,6 +7,17 @@
 	width: calc(100vw - 76px);
 	height: 100%;
 	vertical-align: top;
+	overflow-y: overlay;
+}
+
+.content-container::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.content-container::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--blue);
 }
 
 .content-container-unauthorized {

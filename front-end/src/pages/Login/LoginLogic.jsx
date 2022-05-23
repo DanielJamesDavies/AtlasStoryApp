@@ -41,7 +41,7 @@ export const LoginLogic = () => {
 		if (response.errors) return setErrors(response.errors);
 
 		if (!response?.data?.username) return;
-		changeLocation("/user/" + response.data.username);
+		changeLocation("/u/" + response.data.username);
 	};
 
 	return { username, changeUsername, password, changePassword, errors, submitLoginUser };
