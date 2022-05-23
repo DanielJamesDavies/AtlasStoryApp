@@ -1,4 +1,6 @@
 .user-primary {
+	display: flex;
+	align-items: center;
 	padding: 12px 24px;
 	border-radius: 4px;
 	background: var(--grey2);
@@ -22,7 +24,6 @@
 
 .user-primary-names {
 	display: inline-block;
-	width: calc(100% - 75px - 24px - 108px);
 	vertical-align: middle;
 }
 
@@ -38,10 +39,11 @@
 
 .user-primary-auth-buttons-container {
 	display: inline-block;
+	margin-left: auto;
 	vertical-align: middle;
 }
 
-.user-primary-edit-profile-btn {
+.user-primary-auth-btn {
 	position: relative;
 	display: inline-block;
 	margin: 4px;
@@ -54,38 +56,28 @@
 
 	background: var(--grey1);
 	color: var(--blue);
-	font-size: 20px;
+	font-size: 22px;
 	text-align: center;
 	vertical-align: middle;
 	transition: 0.2s;
 	cursor: pointer;
 }
 
-.user-primary-edit-profile-btn:hover {
+.user-primary-auth-btn:hover {
 	background: var(--blue);
 	color: #fff;
 }
 
-.user-primary-edit-profile-btn svg {
-	margin: auto;
+.user-primary-auth-btn svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
 }
 
-.user-primary-edit-profile-btn-edit svg {
-	margin-top: -2px;
-	margin-left: 1px;
-}
-
-.user-primary-edit-profile-btn-log-out {
-	font-size: 22px;
-}
-
-.user-primary-edit-profile-btn-log-out svg {
-	margin-left: 1px;
+.user-primary-auth-btn-settings svg {
+	font-size: 24px;
 }
 
 @media (max-width: 700px) {

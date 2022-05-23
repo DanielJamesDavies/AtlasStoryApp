@@ -113,7 +113,16 @@
 
 @media (max-width: 572px) {
 	.user-stories-story-item {
-		width: 320px;
-		height: 454px;
+		width: calc((100vw - 48px) / 2);
+		height: calc(((100vw - 48px) * 210 / 148) / 2);
+	}
+
+	.user-stories-story-item-title {
+		top: 78px;
+		font-size: 20px;
+	}
+
+	.user-stories-story-item-owner {
+		font-size: 14px;
 	}
 }

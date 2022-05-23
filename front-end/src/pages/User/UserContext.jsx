@@ -32,6 +32,7 @@ const UserProvider = ({ children, user_username }) => {
 				response.data.user.profilePicture = false;
 			}
 
+			console.log(response.data.user);
 			if (user_username === response.data.user.username) setUser(response.data.user);
 		}
 

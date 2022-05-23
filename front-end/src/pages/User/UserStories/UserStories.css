@@ -36,7 +36,8 @@
 }
 
 @media (max-width: 572px) {
-	.user-stories-story-items-container {
-		text-align: center;
+	.user-stories {
+		padding: 6px 0;
+		width: 100%;
 	}
 }

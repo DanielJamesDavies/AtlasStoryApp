@@ -1,5 +1,5 @@
 // Packages
-import { FaEdit, FaSignOutAlt } from "react-icons/fa";
+import { FaCog, FaSignOutAlt } from "react-icons/fa";
 
 // Components
 
@@ -27,10 +27,10 @@ export const UserPrimary = () => {
 			</div>
 			{!isAuthorizedUserProfile ? null : (
 				<div className='user-primary-auth-buttons-container'>
-					<button className='user-primary-edit-profile-btn user-primary-edit-profile-btn-edit'>
-						<FaEdit />
+					<button className='user-primary-auth-btn user-primary-auth-btn-settings'>
+						<FaCog />
 					</button>
-					<button className='user-primary-edit-profile-btn user-primary-edit-profile-btn-log-out' onClick={logOut}>
+					<button className='user-primary-auth-btn user-primary-auth-log-out' onClick={logOut}>
 						<FaSignOutAlt />
 					</button>
 				</div>

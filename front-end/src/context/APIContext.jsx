@@ -3,7 +3,7 @@ import React, { createContext, useState } from "react";
 export const APIContext = createContext();
 
 const APIProvider = ({ children }) => {
-	const [authorized, setIsAuthorized] = useState(true);
+	const [authorized, setIsAuthorized] = useState(false);
 	const [username, setUsername] = useState(false);
 	const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api" : "https://www.atlas-story.app/api";
 
