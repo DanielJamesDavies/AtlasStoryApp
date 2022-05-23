@@ -1,29 +1,30 @@
 // Packages
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
 // Components
 
 // Logic
 
 // Context
+import { RoutesContext } from "../../context/RoutesContext";
 
 // Styles
 
 // Assets
 
 export const UnauthorizedNavigationBarLogic = () => {
-	let navigate = useNavigate();
+	const { changeLocation } = useContext(RoutesContext);
 
 	function navigateToLanding() {
-		navigate("/");
+		changeLocation("/");
 	}
 
 	function navigateToLogin() {
-		navigate("/login");
+		changeLocation("/login");
 	}
 
 	function navigateToRegister() {
-		navigate("/register");
+		changeLocation("/register");
 	}
 
 	return { navigateToLanding, navigateToLogin, navigateToRegister };

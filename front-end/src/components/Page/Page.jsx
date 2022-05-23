@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { RoutesContainer } from "../Routes/RoutesContainer";
 
 // Logic
 
@@ -13,6 +14,10 @@ import "./Page.css";
 
 // Assets
 
-export const Page = ({ child }) => {
-	return <div className='page'>{child}</div>;
+export const Page = () => {
+	return (
+		<div className='page'>
+			<RoutesContainer />
+		</div>
+	);
 };

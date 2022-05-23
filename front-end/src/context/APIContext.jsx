@@ -1,14 +1,11 @@
 import React, { createContext, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 
 export const APIContext = createContext();
 
 const APIProvider = ({ children }) => {
 	const [authorized, setIsAuthorized] = useState(true);
-	const navigate = useNavigate();
-	const location = useLocation();
+	const [username, setUsername] = useState(false);
 	const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api" : "https://www.atlas-story.app/api";
-	const unauthorizedPages = ["/", "/login/", "/register/"];
 
 	const APIRequest = async (path, method, body) => {
 		let data = {
@@ -26,19 +23,12 @@ const APIProvider = ({ children }) => {
 
 		const responseData = await response.json();
 
-		if (responseData?.unauthorised) {
-			setIsAuthorized(false);
-			if (unauthorizedPages.findIndex((e) => e === location.pathname || e === location.pathname + "/") === -1) {
-				navigate("/login");
-			}
-		} else {
-			setIsAuthorized(true);
-		}
+		setIsAuthorized(!responseData?.unauthorized);
 
 		return responseData;
 	};
 
-	return <APIContext.Provider value={{ authorized, APIRequest }}>{children}</APIContext.Provider>;
+	return <APIContext.Provider value={{ authorized, APIRequest, username, setUsername }}>{children}</APIContext.Provider>;
 };
 
 export default APIProvider;

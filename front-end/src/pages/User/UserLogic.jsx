@@ -1,6 +1,5 @@
 // Packages
 import { useEffect, useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
 
 // Components
 
@@ -8,6 +7,7 @@ import { useLocation } from "react-router-dom";
 
 // Context
 import { APIContext } from "../../context/APIContext";
+import { RoutesContext } from "../../context/RoutesContext";
 
 // Services
 
@@ -15,20 +15,22 @@ import { APIContext } from "../../context/APIContext";
 
 // Assets
 
-export const UserLogic = () => {
+export const UserLogic = ({ user_id }) => {
 	const [user, setUser] = useState(false);
 	const { APIRequest } = useContext(APIContext);
-	const location = useLocation();
+	const { location } = useContext(RoutesContext);
 
 	useEffect(() => {
-		console.log(location);
-		// getUser();
-	}, []);
+		async function getUser() {
+			if (!user_id) return;
+			const response = await APIRequest("/user/?username=" + user_id, "GET");
+			if (!response.data || response.error) return;
 
-	async function getUser() {
-		const response = await APIRequest("/user/", "GET");
-		console.log(response);
-	}
+			setUser(response.data);
+		}
+
+		getUser();
+	}, [location, user_id, APIRequest, setUser]);
 
 	return { user };
 };

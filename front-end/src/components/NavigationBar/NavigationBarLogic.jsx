@@ -1,6 +1,5 @@
 // Packages
 import { useEffect, useState, useContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 
 // Components
 
@@ -8,6 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 // Context
 import { APIContext } from "../../context/APIContext";
+import { RoutesContext } from "../../context/RoutesContext";
 
 // Styles
 
@@ -15,18 +15,13 @@ import { APIContext } from "../../context/APIContext";
 
 export const NavigationBarLogic = () => {
 	const [isOnStory, setIsOnStory] = useState(false);
-	const [username, setUsername] = useState(false);
 	const [profilePicture, setProfilePicture] = useState(false);
-	const { APIRequest, token } = useContext(APIContext);
-
-	const navigate = useNavigate();
-	const location = useLocation();
+	const { APIRequest, token, username, setUsername } = useContext(APIContext);
+	const { location, changeLocation } = useContext(RoutesContext);
 
 	useEffect(() => {
-		setIsOnStory(location.pathname.split("/")[1] === "story");
-
-		if (username && location.pathname === "/") navigate("/user/" + username);
-	}, [location, username, navigate]);
+		setIsOnStory(location.split("/")[1] === "story");
+	}, [location]);
 
 	useEffect(() => {
 		async function getUsername() {
@@ -46,28 +41,28 @@ export const NavigationBarLogic = () => {
 		getUsername();
 	}, [token, APIRequest, setUsername, setProfilePicture]);
 
-	async function navigateToProfile() {
-		navigate("/user/" + username);
+	function navigateToProfile() {
+		if (username) changeLocation("/user/" + username);
+	}
+
+	async function navigateToStories() {
+		changeLocation("/stories");
 		await APIRequest("/user/logout", "POST");
 	}
 
-	function navigateToStories() {
-		navigate("/stories");
-	}
-
 	function navigateToCharacters() {
-		if (location.pathname.split("/")[1] === "story" && location.pathname.split("/").length < 3) return;
-		navigate("/story/" + location.pathname.split("/")[2] + "/characters");
+		if (location.split("/")[1] === "story" && location.split("/").length < 3) return;
+		changeLocation("/story/" + location.pathname.split("/")[2] + "/characters");
 	}
 
 	function navigateToSubstories() {
-		if (location.pathname.split("/")[1] === "story" && location.pathname.split("/").length < 3) return;
-		navigate("/story/" + location.pathname.split("/")[2] + "/substories");
+		if (location.split("/")[1] === "story" && location.split("/").length < 3) return;
+		changeLocation("/story/" + location.pathname.split("/")[2] + "/substories");
 	}
 
 	function navigateToWorld() {
-		if (location.pathname.split("/")[1] === "story" && location.pathname.split("/").length < 3) return;
-		navigate("/story/" + location.pathname.split("/")[2] + "/world");
+		if (location.split("/")[1] === "story" && location.split("/").length < 3) return;
+		changeLocation("/story/" + location.pathname.split("/")[2] + "/world");
 	}
 
 	return { isOnStory, profilePicture, navigateToProfile, navigateToStories, navigateToCharacters, navigateToSubstories, navigateToWorld };

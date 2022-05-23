@@ -7,5 +7,5 @@ module.exports = async (req, res) => {
 			sameSite: process.env.NODE_ENV === "development" ? "strict" : "none",
 			path: "/",
 		})
-		.send({ message: "Success" });
+		.send({ message: "Success", unauthorized: true });
 };
