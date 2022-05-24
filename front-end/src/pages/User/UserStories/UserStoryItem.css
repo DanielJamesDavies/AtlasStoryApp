@@ -53,15 +53,41 @@
 .user-stories-story-item-owner {
 	position: absolute;
 	left: 50%;
-	bottom: 20px;
+	bottom: 24px;
 	transform: translateX(-50%);
 	margin: 0 auto;
 
-	width: 100%;
+	width: fit-content;
 
 	text-align: center;
 	font-size: 20px;
 	font-weight: 700;
+}
+
+.user-stories-story-item-owner-label {
+	position: absolute;
+	left: 50%;
+	bottom: -32px;
+	transform: translateX(-50%);
+	padding: 4px 8px;
+	border-radius: 4px;
+
+	background: var(--grey3);
+	font-weight: 500;
+	font-size: 16px;
+	opacity: 0;
+	transition: 0.2s;
+}
+
+.user-stories-story-item-owner:hover .user-stories-story-item-owner-label {
+	opacity: 1;
+}
+
+.user-stories-story-item-private {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	font-size: 14px;
 }
 
 .user-stories-story-item-page {
@@ -79,7 +105,7 @@
 
 .user-stories-story-item-page:nth-child(1) {
 	z-index: -1;
-	background: #ffffff;
+	background: var(--blue3);
 }
 
 .user-stories-story-item:hover .user-stories-story-item-page:nth-child(1) {
@@ -88,7 +114,7 @@
 
 .user-stories-story-item-page:nth-child(2) {
 	z-index: -2;
-	background: #ffdddd;
+	background: var(--blue2);
 }
 
 .user-stories-story-item:hover .user-stories-story-item-page:nth-child(2) {
@@ -97,7 +123,7 @@
 
 .user-stories-story-item-page:nth-child(3) {
 	z-index: -3;
-	background: #eecccc;
+	background: var(--blue);
 }
 
 .user-stories-story-item:hover .user-stories-story-item-page:nth-child(3) {

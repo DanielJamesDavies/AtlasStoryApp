@@ -6,7 +6,7 @@
 .login-form {
 	margin: 80px auto;
 	margin-top: 16vh;
-	padding: 20px 24px;
+	padding: 24px;
 	border-radius: 4px;
 
 	width: calc(100% - 48px - 24px);

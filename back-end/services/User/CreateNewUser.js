@@ -28,6 +28,7 @@ module.exports = async (req, res) => {
 	const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
 	const profilePictureID = new mongoose.Types.ObjectId();
+	const bannerID = new mongoose.Types.ObjectId();
 
 	// New user
 	const user = new User({
@@ -37,6 +38,8 @@ module.exports = async (req, res) => {
 		email: req.body.email,
 		password: hashedPassword,
 		profilePicture: profilePictureID,
+		banner: bannerID,
+		stories: [],
 	});
 
 	// Create token

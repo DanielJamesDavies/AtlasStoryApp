@@ -16,12 +16,12 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const UserPrimaryLogic = () => {
-	const { user, isAuthorizedUserProfile } = useContext(UserContext);
+	const { user, profilePicture, isAuthorizedUserProfile } = useContext(UserContext);
 	const { APIRequest } = useContext(APIContext);
 
 	async function logOut() {
 		await APIRequest("/user/logout", "POST");
 	}
 
-	return { user, isAuthorizedUserProfile, logOut };
+	return { user, profilePicture, isAuthorizedUserProfile, logOut };
 };

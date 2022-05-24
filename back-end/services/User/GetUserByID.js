@@ -6,6 +6,7 @@ module.exports = async (req, res) => {
 		.catch((err) => {
 			res.status(200).send({ error: err });
 		});
+	if (!user) return res.status(200).send({ error: "User Not Found" });
 
 	res.status(200).send({ message: "Success", data: { user } });
 };

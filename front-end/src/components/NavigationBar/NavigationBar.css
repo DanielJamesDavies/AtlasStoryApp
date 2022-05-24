@@ -29,12 +29,12 @@
 	margin-right: 0;
 	border-radius: 4px;
 	width: calc(100% - 6px);
-	height: calc(100% - 78px - 12px - 6px);
+	height: calc(100% - 78px - 78px - 12px - 6px);
 	background: var(--grey2);
 }
 
 .navigation-bar-placeholder-section-story-open {
-	height: calc(100vh - 78px - 12px - 234px - 12px);
+	height: calc(100vh - 78px - 78px - 12px - 234px - 12px);
 }
 
 .navigation-bar-btn {
@@ -106,13 +106,13 @@
 	.navigation-bar-placeholder-section {
 		display: inline-block;
 		margin-top: 6px;
-		width: calc(100vw - 88px);
+		width: calc(100vw - 150px);
 		height: 58px;
 		vertical-align: middle;
 	}
 
 	.navigation-bar-placeholder-section-story-open {
-		width: calc(100vw - 288px);
+		width: calc(100vw - 350px);
 	}
 
 	.navigation-bar-btn {

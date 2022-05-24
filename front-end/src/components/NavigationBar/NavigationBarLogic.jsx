@@ -45,6 +45,10 @@ export const NavigationBarLogic = () => {
 		if (username) changeLocation("/u/" + username);
 	}
 
+	function navigateToSearch() {
+		changeLocation("/search");
+	}
+
 	function navigateToCharacters() {
 		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
 		changeLocation("/s/" + location.split("/")[2] + "/characters");
@@ -60,5 +64,5 @@ export const NavigationBarLogic = () => {
 		changeLocation("/s/" + location.split("/")[2] + "/world");
 	}
 
-	return { isOnStory, profilePicture, navigateToProfile, navigateToCharacters, navigateToSubstories, navigateToWorld };
+	return { isOnStory, profilePicture, navigateToProfile, navigateToSearch, navigateToCharacters, navigateToSubstories, navigateToWorld };
 };

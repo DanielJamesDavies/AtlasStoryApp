@@ -14,12 +14,17 @@ import { RoutesContext } from "../../../context/RoutesContext";
 
 // Assets
 
-export const UserStoryItemLogic = () => {
+export const UserStoryItemLogic = ({ story }) => {
 	const { changeLocation } = useContext(RoutesContext);
 
 	function navigateToStory() {
-		changeLocation("/s/story");
+		changeLocation("/s/" + story.url);
 	}
 
-	return { navigateToStory };
+	function navigateToOwner(e) {
+		e.stopPropagation();
+		if (story?.owner?.username) changeLocation("/u/" + story.owner.username);
+	}
+
+	return { navigateToStory, navigateToOwner };
 };

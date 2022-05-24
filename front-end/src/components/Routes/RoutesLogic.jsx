@@ -35,12 +35,13 @@ export const RoutesLogic = () => {
 
 		if (locationSplit.length === 0) return null;
 
+		setRenderComponent(null);
 		switch (locationSplit[0]) {
 			case "login":
-				setRenderComponent(<Login />);
+				if (!authorized) setRenderComponent(<Login />);
 				break;
 			case "register":
-				setRenderComponent(<Register />);
+				if (!authorized) setRenderComponent(<Register />);
 				break;
 			case "u":
 				setRenderComponent(<UserContainer user_username={locationSplit[1]} />);

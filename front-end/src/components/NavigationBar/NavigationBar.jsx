@@ -1,5 +1,5 @@
 // Packages
-import { FaUser, FaBookOpen, FaGlobeEurope } from "react-icons/fa";
+import { FaUser, FaSearch, FaBookOpen, FaGlobeEurope } from "react-icons/fa";
 
 // Components
 
@@ -14,13 +14,17 @@ import "./NavigationBar.css";
 // Assets
 
 export const NavigationBar = () => {
-	const { isOnStory, profilePicture, navigateToProfile, navigateToCharacters, navigateToSubstories, navigateToWorld } = NavigationBarLogic();
+	const { isOnStory, profilePicture, navigateToProfile, navigateToSearch, navigateToCharacters, navigateToSubstories, navigateToWorld } =
+		NavigationBarLogic();
 
 	return (
 		<div className='navigation-bar'>
 			<div className='navigation-bar-primary-button-container'>
 				<button className='navigation-bar-btn navigation-bar-btn-user' onClick={navigateToProfile}>
 					{!profilePicture ? null : <img src={profilePicture} alt='' />}
+				</button>
+				<button className='navigation-bar-btn navigation-bar-btn-search' onClick={navigateToSearch}>
+					<FaSearch />
 				</button>
 			</div>
 			{!isOnStory ? (

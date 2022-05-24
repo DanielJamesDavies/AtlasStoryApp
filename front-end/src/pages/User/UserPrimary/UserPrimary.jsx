@@ -16,11 +16,11 @@ import "./UserPrimary.css";
 // Assets
 
 export const UserPrimary = () => {
-	const { user, isAuthorizedUserProfile, logOut } = UserPrimaryLogic();
+	const { user, profilePicture, isAuthorizedUserProfile, logOut } = UserPrimaryLogic();
 
 	return (
 		<div className='user-primary'>
-			<div className='user-primary-profile-picture'>{!user?.profilePicture ? null : <img src={user.profilePicture} alt='' />}</div>
+			<div className='user-primary-profile-picture'>{!profilePicture ? null : <img src={profilePicture} alt='' />}</div>
 			<div className='user-primary-names'>
 				<div className='user-primary-names-nickname'>{user?.nickname}</div>
 				<div className='user-primary-names-username'>{user?.username}</div>
