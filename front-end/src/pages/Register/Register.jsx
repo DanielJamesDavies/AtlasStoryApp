@@ -1,10 +1,10 @@
 // Packages
-import { FaChevronRight } from "react-icons/fa";
 
 // Components
 import { RegisterProfilePictureInput } from "./RegisterProfilePictureInput";
 import { TextInput } from "../../components/TextInput/TextInput";
-import { RegisterErrorMessage } from "./RegisterErrorMessage";
+import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import { SubmitBtn } from "../../components/SubmitBtn/SubmitBtn";
 
 // Logic
 import { RegisterLogic } from "./RegisterLogic";
@@ -45,30 +45,27 @@ export const Register = () => {
 					profilePicture={profilePicture}
 					changeProfilePicture={changeProfilePicture}
 				/>
-				<RegisterErrorMessage errors={errors} attribute='profilePicture' />
+				<ErrorMessage errors={errors} attribute='profilePicture' />
 
 				<div className='register-form-text-input-container'>
 					<TextInput label='Username' value={username} onChange={changeUsername} isDark={true} />
-					<RegisterErrorMessage errors={errors} attribute='username' />
+					<ErrorMessage errors={errors} attribute='username' />
 				</div>
 				<div className='register-form-text-input-container'>
 					<TextInput label='Nickname' value={nickname} onChange={changeNickname} isDark={true} />
-					<RegisterErrorMessage errors={errors} attribute='nickname' />
+					<ErrorMessage errors={errors} attribute='nickname' />
 				</div>
 				<div className='register-form-text-input-container'>
 					<TextInput label='Email Address' value={email} onChange={changeEmail} isDark={true} />
-					<RegisterErrorMessage errors={errors} attribute='email' />
+					<ErrorMessage errors={errors} attribute='email' />
 				</div>
 				<div className='register-form-text-input-container'>
 					<TextInput label='Password' value={password} onChange={changePassword} hideValue={true} isDark={true} />
-					<RegisterErrorMessage errors={errors} attribute='password' />
+					<ErrorMessage errors={errors} attribute='password' />
 				</div>
 
 				<div className='register-form-submit-container'>
-					<button className='register-form-submit-btn' onClick={submitNewUser}>
-						<div className='register-form-submit-btn-text'>Register Account</div>
-						<FaChevronRight className='register-form-submit-btn-icon' />
-					</button>
+					<SubmitBtn label='Register Account' onSubmit={submitNewUser} />
 				</div>
 			</div>
 		</div>

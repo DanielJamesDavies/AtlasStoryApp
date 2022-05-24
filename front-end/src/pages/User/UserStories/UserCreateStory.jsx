@@ -1,9 +1,10 @@
 // Packages
-import { FaChevronRight } from "react-icons/fa";
 
 // Components
 import { TextInput } from "../../../components/TextInput/TextInput";
 import { ToggleInput } from "../../../components/ToggleInput/ToggleInput";
+import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
+import { SubmitBtn } from "../../../components/SubmitBtn/SubmitBtn";
 
 // Logic
 import { UserCreateStoryLogic } from "./UserCreateStoryLogic";
@@ -27,6 +28,8 @@ export const UserCreateStory = () => {
 		changeStoryURL,
 		storyIsPrivate,
 		toggleStoryIsPrivate,
+		errors,
+		submitCreateStory,
 	} = UserCreateStoryLogic();
 
 	if (!isDisplayingCreateStoryForm) return null;
@@ -36,18 +39,18 @@ export const UserCreateStory = () => {
 				<div className='user-stories-create-story-form-title'>Create Story</div>
 				<div className='user-stories-create-story-form-input-container'>
 					<TextInput label='Title' value={storyTitle} onChange={changeStoryTitle} isDark={true} />
+					<ErrorMessage errors={errors} attribute='title' />
 				</div>
 				<div className='user-stories-create-story-form-input-container'>
 					<TextInput label='URL' value={storyURL} onChange={changeStoryURL} isDark={true} />
+					<ErrorMessage errors={errors} attribute='url' />
 				</div>
 				<div className='user-stories-create-story-form-input-container'>
 					<ToggleInput label='Private Story' value={storyIsPrivate} onToggle={toggleStoryIsPrivate} />
+					<ErrorMessage errors={errors} attribute='isPrivate' />
 				</div>
 				<div className='user-stories-create-story-form-submit-container'>
-					<button className='user-stories-create-story-form-submit-btn'>
-						<div className='user-stories-create-story-form-submit-btn-text'>Create Story</div>
-						<FaChevronRight className='user-stories-create-story-form-submit-btn-icon' />
-					</button>
+					<SubmitBtn label='Create Story' onSubmit={submitCreateStory} />
 				</div>
 			</div>
 			<div className='user-stories-create-story-background' onClick={closeCreateStoryForm} />

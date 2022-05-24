@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
 	const profilePictureID = new mongoose.Types.ObjectId();
 	const bannerID = new mongoose.Types.ObjectId();
 
-	// New user
+	// New User
 	const user = new User({
 		_id: new mongoose.Types.ObjectId(),
 		username: req.body.username,
@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
 		stories: [],
 	});
 
-	// Create token
+	// Create Token
 	const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_SECRET);
 
 	user.save()
@@ -117,7 +117,7 @@ function validateUser(user) {
 							" Characters";
 						break;
 					default:
-						message = "An Unknown Error Has Occured. Please Try Again.";
+						message = "An Unknown Error Has Occured. Please Try Again";
 						break;
 				}
 

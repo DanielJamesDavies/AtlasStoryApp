@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
 		.catch((err) => {
 			res.status(200).send({ error: err });
 		});
-	if (!story) return res.status(200).send({ error: "Story Not Found" });
+	if (!story) return res.status(200).send({ errors: "Story Not Found" });
 
 	return res.status(200).send({ message: "Success", data: { story } });
 };

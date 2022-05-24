@@ -1,9 +1,9 @@
 // Packages
-import { FaChevronRight } from "react-icons/fa";
 
 // Components
 import { TextInput } from "../../components/TextInput/TextInput";
-import { LoginErrorMessage } from "./LoginErrorMessage";
+import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import { SubmitBtn } from "../../components/SubmitBtn/SubmitBtn";
 
 // Logic
 import { LoginLogic } from "./LoginLogic";
@@ -27,18 +27,15 @@ export const Login = () => {
 
 				<div className='login-form-text-input-container'>
 					<TextInput label='Username' value={username} onChange={changeUsername} isDark={true} />
-					<LoginErrorMessage errors={errors} attribute='username' />
+					<ErrorMessage errors={errors} attribute='username' />
 				</div>
 				<div className='login-form-text-input-container'>
 					<TextInput label='Password' value={password} onChange={changePassword} hideValue={true} isDark={true} />
-					<LoginErrorMessage errors={errors} attribute='password' />
+					<ErrorMessage errors={errors} attribute='password' />
 				</div>
 
 				<div className='login-form-submit-container'>
-					<button className='login-form-submit-btn' onClick={submitLoginUser}>
-						<div className='login-form-submit-btn-text'>Log in to Your Account</div>
-						<FaChevronRight className='login-form-submit-btn-icon' />
-					</button>
+					<SubmitBtn label='Log in to Your Account' onSubmit={submitLoginUser} />
 				</div>
 			</div>
 		</div>

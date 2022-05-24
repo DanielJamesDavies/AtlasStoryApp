@@ -31,33 +31,3 @@
 	margin-top: 20px;
 	text-align: right;
 }
-
-.register-form-submit-btn {
-	margin: 0;
-	padding: 8px 16px;
-	border: 0;
-	border-radius: 8px;
-
-	background: var(--blue);
-	color: #fff;
-	transition: 0.2s;
-	cursor: pointer;
-}
-
-.register-form-submit-btn:hover {
-	background: var(--blue2);
-}
-
-.register-form-submit-btn-text {
-	display: inline-block;
-	vertical-align: middle;
-	font-size: 14px;
-}
-
-.register-form-submit-btn-icon {
-	display: inline-block;
-	margin-top: 1px;
-	margin-left: 8px;
-	vertical-align: middle;
-	font-size: 15px;
-}
