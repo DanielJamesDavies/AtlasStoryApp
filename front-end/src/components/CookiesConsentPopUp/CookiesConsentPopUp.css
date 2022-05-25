@@ -1,0 +1,147 @@
+.cookies-consent-pop-up {
+	animation: cookies-consent-pop-up-show 0.5s 1;
+	animation-delay: 0.5s;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+
+@keyframes cookies-consent-pop-up-show {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.cookies-consent-pop-up-hide {
+	display: none;
+}
+
+.cookies-consent-pop-up-background {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: block;
+	content: "";
+	width: 100vw;
+	height: 100vh;
+	background: #00000088;
+}
+
+.cookies-consent-pop-up-form {
+	position: fixed;
+	top: 150px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 2;
+	display: block;
+	padding: 24px;
+	border-radius: 4px;
+	background: var(--grey2);
+	width: calc(100vw - 48px - 32px);
+	max-width: 640px;
+	max-height: calc(100% - 48px - 150px);
+	overflow-y: overlay;
+}
+
+.cookies-consent-pop-up-form::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.cookies-consent-pop-up-form::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--blue);
+}
+
+.cookies-consent-pop-up-title {
+	font-size: 32px;
+	font-weight: 700;
+}
+
+.cookies-consent-pop-up-text {
+	font-size: 18px;
+}
+
+.cookies-consent-pop-up-buttons-container {
+	margin: 12px 0;
+}
+
+.cookies-consent-pop-up-btn {
+	display: inline-block;
+	margin: 0 4px;
+	padding: 8px 16px;
+	border: 0;
+	border-radius: 8px;
+	font-size: 16px;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.cookies-consent-pop-up-btn-accept {
+	margin-left: 0;
+	background: var(--blue);
+	color: #fff;
+}
+
+.cookies-consent-pop-up-btn-accept:hover {
+	background: var(--blue2);
+	color: #fff;
+}
+
+.cookies-consent-pop-up-btn-reject {
+	margin-right: 0;
+	background: var(--grey2);
+	color: var(--red);
+}
+
+.cookies-consent-pop-up-btn-reject:hover {
+	background: var(--red);
+	color: #fff;
+}
+
+.cookies-consent-pop-up-what-for-toggle-show-btn {
+	display: inline-block;
+	margin: 0;
+	margin-top: 24px;
+	padding: 8px 16px;
+	border: 0;
+	border-radius: 8px;
+	background: var(--grey3);
+	color: #fff;
+	font-size: 14px;
+	transition: 0.2s;
+	cursor: pointer;
+	text-align: left;
+}
+
+.cookies-consent-pop-up-what-for-toggle-show-btn:hover {
+	background: var(--grey4);
+	color: #fff;
+}
+
+.cookies-consent-pop-up-what-for-container {
+	margin-top: 12px;
+}
+
+.cookies-consent-pop-up-what-for-container-hide {
+	display: none;
+}
+
+.cookies-consent-pop-up-what-for-container p {
+	margin: 0;
+}
+
+.cookies-consent-pop-up-what-for-container ul {
+	margin: 0;
+	margin-top: 4px;
+}
+
+@media (max-width: 700px) {
+	.cookies-consent-pop-up-form {
+		top: 64px;
+		max-height: calc(100% - 48px - 64px);
+	}
+}

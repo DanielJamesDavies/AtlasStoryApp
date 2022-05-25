@@ -24,6 +24,7 @@ mongoose
 app.use("/api/user", require("./routes/UserRoute"));
 app.use("/api/image", require("./routes/ImageRoute"));
 app.use("/api/story", require("./routes/StoryRoute"));
+app.use("/api/cookies-consent", require("./routes/CookiesConsentRoute"));
 
 // Running the Front-End
 if (process.env.NODE_ENV !== "development") {

@@ -1,14 +1,37 @@
 .user-primary {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
-	padding: 12px 24px;
+	padding: 0;
+	padding-bottom: 12px;
 	border-radius: 4px;
 	background: var(--grey2);
 }
 
+.user-primary-banner {
+	display: block;
+	margin-bottom: 12px;
+	border-radius: 4px 4px 0 0;
+	width: calc(100% + 48px);
+	height: 320px;
+	background: var(--grey3);
+}
+
+.user-primary-banner img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.user-primary-break {
+	flex-basis: 100%;
+	height: 0;
+}
+
 .user-primary-profile-picture {
 	display: inline-block;
-	margin-right: 24px;
+	margin: 0 24px;
 	border-radius: 100%;
 	width: 75px;
 	height: 75px;
@@ -41,6 +64,7 @@
 .user-primary-auth-buttons-container {
 	display: inline-block;
 	margin-left: auto;
+	margin-right: 24px;
 	vertical-align: middle;
 }
 

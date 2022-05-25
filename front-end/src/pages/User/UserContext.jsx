@@ -8,6 +8,7 @@ export const UserContext = createContext();
 const UserProvider = ({ children, user_username }) => {
 	const [user, setUser] = useState(false);
 	const [profilePicture, setProfilePicture] = useState(false);
+	const [banner, setBanner] = useState(false);
 	const [stories, setStories] = useState(false);
 	const [isAuthorizedUserProfile, setIsAuthorizedUserProfile] = useState(false);
 	const [isDisplayingCreateStoryForm, setIsDisplayingCreateStoryForm] = useState(false);
@@ -26,6 +27,7 @@ const UserProvider = ({ children, user_username }) => {
 			if (!response?.data?.user || response?.error) {
 				setUser(false);
 				setProfilePicture(false);
+				setBanner(false);
 				setIsAuthorizedUserProfile(false);
 				return;
 			}
@@ -34,15 +36,21 @@ const UserProvider = ({ children, user_username }) => {
 
 			if (user_username === response.data.user.username) setUser(response.data.user);
 
-			// Profile Picture Data
-			await getUserProfilePicture(response.data.user.profilePicture);
-			await getStories(response.data.user.stories);
+			if (response.data.user?.profilePicture) getUserProfilePicture(response.data.user.profilePicture);
+			if (response.data.user?.stories) getStories(response.data.user.stories);
+			if (response.data.user?.banner) getUserBanner(response.data.user.banner);
 		}
 
 		async function getUserProfilePicture(profilePictureID) {
 			const response = await APIRequest("/image/" + profilePictureID, "GET");
 			if (response?.error || !response?.data?.image) return setProfilePicture(false);
 			setProfilePicture(response.data.image);
+		}
+
+		async function getUserBanner(bannerID) {
+			const response = await APIRequest("/image/" + bannerID, "GET");
+			if (response?.error || !response?.data?.image) return setBanner(false);
+			setBanner(response.data.image);
 		}
 
 		async function getStories(storyIDs) {
@@ -70,6 +78,7 @@ const UserProvider = ({ children, user_username }) => {
 				user,
 				setUser,
 				profilePicture,
+				banner,
 				stories,
 				setStories,
 				isAuthorizedUserProfile,

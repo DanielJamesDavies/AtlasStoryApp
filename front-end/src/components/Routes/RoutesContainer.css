@@ -36,4 +36,10 @@
 		width: 100vw;
 		height: calc(100% - 70px);
 	}
+
+	.content-container-unauthorized {
+		display: block;
+		width: 100vw;
+		height: calc(100% - 50px);
+	}
 }

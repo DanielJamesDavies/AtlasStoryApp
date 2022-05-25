@@ -6,6 +6,7 @@ import { NavigationBar } from "../NavigationBar/NavigationBar";
 import { UnauthorizedNavigationBar } from "../UnauthorizedNavigationBar/UnauthorizedNavigationBar";
 import { StoryTopBar } from "../StoryTopBar/StoryTopBar";
 import { Routes } from "./Routes";
+import { CookiesConsentPopUp } from "../CookiesConsentPopUp/CookiesConsentPopUp";
 
 // Logic
 
@@ -31,6 +32,7 @@ export const RoutesContainer = () => {
 					<StoryTopBar />
 					<Routes />
 				</div>
+				<CookiesConsentPopUp />
 			</div>
 		</RoutesProvider>
 	);
