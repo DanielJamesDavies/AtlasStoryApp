@@ -10,9 +10,12 @@ module.exports = async (req, res) => {
 			});
 		if (!user) return res.status(200).send({ error: "User Not Found" });
 
+		let newUser = JSON.parse(JSON.stringify(user));
+		delete newUser.password;
+
 		return res.status(200).send({
 			message: "Success",
-			data: { user, isAuthorizedUser: getIsAuthorizedUser(req?.cookies?.AtlasStoryAppToken, user._id) },
+			data: { user: newUser, isAuthorizedUser: getIsAuthorizedUser(req?.cookies?.AtlasStoryAppToken, user._id) },
 		});
 	}
 

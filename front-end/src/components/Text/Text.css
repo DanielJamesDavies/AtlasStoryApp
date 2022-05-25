@@ -1,0 +1,7 @@
+.text-paragraph {
+	margin: 8px 0;
+}
+
+.text-paragraph:last-child {
+	margin-bottom: 0;
+}

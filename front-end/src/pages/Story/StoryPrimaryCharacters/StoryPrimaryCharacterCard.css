@@ -1,0 +1,86 @@
+.story-primary-character-card {
+	position: relative;
+	flex-shrink: 0;
+	display: inline-block;
+	margin: 4px;
+	margin-left: -120px;
+	border: 6px solid var(--blue);
+	border-radius: 16px;
+
+	width: 305px;
+	height: 420px;
+
+	background: var(--grey1);
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.story-primary-character-card:first-child {
+	margin-left: 0;
+}
+
+.story-primary-character-card:last-child {
+	margin-right: 0;
+}
+
+.story-primary-character-card:hover + .story-primary-character-card {
+	margin-left: 4px;
+}
+
+.story-primary-character-card-top-container {
+	display: flex;
+	justify-items: center;
+	padding: 12px 20px;
+}
+
+.story-primary-character-card-top-name {
+	font-size: 24px;
+	font-weight: 700;
+	color: var(--blue);
+}
+
+.story-primary-character-card-info-container {
+	position: absolute;
+	top: calc(176px - 8px);
+	left: 50%;
+	transform: translateX(-50%);
+	width: calc(100% - 16px);
+}
+
+.story-primary-character-card-info-item {
+	margin-bottom: 6px;
+	padding: 8px;
+	border-radius: 4px;
+	background: var(--blue);
+	text-align: left;
+}
+
+.story-primary-character-card-info-item-label {
+	font-size: 14px;
+	font-weight: 400;
+}
+
+.story-primary-character-card-info-item-value {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+@media (max-width: 700px) {
+	.story-primary-character-card {
+		border-width: 4px;
+		width: 260px;
+		height: 358px;
+	}
+
+	.story-primary-character-card-info-container {
+		top: calc(134px - 8px);
+	}
+
+	.story-primary-character-card-info-item-label {
+		font-size: 13px;
+	}
+
+	.story-primary-character-card-info-item-value {
+		font-size: 14px;
+	}
+}

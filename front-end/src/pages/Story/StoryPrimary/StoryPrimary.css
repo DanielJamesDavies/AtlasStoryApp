@@ -1,4 +1,4 @@
-.user-primary {
+.story-primary {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -8,7 +8,7 @@
 	background: var(--grey2);
 }
 
-.user-primary-banner {
+.story-primary-banner {
 	display: block;
 	margin-bottom: 12px;
 	border-radius: 4px 4px 0 0;
@@ -17,19 +17,19 @@
 	background: var(--grey3);
 }
 
-.user-primary-banner img {
+.story-primary-banner img {
 	border-radius: inherit;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 
-.user-primary-break {
+.story-primary-break {
 	flex-basis: 100%;
 	height: 0;
 }
 
-.user-primary-profile-picture {
+.story-primary-icon {
 	display: inline-block;
 	margin: 0 24px;
 	border-radius: 100%;
@@ -39,36 +39,46 @@
 	background: var(--grey3);
 }
 
-.user-primary-profile-picture img {
+.story-primary-icon img {
 	border-radius: inherit;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 
-.user-primary-names {
+.story-primary-main-info {
 	display: inline-block;
 	vertical-align: middle;
 }
 
-.user-primary-names-nickname {
+.story-primary-main-info-title {
+	margin-top: -3px;
+	margin-bottom: 3px;
 	font-weight: 700;
-	font-size: 24px;
+	font-size: 48px;
 }
 
-.user-primary-names-username {
+.story-primary-main-info-creators {
+	margin-top: -3px;
+	margin-bottom: 3px;
 	font-weight: 400;
 	font-size: 18px;
 }
 
-.user-primary-auth-buttons-container {
+.story-primary-main-info-creator {
+	display: inline-block;
+	margin: 2px;
+	margin-left: 0;
+}
+
+.story-primary-auth-buttons-container {
 	display: inline-block;
 	margin-left: auto;
 	margin-right: 24px;
 	vertical-align: middle;
 }
 
-.user-primary-auth-btn {
+.story-primary-auth-btn {
 	position: relative;
 	display: inline-block;
 	margin: 4px;
@@ -88,12 +98,12 @@
 	cursor: pointer;
 }
 
-.user-primary-auth-btn:hover {
+.story-primary-auth-btn:hover {
 	background: var(--blue);
 	color: #fff;
 }
 
-.user-primary-auth-btn svg {
+.story-primary-auth-btn svg {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -101,25 +111,25 @@
 	width: 100%;
 }
 
-.user-primary-auth-btn-settings svg {
+.story-primary-auth-btn-settings svg {
 	font-size: 24px;
 }
 
 @media (max-width: 700px) {
-	.user-primary-banner {
+	.story-primary-banner {
 		height: 180px;
 	}
 
-	.user-primary-profile-picture {
+	.story-primary-icon {
 		width: 60px;
 		height: 60px;
 	}
-	.user-primary-names-nickname {
-		font-size: 20px;
+
+	.story-primary-main-info-title {
+		font-size: 24px;
 	}
 
-	.user-primary-names-username {
-		font-weight: 400;
-		font-size: 16px;
+	.story-primary-main-info-creators {
+		font-size: 14px;
 	}
 }

@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
 			httpOnly: true,
 			secure: process.env.NODE_ENV !== "development",
 			sameSite: process.env.NODE_ENV === "development" ? "strict" : "none",
-			expires: new Date(Math.floor(Date.now()) + 60 * 60 * 24 * 365 * 1000),
+			expires: new Date(Math.floor(Date.now()) + 60 * 60 * 24 * 365 * 2 * 1000),
 			path: "/",
 		});
 	}

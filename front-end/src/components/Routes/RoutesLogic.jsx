@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { Login } from "../../pages/Login/Login";
 import { Register } from "../../pages/Register/Register";
 import { UserContainer } from "../../pages/User/UserContainer";
+import { StoryContainer } from "../../pages/Story/StoryContainer";
 
 // Logic
 
@@ -45,6 +46,9 @@ export const RoutesLogic = () => {
 				break;
 			case "u":
 				setRenderComponent(<UserContainer user_username={locationSplit[1]} />);
+				break;
+			case "s":
+				setRenderComponent(<StoryContainer story_url={locationSplit[1]} />);
 				break;
 			default:
 				setRenderComponent(null);

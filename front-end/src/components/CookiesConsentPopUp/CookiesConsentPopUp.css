@@ -137,6 +137,7 @@
 .cookies-consent-pop-up-what-for-container ul {
 	margin: 0;
 	margin-top: 4px;
+	padding-left: 24px;
 }
 
 @media (max-width: 700px) {

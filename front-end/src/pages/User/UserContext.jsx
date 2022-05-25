@@ -19,11 +19,11 @@ const UserProvider = ({ children, user_username }) => {
 		let reloadTimer = setTimeout(() => getUser(), 1);
 
 		async function getUser() {
-			if (user.username === user_username) return;
 			if (!user_username) return setUser(false);
+			if (user.username === user_username) return;
 
 			// User Data
-			const response = await APIRequest("/user/?username=" + user_username, "GET");
+			const response = await APIRequest("/user?username=" + user_username, "GET");
 			if (!response?.data?.user || response?.error) {
 				setUser(false);
 				setProfilePicture(false);
@@ -70,7 +70,7 @@ const UserProvider = ({ children, user_username }) => {
 		return () => {
 			clearTimeout(reloadTimer);
 		};
-	}, [location, user_username, APIRequest, user, setUser, setProfilePicture]);
+	}, [location, user_username, APIRequest, user, setUser, setProfilePicture, setBanner]);
 
 	return (
 		<UserContext.Provider

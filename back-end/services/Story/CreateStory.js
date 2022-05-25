@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
 		title: req.body.title,
 		owner: user_id,
 		isPrivate: req.body.isPrivate,
-		members: [{ user_id: user_id, canEdit: true }],
+		members: [{ user_id: user_id, type: "owner" }],
 	});
 
 	let owner = await User.findById(user_id)

@@ -7,7 +7,7 @@
 
 	padding: 24px;
 
-	width: calc(100vw - 76px - 16px - 48px);
+	width: calc(100vw - 76px - 48px - 48px);
 	max-width: 750px;
 
 	background: var(--grey2);
@@ -74,8 +74,9 @@
 @media (max-width: 700px) {
 	.user-stories-create-story-form {
 		position: fixed;
-		top: 50%;
+		top: 64px;
 		left: 50%;
-		transform: translate(-50%, calc(-50% + 70px));
+		transform: translateX(-50%);
+		width: calc(100vw - 48px - 48px);
 	}
 }

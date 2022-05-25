@@ -44,6 +44,8 @@ const StorySchema = mongoose.Schema({
 	banner: mongoose.Schema.Types.ObjectId,
 	cover: mongoose.Schema.Types.ObjectId,
 	date_created: { type: Date, default: Date.now },
+	description: Array,
+	genres: String,
 });
 
 module.exports = mongoose.model("Story", StorySchema);

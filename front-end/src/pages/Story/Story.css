@@ -1,0 +1,31 @@
+.story {
+	margin: 0 auto;
+	padding: 6px 48px;
+	max-width: 1330px;
+}
+
+.story-section-1 {
+	display: inline-block;
+	margin-right: 6px;
+	width: calc(50% - 6px);
+	vertical-align: top;
+}
+
+.story-section-2 {
+	display: inline-block;
+	margin-left: 6px;
+	width: calc(50% - 6px);
+	vertical-align: top;
+}
+
+@media (max-width: 1050px) {
+	.story {
+		padding: 6px 12px;
+	}
+
+	.story-section-1,
+	.story-section-2 {
+		margin: 0;
+		width: 100%;
+	}
+}

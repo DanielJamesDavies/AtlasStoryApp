@@ -1,10 +1,38 @@
 const mongoose = require("mongoose");
 
 const CharacterSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
-	story_id: mongoose.Schema.Types.ObjectId,
-	group_id: mongoose.Schema.Types.ObjectId,
-	data: mongoose.Schema.Types.Mixed,
+	_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		require: true,
+	},
+	story_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		require: true,
+	},
+	group_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		require: true,
+	},
+	url: {
+		type: String,
+		require: true,
+	},
+	isPrimaryCharacter: {
+		type: Boolean,
+		require: true,
+	},
+	data: {
+		type: {
+			name: {
+				type: String,
+				require: true,
+			},
+			fullName: String,
+			descriptives: String,
+			represents: String,
+		},
+		require: true,
+	},
 });
 
 module.exports = mongoose.model("Character", CharacterSchema);
