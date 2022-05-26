@@ -34,7 +34,7 @@
 }
 
 .navigation-bar-placeholder-section-story-open {
-	height: calc(100vh - 78px - 78px - 12px - 234px - 12px);
+	height: calc(100vh - 78px - 78px - 12px - 78px - 78px - 78px - 78px - 12px);
 }
 
 .navigation-bar-btn {
