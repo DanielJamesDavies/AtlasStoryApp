@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
 :root {
 	--grey1: #010101;
 	--grey2: #161616;
@@ -23,7 +25,7 @@ body {
 	height: 100%;
 	overflow: hidden;
 
-	font-family: Calibri, sans-serif;
+	font-family: "Roboto", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
