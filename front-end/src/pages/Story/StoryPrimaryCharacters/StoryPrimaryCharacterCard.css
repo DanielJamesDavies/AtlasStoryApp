@@ -49,8 +49,8 @@
 
 .story-primary-character-card-info-item {
 	margin-bottom: 6px;
-	padding: 8px;
-	border-radius: 4px;
+	padding: 8px 12px;
+	border-radius: 8px;
 	background: var(--blue);
 	text-align: left;
 }

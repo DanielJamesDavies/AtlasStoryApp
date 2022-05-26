@@ -2,6 +2,8 @@
 
 // Components
 import { CharactersTitle } from "./CharactersTitle";
+import { CharactersGroups } from "./CharactersGroups";
+import { CharactersGroup } from "./CharactersGroup";
 
 // Logic
 
@@ -18,6 +20,10 @@ export const Characters = () => {
 	return (
 		<div className='characters'>
 			<CharactersTitle />
+			<div className='characters-content-container'>
+				<CharactersGroups />
+				<CharactersGroup />
+			</div>
 		</div>
 	);
 };

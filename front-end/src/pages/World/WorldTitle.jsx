@@ -18,16 +18,15 @@ export const WorldTitle = () => {
 	const { story, storyIcon } = WorldTitleLogic();
 
 	return (
-		<div className='world'>
-			<div className='world-title'>
-				<div className='world-title-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
-				{!story?.title ? null : (
-					<>
-						<div className='world-title-story-title'>{story?.title}</div>
-						<div className='world-title-world-label'>World</div>
-					</>
-				)}
-			</div>
+		<div className='world-title'>
+			<div className='world-title-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
+			{!story?.title ? null : (
+				<>
+					<div className='world-title-story-title'>{story?.title}</div>
+					<div className='world-title-divider'>|</div>
+					<div className='world-title-world-label'>World</div>
+				</>
+			)}
 		</div>
 	);
 };

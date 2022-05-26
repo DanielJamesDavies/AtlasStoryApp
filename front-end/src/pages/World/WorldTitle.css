@@ -1,9 +1,23 @@
 .world-title {
+	position: relative;
 	display: flex;
 	align-items: center;
-	padding: 12px 24px;
+	margin-bottom: 48px;
+	padding: 24px 24px;
 	border-radius: 4px;
 	width: calc(100% - 48px);
+}
+
+.world-title::after {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	display: block;
+	content: "";
+	border-radius: 4px;
+	width: 100%;
+	height: 3px;
 	background: var(--grey2);
 }
 
@@ -28,24 +42,39 @@
 }
 
 .world-title-story-title {
+	margin-top: -2px;
+	margin-bottom: 2px;
 	font-size: 38px;
 	font-weight: 700;
 }
 
+.world-title-divider {
+	margin: 0 16px;
+	margin-top: -2px;
+	font-size: 24px;
+}
+
 .world-title-world-label {
-	margin-top: 3px;
-	margin-left: 24px;
 	font-size: 24px;
 	font-weight: 400;
 }
 
 @media (max-width: 700px) {
+	.world-title {
+		margin-bottom: 24px;
+	}
+
 	.world-title-story-icon {
 		display: none;
 	}
 
 	.world-title-story-title {
+		margin: 0;
 		font-size: 24px;
+	}
+
+	.world-title-divider {
+		margin-top: -1px;
 	}
 
 	.world-title-world-label {

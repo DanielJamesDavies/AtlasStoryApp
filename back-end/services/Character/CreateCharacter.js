@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
 		});
 	if (!group) return res.status(200).send({ error: "Group Not Found" });
 
-	if (!group.data.characters.includes(character._id)) group.data.characters.push(character._id);
+	if (!group.data.characters.includes(character._id)) group.data.characters.push({ user_id: character._id });
 
 	try {
 		await character.save();

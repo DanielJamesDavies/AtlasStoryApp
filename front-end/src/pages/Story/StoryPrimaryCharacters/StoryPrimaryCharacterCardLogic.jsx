@@ -31,7 +31,7 @@ export const StoryPrimaryCharacterCardLogic = ({ character }) => {
 		setStoryPrimaryCharacterCardStyles(character?.data?.colour ? { borderColor: character.data.colour } : {});
 		setStoryPrimaryCharacterCardTopNameStyles(character?.data?.colour ? { color: character.data.colour } : {});
 		setStoryPrimaryCharacterCardInfoItemStyles(character?.data?.colour ? { background: character.data.colour } : {});
-	}, [character, setStoryPrimaryCharacterCardStyles]);
+	}, [character, setStoryPrimaryCharacterCardStyles, setStoryPrimaryCharacterCardTopNameStyles, setStoryPrimaryCharacterCardInfoItemStyles]);
 
 	return {
 		navigateToCharacter,
