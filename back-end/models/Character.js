@@ -30,6 +30,7 @@ const CharacterSchema = mongoose.Schema({
 			fullName: String,
 			descriptives: String,
 			represents: String,
+			colour: String,
 		},
 		require: true,
 	},

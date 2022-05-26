@@ -49,6 +49,7 @@
 .story-primary-main-info {
 	display: inline-block;
 	vertical-align: middle;
+	min-height: 84px;
 }
 
 .story-primary-main-info-title {
@@ -125,7 +126,12 @@
 		height: 60px;
 	}
 
+	.story-primary-main-info {
+		min-height: 50px;
+	}
+
 	.story-primary-main-info-title {
+		margin: 0;
 		font-size: 24px;
 	}
 

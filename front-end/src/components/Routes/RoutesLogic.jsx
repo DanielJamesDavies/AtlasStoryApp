@@ -6,6 +6,9 @@ import { Login } from "../../pages/Login/Login";
 import { Register } from "../../pages/Register/Register";
 import { UserContainer } from "../../pages/User/UserContainer";
 import { StoryContainer } from "../../pages/Story/StoryContainer";
+import { CharactersContainer } from "../../pages/Characters/CharactersContainer";
+import { SubstoriesContainer } from "../../pages/Substories/SubstoriesContainer";
+import { WorldContainer } from "../../pages/World/WorldContainer";
 
 // Logic
 
@@ -48,7 +51,31 @@ export const RoutesLogic = () => {
 				setRenderComponent(<UserContainer user_username={locationSplit[1]} />);
 				break;
 			case "s":
-				setRenderComponent(<StoryContainer story_url={locationSplit[1]} />);
+				if (locationSplit.length > 2) {
+					switch (locationSplit[2]) {
+						case "characters":
+							setRenderComponent(<CharactersContainer story_url={locationSplit[1]} />);
+							break;
+						case "c":
+							break;
+						case "g":
+							break;
+						case "substories":
+							setRenderComponent(<SubstoriesContainer story_url={locationSplit[1]} />);
+							break;
+						case "s":
+							break;
+						case "world":
+							setRenderComponent(<WorldContainer story_url={locationSplit[1]} />);
+							break;
+						case "w":
+							break;
+						default:
+							break;
+					}
+				} else {
+					setRenderComponent(<StoryContainer story_url={locationSplit[1]} />);
+				}
 				break;
 			default:
 				setRenderComponent(null);

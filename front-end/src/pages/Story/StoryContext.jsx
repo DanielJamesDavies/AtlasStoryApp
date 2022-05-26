@@ -11,14 +11,10 @@ const StoryProvider = ({ children, story_url }) => {
 	const [icon, setIcon] = useState(false);
 	const [banner, setBanner] = useState(false);
 	const [primaryCharacters, setPrimaryCharacters] = useState(false);
-	const [isAuthorizedStoryProfile, setIsAuthorizedStoryProfile] = useState(false);
-	const [isDisplayingCreateStoryForm, setIsDisplayingCreateStoryForm] = useState(false);
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
 
 	useEffect(() => {
-		let reloadTimer = setTimeout(() => getStory(), 1);
-
 		async function getStory() {
 			if (!story_url) return setStory(false);
 			if (story.url === story_url) return;
@@ -29,11 +25,8 @@ const StoryProvider = ({ children, story_url }) => {
 				setStory(false);
 				setIcon(false);
 				setBanner(false);
-				setIsAuthorizedStoryProfile(false);
 				return;
 			}
-
-			setIsAuthorizedStoryProfile(response.data?.isAuthorizedStory);
 
 			if (story_url === response.data.story.url) setStory(response.data.story);
 
@@ -80,6 +73,7 @@ const StoryProvider = ({ children, story_url }) => {
 
 		if (story.url !== story_url) getStory();
 
+		let reloadTimer = setTimeout(() => getStory(), 1);
 		return () => {
 			clearTimeout(reloadTimer);
 		};
@@ -94,9 +88,6 @@ const StoryProvider = ({ children, story_url }) => {
 				icon,
 				banner,
 				primaryCharacters,
-				isAuthorizedStoryProfile,
-				isDisplayingCreateStoryForm,
-				setIsDisplayingCreateStoryForm,
 			}}
 		>
 			{children}
