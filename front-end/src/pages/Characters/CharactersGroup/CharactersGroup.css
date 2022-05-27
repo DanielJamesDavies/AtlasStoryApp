@@ -28,6 +28,7 @@
 	border-radius: 32px;
 	background: var(--blue);
 	color: #fff;
+	font-size: 13px;
 	transition: 0.2s;
 	cursor: pointer;
 }
@@ -59,5 +60,9 @@
 		margin: 0;
 		margin-top: 24px;
 		width: 100%;
+	}
+
+	.characters-group-primary-title {
+		font-size: 24px;
 	}
 }

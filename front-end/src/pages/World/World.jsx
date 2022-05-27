@@ -1,7 +1,7 @@
 // Packages
 
 // Components
-import { WorldTitle } from "./WorldTitle";
+import { WorldTitle } from "./WorldTitle/WorldTitle";
 
 // Logic
 

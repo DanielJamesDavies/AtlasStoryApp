@@ -62,6 +62,8 @@
 @media (max-width: 700px) {
 	.characters-title {
 		margin-bottom: 24px;
+		padding: 24px 6px;
+		width: calc(100% - 12px);
 	}
 
 	.characters-title-story-icon {

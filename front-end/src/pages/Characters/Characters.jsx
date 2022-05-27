@@ -1,9 +1,9 @@
 // Packages
 
 // Components
-import { CharactersTitle } from "./CharactersTitle";
-import { CharactersGroups } from "./CharactersGroups";
-import { CharactersGroup } from "./CharactersGroup";
+import { CharactersTitle } from "./CharactersTitle/CharactersTitle";
+import { CharactersGroups } from "./CharactersGroups/CharactersGroups";
+import { CharactersGroup } from "./CharactersGroup/CharactersGroup";
 
 // Logic
 

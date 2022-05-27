@@ -43,8 +43,8 @@
 	top: 120px;
 	transform: translateX(-50%);
 	margin: 0 auto;
-	width: calc(100% - 20px);
-	font-size: 32px;
+	width: calc(100% - 12px);
+	font-size: 30px;
 	font-weight: 700;
 	text-align: center;
 	transition: 0.2s;
@@ -145,7 +145,7 @@
 
 	.user-stories-story-item-title {
 		top: 78px;
-		font-size: 20px;
+		font-size: 18px;
 	}
 
 	.user-stories-story-item-owner {

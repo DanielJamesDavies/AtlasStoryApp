@@ -6,7 +6,7 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { CharactersContext } from "./CharactersContext";
+import { CharactersContext } from "../CharactersContext";
 
 // Services
 

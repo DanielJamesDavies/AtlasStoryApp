@@ -1,6 +1,7 @@
 .story-primary-character-card {
-	position: relative;
 	flex-shrink: 0;
+	position: relative;
+	z-index: 1;
 	display: inline-block;
 	margin: 4px;
 	margin-left: -120px;
@@ -27,6 +28,11 @@
 	margin-left: 4px;
 }
 
+.story-primary-character-card-content {
+	position: relative;
+	z-index: 1;
+}
+
 .story-primary-character-card-top-container {
 	display: flex;
 	justify-items: center;
@@ -42,6 +48,7 @@
 .story-primary-character-card-info-container {
 	position: absolute;
 	top: calc(270px - 8px);
+	top: calc(203px - 8px);
 	left: 50%;
 	transform: translateX(-50%);
 	width: calc(100% - 16px);
@@ -65,6 +72,23 @@
 	font-weight: 700;
 }
 
+.story-primary-character-card-background {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+}
+
+.story-primary-character-card-background img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
 @media (max-width: 700px) {
 	.story-primary-character-card {
 		border-width: 4px;
@@ -74,6 +98,15 @@
 
 	.story-primary-character-card-info-container {
 		top: calc(200px - 12px);
+	}
+
+	.story-primary-character-card-info-item {
+		display: none;
+	}
+
+	.story-primary-character-card-info-item:nth-child(1),
+	.story-primary-character-card-info-item:nth-child(2) {
+		display: block;
 	}
 
 	.story-primary-character-card-info-item-label {

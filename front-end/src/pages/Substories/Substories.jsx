@@ -1,7 +1,7 @@
 // Packages
 
 // Components
-import { SubstoriesTitle } from "./SubstoriesTitle";
+import { SubstoriesTitle } from "./SubstoriesTitle/SubstoriesTitle";
 
 // Logic
 

@@ -6,7 +6,7 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { WorldContext } from "./WorldContext";
+import { WorldContext } from "../WorldContext";
 
 // Services
 

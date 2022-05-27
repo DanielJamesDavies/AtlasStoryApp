@@ -6,7 +6,7 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { SubstoriesContext } from "./SubstoriesContext";
+import { SubstoriesContext } from "../SubstoriesContext";
 
 // Services
 

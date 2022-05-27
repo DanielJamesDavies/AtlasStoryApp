@@ -15,43 +15,54 @@ import "./StoryPrimaryCharacterCard.css";
 // Assets
 
 export const StoryPrimaryCharacterCard = ({ character }) => {
-	const {
-		navigateToCharacter,
-		storyPrimaryCharacterCardStyles,
-		storyPrimaryCharacterCardTopNameStyles,
-		storyPrimaryCharacterCardInfoItemStyles,
-	} = StoryPrimaryCharacterCardLogic({ character });
+	const { navigateToCharacter, cardStyles, cardTopNameStyles, cardInfoItemStyles, cardBackground } = StoryPrimaryCharacterCardLogic({
+		character,
+	});
 
 	return (
-		<div className='story-primary-character-card' onClick={navigateToCharacter} style={storyPrimaryCharacterCardStyles}>
-			<div className='story-primary-character-card-top-container'>
-				<div className='story-primary-character-card-top-name' style={storyPrimaryCharacterCardTopNameStyles}>
-					{character?.data?.name}
+		<div className='story-primary-character-card' onClick={navigateToCharacter} style={cardStyles}>
+			<div className='story-primary-character-card-content'>
+				<div className='story-primary-character-card-top-container'>
+					<div className='story-primary-character-card-top-name' style={cardTopNameStyles}>
+						{character?.data?.name}
+					</div>
+				</div>
+				<div className='story-primary-character-card-info-container'>
+					{!character?.data?.fullName ? null : (
+						<StoryPrimaryCharacterCardInfoItem
+							label={"Full Name"}
+							value={character.data.fullName}
+							cardInfoItemStyles={cardInfoItemStyles}
+						/>
+					)}
+					{!character?.data?.descriptives ? null : (
+						<StoryPrimaryCharacterCardInfoItem
+							label={"Descriptives"}
+							value={character.data.descriptives}
+							cardInfoItemStyles={cardInfoItemStyles}
+						/>
+					)}
+					{!character?.data?.represents ? null : (
+						<StoryPrimaryCharacterCardInfoItem
+							label={"Represents"}
+							value={character.data.represents}
+							cardInfoItemStyles={cardInfoItemStyles}
+						/>
+					)}
 				</div>
 			</div>
-			<div className='story-primary-character-card-info-container'>
-				{!character?.data?.fullName ? null : (
-					<StoryPrimaryCharacterCardInfoItem
-						label={"Full Name"}
-						value={character.data.fullName}
-						storyPrimaryCharacterCardInfoItemStyles={storyPrimaryCharacterCardInfoItemStyles}
-					/>
-				)}
-				{!character?.data?.descriptives ? null : (
-					<StoryPrimaryCharacterCardInfoItem
-						label={"Descriptives"}
-						value={character.data.descriptives}
-						storyPrimaryCharacterCardInfoItemStyles={storyPrimaryCharacterCardInfoItemStyles}
-					/>
-				)}
-			</div>
+			{!cardBackground ? null : (
+				<div className='story-primary-character-card-background'>
+					<img src={cardBackground} alt='' />
+				</div>
+			)}
 		</div>
 	);
 };
 
-const StoryPrimaryCharacterCardInfoItem = ({ label, value, storyPrimaryCharacterCardInfoItemStyles }) => {
+const StoryPrimaryCharacterCardInfoItem = ({ label, value, cardInfoItemStyles }) => {
 	return (
-		<div className='story-primary-character-card-info-item' style={storyPrimaryCharacterCardInfoItemStyles}>
+		<div className='story-primary-character-card-info-item' style={cardInfoItemStyles}>
 			<div className='story-primary-character-card-info-item-label'>{label}</div>
 			<div className='story-primary-character-card-info-item-value'>{value}</div>
 		</div>
