@@ -10,15 +10,15 @@ module.exports = async (req, res) => {
 	if (!story) return res.status(200).send({ error: "Story Not Found" });
 	let newStory = JSON.parse(JSON.stringify(story));
 
-	if (!story?.owner) return res.status(200).send({ error: "Owner Not Found" });
+	if (!story?.data?.owner) return res.status(200).send({ error: "Owner Not Found" });
 
-	const owner = await User.findById(story.owner)
+	const owner = await User.findById(story.data.owner)
 		.exec()
 		.catch((err) => {
 			res.status(200).send({ error: err });
 		});
 	if (!owner) return res.status(200).send({ error: "Owner Not Found" });
-	newStory.owner = { _id: owner._id, username: owner.username, nickname: owner.nickname };
+	newStory.data.owner = { _id: owner._id, username: owner.username, nickname: owner.nickname };
 
 	res.status(200).send({ message: "Success", data: { story: newStory } });
 };

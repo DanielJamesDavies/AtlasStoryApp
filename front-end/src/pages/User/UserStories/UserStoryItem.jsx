@@ -22,11 +22,11 @@ export const UserStoryItem = ({ story }) => {
 		<div className='user-stories-story-item' onClick={navigateToStory}>
 			<div className='user-stories-story-item-spine'></div>
 			<div className='user-stories-story-item-content'>
-				<div className='user-stories-story-item-title'>{story?.title}</div>
+				<div className='user-stories-story-item-title'>{story?.data?.title}</div>
 				<div className='user-stories-story-item-owner' onClick={navigateToOwner}>
-					{story?.owner?.nickname}
+					{story?.data?.owner?.nickname}
 					<div className='user-stories-story-item-owner-label'>
-						<div className='user-stories-story-item-owner-label-username'>@{story?.owner?.username}</div>
+						<div className='user-stories-story-item-owner-label-username'>@{story?.data?.owner?.username}</div>
 					</div>
 				</div>
 				<div className='user-stories-story-item-private'>{story.isPrivate ? <FaLock /> : <FaLockOpen />}</div>
