@@ -15,7 +15,7 @@ import { CharactersContext } from "../CharactersContext";
 // Assets
 
 export const CharactersGroupsLogic = () => {
-	const { groups, openGroup, setOpenGroup } = useContext(CharactersContext);
+	const { isAuthorizedToModify, groups, openGroup, setOpenGroup, setIsDisplayingCreateGroupForm } = useContext(CharactersContext);
 
 	function changeOpenGroup(newOpenGroup) {
 		if (newOpenGroup === openGroup) return;
@@ -23,5 +23,9 @@ export const CharactersGroupsLogic = () => {
 		setTimeout(() => setOpenGroup(newOpenGroup), 1);
 	}
 
-	return { groups, openGroup, changeOpenGroup };
+	function openCreateGroupForm() {
+		setIsDisplayingCreateGroupForm(true);
+	}
+
+	return { isAuthorizedToModify, groups, openGroup, changeOpenGroup, openCreateGroupForm };
 };

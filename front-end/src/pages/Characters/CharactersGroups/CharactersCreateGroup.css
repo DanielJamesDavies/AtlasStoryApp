@@ -1,4 +1,4 @@
-.characters-create-character-form {
+.characters-create-group-form {
 	position: fixed;
 	top: 200px;
 	left: calc(50% + 76px / 2);
@@ -13,7 +13,7 @@
 	background: var(--grey2);
 }
 
-.characters-create-character-background {
+.characters-create-group-background {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -26,29 +26,29 @@
 	background: #00000088;
 }
 
-.characters-create-character-form-title {
+.characters-create-group-form-title {
 	margin: 20px 10px;
 	margin-top: 0;
 	font-size: 28px;
 	font-weight: 700;
 }
 
-.characters-create-character-form-input-container {
+.characters-create-group-form-input-container {
 	margin: 12px 0;
 }
 
-.characters-create-character-form-submit-container {
+.characters-create-group-form-submit-container {
 	margin-top: 20px;
 	text-align: right;
 }
 
-.characters-create-character-form-submit-btn-text {
+.characters-create-group-form-submit-btn-text {
 	display: inline-block;
 	vertical-align: middle;
 	font-size: 14px;
 }
 
-.characters-create-character-form-submit-btn-icon {
+.characters-create-group-form-submit-btn-icon {
 	display: inline-block;
 	margin-top: 1px;
 	margin-left: 8px;
@@ -57,7 +57,7 @@
 }
 
 @media (max-width: 700px) {
-	.characters-create-character-form {
+	.characters-create-group-form {
 		position: fixed;
 		top: 64px;
 		left: 50%;

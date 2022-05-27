@@ -8,6 +8,7 @@ import { useContext } from "react";
 // Context
 import { UserContext } from "../UserContext";
 import { APIContext } from "../../../context/APIContext";
+import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
 
@@ -16,12 +17,15 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const UserPrimaryLogic = () => {
-	const { user, profilePicture, banner, isAuthorizedUserProfile } = useContext(UserContext);
-	const { APIRequest } = useContext(APIContext);
+	const { isAuthorizedToModify, user, profilePicture, banner } = useContext(UserContext);
+	const { APIRequest, setUsername } = useContext(APIContext);
+	const { changeLocation } = useContext(RoutesContext);
 
 	async function logOut() {
 		await APIRequest("/user/logout", "POST");
+		setUsername(false);
+		changeLocation("/login");
 	}
 
-	return { user, profilePicture, banner, isAuthorizedUserProfile, logOut };
+	return { isAuthorizedToModify, user, profilePicture, banner, logOut };
 };

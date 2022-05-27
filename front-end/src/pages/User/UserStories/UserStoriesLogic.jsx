@@ -15,11 +15,11 @@ import { UserContext } from "../UserContext";
 // Assets
 
 export const UserStoriesLogic = () => {
-	const { stories, isAuthorizedUserProfile, setIsDisplayingCreateStoryForm } = useContext(UserContext);
+	const { isAuthorizedToModify, stories, setIsDisplayingCreateStoryForm } = useContext(UserContext);
 
 	function openCreateStoryForm() {
 		setIsDisplayingCreateStoryForm(true);
 	}
 
-	return { stories, isAuthorizedUserProfile, openCreateStoryForm };
+	return { isAuthorizedToModify, stories, openCreateStoryForm };
 };

@@ -11,9 +11,9 @@ const GetCharacterByID = require("../services/Character/GetCharacterByID");
 const CreateCharacter = require("../services/Character/CreateCharacter");
 const UpdateCharacter = require("../services/Character/UpdateCharacter");
 
-router.get("/", CookieConsentAuthentication, Authenticate, GetCharacter);
-router.get("/primary-character", CookieConsentAuthentication, Authenticate, GetPrimaryCharacter);
-router.get("/:id", CookieConsentAuthentication, Authenticate, GetCharacterByID);
+router.get("/", GetCharacter);
+router.get("/primary-character", GetPrimaryCharacter);
+router.get("/:id", GetCharacterByID);
 router.post("/", CookieConsentAuthentication, Authenticate, CreateCharacter);
 router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, UpdateCharacter);
 

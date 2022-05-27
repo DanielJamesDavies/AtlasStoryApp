@@ -10,8 +10,8 @@ const CreateNewUser = require("../services/User/CreateNewUser");
 const LogInUser = require("../services/User/LogInUser");
 const LogOutUser = require("../services/User/LogOutUser");
 
-router.get("/", CookieConsentAuthentication, Authenticate, GetUser);
-router.get("/:id", CookieConsentAuthentication, Authenticate, GetUserByID);
+router.get("/", GetUser);
+router.get("/:id", GetUserByID);
 router.post("/", CookieConsentAuthentication, CreateNewUser);
 router.post("/login", CookieConsentAuthentication, LogInUser);
 router.post("/logout", CookieConsentAuthentication, LogOutUser);

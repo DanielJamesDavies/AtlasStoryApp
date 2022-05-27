@@ -6,6 +6,6 @@ const CookieConsentAuthentication = require("../services/CookiesConsent/CookieCo
 
 const GetImageByID = require("../services/Image/GetImageByID");
 
-router.get("/:id", CookieConsentAuthentication, Authenticate, GetImageByID);
+router.get("/:id", GetImageByID);
 
 module.exports = router;

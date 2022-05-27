@@ -18,14 +18,14 @@ import "./UserStories.css";
 // Assets
 
 export const UserStories = () => {
-	const { stories, isAuthorizedUserProfile, openCreateStoryForm } = UserStoriesLogic();
+	const { isAuthorizedToModify, stories, openCreateStoryForm } = UserStoriesLogic();
 
 	return (
 		<div className='user-stories'>
 			<div className='user-stories-top'>
 				<div className='user-stories-top-title'>Stories</div>
 				<div className='user-stories-top-items-count'>{!stories ? null : "(" + stories.length + ")"}</div>
-				{!isAuthorizedUserProfile ? null : (
+				{!isAuthorizedToModify ? null : (
 					<button className='user-stories-top-create-story-btn' onClick={openCreateStoryForm}>
 						<FaPlus />
 					</button>

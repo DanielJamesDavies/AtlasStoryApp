@@ -6,11 +6,50 @@
 	vertical-align: top;
 }
 
-.characters-groups-title {
-	margin-top: -1px;
+.characters-groups-primary {
+	display: flex;
+	align-items: center;
 	margin-bottom: 24px;
+}
+
+.characters-groups-primary-title {
+	margin-top: -1px;
 	font-size: 28px;
 	font-weight: 700;
+	vertical-align: middle;
+}
+
+.characters-group-primary-create-group-btn {
+	position: relative;
+	display: inline-block;
+	margin: 0;
+	margin-left: auto;
+	padding: 0;
+	border: 0;
+	border-radius: 100%;
+
+	width: 40px;
+	height: 40px;
+
+	background: var(--accentColour);
+	color: #fff;
+	font-size: 20px;
+	text-align: center;
+	vertical-align: middle;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.characters-group-primary-create-group-btn:hover {
+	background: var(--accentColourHover);
+}
+
+.characters-group-primary-create-group-btn svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
 }
 
 .characters-groups-group-item {

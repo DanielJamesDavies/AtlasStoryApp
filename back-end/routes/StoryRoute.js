@@ -11,8 +11,8 @@ const CreateStory = require("../services/Story/CreateStory");
 const UpdateStory = require("../services/Story/UpdateStory");
 const DeleteStory = require("../services/Story/DeleteStory");
 
-router.get("/", CookieConsentAuthentication, Authenticate, GetStory);
-router.get("/:id", CookieConsentAuthentication, Authenticate, GetStoryByID);
+router.get("/", GetStory);
+router.get("/:id", GetStoryByID);
 router.post("/", CookieConsentAuthentication, Authenticate, CreateStory);
 router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, UpdateStory);
 router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, DeleteStory);

@@ -16,7 +16,7 @@ import "./UserPrimary.css";
 // Assets
 
 export const UserPrimary = () => {
-	const { user, profilePicture, banner, isAuthorizedUserProfile, logOut } = UserPrimaryLogic();
+	const { isAuthorizedToModify, user, profilePicture, banner, logOut } = UserPrimaryLogic();
 
 	return (
 		<div className='user-primary'>
@@ -27,7 +27,7 @@ export const UserPrimary = () => {
 				<div className='user-primary-names-nickname'>{user?.nickname}</div>
 				<div className='user-primary-names-username'>{user?.username}</div>
 			</div>
-			{!isAuthorizedUserProfile ? null : (
+			{!isAuthorizedToModify ? null : (
 				<div className='user-primary-auth-buttons-container'>
 					<button className='user-primary-auth-btn user-primary-auth-btn-settings'>
 						<FaCog />

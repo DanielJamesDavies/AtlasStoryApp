@@ -42,7 +42,11 @@ export const NavigationBarLogic = () => {
 	}, [token, APIRequest, setUsername, setProfilePicture]);
 
 	function navigateToProfile() {
-		if (username) changeLocation("/u/" + username);
+		if (username) {
+			changeLocation("/u/" + username);
+		} else {
+			changeLocation("/login");
+		}
 	}
 
 	function navigateToSearch() {

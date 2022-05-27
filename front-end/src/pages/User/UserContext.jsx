@@ -6,11 +6,11 @@ import { RoutesContext } from "../../context/RoutesContext";
 export const UserContext = createContext();
 
 const UserProvider = ({ children, user_username }) => {
+	const [isAuthorizedToModify, setIsAuthorizedToModify] = useState(false);
 	const [user, setUser] = useState(false);
 	const [profilePicture, setProfilePicture] = useState(false);
 	const [banner, setBanner] = useState(false);
 	const [stories, setStories] = useState(false);
-	const [isAuthorizedToModify, setIsAuthorizedToModify] = useState(false);
 	const [isDisplayingCreateStoryForm, setIsDisplayingCreateStoryForm] = useState(false);
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
@@ -70,18 +70,18 @@ const UserProvider = ({ children, user_username }) => {
 		return () => {
 			clearTimeout(reloadTimer);
 		};
-	}, [location, user_username, APIRequest, user, setUser, setProfilePicture, setBanner, setIsAuthorizedToModify]);
+	}, [location, user_username, APIRequest, setIsAuthorizedToModify, user, setUser, setProfilePicture, setBanner]);
 
 	return (
 		<UserContext.Provider
 			value={{
+				isAuthorizedToModify,
 				user,
 				setUser,
 				profilePicture,
 				banner,
 				stories,
 				setStories,
-				isAuthorizedToModify,
 				isDisplayingCreateStoryForm,
 				setIsDisplayingCreateStoryForm,
 			}}

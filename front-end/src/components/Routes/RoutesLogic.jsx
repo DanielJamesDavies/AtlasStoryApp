@@ -24,14 +24,14 @@ import { AppContext } from "../../context/AppContext";
 // Assets
 
 export const RoutesLogic = () => {
-	const { location, changeLocation, setParams } = useContext(RoutesContext);
-	const { authorized, username } = useContext(APIContext);
+	const { location, changeLocation } = useContext(RoutesContext);
+	const { username } = useContext(APIContext);
 	const { changeAccentColour, changeAccentColourHover } = useContext(AppContext);
 	const [renderComponent, setRenderComponent] = useState(null);
+	const [showUnauthorizedNavigationBar, setShowUnauthorizedNavigationBar] = useState(false);
 
 	useEffect(() => {
-		if (location === "/" && authorized && username) {
-			console.log(location);
+		if (location === "/" && username) {
 			setRenderComponent(null);
 			return changeLocation("/u/" + username);
 		}
@@ -42,16 +42,23 @@ export const RoutesLogic = () => {
 		if (locationSplit.length === 0) return null;
 
 		setRenderComponent(null);
+		setShowUnauthorizedNavigationBar(false);
 		switch (locationSplit[0]) {
 			case "login":
-				changeAccentColour("default");
-				changeAccentColourHover("default");
-				if (!authorized) setRenderComponent(<Login />);
+				if (!username) {
+					changeAccentColour("default");
+					changeAccentColourHover("default");
+					setShowUnauthorizedNavigationBar(true);
+					setRenderComponent(<Login />);
+				}
 				break;
 			case "register":
-				changeAccentColour("default");
-				changeAccentColourHover("default");
-				if (!authorized) setRenderComponent(<Register />);
+				if (!username) {
+					changeAccentColour("default");
+					changeAccentColourHover("default");
+					setShowUnauthorizedNavigationBar(true);
+					setRenderComponent(<Register />);
+				}
 				break;
 			case "u":
 				changeAccentColour("default");
@@ -89,9 +96,10 @@ export const RoutesLogic = () => {
 				changeAccentColour("default");
 				changeAccentColourHover("default");
 				setRenderComponent(null);
+				setShowUnauthorizedNavigationBar(true);
 				break;
 		}
-	}, [authorized, username, location, changeLocation, setRenderComponent, setParams]);
+	}, [username, location, changeLocation, setRenderComponent, setShowUnauthorizedNavigationBar, changeAccentColour, changeAccentColourHover]);
 
-	return { renderComponent };
+	return { renderComponent, showUnauthorizedNavigationBar };
 };

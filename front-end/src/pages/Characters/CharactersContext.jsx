@@ -12,6 +12,7 @@ const CharactersProvider = ({ children, story_url }) => {
 	const [storyIcon, setStoryIcon] = useState(false);
 	const [groups, setGroups] = useState(false);
 	const [openGroup, setOpenGroup] = useState(0);
+	const [isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm] = useState(false);
 	const [isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm] = useState(false);
 	const { APIRequest } = useContext(APIContext);
 	const { changeAccentColour, changeAccentColourHover } = useContext(AppContext);
@@ -113,6 +114,8 @@ const CharactersProvider = ({ children, story_url }) => {
 				setGroups,
 				openGroup,
 				setOpenGroup,
+				isDisplayingCreateGroupForm,
+				setIsDisplayingCreateGroupForm,
 				isDisplayingCreateCharacterForm,
 				setIsDisplayingCreateCharacterForm,
 			}}
