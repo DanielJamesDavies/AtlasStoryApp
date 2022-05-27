@@ -8,21 +8,21 @@ module.exports = async (req, res) => {
 			.catch((err) => {
 				res.status(200).send({ error: err });
 			});
-		if (!user) return res.status(200).send({ error: "User Not Found" });
+		if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
 		let newUser = JSON.parse(JSON.stringify(user));
 		delete newUser.password;
 
 		return res.status(200).send({
 			message: "Success",
-			data: { user: newUser, isAuthorizedUser: getIsAuthorizedUser(req?.cookies?.AtlasStoryAppToken, user._id) },
+			data: { user: newUser, isAuthorizedToModify: getIsAuthorizedToModify(req?.cookies?.AtlasStoryAppToken, newUser._id) },
 		});
 	}
 
 	try {
 		var { user_id } = jwt_decode(req?.cookies?.AtlasStoryAppToken);
 	} catch (error) {
-		return res.status(200).send({ error: "Authentication Error" });
+		return res.status(200).send({ errors: [{ message: "Authentication Error" }] });
 	}
 
 	let user = await User.findById(user_id)
@@ -30,12 +30,15 @@ module.exports = async (req, res) => {
 		.catch((err) => {
 			res.status(200).send({ error: err });
 		});
-	if (!user) return res.status(200).send({ error: "User Not Found" });
+	if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
-	res.status(200).send({ message: "Success", data: { user, isAuthorizedUser: true } });
+	res.status(200).send({
+		message: "Success",
+		data: { user, isAuthorizedToModify: true },
+	});
 };
 
-function getIsAuthorizedUser(AtlasStoryAppToken, user_id) {
+function getIsAuthorizedToModify(AtlasStoryAppToken, user_id) {
 	// Is Authorized User
 	var isAuthorizedUser = false;
 	try {

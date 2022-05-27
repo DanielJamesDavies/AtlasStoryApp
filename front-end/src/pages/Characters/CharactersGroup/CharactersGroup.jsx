@@ -18,7 +18,7 @@ import "./CharactersGroup.css";
 // Assets
 
 export const CharactersGroup = () => {
-	const { groups, openGroup, navigateToGroup, openCreateCharacterForm } = CharactersGroupLogic();
+	const { isAuthorizedToModify, groups, openGroup, navigateToGroup, openCreateCharacterForm } = CharactersGroupLogic();
 
 	return (
 		<div className='characters-group'>
@@ -27,9 +27,11 @@ export const CharactersGroup = () => {
 				<button className='characters-group-primary-open-group-btn' onClick={navigateToGroup}>
 					Open Group
 				</button>
-				<button className='characters-group-primary-create-character-btn' onClick={openCreateCharacterForm}>
-					<FaUserPlus />
-				</button>
+				{!isAuthorizedToModify ? null : (
+					<button className='characters-group-primary-create-character-btn' onClick={openCreateCharacterForm}>
+						<FaUserPlus />
+					</button>
+				)}
 			</div>
 			<CharactersGroupCharacterCards />
 			<CharactersCreateCharacter />

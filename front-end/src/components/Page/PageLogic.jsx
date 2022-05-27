@@ -19,9 +19,8 @@ export const PageLogic = () => {
 	const [pageStyles, setPageStyles] = useState({ "--accentColour": accentColour, "--accentColourHover": accentColourHover });
 
 	useEffect(() => {
-		console.log(accentColour);
 		setPageStyles({ "--accentColour": accentColour, "--accentColourHover": accentColourHover });
-	}, [accentColour]);
+	}, [accentColour, accentColourHover]);
 
 	return { pageStyles };
 };

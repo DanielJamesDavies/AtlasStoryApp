@@ -7,6 +7,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 export const StoryContext = createContext();
 
 const StoryProvider = ({ children, story_url }) => {
+	const [isAuthorizedToModify, setIsAuthorizedToModify] = useState(false);
 	const [story, setStory] = useState(false);
 	const [members, setMembers] = useState([]);
 	const [icon, setIcon] = useState(false);
@@ -23,16 +24,17 @@ const StoryProvider = ({ children, story_url }) => {
 
 			// Story Data
 			const response = await APIRequest("/story?url=" + story_url, "GET");
-			if (!response?.data?.story || response?.error) {
+			if (!response?.data?.story || response?.error || story_url !== response.data.story.url) {
 				setStory(false);
 				setIcon(false);
 				setBanner(false);
+				setIsAuthorizedToModify(false);
 				return;
 			}
 
-			if (story_url !== response.data.story.url) return;
-
 			setStory(response.data.story);
+
+			setIsAuthorizedToModify(response?.data?.isAuthorizedToModify);
 
 			if (response?.data?.story?.data?.colours?.accent) changeAccentColour(response.data.story.data.colours.accent);
 			if (response?.data?.story?.data?.colours?.accentHover) changeAccentColourHover(response.data.story.data.colours.accentHover);
@@ -94,6 +96,7 @@ const StoryProvider = ({ children, story_url }) => {
 		setIcon,
 		setBanner,
 		setPrimaryCharacters,
+		setIsAuthorizedToModify,
 		changeAccentColour,
 		changeAccentColourHover,
 	]);
@@ -107,6 +110,7 @@ const StoryProvider = ({ children, story_url }) => {
 				icon,
 				banner,
 				primaryCharacters,
+				isAuthorizedToModify,
 			}}
 		>
 			{children}

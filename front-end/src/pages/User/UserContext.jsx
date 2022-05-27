@@ -10,7 +10,7 @@ const UserProvider = ({ children, user_username }) => {
 	const [profilePicture, setProfilePicture] = useState(false);
 	const [banner, setBanner] = useState(false);
 	const [stories, setStories] = useState(false);
-	const [isAuthorizedUserProfile, setIsAuthorizedUserProfile] = useState(false);
+	const [isAuthorizedToModify, setIsAuthorizedToModify] = useState(false);
 	const [isDisplayingCreateStoryForm, setIsDisplayingCreateStoryForm] = useState(false);
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
@@ -28,11 +28,11 @@ const UserProvider = ({ children, user_username }) => {
 				setUser(false);
 				setProfilePicture(false);
 				setBanner(false);
-				setIsAuthorizedUserProfile(false);
+				setIsAuthorizedToModify(false);
 				return;
 			}
 
-			setIsAuthorizedUserProfile(response.data?.isAuthorizedUser);
+			setIsAuthorizedToModify(response.data?.isAuthorizedToModify);
 
 			if (user_username === response.data.user.username) setUser(response.data.user);
 
@@ -70,7 +70,7 @@ const UserProvider = ({ children, user_username }) => {
 		return () => {
 			clearTimeout(reloadTimer);
 		};
-	}, [location, user_username, APIRequest, user, setUser, setProfilePicture, setBanner]);
+	}, [location, user_username, APIRequest, user, setUser, setProfilePicture, setBanner, setIsAuthorizedToModify]);
 
 	return (
 		<UserContext.Provider
@@ -81,7 +81,7 @@ const UserProvider = ({ children, user_username }) => {
 				banner,
 				stories,
 				setStories,
-				isAuthorizedUserProfile,
+				isAuthorizedToModify,
 				isDisplayingCreateStoryForm,
 				setIsDisplayingCreateStoryForm,
 			}}

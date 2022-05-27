@@ -7,6 +7,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 export const CharactersContext = createContext();
 
 const CharactersProvider = ({ children, story_url }) => {
+	const [isAuthorizedToModify, setIsAuthorizedToModify] = useState(false);
 	const [story, setStory] = useState(false);
 	const [storyIcon, setStoryIcon] = useState(false);
 	const [groups, setGroups] = useState(false);
@@ -27,11 +28,15 @@ const CharactersProvider = ({ children, story_url }) => {
 
 			// Story Data
 			const story_response = await APIRequest("/story?url=" + story_url, "GET");
-			if (!story_response?.data?.story || story_response?.error) {
+			if (!story_response?.data?.story || story_response?.error || story_response?.data?.story?.url !== story_url) {
 				setStory(false);
+				setStoryIcon(false);
 				setGroups(false);
+				setIsAuthorizedToModify(false);
 				return;
 			}
+
+			setIsAuthorizedToModify(story_response?.data?.isAuthorizedToModify);
 
 			// Groups Data
 			const group_response = await APIRequest("/group?story_id=" + story_response.data.story?._id, "GET");
@@ -84,11 +89,24 @@ const CharactersProvider = ({ children, story_url }) => {
 		return () => {
 			clearTimeout(reloadTimer);
 		};
-	}, [location, story_url, APIRequest, story, setStory, setStoryIcon, groups, setGroups, changeAccentColour, changeAccentColourHover]);
+	}, [
+		location,
+		story_url,
+		APIRequest,
+		setIsAuthorizedToModify,
+		story,
+		setStory,
+		setStoryIcon,
+		groups,
+		setGroups,
+		changeAccentColour,
+		changeAccentColourHover,
+	]);
 
 	return (
 		<CharactersContext.Provider
 			value={{
+				isAuthorizedToModify,
 				story,
 				storyIcon,
 				groups,
