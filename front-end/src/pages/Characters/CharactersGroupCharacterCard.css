@@ -41,7 +41,7 @@
 
 .characters-group-character-card-info-container {
 	position: absolute;
-	top: calc(357px - 8px);
+	top: calc(363px - 8px);
 	left: 50%;
 	transform: translateX(-50%);
 	width: calc(100% - 16px);
@@ -56,24 +56,30 @@
 }
 
 .characters-group-character-card-info-item-label {
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: 400;
 }
 
 .characters-group-character-card-info-item-value {
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: 700;
 }
 
 @media (max-width: 700px) {
 	.characters-group-character-card {
 		border-width: 4px;
-		width: 260px;
-		height: 358px;
+		width: calc(100vw - 24px - 8px - 24px);
+		max-width: calc((100vh - 70px - 8px - 12px - 8px - 24px - 39px - 24px) * (441 / 607));
+		height: calc((100vw - 24px - 8px - 24px) * (607 / 441));
+		max-height: calc(100vh - 70px - 8px - 12px - 8px - 24px - 39px - 24px);
+	}
+
+	.characters-group-character-card-top-name {
+		font-size: 20px;
 	}
 
 	.characters-group-character-card-info-container {
-		top: calc(188px - 8px);
+		top: calc(289px - 12px);
 	}
 
 	.characters-group-character-card-info-item {
@@ -86,10 +92,10 @@
 	}
 
 	.characters-group-character-card-info-item-label {
-		font-size: 13px;
+		font-size: 12px;
 	}
 
 	.characters-group-character-card-info-item-value {
-		font-size: 14px;
+		font-size: 13px;
 	}
 }

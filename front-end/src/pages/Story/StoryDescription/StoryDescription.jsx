@@ -18,11 +18,11 @@ import "./StoryDescription.css";
 export const StoryDescription = () => {
 	const { story } = StoryDescriptionLogic();
 
-	if (story?.description)
+	if (story?.data?.description)
 		return (
 			<div className='story-description'>
 				<div className='story-description-title'>Description</div>
-				<Text value={story.description} />
+				<Text value={story.data.description} />
 			</div>
 		);
 };

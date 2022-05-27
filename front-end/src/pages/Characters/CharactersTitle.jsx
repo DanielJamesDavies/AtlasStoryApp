@@ -20,9 +20,9 @@ export const CharactersTitle = () => {
 	return (
 		<div className='characters-title'>
 			<div className='characters-title-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
-			{!story?.title ? null : (
+			{!story?.data?.title ? null : (
 				<>
-					<div className='characters-title-story-title'>{story?.title}</div>
+					<div className='characters-title-story-title'>{story?.data?.title}</div>
 					<div className='characters-title-divider'>|</div>
 					<div className='characters-title-characters-label'>Characters</div>
 				</>

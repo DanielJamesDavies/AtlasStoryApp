@@ -30,9 +30,9 @@ const StoryProvider = ({ children, story_url }) => {
 
 			if (story_url === response.data.story.url) setStory(response.data.story);
 
-			if (response.data.story?.members) getStoryMembers(response.data.story.members);
-			if (response.data.story?.icon) getStoryIcon(response.data.story.icon);
-			if (response.data.story?.banner) getStoryBanner(response.data.story.banner);
+			if (response.data.story?.data?.members) getStoryMembers(response.data.story.data.members);
+			if (response.data.story?.data?.icon) getStoryIcon(response.data.story.data.icon);
+			if (response.data.story?.data?.banner) getStoryBanner(response.data.story.data.banner);
 			if (response.data.story?._id) getStoryPrimaryCharacter(response.data.story._id);
 		}
 

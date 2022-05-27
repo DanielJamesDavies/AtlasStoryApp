@@ -17,11 +17,11 @@ import "./StoryGenres.css";
 export const StoryGenres = () => {
 	const { story } = StoryGenresLogic();
 
-	if (story?.genres)
+	if (story?.data?.genres)
 		return (
 			<div className='story-genres'>
 				<div className='story-genres-label'>Genres</div>
-				<p className='story-genres-value'>{story.genres}</p>
+				<p className='story-genres-value'>{story.data.genres}</p>
 			</div>
 		);
 };

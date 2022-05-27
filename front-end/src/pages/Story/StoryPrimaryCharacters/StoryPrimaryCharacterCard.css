@@ -41,7 +41,7 @@
 
 .story-primary-character-card-info-container {
 	position: absolute;
-	top: calc(267px - 8px);
+	top: calc(270px - 8px);
 	left: 50%;
 	transform: translateX(-50%);
 	width: calc(100% - 16px);
@@ -56,12 +56,12 @@
 }
 
 .story-primary-character-card-info-item-label {
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: 400;
 }
 
 .story-primary-character-card-info-item-value {
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: 700;
 }
 
@@ -73,14 +73,14 @@
 	}
 
 	.story-primary-character-card-info-container {
-		top: calc(188px - 8px);
+		top: calc(200px - 12px);
 	}
 
 	.story-primary-character-card-info-item-label {
-		font-size: 13px;
+		font-size: 12px;
 	}
 
 	.story-primary-character-card-info-item-value {
-		font-size: 14px;
+		font-size: 12px;
 	}
 }

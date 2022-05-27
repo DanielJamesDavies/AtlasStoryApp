@@ -24,13 +24,13 @@ export const StoryPrimary = () => {
 			<div className='story-primary-break'></div>
 			<div className='story-primary-icon'>{!icon ? null : <img src={icon} alt='' />}</div>
 			<div className='story-primary-main-info'>
-				<div className='story-primary-main-info-title'>{story?.title}</div>
+				<div className='story-primary-main-info-title'>{story?.data?.title}</div>
 				<div className='story-primary-main-info-creators'>
-					{members?.length === 0 ? null : "By "}
+					{!Array.isArray(members) || members?.length === 0 ? null : "By "}
 					{members.map((member, index) => (
 						<p key={index} className='story-primary-main-info-creator'>
 							{member?.nickname}
-							{story.members.length - 1 === index ? null : ","}
+							{members.length - 1 === index ? null : ","}
 						</p>
 					))}
 				</div>

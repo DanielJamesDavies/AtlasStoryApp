@@ -29,7 +29,7 @@ const SubstoriesProvider = ({ children, story_url }) => {
 
 			if (story_url === story_response.data.story.url) {
 				setStory(story_response.data.story);
-				if (story_response.data.story?.icon) getStoryIcon(story_response.data.story.icon);
+				if (story_response.data.story?.data?.icon) getStoryIcon(story_response.data.story.data.icon);
 			}
 		}
 

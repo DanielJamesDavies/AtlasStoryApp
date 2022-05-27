@@ -20,9 +20,9 @@ export const WorldTitle = () => {
 	return (
 		<div className='world-title'>
 			<div className='world-title-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
-			{!story?.title ? null : (
+			{!story?.data?.title ? null : (
 				<>
-					<div className='world-title-story-title'>{story?.title}</div>
+					<div className='world-title-story-title'>{story?.data?.title}</div>
 					<div className='world-title-divider'>|</div>
 					<div className='world-title-world-label'>World</div>
 				</>
