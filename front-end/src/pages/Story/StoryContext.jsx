@@ -42,7 +42,7 @@ const StoryProvider = ({ children, story_url }) => {
 			if (response.data.story?.data?.members) getStoryMembers(response.data.story.data.members);
 			if (response.data.story?.data?.icon) getStoryIcon(response.data.story.data.icon);
 			if (response.data.story?.data?.banner) getStoryBanner(response.data.story.data.banner);
-			if (response.data.story?._id) getStoryPrimaryCharacter(response.data.story._id);
+			if (response.data.story?.data?.primaryCharacters) getStoryPrimaryCharacters(response.data.story.data.primaryCharacters);
 		}
 
 		async function getStoryMembers(members) {
@@ -74,13 +74,24 @@ const StoryProvider = ({ children, story_url }) => {
 			setBanner(response.data.image);
 		}
 
-		async function getStoryPrimaryCharacter(storyID) {
-			const response = await APIRequest("/character/primary-character?story_id=" + storyID, "GET");
-			if (response?.error || !response?.data?.characters) return setPrimaryCharacters(false);
-			setPrimaryCharacters(response.data.characters);
+		async function getStoryPrimaryCharacters(primaryCharactersIDs) {
+			let newPrimaryCharacters = await Promise.all(
+				primaryCharactersIDs.map(async (primaryCharacterID) => {
+					return await getStoryPrimaryCharacter(primaryCharacterID);
+				})
+			);
+			newPrimaryCharacters = newPrimaryCharacters.filter((e) => e !== false);
+			setPrimaryCharacters(newPrimaryCharacters);
 		}
 
-		if (story.url !== story_url) getStory();
+		async function getStoryPrimaryCharacter(characterID) {
+			const character_response = await APIRequest("/character/" + characterID, "GET");
+			if (character_response?.errors || !character_response?.data?.character) return false;
+
+			return character_response.data.character;
+		}
+
+		getStory();
 
 		let reloadTimer = setTimeout(() => getStory(), 1);
 		return () => {

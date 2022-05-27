@@ -29,6 +29,7 @@ export const CookiesConsentPopUpLogic = () => {
 
 	async function rejectCookies() {
 		await APIRequest("/cookies-consent/", "POST", { cookiesConsent: false });
+		setShowPopUp(false);
 	}
 
 	const [isShowingWhatFor, setIsShowingWhatFor] = useState(false);

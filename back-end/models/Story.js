@@ -51,6 +51,8 @@ const StorySchema = mongoose.Schema({
 				accent: String,
 				accentHover: String,
 			},
+			groups: [mongoose.Schema.Types.ObjectId],
+			primaryCharacters: [mongoose.Schema.Types.ObjectId],
 		},
 		required: true,
 	},

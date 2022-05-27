@@ -39,38 +39,42 @@ const CharactersProvider = ({ children, story_url }) => {
 
 			setIsAuthorizedToModify(story_response?.data?.isAuthorizedToModify);
 
-			// Groups Data
-			const group_response = await APIRequest("/group?story_id=" + story_response.data.story?._id, "GET");
-			if (!group_response?.data?.groups || group_response?.error) {
-				setStory(false);
-				setGroups(false);
-				return;
-			}
+			if (story_response.data.story?.data?.icon) getStoryIcon(story_response.data.story.data.icon);
 
-			group_response.data.groups = await Promise.all(
-				group_response.data.groups.map(async (group) => {
-					group.data.characters = await getGroupCharacters(group.data.characters);
-					return group;
+			// Groups Data
+			if (!story_response.data.story?.data?.groups) return;
+
+			let newGroups = await Promise.all(
+				story_response.data.story.data.groups.map(async (groupID) => {
+					return await getGroup(groupID);
 				})
 			);
+			newGroups = newGroups.filter((e) => e !== false);
 
 			if (story_url !== story_response.data.story.url) return;
 
 			setStory(story_response.data.story);
+			setGroups(newGroups);
 
 			if (story_response?.data?.story?.data?.colours?.accent) changeAccentColour(story_response.data.story.data.colours.accent);
 			if (story_response?.data?.story?.data?.colours?.accentHover)
 				changeAccentColourHover(story_response.data.story.data.colours.accentHover);
-
-			setGroups(group_response.data.groups);
-
-			if (story_response.data.story?.data?.icon) getStoryIcon(story_response.data.story.data.icon);
 		}
 
 		async function getStoryIcon(iconID) {
 			const response = await APIRequest("/image/" + iconID, "GET");
 			if (response?.error || !response?.data?.image) return setStoryIcon(false);
 			setStoryIcon(response.data.image);
+		}
+
+		async function getGroup(groupID) {
+			const group_response = await APIRequest("/group/" + groupID, "GET");
+			if (group_response?.errors || !group_response?.data?.group) return false;
+
+			if (!group_response.data.group?.data?.characters) return group_response.data.group;
+			group_response.data.group.data.characters = await getGroupCharacters(group_response.data.group.data.characters);
+
+			return group_response.data.group;
 		}
 
 		async function getGroupCharacters(groupCharacters) {
