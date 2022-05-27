@@ -4,14 +4,14 @@
 	border: 0;
 	border-radius: 8px;
 
-	background: var(--blue);
+	background: var(--accentColour);
 	color: #fff;
 	transition: 0.2s;
 	cursor: pointer;
 }
 
 .submit-btn:hover {
-	background: var(--blue2);
+	background: var(--accentColourHover);
 }
 
 .submit-btn-text {

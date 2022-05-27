@@ -31,8 +31,8 @@ const StorySchema = mongoose.Schema({
 							type: mongoose.Schema.Types.ObjectId,
 							require: true,
 						},
-						canEdit: {
-							type: Boolean,
+						type: {
+							type: String,
 							require: true,
 						},
 					},
@@ -47,6 +47,10 @@ const StorySchema = mongoose.Schema({
 			cover: mongoose.Schema.Types.ObjectId,
 			description: Array,
 			genres: String,
+			colours: {
+				accent: String,
+				accentHover: String,
+			},
 		},
 		required: true,
 	},

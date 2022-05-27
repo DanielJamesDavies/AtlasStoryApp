@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 
 import { APIContext } from "../../context/APIContext";
+import { AppContext } from "../../context/AppContext";
 import { RoutesContext } from "../../context/RoutesContext";
 
 export const StoryContext = createContext();
@@ -12,6 +13,7 @@ const StoryProvider = ({ children, story_url }) => {
 	const [banner, setBanner] = useState(false);
 	const [primaryCharacters, setPrimaryCharacters] = useState(false);
 	const { APIRequest } = useContext(APIContext);
+	const { changeAccentColour, changeAccentColourHover } = useContext(AppContext);
 	const { location } = useContext(RoutesContext);
 
 	useEffect(() => {
@@ -28,7 +30,12 @@ const StoryProvider = ({ children, story_url }) => {
 				return;
 			}
 
-			if (story_url === response.data.story.url) setStory(response.data.story);
+			if (story_url !== response.data.story.url) return;
+
+			setStory(response.data.story);
+
+			if (response?.data?.story?.data?.colours?.accent) changeAccentColour(response.data.story.data.colours.accent);
+			if (response?.data?.story?.data?.colours?.accentHover) changeAccentColourHover(response.data.story.data.colours.accentHover);
 
 			if (response.data.story?.data?.members) getStoryMembers(response.data.story.data.members);
 			if (response.data.story?.data?.icon) getStoryIcon(response.data.story.data.icon);
@@ -77,7 +84,19 @@ const StoryProvider = ({ children, story_url }) => {
 		return () => {
 			clearTimeout(reloadTimer);
 		};
-	}, [location, story_url, APIRequest, story, setStory, setMembers, setIcon, setBanner, setPrimaryCharacters]);
+	}, [
+		location,
+		story_url,
+		APIRequest,
+		story,
+		setStory,
+		setMembers,
+		setIcon,
+		setBanner,
+		setPrimaryCharacters,
+		changeAccentColour,
+		changeAccentColourHover,
+	]);
 
 	return (
 		<StoryContext.Provider

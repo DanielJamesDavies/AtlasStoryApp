@@ -42,22 +42,6 @@
 	text-align: right;
 }
 
-.characters-create-character-form-submit-btn {
-	margin: 0;
-	padding: 8px 16px;
-	border: 0;
-	border-radius: 8px;
-
-	background: var(--blue);
-	color: #fff;
-	transition: 0.2s;
-	cursor: pointer;
-}
-
-.characters-create-character-form-submit-btn:hover {
-	background: var(--blue2);
-}
-
 .characters-create-character-form-submit-btn-text {
 	display: inline-block;
 	vertical-align: middle;

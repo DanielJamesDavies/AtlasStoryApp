@@ -5,7 +5,7 @@
 	display: inline-block;
 	margin: 4px;
 	margin-left: -120px;
-	border: 6px solid var(--blue);
+	border: 6px solid var(--accentColour);
 	border-radius: 16px;
 
 	width: 305px;

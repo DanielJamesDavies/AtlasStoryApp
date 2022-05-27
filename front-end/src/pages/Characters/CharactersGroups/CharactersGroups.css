@@ -35,11 +35,11 @@
 }
 
 .characters-groups-group-item-active {
-	background: var(--blue);
+	background: var(--accentColour);
 }
 
 .characters-groups-group-item-active:hover {
-	background: var(--blue2);
+	background: var(--accentColourHover);
 }
 
 @media (max-width: 950px) {

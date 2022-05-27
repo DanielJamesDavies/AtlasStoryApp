@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 
 import { APIContext } from "../../context/APIContext";
+import { AppContext } from "../../context/AppContext";
 import { RoutesContext } from "../../context/RoutesContext";
 
 export const CharactersContext = createContext();
@@ -12,6 +13,7 @@ const CharactersProvider = ({ children, story_url }) => {
 	const [openGroup, setOpenGroup] = useState(0);
 	const [isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm] = useState(false);
 	const { APIRequest } = useContext(APIContext);
+	const { changeAccentColour, changeAccentColourHover } = useContext(AppContext);
 	const { location } = useContext(RoutesContext);
 
 	useEffect(() => {
@@ -46,11 +48,17 @@ const CharactersProvider = ({ children, story_url }) => {
 				})
 			);
 
-			if (story_url === story_response.data.story.url) {
-				setStory(story_response.data.story);
-				setGroups(group_response.data.groups);
-				if (story_response.data.story?.data?.icon) getStoryIcon(story_response.data.story.data.icon);
-			}
+			if (story_url !== story_response.data.story.url) return;
+
+			setStory(story_response.data.story);
+
+			if (story_response?.data?.story?.data?.colours?.accent) changeAccentColour(story_response.data.story.data.colours.accent);
+			if (story_response?.data?.story?.data?.colours?.accentHover)
+				changeAccentColourHover(story_response.data.story.data.colours.accentHover);
+
+			setGroups(group_response.data.groups);
+
+			if (story_response.data.story?.data?.icon) getStoryIcon(story_response.data.story.data.icon);
 		}
 
 		async function getStoryIcon(iconID) {
@@ -76,7 +84,7 @@ const CharactersProvider = ({ children, story_url }) => {
 		return () => {
 			clearTimeout(reloadTimer);
 		};
-	}, [location, story_url, APIRequest, story, setStory, setStoryIcon, groups, setGroups]);
+	}, [location, story_url, APIRequest, story, setStory, setStoryIcon, groups, setGroups, changeAccentColour, changeAccentColourHover]);
 
 	return (
 		<CharactersContext.Provider

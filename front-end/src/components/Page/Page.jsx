@@ -4,6 +4,7 @@
 import { RoutesContainer } from "../Routes/RoutesContainer";
 
 // Logic
+import { PageLogic } from "./PageLogic";
 
 // Context
 
@@ -15,8 +16,10 @@ import "./Page.css";
 // Assets
 
 export const Page = () => {
+	const { pageStyles } = PageLogic();
+
 	return (
-		<div className='page'>
+		<div className='page' style={pageStyles}>
 			<RoutesContainer />
 		</div>
 	);

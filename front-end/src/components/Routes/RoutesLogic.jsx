@@ -15,6 +15,7 @@ import { WorldContainer } from "../../pages/World/WorldContainer";
 // Context
 import { RoutesContext } from "../../context/RoutesContext";
 import { APIContext } from "../../context/APIContext";
+import { AppContext } from "../../context/AppContext";
 
 // Services
 
@@ -25,6 +26,7 @@ import { APIContext } from "../../context/APIContext";
 export const RoutesLogic = () => {
 	const { location, changeLocation, setParams } = useContext(RoutesContext);
 	const { authorized, username } = useContext(APIContext);
+	const { changeAccentColour, changeAccentColourHover } = useContext(AppContext);
 	const [renderComponent, setRenderComponent] = useState(null);
 
 	useEffect(() => {
@@ -42,12 +44,18 @@ export const RoutesLogic = () => {
 		setRenderComponent(null);
 		switch (locationSplit[0]) {
 			case "login":
+				changeAccentColour("default");
+				changeAccentColourHover("default");
 				if (!authorized) setRenderComponent(<Login />);
 				break;
 			case "register":
+				changeAccentColour("default");
+				changeAccentColourHover("default");
 				if (!authorized) setRenderComponent(<Register />);
 				break;
 			case "u":
+				changeAccentColour("default");
+				changeAccentColourHover("default");
 				setRenderComponent(<UserContainer user_username={locationSplit[1]} />);
 				break;
 			case "s":
@@ -78,6 +86,8 @@ export const RoutesLogic = () => {
 				}
 				break;
 			default:
+				changeAccentColour("default");
+				changeAccentColourHover("default");
 				setRenderComponent(null);
 				break;
 		}

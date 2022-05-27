@@ -49,7 +49,7 @@
 	height: 46px;
 
 	background: #00000000;
-	color: var(--blue);
+	color: var(--accentColour);
 	font-size: 24px;
 	text-align: center;
 	transition: 0.2s;
@@ -57,7 +57,7 @@
 }
 
 .navigation-bar-btn:hover {
-	background: var(--blue);
+	background: var(--accentColour);
 	color: #fff;
 }
 
