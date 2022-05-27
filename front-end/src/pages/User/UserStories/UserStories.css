@@ -19,6 +19,8 @@
 
 .user-stories-top-items-count {
 	display: inline-block;
+	margin-top: 2px;
+	margin-bottom: -2px;
 	margin-left: 12px;
 	font-size: 18px;
 	color: #dddddd;
@@ -37,8 +39,8 @@
 	width: 40px;
 	height: 40px;
 
-	background: var(--grey2);
-	color: var(--blue);
+	background: var(--blue);
+	color: #fff;
 	font-size: 20px;
 	text-align: center;
 	vertical-align: middle;
@@ -47,8 +49,7 @@
 }
 
 .user-stories-top-create-story-btn:hover {
-	background: var(--blue);
-	color: #fff;
+	background: var(--blue2);
 }
 
 .user-stories-top-create-story-btn svg {

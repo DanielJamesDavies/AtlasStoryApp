@@ -1,7 +1,9 @@
 // Packages
+import { FaUserPlus } from "react-icons/fa";
 
 // Components
-import { CharactersGroupCharacterCard } from "./CharactersGroupCharacterCard";
+import { CharactersGroupCharacterCards } from "./CharactersGroupCharacterCards";
+import { CharactersCreateCharacter } from "./CharactersCreateCharacter";
 
 // Logic
 import { CharactersGroupLogic } from "./CharactersGroupLogic";
@@ -16,7 +18,7 @@ import "./CharactersGroup.css";
 // Assets
 
 export const CharactersGroup = () => {
-	const { groups, openGroup, navigateToGroup } = CharactersGroupLogic();
+	const { groups, openGroup, navigateToGroup, openCreateCharacterForm } = CharactersGroupLogic();
 
 	return (
 		<div className='characters-group'>
@@ -25,14 +27,12 @@ export const CharactersGroup = () => {
 				<button className='characters-group-primary-open-group-btn' onClick={navigateToGroup}>
 					Open Group
 				</button>
+				<button className='characters-group-primary-create-character-btn' onClick={openCreateCharacterForm}>
+					<FaUserPlus />
+				</button>
 			</div>
-			<div className='characters-group-characters-cards-container'>
-				{!groups
-					? null
-					: groups[openGroup]?.data?.characters.map((character, index) => (
-							<CharactersGroupCharacterCard key={index} character={character} />
-					  ))}
-			</div>
+			<CharactersGroupCharacterCards />
+			<CharactersCreateCharacter />
 		</div>
 	);
 };

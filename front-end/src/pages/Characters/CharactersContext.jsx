@@ -10,6 +10,7 @@ const CharactersProvider = ({ children, story_url }) => {
 	const [storyIcon, setStoryIcon] = useState(false);
 	const [groups, setGroups] = useState(false);
 	const [openGroup, setOpenGroup] = useState(0);
+	const [isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm] = useState(false);
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
 
@@ -78,7 +79,20 @@ const CharactersProvider = ({ children, story_url }) => {
 	}, [location, story_url, APIRequest, story, setStory, setStoryIcon, groups, setGroups]);
 
 	return (
-		<CharactersContext.Provider value={{ story, storyIcon, groups, setGroups, openGroup, setOpenGroup }}>{children}</CharactersContext.Provider>
+		<CharactersContext.Provider
+			value={{
+				story,
+				storyIcon,
+				groups,
+				setGroups,
+				openGroup,
+				setOpenGroup,
+				isDisplayingCreateCharacterForm,
+				setIsDisplayingCreateCharacterForm,
+			}}
+		>
+			{children}
+		</CharactersContext.Provider>
 	);
 };
 

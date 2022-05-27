@@ -1,0 +1,44 @@
+.characters-group-characters-cards-container {
+	position: relative;
+	width: 100%;
+}
+
+.characters-group-characters-cards {
+	display: flex;
+	padding-bottom: 8px;
+	overflow-x: overlay;
+}
+
+.characters-group-characters-cards::-webkit-scrollbar {
+	border-radius: 4px;
+	height: 6px;
+	background: transparent;
+	background: var(--grey1);
+}
+
+.characters-group-characters-cards::-webkit-scrollbar-thumb:horizontal {
+	border-radius: 4px;
+	background: var(--blue);
+}
+
+.characters-group-characters-cards-scroll-left,
+.characters-group-characters-cards-scroll-right {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	display: block;
+	z-index: 3;
+
+	width: 48px;
+	height: 100%;
+
+	background: rgba(0, 0, 0, 0);
+}
+
+.characters-group-characters-cards-scroll-left {
+	left: 0px;
+}
+
+.characters-group-characters-cards-scroll-right {
+	right: 0px;
+}
