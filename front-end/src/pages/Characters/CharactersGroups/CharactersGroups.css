@@ -2,7 +2,7 @@
 	flex-shrink: 0;
 	display: inline-block;
 	border-radius: 4px;
-	width: 240px;
+	width: 280px;
 	vertical-align: top;
 }
 
@@ -19,11 +19,14 @@
 	vertical-align: middle;
 }
 
-.characters-group-primary-create-group-btn {
+.characters-groups-primary-modify-buttons-container {
+	margin-left: auto;
+}
+
+.characters-groups-primary-modify-btn {
 	position: relative;
 	display: inline-block;
-	margin: 0;
-	margin-left: auto;
+	margin: 0 4px;
 	padding: 0;
 	border: 0;
 	border-radius: 100%;
@@ -33,23 +36,31 @@
 
 	background: var(--accentColour);
 	color: #fff;
-	font-size: 20px;
+	font-size: 22px;
 	text-align: center;
 	vertical-align: middle;
 	transition: 0.2s;
 	cursor: pointer;
 }
 
-.characters-group-primary-create-group-btn:hover {
-	background: var(--accentColourHover);
+.characters-groups-primary-modify-btn:hover {
+	background: var(--accentHoverColour);
 }
 
-.characters-group-primary-create-group-btn svg {
+.characters-groups-primary-modify-btn:last-child {
+	margin-right: 0;
+}
+
+.characters-groups-primary-modify-btn svg {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 100%;
+}
+
+.characters-groups-primary-modify-btn-reorder-groups {
+	font-size: 24px;
 }
 
 .characters-groups-group-item {
@@ -78,7 +89,7 @@
 }
 
 .characters-groups-group-item-active:hover {
-	background: var(--accentColourHover);
+	background: var(--accentHoverColour);
 }
 
 @media (max-width: 950px) {

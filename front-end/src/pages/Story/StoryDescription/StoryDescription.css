@@ -1,11 +1,16 @@
 .story-description {
 	margin: 12px 0;
-	padding: 24px;
+	padding: 12px;
 	border-radius: 4px;
-	background: var(--grey2);
 }
 
 .story-description-title {
 	font-size: 24px;
 	font-weight: 700;
+}
+
+@media (max-width: 700px) {
+	.story-description {
+		padding: 12px 6px;
+	}
 }

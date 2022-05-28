@@ -14,7 +14,7 @@ const StoryProvider = ({ children, story_url }) => {
 	const [banner, setBanner] = useState(false);
 	const [primaryCharacters, setPrimaryCharacters] = useState(false);
 	const { APIRequest } = useContext(APIContext);
-	const { changeAccentColour, changeAccentColourHover } = useContext(AppContext);
+	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { location } = useContext(RoutesContext);
 
 	useEffect(() => {
@@ -37,7 +37,7 @@ const StoryProvider = ({ children, story_url }) => {
 			setIsAuthorizedToModify(response?.data?.isAuthorizedToModify);
 
 			if (response?.data?.story?.data?.colours?.accent) changeAccentColour(response.data.story.data.colours.accent);
-			if (response?.data?.story?.data?.colours?.accentHover) changeAccentColourHover(response.data.story.data.colours.accentHover);
+			if (response?.data?.story?.data?.colours?.accentHover) changeAccentHoverColour(response.data.story.data.colours.accentHover);
 
 			if (response.data.story?.data?.members) getStoryMembers(response.data.story.data.members);
 			if (response.data.story?.data?.icon) getStoryIcon(response.data.story.data.icon);
@@ -109,7 +109,7 @@ const StoryProvider = ({ children, story_url }) => {
 		setPrimaryCharacters,
 		setIsAuthorizedToModify,
 		changeAccentColour,
-		changeAccentColourHover,
+		changeAccentHoverColour,
 	]);
 
 	return (

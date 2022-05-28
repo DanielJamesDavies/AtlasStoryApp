@@ -1,5 +1,5 @@
 // Packages
-import { FaUserPlus } from "react-icons/fa";
+import { FaUserPlus, FaSort } from "react-icons/fa";
 
 // Components
 import { CharactersGroupCharacterCards } from "./CharactersGroupCharacterCards";
@@ -18,7 +18,8 @@ import "./CharactersGroup.css";
 // Assets
 
 export const CharactersGroup = () => {
-	const { isAuthorizedToModify, groups, openGroup, navigateToGroup, openCreateCharacterForm } = CharactersGroupLogic();
+	const { isAuthorizedToModify, groups, openGroup, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters } =
+		CharactersGroupLogic();
 
 	return (
 		<div className='characters-group'>
@@ -28,9 +29,20 @@ export const CharactersGroup = () => {
 					Open Group
 				</button>
 				{!isAuthorizedToModify ? null : (
-					<button className='characters-group-primary-create-character-btn' onClick={openCreateCharacterForm}>
-						<FaUserPlus />
-					</button>
+					<>
+						<button
+							className='characters-group-primary-modify-btn characters-group-primary-modify-btn-create-character-form'
+							onClick={openCreateCharacterForm}
+						>
+							<FaUserPlus />
+						</button>
+						<button
+							className='characters-group-primary-modify-btn characters-group-primary-modify-btn-reorder-characters'
+							onClick={toggleIsReorderingCharacters}
+						>
+							<FaSort />
+						</button>
+					</>
 				)}
 			</div>
 			<CharactersGroupCharacterCards />

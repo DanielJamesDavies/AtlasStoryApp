@@ -1,10 +1,24 @@
 .user-primary {
+	position: relative;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	padding: 0;
-	padding-bottom: 12px;
+	padding: 24px 0;
+	padding-top: 0;
 	border-radius: 4px;
+	background: var(--grey1);
+}
+
+.user-primary::after {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	display: block;
+	content: "";
+	border-radius: 4px;
+	width: 100%;
+	height: 3px;
 	background: var(--grey2);
 }
 
@@ -14,7 +28,7 @@
 	border-radius: 4px 4px 0 0;
 	width: calc(100% + 48px);
 	height: 320px;
-	background: var(--grey3);
+	background: var(--grey2);
 }
 
 .user-primary-banner img {
@@ -31,10 +45,11 @@
 
 .user-primary-profile-picture {
 	display: inline-block;
-	margin: 0 24px;
+	margin: 5px 24px;
+	margin-left: 12px;
 	border-radius: 100%;
-	width: 75px;
-	height: 75px;
+	width: 74px;
+	height: 74px;
 	vertical-align: middle;
 	background: var(--grey3);
 }
@@ -64,7 +79,7 @@
 .user-primary-auth-buttons-container {
 	display: inline-block;
 	margin-left: auto;
-	margin-right: 24px;
+	margin-right: 12px;
 	vertical-align: middle;
 }
 
@@ -79,7 +94,7 @@
 	width: 46px;
 	height: 46px;
 
-	background: var(--grey1);
+	background: var(--grey2);
 	color: var(--blue);
 	font-size: 22px;
 	text-align: center;
@@ -106,6 +121,11 @@
 }
 
 @media (max-width: 700px) {
+	.user-primary {
+		padding: 0;
+		padding-bottom: 12px;
+	}
+
 	.user-primary-banner {
 		height: 180px;
 	}
@@ -114,6 +134,7 @@
 		width: 60px;
 		height: 60px;
 	}
+
 	.user-primary-names-nickname {
 		font-size: 20px;
 	}

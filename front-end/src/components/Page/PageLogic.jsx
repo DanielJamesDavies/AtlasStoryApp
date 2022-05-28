@@ -15,12 +15,12 @@ import { AppContext } from "../../context/AppContext";
 // Assets
 
 export const PageLogic = () => {
-	const { accentColour, accentColourHover } = useContext(AppContext);
-	const [pageStyles, setPageStyles] = useState({ "--accentColour": accentColour, "--accentColourHover": accentColourHover });
+	const { accentColour, accentHoverColour } = useContext(AppContext);
+	const [pageStyles, setPageStyles] = useState({ "--accentColour": accentColour, "--accentHoverColour": accentHoverColour });
 
 	useEffect(() => {
-		setPageStyles({ "--accentColour": accentColour, "--accentColourHover": accentColourHover });
-	}, [accentColour, accentColourHover]);
+		setPageStyles({ "--accentColour": accentColour, "--accentHoverColour": accentHoverColour });
+	}, [accentColour, accentHoverColour]);
 
 	return { pageStyles };
 };

@@ -1,8 +1,7 @@
 .story-genres {
 	margin: 12px 0;
-	padding: 24px;
+	padding: 12px;
 	border-radius: 4px;
-	background: var(--grey2);
 }
 
 .story-genres-label {
@@ -23,4 +22,10 @@
 	font-weight: 400;
 	vertical-align: middle;
 	text-align: right;
+}
+
+@media (max-width: 700px) {
+	.story-genres {
+		padding: 12px 6px;
+	}
 }

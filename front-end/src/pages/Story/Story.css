@@ -6,21 +6,23 @@
 
 .story-section-1 {
 	display: inline-block;
-	margin-right: 6px;
-	width: calc(50% - 6px);
+	margin-top: 12px;
+	margin-right: 24px;
+	width: calc(50% - 24px);
 	vertical-align: top;
 }
 
 .story-section-2 {
 	display: inline-block;
-	margin-left: 6px;
-	width: calc(50% - 6px);
+	margin-top: 12px;
+	margin-left: 24px;
+	width: calc(50% - 24px);
 	vertical-align: top;
 }
 
 @media (max-width: 1050px) {
 	.story {
-		padding: 6px 12px;
+		padding: 6px;
 	}
 
 	.story-section-1,

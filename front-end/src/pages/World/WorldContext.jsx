@@ -12,7 +12,7 @@ const WorldProvider = ({ children, story_url }) => {
 	const [storyIcon, setStoryIcon] = useState(false);
 	const [world, setWorld] = useState(false);
 	const { APIRequest } = useContext(APIContext);
-	const { changeAccentColour, changeAccentColourHover } = useContext(AppContext);
+	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { location } = useContext(RoutesContext);
 
 	useEffect(() => {
@@ -38,7 +38,7 @@ const WorldProvider = ({ children, story_url }) => {
 
 			if (story_response?.data?.story?.data?.colours?.accent) changeAccentColour(story_response.data.story.data.colours.accent);
 			if (story_response?.data?.story?.data?.colours?.accentHover)
-				changeAccentColourHover(story_response.data.story.data.colours.accentHover);
+				changeAccentHoverColour(story_response.data.story.data.colours.accentHover);
 
 			if (story_response.data.story?.data?.icon) getStoryIcon(story_response.data.story.data.icon);
 		}
@@ -55,7 +55,7 @@ const WorldProvider = ({ children, story_url }) => {
 		return () => {
 			clearTimeout(reloadTimer);
 		};
-	}, [location, story_url, APIRequest, setIsAuthorizedToModify, story, setStory, setStoryIcon, changeAccentColour, changeAccentColourHover]);
+	}, [location, story_url, APIRequest, setIsAuthorizedToModify, story, setStory, setStoryIcon, changeAccentColour, changeAccentHoverColour]);
 
 	return <WorldContext.Provider value={{ isAuthorizedToModify, story, storyIcon, world, setWorld }}>{children}</WorldContext.Provider>;
 };

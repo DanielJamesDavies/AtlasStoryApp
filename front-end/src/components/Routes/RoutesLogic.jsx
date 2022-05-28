@@ -26,7 +26,7 @@ import { AppContext } from "../../context/AppContext";
 export const RoutesLogic = () => {
 	const { location, changeLocation } = useContext(RoutesContext);
 	const { username } = useContext(APIContext);
-	const { changeAccentColour, changeAccentColourHover } = useContext(AppContext);
+	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const [renderComponent, setRenderComponent] = useState(null);
 	const [showUnauthorizedNavigationBar, setShowUnauthorizedNavigationBar] = useState(false);
 
@@ -47,7 +47,7 @@ export const RoutesLogic = () => {
 			case "login":
 				if (!username) {
 					changeAccentColour("default");
-					changeAccentColourHover("default");
+					changeAccentHoverColour("default");
 					setShowUnauthorizedNavigationBar(true);
 					setRenderComponent(<Login />);
 				}
@@ -55,14 +55,14 @@ export const RoutesLogic = () => {
 			case "register":
 				if (!username) {
 					changeAccentColour("default");
-					changeAccentColourHover("default");
+					changeAccentHoverColour("default");
 					setShowUnauthorizedNavigationBar(true);
 					setRenderComponent(<Register />);
 				}
 				break;
 			case "u":
 				changeAccentColour("default");
-				changeAccentColourHover("default");
+				changeAccentHoverColour("default");
 				setRenderComponent(<UserContainer user_username={locationSplit[1]} />);
 				break;
 			case "s":
@@ -94,12 +94,12 @@ export const RoutesLogic = () => {
 				break;
 			default:
 				changeAccentColour("default");
-				changeAccentColourHover("default");
+				changeAccentHoverColour("default");
 				setRenderComponent(null);
 				setShowUnauthorizedNavigationBar(true);
 				break;
 		}
-	}, [username, location, changeLocation, setRenderComponent, setShowUnauthorizedNavigationBar, changeAccentColour, changeAccentColourHover]);
+	}, [username, location, changeLocation, setRenderComponent, setShowUnauthorizedNavigationBar, changeAccentColour, changeAccentHoverColour]);
 
 	return { renderComponent, showUnauthorizedNavigationBar };
 };

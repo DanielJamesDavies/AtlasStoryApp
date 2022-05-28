@@ -1,10 +1,24 @@
 .story-primary {
+	position: relative;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	padding: 0;
-	padding-bottom: 12px;
+	padding: 24px 0;
+	padding-top: 0;
 	border-radius: 4px;
+	background: var(--grey1);
+}
+
+.story-primary::after {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	display: block;
+	content: "";
+	border-radius: 4px;
+	width: 100%;
+	height: 3px;
 	background: var(--grey2);
 }
 
@@ -14,7 +28,7 @@
 	border-radius: 4px 4px 0 0;
 	width: calc(100% + 48px);
 	height: 320px;
-	background: var(--grey3);
+	background: var(--grey2);
 }
 
 .story-primary-banner img {
@@ -31,7 +45,8 @@
 
 .story-primary-icon {
 	display: inline-block;
-	margin: 0 24px;
+	margin: 5px 24px;
+	margin-left: 12px;
 	border-radius: 100%;
 	width: 75px;
 	height: 75px;
@@ -117,6 +132,11 @@
 }
 
 @media (max-width: 700px) {
+	.story-primary {
+		padding: 0;
+		padding-bottom: 12px;
+	}
+
 	.story-primary-banner {
 		height: 180px;
 	}

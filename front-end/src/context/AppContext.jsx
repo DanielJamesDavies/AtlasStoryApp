@@ -5,9 +5,9 @@ export const AppContext = createContext();
 const AppProvider = ({ children }) => {
 	const [isOnElectron, setIsOnElectron] = useState(false);
 	const defaultAccentColour = "#0044ff";
-	const defaultAccentColourHover = "#0088ff";
+	const defaultAccentHoverColour = "#0088ff";
 	const [accentColour, setAccentColour] = useState(defaultAccentColour);
-	const [accentColourHover, setAccentColourHover] = useState(defaultAccentColourHover);
+	const [accentHoverColour, setAccentHoverColour] = useState(defaultAccentHoverColour);
 
 	useEffect(() => {
 		const currIsOnElectron = localStorage.getItem("isOnElectron");
@@ -20,13 +20,13 @@ const AppProvider = ({ children }) => {
 		setAccentColour(newAccentColour);
 	}
 
-	function changeAccentColourHover(newAccentColourHover) {
-		if (newAccentColourHover === "default") return setAccentColourHover(defaultAccentColourHover);
-		setAccentColourHover(newAccentColourHover);
+	function changeAccentHoverColour(newaccentHoverColour) {
+		if (newaccentHoverColour === "default") return setAccentHoverColour(defaultAccentHoverColour);
+		setAccentHoverColour(newaccentHoverColour);
 	}
 
 	return (
-		<AppContext.Provider value={{ isOnElectron, accentColour, accentColourHover, changeAccentColour, changeAccentColourHover }}>
+		<AppContext.Provider value={{ isOnElectron, accentColour, accentHoverColour, changeAccentColour, changeAccentHoverColour }}>
 			{children}
 		</AppContext.Provider>
 	);

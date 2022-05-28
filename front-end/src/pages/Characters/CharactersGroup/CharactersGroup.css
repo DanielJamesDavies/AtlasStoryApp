@@ -1,9 +1,9 @@
 .characters-group {
 	flex-shrink: 0;
 	display: inline-block;
-	margin-left: 24px;
+	margin-left: 32px;
 	border-radius: 4px;
-	width: calc(100% - 24px - 240px);
+	width: calc(100% - 32px - 280px);
 	vertical-align: top;
 }
 
@@ -23,6 +23,7 @@
 
 .characters-group-primary-open-group-btn {
 	margin-left: auto;
+	margin-right: 4px;
 	padding: 12px 16px;
 	border: 0;
 	border-radius: 32px;
@@ -34,14 +35,13 @@
 }
 
 .characters-group-primary-open-group-btn:hover {
-	background: var(--accentColourHover);
+	background: var(--accentHoverColour);
 }
 
-.characters-group-primary-create-character-btn {
+.characters-group-primary-modify-btn {
 	position: relative;
 	display: inline-block;
-	margin: 0;
-	margin-left: 12px;
+	margin: 0 4px;
 	padding: 0;
 	border: 0;
 	border-radius: 100%;
@@ -51,23 +51,35 @@
 
 	background: var(--accentColour);
 	color: #fff;
-	font-size: 18px;
+	font-size: 22px;
 	text-align: center;
 	vertical-align: middle;
 	transition: 0.2s;
 	cursor: pointer;
 }
 
-.characters-group-primary-create-character-btn:hover {
-	background: var(--accentColourHover);
+.characters-group-primary-modify-btn:hover {
+	background: var(--accentHoverColour);
 }
 
-.characters-group-primary-create-character-btn svg {
+.characters-group-primary-modify-btn:last-child {
+	margin-right: 0;
+}
+
+.characters-group-primary-modify-btn svg {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 100%;
+}
+
+.characters-group-primary-modify-btn-create-character-form {
+	font-size: 19px;
+}
+
+.characters-group-primary-modify-btn-reorder-characters {
+	font-size: 24px;
 }
 
 @media (max-width: 950px) {

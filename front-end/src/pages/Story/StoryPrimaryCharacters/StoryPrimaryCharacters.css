@@ -1,12 +1,11 @@
 .story-primary-characters {
 	margin: 12px 0;
-	padding: 24px;
+	padding: 12px;
 	border-radius: 4px;
-	background: var(--grey2);
 }
 
 .story-primary-characters-title {
-	margin-bottom: 12px;
+	margin-bottom: 24px;
 	font-size: 24px;
 	font-weight: 700;
 }
@@ -27,4 +26,11 @@
 .story-primary-character-cards-container::-webkit-scrollbar-thumb:horizontal {
 	border-radius: 4px;
 	background: var(--blue);
+}
+
+@media (max-width: 1050px) {
+	.story-primary-characters {
+		margin-top: 0;
+		padding: 12px 6px;
+	}
 }

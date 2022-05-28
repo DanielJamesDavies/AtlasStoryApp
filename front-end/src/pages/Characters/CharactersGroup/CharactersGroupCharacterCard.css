@@ -93,10 +93,10 @@
 		margin-left: -120px;
 		border-width: 4px;
 
-		width: calc(100vw - 24px - 8px - 24px);
-		max-width: calc((100vh - 70px - 8px - 12px - 8px - 24px - 39px - 24px) * (441 / 607));
-		height: calc((100vw - 24px - 8px - 24px) * (607 / 441));
-		max-height: calc(100vh - 70px - 8px - 12px - 8px - 24px - 39px - 24px);
+		width: calc(100vw - 24px - 8px - 48px);
+		max-width: calc((100vh - 70px - 8px - 12px - 8px - 24px - 39px - 48px) * (441 / 607));
+		height: calc((100vw - 24px - 8px - 48px) * (607 / 441));
+		max-height: calc(100vh - 70px - 8px - 12px - 8px - 24px - 39px - 48px);
 	}
 
 	.characters-group-character-card-top-name {
@@ -104,7 +104,7 @@
 	}
 
 	.characters-group-character-card-info-container {
-		top: calc(219px - 12px);
+		top: calc(256px - 12px);
 	}
 
 	.characters-group-character-card-info-item {
@@ -112,8 +112,7 @@
 	}
 
 	.characters-group-character-card-info-item:nth-child(1),
-	.characters-group-character-card-info-item:nth-child(2),
-	.characters-group-character-card-info-item:nth-child(3) {
+	.characters-group-character-card-info-item:nth-child(2) {
 		display: block;
 	}
 

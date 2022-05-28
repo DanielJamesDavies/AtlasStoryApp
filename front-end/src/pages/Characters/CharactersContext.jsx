@@ -15,7 +15,7 @@ const CharactersProvider = ({ children, story_url }) => {
 	const [isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm] = useState(false);
 	const [isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm] = useState(false);
 	const { APIRequest } = useContext(APIContext);
-	const { changeAccentColour, changeAccentColourHover } = useContext(AppContext);
+	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { location } = useContext(RoutesContext);
 
 	useEffect(() => {
@@ -37,6 +37,10 @@ const CharactersProvider = ({ children, story_url }) => {
 				return;
 			}
 
+			if (story_url !== story_response.data.story.url) return;
+
+			setStory(story_response.data.story);
+
 			setIsAuthorizedToModify(story_response?.data?.isAuthorizedToModify);
 
 			if (story_response.data.story?.data?.icon) getStoryIcon(story_response.data.story.data.icon);
@@ -51,14 +55,11 @@ const CharactersProvider = ({ children, story_url }) => {
 			);
 			newGroups = newGroups.filter((e) => e !== false);
 
-			if (story_url !== story_response.data.story.url) return;
-
-			setStory(story_response.data.story);
 			setGroups(newGroups);
 
 			if (story_response?.data?.story?.data?.colours?.accent) changeAccentColour(story_response.data.story.data.colours.accent);
 			if (story_response?.data?.story?.data?.colours?.accentHover)
-				changeAccentColourHover(story_response.data.story.data.colours.accentHover);
+				changeAccentHoverColour(story_response.data.story.data.colours.accentHover);
 		}
 
 		async function getStoryIcon(iconID) {
@@ -105,8 +106,19 @@ const CharactersProvider = ({ children, story_url }) => {
 		groups,
 		setGroups,
 		changeAccentColour,
-		changeAccentColourHover,
+		changeAccentHoverColour,
 	]);
+
+	const [isReorderingGroups, setIsReorderingGroups] = useState(false);
+	const [isReorderingCharacters, setIsReorderingCharacters] = useState(false);
+
+	function toggleIsReorderingGroups() {
+		setIsReorderingGroups((oldIsReorderingGroups) => !oldIsReorderingGroups);
+	}
+
+	function toggleIsReorderingCharacters() {
+		setIsReorderingCharacters((oldIsReorderingCharacters) => !oldIsReorderingCharacters);
+	}
 
 	return (
 		<CharactersContext.Provider
@@ -122,6 +134,10 @@ const CharactersProvider = ({ children, story_url }) => {
 				setIsDisplayingCreateGroupForm,
 				isDisplayingCreateCharacterForm,
 				setIsDisplayingCreateCharacterForm,
+				isReorderingGroups,
+				isReorderingCharacters,
+				toggleIsReorderingGroups,
+				toggleIsReorderingCharacters,
 			}}
 		>
 			{children}

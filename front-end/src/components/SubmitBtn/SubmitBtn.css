@@ -11,7 +11,7 @@
 }
 
 .submit-btn:hover {
-	background: var(--accentColourHover);
+	background: var(--accentHoverColour);
 }
 
 .submit-btn-text {

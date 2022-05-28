@@ -3,7 +3,7 @@
 	display: flex;
 	align-items: center;
 	margin-bottom: 48px;
-	padding: 24px 24px;
+	padding: 24px;
 	border-radius: 4px;
 	width: calc(100% - 48px);
 }
@@ -62,6 +62,8 @@
 @media (max-width: 700px) {
 	.world-title {
 		margin-bottom: 24px;
+		padding: 24px 6px;
+		width: calc(100% - 12px);
 	}
 
 	.world-title-story-icon {

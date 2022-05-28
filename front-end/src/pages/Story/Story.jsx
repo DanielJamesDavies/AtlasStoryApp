@@ -22,8 +22,8 @@ export const Story = () => {
 		<div className='story'>
 			<StoryPrimary />
 			<div className='story-section-1'>
-				<StoryDescription />
 				<StoryGenres />
+				<StoryDescription />
 			</div>
 			<div className='story-section-2'>
 				<StoryPrimaryCharacters />

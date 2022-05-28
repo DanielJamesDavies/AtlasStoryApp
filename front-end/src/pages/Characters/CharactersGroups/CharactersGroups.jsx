@@ -1,5 +1,5 @@
 // Packages
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaSort } from "react-icons/fa";
 
 // Components
 import { CharactersCreateGroup } from "./CharactersCreateGroup";
@@ -17,16 +17,24 @@ import "./CharactersGroups.css";
 // Assets
 
 export const CharactersGroups = () => {
-	const { isAuthorizedToModify, groups, openGroup, changeOpenGroup, openCreateGroupForm } = CharactersGroupsLogic();
+	const { isAuthorizedToModify, groups, openGroup, changeOpenGroup, openCreateGroupForm, toggleIsReorderingGroups } = CharactersGroupsLogic();
 
 	return (
 		<div className='characters-groups'>
 			<div className='characters-groups-primary'>
 				<div className='characters-groups-primary-title'>Groups</div>
 				{!isAuthorizedToModify ? null : (
-					<button className='characters-group-primary-create-group-btn' onClick={openCreateGroupForm}>
-						<FaPlus />
-					</button>
+					<div className='characters-groups-primary-modify-buttons-container'>
+						<button className='characters-groups-primary-modify-btn' onClick={openCreateGroupForm}>
+							<FaPlus />
+						</button>
+						<button
+							className='characters-groups-primary-modify-btn characters-groups-primary-modify-btn-reorder-groups'
+							onClick={toggleIsReorderingGroups}
+						>
+							<FaSort />
+						</button>
+					</div>
 				)}
 			</div>
 			<div className='characters-groups-group-item-container'>
