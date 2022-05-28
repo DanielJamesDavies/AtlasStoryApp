@@ -28,6 +28,10 @@
 	margin-left: 4px;
 }
 
+.drag-drop-item .story-primary-character-card {
+	margin: 4px;
+}
+
 .story-primary-character-card-content {
 	position: relative;
 	z-index: 1;

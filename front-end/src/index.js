@@ -1,5 +1,4 @@
 // Packages
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
@@ -21,15 +20,13 @@ import APIProvider from "./context/APIContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<AppProvider>
-				<APIProvider>
-					<App />
-				</APIProvider>
-			</AppProvider>
-		</BrowserRouter>
-	</React.StrictMode>
+	<BrowserRouter>
+		<AppProvider>
+			<APIProvider>
+				<App />
+			</APIProvider>
+		</AppProvider>
+	</BrowserRouter>
 );
 
 reportWebVitals();

@@ -4,10 +4,59 @@
 	border-radius: 4px;
 }
 
-.story-primary-characters-title {
+.story-primary-characters-primary {
+	display: flex;
+	align-items: center;
 	margin-bottom: 24px;
+	width: 100%;
+}
+
+.story-primary-characters-primary-title {
+	margin-top: -1px;
+	margin-bottom: 1px;
 	font-size: 24px;
 	font-weight: 700;
+}
+
+.story-primary-characters-primary-modify-btn {
+	position: relative;
+	display: inline-block;
+	margin: 0 4px;
+	margin-left: auto;
+	padding: 0;
+	border: 0;
+	border-radius: 100%;
+
+	width: 40px;
+	height: 40px;
+
+	background: var(--accentColour);
+	color: #fff;
+	font-size: 22px;
+	text-align: center;
+	vertical-align: middle;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.story-primary-characters-primary-modify-btn:hover {
+	background: var(--accentHoverColour);
+}
+
+.story-primary-characters-primary-modify-btn:last-child {
+	margin-right: 0;
+}
+
+.story-primary-characters-primary-modify-btn-reorder-characters {
+	font-size: 24px;
+}
+
+.story-primary-characters-primary-modify-btn svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
 }
 
 .story-primary-character-cards-container {

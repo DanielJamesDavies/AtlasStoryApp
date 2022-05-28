@@ -13,7 +13,7 @@ const AppProvider = ({ children }) => {
 		const currIsOnElectron = localStorage.getItem("isOnElectron");
 		if (!currIsOnElectron) return;
 		if (parseInt(currIsOnElectron) === 1) setIsOnElectron(true);
-	}, []);
+	}, [setIsOnElectron]);
 
 	function changeAccentColour(newAccentColour) {
 		if (newAccentColour === "default") return setAccentColour(defaultAccentColour);

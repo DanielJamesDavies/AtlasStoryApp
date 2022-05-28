@@ -20,13 +20,13 @@ export const CharactersGroupCharacterCards = () => {
 
 	return (
 		<div className='characters-group-characters-cards-container'>
-			<div ref={charactersCards} className='characters-group-characters-cards'>
-				{!groups
-					? null
-					: groups[openGroup]?.data?.characters.map((character, index) => (
-							<CharactersGroupCharacterCard key={index} character={character} />
-					  ))}
-			</div>
+			{!groups ? null : (
+				<div ref={charactersCards} className='characters-group-characters-cards'>
+					{groups[openGroup]?.data?.characters.map((character, index) => (
+						<CharactersGroupCharacterCard key={index} characterID={character.character_id} />
+					))}
+				</div>
+			)}
 			<div
 				className={
 					charactersCards?.current?.scrollLeft === 0

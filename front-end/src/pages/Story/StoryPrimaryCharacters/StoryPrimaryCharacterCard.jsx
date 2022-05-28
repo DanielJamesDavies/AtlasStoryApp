@@ -15,7 +15,7 @@ import "./StoryPrimaryCharacterCard.css";
 // Assets
 
 export const StoryPrimaryCharacterCard = ({ character }) => {
-	const { navigateToCharacter, cardStyles, cardTopNameStyles, cardInfoItemStyles, cardBackground } = StoryPrimaryCharacterCardLogic({
+	const { cardBackground, navigateToCharacter, cardStyles, cardTopNameStyles, cardInfoItemStyles } = StoryPrimaryCharacterCardLogic({
 		character,
 	});
 

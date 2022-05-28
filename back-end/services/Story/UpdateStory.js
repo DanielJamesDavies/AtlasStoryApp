@@ -2,12 +2,14 @@ const Story = require("../../models/Story");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 module.exports = async (req, res) => {
+	if (!req?.body?.path || req?.body?.path === ["_id"]) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
+
 	const oldStory = await Story.findById(req.body.story_id)
 		.exec()
 		.catch((err) => {
 			res.status(200).send({ error: err });
 		});
-	if (!oldStory) return res.status(200).send({ error: "Character Not Found" });
+	if (!oldStory) return res.status(200).send({ error: "Story Not Found" });
 
 	const newStory = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldStory)), req?.body?.path, req?.body?.newValue);
 

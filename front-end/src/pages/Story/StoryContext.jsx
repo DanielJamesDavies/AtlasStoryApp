@@ -12,7 +12,8 @@ const StoryProvider = ({ children, story_url }) => {
 	const [members, setMembers] = useState([]);
 	const [icon, setIcon] = useState(false);
 	const [banner, setBanner] = useState(false);
-	const [primaryCharacters, setPrimaryCharacters] = useState(false);
+	const [primaryCharacters, setPrimaryCharacters] = useState([]);
+	const [primaryCharactersCardBackgrounds, setPrimaryCharactersCardBackgrounds] = useState([]);
 	const { APIRequest } = useContext(APIContext);
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { location } = useContext(RoutesContext);
@@ -76,19 +77,27 @@ const StoryProvider = ({ children, story_url }) => {
 
 		async function getStoryPrimaryCharacters(primaryCharactersIDs) {
 			let newPrimaryCharacters = await Promise.all(
-				primaryCharactersIDs.map(async (primaryCharacterID) => {
-					return await getStoryPrimaryCharacter(primaryCharacterID);
+				primaryCharactersIDs.map(async (characterID) => {
+					const character_response = await APIRequest("/character/" + characterID, "GET");
+					if (character_response?.errors || !character_response?.data?.character) return false;
+
+					return character_response.data.character;
 				})
 			);
 			newPrimaryCharacters = newPrimaryCharacters.filter((e) => e !== false);
 			setPrimaryCharacters(newPrimaryCharacters);
-		}
 
-		async function getStoryPrimaryCharacter(characterID) {
-			const character_response = await APIRequest("/character/" + characterID, "GET");
-			if (character_response?.errors || !character_response?.data?.character) return false;
+			let newPrimaryCharactersCardBackgrounds = await Promise.all(
+				newPrimaryCharacters.map(async (character) => {
+					if (!character?.data?.cardBackground) return false;
+					const card_background_response = await APIRequest("/image/" + character.data.cardBackground, "GET");
+					if (card_background_response?.errors || !card_background_response?.data?.image) return false;
 
-			return character_response.data.character;
+					return card_background_response.data;
+				})
+			);
+			newPrimaryCharactersCardBackgrounds = newPrimaryCharactersCardBackgrounds.filter((e) => e !== false);
+			setPrimaryCharactersCardBackgrounds(newPrimaryCharactersCardBackgrounds);
 		}
 
 		getStory();
@@ -112,16 +121,25 @@ const StoryProvider = ({ children, story_url }) => {
 		changeAccentHoverColour,
 	]);
 
+	const [isReorderingCharacters, setIsReorderingCharacters] = useState(false);
+	function toggleIsReorderingCharacters() {
+		setIsReorderingCharacters((oldIsReorderingCharacters) => !oldIsReorderingCharacters);
+	}
+
 	return (
 		<StoryContext.Provider
 			value={{
+				isAuthorizedToModify,
 				story,
 				setStory,
 				members,
 				icon,
 				banner,
 				primaryCharacters,
-				isAuthorizedToModify,
+				setPrimaryCharacters,
+				primaryCharactersCardBackgrounds,
+				isReorderingCharacters,
+				toggleIsReorderingCharacters,
 			}}
 		>
 			{children}

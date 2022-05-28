@@ -14,8 +14,10 @@ import "./CharactersGroupCharacterCard.css";
 
 // Assets
 
-export const CharactersGroupCharacterCard = ({ character }) => {
-	const { navigateToCharacter, cardStyles, topNameStyles, infoItemStyles, cardBackground } = CharactersGroupCharacterCardLogic({ character });
+export const CharactersGroupCharacterCard = ({ characterID }) => {
+	const { character, cardBackground, navigateToCharacter, cardStyles, topNameStyles, infoItemStyles } = CharactersGroupCharacterCardLogic({
+		characterID,
+	});
 
 	return (
 		<div className='characters-group-character-card' onClick={navigateToCharacter} style={cardStyles}>

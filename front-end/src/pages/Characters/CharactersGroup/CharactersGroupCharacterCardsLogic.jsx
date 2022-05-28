@@ -15,7 +15,7 @@ import { CharactersContext } from "../CharactersContext";
 // Assets
 
 export const CharactersGroupCharacterCardsLogic = () => {
-	const { groups, openGroup } = useContext(CharactersContext);
+	const { groups, openGroup, characters, images } = useContext(CharactersContext);
 
 	// Character Cards Scroll
 	const charactersCards = useRef();
@@ -42,5 +42,5 @@ export const CharactersGroupCharacterCardsLogic = () => {
 		setCharacterCardsScrollInterval(interval);
 	}
 
-	return { groups, openGroup, charactersCards, scrollCharacterCards };
+	return { groups, openGroup, characters, images, charactersCards, scrollCharacterCards };
 };

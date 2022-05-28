@@ -15,7 +15,7 @@ import { StoryContext } from "../StoryContext";
 // Assets
 
 export const StoryPrimaryCharactersLogic = () => {
-	const { primaryCharacters } = useContext(StoryContext);
+	const { isAuthorizedToModify, primaryCharacters, isReorderingCharacters, toggleIsReorderingCharacters } = useContext(StoryContext);
 
-	return { primaryCharacters };
+	return { isAuthorizedToModify, primaryCharacters, isReorderingCharacters, toggleIsReorderingCharacters };
 };

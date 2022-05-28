@@ -7,7 +7,6 @@ import { useContext, useState, useEffect } from "react";
 
 // Context
 import { RoutesContext } from "../../../context/RoutesContext";
-import { APIContext } from "../../../context/APIContext";
 import { CharactersContext } from "../CharactersContext";
 
 // Services
@@ -16,10 +15,19 @@ import { CharactersContext } from "../CharactersContext";
 
 // Assets
 
-export const CharactersGroupCharacterCardLogic = ({ character }) => {
+export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 	const { changeLocation } = useContext(RoutesContext);
-	const { APIRequest } = useContext(APIContext);
-	const { story } = useContext(CharactersContext);
+	const { story, characters, charactersCardBackgrounds } = useContext(CharactersContext);
+
+	const [character, setCharacter] = useState(false);
+	const [cardBackground, setCardBackground] = useState(false);
+
+	useEffect(() => {
+		const newCharacter = characters?.find((e) => e._id === characterID);
+		setCharacter(newCharacter);
+		const newCardBackground = charactersCardBackgrounds?.find((e) => e._id === newCharacter?.data?.cardBackground)?.image;
+		setCardBackground(newCardBackground === undefined ? false : newCardBackground);
+	}, [characterID, characters, charactersCardBackgrounds, setCharacter, setCardBackground]);
 
 	function navigateToCharacter() {
 		if (story?.url && character?.url) changeLocation("s/" + story.url + "/c/" + character.url);
@@ -36,19 +44,5 @@ export const CharactersGroupCharacterCardLogic = ({ character }) => {
 		setInfoItemStyles(character?.data?.colour ? { background: character.data.colour } : {});
 	}, [character, setCardStyles, setTopNameStyles, setInfoItemStyles]);
 
-	// Card Background
-	const [cardBackground, setCardBackground] = useState(false);
-
-	useEffect(() => {
-		async function getCardBackground() {
-			if (!character?.data?.cardBackground) return;
-
-			const response = await APIRequest("/image/" + character.data.cardBackground, "GET");
-			if (!response?.data?.image || response?.error) return setCardBackground(false);
-			setCardBackground(response.data.image);
-		}
-		getCardBackground();
-	}, [character, APIRequest, setCardBackground]);
-
-	return { navigateToCharacter, cardStyles, topNameStyles, infoItemStyles, cardBackground };
+	return { character, cardBackground, navigateToCharacter, cardStyles, topNameStyles, infoItemStyles };
 };

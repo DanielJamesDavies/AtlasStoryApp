@@ -19,7 +19,7 @@ const GroupSchema = mongoose.Schema({
 			characters: {
 				type: [
 					{
-						user_id: {
+						character_id: {
 							type: mongoose.Schema.Types.ObjectId,
 							require: true,
 						},
