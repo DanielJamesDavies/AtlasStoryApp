@@ -59,20 +59,20 @@
 	width: 100%;
 }
 
-.story-primary-character-cards-container {
+.story-primary-characters-cards-container {
 	display: flex;
 	padding-bottom: 8px;
 	overflow-x: overlay;
 }
 
-.story-primary-character-cards-container::-webkit-scrollbar {
+.story-primary-characters-cards-container::-webkit-scrollbar {
 	border-radius: 4px;
 	height: 6px;
 	background: transparent;
 	background: var(--grey1);
 }
 
-.story-primary-character-cards-container::-webkit-scrollbar-thumb:horizontal {
+.story-primary-characters-cards-container::-webkit-scrollbar-thumb:horizontal {
 	border-radius: 4px;
 	background: var(--blue);
 }

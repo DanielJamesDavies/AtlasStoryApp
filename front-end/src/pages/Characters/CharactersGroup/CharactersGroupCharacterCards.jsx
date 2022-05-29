@@ -18,12 +18,11 @@ import "./CharactersGroupCharacterCards.css";
 // Assets
 
 export const CharactersGroupCharacterCards = () => {
-	const { groups, openGroup, charactersCards, scrollCharacterCards, isReorderingCharacters, changeCharactersOrder } =
-		CharactersGroupCharacterCardsLogic();
+	const { group, charactersCards, scrollCharacterCards, isReorderingCharacters, changeCharactersOrder } = CharactersGroupCharacterCardsLogic();
 
 	return (
 		<div className='characters-group-characters-cards-container'>
-			{!groups ? null : (
+			{!group ? null : (
 				<DragDropContainer
 					innerRef={charactersCards}
 					className='characters-group-characters-cards'
@@ -31,7 +30,7 @@ export const CharactersGroupCharacterCards = () => {
 					enableDragDrop={isReorderingCharacters}
 					onDropItem={changeCharactersOrder}
 				>
-					{groups[openGroup]?.data?.characters.map((character, index) => (
+					{group?.data?.characters.map((character, index) => (
 						<DragDropItem key={index} index={index} className='characters-group-character-card-container'>
 							<CharactersGroupCharacterCard characterID={character.character_id} />
 						</DragDropItem>

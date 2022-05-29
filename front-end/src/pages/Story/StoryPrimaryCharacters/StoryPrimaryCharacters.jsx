@@ -39,7 +39,7 @@ export const StoryPrimaryCharacters = () => {
 				)}
 			</div>
 			<DragDropContainer
-				className='story-primary-character-cards-container'
+				className='story-primary-characters-cards-container'
 				inlineItems={true}
 				enableDragDrop={isReorderingCharacters}
 				onDropItem={changePrimaryCharactersOrder}

@@ -3,6 +3,8 @@ import { FaPlus, FaSort } from "react-icons/fa";
 
 // Components
 import { CharactersCreateGroup } from "./CharactersCreateGroup";
+import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
+import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 
 // Logic
 import { CharactersGroupsLogic } from "./CharactersGroupsLogic";
@@ -17,7 +19,17 @@ import "./CharactersGroups.css";
 // Assets
 
 export const CharactersGroups = () => {
-	const { isAuthorizedToModify, groups, openGroup, changeOpenGroup, openCreateGroupForm, toggleIsReorderingGroups } = CharactersGroupsLogic();
+	const {
+		isAuthorizedToModify,
+		story,
+		groups,
+		group,
+		changeGroup,
+		openCreateGroupForm,
+		isReorderingGroups,
+		toggleIsReorderingGroups,
+		changeGroupsOrder,
+	} = CharactersGroupsLogic();
 
 	return (
 		<div className='characters-groups'>
@@ -37,23 +49,29 @@ export const CharactersGroups = () => {
 					</div>
 				)}
 			</div>
-			<div className='characters-groups-group-item-container'>
-				{!groups
-					? null
-					: groups.map((group, index) => (
+			{!story?.data?.groups || !groups ? null : (
+				<DragDropContainer
+					className='characters-groups-group-items-container'
+					inlineItems={false}
+					enableDragDrop={isReorderingGroups}
+					onDropItem={changeGroupsOrder}
+				>
+					{story.data.groups.map((groupID, index) => (
+						<DragDropItem key={index} index={index} className='characters-groups-group-item-container'>
 							<button
-								key={index}
 								className={
-									openGroup === index
+									group._id === groupID
 										? "characters-groups-group-item characters-groups-group-item-active"
 										: "characters-groups-group-item"
 								}
-								onClick={() => changeOpenGroup(index)}
+								onClick={() => changeGroup(groupID)}
 							>
-								{group?.data?.name}
+								{groups.find((e) => e._id === groupID)?.data?.name}
 							</button>
-					  ))}
-			</div>
+						</DragDropItem>
+					))}
+				</DragDropContainer>
+			)}
 			<CharactersCreateGroup />
 		</div>
 	);

@@ -24,6 +24,8 @@ export const StoryPrimaryCharactersLogic = () => {
 		let newStory = JSON.parse(JSON.stringify(story));
 		let newPrimaryCharacters = JSON.parse(JSON.stringify(primaryCharacters));
 
+		if (res.from === undefined || res.to === undefined) return;
+
 		const tempCharacter = newPrimaryCharacters.splice(res.from, 1)[0];
 		newPrimaryCharacters.splice(res.to, 0, tempCharacter);
 

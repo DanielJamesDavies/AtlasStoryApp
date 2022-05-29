@@ -11,7 +11,7 @@ const CharactersProvider = ({ children, story_url }) => {
 	const [story, setStory] = useState(false);
 	const [storyIcon, setStoryIcon] = useState(false);
 	const [groups, setGroups] = useState(false);
-	const [openGroup, setOpenGroup] = useState(0);
+	const [group, setGroup] = useState(false);
 	const [characters, setCharacters] = useState([]);
 	const [charactersCardBackgrounds, setCharactersCardBackgrounds] = useState([]);
 	const [isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm] = useState(false);
@@ -35,7 +35,7 @@ const CharactersProvider = ({ children, story_url }) => {
 				setStory(false);
 				setStoryIcon(false);
 				setGroups(false);
-				setOpenGroup(0);
+				setGroup(false);
 				setCharacters([]);
 				setCharactersCardBackgrounds([]);
 				setIsAuthorizedToModify(false);
@@ -65,6 +65,9 @@ const CharactersProvider = ({ children, story_url }) => {
 			newGroups = newGroups.filter((e) => e !== false);
 
 			setGroups(newGroups);
+
+			// Set Default Group
+			if (newGroups.length > 0) setGroup(newGroups[0]);
 
 			// Get Characters Data
 			let newCharacters = await Promise.all(
@@ -138,6 +141,12 @@ const CharactersProvider = ({ children, story_url }) => {
 		changeAccentHoverColour,
 	]);
 
+	function changeGroup(newGroupID, newGroups) {
+		const newGroup = newGroups !== undefined ? newGroups?.find((e) => e._id === newGroupID) : groups?.find((e) => e._id === newGroupID);
+		if (!newGroup) return setGroup(false);
+		setGroup(newGroup);
+	}
+
 	const [isReorderingGroups, setIsReorderingGroups] = useState(false);
 	function toggleIsReorderingGroups() {
 		setIsReorderingGroups((oldIsReorderingGroups) => !oldIsReorderingGroups);
@@ -153,11 +162,13 @@ const CharactersProvider = ({ children, story_url }) => {
 			value={{
 				isAuthorizedToModify,
 				story,
+				setStory,
 				storyIcon,
 				groups,
 				setGroups,
-				openGroup,
-				setOpenGroup,
+				group,
+				setGroup,
+				changeGroup,
 				characters,
 				setCharacters,
 				charactersCardBackgrounds,

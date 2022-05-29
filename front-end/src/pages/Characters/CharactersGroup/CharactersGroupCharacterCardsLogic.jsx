@@ -16,7 +16,7 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const CharactersGroupCharacterCardsLogic = () => {
-	const { story, groups, setGroups, openGroup, characters, images, isReorderingCharacters } = useContext(CharactersContext);
+	const { story, groups, setGroups, group, changeGroup, characters, images, isReorderingCharacters } = useContext(CharactersContext);
 	const { APIRequest } = useContext(APIContext);
 
 	// Character Cards Scroll
@@ -47,21 +47,24 @@ export const CharactersGroupCharacterCardsLogic = () => {
 	async function changeCharactersOrder(res) {
 		let newStory = JSON.parse(JSON.stringify(story));
 		let newGroups = JSON.parse(JSON.stringify(groups));
-		let newOpenGroup = JSON.parse(JSON.stringify(openGroup));
+		const openGroup = newGroups.findIndex((e) => e._id === group._id);
 
-		if (!newGroups[newOpenGroup]?.data?.characters) return;
+		if (openGroup === -1) return;
+		if (!newGroups[openGroup]?.data?.characters) return;
+		if (res.from === undefined || res.to === undefined) return;
 
-		const tempCharacter = newGroups[newOpenGroup].data.characters.splice(res.from, 1)[0];
-		newGroups[newOpenGroup].data.characters.splice(res.to, 0, tempCharacter);
+		const tempCharacter = newGroups[openGroup].data.characters.splice(res.from, 1)[0];
+		newGroups[openGroup].data.characters.splice(res.to, 0, tempCharacter);
 
 		setGroups(newGroups);
+		changeGroup(newGroups[openGroup]._id, newGroups);
 
-		await APIRequest("/group/" + newGroups[newOpenGroup]._id, "PATCH", {
+		await APIRequest("/group/" + newGroups[openGroup]._id, "PATCH", {
 			story_id: newStory._id,
 			path: ["data", "characters"],
-			newValue: newGroups[newOpenGroup].data.characters,
+			newValue: newGroups[openGroup].data.characters,
 		});
 	}
 
-	return { groups, openGroup, characters, images, charactersCards, scrollCharacterCards, isReorderingCharacters, changeCharactersOrder };
+	return { groups, group, characters, images, charactersCards, scrollCharacterCards, isReorderingCharacters, changeCharactersOrder };
 };

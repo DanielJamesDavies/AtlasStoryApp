@@ -52,34 +52,15 @@ button:focus {
 	color: #fff;
 }
 
-.grey2 {
-	display: block;
-	content: "";
-	width: 250px;
-	height: 250px;
-	background: var(--grey2);
-}
-
-.grey3 {
-	display: block;
-	content: "";
-	width: 200px;
-	height: 200px;
-	background: var(--grey3);
-}
-
-.grey4 {
-	display: block;
-	content: "";
-	width: 150px;
-	height: 150px;
-	background: var(--grey4);
-}
-
-.grey5 {
-	display: block;
-	content: "";
-	width: 100px;
-	height: 100px;
-	background: var(--grey5);
+@keyframes wiggle {
+	0%,
+	100% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(0.4deg);
+	}
+	75% {
+		transform: rotate(-0.4deg);
+	}
 }

@@ -15,7 +15,7 @@
 	margin-left: 4px;
 }
 
-.drag-drop-item-enable-drag-drop {
+.characters-group-characters-cards-container .drag-drop-item-enable-drag-drop {
 	margin: 0 4px;
 }
 
@@ -34,6 +34,14 @@
 	background: #0a0a0a;
 	transition: margin 0.4s;
 	cursor: pointer;
+}
+
+.drag-drop-item-enable-drag-drop .characters-group-character-card {
+	animation: wiggle infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even) .characters-group-character-card {
+	animation-delay: 0.1s;
 }
 
 .characters-group-character-card-content {

@@ -18,13 +18,12 @@ import "./CharactersGroup.css";
 // Assets
 
 export const CharactersGroup = () => {
-	const { isAuthorizedToModify, groups, openGroup, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters } =
-		CharactersGroupLogic();
+	const { isAuthorizedToModify, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters } = CharactersGroupLogic();
 
 	return (
 		<div className='characters-group'>
 			<div className='characters-group-primary'>
-				<div className='characters-group-primary-title'>{groups[openGroup]?.data?.name}</div>
+				<div className='characters-group-primary-title'>{group?.data?.name}</div>
 				<button className='characters-group-primary-open-group-btn' onClick={navigateToGroup}>
 					Open Group
 				</button>

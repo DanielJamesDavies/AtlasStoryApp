@@ -92,6 +92,14 @@
 	background: var(--accentHoverColour);
 }
 
+.drag-drop-item-enable-drag-drop .characters-groups-group-item {
+	animation: wiggle infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even) .characters-groups-group-item {
+	animation-delay: 0.1s;
+}
+
 @media (max-width: 950px) {
 	.characters-groups {
 		width: 100%;
