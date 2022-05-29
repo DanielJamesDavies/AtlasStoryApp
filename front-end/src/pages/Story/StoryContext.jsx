@@ -53,12 +53,12 @@ const StoryProvider = ({ children, story_url }) => {
 		}
 
 		async function getStoryMember(member) {
-			let memberResponse = await APIRequest("/user/" + member.user_id, "GET");
-			if (memberResponse?.error || !memberResponse?.data?.user) return false;
+			const member_response = await APIRequest("/user/" + member.user_id, "GET");
+			if (member_response?.error || !member_response?.data?.user) return false;
 			return {
-				_id: memberResponse?.data?.user?._id,
-				username: memberResponse?.data?.user?.username,
-				nickname: memberResponse?.data?.user?.nickname,
+				_id: member_response?.data?.user?._id,
+				username: member_response?.data?.user?.username,
+				nickname: member_response?.data?.user?.data?.nickname,
 				type: member.type,
 			};
 		}
