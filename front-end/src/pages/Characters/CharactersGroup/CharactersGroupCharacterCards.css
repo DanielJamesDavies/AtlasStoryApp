@@ -42,3 +42,7 @@
 .characters-group-characters-cards-scroll-right {
 	right: 0px;
 }
+
+.characters-group-characters-cards-scroll-hidden {
+	display: none;
+}

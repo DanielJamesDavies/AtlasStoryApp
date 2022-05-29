@@ -1,5 +1,5 @@
 .story-primary-character-card-container {
-	margin-left: -180px;
+	margin-left: -120px;
 	transition: margin 0.4s;
 }
 
@@ -110,7 +110,7 @@
 
 @media (max-width: 700px) {
 	.story-primary-character-card-container {
-		margin-left: -120px;
+		margin-left: -130px;
 	}
 
 	.story-primary-character-card {

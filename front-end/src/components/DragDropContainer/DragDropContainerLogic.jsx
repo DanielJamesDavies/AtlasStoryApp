@@ -11,10 +11,11 @@ import { useEffect, useState, cloneElement } from "react";
 
 // Assets
 
-export const DragDropContainerLogic = ({ children, inlineItems, enableDragDrop, onDropItem }) => {
+export const DragDropContainerLogic = ({ children, inlineItems, enableDragDrop, onDropItem, afterOnTouchMove, afterOnTouchEnd }) => {
 	const [updatedChildren, setUpdatedChildren] = useState(null);
 	const [currentDraggingItem, setCurrentDraggingItem] = useState(null);
 	const [changedOrder, setChangedOrder] = useState(null);
+	const [isUsingTouch, setIsUsingTouch] = useState(false);
 
 	useEffect(() => {
 		function getUpdatedChildren() {
@@ -38,10 +39,14 @@ export const DragDropContainerLogic = ({ children, inlineItems, enableDragDrop, 
 						inlineItems,
 						enableDragDrop,
 						onDropItem,
+						afterOnTouchMove,
+						afterOnTouchEnd,
 						currentDraggingItem,
 						setCurrentDraggingItem,
 						changedOrder,
 						setChangedOrder,
+						isUsingTouch,
+						setIsUsingTouch,
 					}
 				);
 			});
@@ -57,10 +62,14 @@ export const DragDropContainerLogic = ({ children, inlineItems, enableDragDrop, 
 		inlineItems,
 		enableDragDrop,
 		onDropItem,
+		afterOnTouchMove,
+		afterOnTouchEnd,
 		currentDraggingItem,
 		setCurrentDraggingItem,
 		changedOrder,
 		setChangedOrder,
+		isUsingTouch,
+		setIsUsingTouch,
 	]);
 
 	return { updatedChildren };

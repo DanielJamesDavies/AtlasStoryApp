@@ -10,6 +10,7 @@
 .drag-drop-item-enable-drag-drop {
 	-webkit-user-drag: element;
 	cursor: grab;
+	touch-action: none;
 }
 
 .drag-drop-item * {
@@ -30,6 +31,21 @@
 
 .drag-drop-item-dragging {
 	opacity: 0;
+}
+
+.drag-drop-item-dragging-touch {
+	animation: drag-drop-item-dragging-touch-pulse infinite 2.5s linear;
+	opacity: 0.3;
+}
+
+@keyframes drag-drop-item-dragging-touch-pulse {
+	0%,
+	100% {
+		opacity: 0.25;
+	}
+	50% {
+		opacity: 0.5;
+	}
 }
 
 .drag-drop-item-drag {

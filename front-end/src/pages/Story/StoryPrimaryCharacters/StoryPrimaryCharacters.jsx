@@ -2,9 +2,7 @@
 import { FaSort } from "react-icons/fa";
 
 // Components
-import { StoryPrimaryCharacterCard } from "./StoryPrimaryCharacterCard";
-import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
-import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
+import { StoryPrimaryCharacterCards } from "./StoryPrimaryCharacterCards";
 
 // Logic
 import { StoryPrimaryCharactersLogic } from "./StoryPrimaryCharactersLogic";
@@ -19,8 +17,7 @@ import "./StoryPrimaryCharacters.css";
 // Assets
 
 export const StoryPrimaryCharacters = () => {
-	const { isAuthorizedToModify, primaryCharacters, isReorderingCharacters, toggleIsReorderingCharacters, changePrimaryCharactersOrder } =
-		StoryPrimaryCharactersLogic();
+	const { isAuthorizedToModify, primaryCharacters, toggleIsReorderingCharacters } = StoryPrimaryCharactersLogic();
 
 	if (!primaryCharacters) return null;
 	return (
@@ -38,18 +35,7 @@ export const StoryPrimaryCharacters = () => {
 					</>
 				)}
 			</div>
-			<DragDropContainer
-				className='story-primary-characters-cards-container'
-				inlineItems={true}
-				enableDragDrop={isReorderingCharacters}
-				onDropItem={changePrimaryCharactersOrder}
-			>
-				{primaryCharacters.map((character, index) => (
-					<DragDropItem key={index} index={index} className='story-primary-character-card-container'>
-						<StoryPrimaryCharacterCard character={character} />
-					</DragDropItem>
-				))}
-			</DragDropContainer>
+			<StoryPrimaryCharacterCards />
 		</div>
 	);
 };

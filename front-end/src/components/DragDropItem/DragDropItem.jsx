@@ -20,26 +20,43 @@ export const DragDropItem = ({
 	inlineItems,
 	enableDragDrop,
 	onDropItem,
+	afterOnTouchMove,
+	afterOnTouchEnd,
 	currentDraggingItem,
 	setCurrentDraggingItem,
 	changedOrder,
 	setChangedOrder,
+	isUsingTouch,
+	setIsUsingTouch,
 }) => {
-	const { dragDropItemClassName, onDragStart, onDragEnd, onDragEnter } = DragDropItemLogic({
+	const { dragDropItemClassName, onDragStart, onDragEnd, onDragEnter, onTouchStart, onTouchEnd, onTouchMove } = DragDropItemLogic({
 		index,
 		orderIndex,
 		className,
 		inlineItems,
 		enableDragDrop,
 		onDropItem,
+		afterOnTouchMove,
+		afterOnTouchEnd,
 		currentDraggingItem,
 		setCurrentDraggingItem,
 		changedOrder,
 		setChangedOrder,
+		isUsingTouch,
+		setIsUsingTouch,
 	});
 
 	return (
-		<div drag-key={index} className={dragDropItemClassName} onDragStart={onDragStart} onDragEnd={onDragEnd} onDragEnter={onDragEnter}>
+		<div
+			drag-key={index}
+			className={dragDropItemClassName}
+			onDragStart={onDragStart}
+			onDragEnd={onDragEnd}
+			onDragEnter={onDragEnter}
+			onTouchStart={onTouchStart}
+			onTouchEnd={onTouchEnd}
+			onTouchMove={onTouchMove}
+		>
 			{children}
 		</div>
 	);
