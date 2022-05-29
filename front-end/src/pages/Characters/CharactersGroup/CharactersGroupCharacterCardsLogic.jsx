@@ -7,6 +7,7 @@ import { useContext, useRef, useState } from "react";
 
 // Context
 import { CharactersContext } from "../CharactersContext";
+import { APIContext } from "../../../context/APIContext";
 
 // Services
 
@@ -15,7 +16,8 @@ import { CharactersContext } from "../CharactersContext";
 // Assets
 
 export const CharactersGroupCharacterCardsLogic = () => {
-	const { groups, openGroup, characters, images } = useContext(CharactersContext);
+	const { story, groups, setGroups, openGroup, characters, images, isReorderingCharacters } = useContext(CharactersContext);
+	const { APIRequest } = useContext(APIContext);
 
 	// Character Cards Scroll
 	const charactersCards = useRef();
@@ -42,5 +44,24 @@ export const CharactersGroupCharacterCardsLogic = () => {
 		setCharacterCardsScrollInterval(interval);
 	}
 
-	return { groups, openGroup, characters, images, charactersCards, scrollCharacterCards };
+	async function changeCharactersOrder(res) {
+		let newStory = JSON.parse(JSON.stringify(story));
+		let newGroups = JSON.parse(JSON.stringify(groups));
+		let newOpenGroup = JSON.parse(JSON.stringify(openGroup));
+
+		if (!newGroups[newOpenGroup]?.data?.characters) return;
+
+		const tempCharacter = newGroups[newOpenGroup].data.characters.splice(res.from, 1)[0];
+		newGroups[newOpenGroup].data.characters.splice(res.to, 0, tempCharacter);
+
+		setGroups(newGroups);
+
+		await APIRequest("/group/" + newGroups[newOpenGroup]._id, "PATCH", {
+			story_id: newStory._id,
+			path: ["data", "characters"],
+			newValue: newGroups[newOpenGroup].data.characters,
+		});
+	}
+
+	return { groups, openGroup, characters, images, charactersCards, scrollCharacterCards, isReorderingCharacters, changeCharactersOrder };
 };

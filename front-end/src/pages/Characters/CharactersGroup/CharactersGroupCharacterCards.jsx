@@ -2,6 +2,8 @@
 
 // Components
 import { CharactersGroupCharacterCard } from "./CharactersGroupCharacterCard";
+import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
+import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 
 // Logic
 import { CharactersGroupCharacterCardsLogic } from "./CharactersGroupCharacterCardsLogic";
@@ -16,16 +18,25 @@ import "./CharactersGroupCharacterCards.css";
 // Assets
 
 export const CharactersGroupCharacterCards = () => {
-	const { groups, openGroup, charactersCards, scrollCharacterCards } = CharactersGroupCharacterCardsLogic();
+	const { groups, openGroup, charactersCards, scrollCharacterCards, isReorderingCharacters, changeCharactersOrder } =
+		CharactersGroupCharacterCardsLogic();
 
 	return (
 		<div className='characters-group-characters-cards-container'>
 			{!groups ? null : (
-				<div ref={charactersCards} className='characters-group-characters-cards'>
+				<DragDropContainer
+					innerRef={charactersCards}
+					className='characters-group-characters-cards'
+					inlineItems={true}
+					enableDragDrop={isReorderingCharacters}
+					onDropItem={changeCharactersOrder}
+				>
 					{groups[openGroup]?.data?.characters.map((character, index) => (
-						<CharactersGroupCharacterCard key={index} characterID={character.character_id} />
+						<DragDropItem key={index} index={index} className='characters-group-character-card-container'>
+							<CharactersGroupCharacterCard characterID={character.character_id} />
+						</DragDropItem>
 					))}
-				</div>
+				</DragDropContainer>
 			)}
 			<div
 				className={

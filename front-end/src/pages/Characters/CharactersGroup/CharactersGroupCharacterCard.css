@@ -1,10 +1,30 @@
+.characters-group-character-card-container {
+	margin-left: -180px;
+	transition: margin 0.4s;
+}
+
+.characters-group-character-card-container:first-child {
+	margin-left: 0;
+}
+
+.characters-group-character-card-container:last-child {
+	margin-right: 0;
+}
+
+.characters-group-character-card-container:hover + .characters-group-character-card-container {
+	margin-left: 4px;
+}
+
+.drag-drop-item-enable-drag-drop {
+	margin: 0 4px;
+}
+
 .characters-group-character-card {
 	flex-shrink: 0;
 	position: relative;
 	z-index: 1;
 	display: inline-block;
 	margin: 4px;
-	margin-left: -180px;
 	border: 6px solid var(--accentColour);
 	border-radius: 16px;
 
@@ -16,16 +36,8 @@
 	cursor: pointer;
 }
 
-.characters-group-character-card:first-child {
-	margin-left: 0;
-}
-
-.characters-group-character-card:last-child {
-	margin-right: 0;
-}
-
-.characters-group-character-card:hover + .characters-group-character-card {
-	margin-left: 4px;
+.drag-drop-item-enable-drag-drop .characters-group-character-card {
+	-webkit-user-drag: element;
 }
 
 .characters-group-character-card-content {

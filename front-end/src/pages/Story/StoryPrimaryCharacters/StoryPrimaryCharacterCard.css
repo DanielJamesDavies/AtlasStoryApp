@@ -12,7 +12,7 @@
 	height: 420px;
 
 	background: var(--grey1);
-	transition: 0.2s;
+	transition: margin 0.4s;
 	cursor: pointer;
 }
 
