@@ -1,10 +1,30 @@
+.story-primary-character-card-container {
+	margin-left: -180px;
+	transition: margin 0.4s;
+}
+
+.story-primary-character-card-container:first-child {
+	margin-left: 0;
+}
+
+.story-primary-character-card-container:last-child {
+	margin-right: 0;
+}
+
+.story-primary-character-card-container:hover + .story-primary-character-card-container {
+	margin-left: 4px;
+}
+
+.drag-drop-item-enable-drag-drop {
+	margin: 0 4px;
+}
+
 .story-primary-character-card {
 	flex-shrink: 0;
 	position: relative;
 	z-index: 1;
 	display: inline-block;
 	margin: 4px;
-	margin-left: -120px;
 	border: 6px solid var(--accentColour);
 	border-radius: 16px;
 
@@ -14,22 +34,6 @@
 	background: var(--grey1);
 	transition: margin 0.4s;
 	cursor: pointer;
-}
-
-.story-primary-character-card:first-child {
-	margin-left: 0;
-}
-
-.story-primary-character-card:last-child {
-	margin-right: 0;
-}
-
-.story-primary-character-card:hover + .story-primary-character-card {
-	margin-left: 4px;
-}
-
-.drag-drop-item .story-primary-character-card {
-	margin: 4px;
 }
 
 .story-primary-character-card-content {

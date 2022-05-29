@@ -38,21 +38,18 @@ export const StoryPrimaryCharacters = () => {
 					</>
 				)}
 			</div>
-			{!isReorderingCharacters ? (
-				<div className='story-primary-character-cards-container'>
-					{primaryCharacters.map((character, index) => (
-						<StoryPrimaryCharacterCard key={index} character={character} />
-					))}
-				</div>
-			) : (
-				<DragDropContainer className='story-primary-character-cards-container' onDropItem={changePrimaryCharactersOrder}>
-					{primaryCharacters.map((character, index) => (
-						<DragDropItem key={index} index={index}>
-							<StoryPrimaryCharacterCard character={character} />
-						</DragDropItem>
-					))}
-				</DragDropContainer>
-			)}
+			<DragDropContainer
+				className='story-primary-character-cards-container'
+				inlineItems={true}
+				enableDragDrop={isReorderingCharacters}
+				onDropItem={changePrimaryCharactersOrder}
+			>
+				{primaryCharacters.map((character, index) => (
+					<DragDropItem key={index} index={index} className='story-primary-character-card-container'>
+						<StoryPrimaryCharacterCard character={character} />
+					</DragDropItem>
+				))}
+			</DragDropContainer>
 		</div>
 	);
 };

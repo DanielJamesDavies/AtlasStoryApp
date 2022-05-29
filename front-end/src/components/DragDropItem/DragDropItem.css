@@ -12,11 +12,15 @@
 	cursor: grab;
 }
 
-.drag-drop-item-prevent-drag {
+.drag-drop-item * {
 	-webkit-user-drag: none;
 }
 
-.drag-drop-item > * {
+.drag-drop-item-enable-drag-drop .drag-drop-item-content {
+	-webkit-user-drag: element;
+}
+
+.drag-drop-item-prevent-drag {
 	-webkit-user-drag: none;
 }
 
@@ -34,14 +38,4 @@
 	height: 100%;
 	z-index: 1;
 	background: rgba(0, 0, 0, 0);
-}
-
-.drag-drop-item-content {
-	position: relative;
-	/* width: calc(100% - 32px); */
-	width: 100%;
-	height: 100%;
-	z-index: 1;
-	opacity: 1;
-	-webkit-user-drag: none;
 }
