@@ -1,3 +1,15 @@
+.user-stories-story-item-container {
+	position: relative;
+}
+
+.drag-drop-item-enable-drag-drop .user-stories-story-item {
+	animation: wiggle infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even) .user-stories-story-item {
+	animation-delay: 0.1s;
+}
+
 .user-stories-story-item {
 	position: relative;
 	display: inline-block;
@@ -27,8 +39,10 @@
 .user-stories-story-item-content {
 	position: relative;
 	display: inline-block;
+	border-radius: inherit;
 	width: calc(100% - 28px);
 	height: 100%;
+	background: var(--grey2);
 	vertical-align: middle;
 	transition: 0.2s;
 }

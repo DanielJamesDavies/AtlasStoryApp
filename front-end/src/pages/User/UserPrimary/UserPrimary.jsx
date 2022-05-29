@@ -24,7 +24,7 @@ export const UserPrimary = () => {
 			<div className='user-primary-break'></div>
 			<div className='user-primary-profile-picture'>{!profilePicture ? null : <img src={profilePicture} alt='' />}</div>
 			<div className='user-primary-names'>
-				<div className='user-primary-names-nickname'>{user?.nickname}</div>
+				<div className='user-primary-names-nickname'>{user?.data?.nickname}</div>
 				<div className='user-primary-names-username'>{user?.username}</div>
 			</div>
 			{!isAuthorizedToModify ? null : (

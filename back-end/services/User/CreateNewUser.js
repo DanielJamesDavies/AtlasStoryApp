@@ -34,12 +34,14 @@ module.exports = async (req, res) => {
 	const user = new User({
 		_id: new mongoose.Types.ObjectId(),
 		username: req.body.username,
-		nickname: req.body.nickname,
-		email: req.body.email,
-		password: hashedPassword,
-		profilePicture: profilePictureID,
-		banner: bannerID,
-		stories: [],
+		data: {
+			nickname: req.body.nickname,
+			email: req.body.email,
+			password: hashedPassword,
+			profilePicture: profilePictureID,
+			banner: bannerID,
+			stories: [],
+		},
 	});
 
 	// Create Token

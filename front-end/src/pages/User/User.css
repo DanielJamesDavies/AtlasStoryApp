@@ -1,7 +1,7 @@
 .user {
 	margin: 0 auto;
 	padding: 6px 48px;
-	max-width: 1330px;
+	max-width: 1600px;
 }
 
 @media (max-width: 700px) {

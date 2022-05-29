@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
 			res.status(200).send({ error: err });
 		});
 	if (!owner) return res.status(200).send({ error: "Owner Not Found" });
-	newStory.data.owner = { _id: owner._id, username: owner.username, nickname: owner.nickname };
+	newStory.data.owner = { _id: owner._id, username: owner.username, nickname: owner?.data?.nickname };
 
 	res.status(200).send({
 		message: "Success",

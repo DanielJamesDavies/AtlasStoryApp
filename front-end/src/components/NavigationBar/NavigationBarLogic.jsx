@@ -29,12 +29,13 @@ export const NavigationBarLogic = () => {
 			if (response?.error || !response?.data?.user?.username) return;
 
 			setUsername(response.data.user.username);
-			getUserProfilePicture(response.data.user.profilePicture);
+			getUserProfilePicture(response.data.user?.data?.profilePicture);
 		}
 
 		async function getUserProfilePicture(profilePictureID) {
+			if (!profilePictureID) return setProfilePicture(false);
 			const response = await APIRequest("/image/" + profilePictureID, "GET");
-			if (response?.error || !response?.data?.image) return;
+			if (response?.error || !response?.data?.image) return setProfilePicture(false);
 			setProfilePicture(response.data.image);
 		}
 

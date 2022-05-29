@@ -27,11 +27,14 @@
 	vertical-align: middle;
 }
 
-.user-stories-top-create-story-btn {
+.user-stories-top-modify-btns-container {
+	margin-left: auto;
+}
+
+.user-stories-top-modify-btn {
 	position: relative;
 	display: inline-block;
 	margin: 4px;
-	margin-left: auto;
 	padding: 0;
 	border: 0;
 	border-radius: 100%;
@@ -48,16 +51,20 @@
 	cursor: pointer;
 }
 
-.user-stories-top-create-story-btn:hover {
+.user-stories-top-modify-btn:hover {
 	background: var(--blue2);
 }
 
-.user-stories-top-create-story-btn svg {
+.user-stories-top-modify-btn svg {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 100%;
+}
+
+.user-stories-top-modify-btn:last-child {
+	margin-right: 0;
 }
 
 .user-stories-story-items-container {

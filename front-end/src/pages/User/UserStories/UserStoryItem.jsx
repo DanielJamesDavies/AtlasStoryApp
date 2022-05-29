@@ -15,8 +15,8 @@ import "./UserStoryItem.css";
 
 // Assets
 
-export const UserStoryItem = ({ story }) => {
-	const { navigateToStory, navigateToOwner } = UserStoryItemLogic({ story });
+export const UserStoryItem = ({ storyID }) => {
+	const { story, navigateToStory, navigateToOwner } = UserStoryItemLogic({ storyID });
 
 	return (
 		<div className='user-stories-story-item' onClick={navigateToStory}>
@@ -29,7 +29,7 @@ export const UserStoryItem = ({ story }) => {
 						<div className='user-stories-story-item-owner-label-username'>@{story?.data?.owner?.username}</div>
 					</div>
 				</div>
-				<div className='user-stories-story-item-private'>{story.isPrivate ? <FaLock /> : <FaLockOpen />}</div>
+				<div className='user-stories-story-item-private'>{story?.isPrivate ? <FaLock /> : <FaLockOpen />}</div>
 			</div>
 			<div className='user-stories-story-item-pages'>
 				<div className='user-stories-story-item-page'></div>

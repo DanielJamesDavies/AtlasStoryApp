@@ -1,5 +1,5 @@
 // Packages
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 // Components
 
@@ -7,6 +7,7 @@ import { useContext } from "react";
 
 // Context
 import { UserContext } from "../UserContext";
+import { APIContext } from "../../../context/APIContext";
 
 // Services
 
@@ -15,11 +16,35 @@ import { UserContext } from "../UserContext";
 // Assets
 
 export const UserStoriesLogic = () => {
-	const { isAuthorizedToModify, stories, setIsDisplayingCreateStoryForm } = useContext(UserContext);
+	const { isAuthorizedToModify, user, setUser, stories, setIsDisplayingCreateStoryForm } = useContext(UserContext);
+	const { APIRequest } = useContext(APIContext);
 
 	function openCreateStoryForm() {
 		setIsDisplayingCreateStoryForm(true);
 	}
 
-	return { isAuthorizedToModify, stories, openCreateStoryForm };
+	// Reorder Stories
+	const [isReorderingStories, setIsReorderingStories] = useState(false);
+
+	function toggleIsReorderingStories() {
+		setIsReorderingStories((oldIsReorderingStories) => !oldIsReorderingStories);
+	}
+
+	async function changeStoriesOrder(res) {
+		if (res.from === undefined || res.to === undefined) return;
+
+		let newUser = JSON.parse(JSON.stringify(user));
+		if (!newUser?.data?.stories) return;
+
+		const tempStory = newUser.data.stories.splice(res.from, 1)[0];
+		newUser.data.stories.splice(res.to, 0, tempStory);
+		setUser(newUser);
+
+		await APIRequest("/user", "PATCH", {
+			path: ["data", "stories"],
+			newValue: newUser.data.stories,
+		});
+	}
+
+	return { isAuthorizedToModify, user, stories, openCreateStoryForm, isReorderingStories, toggleIsReorderingStories, changeStoriesOrder };
 };

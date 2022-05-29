@@ -36,24 +36,27 @@ const UserProvider = ({ children, user_username }) => {
 
 			if (user_username === response.data.user.username) setUser(response.data.user);
 
-			if (response.data.user?.profilePicture) getUserProfilePicture(response.data.user.profilePicture);
-			if (response.data.user?.stories) getStories(response.data.user.stories);
-			if (response.data.user?.banner) getUserBanner(response.data.user.banner);
+			getUserProfilePicture(response.data.user?.data?.profilePicture);
+			getStories(response.data.user?.data?.stories);
+			getUserBanner(response.data.user?.data?.banner);
 		}
 
 		async function getUserProfilePicture(profilePictureID) {
+			if (!profilePictureID) return;
 			const response = await APIRequest("/image/" + profilePictureID, "GET");
 			if (response?.error || !response?.data?.image) return setProfilePicture(false);
 			setProfilePicture(response.data.image);
 		}
 
 		async function getUserBanner(bannerID) {
+			if (!bannerID) return;
 			const response = await APIRequest("/image/" + bannerID, "GET");
 			if (response?.error || !response?.data?.image) return setBanner(false);
 			setBanner(response.data.image);
 		}
 
 		async function getStories(storyIDs) {
+			if (!storyIDs) return;
 			let newStories = await Promise.all(storyIDs.map(async (storyID) => await getStory(storyID)));
 			newStories = newStories.filter((e) => e !== false);
 			setStories(newStories);

@@ -9,11 +9,13 @@ const GetUserByID = require("../services/User/GetUserByID");
 const CreateNewUser = require("../services/User/CreateNewUser");
 const LogInUser = require("../services/User/LogInUser");
 const LogOutUser = require("../services/User/LogOutUser");
+const UpdateUser = require("../services/User/UpdateUser");
 
 router.get("/", GetUser);
 router.get("/:id", GetUserByID);
 router.post("/", CookieConsentAuthentication, CreateNewUser);
 router.post("/login", CookieConsentAuthentication, LogInUser);
 router.post("/logout", CookieConsentAuthentication, LogOutUser);
+router.patch("/", CookieConsentAuthentication, UpdateUser);
 
 module.exports = router;

@@ -1,11 +1,12 @@
 // Packages
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Components
 
 // Logic
 
 // Context
+import { UserContext } from "../UserContext";
 import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
@@ -14,7 +15,21 @@ import { RoutesContext } from "../../../context/RoutesContext";
 
 // Assets
 
-export const UserStoryItemLogic = ({ story }) => {
+export const UserStoryItemLogic = ({ storyID }) => {
+	const { stories } = useContext(UserContext);
+	const [story, setStory] = useState(false);
+
+	useEffect(() => {
+		function getStory() {
+			if (!stories) return;
+			const newStory = stories?.find((e) => e._id === storyID);
+			if (!newStory) return false;
+			return newStory;
+		}
+
+		setStory(getStory());
+	}, [storyID, stories, setStory]);
+
 	const { changeLocation } = useContext(RoutesContext);
 
 	function navigateToStory() {
@@ -26,5 +41,5 @@ export const UserStoryItemLogic = ({ story }) => {
 		if (story?.owner?.username) changeLocation("/u/" + story.owner.username);
 	}
 
-	return { navigateToStory, navigateToOwner };
+	return { story, navigateToStory, navigateToOwner };
 };
