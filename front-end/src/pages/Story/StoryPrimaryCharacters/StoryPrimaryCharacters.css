@@ -79,7 +79,8 @@
 
 @media (max-width: 1050px) {
 	.story-primary-characters {
-		margin-top: 0;
+		margin: 0;
 		padding: 12px 6px;
+		padding-bottom: 0;
 	}
 }

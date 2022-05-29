@@ -24,13 +24,13 @@ export const CookiesConsentPopUpLogic = () => {
 	}, [cookiesConsent]);
 
 	async function acceptCookies() {
-		await APIRequest("/cookies-consent/", "POST", { cookiesConsent: true });
 		setShowPopUp(false);
+		await APIRequest("/cookies-consent/", "POST", { cookiesConsent: true });
 	}
 
 	async function rejectCookies() {
-		await APIRequest("/cookies-consent/", "POST", { cookiesConsent: false });
 		setShowPopUp(false);
+		await APIRequest("/cookies-consent/", "POST", { cookiesConsent: false });
 	}
 
 	const [isShowingWhatFor, setIsShowingWhatFor] = useState(false);

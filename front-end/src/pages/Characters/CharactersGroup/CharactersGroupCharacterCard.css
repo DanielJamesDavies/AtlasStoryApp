@@ -102,11 +102,17 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-touch-callout: none;
 }
 
 @media (max-width: 700px) {
-	.characters-group-character-card {
+	.characters-group-character-card-container {
 		margin-left: -120px;
+	}
+
+	.characters-group-character-card {
 		border-width: 4px;
 
 		width: calc(100vw - 24px - 8px - 48px);

@@ -103,13 +103,23 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-touch-callout: none;
 }
 
 @media (max-width: 700px) {
+	.story-primary-character-card-container {
+		margin-left: -120px;
+	}
+
 	.story-primary-character-card {
 		border-width: 4px;
-		width: 260px;
-		height: 358px;
+
+		width: calc(100vw - 24px - 8px - 48px);
+		max-width: calc((100vh - 70px - 8px - 12px - 8px - 24px - 39px - 48px) * (441 / 607));
+		height: calc((100vw - 24px - 8px - 48px) * (607 / 441));
+		max-height: calc(100vh - 70px - 8px - 12px - 8px - 24px - 39px - 48px);
 	}
 
 	.story-primary-character-card-info-container {
