@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
 		});
 	if (!owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 
-	if (!owner.stories.includes(story._id)) owner.stories.push(story._id);
+	if (!owner.data.stories.includes(story._id)) owner.data.stories.push(story._id);
 
 	try {
 		await story.save();

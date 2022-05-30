@@ -31,3 +31,34 @@
 	margin-top: 20px;
 	text-align: right;
 }
+
+.register-completed-container {
+	margin: 80px auto;
+	margin-top: 8vh;
+	padding: 24px;
+	border-radius: 4px;
+
+	width: calc(100% - 48px - 24px);
+	max-width: 600px;
+
+	background: var(--grey2);
+	text-align: left;
+}
+
+.register-completed-title {
+	margin-bottom: 10px;
+	font-size: 24px;
+	font-weight: 700;
+	text-align: left;
+}
+
+.register-completed-text {
+	font-size: 16px;
+}
+
+.register-completed-email {
+	margin: 24px 0;
+	font-size: 16px;
+	font-weight: 700;
+	text-align: center;
+}

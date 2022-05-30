@@ -37,7 +37,7 @@
 }
 
 .drag-drop-item-enable-drag-drop .story-primary-character-card {
-	animation: wiggle infinite 0.5s linear;
+	animation: wiggle-medium infinite 0.5s linear;
 }
 
 .drag-drop-item-enable-drag-drop:nth-child(even) .story-primary-character-card {

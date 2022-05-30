@@ -22,7 +22,11 @@ export const CharactersGroupCharacterCards = () => {
 		CharactersGroupCharacterCardsLogic();
 
 	return (
-		<div className='characters-group-characters-cards-container'>
+		<div
+			className='characters-group-characters-cards-container'
+			onMouseEnter={() => scrollCharacterCards(0)}
+			onMouseLeave={() => scrollCharacterCards(-1)}
+		>
 			{!group ? null : (
 				<DragDropContainer
 					innerRef={charactersCards}

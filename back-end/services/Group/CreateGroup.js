@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const Group = require("../../models/Group");
+const Story = require("../../models/Story");
 
 module.exports = async (req, res) => {
 	let validateGroupResult = validateGroup(req.body);
@@ -25,10 +26,25 @@ module.exports = async (req, res) => {
 		data: { name: req.body.name, characters: [] },
 	});
 
+	let story = await Story.findById(req.body.story_id)
+		.exec()
+		.catch((err) => {
+			res.status(200).send({ error: err });
+		});
+	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
+
+	if (!story.data.groups.includes(group._id)) story.data.groups.push(group._id);
+
 	try {
 		await group.save();
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Group Could Not Be Created" }] });
+	}
+
+	try {
+		await story.save();
+	} catch (error) {
+		return res.status(200).send({ errors: [{ message: "Story Could Not Be Saved" }] });
 	}
 
 	return res.status(200).send({ message: "Success", data: { groupURL: group.url } });

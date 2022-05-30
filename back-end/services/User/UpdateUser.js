@@ -1,5 +1,7 @@
-const User = require("../../models/User");
 const jwt_decode = require("jwt-decode");
+
+const User = require("../../models/User");
+
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 module.exports = async (req, res) => {
@@ -20,7 +22,11 @@ module.exports = async (req, res) => {
 
 	const newUser = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldUser)), req?.body?.path, req?.body?.newValue);
 
-	await User.findOneAndUpdate({ _id: user_id }, newUser, { upsert: true });
+	try {
+		await User.findOneAndUpdate({ _id: user_id }, newUser, { upsert: true });
+	} catch (error) {
+		return res.status(200).send({ errors: [{ message: "User Could Not Be Saved" }] });
+	}
 
 	return res.status(200).send({ message: "Success", data: { user: newUser } });
 };

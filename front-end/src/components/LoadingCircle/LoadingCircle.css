@@ -1,0 +1,30 @@
+.loading-circle-container {
+	margin-right: 48px;
+	width: 48px;
+	height: 48px;
+	vertical-align: middle;
+	animation: loading-circle-spin infinite 1s linear;
+}
+
+@keyframes loading-circle-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.loading-circle {
+	border: 5px solid var(--blue);
+	border-bottom: 0;
+	border-radius: 32px 32px 0 0;
+
+	width: calc(100% - (5px * 2));
+	height: 50%;
+
+	background: transparent;
+}

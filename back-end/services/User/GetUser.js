@@ -1,5 +1,6 @@
-const User = require("../../models/User");
 const jwt_decode = require("jwt-decode");
+
+const User = require("../../models/User");
 
 module.exports = async (req, res) => {
 	if (req.query.username) {

@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 // Components
 import { Login } from "../../pages/Login/Login";
 import { Register } from "../../pages/Register/Register";
+import { Verify } from "../../pages/Verify/Verify";
 import { UserContainer } from "../../pages/User/UserContainer";
 import { StoryContainer } from "../../pages/Story/StoryContainer";
 import { CharactersContainer } from "../../pages/Characters/CharactersContainer";
@@ -59,6 +60,14 @@ export const RoutesLogic = () => {
 						changeAccentHoverColour("default");
 						setShowUnauthorizedNavigationBar(true);
 						setRenderComponent(<Register />);
+					}
+					break;
+				case "verify":
+					if (!username && locationSplit.length >= 3) {
+						changeAccentColour("default");
+						changeAccentHoverColour("default");
+						setShowUnauthorizedNavigationBar(true);
+						setRenderComponent(<Verify username={locationSplit[1]} verificationCode={locationSplit[2]} />);
 					}
 					break;
 				case "u":

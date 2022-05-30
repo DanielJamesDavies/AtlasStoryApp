@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 // Components
 
@@ -43,6 +43,14 @@ export const CharactersGroupCharacterCardsLogic = () => {
 		}, 2);
 		setCharacterCardsScrollInterval(interval);
 	}
+
+	const [prevGroupID, setPrevGroupID] = useState("");
+	useEffect(() => {
+		if (group._id !== prevGroupID) {
+			setPrevGroupID(group._id);
+			if (charactersCards?.current) charactersCards.current.scrollLeft = 0;
+		}
+	}, [group, prevGroupID, setPrevGroupID]);
 
 	// Reorder Characters
 	async function changeCharactersOrder(res) {

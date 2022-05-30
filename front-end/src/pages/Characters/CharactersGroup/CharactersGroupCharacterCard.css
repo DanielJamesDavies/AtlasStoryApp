@@ -37,7 +37,7 @@
 }
 
 .drag-drop-item-enable-drag-drop .characters-group-character-card {
-	animation: wiggle infinite 0.5s linear;
+	animation: wiggle-small infinite 0.5s linear;
 }
 
 .drag-drop-item-enable-drag-drop:nth-child(even) .characters-group-character-card {

@@ -8,18 +8,18 @@ const UserSchema = mongoose.Schema({
 		min: 1,
 		max: 32,
 	},
+	email: {
+		type: String,
+		require: true,
+		min: 1,
+		max: 255,
+	},
 	data: {
 		nickname: {
 			type: String,
 			require: true,
 			min: 1,
 			max: 32,
-		},
-		email: {
-			type: String,
-			require: true,
-			min: 1,
-			max: 255,
 		},
 		password: {
 			type: String,
@@ -45,6 +45,7 @@ const UserSchema = mongoose.Schema({
 			require: true,
 		},
 	},
+	verified: { type: Boolean, required: true },
 	date_created: { type: Date, default: Date.now },
 });
 

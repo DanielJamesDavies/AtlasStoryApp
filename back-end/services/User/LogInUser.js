@@ -13,15 +13,15 @@ module.exports = async (req, res) => {
 	const validationError = schema.validate(req.body).error;
 	if (validationError) return res.status(200).send({ error: validationError });
 
-	// Check if user with username exists
-	const user = await User.findOne({
-		username: req.body.username,
-	}).exec();
-	if (!user) return res.status(200).send({ error: "There is no account with this username." });
+	// Check if user is valid
+	const user = await User.findOne({ username: req.body.username }).exec();
+	if (!user) return res.status(200).send({ errors: [{ message: "There is no account with this username." }] });
+	if (!user?.data?.password) return res.status(200).send({ errors: [{ message: "There is no password associated with this account." }] });
+	if (!user?.verified) return res.status(200).send({ errors: [{ message: "This account is not verified." }] });
 
 	// Check if password is correct
-	const isCorrectPassword = await bcrypt.compare(req.body.password, user.password);
-	if (!isCorrectPassword) return res.status(200).send({ error: "Incorrect Password." });
+	const isCorrectPassword = await bcrypt.compare(req.body.password, user.data.password);
+	if (!isCorrectPassword) return res.status(200).send({ errors: [{ message: "Incorrect Password." }] });
 
 	// Create token
 	const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_SECRET);

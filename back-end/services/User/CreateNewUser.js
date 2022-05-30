@@ -2,70 +2,86 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const uuidv4 = require("uuid")?.v4;
 
 const User = require("../../models/User");
+const UserVerification = require("../../models/UserVerification");
 const Image = require("../../models/Image");
 
+const emailTransporter = nodemailer.createTransport({
+	service: "gmail",
+	auth: { user: process.env.EMAIL_ADDRESS, pass: process.env.EMAIL_PASSWORD },
+});
+
+var isEmailTransporterVerified = false;
+emailTransporter.verify((error, success) => {
+	if (!error && success) isEmailTransporterVerified = true;
+});
+
 module.exports = async (req, res) => {
-	let validateUserResult = validateUser(req.body);
-	if (validateUserResult?.errors) return res.status(200).send({ errors: validateUserResult.errors });
+	if (!isEmailTransporterVerified) return res.status(200).send({ errors: [{ message: "New users cannot be created at this current time." }] });
 
-	// Check if username is used
-	const usernameUsed = await User.findOne({
-		username: req.body.username,
-	}).exec();
+	// Validate New User Data
+	let validateUserResult = await validateUser(req.body);
+	if (validateUserResult.errors.length > 0) return res.status(200).send({ errors: validateUserResult.errors });
 
-	// Check if email is used
-	const emailUsed = await User.findOne({ email: req.body.email }).exec();
-
-	// If username or email is used, return error
-	if (usernameUsed || emailUsed) {
-		return res.status(200).send({ error: { usernameUsed: usernameUsed ? true : false, emailUsed: emailUsed ? true : false } });
-	}
-
-	// Hash password
-	const salt = await bcrypt.genSalt(10);
-	const hashedPassword = await bcrypt.hash(req.body.password, salt);
+	// Hash Password
+	const passwordSalt = await bcrypt.genSalt(10);
+	const hashedPassword = await bcrypt.hash(req.body.password, passwordSalt);
 
 	const profilePictureID = new mongoose.Types.ObjectId();
 	const bannerID = new mongoose.Types.ObjectId();
 
-	// New User
+	// Create New User
 	const user = new User({
 		_id: new mongoose.Types.ObjectId(),
 		username: req.body.username,
+		email: req.body.email,
 		data: {
 			nickname: req.body.nickname,
-			email: req.body.email,
 			password: hashedPassword,
 			profilePicture: profilePictureID,
 			banner: bannerID,
 			stories: [],
 		},
+		verified: false,
 	});
 
-	// Create Token
-	const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_SECRET);
+	// User Verification
+	const userVerificationResponse = await createUserVerification(user._id);
+	if (!userVerificationResponse?.verificationCode) {
+		return res.status(200).send({ errors: [{ message: "User Verification Could Not Be Generated" }] });
+	}
 
-	user.save()
-		.then(() => {
-			// New profile
-			const profilePicture = new Image({ _id: profilePictureID, image: req.body.profilePicture });
-			profilePicture
-				.save()
-				.then(() => {
-					return res.status(200).send({ message: "Success", data: { token, username: user.username } });
-				})
-				.catch((err) => {
-					return res.status(200).send({ error: err });
-				});
-		})
-		.catch((err) => {
-			return res.status(200).send({ error: err });
-		});
+	const verificationEmailResponse = await sendVerificaionEmail(req.body.username, req.body.email, userVerificationResponse.verificationCode);
+	if (verificationEmailResponse?.error) {
+		return res.status(200).send({ errors: [{ message: "User Verification Email Could Not Be Sent" }] });
+	}
+
+	// Save New User
+	try {
+		await user.save();
+	} catch (error) {
+		return res.status(200).send({ errors: [{ message: "User Could Not Be Created" }] });
+	}
+
+	// Create and Save New Profile Picture
+	const profilePicture = new Image({ _id: profilePictureID, image: req.body.profilePicture });
+
+	try {
+		await profilePicture.save();
+	} catch (error) {
+		return res.status(200).send({ errors: [{ message: "Profile Picture Could Not Be Created" }] });
+	}
+
+	// Success Response
+	return res.status(200).send({ message: "Success" });
 };
 
-function validateUser(user) {
+async function validateUser(user) {
+	let errors = [];
+
 	const userSchema = Joi.object({
 		username: Joi.string().min(1).max(32).required(),
 		nickname: Joi.string().min(1).max(32).required(),
@@ -85,8 +101,8 @@ function validateUser(user) {
 			{ key: "profilePicture", name: "Profile Picture", indefiniteArticle: "a" },
 		];
 
-		return {
-			errors: userValidationError.map((error) => {
+		errors = errors.concat(
+			userValidationError.map((error) => {
 				let keyData = userKeysData.find((e) => e.key === error.path[0]);
 				let message = "";
 
@@ -124,8 +140,69 @@ function validateUser(user) {
 				}
 
 				return { attribute: error.path[0], message };
-			}),
-		};
+			})
+		);
 	}
-	return {};
+
+	// Check if username is used
+	const usernameUsed = await User.findOne({
+		username: user.username,
+	}).exec();
+	if (usernameUsed) errors.push({ attribute: "username", message: "This username is being used by another user." });
+
+	// Check if email is used
+	const emailUsed = await User.findOne({ email: user.email }).exec();
+	if (emailUsed) errors.push({ attribute: "email", message: "This email is being used by another user." });
+
+	return { errors };
+}
+
+async function createUserVerification(user_id) {
+	const verificationCode = uuidv4();
+	const verificationCodeSalt = await bcrypt.genSalt(10);
+	const hashedVerificationCode = await bcrypt.hash(verificationCode, verificationCodeSalt);
+
+	// Create New User
+	const userVerification = new UserVerification({
+		_id: new mongoose.Types.ObjectId(),
+		user_id: user_id,
+		verification_code: hashedVerificationCode,
+	});
+
+	try {
+		await userVerification.save();
+	} catch (error) {
+		return {};
+	}
+
+	return { verificationCode };
+}
+
+async function sendVerificaionEmail(username, email, verificationCode) {
+	const verificationLink = "https://www.atlas-story.app/verify/" + username + "/" + verificationCode;
+
+	const message =
+		"<p>To complete registering your Atlas Story App account for " +
+		username +
+		", please <a href='" +
+		verificationLink +
+		"'>click here</a> to verify your email address.</p>";
+
+	const res = await new Promise((resolve, reject) => {
+		emailTransporter
+			.sendMail({
+				from: process.env.EMAIL_ADDRESS,
+				to: email,
+				subject: "Verify Your Email for Your Atlas Story App Account",
+				html: message,
+				text: message,
+			})
+			.then((message) => {
+				resolve({ message });
+			})
+			.catch((error) => {
+				reject({ error });
+			});
+	});
+	return res;
 }

@@ -10,6 +10,7 @@
 	--blue2: #0088ff;
 	--blue3: #00aaff;
 	--red: #cc0000;
+	--green: #00ff44;
 }
 
 html,
@@ -52,7 +53,7 @@ button:focus {
 	color: #fff;
 }
 
-@keyframes wiggle {
+@keyframes wiggle-small {
 	0%,
 	100% {
 		transform: rotate(0deg);
@@ -62,5 +63,31 @@ button:focus {
 	}
 	75% {
 		transform: rotate(-0.4deg);
+	}
+}
+
+@keyframes wiggle-medium {
+	0%,
+	100% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(0.7deg);
+	}
+	75% {
+		transform: rotate(-0.7deg);
+	}
+}
+
+@keyframes wiggle-large {
+	0%,
+	100% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(1deg);
+	}
+	75% {
+		transform: rotate(-1deg);
 	}
 }

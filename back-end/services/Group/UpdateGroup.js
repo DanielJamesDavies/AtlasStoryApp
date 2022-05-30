@@ -11,7 +11,11 @@ module.exports = async (req, res) => {
 
 	const newGroup = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldGroup)), req?.body?.path, req?.body?.newValue);
 
-	await Group.findOneAndUpdate({ _id: req.params.id }, newGroup, { upsert: true });
+	try {
+		await Group.findOneAndUpdate({ _id: req.params.id }, newGroup, { upsert: true });
+	} catch (error) {
+		return res.status(200).send({ errors: [{ message: "Group Could Not Be Saved" }] });
+	}
 
 	return res.status(200).send({ message: "Success", data: { group: newGroup } });
 };

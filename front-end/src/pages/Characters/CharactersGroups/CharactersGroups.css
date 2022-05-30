@@ -2,7 +2,7 @@
 	flex-shrink: 0;
 	display: inline-block;
 	border-radius: 4px;
-	width: 280px;
+	width: 250px;
 	vertical-align: top;
 }
 
@@ -68,7 +68,7 @@
 	margin: 6px 0;
 	padding: 10px 16px;
 	border: 0;
-	border-radius: 32px;
+	border-radius: 22px;
 
 	width: 100%;
 
@@ -93,7 +93,7 @@
 }
 
 .drag-drop-item-enable-drag-drop .characters-groups-group-item {
-	animation: wiggle infinite 0.5s linear;
+	animation: wiggle-medium infinite 0.5s linear;
 }
 
 .drag-drop-item-enable-drag-drop:nth-child(even) .characters-groups-group-item {

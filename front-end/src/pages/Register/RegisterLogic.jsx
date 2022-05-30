@@ -7,7 +7,6 @@ import { useRef, useState, useContext } from "react";
 
 // Context
 import { APIContext } from "../../context/APIContext";
-import { RoutesContext } from "../../context/RoutesContext";
 
 // Services
 
@@ -76,18 +75,15 @@ export const RegisterLogic = () => {
 	}
 
 	// Submit
-	const { APIRequest, setToken } = useContext(APIContext);
-	const { changeLocation } = useContext(RoutesContext);
+	const { APIRequest } = useContext(APIContext);
 	const [errors, setErrors] = useState([]);
+	const [hasCompletedRegistration, setHasCompletedRegistration] = useState(false);
 
 	const submitNewUser = async () => {
 		setErrors([]);
 		const response = await APIRequest("/user", "POST", { username, nickname, email, password, profilePicture });
-		if (response.errors) setErrors(response.errors);
-
-		if (!response?.data?.token || !response?.data?.username) return;
-		setToken(response.data.token);
-		changeLocation("/user/" + response.data.username);
+		if (response?.errors) return setErrors(response.errors);
+		setHasCompletedRegistration(true);
 	};
 
 	return {
@@ -104,5 +100,6 @@ export const RegisterLogic = () => {
 		changePassword,
 		errors,
 		submitNewUser,
+		hasCompletedRegistration,
 	};
 };

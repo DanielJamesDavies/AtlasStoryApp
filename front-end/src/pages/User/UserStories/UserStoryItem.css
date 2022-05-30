@@ -3,7 +3,7 @@
 }
 
 .drag-drop-item-enable-drag-drop .user-stories-story-item {
-	animation: wiggle infinite 0.5s linear;
+	animation: wiggle-large infinite 0.5s linear;
 }
 
 .drag-drop-item-enable-drag-drop:nth-child(even) .user-stories-story-item {
