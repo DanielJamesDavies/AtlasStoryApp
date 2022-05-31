@@ -30,8 +30,18 @@ export const CharactersGroup = () => {
 				</button>
 				{!isAuthorizedToModify ? null : (
 					<div className='characters-group-primary-modify-btns-container'>
-						<IconBtn className='characters-group-primary-modify-btn' icon={<FaUserPlus />} onClick={openCreateCharacterForm} />
-						<IconBtn className='characters-group-primary-modify-btn' icon={<FaSort />} onClick={toggleIsReorderingCharacters} />
+						<IconBtn
+							className='characters-group-primary-modify-btn'
+							icon={<FaUserPlus />}
+							iconName='plus'
+							onClick={openCreateCharacterForm}
+						/>
+						<IconBtn
+							className='characters-group-primary-modify-btn'
+							icon={<FaSort />}
+							iconName='sort'
+							onClick={toggleIsReorderingCharacters}
+						/>
 					</div>
 				)}
 			</div>

@@ -13,20 +13,19 @@ import { useEffect, useState } from "react";
 
 // Assets
 
-export const IconBtnLogic = ({ className, icon }) => {
+export const IconBtnLogic = ({ className, iconName }) => {
 	const [iconBtnClassName, setIconBtnClassName] = useState("icon-btn");
 
 	useEffect(() => {
 		function getIconBtnClassName() {
 			let newClassName = "icon-btn";
-			console.log(icon);
-			if (icon?.type?.name === "FaPlus") newClassName += " icon-btn-plus-icon";
-			if (icon?.type?.name === "FaSort") newClassName += " icon-btn-sort-icon";
+			if (iconName === "plus") newClassName += " icon-btn-plus-icon";
+			if (iconName === "sort") newClassName += " icon-btn-sort-icon";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}
 		setIconBtnClassName(getIconBtnClassName());
-	}, [className, icon, setIconBtnClassName]);
+	}, [className, iconName, setIconBtnClassName]);
 
 	return { iconBtnClassName };
 };

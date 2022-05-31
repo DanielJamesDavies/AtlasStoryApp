@@ -15,35 +15,53 @@ import { APIContext } from "../../context/APIContext";
 // Assets
 
 export const RegisterLogic = () => {
-	// Profile Picture
-	const profilePictureInputRef = useRef();
-	const [profilePicture, setProfilePicture] = useState("");
+	async function getImageFromFile(file) {
+		return await new Promise((resolve) => {
+			const fr = new FileReader();
 
-	function changeProfilePicture(e) {
-		if (e.target.files.length === 0) return false;
+			fr.readAsDataURL(file);
 
-		const fr = new FileReader();
+			fr.onload = () => {
+				let image = new Image();
+				image.onload = async () => {
+					let imageLength = fr.result.split(",")[1].split("=")[0].length;
+					let imageSize = Math.floor(imageLength - (imageLength / 8) * 2);
+					if (imageSize > 1500000) return;
 
-		fr.readAsDataURL(e.target.files[0]);
+					resolve({ data: fr.result });
+				};
 
-		fr.onload = () => {
-			profilePictureInputRef.current.value = [];
-
-			let image = new Image();
-			image.onload = async () => {
-				let imageLength = fr.result.split(",")[1].split("=")[0].length;
-				let imageSize = Math.floor(imageLength - (imageLength / 8) * 2);
-				if (imageSize > 1500000) return;
-
-				setProfilePicture(fr.result);
+				image.src = fr.result;
 			};
 
-			image.src = fr.result;
-		};
+			fr.onerror = (error) => {
+				resolve({ error });
+			};
+		});
+	}
 
-		fr.onerror = (error) => {
-			return console.log(error);
-		};
+	// Profile Picture
+	const profilePictureInputRef = useRef();
+	const [profilePicture, setProfilePicture] = useState(false);
+
+	async function changeProfilePicture(e) {
+		if (e.target.files.length === 0) return false;
+		const image = await getImageFromFile(e.target.files[0]);
+		profilePictureInputRef.current.value = [];
+		if (image?.error || !image?.data) return;
+		setProfilePicture(image.data);
+	}
+
+	// Banner
+	const bannerInputRef = useRef();
+	const [banner, setBanner] = useState(false);
+
+	async function changeBanner(e) {
+		if (e.target.files.length === 0) return false;
+		const image = await getImageFromFile(e.target.files[0]);
+		bannerInputRef.current.value = [];
+		if (image?.error || !image?.data) return;
+		setBanner(image.data);
 	}
 
 	// Username
@@ -81,7 +99,7 @@ export const RegisterLogic = () => {
 
 	const submitNewUser = async () => {
 		setErrors([]);
-		const response = await APIRequest("/user", "POST", { username, nickname, email, password, profilePicture });
+		const response = await APIRequest("/user", "POST", { username, nickname, email, password, profilePicture, banner });
 		if (response?.errors) return setErrors(response.errors);
 		setHasCompletedRegistration(true);
 	};
@@ -90,6 +108,9 @@ export const RegisterLogic = () => {
 		profilePictureInputRef,
 		profilePicture,
 		changeProfilePicture,
+		bannerInputRef,
+		banner,
+		changeBanner,
 		username,
 		changeUsername,
 		nickname,

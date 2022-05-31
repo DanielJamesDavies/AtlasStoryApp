@@ -14,7 +14,7 @@ import "./RegisterProfilePictureInput.css";
 
 // Assets
 
-export const RegisterProfilePictureInput = ({ profilePicture, changeProfilePicture, profilePictureInputRef }) => {
+export const RegisterProfilePictureInput = ({ profilePictureInputRef, profilePicture, changeProfilePicture }) => {
 	return (
 		<div className='register-profile-picture-input'>
 			<div className='register-profile-picture-label'>Profile Picture</div>

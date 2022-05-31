@@ -35,6 +35,15 @@ module.exports = async (req, res) => {
 		}
 	}
 
+	if (user?.data?.banner) {
+		try {
+			const bannerDeleteResult = await Image.deleteOne({ _id: user.data.banner });
+			if (bannerDeleteResult?.deletedCount !== 1) return res.status(200).send({ errors: [{ message: "Banner Could Not Be Deleted" }] });
+		} catch (error) {
+			return res.status(200).send({ errors: [{ message: "Banner Could Not Be Deleted" }] });
+		}
+	}
+
 	if (user?.verified) {
 		try {
 			const userVerificationDeleteResult = await UserVerification.deleteOne({ user_id });

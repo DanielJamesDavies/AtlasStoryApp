@@ -75,6 +75,15 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Profile Picture Could Not Be Created" }] });
 	}
 
+	// Create and Save New Banner
+	const banner = new Image({ _id: bannerID, image: req.body.banner });
+
+	try {
+		await banner.save();
+	} catch (error) {
+		return res.status(200).send({ errors: [{ message: "Banner Could Not Be Created" }] });
+	}
+
 	// Success Response
 	return res.status(200).send({ message: "Success" });
 };
@@ -88,6 +97,7 @@ async function validateUser(user) {
 		email: Joi.string().min(1).max(255).required().email(),
 		password: Joi.string().min(6).max(255).required(),
 		profilePicture: Joi.string().min(1).required(),
+		banner: Joi.string().min(1).required(),
 	});
 
 	const userValidationError = userSchema.validate(user, { abortEarly: false })?.error?.details;
@@ -99,6 +109,7 @@ async function validateUser(user) {
 			{ key: "email", name: "Email", indefiniteArticle: "an" },
 			{ key: "password", name: "Password", indefiniteArticle: "a" },
 			{ key: "profilePicture", name: "Profile Picture", indefiniteArticle: "a" },
+			{ key: "banner", name: "Banner", indefiniteArticle: "a" },
 		];
 
 		errors = errors.concat(

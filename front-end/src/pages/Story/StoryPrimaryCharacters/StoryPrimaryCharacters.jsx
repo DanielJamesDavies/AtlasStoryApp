@@ -27,7 +27,12 @@ export const StoryPrimaryCharacters = () => {
 				<div className='story-primary-characters-primary-title'>Primary Characters</div>
 				{!isAuthorizedToModify ? null : (
 					<div className='story-primary-characters-primary-modify-btn-container'>
-						<IconBtn className='story-primary-characters-primary-modify-btn' icon={<FaSort />} onClick={toggleIsReorderingCharacters} />
+						<IconBtn
+							className='story-primary-characters-primary-modify-btn'
+							icon={<FaSort />}
+							iconName='sort'
+							onClick={toggleIsReorderingCharacters}
+						/>
 					</div>
 				)}
 			</div>

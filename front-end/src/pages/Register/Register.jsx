@@ -2,6 +2,7 @@
 
 // Components
 import { RegisterProfilePictureInput } from "./RegisterProfilePictureInput";
+import { RegisterBannerInput } from "./RegisterBannerInput";
 import { TextInput } from "../../components/TextInput/TextInput";
 import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 import { SubmitBtn } from "../../components/SubmitBtn/SubmitBtn";
@@ -23,6 +24,9 @@ export const Register = () => {
 		profilePictureInputRef,
 		profilePicture,
 		changeProfilePicture,
+		bannerInputRef,
+		banner,
+		changeBanner,
 		username,
 		changeUsername,
 		nickname,
@@ -42,13 +46,6 @@ export const Register = () => {
 				<div className='register-form'>
 					<div className='register-form-title'>Register an Account</div>
 
-					<RegisterProfilePictureInput
-						profilePictureInputRef={profilePictureInputRef}
-						profilePicture={profilePicture}
-						changeProfilePicture={changeProfilePicture}
-					/>
-					<ErrorMessage errors={errors} attribute='profilePicture' />
-
 					<div className='register-form-text-input-container'>
 						<TextInput label='Username' value={username} onChange={changeUsername} isDark={true} />
 						<ErrorMessage errors={errors} attribute='username' />
@@ -65,6 +62,16 @@ export const Register = () => {
 						<TextInput label='Password' value={password} onChange={changePassword} hideValue={true} isDark={true} />
 						<ErrorMessage errors={errors} attribute='password' />
 					</div>
+
+					<RegisterProfilePictureInput
+						profilePictureInputRef={profilePictureInputRef}
+						profilePicture={profilePicture}
+						changeProfilePicture={changeProfilePicture}
+					/>
+					<ErrorMessage errors={errors} attribute='profilePicture' />
+
+					<RegisterBannerInput bannerInputRef={bannerInputRef} banner={banner} changeBanner={changeBanner} />
+					<ErrorMessage errors={errors} attribute='banner' />
 
 					<div className='register-form-submit-container'>
 						<SubmitBtn label='Register Account' onSubmit={submitNewUser} />
