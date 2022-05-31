@@ -25,25 +25,27 @@ export const CharactersGroup = () => {
 		<div className='characters-group'>
 			<div className='characters-group-primary'>
 				<div className='characters-group-primary-title'>{group?.data?.name}</div>
-				<button className='characters-group-primary-open-group-btn' onClick={navigateToGroup}>
-					Open Group
-				</button>
-				{!isAuthorizedToModify ? null : (
-					<div className='characters-group-primary-modify-btns-container'>
-						<IconBtn
-							className='characters-group-primary-modify-btn'
-							icon={<FaUserPlus />}
-							iconName='plus'
-							onClick={openCreateCharacterForm}
-						/>
-						<IconBtn
-							className='characters-group-primary-modify-btn'
-							icon={<FaSort />}
-							iconName='sort'
-							onClick={toggleIsReorderingCharacters}
-						/>
-					</div>
-				)}
+				<div className='characters-group-primary-buttons-container'>
+					<button className='characters-group-primary-open-group-btn' onClick={navigateToGroup}>
+						Open Group
+					</button>
+					{!isAuthorizedToModify ? null : (
+						<div className='characters-group-primary-modify-btns-container'>
+							<IconBtn
+								className='characters-group-primary-modify-btn'
+								icon={<FaUserPlus />}
+								iconName='plus'
+								onClick={openCreateCharacterForm}
+							/>
+							<IconBtn
+								className='characters-group-primary-modify-btn'
+								icon={<FaSort />}
+								iconName='sort'
+								onClick={toggleIsReorderingCharacters}
+							/>
+						</div>
+					)}
+				</div>
 			</div>
 			<CharactersGroupCharacterCards />
 			<CharactersCreateCharacter />

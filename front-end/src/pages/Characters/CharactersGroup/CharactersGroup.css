@@ -19,14 +19,23 @@
 	margin-bottom: 1px;
 	font-size: 28px;
 	font-weight: 700;
+	max-width: calc(100% - 215px);
+}
+
+.characters-group-primary-buttons-container {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+	height: 40px;
 }
 
 .characters-group-primary-open-group-btn {
-	margin-left: auto;
+	display: inline-block;
 	margin-right: 4px;
-	padding: 12px 16px;
+	padding: 0 16px;
 	border: 0;
 	border-radius: 32px;
+	height: 100%;
 	background: var(--accentColour);
 	color: #fff;
 	font-size: 13px;
