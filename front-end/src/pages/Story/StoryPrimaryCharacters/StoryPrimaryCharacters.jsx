@@ -2,6 +2,7 @@
 import { FaSort } from "react-icons/fa";
 
 // Components
+import { IconBtn } from "../../../components/IconBtn/IconBtn";
 import { StoryPrimaryCharacterCards } from "./StoryPrimaryCharacterCards";
 
 // Logic
@@ -25,14 +26,9 @@ export const StoryPrimaryCharacters = () => {
 			<div className='story-primary-characters-primary'>
 				<div className='story-primary-characters-primary-title'>Primary Characters</div>
 				{!isAuthorizedToModify ? null : (
-					<>
-						<button
-							className='story-primary-characters-primary-modify-btn story-primary-characters-primary-btn-reorder-characters'
-							onClick={toggleIsReorderingCharacters}
-						>
-							<FaSort />
-						</button>
-					</>
+					<div className='story-primary-characters-primary-modify-btn-container'>
+						<IconBtn className='story-primary-characters-primary-modify-btn' icon={<FaSort />} onClick={toggleIsReorderingCharacters} />
+					</div>
 				)}
 			</div>
 			<StoryPrimaryCharacterCards />

@@ -1,0 +1,40 @@
+.icon-btn {
+	position: relative;
+	display: inline-block;
+	margin: 4px;
+	padding: 0;
+	border: 0;
+	border-radius: 100%;
+
+	width: 40px;
+	height: 40px;
+
+	background: var(--accentColour);
+	color: #fff;
+	font-size: 50px;
+	text-align: center;
+	vertical-align: middle;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.icon-btn:hover {
+	background: var(--accentHoverColour);
+	color: #fff;
+}
+
+.icon-btn svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 55%;
+}
+
+.icon-btn-plus-icon svg {
+	width: 50%;
+}
+
+.icon-btn-sort-icon svg {
+	width: 43%;
+}

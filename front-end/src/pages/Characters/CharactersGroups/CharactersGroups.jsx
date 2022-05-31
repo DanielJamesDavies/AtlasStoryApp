@@ -2,9 +2,10 @@
 import { FaPlus, FaSort } from "react-icons/fa";
 
 // Components
-import { CharactersCreateGroup } from "./CharactersCreateGroup";
+import { IconBtn } from "../../../components/IconBtn/IconBtn";
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
+import { CharactersCreateGroup } from "./CharactersCreateGroup";
 
 // Logic
 import { CharactersGroupsLogic } from "./CharactersGroupsLogic";
@@ -37,15 +38,8 @@ export const CharactersGroups = () => {
 				<div className='characters-groups-primary-title'>Groups</div>
 				{!isAuthorizedToModify ? null : (
 					<div className='characters-groups-primary-modify-buttons-container'>
-						<button className='characters-groups-primary-modify-btn' onClick={openCreateGroupForm}>
-							<FaPlus />
-						</button>
-						<button
-							className='characters-groups-primary-modify-btn characters-groups-primary-modify-btn-reorder-groups'
-							onClick={toggleIsReorderingGroups}
-						>
-							<FaSort />
-						</button>
+						<IconBtn className='characters-groups-primary-modify-btn' icon={<FaPlus />} onClick={openCreateGroupForm} />
+						<IconBtn className='characters-groups-primary-modify-btn' icon={<FaSort />} onClick={toggleIsReorderingGroups} />
 					</div>
 				)}
 			</div>

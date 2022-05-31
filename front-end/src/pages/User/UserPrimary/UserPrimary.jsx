@@ -2,6 +2,7 @@
 import { FaCog, FaSignOutAlt } from "react-icons/fa";
 
 // Components
+import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Logic
 import { UserPrimaryLogic } from "./UserPrimaryLogic";
@@ -29,12 +30,8 @@ export const UserPrimary = () => {
 			</div>
 			{!isAuthorizedToModify ? null : (
 				<div className='user-primary-auth-buttons-container'>
-					<button className='user-primary-auth-btn user-primary-auth-btn-settings'>
-						<FaCog />
-					</button>
-					<button className='user-primary-auth-btn user-primary-auth-log-out' onClick={logOut}>
-						<FaSignOutAlt />
-					</button>
+					<IconBtn className='user-primary-auth-btn' icon={<FaCog />} onClick={() => {}} />
+					<IconBtn className='user-primary-auth-btn' icon={<FaSignOutAlt />} onClick={logOut} />
 				</div>
 			)}
 		</div>

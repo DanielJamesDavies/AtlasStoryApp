@@ -83,43 +83,6 @@
 	vertical-align: middle;
 }
 
-.user-primary-auth-btn {
-	position: relative;
-	display: inline-block;
-	margin: 4px;
-	padding: 0;
-	border: 0;
-	border-radius: 100%;
-
-	width: 46px;
-	height: 46px;
-
-	background: var(--grey2);
-	color: var(--blue);
-	font-size: 22px;
-	text-align: center;
-	vertical-align: middle;
-	transition: 0.2s;
-	cursor: pointer;
-}
-
-.user-primary-auth-btn:hover {
-	background: var(--blue);
-	color: #fff;
-}
-
-.user-primary-auth-btn svg {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100%;
-}
-
-.user-primary-auth-btn-settings svg {
-	font-size: 24px;
-}
-
 @media (max-width: 700px) {
 	.user-primary {
 		padding: 0;

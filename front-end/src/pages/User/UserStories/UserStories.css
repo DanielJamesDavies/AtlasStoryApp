@@ -31,38 +31,6 @@
 	margin-left: auto;
 }
 
-.user-stories-top-modify-btn {
-	position: relative;
-	display: inline-block;
-	margin: 4px;
-	padding: 0;
-	border: 0;
-	border-radius: 100%;
-
-	width: 40px;
-	height: 40px;
-
-	background: var(--blue);
-	color: #fff;
-	font-size: 20px;
-	text-align: center;
-	vertical-align: middle;
-	transition: 0.2s;
-	cursor: pointer;
-}
-
-.user-stories-top-modify-btn:hover {
-	background: var(--blue2);
-}
-
-.user-stories-top-modify-btn svg {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100%;
-}
-
 .user-stories-top-modify-btn:last-child {
 	margin-right: 0;
 }

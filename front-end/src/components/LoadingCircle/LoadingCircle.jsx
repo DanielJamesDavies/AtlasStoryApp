@@ -3,6 +3,7 @@
 // Components
 
 // Logic
+import { LoadingCircleLogic } from "./LoadingCircleLogic";
 
 // Context
 
@@ -14,11 +15,10 @@ import "./LoadingCircle.css";
 // Assets
 
 export const LoadingCircle = ({ className, size }) => {
+	const { loadingCircleContainerClassName } = LoadingCircleLogic({ className, size });
+
 	return (
-		<div
-			className={className ? "loading-circle-container " + className : "loading-circle-container"}
-			style={size === undefined ? {} : { width: size, height: size }}
-		>
+		<div className={loadingCircleContainerClassName}>
 			<div className='loading-circle' />
 		</div>
 	);

@@ -28,6 +28,12 @@
 }
 
 .login-form-submit-container {
+	display: flex;
+	align-items: center;
+	justify-content: right;
 	margin-top: 20px;
-	text-align: right;
+}
+
+.login-form-submit-loading-circle-container {
+	margin-right: 24px;
 }

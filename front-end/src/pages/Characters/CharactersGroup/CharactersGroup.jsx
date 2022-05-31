@@ -14,6 +14,7 @@ import { CharactersGroupLogic } from "./CharactersGroupLogic";
 
 // Styles
 import "./CharactersGroup.css";
+import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Assets
 
@@ -28,20 +29,10 @@ export const CharactersGroup = () => {
 					Open Group
 				</button>
 				{!isAuthorizedToModify ? null : (
-					<>
-						<button
-							className='characters-group-primary-modify-btn characters-group-primary-modify-btn-create-character-form'
-							onClick={openCreateCharacterForm}
-						>
-							<FaUserPlus />
-						</button>
-						<button
-							className='characters-group-primary-modify-btn characters-group-primary-modify-btn-reorder-characters'
-							onClick={toggleIsReorderingCharacters}
-						>
-							<FaSort />
-						</button>
-					</>
+					<div className='characters-group-primary-modify-btns-container'>
+						<IconBtn className='characters-group-primary-modify-btn' icon={<FaUserPlus />} onClick={openCreateCharacterForm} />
+						<IconBtn className='characters-group-primary-modify-btn' icon={<FaSort />} onClick={toggleIsReorderingCharacters} />
+					</div>
 				)}
 			</div>
 			<CharactersGroupCharacterCards />

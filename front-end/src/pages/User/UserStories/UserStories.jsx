@@ -2,10 +2,11 @@
 import { FaPlus, FaSort } from "react-icons/fa";
 
 // Components
-import { UserStoryItem } from "./UserStoryItem";
-import { UserCreateStory } from "./UserCreateStory";
+import { IconBtn } from "../../../components/IconBtn/IconBtn";
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
+import { UserStoryItem } from "./UserStoryItem";
+import { UserCreateStory } from "./UserCreateStory";
 
 // Logic
 import { UserStoriesLogic } from "./UserStoriesLogic";
@@ -30,15 +31,8 @@ export const UserStories = () => {
 				<div className='user-stories-top-items-count'>{!stories ? null : "(" + stories.length + ")"}</div>
 				{!isAuthorizedToModify ? null : (
 					<div className='user-stories-top-modify-btns-container'>
-						<button className='user-stories-top-modify-btn user-stories-top-modify-btn-create-story' onClick={openCreateStoryForm}>
-							<FaPlus />
-						</button>
-						<button
-							className='user-stories-top-modify-btn user-stories-top-modify-btn-reorder-stories'
-							onClick={toggleIsReorderingStories}
-						>
-							<FaSort />
-						</button>
+						<IconBtn className='user-stories-top-modify-btn' icon={<FaPlus />} onClick={openCreateStoryForm} />
+						<IconBtn className='user-stories-top-modify-btn' icon={<FaSort />} onClick={toggleIsReorderingStories} />
 					</div>
 				)}
 			</div>

@@ -3,6 +3,7 @@
 // Components
 import { TextInput } from "../../components/TextInput/TextInput";
 import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
+import { LoadingCircle } from "../../components/LoadingCircle/LoadingCircle";
 import { SubmitBtn } from "../../components/SubmitBtn/SubmitBtn";
 
 // Logic
@@ -18,7 +19,7 @@ import "./Login.css";
 // Assets
 
 export const Login = () => {
-	const { username, changeUsername, password, changePassword, errors, submitLoginUser } = LoginLogic();
+	const { username, changeUsername, password, changePassword, isLoggingIn, errors, submitLoginUser } = LoginLogic();
 
 	return (
 		<div className='login'>
@@ -35,6 +36,7 @@ export const Login = () => {
 				</div>
 
 				<div className='login-form-submit-container'>
+					{!isLoggingIn ? null : <LoadingCircle className='login-form-submit-loading-circle-container' size='s' />}
 					<SubmitBtn label='Log in to Your Account' onSubmit={submitLoginUser} />
 				</div>
 			</div>
