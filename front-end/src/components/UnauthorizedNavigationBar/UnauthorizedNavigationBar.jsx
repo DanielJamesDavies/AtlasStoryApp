@@ -11,6 +11,7 @@ import { UnauthorizedNavigationBarLogic } from "./UnauthorizedNavigationBarLogic
 import "./UnauthorizedNavigationBar.css";
 
 // Assets
+import logo from "../../content/logo-w-bg.svg";
 
 export const UnauthorizedNavigationBar = () => {
 	const { navigateToLanding, navigateToLogin, navigateToRegister } = UnauthorizedNavigationBarLogic();
@@ -18,7 +19,8 @@ export const UnauthorizedNavigationBar = () => {
 	return (
 		<div className='unauthorized-navigation-bar'>
 			<button className='unauthorized-navigation-bar-landing-btn' onClick={navigateToLanding}>
-				Atlas Story App
+				<img className='unauthorized-navigation-bar-landing-btn-logo' src={logo} alt='' />
+				<div className='unauthorized-navigation-bar-landing-btn-text'>Atlas Story App</div>
 			</button>
 			<button className='unauthorized-navigation-bar-btn' onClick={navigateToLogin}>
 				Login
