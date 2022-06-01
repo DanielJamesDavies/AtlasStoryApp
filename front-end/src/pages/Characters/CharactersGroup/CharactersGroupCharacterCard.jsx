@@ -15,9 +15,10 @@ import "./CharactersGroupCharacterCard.css";
 // Assets
 
 export const CharactersGroupCharacterCard = ({ characterID }) => {
-	const { character, cardBackground, navigateToCharacter, cardStyles, topNameStyles, infoItemStyles } = CharactersGroupCharacterCardLogic({
-		characterID,
-	});
+	const { character, cardBackground, characterType, navigateToCharacter, cardStyles, topNameStyles, infoItemStyles } =
+		CharactersGroupCharacterCardLogic({
+			characterID,
+		});
 
 	return (
 		<div className='characters-group-character-card drag-drop-item-content' onClick={navigateToCharacter} style={cardStyles}>
@@ -26,6 +27,7 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 					<div className='characters-group-character-card-top-name' style={topNameStyles}>
 						{character?.data?.name}
 					</div>
+					<CharactersGroupCharacterCardCharacterType characterType={characterType} />
 				</div>
 				<div className='characters-group-character-card-info-container'>
 					{!character?.data?.fullName ? null : (
@@ -59,6 +61,17 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 					<img src={cardBackground} alt='' />
 				</div>
 			)}
+		</div>
+	);
+};
+
+const CharactersGroupCharacterCardCharacterType = ({ characterType }) => {
+	return (
+		<div
+			className='characters-group-character-card-character-type'
+			style={characterType?.data?.colour ? { background: characterType.data.colour } : {}}
+		>
+			<div className='characters-group-character-card-character-type-text'>{characterType?.data?.name}</div>
 		</div>
 	);
 };

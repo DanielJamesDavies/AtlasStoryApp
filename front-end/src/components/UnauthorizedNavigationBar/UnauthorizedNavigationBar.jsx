@@ -11,7 +11,7 @@ import { UnauthorizedNavigationBarLogic } from "./UnauthorizedNavigationBarLogic
 import "./UnauthorizedNavigationBar.css";
 
 // Assets
-import logo from "../../content/logo-w-bg.svg";
+import logo from "../../content/logo.svg";
 
 export const UnauthorizedNavigationBar = () => {
 	const { navigateToLanding, navigateToLogin, navigateToRegister } = UnauthorizedNavigationBarLogic();

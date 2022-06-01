@@ -49,6 +49,7 @@ export const UserCreateStory = () => {
 					<ToggleInput label='Private Story' value={storyIsPrivate} onToggle={toggleStoryIsPrivate} />
 					<ErrorMessage errors={errors} attribute='isPrivate' />
 				</div>
+				<ErrorMessage errors={errors} />
 				<div className='user-stories-create-story-form-submit-container'>
 					<SubmitBtn label='Create Story' onSubmit={submitCreateStory} />
 				</div>

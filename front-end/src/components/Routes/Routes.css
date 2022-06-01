@@ -23,7 +23,7 @@
 .content-container-unauthorized {
 	display: block;
 	width: 100vw;
-	height: calc(100% - 50px);
+	height: calc(100% - 68px);
 }
 
 @media (max-width: 700px) {
@@ -35,11 +35,5 @@
 	.content-container {
 		width: 100vw;
 		height: calc(100% - 70px);
-	}
-
-	.content-container-unauthorized {
-		display: block;
-		width: 100vw;
-		height: calc(100% - 50px);
 	}
 }

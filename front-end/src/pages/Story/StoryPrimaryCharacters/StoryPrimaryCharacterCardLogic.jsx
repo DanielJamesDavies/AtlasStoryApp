@@ -17,14 +17,18 @@ import { StoryContext } from "../StoryContext";
 
 export const StoryPrimaryCharacterCardLogic = ({ character }) => {
 	const { changeLocation } = useContext(RoutesContext);
-	const { story, primaryCharactersCardBackgrounds } = useContext(StoryContext);
+	const { story, primaryCharactersCardBackgrounds, characterTypes } = useContext(StoryContext);
 
 	const [cardBackground, setCardBackground] = useState(false);
+	const [characterType, setCharacterType] = useState(false);
 
 	useEffect(() => {
 		const newCardBackground = primaryCharactersCardBackgrounds?.find((e) => e._id === character?.data?.cardBackground)?.image;
 		setCardBackground(newCardBackground === undefined ? false : newCardBackground);
-	}, [character, primaryCharactersCardBackgrounds, setCardBackground]);
+
+		const newCharacterType = characterTypes?.find((e) => e._id === character?.character_type_id);
+		setCharacterType(newCharacterType === undefined ? false : newCharacterType);
+	}, [character, primaryCharactersCardBackgrounds, characterTypes, setCardBackground, setCharacterType]);
 
 	function navigateToCharacter() {
 		changeLocation("s/" + story.url + "/c/" + character.url);
@@ -41,5 +45,5 @@ export const StoryPrimaryCharacterCardLogic = ({ character }) => {
 		setCardInfoItemStyles(character?.data?.colour ? { background: character.data.colour } : {});
 	}, [character, setCardStyles, setCardTopNameStyles, setCardInfoItemStyles]);
 
-	return { cardBackground, navigateToCharacter, cardStyles, cardTopNameStyles, cardInfoItemStyles };
+	return { cardBackground, characterType, navigateToCharacter, cardStyles, cardTopNameStyles, cardInfoItemStyles };
 };

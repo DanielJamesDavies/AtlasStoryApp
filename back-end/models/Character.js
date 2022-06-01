@@ -13,6 +13,7 @@ const CharacterSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		require: true,
 	},
+	character_type_id: mongoose.Schema.Types.ObjectId,
 	url: {
 		type: String,
 		require: true,

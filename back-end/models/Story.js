@@ -53,6 +53,7 @@ const StorySchema = mongoose.Schema({
 			},
 			groups: [mongoose.Schema.Types.ObjectId],
 			primaryCharacters: [mongoose.Schema.Types.ObjectId],
+			characterTypes: [mongoose.Schema.Types.ObjectId],
 		},
 		required: true,
 	},

@@ -14,7 +14,7 @@ const UpdateCharacter = require("../services/Character/UpdateCharacter");
 router.get("/", GetCharacter);
 router.get("/primary-character", GetPrimaryCharacter);
 router.get("/:id", GetCharacterByID);
-router.post("/", CookieConsentAuthentication, Authenticate, CreateCharacter);
+router.post("/", CookieConsentAuthentication, Authenticate, StoryAuthentication, CreateCharacter);
 router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, UpdateCharacter);
 
 module.exports = router;

@@ -17,17 +17,22 @@ import { CharactersContext } from "../CharactersContext";
 
 export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 	const { changeLocation } = useContext(RoutesContext);
-	const { story, characters, charactersCardBackgrounds } = useContext(CharactersContext);
+	const { story, characters, characterTypes, charactersCardBackgrounds } = useContext(CharactersContext);
 
 	const [character, setCharacter] = useState(false);
 	const [cardBackground, setCardBackground] = useState(false);
+	const [characterType, setCharacterType] = useState(false);
 
 	useEffect(() => {
 		const newCharacter = characters?.find((e) => e._id === characterID);
 		setCharacter(newCharacter);
+
 		const newCardBackground = charactersCardBackgrounds?.find((e) => e._id === newCharacter?.data?.cardBackground)?.image;
 		setCardBackground(newCardBackground === undefined ? false : newCardBackground);
-	}, [characterID, characters, charactersCardBackgrounds, setCharacter, setCardBackground]);
+
+		const newCharacterType = characterTypes?.find((e) => e._id === newCharacter?.character_type_id);
+		setCharacterType(newCharacterType === undefined ? false : newCharacterType);
+	}, [characterID, characters, charactersCardBackgrounds, characterTypes, setCharacter, setCardBackground, setCharacterType]);
 
 	function navigateToCharacter() {
 		if (story?.url && character?.url) changeLocation("s/" + story.url + "/c/" + character.url);
@@ -44,5 +49,5 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 		setInfoItemStyles(character?.data?.colour ? { background: character.data.colour } : {});
 	}, [character, setCardStyles, setTopNameStyles, setInfoItemStyles]);
 
-	return { character, cardBackground, navigateToCharacter, cardStyles, topNameStyles, infoItemStyles };
+	return { character, cardBackground, characterType, navigateToCharacter, cardStyles, topNameStyles, infoItemStyles };
 };

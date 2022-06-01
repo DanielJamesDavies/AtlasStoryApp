@@ -10,13 +10,10 @@ module.exports = async (req, res) => {
 
 	// Check if URL is used
 	const urlUsed = await Group.findOne({ url: req.body.url, story_id: req.body.story_id }).exec();
-
-	// If username or email is used, return error
-	if (urlUsed) {
+	if (urlUsed)
 		return res
 			.status(200)
 			.send({ errors: [{ attribute: "url", message: "This URL is being used by another group. Please enter a different URL" }] });
-	}
 
 	// New Group
 	const group = new Group({

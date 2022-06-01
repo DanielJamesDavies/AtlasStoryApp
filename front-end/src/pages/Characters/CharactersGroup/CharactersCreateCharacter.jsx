@@ -49,6 +49,7 @@ export const CharactersCreateCharacter = () => {
 					<ToggleInput label='Primary Character' value={characterIsPrimaryCharacter} onToggle={toggleCharacterIsPrimaryCharacter} />
 					<ErrorMessage errors={errors} attribute='isPrimaryCharacter' />
 				</div>
+				<ErrorMessage errors={errors} />
 				<div className='characters-create-character-form-submit-container'>
 					<SubmitBtn label='Create Character' onSubmit={submitCreateCharacter} />
 				</div>

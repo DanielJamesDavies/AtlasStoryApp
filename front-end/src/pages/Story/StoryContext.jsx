@@ -14,6 +14,7 @@ const StoryProvider = ({ children, story_url }) => {
 	const [banner, setBanner] = useState(false);
 	const [primaryCharacters, setPrimaryCharacters] = useState([]);
 	const [primaryCharactersCardBackgrounds, setPrimaryCharactersCardBackgrounds] = useState([]);
+	const [characterTypes, setCharacterTypes] = useState([]);
 	const { APIRequest } = useContext(APIContext);
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { location } = useContext(RoutesContext);
@@ -37,22 +38,25 @@ const StoryProvider = ({ children, story_url }) => {
 
 			setIsAuthorizedToModify(response?.data?.isAuthorizedToModify);
 
-			if (response?.data?.story?.data?.colours?.accent) changeAccentColour(response.data.story.data.colours.accent);
-			if (response?.data?.story?.data?.colours?.accentHover) changeAccentHoverColour(response.data.story.data.colours.accentHover);
+			changeAccentColour(response?.data?.story?.data?.colours?.accent);
+			changeAccentHoverColour(response?.data?.story?.data?.colours?.accentHover);
 
-			if (response.data.story?.data?.members) getStoryMembers(response.data.story.data.members);
-			if (response.data.story?.data?.icon) getStoryIcon(response.data.story.data.icon);
-			if (response.data.story?.data?.banner) getStoryBanner(response.data.story.data.banner);
-			if (response.data.story?.data?.primaryCharacters) getStoryPrimaryCharacters(response.data.story.data.primaryCharacters);
+			getStoryMembers(response.data.story?.data?.members);
+			getStoryIcon(response.data.story?.data?.icon);
+			getStoryBanner(response.data.story?.data?.banner);
+			getStoryPrimaryCharacters(response.data.story?.data?.primaryCharacters);
+			getCharacterTypes(response?.data?.story?.data?.characterTypes);
 		}
 
 		async function getStoryMembers(members) {
+			if (!members) return;
 			let newStoryMembers = await Promise.all(members.map(async (member) => await getStoryMember(member)));
 			newStoryMembers = newStoryMembers.filter((e) => e !== false);
 			setMembers(newStoryMembers);
 		}
 
 		async function getStoryMember(member) {
+			if (!member) return;
 			const member_response = await APIRequest("/user/" + member.user_id, "GET");
 			if (member_response?.error || !member_response?.data?.user) return false;
 			return {
@@ -64,18 +68,21 @@ const StoryProvider = ({ children, story_url }) => {
 		}
 
 		async function getStoryIcon(iconID) {
+			if (!iconID) return;
 			const response = await APIRequest("/image/" + iconID, "GET");
 			if (response?.error || !response?.data?.image) return setIcon(false);
 			setIcon(response.data.image);
 		}
 
 		async function getStoryBanner(bannerID) {
+			if (!bannerID) return;
 			const response = await APIRequest("/image/" + bannerID, "GET");
 			if (response?.error || !response?.data?.image) return setBanner(false);
 			setBanner(response.data.image);
 		}
 
 		async function getStoryPrimaryCharacters(primaryCharactersIDs) {
+			if (!primaryCharactersIDs) return;
 			let newPrimaryCharacters = await Promise.all(
 				primaryCharactersIDs.map(async (characterID) => {
 					const character_response = await APIRequest("/character/" + characterID, "GET");
@@ -98,6 +105,19 @@ const StoryProvider = ({ children, story_url }) => {
 			);
 			newPrimaryCharactersCardBackgrounds = newPrimaryCharactersCardBackgrounds.filter((e) => e !== false);
 			setPrimaryCharactersCardBackgrounds(newPrimaryCharactersCardBackgrounds);
+		}
+
+		async function getCharacterTypes(characterTypesIDs) {
+			if (!characterTypesIDs) return;
+			let newCharacterTypes = await Promise.all(
+				characterTypesIDs.map(async (characterTypeID) => {
+					const character_type_response = await APIRequest("/character-type/" + characterTypeID, "GET");
+					if (character_type_response?.errors || !character_type_response?.data?.characterType) return false;
+					return character_type_response.data.characterType;
+				})
+			);
+			newCharacterTypes = newCharacterTypes.filter((e) => e !== false);
+			setCharacterTypes(newCharacterTypes);
 		}
 
 		getStory();
@@ -138,6 +158,7 @@ const StoryProvider = ({ children, story_url }) => {
 				primaryCharacters,
 				setPrimaryCharacters,
 				primaryCharactersCardBackgrounds,
+				characterTypes,
 				isReorderingCharacters,
 				toggleIsReorderingCharacters,
 			}}

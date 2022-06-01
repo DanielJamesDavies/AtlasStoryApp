@@ -15,9 +15,10 @@ import "./StoryPrimaryCharacterCard.css";
 // Assets
 
 export const StoryPrimaryCharacterCard = ({ character }) => {
-	const { cardBackground, navigateToCharacter, cardStyles, cardTopNameStyles, cardInfoItemStyles } = StoryPrimaryCharacterCardLogic({
-		character,
-	});
+	const { cardBackground, characterType, navigateToCharacter, cardStyles, cardTopNameStyles, cardInfoItemStyles } =
+		StoryPrimaryCharacterCardLogic({
+			character,
+		});
 
 	return (
 		<div className='story-primary-character-card drag-drop-item-content' onClick={navigateToCharacter} style={cardStyles}>
@@ -26,6 +27,7 @@ export const StoryPrimaryCharacterCard = ({ character }) => {
 					<div className='story-primary-character-card-top-name' style={cardTopNameStyles}>
 						{character?.data?.name}
 					</div>
+					<StoryPrimaryCharacterCardCharacterType characterType={characterType} />
 				</div>
 				<div className='story-primary-character-card-info-container'>
 					{!character?.data?.fullName ? null : (
@@ -56,6 +58,17 @@ export const StoryPrimaryCharacterCard = ({ character }) => {
 					<img src={cardBackground} alt='' />
 				</div>
 			)}
+		</div>
+	);
+};
+
+const StoryPrimaryCharacterCardCharacterType = ({ characterType }) => {
+	return (
+		<div
+			className='story-primary-character-card-character-type'
+			style={characterType?.data?.colour ? { background: characterType.data.colour } : {}}
+		>
+			<div className='story-primary-character-card-character-type-text'>{characterType?.data?.name}</div>
 		</div>
 	);
 };

@@ -35,6 +35,9 @@ module.exports = async (req, res) => {
 			owner: user_id,
 			isPrivate: req.body.isPrivate,
 			members: [{ user_id: user_id, type: "owner" }],
+			groups: [],
+			primaryCharacters: [],
+			characterTypes: [],
 		},
 	});
 

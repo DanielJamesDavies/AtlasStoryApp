@@ -2,7 +2,6 @@
 
 // Components
 import { TextInput } from "../../../components/TextInput/TextInput";
-import { ToggleInput } from "../../../components/ToggleInput/ToggleInput";
 import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { SubmitBtn } from "../../../components/SubmitBtn/SubmitBtn";
 
@@ -35,6 +34,7 @@ export const CharactersCreateGroup = () => {
 					<TextInput label='URL' value={groupURL} onChange={changeGroupURL} isDark={true} />
 					<ErrorMessage errors={errors} attribute='url' />
 				</div>
+				<ErrorMessage errors={errors} />
 				<div className='characters-create-group-form-submit-container'>
 					<SubmitBtn label='Create Group' onSubmit={submitCreateGroup} />
 				</div>

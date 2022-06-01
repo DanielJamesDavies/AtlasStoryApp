@@ -1,9 +1,9 @@
 .characters-group {
 	flex-shrink: 0;
 	display: inline-block;
-	margin-left: 32px;
+	margin-left: 20px;
 	border-radius: 4px;
-	width: calc(100% - 32px - 250px);
+	width: calc(100% - 20px - 262px);
 	vertical-align: top;
 }
 

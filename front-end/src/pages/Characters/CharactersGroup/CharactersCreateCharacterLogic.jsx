@@ -17,7 +17,7 @@ import { RoutesContext } from "../../../context/RoutesContext";
 // Assets
 
 export const CharactersCreateCharacterLogic = () => {
-	const { story, groups, openGroup, isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm } = useContext(CharactersContext);
+	const { story, group, isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm } = useContext(CharactersContext);
 
 	function closeCreateCharacterForm() {
 		setIsDisplayingCreateCharacterForm(false);
@@ -44,13 +44,12 @@ export const CharactersCreateCharacterLogic = () => {
 
 	async function submitCreateCharacter() {
 		const currStory = JSON.parse(JSON.stringify(story));
-		const currGroups = JSON.parse(JSON.stringify(groups));
-		const currOpenGroup = JSON.parse(JSON.stringify(openGroup));
-		if (!currStory?._id || !currGroups[currOpenGroup]?._id) return;
+		const currGroup = JSON.parse(JSON.stringify(group));
+		if (!currStory?._id || !currGroup?._id) return;
 
 		const response = await APIRequest("/character", "POST", {
 			story_id: currStory._id,
-			group_id: currGroups[currOpenGroup]._id,
+			group_id: currGroup?._id,
 			name: JSON.parse(JSON.stringify(characterName)),
 			url: JSON.parse(JSON.stringify(characterURL)),
 			isPrimaryCharacter: JSON.parse(JSON.stringify(characterIsPrimaryCharacter)),

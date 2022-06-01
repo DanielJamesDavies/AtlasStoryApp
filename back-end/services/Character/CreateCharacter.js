@@ -10,13 +10,10 @@ module.exports = async (req, res) => {
 
 	// Check if URL is used
 	const urlUsed = await Character.findOne({ url: req.body.url, story_id: req.body.story_id }).exec();
-
-	// If username or email is used, return error
-	if (urlUsed) {
+	if (urlUsed)
 		return res
 			.status(200)
 			.send({ errors: [{ attribute: "url", message: "This URL is being used by another character. Please enter a different URL" }] });
-	}
 
 	// New Character
 	const character = new Character({
@@ -62,6 +59,7 @@ function validateCharacter(character) {
 	});
 
 	const characterValidationError = characterSchema.validate(character, { abortEarly: false })?.error?.details;
+	console.log(characterValidationError);
 
 	if (characterValidationError) {
 		let characterKeysData = [

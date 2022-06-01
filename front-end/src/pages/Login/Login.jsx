@@ -27,11 +27,11 @@ export const Login = () => {
 				<div className='login-form-title'>Log In</div>
 
 				<div className='login-form-text-input-container'>
-					<TextInput type='username' label='Username' value={username} onChange={changeUsername} isDark={true} />
+					<TextInput label='Username' value={username} onChange={changeUsername} isDark={true} />
 					<ErrorMessage errors={errors} attribute='username' />
 				</div>
 				<div className='login-form-text-input-container'>
-					<TextInput type='password' label='Password' value={password} onChange={changePassword} hideValue={true} isDark={true} />
+					<TextInput label='Password' value={password} onChange={changePassword} hideValue={true} isDark={true} />
 					<ErrorMessage errors={errors} attribute='password' />
 				</div>
 				<ErrorMessage errors={errors} />

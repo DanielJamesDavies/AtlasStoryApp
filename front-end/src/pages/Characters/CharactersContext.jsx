@@ -13,6 +13,7 @@ const CharactersProvider = ({ children, story_url }) => {
 	const [groups, setGroups] = useState(false);
 	const [group, setGroup] = useState(false);
 	const [characters, setCharacters] = useState([]);
+	const [characterTypes, setCharacterTypes] = useState([]);
 	const [charactersCardBackgrounds, setCharactersCardBackgrounds] = useState([]);
 	const [isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm] = useState(false);
 	const [isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm] = useState(false);
@@ -48,11 +49,12 @@ const CharactersProvider = ({ children, story_url }) => {
 
 			setIsAuthorizedToModify(story_response?.data?.isAuthorizedToModify);
 
-			if (story_response.data.story?.data?.icon) getStoryIcon(story_response.data.story.data.icon);
+			getStoryIcon(story_response?.data?.story?.data?.icon);
 
-			if (story_response?.data?.story?.data?.colours?.accent) changeAccentColour(story_response.data.story.data.colours.accent);
-			if (story_response?.data?.story?.data?.colours?.accentHover)
-				changeAccentHoverColour(story_response.data.story.data.colours.accentHover);
+			changeAccentColour(story_response?.data?.story?.data?.colours?.accent);
+			changeAccentHoverColour(story_response?.data?.story?.data?.colours?.accentHover);
+
+			getCharacterTypes(story_response?.data?.story?.data?.characterTypes);
 
 			// Get Groups Data
 			if (!story_response.data.story?.data?.groups) return;
@@ -84,18 +86,21 @@ const CharactersProvider = ({ children, story_url }) => {
 		}
 
 		async function getStoryIcon(iconID) {
+			if (!iconID) return;
 			const response = await APIRequest("/image/" + iconID, "GET");
 			if (response?.error || !response?.data?.image) return setStoryIcon(false);
 			setStoryIcon(response.data.image);
 		}
 
 		async function getGroup(groupID) {
+			if (!groupID) return;
 			const group_response = await APIRequest("/group/" + groupID, "GET");
 			if (group_response?.errors || !group_response?.data?.group) return false;
 			return group_response.data.group;
 		}
 
 		async function getGroupCharacters(groupCharacters) {
+			if (!groupCharacters) return;
 			let characters = await Promise.all(
 				groupCharacters.map(async (group_character) => {
 					const character_response = await APIRequest("/character/" + group_character.character_id, "GET");
@@ -107,6 +112,7 @@ const CharactersProvider = ({ children, story_url }) => {
 		}
 
 		async function getCharactersCardBackgrounds(newCharacters) {
+			if (!newCharacters) return;
 			let newCharactersCardBackgrounds = await Promise.all(
 				newCharacters.map(async (character) => {
 					if (!character?.data?.cardBackground) return false;
@@ -117,6 +123,19 @@ const CharactersProvider = ({ children, story_url }) => {
 			);
 			newCharactersCardBackgrounds = newCharactersCardBackgrounds.filter((e) => e !== false);
 			setCharactersCardBackgrounds(newCharactersCardBackgrounds);
+		}
+
+		async function getCharacterTypes(characterTypesIDs) {
+			if (!characterTypesIDs) return;
+			let newCharacterTypes = await Promise.all(
+				characterTypesIDs.map(async (characterTypeID) => {
+					const character_type_response = await APIRequest("/character-type/" + characterTypeID, "GET");
+					if (character_type_response?.errors || !character_type_response?.data?.characterType) return false;
+					return character_type_response.data.characterType;
+				})
+			);
+			newCharacterTypes = newCharacterTypes.filter((e) => e !== false);
+			setCharacterTypes(newCharacterTypes);
 		}
 
 		getStoryAndGroups();
@@ -136,6 +155,7 @@ const CharactersProvider = ({ children, story_url }) => {
 		groups,
 		setGroups,
 		setCharacters,
+		setCharacterTypes,
 		setCharactersCardBackgrounds,
 		changeAccentColour,
 		changeAccentHoverColour,
@@ -171,6 +191,8 @@ const CharactersProvider = ({ children, story_url }) => {
 				changeGroup,
 				characters,
 				setCharacters,
+				characterTypes,
+				setCharacterTypes,
 				charactersCardBackgrounds,
 				isDisplayingCreateGroupForm,
 				setIsDisplayingCreateGroupForm,

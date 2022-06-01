@@ -51,7 +51,7 @@
 
 .characters-group-character-card-top-container {
 	display: flex;
-	justify-items: center;
+	align-items: center;
 	padding: 12px 20px;
 }
 
@@ -59,6 +59,18 @@
 	font-size: 30px;
 	font-weight: 700;
 	color: var(--blue);
+}
+
+.characters-group-character-card-character-type {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+	padding: 6px 12px;
+	border-radius: 32px;
+	height: fit-content;
+	font-size: 14px;
+	font-weight: 700;
 }
 
 .characters-group-character-card-info-container {

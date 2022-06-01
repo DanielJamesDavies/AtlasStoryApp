@@ -2,7 +2,7 @@
 	flex-shrink: 0;
 	display: inline-block;
 	border-radius: 4px;
-	width: 250px;
+	width: 262px;
 	vertical-align: top;
 }
 
@@ -10,6 +10,7 @@
 	display: flex;
 	align-items: center;
 	margin-bottom: 24px;
+	padding-right: 12px;
 }
 
 .characters-groups-primary-title {
@@ -29,6 +30,22 @@
 
 .characters-groups-primary-modify-btn:last-child {
 	margin-right: 0;
+}
+
+.characters-groups-group-items-container {
+	padding-right: 12px;
+	max-height: 635px;
+	overflow-y: overlay;
+}
+
+.characters-groups-group-items-container::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.characters-groups-group-items-container::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--blue);
 }
 
 .characters-groups-group-item {

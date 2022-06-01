@@ -25,7 +25,7 @@
 	z-index: 1;
 	display: inline-block;
 	margin: 4px;
-	border: 6px solid var(--accentColour);
+	border: 5px solid var(--accentColour);
 	border-radius: 16px;
 
 	width: 305px;
@@ -51,7 +51,7 @@
 
 .story-primary-character-card-top-container {
 	display: flex;
-	justify-items: center;
+	align-items: center;
 	padding: 12px 20px;
 }
 
@@ -59,6 +59,18 @@
 	font-size: 24px;
 	font-weight: 700;
 	color: var(--blue);
+}
+
+.story-primary-character-card-character-type {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+	padding: 6px 12px;
+	border-radius: 32px;
+	height: fit-content;
+	font-size: 12px;
+	font-weight: 700;
 }
 
 .story-primary-character-card-info-container {
