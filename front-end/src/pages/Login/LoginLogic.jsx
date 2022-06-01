@@ -41,7 +41,7 @@ export const LoginLogic = () => {
 		setErrors([]);
 		const response = await APIRequest("/user/login", "POST", { username, password });
 		setIsLoggingIn(false);
-		if (response.errors) return setErrors(response.errors);
+		if (response?.errors) return setErrors(response.errors);
 
 		if (!response?.data?.username) return;
 		changeLocation("/u/" + response.data.username);

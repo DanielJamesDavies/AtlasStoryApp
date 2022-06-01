@@ -117,9 +117,11 @@ async function validateUser(user) {
 				let keyData = userKeysData.find((e) => e.key === error.path[0]);
 				let message = "";
 
+				console.log(keyData.name, error.type);
+
 				switch (error.type) {
 					case "string.empty":
-						if (error.path[0] === "profilePicture") {
+						if (error.path[0] === "profilePicture" || error.path[0] === "banner") {
 							message = "Please Select " + keyData.indefiniteArticle + " " + keyData.name;
 						} else {
 							message = "Please Enter " + keyData.indefiniteArticle + " " + keyData.name;
@@ -144,6 +146,12 @@ async function validateUser(user) {
 							" That Is Below " +
 							error.context.limit +
 							" Characters";
+						break;
+					case "string.email":
+						message = "Please Enter a Valid Email Address";
+						break;
+					case "string.base":
+						message = "Please Select " + keyData.indefiniteArticle + " " + keyData.name;
 						break;
 					default:
 						message = "An Unknown Error Has Occured. Please Try Again";

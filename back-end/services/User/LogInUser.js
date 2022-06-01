@@ -10,13 +10,13 @@ module.exports = async (req, res) => {
 
 	// Check if user is valid
 	const user = await User.findOne({ username: req.body.username }).exec();
-	if (!user) return res.status(200).send({ errors: [{ message: "There is no account with this username." }] });
+	if (!user) return res.status(200).send({ errors: [{ attribute: "username", message: "There is no account with this username." }] });
 	if (!user?.data?.password) return res.status(200).send({ errors: [{ message: "There is no password associated with this account." }] });
 	if (!user?.verified) return res.status(200).send({ errors: [{ message: "This account is not verified." }] });
 
 	// Check if password is correct
 	const isCorrectPassword = await bcrypt.compare(req.body.password, user.data.password);
-	if (!isCorrectPassword) return res.status(200).send({ errors: [{ message: "Incorrect Password." }] });
+	if (!isCorrectPassword) return res.status(200).send({ errors: [{ attribute: "password", message: "Incorrect Password." }] });
 
 	// Create token
 	const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_SECRET);
@@ -35,13 +35,12 @@ module.exports = async (req, res) => {
 };
 
 function validateRequestBody(body) {
-	// Login Input Validation
 	const schema = Joi.object({
 		username: Joi.string().min(1).required(),
 		password: Joi.string().min(6).required(),
 	});
-	const validationError = schema.validate(body, { abortEarly: false }).error;
-	if (!validationError) return {};
+	const userValidationError = schema.validate(body, { abortEarly: false })?.error?.details;
+	if (!userValidationError) return {};
 
 	let userKeysData = [
 		{ key: "username", name: "Username", indefiniteArticle: "a" },
@@ -55,11 +54,7 @@ function validateRequestBody(body) {
 
 			switch (error.type) {
 				case "string.empty":
-					if (error.path[0] === "profilePicture") {
-						message = "Please Select " + keyData.indefiniteArticle + " " + keyData.name;
-					} else {
-						message = "Please Enter " + keyData.indefiniteArticle + " " + keyData.name;
-					}
+					message = "Please Enter " + keyData.indefiniteArticle + " " + keyData.name;
 					break;
 				case "string.min":
 					message =

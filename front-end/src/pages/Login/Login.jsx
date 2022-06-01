@@ -27,13 +27,14 @@ export const Login = () => {
 				<div className='login-form-title'>Log In</div>
 
 				<div className='login-form-text-input-container'>
-					<TextInput label='Username' value={username} onChange={changeUsername} isDark={true} />
+					<TextInput type='username' label='Username' value={username} onChange={changeUsername} isDark={true} />
 					<ErrorMessage errors={errors} attribute='username' />
 				</div>
 				<div className='login-form-text-input-container'>
-					<TextInput label='Password' value={password} onChange={changePassword} hideValue={true} isDark={true} />
+					<TextInput type='password' label='Password' value={password} onChange={changePassword} hideValue={true} isDark={true} />
 					<ErrorMessage errors={errors} attribute='password' />
 				</div>
+				<ErrorMessage errors={errors} />
 
 				<div className='login-form-submit-container'>
 					{!isLoggingIn ? null : <LoadingCircle className='login-form-submit-loading-circle-container' size='s' />}

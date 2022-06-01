@@ -47,7 +47,7 @@ export const Register = () => {
 					<div className='register-form-title'>Register an Account</div>
 
 					<div className='register-form-text-input-container'>
-						<TextInput label='Username' value={username} onChange={changeUsername} isDark={true} />
+						<TextInput type='username' label='Username' value={username} onChange={changeUsername} isDark={true} />
 						<ErrorMessage errors={errors} attribute='username' />
 					</div>
 					<div className='register-form-text-input-container'>
@@ -55,7 +55,7 @@ export const Register = () => {
 						<ErrorMessage errors={errors} attribute='nickname' />
 					</div>
 					<div className='register-form-text-input-container'>
-						<TextInput label='Email Address' value={email} onChange={changeEmail} isDark={true} />
+						<TextInput type='email' label='Email Address' value={email} onChange={changeEmail} isDark={true} />
 						<ErrorMessage errors={errors} attribute='email' />
 					</div>
 					<div className='register-form-text-input-container'>
@@ -72,6 +72,8 @@ export const Register = () => {
 
 					<RegisterBannerInput bannerInputRef={bannerInputRef} banner={banner} changeBanner={changeBanner} />
 					<ErrorMessage errors={errors} attribute='banner' />
+
+					<ErrorMessage errors={errors} />
 
 					<div className='register-form-submit-container'>
 						<SubmitBtn label='Register Account' onSubmit={submitNewUser} />
