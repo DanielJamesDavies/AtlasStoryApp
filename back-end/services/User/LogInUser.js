@@ -5,13 +5,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 
 module.exports = async (req, res) => {
-	// Login Input Validation
-	const schema = Joi.object({
-		username: Joi.string().min(1).required(),
-		password: Joi.string().min(6).required(),
-	});
-	const validationError = schema.validate(req.body).error;
-	if (validationError) return res.status(200).send({ error: validationError });
+	const validateRequestBodyResponse = validateRequestBody(req.body);
+	if (validateRequestBodyResponse?.errors) return res.status(200).send({ errors: validateRequestBodyResponse.errors });
 
 	// Check if user is valid
 	const user = await User.findOne({ username: req.body.username }).exec();
@@ -38,3 +33,48 @@ module.exports = async (req, res) => {
 
 	res.status(200).send({ message: "Success", data: { username: user.username } });
 };
+
+function validateRequestBody(body) {
+	// Login Input Validation
+	const schema = Joi.object({
+		username: Joi.string().min(1).required(),
+		password: Joi.string().min(6).required(),
+	});
+	const validationError = schema.validate(body, { abortEarly: false }).error;
+	if (!validationError) return {};
+
+	let userKeysData = [
+		{ key: "username", name: "Username", indefiniteArticle: "a" },
+		{ key: "password", name: "Password", indefiniteArticle: "a" },
+	];
+
+	return {
+		errors: userValidationError.map((error) => {
+			let keyData = userKeysData.find((e) => e.key === error.path[0]);
+			let message = "";
+
+			switch (error.type) {
+				case "string.empty":
+					if (error.path[0] === "profilePicture") {
+						message = "Please Select " + keyData.indefiniteArticle + " " + keyData.name;
+					} else {
+						message = "Please Enter " + keyData.indefiniteArticle + " " + keyData.name;
+					}
+					break;
+				case "string.min":
+					message =
+						"Please Enter " + keyData.indefiniteArticle + " " + keyData.name + " That Is Above " + error.context.limit + " Characters";
+					break;
+				case "string.max":
+					message =
+						"Please Enter " + keyData.indefiniteArticle + " " + keyData.name + " That Is Below " + error.context.limit + " Characters";
+					break;
+				default:
+					message = "An Unknown Error Has Occured. Please Try Again";
+					break;
+			}
+
+			return { attribute: error.path[0], message };
+		}),
+	};
+}

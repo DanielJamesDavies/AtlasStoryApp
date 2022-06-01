@@ -40,8 +40,8 @@ module.exports = async (req, res) => {
 
 	let owner = await User.findById(user_id)
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 		});
 	if (!owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 

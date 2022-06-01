@@ -6,8 +6,8 @@ module.exports = async (req, res) => {
 	if (req.query.username) {
 		let user = await User.findOne({ username: req.query.username })
 			.exec()
-			.catch((err) => {
-				res.status(200).send({ error: err });
+			.catch(() => {
+				res.status(200).send({ errors: [{ message: "User Not Found" }] });
 			});
 		if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
@@ -28,8 +28,8 @@ module.exports = async (req, res) => {
 
 	let user = await User.findById(user_id)
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			res.status(200).send({ errors: [{ message: "User Not Found" }] });
 		});
 	if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 

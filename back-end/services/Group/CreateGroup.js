@@ -28,8 +28,8 @@ module.exports = async (req, res) => {
 
 	let story = await Story.findById(req.body.story_id)
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 		});
 	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 

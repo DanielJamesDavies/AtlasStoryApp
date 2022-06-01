@@ -4,10 +4,10 @@ const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 module.exports = async (req, res) => {
 	const oldGroup = await Group.findById(req.params.id)
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			res.status(200).send({ errors: [{ message: "Group Not Found" }] });
 		});
-	if (!oldGroup) return res.status(200).send({ error: "Group Not Found" });
+	if (!oldGroup) return res.status(200).send({ errors: [{ message: "Group Not Found" }] });
 
 	const newGroup = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldGroup)), req?.body?.path, req?.body?.newValue);
 

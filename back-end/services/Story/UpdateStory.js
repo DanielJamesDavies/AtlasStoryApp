@@ -6,10 +6,10 @@ module.exports = async (req, res) => {
 
 	const oldStory = await Story.findById(req.body.story_id)
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 		});
-	if (!oldStory) return res.status(200).send({ error: "Story Not Found" });
+	if (!oldStory) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
 	const newStory = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldStory)), req?.body?.path, req?.body?.newValue);
 

@@ -8,17 +8,17 @@ module.exports = async (req, res, next) => {
 	let user_id = false;
 	try {
 		user_id = jwt.verify(token, process.env.TOKEN_SECRET)?.user_id;
-	} catch (err) {
+	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
 	}
 	if (!user_id) return res.status(200).send({ errors: [{ message: "Access Denied" }] });
 
 	const story = await Story.findById(req.body.story_id)
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 		});
-	if (!story) return res.status(200).send({ error: "Story Not Found" });
+	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
 	if (story?.data?.owner && JSON.stringify(user_id) === JSON.stringify(story?.data?.owner)) return next();
 

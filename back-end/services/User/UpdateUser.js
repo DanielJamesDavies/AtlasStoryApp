@@ -15,10 +15,10 @@ module.exports = async (req, res) => {
 
 	const oldUser = await User.findById(user_id)
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			res.status(200).send({ errors: [{ message: "User Not Found" }] });
 		});
-	if (!oldUser) return res.status(200).send({ error: "User Not Found" });
+	if (!oldUser) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
 	const newUser = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldUser)), req?.body?.path, req?.body?.newValue);
 

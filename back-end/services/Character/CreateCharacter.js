@@ -30,10 +30,10 @@ module.exports = async (req, res) => {
 
 	const group = await Group.findById(req.body.group_id)
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			return res.status(200).send({ errors: [{ message: "Group Not Found" }] });
 		});
-	if (!group) return res.status(200).send({ error: "Group Not Found" });
+	if (!group) return res.status(200).send({ errors: [{ message: "Group Not Found" }] });
 
 	if (!group.data.characters.includes(character._id)) group.data.characters.push({ character_id: character._id });
 

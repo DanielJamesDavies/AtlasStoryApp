@@ -6,10 +6,10 @@ module.exports = async (req, res) => {
 
 	let story = await Story.findOne({ url: req.query.url })
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 		});
-	if (!story) return res.status(200).send({ errors: "Story Not Found" });
+	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
 	return res
 		.status(200)

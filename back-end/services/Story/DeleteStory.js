@@ -13,11 +13,11 @@ module.exports = async (req, res) => {
 
 	const story = await Story.findById(req.params.id)
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 		});
 	if (!story || !story._id) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-	if (!story?.owner) return res.status(200).send({ error: "Owner Not Found" });
+	if (!story?.owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 	if (user_id !== story.owner) return res.status(200).send({ errors: [{ message: "Unauthorized Action" }] });
 
 	try {
@@ -29,10 +29,10 @@ module.exports = async (req, res) => {
 
 	const owner = await User.findById(user_id)
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 		});
-	if (!owner) return res.status(200).send({ error: "Owner Not Found" });
+	if (!owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 
 	const ownerStoryIndex = owner.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(story._id));
 	if (ownerStoryIndex !== -1) {

@@ -1,12 +1,14 @@
+const jwt_decode = require("jwt-decode");
+
 const User = require("../../models/User");
 
 module.exports = async (req, res) => {
 	const user = await User.findById(req.params.id)
 		.exec()
-		.catch((err) => {
-			res.status(200).send({ error: err });
+		.catch(() => {
+			res.status(200).send({ errors: [{ message: "User Not Found" }] });
 		});
-	if (!user) return res.status(200).send({ error: "User Not Found" });
+	if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
 	let newUser = JSON.parse(JSON.stringify(user));
 	delete newUser.password;
