@@ -2,17 +2,6 @@ const CharacterType = require("../../models/CharacterType");
 const Story = require("../../models/Story");
 
 module.exports = async (req, res) => {
-	if (req.query?.url) {
-		let characterType = await CharacterType.findOne({ url: req.query.url })
-			.exec()
-			.catch(() => {
-				res.status(200).send({ errors: [{ message: "Character Type Not Found" }] });
-			});
-		if (!characterType) return res.status(200).send({ errors: [{ message: "Character Type Not Found" }] });
-
-		return res.status(200).send({ message: "Success", data: { characterType, url: req.query.url } });
-	}
-
 	if (req.query?.story_id || req.query?.story_url) {
 		let story = false;
 

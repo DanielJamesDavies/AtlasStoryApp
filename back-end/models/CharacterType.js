@@ -9,10 +9,6 @@ const CharacterTypeSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		require: true,
 	},
-	url: {
-		type: String,
-		required: true,
-	},
 	data: {
 		type: {
 			name: {
@@ -23,6 +19,7 @@ const CharacterTypeSchema = mongoose.Schema({
 				type: String,
 				require: true,
 			},
+			description: [String],
 		},
 		require: true,
 	},

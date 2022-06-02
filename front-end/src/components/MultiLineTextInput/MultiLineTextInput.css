@@ -1,0 +1,154 @@
+.multi-line-text-input-container {
+	display: inline-block;
+	flex-direction: column;
+	margin: 0;
+	padding: 16px 16px;
+	border: 3px solid rgba(0, 0, 0, 0);
+	border-radius: 12px;
+
+	width: calc(100% - 32px - 6px);
+
+	background: var(--grey2);
+	color: #777;
+	font-family: "Inter", sans-serif;
+	transition: 0.1s;
+	vertical-align: middle;
+	cursor: text;
+}
+
+.multi-line-text-input-container-dark {
+	background: var(--grey1);
+}
+
+.multi-line-text-input-container-empty {
+	position: relative;
+}
+
+.multi-line-text-input-container-unsaved {
+	border-color: var(--grey4);
+	animation: multi-line-text-input-container-unsaved 2.25s infinite;
+	outline: 0;
+}
+
+@keyframes multi-line-text-input-container-unsaved {
+	0% {
+		border-color: var(--grey1);
+	}
+	35% {
+		border-color: var(--grey4);
+	}
+	65% {
+		border-color: var(--grey4);
+	}
+	100% {
+		border-color: var(--grey1);
+	}
+}
+
+.multi-line-text-input {
+	position: relative;
+	min-height: 32px;
+}
+
+.multi-line-text-input-container-empty .multi-line-text-input {
+	height: 32px;
+}
+
+.multi-line-text-input-label {
+	margin: 0;
+	text-align: left;
+	font-size: 12px;
+	font-weight: 500;
+	transition: 0.1s;
+	color: #bbbbbb;
+}
+
+.multi-line-text-input-label span {
+	width: fit-content;
+}
+
+.multi-line-text-input-container-empty .multi-line-text-input-label {
+	padding-top: 5px;
+	height: 18px;
+
+	font-size: 16px;
+	vertical-align: middle;
+}
+
+.multi-line-text-input-label svg {
+	margin-top: -3px;
+	margin-right: 7px;
+	vertical-align: middle;
+}
+
+.multi-line-text-input-container-empty .multi-line-text-input-label svg {
+	margin-right: 18px;
+	font-size: 18px;
+}
+
+.multi-line-text-input textarea {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 4px;
+
+	width: 100%;
+	resize: none;
+	overflow: hidden;
+
+	background: rgba(0, 0, 0, 0);
+	color: #fff;
+	font-size: 16px;
+	font-family: "Inter", sans-serif;
+	transition: border 0.1s;
+}
+
+.multi-line-text-input textarea:-webkit-autofill,
+.multi-line-text-input textarea:-webkit-autofill:hover,
+.multi-line-text-input textarea:-webkit-autofill:focus,
+.multi-line-text-input textarea:-webkit-autofill:active {
+	-webkit-text-fill-color: #fff !important;
+	transition: background-color 99999s ease-in-out 0s;
+}
+
+.multi-line-text-input textarea:focus {
+	outline: 0;
+}
+
+.multi-line-text-input-container-empty textarea {
+	position: relative;
+	top: -19px;
+	font-size: 18px;
+}
+
+.multi-line-text-input-container-focused {
+	border-color: var(--blue);
+	outline: 0;
+}
+
+.multi-line-text-input-container-hide-value .multi-line-text-input {
+	display: inline-block;
+	width: calc(100% - 24px);
+	vertical-align: middle;
+}
+
+.multi-line-text-input-height-element {
+	position: absolute;
+	top: 0;
+	z-index: -2;
+	visibility: hidden;
+	opacity: 0;
+	transition: 0;
+	pointer-events: none;
+}
+
+.multi-line-text-input-height-element p {
+	margin: 0;
+	min-height: 20px;
+	word-wrap: break-word;
+}
+
+.multi-line-text-input-container-empty .multi-line-text-input-height-element {
+	height: 32px;
+}

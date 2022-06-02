@@ -3,7 +3,7 @@
 	display: inline-block;
 	margin-left: 20px;
 	border-radius: 4px;
-	width: calc(100% - 20px - 262px);
+	width: calc(100% - 20px - (342px + 12px));
 	vertical-align: top;
 }
 

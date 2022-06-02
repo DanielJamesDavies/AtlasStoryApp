@@ -4,6 +4,7 @@ import { FaUserPlus, FaSort } from "react-icons/fa";
 // Components
 import { CharactersGroupCharacterCards } from "./CharactersGroupCharacterCards";
 import { CharactersCreateCharacter } from "./CharactersCreateCharacter";
+import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Logic
 import { CharactersGroupLogic } from "./CharactersGroupLogic";
@@ -14,7 +15,6 @@ import { CharactersGroupLogic } from "./CharactersGroupLogic";
 
 // Styles
 import "./CharactersGroup.css";
-import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Assets
 

@@ -1,0 +1,98 @@
+.characters-character-types {
+	flex-shrink: 0;
+	display: inline-block;
+	margin-top: 48px;
+	border-radius: 4px;
+	width: calc(342px + 12px);
+	vertical-align: top;
+}
+
+.characters-character-types-primary {
+	display: flex;
+	align-items: center;
+	margin-bottom: 24px;
+	padding-right: 12px;
+}
+
+.characters-character-types-primary-title {
+	margin-top: -1px;
+	font-size: 28px;
+	font-weight: 700;
+	vertical-align: middle;
+}
+
+.characters-character-types-primary-modify-buttons-container {
+	margin-left: auto;
+}
+
+.characters-character-types-primary-modify-btn {
+	margin: 0 4px;
+}
+
+.characters-character-types-primary-modify-btn:last-child {
+	margin-right: 0;
+}
+
+.characters-character-types-character-type-items-container {
+	padding-right: 12px;
+	max-height: 635px;
+	overflow-y: overlay;
+}
+
+.characters-character-types-character-type-items-container::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.characters-character-types-character-type-items-container::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--blue);
+}
+
+.characters-character-types-character-type-item {
+	display: block;
+	margin: 6px 0;
+	padding: 10px 16px;
+	border: 0;
+	border-radius: 22px;
+
+	width: 100%;
+
+	background: var(--grey3);
+	color: #fff;
+	font-size: 15px;
+	text-align: left;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.characters-character-types-character-type-item:hover {
+	background: var(--grey4);
+}
+
+.characters-character-types-character-type-item-active {
+	background: var(--accentColour);
+}
+
+.characters-character-types-character-type-item-active:hover {
+	background: var(--accentHoverColour);
+}
+
+.drag-drop-item-enable-drag-drop .characters-character-types-character-type-item {
+	animation: wiggle-medium infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even) .characters-character-types-character-type-item {
+	animation-delay: 0.1s;
+}
+
+@media (max-width: 950px) {
+	.characters-character-types {
+		margin-top: 24px;
+		width: 100%;
+	}
+
+	.characters-character-types-primary-title {
+		font-size: 24px;
+	}
+}

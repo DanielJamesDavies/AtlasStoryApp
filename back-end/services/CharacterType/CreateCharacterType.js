@@ -19,7 +19,6 @@ module.exports = async (req, res) => {
 	const characterType = new CharacterType({
 		_id: new mongoose.Types.ObjectId(),
 		story_id: req.body.story_id,
-		url: req.body.url,
 		data: { name: req.body.name, colour: req.body.colour },
 	});
 
@@ -44,13 +43,12 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Story Could Not Be Saved" }] });
 	}
 
-	return res.status(200).send({ message: "Success", data: { characterTypeURL: characterType.url } });
+	return res.status(200).send({ message: "Success", data: { characterType } });
 };
 
 function validateCharacterType(characterType) {
 	const characterTypeSchema = Joi.object({
 		story_id: Joi.string().required(),
-		url: Joi.string().min(1).max(64).required(),
 		name: Joi.string().min(1).max(64).required(),
 		colour: Joi.string().min(7).max(7).required(),
 	});
@@ -62,7 +60,6 @@ function validateCharacterType(characterType) {
 	if (characterTypeValidationError) {
 		let characterTypeKeysData = [
 			{ key: "story_id", name: "Story ID", indefiniteArticle: "a" },
-			{ key: "url", name: "URL", indefiniteArticle: "a" },
 			{ key: "name", name: "Name", indefiniteArticle: "a" },
 			{ key: "colour", name: "Colour", indefiniteArticle: "a" },
 		];

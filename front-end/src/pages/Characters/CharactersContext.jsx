@@ -7,22 +7,27 @@ import { RoutesContext } from "../../context/RoutesContext";
 export const CharactersContext = createContext();
 
 const CharactersProvider = ({ children, story_url }) => {
-	const [isAuthorizedToModify, setIsAuthorizedToModify] = useState(false);
-	const [story, setStory] = useState(false);
-	const [storyIcon, setStoryIcon] = useState(false);
-	const [groups, setGroups] = useState(false);
-	const [group, setGroup] = useState(false);
-	const [characters, setCharacters] = useState([]);
-	const [characterTypes, setCharacterTypes] = useState([]);
-	const [charactersCardBackgrounds, setCharactersCardBackgrounds] = useState([]);
-	const [isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm] = useState(false);
-	const [isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm] = useState(false);
-	const { APIRequest } = useContext(APIContext);
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
+	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
 
+	const [isAuthorizedToModify, setIsAuthorizedToModify] = useState(false);
+
+	const [story, setStory] = useState(false);
+	const [storyIcon, setStoryIcon] = useState(false);
+
+	const [groups, setGroups] = useState([]);
+	const [group, setGroup] = useState(false);
+
+	const [characters, setCharacters] = useState([]);
+
+	const [characterTypes, setCharacterTypes] = useState([]);
+	const [characterType, setCharacterType] = useState(false);
+
+	const [charactersCardBackgrounds, setCharactersCardBackgrounds] = useState([]);
+
 	useEffect(() => {
-		async function getStoryAndGroups() {
+		async function getInitial() {
 			if (!story_url) {
 				setStory(false);
 				setGroups(false);
@@ -30,85 +35,97 @@ const CharactersProvider = ({ children, story_url }) => {
 			}
 			if (story.url === story_url) return;
 
-			// Get Story Data
+			let newStory = await getStory();
+			if (!newStory) return;
+
+			changeAccentColour(newStory?.data?.colours?.accent);
+			changeAccentHoverColour(newStory?.data?.colours?.accentHover);
+
+			getStoryIcon(newStory?.data?.icon);
+
+			let newGroups = await getGroups(newStory?.data?.groups);
+			if (!newGroups) return;
+
+			if (newGroups.length > 0) setGroup(newGroups[0]);
+
+			let newCharacters = await getGroupCharacters(newGroups);
+
+			await getCharactersCardBackgrounds(newCharacters);
+
+			let newCharacterTypes = await getCharacterTypes(newStory?.data?.characterTypes);
+			if (newCharacterTypes.length > 0) setCharacterType(newCharacterTypes[0]);
+		}
+
+		function setStateToDefault() {
+			setIsAuthorizedToModify(false);
+			setStory(false);
+			setStoryIcon(false);
+			setGroups(false);
+			setGroup(false);
+			setCharacters([]);
+			setCharacterTypes([]);
+			setCharacterType(false);
+			setCharactersCardBackgrounds([]);
+		}
+
+		async function getStory() {
 			const story_response = await APIRequest("/story?url=" + story_url, "GET");
 			if (!story_response?.data?.story || story_response?.error || story_response?.data?.story?.url !== story_url) {
-				setStory(false);
-				setStoryIcon(false);
-				setGroups(false);
-				setGroup(false);
-				setCharacters([]);
-				setCharactersCardBackgrounds([]);
-				setIsAuthorizedToModify(false);
-				return;
+				setStateToDefault();
+				return false;
 			}
-
-			if (story_url !== story_response.data.story.url) return;
-
 			setStory(story_response.data.story);
-
 			setIsAuthorizedToModify(story_response?.data?.isAuthorizedToModify);
+			return story_response.data.story;
+		}
 
-			getStoryIcon(story_response?.data?.story?.data?.icon);
+		async function getStoryIcon(iconID) {
+			if (!iconID) return setStoryIcon(false);
+			const response = await APIRequest("/image/" + iconID, "GET");
+			if (response?.error || !response?.data?.image) return setStoryIcon(false);
 
-			changeAccentColour(story_response?.data?.story?.data?.colours?.accent);
-			changeAccentHoverColour(story_response?.data?.story?.data?.colours?.accentHover);
+			setStoryIcon(response.data.image);
+			return response.data.image;
+		}
 
-			getCharacterTypes(story_response?.data?.story?.data?.characterTypes);
-
-			// Get Groups Data
-			if (!story_response.data.story?.data?.groups) return;
+		async function getGroups(groupIDs) {
+			if (!groupIDs) return false;
 
 			let newGroups = await Promise.all(
-				story_response.data.story.data.groups.map(async (groupID) => {
-					return await getGroup(groupID);
+				groupIDs.map(async (groupID) => {
+					if (!groupID) return;
+					const group_response = await APIRequest("/group/" + groupID, "GET");
+					if (group_response?.errors || !group_response?.data?.group) return false;
+					return group_response.data.group;
 				})
 			);
 			newGroups = newGroups.filter((e) => e !== false);
 
 			setGroups(newGroups);
+			return newGroups;
+		}
 
-			// Set Default Group
-			if (newGroups.length > 0) setGroup(newGroups[0]);
+		async function getGroupCharacters(newGroups) {
+			if (!newGroups) return;
 
-			// Get Characters Data
 			let newCharacters = await Promise.all(
 				newGroups.map(async (group) => {
-					if (!group?.data?.characters) return;
-					return await getGroupCharacters(group.data.characters);
+					if (!group?.data?.characters) return false;
+					let characters = await Promise.all(
+						group.data.characters.map(async (group_character) => {
+							const character_response = await APIRequest("/character/" + group_character.character_id, "GET");
+							if (character_response?.errors || !character_response?.data?.character) return false;
+							return character_response.data.character;
+						})
+					);
+					return characters.filter((e) => e !== false);
 				})
 			);
 			newCharacters = newCharacters.flat(1);
+			newCharacters = newCharacters.filter((e) => e !== false);
+
 			setCharacters(newCharacters);
-
-			// Get Characters Card Backgrounds Data
-			await getCharactersCardBackgrounds(newCharacters);
-		}
-
-		async function getStoryIcon(iconID) {
-			if (!iconID) return;
-			const response = await APIRequest("/image/" + iconID, "GET");
-			if (response?.error || !response?.data?.image) return setStoryIcon(false);
-			setStoryIcon(response.data.image);
-		}
-
-		async function getGroup(groupID) {
-			if (!groupID) return;
-			const group_response = await APIRequest("/group/" + groupID, "GET");
-			if (group_response?.errors || !group_response?.data?.group) return false;
-			return group_response.data.group;
-		}
-
-		async function getGroupCharacters(groupCharacters) {
-			if (!groupCharacters) return;
-			let characters = await Promise.all(
-				groupCharacters.map(async (group_character) => {
-					const character_response = await APIRequest("/character/" + group_character.character_id, "GET");
-					if (character_response?.errors || !character_response?.data?.character) return false;
-					return character_response.data.character;
-				})
-			);
-			return characters.filter((e) => e !== false);
+			return newCharacters;
 		}
 
 		async function getCharactersCardBackgrounds(newCharacters) {
@@ -122,7 +139,9 @@ const CharactersProvider = ({ children, story_url }) => {
 				})
 			);
 			newCharactersCardBackgrounds = newCharactersCardBackgrounds.filter((e) => e !== false);
+
 			setCharactersCardBackgrounds(newCharactersCardBackgrounds);
+			return newCharactersCardBackgrounds;
 		}
 
 		async function getCharacterTypes(characterTypesIDs) {
@@ -135,15 +154,15 @@ const CharactersProvider = ({ children, story_url }) => {
 				})
 			);
 			newCharacterTypes = newCharacterTypes.filter((e) => e !== false);
+
 			setCharacterTypes(newCharacterTypes);
+			return newCharacterTypes;
 		}
 
-		getStoryAndGroups();
+		getInitial();
 
-		let reloadTimer = setTimeout(() => getStoryAndGroups(), 50);
-		return () => {
-			clearTimeout(reloadTimer);
-		};
+		let reloadTimer = setTimeout(() => getInitial(), 50);
+		return () => clearTimeout(reloadTimer);
 	}, [
 		location,
 		story_url,
@@ -156,10 +175,17 @@ const CharactersProvider = ({ children, story_url }) => {
 		setGroups,
 		setCharacters,
 		setCharacterTypes,
+		setCharacterType,
 		setCharactersCardBackgrounds,
 		changeAccentColour,
 		changeAccentHoverColour,
 	]);
+
+	const [isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm] = useState(false);
+	const [isReorderingGroups, setIsReorderingGroups] = useState(false);
+	function toggleIsReorderingGroups() {
+		setIsReorderingGroups((oldIsReorderingGroups) => !oldIsReorderingGroups);
+	}
 
 	function changeGroup(newGroupID, newGroups) {
 		const newGroup = newGroups !== undefined ? newGroups?.find((e) => e._id === newGroupID) : groups?.find((e) => e._id === newGroupID);
@@ -167,14 +193,25 @@ const CharactersProvider = ({ children, story_url }) => {
 		setGroup(newGroup);
 	}
 
-	const [isReorderingGroups, setIsReorderingGroups] = useState(false);
-	function toggleIsReorderingGroups() {
-		setIsReorderingGroups((oldIsReorderingGroups) => !oldIsReorderingGroups);
-	}
-
+	const [isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm] = useState(false);
 	const [isReorderingCharacters, setIsReorderingCharacters] = useState(false);
 	function toggleIsReorderingCharacters() {
 		setIsReorderingCharacters((oldIsReorderingCharacters) => !oldIsReorderingCharacters);
+	}
+
+	const [isDisplayingCreateCharacterTypeForm, setIsDisplayingCreateCharacterTypeForm] = useState(false);
+	const [isReorderingCharacterTypes, setIsReorderingCharacterTypes] = useState(false);
+	function toggleIsReorderingCharacterTypes() {
+		setIsReorderingCharacterTypes((oldIsReorderingCharacterTypes) => !oldIsReorderingCharacterTypes);
+	}
+
+	function changeCharacterType(newCharacterTypeID, newCharacterTypes) {
+		const newCharacterType =
+			newCharacterTypes !== undefined
+				? newCharacterTypes?.find((e) => e._id === newCharacterTypeID)
+				: characterTypes?.find((e) => e._id === newCharacterTypeID);
+		if (!newCharacterType) return setCharacterType(false);
+		setCharacterType(newCharacterType);
 	}
 
 	return (
@@ -193,15 +230,22 @@ const CharactersProvider = ({ children, story_url }) => {
 				setCharacters,
 				characterTypes,
 				setCharacterTypes,
+				characterType,
+				setCharacterType,
+				changeCharacterType,
 				charactersCardBackgrounds,
 				isDisplayingCreateGroupForm,
 				setIsDisplayingCreateGroupForm,
-				isDisplayingCreateCharacterForm,
-				setIsDisplayingCreateCharacterForm,
 				isReorderingGroups,
 				toggleIsReorderingGroups,
+				isDisplayingCreateCharacterForm,
+				setIsDisplayingCreateCharacterForm,
 				isReorderingCharacters,
 				toggleIsReorderingCharacters,
+				isDisplayingCreateCharacterTypeForm,
+				setIsDisplayingCreateCharacterTypeForm,
+				isReorderingCharacterTypes,
+				toggleIsReorderingCharacterTypes,
 			}}
 		>
 			{children}

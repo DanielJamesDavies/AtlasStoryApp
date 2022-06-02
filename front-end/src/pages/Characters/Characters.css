@@ -1,11 +1,13 @@
 .characters {
 	margin: 0 auto;
-	padding: 6px 48px;
+	padding: 48px;
+	padding-top: 6px;
 	max-width: 1600px;
 }
 
 .characters-content-container {
 	display: flex;
+	flex-wrap: wrap;
 }
 
 @media (max-width: 700px) {

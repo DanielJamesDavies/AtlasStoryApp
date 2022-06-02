@@ -4,6 +4,8 @@
 import { CharactersTitle } from "./CharactersTitle/CharactersTitle";
 import { CharactersGroups } from "./CharactersGroups/CharactersGroups";
 import { CharactersGroup } from "./CharactersGroup/CharactersGroup";
+import { CharactersCharacterTypes } from "./CharactersCharacterTypes/CharactersCharacterTypes";
+import { CharactersCharacterType } from "./CharactersCharacterType/CharactersCharacterType";
 
 // Logic
 
@@ -23,6 +25,8 @@ export const Characters = () => {
 			<div className='characters-content-container'>
 				<CharactersGroups />
 				<CharactersGroup />
+				<CharactersCharacterTypes />
+				<CharactersCharacterType />
 			</div>
 		</div>
 	);

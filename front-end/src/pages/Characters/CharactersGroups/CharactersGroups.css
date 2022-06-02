@@ -2,7 +2,7 @@
 	flex-shrink: 0;
 	display: inline-block;
 	border-radius: 4px;
-	width: 262px;
+	width: calc(342px + 12px);
 	vertical-align: top;
 }
 
@@ -90,7 +90,7 @@
 		width: 100%;
 	}
 
-	.characters-groups-title {
+	.characters-groups-primary-title {
 		font-size: 24px;
 	}
 }
