@@ -6,6 +6,7 @@
 }
 
 .story-description-title {
+	margin-bottom: 6px;
 	font-size: 24px;
 	font-weight: 700;
 }
@@ -13,5 +14,9 @@
 @media (max-width: 700px) {
 	.story-description {
 		padding: 12px 6px;
+	}
+
+	.story-description-title {
+		font-size: 20px;
 	}
 }

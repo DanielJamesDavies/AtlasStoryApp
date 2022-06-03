@@ -4,7 +4,7 @@
 	margin-top: 48px;
 	margin-left: 20px;
 	border-radius: 4px;
-	width: calc(100% - 20px - (342px + 12px));
+	width: calc(100% - 20px - (310px + 12px));
 	min-height: calc(50vh + 96px);
 	vertical-align: top;
 }
@@ -39,6 +39,10 @@
 		margin-top: 24px;
 		width: 100%;
 		min-height: 0;
+	}
+
+	.characters-character-type-primary-title {
+		font-size: 24px;
 	}
 
 	.characters-character-type-title-container input {

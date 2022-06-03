@@ -9,14 +9,13 @@
 
 .story-genres-label {
 	margin: 0;
+	width: 85px;
 	font-size: 24px;
 	font-weight: 700;
-	width: 85px;
 }
 
 .story-genres-value-container {
 	margin: 0;
-	margin-top: 4px;
 	margin-left: 6px;
 	width: calc(100% - 85px - 6px);
 	font-size: 16px;
@@ -41,5 +40,14 @@
 @media (max-width: 700px) {
 	.story-genres {
 		padding: 12px 6px;
+	}
+
+	.story-genres-label {
+		width: 71px;
+		font-size: 20px;
+	}
+
+	.story-genres-value-container {
+		width: calc(100% - 71px - 6px);
 	}
 }
