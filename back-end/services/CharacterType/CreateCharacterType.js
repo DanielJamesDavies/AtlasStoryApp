@@ -43,7 +43,7 @@ function validateCharacterType(characterType) {
 	const characterTypeSchema = Joi.object({
 		story_id: Joi.string().required(),
 		name: Joi.string().min(1).max(64).required(),
-		colour: Joi.string().min(7).max(7).required(),
+		colour: Joi.string().required(),
 	});
 
 	let characterTypeValidationError = characterTypeSchema.validate(characterType, { abortEarly: false })?.error?.details;

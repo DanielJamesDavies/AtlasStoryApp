@@ -5,13 +5,24 @@
 
 .editable-container-content {
 	position: relative;
-	padding-right: calc(18px + 12px);
-	width: calc(100% - (18px + 12px));
+	padding-right: 16px;
+	width: calc(100% - 16px);
+}
+
+.editable-container-media .editable-container-content {
+	padding: 0;
+	width: 100%;
 }
 
 .editable-container-buttons-container {
 	display: flex;
 	flex-direction: column;
+}
+
+.editable-container-media .editable-container-buttons-container {
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 
 .editable-container-edit-btn {
@@ -29,7 +40,7 @@
 	font-size: 18px;
 	text-align: center;
 
-	transition: 0.2s;
+	transition: color 0.2s;
 	cursor: pointer;
 }
 
@@ -38,7 +49,11 @@
 }
 
 .editable-container-edit-btn:first-child {
-	margin-top: 0%;
+	margin-top: 0;
+}
+
+.editable-container-edit-btn:last-child {
+	margin-bottom: 0;
 }
 
 .editable-container-edit-btn svg {

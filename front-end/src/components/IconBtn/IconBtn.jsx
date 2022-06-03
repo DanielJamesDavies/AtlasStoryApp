@@ -14,8 +14,8 @@ import "./IconBtn.css";
 
 // Assets
 
-export const IconBtn = ({ className, icon, iconName, onClick }) => {
-	const { iconBtnClassName } = IconBtnLogic({ className, iconName });
+export const IconBtn = ({ className, seamless, size, icon, iconName, onClick }) => {
+	const { iconBtnClassName } = IconBtnLogic({ className, seamless, size, iconName });
 
 	return (
 		<button className={iconBtnClassName} onClick={onClick}>

@@ -50,16 +50,16 @@ export const CharactersGroupCharacterCards = () => {
 						? "characters-group-characters-cards-scroll-left characters-group-characters-cards-scroll-hidden"
 						: "characters-group-characters-cards-scroll-left"
 				}
-				onMouseEnter={() => scrollCharacterCards(-1)}
+				onMouseEnter={() => scrollCharacterCards(-2)}
 				onMouseLeave={() => scrollCharacterCards(0)}
-				onDragEnter={() => scrollCharacterCards(-1)}
+				onDragEnter={() => scrollCharacterCards(-2)}
 				onDragLeave={() => scrollCharacterCards(0)}
 			></div>
 			<div
 				className='characters-group-characters-cards-scroll-right'
-				onMouseEnter={() => scrollCharacterCards(1)}
+				onMouseEnter={() => scrollCharacterCards(2)}
 				onMouseLeave={() => scrollCharacterCards(0)}
-				onDragEnter={() => scrollCharacterCards(1)}
+				onDragEnter={() => scrollCharacterCards(2)}
 				onDragLeave={() => scrollCharacterCards(0)}
 			></div>
 		</div>

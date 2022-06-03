@@ -7,7 +7,6 @@ import { useContext } from "react";
 
 // Context
 import { StoryContext } from "../StoryContext";
-import { APIContext } from "../../../context/APIContext";
 
 // Services
 
@@ -16,13 +15,7 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const StoryPrimaryLogic = () => {
-	const { story, members, icon, banner, isAuthorizedStoryProfile } = useContext(StoryContext);
+	const { isAuthorizedToEdit, members, icon, banner } = useContext(StoryContext);
 
-	const { APIRequest } = useContext(APIContext);
-
-	async function logOut() {
-		await APIRequest("/story/logout", "POST");
-	}
-
-	return { story, members, icon, banner, isAuthorizedStoryProfile, logOut };
+	return { isAuthorizedToEdit, members, icon, banner };
 };

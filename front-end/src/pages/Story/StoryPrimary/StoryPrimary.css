@@ -64,12 +64,20 @@
 .story-primary-main-info {
 	display: inline-block;
 	vertical-align: middle;
+	width: fit-content;
+	max-width: calc(100% - 104px - 78px - 7px - 12px);
 	min-height: 84px;
 }
 
-.story-primary-main-info-title {
+.story-primary-main-info-title-container {
 	margin-top: -3px;
 	margin-bottom: 3px;
+	width: fit-content;
+	font-weight: 700;
+	font-size: 48px;
+}
+
+.story-primary-main-info-title-container input {
 	font-weight: 700;
 	font-size: 48px;
 }
@@ -92,43 +100,6 @@
 	margin-left: auto;
 	margin-right: 24px;
 	vertical-align: middle;
-}
-
-.story-primary-auth-btn {
-	position: relative;
-	display: inline-block;
-	margin: 4px;
-	padding: 0;
-	border: 0;
-	border-radius: 100%;
-
-	width: 46px;
-	height: 46px;
-
-	background: var(--grey1);
-	color: var(--blue);
-	font-size: 22px;
-	text-align: center;
-	vertical-align: middle;
-	transition: 0.2s;
-	cursor: pointer;
-}
-
-.story-primary-auth-btn:hover {
-	background: var(--blue);
-	color: #fff;
-}
-
-.story-primary-auth-btn svg {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100%;
-}
-
-.story-primary-auth-btn-settings svg {
-	font-size: 24px;
 }
 
 @media (max-width: 700px) {

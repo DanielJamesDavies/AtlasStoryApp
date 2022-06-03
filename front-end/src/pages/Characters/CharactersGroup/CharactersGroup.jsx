@@ -1,5 +1,5 @@
 // Packages
-import { FaUserPlus, FaSort } from "react-icons/fa";
+import { FaPlus, FaSort } from "react-icons/fa";
 
 // Components
 import { CharactersGroupCharacterCards } from "./CharactersGroupCharacterCards";
@@ -33,12 +33,14 @@ export const CharactersGroup = () => {
 						<div className='characters-group-primary-modify-btns-container'>
 							<IconBtn
 								className='characters-group-primary-modify-btn'
-								icon={<FaUserPlus />}
+								seamless={true}
+								icon={<FaPlus />}
 								iconName='plus'
 								onClick={openCreateCharacterForm}
 							/>
 							<IconBtn
 								className='characters-group-primary-modify-btn'
+								seamless={true}
 								icon={<FaSort />}
 								iconName='sort'
 								onClick={toggleIsReorderingCharacters}

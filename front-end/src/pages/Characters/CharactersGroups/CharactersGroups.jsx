@@ -38,9 +38,16 @@ export const CharactersGroups = () => {
 				<div className='characters-groups-primary-title'>Groups</div>
 				{!isAuthorizedToEdit ? null : (
 					<div className='characters-groups-primary-modify-buttons-container'>
-						<IconBtn className='characters-groups-primary-modify-btn' icon={<FaPlus />} iconName='plus' onClick={openCreateGroupForm} />
 						<IconBtn
 							className='characters-groups-primary-modify-btn'
+							seamless={true}
+							icon={<FaPlus />}
+							iconName='plus'
+							onClick={openCreateGroupForm}
+						/>
+						<IconBtn
+							className='characters-groups-primary-modify-btn'
+							seamless={true}
 							icon={<FaSort />}
 							iconName='sort'
 							onClick={toggleIsReorderingGroups}

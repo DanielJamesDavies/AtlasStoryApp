@@ -15,43 +15,43 @@ import { APIContext } from "../../../context/APIContext";
 
 // Assets
 
-export const StoryDescriptionLogic = () => {
+export const StoryPrimaryTitleLogic = () => {
 	const { isAuthorizedToEdit, story, setStory } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 
-	function changeStoryDescription(e) {
+	function changeStoryTitle(e) {
 		setStory((oldStory) => {
 			let newStory = JSON.parse(JSON.stringify(oldStory));
-			newStory.data.description = e.target.value.split("\n");
+			newStory.data.title = e.target.value;
 			return newStory;
 		});
 	}
 
-	async function revertStoryDescription() {
+	async function revertStoryTitle() {
 		const response = await APIRequest("/story/get-value/" + story._id, "POST", {
 			story_id: story._id,
-			path: ["data", "description"],
+			path: ["data", "title"],
 		});
 		if (!response || response?.errors || !response?.data?.value) return false;
 
 		setStory((oldStory) => {
 			let newStory = JSON.parse(JSON.stringify(oldStory));
-			newStory.data.description = response.data.value;
+			newStory.data.title = response.data.value;
 			return newStory;
 		});
 
 		return true;
 	}
 
-	async function saveStoryDescription() {
+	async function saveStoryTitle() {
 		const response = await APIRequest("/story/" + story._id, "PATCH", {
 			story_id: story._id,
-			path: ["data", "description"],
-			newValue: story.data.description,
+			path: ["data", "title"],
+			newValue: story.data.title,
 		});
 		if (!response || response?.errors) return false;
 		return true;
 	}
 
-	return { isAuthorizedToEdit, story, changeStoryDescription, revertStoryDescription, saveStoryDescription };
+	return { isAuthorizedToEdit, story, changeStoryTitle, revertStoryTitle, saveStoryTitle };
 };

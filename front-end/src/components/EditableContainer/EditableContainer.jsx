@@ -15,9 +15,10 @@ import "./EditableContainer.css";
 
 // Assets
 
-export const EditableContainer = ({ children, className, isAuthorizedToEdit, onRevert, onSave }) => {
+export const EditableContainer = ({ children, className, isMediaContent, isAuthorizedToEdit, onRevert, onSave }) => {
 	const { isEditing, editableContainerClassName, onEditBtnClick, onViewBtnClick, onRevertBtnClick, onSaveBtnClick } = EditableContainerLogic({
 		className,
+		isMediaContent,
 		onRevert,
 		onSave,
 	});

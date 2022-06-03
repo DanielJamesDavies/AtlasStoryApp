@@ -23,6 +23,26 @@
 	color: #fff;
 }
 
+.icon-btn-seamless {
+	min-width: 20px;
+	width: 20px;
+	min-height: 20px;
+	height: 20px;
+	background: transparent;
+}
+
+.icon-btn-seamless:hover {
+	background: transparent;
+	color: var(--accentColour);
+}
+
+.icon-btn-seamless.icon-btn-large {
+	min-width: 24px;
+	width: 24px;
+	min-height: 24px;
+	height: 24px;
+}
+
 .icon-btn svg {
 	position: absolute;
 	top: 50%;
@@ -41,4 +61,8 @@
 
 .icon-btn-trash-icon svg {
 	width: 50%;
+}
+
+.icon-btn-seamless svg {
+	width: 100%;
 }

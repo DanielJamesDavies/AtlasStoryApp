@@ -29,6 +29,7 @@ export const StoryPrimaryCharacters = () => {
 					<div className='story-primary-characters-primary-modify-btn-container'>
 						<IconBtn
 							className='story-primary-characters-primary-modify-btn'
+							seamless={true}
 							icon={<FaSort />}
 							iconName='sort'
 							onClick={toggleIsReorderingCharacters}

@@ -49,12 +49,17 @@
 	background: var(--accentHoverColour);
 }
 
+.characters-group-primary-modify-btn {
+	margin: 0 8px;
+}
+
 .characters-group-primary-modify-btn:last-child {
 	margin-right: 0;
 }
 
 .characters-group-primary-modify-btns-container {
 	display: flex;
+	align-items: center;
 }
 
 @media (max-width: 950px) {
@@ -77,6 +82,7 @@
 
 	.characters-group-primary-open-group-btn {
 		margin: 4px;
+		margin-bottom: 8px;
 	}
 
 	.characters-group-primary-modify-btn:last-child {

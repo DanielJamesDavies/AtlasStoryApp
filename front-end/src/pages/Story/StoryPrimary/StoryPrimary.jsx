@@ -1,7 +1,8 @@
 // Packages
-import { FaCog, FaSignOutAlt } from "react-icons/fa";
+import { FaCog } from "react-icons/fa";
 
 // Components
+import { StoryPrimaryTitle } from "./StoryPrimaryTitle";
 
 // Logic
 import { StoryPrimaryLogic } from "./StoryPrimaryLogic";
@@ -12,11 +13,12 @@ import { StoryPrimaryLogic } from "./StoryPrimaryLogic";
 
 // Styles
 import "./StoryPrimary.css";
+import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Assets
 
 export const StoryPrimary = () => {
-	const { story, members, icon, banner, isAuthorizedStoryProfile, logOut } = StoryPrimaryLogic();
+	const { isAuthorizedToEdit, members, icon, banner } = StoryPrimaryLogic();
 
 	return (
 		<div className='story-primary'>
@@ -24,7 +26,7 @@ export const StoryPrimary = () => {
 			<div className='story-primary-break'></div>
 			<div className='story-primary-icon'>{!icon ? null : <img src={icon} alt='' />}</div>
 			<div className='story-primary-main-info'>
-				<div className='story-primary-main-info-title'>{story?.data?.title}</div>
+				<StoryPrimaryTitle />
 				<div className='story-primary-main-info-creators'>
 					{!Array.isArray(members) || members?.length === 0 ? null : "By "}
 					{members.map((member, index) => (
@@ -35,14 +37,9 @@ export const StoryPrimary = () => {
 					))}
 				</div>
 			</div>
-			{!isAuthorizedStoryProfile ? null : (
+			{!isAuthorizedToEdit ? null : (
 				<div className='story-primary-auth-buttons-container'>
-					<button className='story-primary-auth-btn story-primary-auth-btn-settings'>
-						<FaCog />
-					</button>
-					<button className='story-primary-auth-btn story-primary-auth-log-out' onClick={logOut}>
-						<FaSignOutAlt />
-					</button>
+					<IconBtn className='story-primary-auth-btn story-primary-auth-btn-settings' seamless={true} size='l' icon={<FaCog />} />
 				</div>
 			)}
 		</div>

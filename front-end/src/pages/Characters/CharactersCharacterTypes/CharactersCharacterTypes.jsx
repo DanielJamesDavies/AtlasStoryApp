@@ -40,12 +40,14 @@ export const CharactersCharacterTypes = () => {
 					<div className='characters-character-types-primary-modify-buttons-container'>
 						<IconBtn
 							className='characters-character-types-primary-modify-btn'
+							seamless={true}
 							icon={<FaPlus />}
 							iconName='plus'
 							onClick={openCreateCharacterTypeForm}
 						/>
 						<IconBtn
 							className='characters-character-types-primary-modify-btn'
+							seamless={true}
 							icon={<FaSort />}
 							iconName='sort'
 							onClick={toggleIsReorderingCharacterTypes}

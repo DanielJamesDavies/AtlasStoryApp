@@ -31,8 +31,20 @@ export const UserStories = () => {
 				<div className='user-stories-top-items-count'>{!stories ? null : "(" + stories.length + ")"}</div>
 				{!isAuthorizedToEdit ? null : (
 					<div className='user-stories-top-modify-btns-container'>
-						<IconBtn className='user-stories-top-modify-btn' icon={<FaPlus />} iconName='plus' onClick={openCreateStoryForm} />
-						<IconBtn className='user-stories-top-modify-btn' icon={<FaSort />} iconName='sort' onClick={toggleIsReorderingStories} />
+						<IconBtn
+							className='user-stories-top-modify-btn'
+							seamless={true}
+							icon={<FaPlus />}
+							iconName='plus'
+							onClick={openCreateStoryForm}
+						/>
+						<IconBtn
+							className='user-stories-top-modify-btn'
+							seamless={true}
+							icon={<FaSort />}
+							iconName='sort'
+							onClick={toggleIsReorderingStories}
+						/>
 					</div>
 				)}
 			</div>

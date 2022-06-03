@@ -31,6 +31,10 @@
 	margin-left: auto;
 }
 
+.user-stories-top-modify-btn {
+	margin: 0 8px;
+}
+
 .user-stories-top-modify-btn:last-child {
 	margin-right: 0;
 }

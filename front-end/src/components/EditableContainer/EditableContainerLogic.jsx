@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 // Assets
 
-export const EditableContainerLogic = ({ className, onRevert, onSave }) => {
+export const EditableContainerLogic = ({ className, isMediaContent, onRevert, onSave }) => {
 	const [isEditing, setIsEditing] = useState(false);
 
 	// Editable Container Class Name
@@ -23,11 +23,12 @@ export const EditableContainerLogic = ({ className, onRevert, onSave }) => {
 		function getEditableContainerClassName() {
 			let newClassName = "editable-container";
 			if (isEditing) newClassName += " editable-container-is-editing";
+			if (isMediaContent) newClassName += " editable-container-media";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}
 		setEditableContainerClassName(getEditableContainerClassName());
-	}, [setEditableContainerClassName, isEditing, className]);
+	}, [setEditableContainerClassName, isEditing, isMediaContent, className]);
 
 	// Button Event Functions
 	function onEditBtnClick() {

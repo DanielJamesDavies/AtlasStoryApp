@@ -28,6 +28,11 @@
 	width: 100%;
 }
 
+.characters-character-type-title-container input {
+	font-size: 28px;
+	font-weight: 700;
+}
+
 @media (max-width: 950px) {
 	.characters-character-type {
 		margin: 0;
@@ -36,7 +41,8 @@
 		min-height: 0;
 	}
 
-	.characters-character-type-primary-title {
+	.characters-character-type-title-container input {
 		font-size: 24px;
+		font-weight: 700;
 	}
 }

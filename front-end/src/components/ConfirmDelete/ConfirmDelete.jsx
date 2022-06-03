@@ -23,12 +23,18 @@ export const ConfirmDelete = ({ state, labelContext, onDelete, className, seamle
 	return (
 		<div className={confirmDeleteContainerClassName}>
 			{!isConfirming ? (
-				<IconBtn className='confirm-delete-btn' icon={<FaTrash />} iconName='trash' onClick={() => setIsConfirming(true)} />
+				<IconBtn className='confirm-delete-btn' seamless={true} icon={<FaTrash />} iconName='trash' onClick={() => setIsConfirming(true)} />
 			) : (
 				<>
 					<div className='confirm-delete-label'>Are you sure you would like to delete {labelContext}?</div>
-					<IconBtn className='confirm-delete-btn confirm-delete-btn-delete' icon={<FaTrash />} iconName='trash' onClick={onDelete} />
-					<IconBtn className='confirm-delete-btn' icon={<FaUndoAlt />} onClick={() => setIsConfirming(false)} />
+					<IconBtn
+						className='confirm-delete-btn confirm-delete-btn-delete'
+						seamless={true}
+						icon={<FaTrash />}
+						iconName='trash'
+						onClick={onDelete}
+					/>
+					<IconBtn className='confirm-delete-btn' seamless={true} icon={<FaUndoAlt />} onClick={() => setIsConfirming(false)} />
 				</>
 			)}
 		</div>

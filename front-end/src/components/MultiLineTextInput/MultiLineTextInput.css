@@ -173,3 +173,11 @@
 .multi-line-text-input-container-empty .multi-line-text-input-height-element {
 	height: 32px;
 }
+
+.multi-line-text-input-container-seamless .multi-line-text-input-height-element {
+	font-size: 15px;
+}
+
+.multi-line-text-input-container-seamless .multi-line-text-input-height-element p {
+	min-height: 19px;
+}

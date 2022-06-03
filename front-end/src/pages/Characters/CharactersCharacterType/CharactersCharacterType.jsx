@@ -1,8 +1,8 @@
 // Packages
 
 // Components
-import { Text } from "../../../components/Text/Text";
 import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
+import { Text } from "../../../components/Text/Text";
 import { MultiLineTextInput } from "../../../components/MultiLineTextInput/MultiLineTextInput";
 import { TextInput } from "../../../components/TextInput/TextInput";
 
@@ -44,13 +44,7 @@ export const CharactersCharacterType = () => {
 							onSave={saveCharacterTypeName}
 						>
 							<div className='characters-character-type-primary-title'>{characterType?.data?.name}</div>
-							<TextInput
-								label='Name'
-								value={characterType.data.name}
-								onChange={changeCharacterTypeName}
-								seamless={true}
-								style={{ fontSize: "28px", fontWeight: "700" }}
-							/>
+							<TextInput label='Name' value={characterType.data.name} onChange={changeCharacterTypeName} seamless={true} />
 						</EditableContainer>
 					</div>
 					<EditableContainer

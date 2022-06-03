@@ -35,7 +35,7 @@ export const CharactersGroupCharacterCardsLogic = () => {
 				(charactersCards.scrollLeft !== 0 || characterCardsScrollValue > 0) &&
 				characterCardsScrollValue !== 0
 			) {
-				charactersCards.current.scrollLeft += characterCardsScrollValue * 3;
+				charactersCards.current.scrollLeft += characterCardsScrollValue * 2;
 			} else {
 				clearInterval(interval);
 				setCharacterCardsScrollInterval(false);
@@ -89,7 +89,7 @@ export const CharactersGroupCharacterCardsLogic = () => {
 				Array.from(element.classList).includes("characters-group-characters-cards-scroll-left") ||
 				Array.from(element.classList).includes("characters-group-characters-cards-scroll-right")
 			) {
-				scrollCharacterCards(Array.from(element.classList).includes("characters-group-characters-cards-scroll-left") ? -0.75 : 0.75);
+				scrollCharacterCards(Array.from(element.classList).includes("characters-group-characters-cards-scroll-left") ? -1.5 : 1.5);
 			}
 		});
 	}

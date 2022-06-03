@@ -1,26 +1,40 @@
 .story-genres {
+	display: flex;
+	justify-content: center;
+	align-items: top;
 	margin: 12px 0;
 	padding: 12px;
 	border-radius: 4px;
 }
 
 .story-genres-label {
-	display: inline-block;
 	margin: 0;
 	font-size: 24px;
 	font-weight: 700;
-	width: 71px;
-	vertical-align: middle;
+	width: 85px;
+}
+
+.story-genres-value-container {
+	margin: 0;
+	margin-top: 4px;
+	margin-left: 6px;
+	width: calc(100% - 85px - 6px);
+	font-size: 16px;
+	font-weight: 400;
+	text-align: right;
 }
 
 .story-genres-value {
-	display: inline-block;
-	margin: 0;
-	margin-left: 24px;
-	width: calc(100% - 71px - 24px);
-	font-size: 16px;
-	font-weight: 400;
-	vertical-align: middle;
+	width: 100%;
+	vertical-align: top;
+}
+
+.story-genres-value .text-input {
+	width: 100%;
+}
+
+.story-genres-value .text-input input {
+	width: 100%;
 	text-align: right;
 }
 
