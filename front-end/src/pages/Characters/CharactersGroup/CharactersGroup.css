@@ -82,10 +82,14 @@
 
 	.characters-group-primary-open-group-btn {
 		margin: 4px;
-		margin-bottom: 8px;
+		margin-bottom: 16px;
+	}
+
+	.characters-group-primary-modify-btn {
+		margin: 0 12px;
 	}
 
 	.characters-group-primary-modify-btn:last-child {
-		margin: 4px;
+		margin-right: 8px;
 	}
 }

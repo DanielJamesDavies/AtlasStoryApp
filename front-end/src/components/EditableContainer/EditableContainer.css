@@ -62,3 +62,17 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+
+@media (max-width: 700px) {
+	.editable-container-edit-btn {
+		padding: 16px 0;
+	}
+
+	.editable-container-edit-btn:first-child {
+		padding-top: 0;
+	}
+
+	.editable-container-edit-btn:last-child {
+		padding-bottom: 0;
+	}
+}

@@ -64,8 +64,7 @@
 .story-primary-main-info {
 	display: inline-block;
 	vertical-align: middle;
-	width: fit-content;
-	max-width: calc(100% - 104px - 78px - 7px - 12px);
+	width: calc(100% - 5px - 75px - 24px - 24px - 8px - 24px - 7px);
 	min-height: 84px;
 }
 
@@ -73,8 +72,12 @@
 	margin-top: -3px;
 	margin-bottom: 3px;
 	width: fit-content;
-	font-weight: 700;
 	font-size: 48px;
+	font-weight: 700;
+}
+
+.story-primary-main-info-title {
+	width: 100%;
 }
 
 .story-primary-main-info-title-container input {
@@ -118,15 +121,25 @@
 	}
 
 	.story-primary-main-info {
+		width: calc(100% - 5px - 60px - 24px - 24px - 8px - 12px - 7px);
 		min-height: 50px;
 	}
 
 	.story-primary-main-info-title {
 		margin: 0;
 		font-size: 24px;
+		width: 100%;
+	}
+
+	.story-primary-main-info-title-container input {
+		font-size: 24px;
 	}
 
 	.story-primary-main-info-creators {
 		font-size: 14px;
+	}
+
+	.story-primary-auth-buttons-container {
+		margin-right: 12px;
 	}
 }
