@@ -1,5 +1,5 @@
 // Packages
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useLayoutEffect } from "react";
 
 // Components
 
@@ -16,6 +16,7 @@ import { useEffect, useRef, useState } from "react";
 export const TextInputLogic = (props) => {
 	const inputContainerRef = useRef();
 	const inputRef = useRef();
+	const inputWidthRef = useRef();
 	const [focused, setFocused] = useState(false);
 	const [inputClassName, setInputClassName] = useState("text-input-container text-input-container-seamless");
 	const DynamicIconComponent = props.icon;
@@ -59,10 +60,33 @@ export const TextInputLogic = (props) => {
 		setIsHidden((oldIsHidden) => !oldIsHidden);
 	}
 
+	// Resize Input
+	const [inputStyle, setInputStyle] = useState({});
+
+	useLayoutEffect(() => {
+		function resizeInput() {
+			if (!props?.autoResize) return setInputStyle({});
+			if (!inputRef?.current || !inputWidthRef?.current) return;
+			// let inputRefStyle = window.getComputedStyle(inputContainerRef.current);
+			// console.log(inputRefStyle.getPropertyValue("max-width"));
+			setInputStyle({ width: "calc(" + inputWidthRef.current.clientWidth + "px)", maxWidth: "100%" });
+		}
+
+		resizeInput();
+		let reloadTimer = setTimeout(() => resizeInput(), 50);
+		window.addEventListener("resize", resizeInput);
+		return () => {
+			clearTimeout(reloadTimer);
+			window.removeEventListener("resize", resizeInput);
+		};
+	}, [props, focused, inputRef, inputWidthRef, setInputStyle]);
+
 	return {
 		inputContainerRef,
 		inputRef,
+		inputWidthRef,
 		inputClassName,
+		inputStyle,
 		DynamicIconComponent,
 		selectAll,
 		focusOnInput,

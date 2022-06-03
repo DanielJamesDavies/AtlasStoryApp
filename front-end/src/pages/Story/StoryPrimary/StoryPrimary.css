@@ -64,7 +64,7 @@
 .story-primary-main-info {
 	display: inline-block;
 	vertical-align: middle;
-	width: calc(100% - 5px - 75px - 24px - 24px - 8px - 24px - 7px);
+	width: calc(100% - 5px - 75px - 24px - 24px - 8px - 24px - 7px - 24px);
 	min-height: 84px;
 }
 

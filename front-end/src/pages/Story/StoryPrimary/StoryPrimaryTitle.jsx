@@ -27,7 +27,13 @@ export const StoryPrimaryTitle = () => {
 			onSave={saveStoryTitle}
 		>
 			<div className='story-primary-main-info-title'>{story?.data?.title}</div>
-			<TextInput className='story-primary-main-info-title' seamless={true} value={story?.data?.title} onChange={changeStoryTitle} />
+			<TextInput
+				className='story-primary-main-info-title'
+				seamless={true}
+				value={story?.data?.title}
+				onChange={changeStoryTitle}
+				autoResize={true}
+			/>
 		</EditableContainer>
 	);
 };

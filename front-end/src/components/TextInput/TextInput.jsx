@@ -19,7 +19,9 @@ export const TextInput = (props) => {
 	const {
 		inputContainerRef,
 		inputRef,
+		inputWidthRef,
 		inputClassName,
+		inputStyle,
 		DynamicIconComponent,
 		selectAll,
 		onClick,
@@ -45,8 +47,12 @@ export const TextInput = (props) => {
 					autoComplete={props.autocomplete}
 					onFocus={onInputContainerFocus}
 					onBlur={onInputContainerBlur}
-					style={props.style === undefined ? {} : props.style}
+					style={inputStyle}
 				/>
+
+				<div ref={inputWidthRef} className='text-input text-input-width-element'>
+					{props?.value}
+				</div>
 			</div>
 
 			{!props?.hideValue ? null : (

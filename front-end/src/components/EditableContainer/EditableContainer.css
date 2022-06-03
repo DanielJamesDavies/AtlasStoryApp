@@ -1,12 +1,15 @@
 .editable-container {
 	display: flex;
 	position: relative;
+	max-width: 100%;
 }
 
 .editable-container-content {
+	display: inline-block;
 	position: relative;
-	padding-right: 16px;
-	width: calc(100% - 16px);
+	padding-right: 18px;
+	width: calc(100% - 18px - 18px);
+	vertical-align: top;
 }
 
 .editable-container-media .editable-container-content {
@@ -15,8 +18,9 @@
 }
 
 .editable-container-buttons-container {
-	display: flex;
+	display: inline-flex;
 	flex-direction: column;
+	vertical-align: top;
 }
 
 .editable-container-media .editable-container-buttons-container {
