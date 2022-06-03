@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
 
 		return res.status(200).send({
 			message: "Success",
-			data: { user: newUser, isAuthorizedToModify: getIsAuthorizedToModify(req?.cookies?.AtlasStoryAppToken, newUser._id) },
+			data: { user: newUser, isAuthorizedToEdit: getIsAuthorizedToModify(req?.cookies?.AtlasStoryAppToken, newUser._id) },
 		});
 	}
 
@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
 
 	res.status(200).send({
 		message: "Success",
-		data: { user, isAuthorizedToModify: true },
+		data: { user, isAuthorizedToEdit: true },
 	});
 };
 

@@ -16,6 +16,13 @@
 	cursor: text;
 }
 
+.multi-line-text-input-container-seamless {
+	padding: 0;
+	border: 0;
+	width: 100%;
+	background: transparent;
+}
+
 .multi-line-text-input-container-dark {
 	background: var(--grey1);
 }
@@ -75,6 +82,15 @@
 	vertical-align: middle;
 }
 
+.multi-line-text-input-container-seamless .multi-line-text-input-label {
+	display: none;
+	padding-top: 1px;
+}
+
+.multi-line-text-input-container-seamless.multi-line-text-input-container-empty .multi-line-text-input-label {
+	display: block;
+}
+
 .multi-line-text-input-label svg {
 	margin-top: -3px;
 	margin-right: 7px;
@@ -125,6 +141,11 @@
 .multi-line-text-input-container-focused {
 	border-color: var(--blue);
 	outline: 0;
+}
+
+.multi-line-text-input-container-seamless textarea {
+	font-size: 15px;
+	white-space: pre-wrap;
 }
 
 .multi-line-text-input-container-hide-value .multi-line-text-input {

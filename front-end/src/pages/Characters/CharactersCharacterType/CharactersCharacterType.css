@@ -16,12 +16,16 @@
 	width: 100%;
 }
 
+.characters-character-type-title-container {
+	width: 100%;
+}
+
 .characters-character-type-primary-title {
 	margin-top: -1px;
 	margin-bottom: 1px;
 	font-size: 28px;
 	font-weight: 700;
-	max-width: calc(100% - 115px);
+	width: 100%;
 }
 
 @media (max-width: 950px) {

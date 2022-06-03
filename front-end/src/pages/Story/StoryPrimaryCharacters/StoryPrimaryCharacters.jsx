@@ -18,14 +18,14 @@ import "./StoryPrimaryCharacters.css";
 // Assets
 
 export const StoryPrimaryCharacters = () => {
-	const { isAuthorizedToModify, primaryCharacters, toggleIsReorderingCharacters } = StoryPrimaryCharactersLogic();
+	const { isAuthorizedToEdit, primaryCharacters, toggleIsReorderingCharacters } = StoryPrimaryCharactersLogic();
 
 	if (!primaryCharacters) return null;
 	return (
 		<div className='story-primary-characters'>
 			<div className='story-primary-characters-primary'>
 				<div className='story-primary-characters-primary-title'>Primary Characters</div>
-				{!isAuthorizedToModify ? null : (
+				{!isAuthorizedToEdit ? null : (
 					<div className='story-primary-characters-primary-modify-btn-container'>
 						<IconBtn
 							className='story-primary-characters-primary-modify-btn'

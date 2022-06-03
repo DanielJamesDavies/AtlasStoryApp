@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 
 	return res
 		.status(200)
-		.send({ message: "Success", data: { story, isAuthorizedToModify: getIsAuthorizedToModify(req?.cookies?.AtlasStoryAppToken, story) } });
+		.send({ message: "Success", data: { story, isAuthorizedToEdit: getIsAuthorizedToModify(req?.cookies?.AtlasStoryAppToken, story) } });
 };
 
 function getIsAuthorizedToModify(AtlasStoryAppToken, story) {

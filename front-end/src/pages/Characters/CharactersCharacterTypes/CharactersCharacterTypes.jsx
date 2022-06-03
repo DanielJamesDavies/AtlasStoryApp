@@ -21,7 +21,7 @@ import "./CharactersCharacterTypes.css";
 
 export const CharactersCharacterTypes = () => {
 	const {
-		isAuthorizedToModify,
+		isAuthorizedToEdit,
 		story,
 		characterTypes,
 		characterType,
@@ -36,7 +36,7 @@ export const CharactersCharacterTypes = () => {
 		<div className='characters-character-types'>
 			<div className='characters-character-types-primary'>
 				<div className='characters-character-types-primary-title'>Character Types</div>
-				{!isAuthorizedToModify ? null : (
+				{!isAuthorizedToEdit ? null : (
 					<div className='characters-character-types-primary-modify-buttons-container'>
 						<IconBtn
 							className='characters-character-types-primary-modify-btn'

@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
 
 	res.status(200).send({
 		message: "Success",
-		data: { story: newStory, isAuthorizedToModify: getIsAuthorizedToModify(req?.cookies?.AtlasStoryAppToken, newStory) },
+		data: { story: newStory, isAuthorizedToEdit: getIsAuthorizedToModify(req?.cookies?.AtlasStoryAppToken, newStory) },
 	});
 };
 

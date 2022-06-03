@@ -19,7 +19,7 @@ import "./CharactersGroup.css";
 // Assets
 
 export const CharactersGroup = () => {
-	const { isAuthorizedToModify, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters } = CharactersGroupLogic();
+	const { isAuthorizedToEdit, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters } = CharactersGroupLogic();
 
 	return (
 		<div className='characters-group'>
@@ -29,7 +29,7 @@ export const CharactersGroup = () => {
 					<button className='characters-group-primary-open-group-btn' onClick={navigateToGroup}>
 						Open Group
 					</button>
-					{!isAuthorizedToModify ? null : (
+					{!isAuthorizedToEdit ? null : (
 						<div className='characters-group-primary-modify-btns-container'>
 							<IconBtn
 								className='characters-group-primary-modify-btn'

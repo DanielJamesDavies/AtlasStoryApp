@@ -7,11 +7,13 @@ const StoryAuthentication = require("../services/StoryAuthentication");
 
 const GetCharacterType = require("../services/CharacterType/GetCharacterType");
 const GetCharacterTypeByID = require("../services/CharacterType/GetCharacterTypeByID");
+const GetCharacterTypeValueByID = require("../services/CharacterType/GetCharacterTypeValueByID");
 const CreateCharacterType = require("../services/CharacterType/CreateCharacterType");
 const UpdateCharacterType = require("../services/CharacterType/UpdateCharacterType");
 
 router.get("/", GetCharacterType);
 router.get("/:id", GetCharacterTypeByID);
+router.post("/get-value/:id", GetCharacterTypeValueByID);
 router.post("/", CookieConsentAuthentication, Authenticate, StoryAuthentication, CreateCharacterType);
 router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, UpdateCharacterType);
 

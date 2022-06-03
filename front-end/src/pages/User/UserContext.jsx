@@ -6,7 +6,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 export const UserContext = createContext();
 
 const UserProvider = ({ children, user_username }) => {
-	const [isAuthorizedToModify, setIsAuthorizedToModify] = useState(false);
+	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
 	const [user, setUser] = useState(false);
 	const [profilePicture, setProfilePicture] = useState(false);
 	const [banner, setBanner] = useState(false);
@@ -28,11 +28,11 @@ const UserProvider = ({ children, user_username }) => {
 				setUser(false);
 				setProfilePicture(false);
 				setBanner(false);
-				setIsAuthorizedToModify(false);
+				setIsAuthorizedToEdit(false);
 				return;
 			}
 
-			setIsAuthorizedToModify(response.data?.isAuthorizedToModify);
+			setIsAuthorizedToEdit(response.data?.isAuthorizedToEdit);
 
 			if (user_username === response.data.user.username) setUser(response.data.user);
 
@@ -73,12 +73,12 @@ const UserProvider = ({ children, user_username }) => {
 		return () => {
 			clearTimeout(reloadTimer);
 		};
-	}, [location, user_username, APIRequest, setIsAuthorizedToModify, user, setUser, setProfilePicture, setBanner]);
+	}, [location, user_username, APIRequest, setIsAuthorizedToEdit, user, setUser, setProfilePicture, setBanner]);
 
 	return (
 		<UserContext.Provider
 			value={{
-				isAuthorizedToModify,
+				isAuthorizedToEdit,
 				user,
 				setUser,
 				profilePicture,

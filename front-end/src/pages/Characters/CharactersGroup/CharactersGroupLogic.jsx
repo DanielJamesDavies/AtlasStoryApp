@@ -17,7 +17,7 @@ import { CharactersContext } from "../CharactersContext";
 
 export const CharactersGroupLogic = () => {
 	const { changeLocation } = useContext(RoutesContext);
-	const { isAuthorizedToModify, story, group, setIsDisplayingCreateCharacterForm, toggleIsReorderingCharacters } = useContext(CharactersContext);
+	const { isAuthorizedToEdit, story, group, setIsDisplayingCreateCharacterForm, toggleIsReorderingCharacters } = useContext(CharactersContext);
 
 	function navigateToGroup() {
 		if (story?.url && group?.url) changeLocation("s/" + story.url + "/g/" + group.url);
@@ -27,5 +27,5 @@ export const CharactersGroupLogic = () => {
 		setIsDisplayingCreateCharacterForm(true);
 	}
 
-	return { isAuthorizedToModify, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters };
+	return { isAuthorizedToEdit, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters };
 };

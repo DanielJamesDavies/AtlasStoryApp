@@ -21,7 +21,7 @@ import "./UserStories.css";
 // Assets
 
 export const UserStories = () => {
-	const { isAuthorizedToModify, user, stories, openCreateStoryForm, isReorderingStories, toggleIsReorderingStories, changeStoriesOrder } =
+	const { isAuthorizedToEdit, user, stories, openCreateStoryForm, isReorderingStories, toggleIsReorderingStories, changeStoriesOrder } =
 		UserStoriesLogic();
 
 	return (
@@ -29,7 +29,7 @@ export const UserStories = () => {
 			<div className='user-stories-top'>
 				<div className='user-stories-top-title'>Stories</div>
 				<div className='user-stories-top-items-count'>{!stories ? null : "(" + stories.length + ")"}</div>
-				{!isAuthorizedToModify ? null : (
+				{!isAuthorizedToEdit ? null : (
 					<div className='user-stories-top-modify-btns-container'>
 						<IconBtn className='user-stories-top-modify-btn' icon={<FaPlus />} iconName='plus' onClick={openCreateStoryForm} />
 						<IconBtn className='user-stories-top-modify-btn' icon={<FaSort />} iconName='sort' onClick={toggleIsReorderingStories} />

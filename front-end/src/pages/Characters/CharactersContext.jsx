@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 
-import { APIContext } from "../../context/APIContext";
 import { AppContext } from "../../context/AppContext";
+import { APIContext } from "../../context/APIContext";
 import { RoutesContext } from "../../context/RoutesContext";
 
 export const CharactersContext = createContext();
@@ -11,7 +11,7 @@ const CharactersProvider = ({ children, story_url }) => {
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
 
-	const [isAuthorizedToModify, setIsAuthorizedToModify] = useState(false);
+	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
 
 	const [story, setStory] = useState(false);
 	const [storyIcon, setStoryIcon] = useState(false);
@@ -57,7 +57,7 @@ const CharactersProvider = ({ children, story_url }) => {
 		}
 
 		function setStateToDefault() {
-			setIsAuthorizedToModify(false);
+			setIsAuthorizedToEdit(false);
 			setStory(false);
 			setStoryIcon(false);
 			setGroups(false);
@@ -75,7 +75,7 @@ const CharactersProvider = ({ children, story_url }) => {
 				return false;
 			}
 			setStory(story_response.data.story);
-			setIsAuthorizedToModify(story_response?.data?.isAuthorizedToModify);
+			setIsAuthorizedToEdit(story_response?.data?.isAuthorizedToEdit);
 			return story_response.data.story;
 		}
 
@@ -167,7 +167,7 @@ const CharactersProvider = ({ children, story_url }) => {
 		location,
 		story_url,
 		APIRequest,
-		setIsAuthorizedToModify,
+		setIsAuthorizedToEdit,
 		story,
 		setStory,
 		setStoryIcon,
@@ -217,7 +217,7 @@ const CharactersProvider = ({ children, story_url }) => {
 	return (
 		<CharactersContext.Provider
 			value={{
-				isAuthorizedToModify,
+				isAuthorizedToEdit,
 				story,
 				setStory,
 				storyIcon,

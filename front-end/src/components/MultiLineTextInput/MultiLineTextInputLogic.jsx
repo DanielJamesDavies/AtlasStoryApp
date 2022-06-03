@@ -19,7 +19,7 @@ export const MultiLineTextInputLogic = (props) => {
 	const inputHeightRef = useRef();
 
 	const [focused, setFocused] = useState(false);
-	const [inputClassName, setInputClassName] = useState("multi-line-text-input-container");
+	const [inputClassName, setInputClassName] = useState("multi-line-text-input-container multi-line-text-input-container-seamless");
 
 	const DynamicIconComponent = props.icon;
 
@@ -31,6 +31,7 @@ export const MultiLineTextInputLogic = (props) => {
 			if (props.value === undefined || props.value === "") className += " multi-line-text-input-container-empty";
 			if (props.isSaved === false && !focused) className += " multi-line-text-input-container-unsaved";
 			if (props.isDark) className += " multi-line-text-input-container-dark";
+			if (props.seamless) className += " multi-line-text-input-container-seamless";
 			return className;
 		}
 		setInputClassName(getInputClassName());
@@ -55,7 +56,6 @@ export const MultiLineTextInputLogic = (props) => {
 	// Resize Input
 	useLayoutEffect(() => {
 		function resizeInput() {
-			console.log(inputRef, inputHeightRef);
 			if (!inputRef?.current || !inputHeightRef?.current) return;
 			inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
 			inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");

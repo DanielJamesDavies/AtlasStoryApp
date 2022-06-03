@@ -45,6 +45,7 @@ export const TextInput = (props) => {
 					autoComplete={props.autocomplete}
 					onFocus={onInputContainerFocus}
 					onBlur={onInputContainerBlur}
+					style={props.style === undefined ? {} : props.style}
 				/>
 			</div>
 

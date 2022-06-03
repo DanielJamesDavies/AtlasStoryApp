@@ -7,7 +7,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 export const StoryContext = createContext();
 
 const StoryProvider = ({ children, story_url }) => {
-	const [isAuthorizedToModify, setIsAuthorizedToModify] = useState(false);
+	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
 	const [story, setStory] = useState(false);
 	const [members, setMembers] = useState([]);
 	const [icon, setIcon] = useState(false);
@@ -30,13 +30,13 @@ const StoryProvider = ({ children, story_url }) => {
 				setStory(false);
 				setIcon(false);
 				setBanner(false);
-				setIsAuthorizedToModify(false);
+				setIsAuthorizedToEdit(false);
 				return;
 			}
 
 			setStory(response.data.story);
 
-			setIsAuthorizedToModify(response?.data?.isAuthorizedToModify);
+			setIsAuthorizedToEdit(response?.data?.isAuthorizedToEdit);
 
 			changeAccentColour(response?.data?.story?.data?.colours?.accent);
 			changeAccentHoverColour(response?.data?.story?.data?.colours?.accentHover);
@@ -136,7 +136,7 @@ const StoryProvider = ({ children, story_url }) => {
 		setIcon,
 		setBanner,
 		setPrimaryCharacters,
-		setIsAuthorizedToModify,
+		setIsAuthorizedToEdit,
 		changeAccentColour,
 		changeAccentHoverColour,
 	]);
@@ -149,7 +149,7 @@ const StoryProvider = ({ children, story_url }) => {
 	return (
 		<StoryContext.Provider
 			value={{
-				isAuthorizedToModify,
+				isAuthorizedToEdit,
 				story,
 				setStory,
 				members,

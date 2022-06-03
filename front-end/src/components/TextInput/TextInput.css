@@ -11,7 +11,7 @@
 	background: var(--grey2);
 	color: #777;
 	font-family: "Inter", sans-serif;
-	transition: 0.1s;
+	transition: border 0.1s;
 	vertical-align: middle;
 	cursor: text;
 }
@@ -28,6 +28,12 @@
 	border-color: var(--grey4);
 	animation: text-input-container-unsaved 2.25s infinite;
 	outline: 0;
+}
+
+.text-input-container-seamless {
+	padding: 0;
+	border: 0;
+	background: transparent;
 }
 
 @keyframes text-input-container-unsaved {
@@ -50,6 +56,10 @@
 	height: 32px;
 }
 
+.text-input-container-seamless .text-input {
+	height: fit-content;
+}
+
 .text-input-label {
 	margin: 0;
 	text-align: left;
@@ -69,6 +79,15 @@
 
 	font-size: 16px;
 	vertical-align: middle;
+}
+
+.text-input-container-seamless .text-input-label {
+	display: none;
+	padding-top: 1px;
+}
+
+.text-input-container-seamless.text-input-container-empty .text-input-label {
+	display: block;
 }
 
 .text-input-label svg {

@@ -19,7 +19,7 @@ const CharacterTypeSchema = mongoose.Schema({
 				type: String,
 				require: true,
 			},
-			description: [String],
+			description: { type: [String], default: [""] },
 		},
 		require: true,
 	},

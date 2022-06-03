@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 // Components
 
@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 
 // Context
 import { CharactersContext } from "../CharactersContext";
+import { APIContext } from "../../../context/APIContext";
 
 // Services
 
@@ -15,16 +16,10 @@ import { CharactersContext } from "../CharactersContext";
 // Assets
 
 export const CharactersCharacterTypeLogic = () => {
-	const { isAuthorizedToModify, setCharacterTypes, characterType, setCharacterType } = useContext(CharactersContext);
+	const { isAuthorizedToEdit, story, setCharacterTypes, characterType, setCharacterType } = useContext(CharactersContext);
+	const { APIRequest } = useContext(APIContext);
 
 	// Edit Name
-	const [isEditingCharacterTypeName, setIsEditingCharacterTypeName] = useState(false);
-
-	function beginEditingCharacterTypeName() {
-		if (!isAuthorizedToModify) return;
-		setIsEditingCharacterTypeName(true);
-	}
-
 	function changeCharacterTypeName(e) {
 		setCharacterTypes((oldCharacterTypes) => {
 			let newCharacterTypes = JSON.parse(JSON.stringify(oldCharacterTypes));
@@ -38,14 +33,40 @@ export const CharactersCharacterTypeLogic = () => {
 		});
 	}
 
-	// Edit Description
-	const [isEditingCharacterTypeDescription, setIsEditingCharacterTypeDescription] = useState(false);
+	async function revertCharacterTypeName() {
+		const response = await APIRequest("/character-type/get-value/" + characterType._id, "POST", {
+			story_id: story._id,
+			path: ["data", "name"],
+		});
+		if (!response || response?.errors || !response?.data?.value) return false;
 
-	function beginEditingCharacterTypeDescription() {
-		if (!isAuthorizedToModify) return;
-		setIsEditingCharacterTypeDescription(true);
+		setCharacterTypes((oldCharacterTypes) => {
+			let newCharacterTypes = JSON.parse(JSON.stringify(oldCharacterTypes));
+			const characterTypeIndex = newCharacterTypes.findIndex((e) => e._id === characterType._id);
+			if (characterTypeIndex === -1) return newCharacterTypes;
+
+			newCharacterTypes[characterTypeIndex].data.name = response.data.value;
+			setCharacterType(newCharacterTypes[characterTypeIndex]);
+
+			return newCharacterTypes;
+		});
+
+		return true;
 	}
 
+	async function saveCharacterTypeName() {
+		let newCharacterType = JSON.parse(JSON.stringify(characterType));
+
+		const response = await APIRequest("/character-type/" + characterType._id, "PATCH", {
+			story_id: story._id,
+			path: ["data", "name"],
+			newValue: newCharacterType.data.name,
+		});
+		if (!response || response?.errors) return false;
+		return true;
+	}
+
+	// Edit Description
 	function changeCharacterTypeDescription(e) {
 		setCharacterTypes((oldCharacterTypes) => {
 			let newCharacterTypes = JSON.parse(JSON.stringify(oldCharacterTypes));
@@ -59,27 +80,47 @@ export const CharactersCharacterTypeLogic = () => {
 		});
 	}
 
-	// Set State to Default
-	const [currCharacterTypeID, setCurrCharacterTypeID] = useState("");
-	useEffect(() => {
-		function setStateToDefault() {
-			if (currCharacterTypeID === characterType._id) return;
+	async function revertCharacterTypeDescription() {
+		const response = await APIRequest("/character-type/get-value/" + characterType._id, "POST", {
+			story_id: story._id,
+			path: ["data", "description"],
+		});
+		if (!response || response?.errors || !response?.data?.value) return false;
 
-			setIsEditingCharacterTypeName(false);
-			setIsEditingCharacterTypeDescription(false);
-			setCurrCharacterTypeID(characterType._id);
-		}
+		setCharacterTypes((oldCharacterTypes) => {
+			let newCharacterTypes = JSON.parse(JSON.stringify(oldCharacterTypes));
+			const characterTypeIndex = newCharacterTypes.findIndex((e) => e._id === characterType._id);
+			if (characterTypeIndex === -1) return newCharacterTypes;
 
-		setStateToDefault();
-	}, [characterType, currCharacterTypeID, setCurrCharacterTypeID, setIsEditingCharacterTypeName, setIsEditingCharacterTypeDescription]);
+			newCharacterTypes[characterTypeIndex].data.description = response.data.value;
+			setCharacterType(newCharacterTypes[characterTypeIndex]);
+
+			return newCharacterTypes;
+		});
+
+		return true;
+	}
+
+	async function saveCharacterTypeDescription() {
+		let newCharacterType = JSON.parse(JSON.stringify(characterType));
+
+		const response = await APIRequest("/character-type/" + characterType._id, "PATCH", {
+			story_id: story._id,
+			path: ["data", "description"],
+			newValue: newCharacterType.data.description,
+		});
+		if (!response || response?.errors) return false;
+		return true;
+	}
 
 	return {
+		isAuthorizedToEdit,
 		characterType,
-		isEditingCharacterTypeName,
-		beginEditingCharacterTypeName,
 		changeCharacterTypeName,
-		isEditingCharacterTypeDescription,
-		beginEditingCharacterTypeDescription,
+		revertCharacterTypeName,
+		saveCharacterTypeName,
 		changeCharacterTypeDescription,
+		revertCharacterTypeDescription,
+		saveCharacterTypeDescription,
 	};
 };

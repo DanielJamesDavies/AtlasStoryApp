@@ -17,7 +17,7 @@ import { APIContext } from "../../../context/APIContext";
 
 export const CharactersGroupsLogic = () => {
 	const {
-		isAuthorizedToModify,
+		isAuthorizedToEdit,
 		story,
 		setStory,
 		groups,
@@ -51,7 +51,7 @@ export const CharactersGroupsLogic = () => {
 	}
 
 	return {
-		isAuthorizedToModify,
+		isAuthorizedToEdit,
 		story,
 		groups,
 		group,

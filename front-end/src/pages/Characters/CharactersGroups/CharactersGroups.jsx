@@ -21,7 +21,7 @@ import "./CharactersGroups.css";
 
 export const CharactersGroups = () => {
 	const {
-		isAuthorizedToModify,
+		isAuthorizedToEdit,
 		story,
 		groups,
 		group,
@@ -36,7 +36,7 @@ export const CharactersGroups = () => {
 		<div className='characters-groups'>
 			<div className='characters-groups-primary'>
 				<div className='characters-groups-primary-title'>Groups</div>
-				{!isAuthorizedToModify ? null : (
+				{!isAuthorizedToEdit ? null : (
 					<div className='characters-groups-primary-modify-buttons-container'>
 						<IconBtn className='characters-groups-primary-modify-btn' icon={<FaPlus />} iconName='plus' onClick={openCreateGroupForm} />
 						<IconBtn
