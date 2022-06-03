@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 
 // Components
 
@@ -53,13 +53,6 @@ export const UserCreateStoryLogic = () => {
 		if (response?.errors) return setErrors(response.errors);
 		if (response?.data?.storyURL) changeLocation("/s/" + response.data.storyURL);
 	}
-
-	useEffect(() => {
-		setStoryTitle("");
-		setStoryURL("");
-		setStoryIsPrivate(false);
-		setErrors([]);
-	}, [isDisplayingCreateStoryForm]);
 
 	return {
 		isDisplayingCreateStoryForm,

@@ -21,6 +21,7 @@ export const IconBtnLogic = ({ className, iconName }) => {
 			let newClassName = "icon-btn";
 			if (iconName === "plus") newClassName += " icon-btn-plus-icon";
 			if (iconName === "sort") newClassName += " icon-btn-sort-icon";
+			if (iconName === "trash") newClassName += " icon-btn-trash-icon";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}

@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 
 // Components
 
@@ -50,12 +50,6 @@ export const CharactersCreateGroupLogic = () => {
 		if (response?.errors) return setErrors(response.errors);
 		if (currStory?.url && response?.data?.groupURL) changeLocation("/s/" + currStory.url + "/g/" + response.data.groupURL);
 	}
-
-	useEffect(() => {
-		setGroupName("");
-		setGroupURL("");
-		setErrors([]);
-	}, [isDisplayingCreateGroupForm]);
 
 	return {
 		isDisplayingCreateGroupForm,

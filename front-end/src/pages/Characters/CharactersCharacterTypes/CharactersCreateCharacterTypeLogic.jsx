@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 
 // Components
 
@@ -16,7 +16,8 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const CharactersCreateCharacterTypeLogic = () => {
-	const { story, setCharacterTypes, isDisplayingCreateCharacterTypeForm, setIsDisplayingCreateCharacterTypeForm } = useContext(CharactersContext);
+	const { story, setStory, setCharacterTypes, isDisplayingCreateCharacterTypeForm, setIsDisplayingCreateCharacterTypeForm } =
+		useContext(CharactersContext);
 
 	function closeCreateCharacterTypeForm() {
 		setIsDisplayingCreateCharacterTypeForm(false);
@@ -39,7 +40,7 @@ export const CharactersCreateCharacterTypeLogic = () => {
 		const currStory = JSON.parse(JSON.stringify(story));
 		if (!currStory?._id) return;
 
-		const response = await APIRequest("/characterType", "POST", {
+		const response = await APIRequest("/character-type", "POST", {
 			story_id: currStory._id,
 			name: JSON.parse(JSON.stringify(characterTypeName)),
 			colour: JSON.parse(JSON.stringify(characterTypeColour)),
@@ -53,14 +54,14 @@ export const CharactersCreateCharacterTypeLogic = () => {
 				newCharacterTypes.push(response.data.characterType);
 				return newCharacterTypes;
 			});
+			setIsDisplayingCreateCharacterTypeForm(false);
 		}
+		setStory((oldStory) => {
+			let newStory = JSON.parse(JSON.stringify(oldStory));
+			newStory.data.characterTypes.push(response.data.characterType._id);
+			return newStory;
+		});
 	}
-
-	useEffect(() => {
-		setCharacterTypeName("");
-		setCharacterTypeColour("");
-		setErrors([]);
-	}, [isDisplayingCreateCharacterTypeForm]);
 
 	return {
 		isDisplayingCreateCharacterTypeForm,

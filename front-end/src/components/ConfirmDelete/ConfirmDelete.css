@@ -1,0 +1,43 @@
+.confirm-delete-container {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	margin-top: 24px;
+	text-align: right;
+}
+
+.confirm-delete-label {
+	margin-right: 12px;
+	font-size: 15px;
+}
+
+.confirm-delete-btn-delete {
+	background: var(--red);
+}
+
+.confirm-delete-delete-btn:hover {
+	background: var(--red2);
+}
+
+.confirm-delete-container-seamless .confirm-delete-btn {
+	margin: 4px 8px;
+	width: 18px;
+	height: 18px;
+	font-size: 20px;
+	background: transparent;
+	color: #fff;
+	transition: color 0.2s;
+}
+
+.confirm-delete-container-seamless .confirm-delete-btn:last-child {
+	margin-right: 0;
+}
+
+.confirm-delete-container-seamless .confirm-delete-btn svg {
+	width: 100%;
+}
+
+.confirm-delete-container-seamless .confirm-delete-btn:hover {
+	background: transparent;
+	color: var(--accentColour);
+}

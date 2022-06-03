@@ -44,7 +44,7 @@ export const CharactersCreateCharacterType = () => {
 				</div>
 				<ErrorMessage errors={errors} />
 				<div className='characters-create-character-type-form-submit-container'>
-					<SubmitBtn label='Create CharacterType' onSubmit={submitCreateCharacterType} />
+					<SubmitBtn label='Create Character Type' onSubmit={submitCreateCharacterType} />
 				</div>
 			</div>
 			<div className='characters-create-character-type-background' onClick={closeCreateCharacterTypeForm} />

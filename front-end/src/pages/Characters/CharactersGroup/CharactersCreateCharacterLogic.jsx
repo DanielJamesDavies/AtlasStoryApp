@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 
 // Components
 
@@ -58,12 +58,6 @@ export const CharactersCreateCharacterLogic = () => {
 		if (response?.errors) return setErrors(response.errors);
 		if (currStory?.url && response?.data?.characterURL) changeLocation("/s/" + currStory.url + "/c/" + response.data.characterURL);
 	}
-
-	useEffect(() => {
-		setCharacterName("");
-		setCharacterURL("");
-		setErrors([]);
-	}, [isDisplayingCreateCharacterForm]);
 
 	return {
 		isDisplayingCreateCharacterForm,

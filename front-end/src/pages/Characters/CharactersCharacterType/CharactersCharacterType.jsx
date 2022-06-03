@@ -15,6 +15,7 @@ import { CharactersCharacterTypeLogic } from "./CharactersCharacterTypeLogic";
 
 // Styles
 import "./CharactersCharacterType.css";
+import { ConfirmDelete } from "../../../components/ConfirmDelete/ConfirmDelete";
 
 // Assets
 
@@ -28,6 +29,7 @@ export const CharactersCharacterType = () => {
 		changeCharacterTypeDescription,
 		revertCharacterTypeDescription,
 		saveCharacterTypeDescription,
+		deleteCharacterType,
 	} = CharactersCharacterTypeLogic();
 
 	return (
@@ -69,6 +71,14 @@ export const CharactersCharacterType = () => {
 							}
 						</div>
 					</EditableContainer>
+					<ConfirmDelete
+						className='characters-character-type-delete-container'
+						seamless={true}
+						labelContext='this character type'
+						onDelete={deleteCharacterType}
+						state={characterType._id}
+						isAuthorizedToEdit={isAuthorizedToEdit}
+					/>
 				</>
 			)}
 		</div>

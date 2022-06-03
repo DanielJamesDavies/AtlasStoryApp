@@ -8,13 +8,6 @@ module.exports = async (req, res) => {
 	let validateCharacterTypeResult = validateCharacterType(req.body);
 	if (validateCharacterTypeResult?.errors) return res.status(200).send({ errors: validateCharacterTypeResult.errors });
 
-	// Check if URL is used
-	const urlUsed = await CharacterType.findOne({ url: req.body.url, story_id: req.body.story_id }).exec();
-	if (urlUsed)
-		return res
-			.status(200)
-			.send({ errors: [{ attribute: "url", message: "This URL is being used by another character type. Please enter a different URL" }] });
-
 	// New Character Type
 	const characterType = new CharacterType({
 		_id: new mongoose.Types.ObjectId(),
