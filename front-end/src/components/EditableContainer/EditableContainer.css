@@ -8,8 +8,11 @@
 	display: inline-block;
 	position: relative;
 	padding-right: 18px;
-	width: calc(100% - 18px - 18px);
 	vertical-align: top;
+}
+
+.editable-container-is-authorized .editable-container-content {
+	width: calc(100% - 18px - 18px);
 }
 
 .editable-container-media .editable-container-content {

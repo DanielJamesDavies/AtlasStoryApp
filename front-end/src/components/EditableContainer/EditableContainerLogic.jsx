@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 // Assets
 
-export const EditableContainerLogic = ({ className, isMediaContent, onRevert, onSave }) => {
+export const EditableContainerLogic = ({ className, isMediaContent, isAuthorizedToEdit, onRevert, onSave }) => {
 	const [isEditing, setIsEditing] = useState(false);
 
 	// Editable Container Class Name
@@ -23,12 +23,13 @@ export const EditableContainerLogic = ({ className, isMediaContent, onRevert, on
 		function getEditableContainerClassName() {
 			let newClassName = "editable-container";
 			if (isEditing) newClassName += " editable-container-is-editing";
+			if (isAuthorizedToEdit) newClassName += " editable-container-is-authorized";
 			if (isMediaContent) newClassName += " editable-container-media";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}
 		setEditableContainerClassName(getEditableContainerClassName());
-	}, [setEditableContainerClassName, isEditing, isMediaContent, className]);
+	}, [setEditableContainerClassName, isEditing, isMediaContent, isAuthorizedToEdit, className]);
 
 	// Button Event Functions
 	function onEditBtnClick() {

@@ -42,7 +42,7 @@
 }
 
 .unauthorized-navigation-bar-landing-btn:hover .unauthorized-navigation-bar-landing-btn-logo {
-	filter: hue-rotate(-16deg);
+	filter: hue-rotate(-16deg) brightness(1.4);
 }
 
 .unauthorized-navigation-bar-landing-btn-text {

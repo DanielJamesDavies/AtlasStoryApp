@@ -19,6 +19,7 @@ export const EditableContainer = ({ children, className, isMediaContent, isAutho
 	const { isEditing, editableContainerClassName, onEditBtnClick, onViewBtnClick, onRevertBtnClick, onSaveBtnClick } = EditableContainerLogic({
 		className,
 		isMediaContent,
+		isAuthorizedToEdit,
 		onRevert,
 		onSave,
 	});
