@@ -1,0 +1,27 @@
+.characters-character-type-name-container {
+	width: 100%;
+}
+
+.characters-character-type-primary-name {
+	margin-top: -1px;
+	margin-bottom: 1px;
+	font-size: 28px;
+	font-weight: 700;
+	width: 100%;
+}
+
+.characters-character-type-name-container input {
+	font-size: 28px;
+	font-weight: 700;
+}
+
+@media (max-width: 950px) {
+	.characters-character-type-primary-name {
+		font-size: 24px;
+	}
+
+	.characters-character-type-name-container input {
+		font-size: 24px;
+		font-weight: 700;
+	}
+}
