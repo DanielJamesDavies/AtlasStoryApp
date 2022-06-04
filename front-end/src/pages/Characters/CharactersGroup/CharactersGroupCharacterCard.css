@@ -1,5 +1,5 @@
 .characters-group-character-card-container {
-	margin-left: -180px;
+	margin-left: -160px;
 	transition: margin 0.4s;
 }
 
@@ -126,12 +126,16 @@
 	}
 
 	.characters-group-character-card {
-		border-width: 4px;
+		border-width: 5px;
 
-		width: calc(100vw - 24px - 8px - 48px);
-		max-width: min(441px, calc((100vh - 70px - 8px - 12px - 8px - 24px - 39px - 48px) * (441 / 607)));
-		height: calc((100vw - 24px - 8px - 48px) * (607 / 441));
-		max-height: min(607px, calc(100vh - 70px - 8px - 12px - 8px - 24px - 39px - 48px));
+		width: calc(100vw - 24px - 10px - 48px);
+		max-width: min(441px, calc((100vh - 70px - 8px - 12px - 10px - 24px - 39px - 48px) * (441 / 607)));
+		height: calc((100vw - 24px - 10px - 48px) * (607 / 441));
+		max-height: min(607px, calc(100vh - 70px - 8px - 12px - 10px - 24px - 39px - 48px));
+	}
+
+	.characters-group-character-card-top-container {
+		padding: 8px 12px;
 	}
 
 	.characters-group-character-card-top-name {

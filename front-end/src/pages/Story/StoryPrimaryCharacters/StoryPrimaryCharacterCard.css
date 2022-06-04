@@ -1,5 +1,5 @@
 .story-primary-character-card-container {
-	margin-left: -120px;
+	margin-left: -115px;
 	transition: margin 0.4s;
 }
 
@@ -47,6 +47,7 @@
 .story-primary-character-card-content {
 	position: relative;
 	z-index: 1;
+	height: 100%;
 }
 
 .story-primary-character-card-top-container {
@@ -126,16 +127,24 @@
 	}
 
 	.story-primary-character-card {
-		border-width: 4px;
+		border-width: 5px;
 
-		width: calc(100vw - 24px - 8px - 48px);
-		max-width: calc((100vh - 70px - 8px - 12px - 8px - 24px - 39px - 48px) * (441 / 607));
-		height: calc((100vw - 24px - 8px - 48px) * (607 / 441));
-		max-height: calc(100vh - 70px - 8px - 12px - 8px - 24px - 39px - 48px);
+		width: calc(100vw - 24px - 10px - 48px);
+		max-width: min(305px, calc((100vh - 70px - 8px - 12px - 10px - 24px - 39px - 48px) * (441 / 607)));
+		height: calc((100vw - 24px - 10px - 48px) * (607 / 441));
+		max-height: min(420px, calc(100vh - 70px - 8px - 12px - 10px - 24px - 39px - 48px));
+	}
+
+	.story-primary-character-card-top-container {
+		padding: 8px 12px;
+	}
+
+	.story-primary-character-card-top-name {
+		font-size: 22px;
 	}
 
 	.story-primary-character-card-info-container {
-		top: calc(200px - 12px);
+		top: 57%;
 	}
 
 	.story-primary-character-card-info-item {

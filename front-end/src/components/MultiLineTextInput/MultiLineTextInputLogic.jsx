@@ -19,7 +19,9 @@ export const MultiLineTextInputLogic = (props) => {
 	const inputHeightRef = useRef();
 
 	const [focused, setFocused] = useState(false);
-	const [inputClassName, setInputClassName] = useState("multi-line-text-input-container multi-line-text-input-container-seamless");
+	const [inputClassName, setInputClassName] = useState(
+		props?.seamless ? "multi-line-text-input-container multi-line-text-input-container-seamless" : "multi-line-text-input-container"
+	);
 
 	const DynamicIconComponent = props.icon;
 

@@ -25,7 +25,13 @@ export const CharactersGroup = () => {
 		<div className='characters-group'>
 			<div className='characters-group-primary'>
 				<div className='characters-group-primary-title'>{group?.data?.name}</div>
-				<div className='characters-group-primary-buttons-container'>
+				<div
+					className={
+						isAuthorizedToEdit
+							? "characters-group-primary-buttons-container characters-group-primary-buttons-container-authorized-to-edit"
+							: "characters-group-primary-buttons-container"
+					}
+				>
 					<button className='characters-group-primary-open-group-btn' onClick={navigateToGroup}>
 						Open Group
 					</button>

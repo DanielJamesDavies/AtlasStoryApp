@@ -18,7 +18,9 @@ export const TextInputLogic = (props) => {
 	const inputRef = useRef();
 	const inputWidthRef = useRef();
 	const [focused, setFocused] = useState(false);
-	const [inputClassName, setInputClassName] = useState("text-input-container text-input-container-seamless");
+	const [inputClassName, setInputClassName] = useState(
+		props?.seamless ? "text-input-container text-input-container-seamless" : "text-input-container"
+	);
 	const DynamicIconComponent = props.icon;
 
 	useEffect(() => {
@@ -27,10 +29,10 @@ export const TextInputLogic = (props) => {
 			if (props.className) className += " " + props.className;
 			if (focused) className += " text-input-container-focused";
 			if (props.value === undefined || props.value === "") className += " text-input-container-empty";
-			if (props.isSaved === false && !focused) className += " text-input-container-unsaved";
-			if (props.isDark) className += " text-input-container-dark";
-			if (props.hideValue) className += " text-input-container-hide-value";
-			if (props.seamless) className += " text-input-container-seamless";
+			if (props?.isSaved === false && !focused) className += " text-input-container-unsaved";
+			if (props?.isDark) className += " text-input-container-dark";
+			if (props?.hideValue) className += " text-input-container-hide-value";
+			if (props?.seamless) className += " text-input-container-seamless";
 			return className;
 		}
 		setInputClassName(getInputClassName());
