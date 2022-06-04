@@ -15,11 +15,11 @@ import "./ImageInput.css";
 
 // Assets
 
-export const ImageInput = ({ className, value, onChange }) => {
-	const { inputRef, onInputChange } = ImageInputLogic({ onChange });
+export const ImageInput = ({ className, isCircular, value, onChange }) => {
+	const { inputRef, imageInputClassName, onInputChange } = ImageInputLogic({ className, isCircular, onChange });
 
 	return (
-		<div className={className ? "image-input " + className : "image-input"}>
+		<div className={imageInputClassName}>
 			<div className='image-input-value' onClick={() => inputRef.current.click()}>
 				<div className='image-input-value-icon'>
 					<FaImage />

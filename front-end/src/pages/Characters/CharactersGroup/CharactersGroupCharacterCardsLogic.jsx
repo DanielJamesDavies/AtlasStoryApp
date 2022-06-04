@@ -31,9 +31,11 @@ export const CharactersGroupCharacterCardsLogic = () => {
 		}
 		var interval = setInterval(() => {
 			if (
+				characterCardsScrollValue !== 0 &&
 				charactersCards?.current &&
-				(charactersCards.scrollLeft !== 0 || characterCardsScrollValue > 0) &&
-				characterCardsScrollValue !== 0
+				(charactersCards.current.scrollLeft !== 0 || characterCardsScrollValue > 0) &&
+				(charactersCards.current.scrollLeft !== charactersCards.current.scrollWidth - charactersCards.current.clientWidth ||
+					characterCardsScrollValue < 0)
 			) {
 				charactersCards.current.scrollLeft += characterCardsScrollValue * 2;
 			} else {

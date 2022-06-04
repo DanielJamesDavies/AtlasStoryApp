@@ -3,6 +3,7 @@ import { FaCog } from "react-icons/fa";
 
 // Components
 import { StoryPrimaryBanner } from "./StoryPrimaryBanner";
+import { StoryPrimaryIcon } from "./StoryPrimaryIcon";
 import { StoryPrimaryTitle } from "./StoryPrimaryTitle";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
@@ -19,14 +20,14 @@ import "./StoryPrimary.css";
 // Assets
 
 export const StoryPrimary = () => {
-	const { isAuthorizedToEdit, members, icon } = StoryPrimaryLogic();
+	const { isAuthorizedToEdit, members } = StoryPrimaryLogic();
 
 	return (
 		<div className='story-primary'>
 			<StoryPrimaryBanner />
 			<div className='story-primary-break'></div>
-			<div className='story-primary-icon'>{!icon ? null : <img src={icon} alt='' />}</div>
-			<div className='story-primary-main-info'>
+			<StoryPrimaryIcon />
+			<div className={isAuthorizedToEdit ? "story-primary-main-info story-primary-main-info-is-authorized" : "story-primary-main-info"}>
 				<StoryPrimaryTitle />
 				<div className='story-primary-main-info-creators'>
 					{!Array.isArray(members) || members?.length === 0 ? null : "By "}

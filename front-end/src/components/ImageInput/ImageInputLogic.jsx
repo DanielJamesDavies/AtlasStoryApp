@@ -1,5 +1,5 @@
 // Packages
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Components
 
@@ -14,8 +14,20 @@ import getImageFromFile from "../../services/GetImageFromFile";
 
 // Assets
 
-export const ImageInputLogic = ({ onChange }) => {
+export const ImageInputLogic = ({ className, isCircular, onChange }) => {
 	const inputRef = useRef();
+
+	const [imageInputClassName, setImageInputClassName] = useState(!isCircular ? "image-input" : "image-input image-input-circular");
+
+	useEffect(() => {
+		function getImageInputClassName() {
+			let newClassName = "image-input";
+			if (isCircular) newClassName += " image-input-circular";
+			if (className) newClassName += " " + className;
+			return newClassName;
+		}
+		setImageInputClassName(getImageInputClassName());
+	}, [setImageInputClassName, className, isCircular]);
 
 	async function onInputChange(e) {
 		const image = await getImageFromFile(e.target.files[0]);
@@ -24,5 +36,5 @@ export const ImageInputLogic = ({ onChange }) => {
 		await onChange(image.data);
 	}
 
-	return { inputRef, onInputChange };
+	return { inputRef, imageInputClassName, onInputChange };
 };

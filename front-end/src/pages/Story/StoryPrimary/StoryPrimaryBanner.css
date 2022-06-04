@@ -20,7 +20,7 @@
 }
 
 @media (max-width: 700px) {
-	.story-primary-banner {
+	.story-primary-banner-container {
 		height: 180px;
 	}
 }
