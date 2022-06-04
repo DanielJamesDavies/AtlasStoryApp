@@ -22,22 +22,6 @@
 	background: var(--grey2);
 }
 
-.story-primary-banner {
-	display: block;
-	margin-bottom: 12px;
-	border-radius: 4px 4px 0 0;
-	width: calc(100% + 48px);
-	height: 320px;
-	background: var(--grey2);
-}
-
-.story-primary-banner img {
-	border-radius: inherit;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
 .story-primary-break {
 	flex-basis: 100%;
 	height: 0;
@@ -109,10 +93,6 @@
 	.story-primary {
 		padding: 0;
 		padding-bottom: 12px;
-	}
-
-	.story-primary-banner {
-		height: 180px;
 	}
 
 	.story-primary-icon {

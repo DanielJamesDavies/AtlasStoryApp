@@ -9,37 +9,13 @@ import { useRef, useState, useContext } from "react";
 import { APIContext } from "../../context/APIContext";
 
 // Services
+import getImageFromFile from "../../services/GetImageFromFile";
 
 // Styles
 
 // Assets
 
 export const RegisterLogic = () => {
-	async function getImageFromFile(file) {
-		return await new Promise((resolve) => {
-			const fr = new FileReader();
-
-			fr.readAsDataURL(file);
-
-			fr.onload = () => {
-				let image = new Image();
-				image.onload = async () => {
-					let imageLength = fr.result.split(",")[1].split("=")[0].length;
-					let imageSize = Math.floor(imageLength - (imageLength / 8) * 2);
-					if (imageSize > 1500000) return;
-
-					resolve({ data: fr.result });
-				};
-
-				image.src = fr.result;
-			};
-
-			fr.onerror = (error) => {
-				resolve({ error });
-			};
-		});
-	}
-
 	// Profile Picture
 	const profilePictureInputRef = useRef();
 	const [profilePicture, setProfilePicture] = useState(false);

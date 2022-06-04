@@ -2,7 +2,9 @@
 import { FaCog } from "react-icons/fa";
 
 // Components
+import { StoryPrimaryBanner } from "./StoryPrimaryBanner";
 import { StoryPrimaryTitle } from "./StoryPrimaryTitle";
+import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Logic
 import { StoryPrimaryLogic } from "./StoryPrimaryLogic";
@@ -13,16 +15,15 @@ import { StoryPrimaryLogic } from "./StoryPrimaryLogic";
 
 // Styles
 import "./StoryPrimary.css";
-import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Assets
 
 export const StoryPrimary = () => {
-	const { isAuthorizedToEdit, members, icon, banner } = StoryPrimaryLogic();
+	const { isAuthorizedToEdit, members, icon } = StoryPrimaryLogic();
 
 	return (
 		<div className='story-primary'>
-			<div className='story-primary-banner'>{!banner ? null : <img src={banner} alt='' />}</div>
+			<StoryPrimaryBanner />
 			<div className='story-primary-break'></div>
 			<div className='story-primary-icon'>{!icon ? null : <img src={icon} alt='' />}</div>
 			<div className='story-primary-main-info'>

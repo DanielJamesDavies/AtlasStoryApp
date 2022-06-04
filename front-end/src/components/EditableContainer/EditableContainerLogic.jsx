@@ -32,20 +32,24 @@ export const EditableContainerLogic = ({ className, isMediaContent, isAuthorized
 	}, [setEditableContainerClassName, isEditing, isMediaContent, isAuthorizedToEdit, className]);
 
 	// Button Event Functions
-	function onEditBtnClick() {
+	function onEditBtnClick(e) {
+		e.stopPropagation();
 		setIsEditing(true);
 	}
 
-	function onViewBtnClick() {
+	function onViewBtnClick(e) {
+		e.stopPropagation();
 		setIsEditing(false);
 	}
 
-	async function onRevertBtnClick() {
+	async function onRevertBtnClick(e) {
+		e.stopPropagation();
 		const revert_success = await onRevert();
 		if (revert_success) setIsEditing(false);
 	}
 
-	async function onSaveBtnClick() {
+	async function onSaveBtnClick(e) {
+		e.stopPropagation();
 		const save_success = await onSave();
 		if (save_success) setIsEditing(false);
 	}

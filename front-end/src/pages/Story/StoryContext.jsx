@@ -155,6 +155,7 @@ const StoryProvider = ({ children, story_url }) => {
 				members,
 				icon,
 				banner,
+				setBanner,
 				primaryCharacters,
 				setPrimaryCharacters,
 				primaryCharactersCardBackgrounds,
