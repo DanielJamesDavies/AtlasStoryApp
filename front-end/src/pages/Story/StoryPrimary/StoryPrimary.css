@@ -56,19 +56,6 @@
 	font-size: 48px;
 }
 
-.story-primary-main-info-creators {
-	margin-top: -3px;
-	margin-bottom: 3px;
-	font-weight: 400;
-	font-size: 18px;
-}
-
-.story-primary-main-info-creator {
-	display: inline-block;
-	margin: 2px;
-	margin-left: 0;
-}
-
 .story-primary-auth-buttons-container {
 	display: inline-block;
 	margin-left: auto;
@@ -99,13 +86,5 @@
 
 	.story-primary-main-info-title-container input {
 		font-size: 24px;
-	}
-
-	.story-primary-main-info-creators {
-		font-size: 14px;
-	}
-
-	.story-primary-auth-buttons-container {
-		margin-right: 12px;
 	}
 }

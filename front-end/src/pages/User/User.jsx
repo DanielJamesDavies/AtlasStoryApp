@@ -5,6 +5,7 @@
 // Logic
 import { UserPrimary } from "./UserPrimary/UserPrimary";
 import { UserStories } from "./UserStories/UserStories";
+import { UserSettings } from "./UserSettings/UserSettings";
 
 // Context
 
@@ -20,6 +21,7 @@ export const User = () => {
 		<div className='user'>
 			<UserPrimary />
 			<UserStories />
+			<UserSettings />
 		</div>
 	);
 };

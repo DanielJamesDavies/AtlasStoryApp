@@ -26,7 +26,6 @@ export const StoryPrimaryIconLogic = () => {
 	async function revertStoryIcon() {
 		if (!story?.data?.icon) return false;
 		const response = await APIRequest("/image/" + story.data.icon, "GET");
-		console.log(response);
 		if (!response || response?.errors || !response?.data?.image) return false;
 		setIcon(response.data.image);
 		return true;

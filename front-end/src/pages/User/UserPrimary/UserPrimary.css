@@ -22,22 +22,6 @@
 	background: var(--grey2);
 }
 
-.user-primary-banner {
-	display: block;
-	margin-bottom: 12px;
-	border-radius: 4px 4px 0 0;
-	width: calc(100% + 48px);
-	height: 320px;
-	background: var(--grey2);
-}
-
-.user-primary-banner img {
-	border-radius: inherit;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
 .user-primary-break {
 	flex-basis: 100%;
 	height: 0;
@@ -63,7 +47,13 @@
 
 .user-primary-names {
 	display: inline-block;
+	width: calc(100% - 110px);
 	vertical-align: middle;
+}
+
+.user-primary-names-is-authorized {
+	margin-left: 12px;
+	width: calc(100% - 226px);
 }
 
 .user-primary-names-nickname {
@@ -97,13 +87,17 @@
 		padding-bottom: 12px;
 	}
 
-	.user-primary-banner {
-		height: 180px;
-	}
-
 	.user-primary-profile-picture {
 		width: 60px;
 		height: 60px;
+	}
+
+	.user-primary-names {
+		width: calc(100% - 96px);
+	}
+
+	.user-primary-names-is-authorized {
+		width: calc(100% - 212px);
 	}
 
 	.user-primary-names-nickname {

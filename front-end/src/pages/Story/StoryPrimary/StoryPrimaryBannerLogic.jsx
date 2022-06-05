@@ -26,7 +26,6 @@ export const StoryPrimaryBannerLogic = () => {
 	async function revertStoryBanner() {
 		if (!story?.data?.banner) return false;
 		const response = await APIRequest("/image/" + story.data.banner, "GET");
-		console.log(response);
 		if (!response || response?.errors || !response?.data?.image) return false;
 		setBanner(response.data.image);
 		return true;

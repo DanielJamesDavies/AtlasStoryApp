@@ -17,9 +17,13 @@ import { RoutesContext } from "../../../context/RoutesContext";
 // Assets
 
 export const UserPrimaryLogic = () => {
-	const { isAuthorizedToEdit, user, profilePicture, banner } = useContext(UserContext);
+	const { isAuthorizedToEdit, user, setIsDisplayingSettings } = useContext(UserContext);
 	const { APIRequest, setUsername } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
+
+	function openSettings() {
+		setIsDisplayingSettings(true);
+	}
 
 	async function logOut() {
 		await APIRequest("/user/logout", "POST");
@@ -27,5 +31,5 @@ export const UserPrimaryLogic = () => {
 		changeLocation("/login");
 	}
 
-	return { isAuthorizedToEdit, user, profilePicture, banner, logOut };
+	return { isAuthorizedToEdit, user, openSettings, logOut };
 };

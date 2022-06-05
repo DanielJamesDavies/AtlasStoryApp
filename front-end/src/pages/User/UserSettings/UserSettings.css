@@ -1,10 +1,10 @@
-.user-stories-create-story-form {
+.user-settings {
 	position: fixed;
 	top: 200px;
 	left: calc(50% + 76px / 2);
 	transform: translateX(-50%);
 	z-index: 1;
-	padding: 24px;
+	padding: 24px 34px;
 	border-radius: 4px;
 
 	width: calc(100vw - 76px - 48px - 48px);
@@ -13,7 +13,7 @@
 	background: var(--grey2);
 }
 
-.user-stories-create-story-background {
+.user-settings-background {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -25,29 +25,55 @@
 	background: #00000088;
 }
 
-.user-stories-create-story-form-title {
-	margin: 20px 10px;
-	margin-top: 0;
+.user-settings-title {
+	margin: 0;
+	margin-bottom: 20px;
 	font-size: 28px;
 	font-weight: 700;
 }
 
-.user-stories-create-story-form-input-container {
+.user-settings-section-container {
 	margin: 12px 0;
+	margin-bottom: 24px;
 }
 
-.user-stories-create-story-form-submit-container {
+.user-settings-section-container:last-child {
+	margin-bottom: 12px;
+}
+
+.user-settings-section-label {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.user-settings-input-container {
+	margin-top: 6px;
+}
+
+.editable-container-is-editing.user-settings-input-container {
+	margin-top: 4px;
+}
+
+.user-settings-cookies-consent-input {
+	padding: 8px 0;
+}
+
+.user-settings-cookies-consent-input .toggle-input-label {
+	font-size: 14px;
+}
+
+.user-settings-submit-container {
 	margin-top: 20px;
 	text-align: right;
 }
 
-.user-stories-create-story-form-submit-btn-text {
+.user-settings-submit-btn-text {
 	display: inline-block;
 	vertical-align: middle;
 	font-size: 14px;
 }
 
-.user-stories-create-story-form-submit-btn-icon {
+.user-settings-submit-btn-icon {
 	display: inline-block;
 	margin-top: 1px;
 	margin-left: 8px;
@@ -56,7 +82,7 @@
 }
 
 @media (max-width: 700px) {
-	.user-stories-create-story-form {
+	.user-settings {
 		position: fixed;
 		top: 64px;
 		left: 50%;

@@ -5,6 +5,7 @@ import { FaCog } from "react-icons/fa";
 import { StoryPrimaryBanner } from "./StoryPrimaryBanner";
 import { StoryPrimaryIcon } from "./StoryPrimaryIcon";
 import { StoryPrimaryTitle } from "./StoryPrimaryTitle";
+import { StoryPrimaryMembers } from "./StoryPrimaryMembers";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Logic
@@ -20,7 +21,7 @@ import "./StoryPrimary.css";
 // Assets
 
 export const StoryPrimary = () => {
-	const { isAuthorizedToEdit, members } = StoryPrimaryLogic();
+	const { isAuthorizedToEdit } = StoryPrimaryLogic();
 
 	return (
 		<div className='story-primary'>
@@ -29,15 +30,7 @@ export const StoryPrimary = () => {
 			<StoryPrimaryIcon />
 			<div className={isAuthorizedToEdit ? "story-primary-main-info story-primary-main-info-is-authorized" : "story-primary-main-info"}>
 				<StoryPrimaryTitle />
-				<div className='story-primary-main-info-creators'>
-					{!Array.isArray(members) || members?.length === 0 ? null : "By "}
-					{members.map((member, index) => (
-						<p key={index} className='story-primary-main-info-creator'>
-							{member?.nickname}
-							{members.length - 1 === index ? null : ","}
-						</p>
-					))}
-				</div>
+				<StoryPrimaryMembers />
 			</div>
 			{!isAuthorizedToEdit ? null : (
 				<div className='story-primary-auth-buttons-container'>

@@ -1,0 +1,22 @@
+.story-primary-main-info-members {
+	margin-top: -3px;
+	margin-bottom: 3px;
+	font-weight: 400;
+	font-size: 18px;
+}
+
+.story-primary-main-info-member {
+	display: inline-block;
+	margin: 2px;
+	margin-left: 0;
+}
+
+@media (max-width: 700px) {
+	.story-primary-main-info-members {
+		font-size: 14px;
+	}
+
+	.story-primary-auth-buttons-member {
+		margin-right: 12px;
+	}
+}

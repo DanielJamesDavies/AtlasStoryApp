@@ -11,6 +11,7 @@ const UserProvider = ({ children, user_username }) => {
 	const [profilePicture, setProfilePicture] = useState(false);
 	const [banner, setBanner] = useState(false);
 	const [stories, setStories] = useState(false);
+	const [isDisplayingSettings, setIsDisplayingSettings] = useState(false);
 	const [isDisplayingCreateStoryForm, setIsDisplayingCreateStoryForm] = useState(false);
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
@@ -79,12 +80,17 @@ const UserProvider = ({ children, user_username }) => {
 		<UserContext.Provider
 			value={{
 				isAuthorizedToEdit,
+				setIsAuthorizedToEdit,
 				user,
 				setUser,
 				profilePicture,
+				setProfilePicture,
 				banner,
+				setBanner,
 				stories,
 				setStories,
+				isDisplayingSettings,
+				setIsDisplayingSettings,
 				isDisplayingCreateStoryForm,
 				setIsDisplayingCreateStoryForm,
 			}}

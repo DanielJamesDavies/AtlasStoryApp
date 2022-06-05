@@ -14,8 +14,8 @@ import { StoryContext } from "../StoryContext";
 
 // Assets
 
-export const StoryPrimaryLogic = () => {
-	const { isAuthorizedToEdit } = useContext(StoryContext);
+export const StoryPrimaryMembersLogic = () => {
+	const { members } = useContext(StoryContext);
 
-	return { isAuthorizedToEdit };
+	return { members };
 };
