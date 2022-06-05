@@ -28,11 +28,12 @@ export const ConfirmDeleteLogic = ({ state, className, seamless }) => {
 		function getConfirmDeleteContainerClassName() {
 			let newClassName = "confirm-delete-container";
 			if (seamless) newClassName += " confirm-delete-container-seamless";
+			if (isConfirming) newClassName += " confirm-delete-container-is-confirming";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}
 		setConfirmDeleteContainerClassName(getConfirmDeleteContainerClassName());
-	}, [setConfirmDeleteContainerClassName, className, seamless]);
+	}, [setConfirmDeleteContainerClassName, className, seamless, isConfirming]);
 
 	return { confirmDeleteContainerClassName, isConfirming, setIsConfirming };
 };

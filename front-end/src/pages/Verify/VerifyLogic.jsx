@@ -15,16 +15,17 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 // Assets
 
-export const VerifyLogic = ({ username, verificationCode }) => {
-	const { APIRequest } = useContext(APIContext);
+export const VerifyLogic = ({ username, email, verificationCode }) => {
+	const { APIRequest, setUsername } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 	const [hasVerified, setHasVerified] = useState(false);
 	const [errors, setErrors] = useState([]);
 
 	useEffect(() => {
 		async function verifyUser() {
+			setUsername(false);
 			setErrors([]);
-			const response = await APIRequest("/user/verify", "POST", { username, verificationCode });
+			const response = await APIRequest("/user/verify", "POST", { username, email, verificationCode });
 			if (response?.errors) return setErrors(response.errors);
 
 			setHasVerified(true);
@@ -33,7 +34,7 @@ export const VerifyLogic = ({ username, verificationCode }) => {
 			}, 1000);
 		}
 		verifyUser();
-	}, [APIRequest, setErrors, setHasVerified, changeLocation, username, verificationCode]);
+	}, [APIRequest, setErrors, setHasVerified, changeLocation, username, setUsername, email, verificationCode]);
 
 	return { hasVerified, errors };
 };

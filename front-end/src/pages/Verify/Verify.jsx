@@ -16,8 +16,8 @@ import "./Verify.css";
 
 // Assets
 
-export const Verify = ({ username, verificationCode }) => {
-	const { hasVerified, errors } = VerifyLogic({ username, verificationCode });
+export const Verify = ({ username, email, verificationCode }) => {
+	const { hasVerified, errors } = VerifyLogic({ username, email, verificationCode });
 
 	return (
 		<div className='verify'>

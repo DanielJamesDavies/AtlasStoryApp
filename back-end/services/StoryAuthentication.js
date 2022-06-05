@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
 		});
 	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
-	if (story?.data?.owner && JSON.stringify(user_id) === JSON.stringify(story?.data?.owner)) return next();
+	if (story?.owner && JSON.stringify(user_id) === JSON.stringify(story?.owner)) return next();
 
 	if (!story?.data?.members) return res.status(200).send({ errors: [{ message: "Access Denied" }] });
 	const collaboratorIDs = story.data.members

@@ -3,7 +3,7 @@
 	top: 200px;
 	left: calc(50% + 76px / 2);
 	transform: translateX(-50%);
-	z-index: 1;
+	z-index: 200;
 	padding: 24px 34px;
 	border-radius: 4px;
 
@@ -18,6 +18,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	z-index: 199;
 	display: block;
 	content: "";
 	width: 100vw;
@@ -54,31 +55,37 @@
 	margin-top: 4px;
 }
 
+.user-settings-input-container {
+	margin-bottom: 6px;
+}
+
+.user-settings-email-message {
+	margin-top: 12px;
+	font-size: 15px;
+	color: var(--green);
+}
+
 .user-settings-cookies-consent-input {
-	padding: 8px 0;
+	padding: 0;
+	padding-top: 8px;
 }
 
 .user-settings-cookies-consent-input .toggle-input-label {
 	font-size: 14px;
 }
 
-.user-settings-submit-container {
-	margin-top: 20px;
-	text-align: right;
+.user-settings-confirm-delete {
+	margin-top: 12px !important;
+	justify-content: left !important;
+	text-align: left !important;
 }
 
-.user-settings-submit-btn-text {
-	display: inline-block;
-	vertical-align: middle;
-	font-size: 14px;
+.user-settings-confirm-delete .confirm-delete-btn {
+	margin-left: 2px;
 }
 
-.user-settings-submit-btn-icon {
-	display: inline-block;
-	margin-top: 1px;
-	margin-left: 8px;
-	vertical-align: middle;
-	font-size: 15px;
+.user-settings-confirm-delete.confirm-delete-container-is-confirming .confirm-delete-btn {
+	margin-left: 12px;
 }
 
 @media (max-width: 700px) {

@@ -59,7 +59,6 @@ function validateCharacter(character) {
 	});
 
 	const characterValidationError = characterSchema.validate(character, { abortEarly: false })?.error?.details;
-	console.log(characterValidationError);
 
 	if (characterValidationError) {
 		let characterKeysData = [

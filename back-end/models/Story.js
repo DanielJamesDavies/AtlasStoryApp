@@ -8,6 +8,10 @@ const StorySchema = mongoose.Schema({
 		min: 1,
 		max: 64,
 	},
+	owner: {
+		type: mongoose.Schema.Types.ObjectId,
+		require: true,
+	},
 	data: {
 		type: {
 			title: {
@@ -15,10 +19,6 @@ const StorySchema = mongoose.Schema({
 				require: true,
 				min: 1,
 				max: 64,
-			},
-			owner: {
-				type: String,
-				require: true,
 			},
 			isPrivate: {
 				type: Boolean,

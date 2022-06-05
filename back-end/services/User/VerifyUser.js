@@ -4,7 +4,7 @@ const User = require("../../models/User");
 const UserVerification = require("../../models/UserVerification");
 
 module.exports = async (req, res) => {
-	if (!req?.body?.username || !req?.body?.verificationCode) return;
+	if (!req?.body?.username || !req?.body?.email || !req?.body?.verificationCode) return;
 
 	// Get User
 	const user = await User.findOne({ username: req.body.username })
@@ -15,18 +15,22 @@ module.exports = async (req, res) => {
 	if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
 	// Check If Verification Code is Valid
-	const isValidVerificationCodeResponse = await isValidVerificationCode(user._id, req.body.verificationCode);
+	const isValidVerificationCodeResponse = await isValidVerificationCode(user._id, req.body.email, req.body.verificationCode);
 	if (isValidVerificationCodeResponse?.errors) return res.status(200).send({ errors: isValidVerificationCodeResponse.errors });
 
+	// Delete Verification Codes
+	const deleteUserVerificationsResponse = await deleteUserVerifications(user._id);
+	if (deleteUserVerificationsResponse?.errors) return res.status(200).send({ errors: deleteUserVerificationsResponse.errors });
+
 	// Updated User Verified
-	const updateUserVerifiedResponse = await updateUserVerified(user);
+	const updateUserVerifiedResponse = await updateUserVerified(user, req.body.email);
 	if (updateUserVerifiedResponse?.errors) return res.status(200).send({ errors: updateUserVerifiedResponse.errors });
 
 	return res.status(200).send({ message: "Success" });
 };
 
-async function isValidVerificationCode(user_id, verificationCode) {
-	const userVerification = await UserVerification.findOne({ user_id })
+async function isValidVerificationCode(user_id, email, verificationCode) {
+	const userVerification = await UserVerification.findOne({ user_id, email })
 		.exec()
 		.catch(() => {
 			return { errors: [{ message: "Invalid Verification Code" }] };
@@ -37,8 +41,18 @@ async function isValidVerificationCode(user_id, verificationCode) {
 	return result ? {} : { errors: [{ message: "Invalid Verification Code" }] };
 }
 
-async function updateUserVerified(user) {
+async function deleteUserVerifications(user_id) {
+	try {
+		await UserVerification.deleteMany({ user_id: user_id });
+	} catch (error) {
+		return res.status(200).send({ errors: [{ message: "User Verification Data Could Not Be Deleted" }] });
+	}
+	return {};
+}
+
+async function updateUserVerified(user, email) {
 	let newUser = JSON.parse(JSON.stringify(user));
+	newUser.email = email;
 	newUser.verified = true;
 
 	try {

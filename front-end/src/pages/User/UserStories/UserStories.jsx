@@ -27,7 +27,7 @@ export const UserStories = () => {
 	return (
 		<div className='user-stories'>
 			<div className='user-stories-top'>
-				<div className='user-stories-top-title'>Stories</div>
+				{!user ? null : <div className='user-stories-top-title'>Stories</div>}
 				<div className='user-stories-top-items-count'>{!stories ? null : "(" + stories.length + ")"}</div>
 				{!isAuthorizedToEdit ? null : (
 					<div className='user-stories-top-modify-btns-container'>

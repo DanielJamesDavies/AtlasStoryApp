@@ -30,9 +30,9 @@ module.exports = async (req, res) => {
 	const story = new Story({
 		_id: new mongoose.Types.ObjectId(),
 		url: req.body.url,
+		owner: user_id,
 		data: {
 			title: req.body.title,
-			owner: user_id,
 			isPrivate: req.body.isPrivate,
 			members: [{ user_id: user_id, type: "owner" }],
 			groups: [],

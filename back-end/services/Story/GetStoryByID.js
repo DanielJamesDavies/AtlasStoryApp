@@ -11,9 +11,9 @@ module.exports = async (req, res) => {
 	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 	let newStory = JSON.parse(JSON.stringify(story));
 
-	if (!story?.data?.owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
+	if (!story?.owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 
-	const owner = await User.findById(story.data.owner)
+	const owner = await User.findById(story.owner)
 		.exec()
 		.catch(() => {
 			res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
@@ -35,7 +35,7 @@ function getIsAuthorizedToModify(AtlasStoryAppToken, story) {
 
 	if (!user_id) return false;
 
-	if (story?.data?.owner && JSON.stringify(user_id) === JSON.stringify(story?.data?.owner)) return true;
+	if (story?.owner && JSON.stringify(user_id) === JSON.stringify(story?.owner)) return true;
 
 	if (!story?.data?.members) return false;
 

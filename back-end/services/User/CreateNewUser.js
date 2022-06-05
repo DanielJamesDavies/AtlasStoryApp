@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const uuidv4 = require("uuid")?.v4;
 
 const User = require("../../models/User");
-const UserVerification = require("../../models/UserVerification");
 const Image = require("../../models/Image");
+
+const { createUserVerification, sendVerificaionEmail } = require("./UserVerification");
 
 const emailTransporter = nodemailer.createTransport({
 	service: "gmail",
@@ -49,12 +48,17 @@ module.exports = async (req, res) => {
 	});
 
 	// User Verification
-	const userVerificationResponse = await createUserVerification(user._id);
+	const userVerificationResponse = await createUserVerification(user._id, user.email);
 	if (!userVerificationResponse?.verificationCode) {
 		return res.status(200).send({ errors: [{ message: "User Verification Could Not Be Generated" }] });
 	}
 
-	const verificationEmailResponse = await sendVerificaionEmail(req.body.username, req.body.email, userVerificationResponse.verificationCode);
+	const verificationEmailResponse = await sendVerificaionEmail(
+		req.body.username,
+		req.body.email,
+		userVerificationResponse.verificationCode,
+		emailTransporter
+	);
 	if (verificationEmailResponse?.error) {
 		return res.status(200).send({ errors: [{ message: "User Verification Email Could Not Be Sent" }] });
 	}
@@ -117,8 +121,6 @@ async function validateUser(user) {
 				let keyData = userKeysData.find((e) => e.key === error.path[0]);
 				let message = "";
 
-				console.log(keyData.name, error.type);
-
 				switch (error.type) {
 					case "string.empty":
 						if (error.path[0] === "profilePicture" || error.path[0] === "banner") {
@@ -164,9 +166,7 @@ async function validateUser(user) {
 	}
 
 	// Check if username is used
-	const usernameUsed = await User.findOne({
-		username: user.username,
-	}).exec();
+	const usernameUsed = await User.findOne({ username: user.username }).exec();
 	if (usernameUsed) errors.push({ attribute: "username", message: "This username is being used by another user." });
 
 	// Check if email is used
@@ -174,54 +174,4 @@ async function validateUser(user) {
 	if (emailUsed) errors.push({ attribute: "email", message: "This email is being used by another user." });
 
 	return { errors };
-}
-
-async function createUserVerification(user_id) {
-	const verificationCode = uuidv4();
-	const verificationCodeSalt = await bcrypt.genSalt(10);
-	const hashedVerificationCode = await bcrypt.hash(verificationCode, verificationCodeSalt);
-
-	// Create New User
-	const userVerification = new UserVerification({
-		_id: new mongoose.Types.ObjectId(),
-		user_id: user_id,
-		verification_code: hashedVerificationCode,
-	});
-
-	try {
-		await userVerification.save();
-	} catch (error) {
-		return {};
-	}
-
-	return { verificationCode };
-}
-
-async function sendVerificaionEmail(username, email, verificationCode) {
-	const verificationLink = "https://www.atlas-story.app/verify/" + username + "/" + verificationCode;
-
-	const message =
-		"<p>To complete registering your Atlas Story App account for " +
-		username +
-		", please <a href='" +
-		verificationLink +
-		"'>click here</a> to verify your email address.</p>";
-
-	const res = await new Promise((resolve, reject) => {
-		emailTransporter
-			.sendMail({
-				from: process.env.EMAIL_ADDRESS,
-				to: email,
-				subject: "Verify Your Email for Your Atlas Story App Account",
-				html: message,
-				text: message,
-			})
-			.then((message) => {
-				resolve({ message });
-			})
-			.catch((error) => {
-				reject({ error });
-			});
-	});
-	return res;
 }

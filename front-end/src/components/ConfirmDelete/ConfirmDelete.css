@@ -11,12 +11,12 @@
 	font-size: 15px;
 }
 
-.confirm-delete-container-seamless .confirm-delete-btn {
-	margin: 4px 8px;
+.confirm-delete-btn {
+	margin: 4px 12px;
 	transition: color 0.2s;
 }
 
-.confirm-delete-container-seamless .confirm-delete-btn:last-child {
+.confirm-delete-btn:last-child {
 	margin-right: 0;
 }
 

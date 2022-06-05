@@ -63,11 +63,11 @@ export const RoutesLogic = () => {
 					}
 					break;
 				case "verify":
-					if (!username && locationSplit.length >= 3) {
+					if (locationSplit.length >= 4) {
 						changeAccentColour("default");
 						changeAccentHoverColour("default");
 						setShowUnauthorizedNavigationBar(true);
-						setRenderComponent(<Verify username={locationSplit[1]} verificationCode={locationSplit[2]} />);
+						setRenderComponent(<Verify username={locationSplit[1]} email={locationSplit[2]} verificationCode={locationSplit[3]} />);
 					}
 					break;
 				case "u":

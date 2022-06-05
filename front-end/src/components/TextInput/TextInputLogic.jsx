@@ -69,8 +69,6 @@ export const TextInputLogic = (props) => {
 		function resizeInput() {
 			if (!props?.autoResize) return setInputStyle({});
 			if (!inputRef?.current || !inputWidthRef?.current) return;
-			// let inputRefStyle = window.getComputedStyle(inputContainerRef.current);
-			// console.log(inputRefStyle.getPropertyValue("max-width"));
 			setInputStyle({ width: "calc(" + inputWidthRef.current.clientWidth + "px)", maxWidth: "100%" });
 		}
 

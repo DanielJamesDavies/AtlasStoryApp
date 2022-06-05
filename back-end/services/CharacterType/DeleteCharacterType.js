@@ -20,7 +20,6 @@ module.exports = async (req, res) => {
 	let newStory = JSON.parse(JSON.stringify(oldStory));
 	const characterTypeIndex = newStory.data.characterTypes.findIndex((e) => e.toString() === characterType._id.toString());
 	if (characterTypeIndex !== -1) newStory.data.characterTypes.splice(characterTypeIndex, 1);
-	console.log(newStory.data.characterTypes);
 
 	try {
 		await Story.findOneAndUpdate({ _id: newStory._id }, newStory, { upsert: true });

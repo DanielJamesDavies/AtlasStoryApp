@@ -24,7 +24,7 @@ function getIsAuthorizedToModify(AtlasStoryAppToken, story) {
 
 	if (!user_id) return false;
 
-	if (story?.data?.owner && JSON.stringify(user_id) === JSON.stringify(story?.data?.owner)) return true;
+	if (story?.owner && JSON.stringify(user_id) === JSON.stringify(story?.owner)) return true;
 
 	if (!story?.data?.members) return false;
 
