@@ -26,7 +26,7 @@ export const NavigationBarLogic = () => {
 	useEffect(() => {
 		async function getUsername() {
 			const response = await APIRequest("/user/", "GET");
-			if (response?.error || !response?.data?.user?.username) {
+			if (response?.errors || !response?.data?.user?.username) {
 				setProfilePicture(false);
 				return;
 			}

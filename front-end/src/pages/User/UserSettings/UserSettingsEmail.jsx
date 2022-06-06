@@ -32,6 +32,7 @@ export const UserSettingsEmail = () => {
 				<TextInput className='user-settings-input-value' seamless={true} value={user.email} onChange={changeEmail} />
 			</EditableContainer>
 			<ErrorMessage errors={errors} attribute='email' />
+			<ErrorMessage errors={errors} />
 			{!hasSentEmailVerification ? null : (
 				<div className='user-settings-email-message'>
 					To complete these changes, please verify your account by following the steps on the verification email sent to the new email

@@ -2,6 +2,7 @@
 
 // Components
 import { UserSettingsUsername } from "./UserSettingsUsername";
+import { UserSettingsPassword } from "./UserSettingsPassword";
 import { UserSettingsEmail } from "./UserSettingsEmail";
 import { ToggleInput } from "../../../components/ToggleInput/ToggleInput";
 import { ConfirmDelete } from "../../../components/ConfirmDelete/ConfirmDelete";
@@ -32,9 +33,10 @@ export const UserSettings = () => {
 					<div className='user-settings-section-label'>Username</div>
 					<UserSettingsUsername />
 				</div>
-				{/* <div className='user-settings-section-container'>
+				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Password</div>
-				</div> */}
+					<UserSettingsPassword />
+				</div>
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Email</div>
 					<UserSettingsEmail />

@@ -32,6 +32,7 @@ export const UserSettingsUsername = () => {
 				<TextInput className='user-settings-input-value' seamless={true} value={username} onChange={changeUsername} />
 			</EditableContainer>
 			<ErrorMessage errors={errors} attribute='username' />
+			<ErrorMessage errors={errors} />
 		</>
 	);
 };

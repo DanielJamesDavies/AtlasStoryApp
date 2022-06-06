@@ -39,23 +39,6 @@
 	width: calc(100% - 12px - 75px - 32px - 20px - 32px - 8px + 8px);
 }
 
-.story-primary-main-info-title-container {
-	margin-top: -3px;
-	margin-bottom: 3px;
-	width: fit-content;
-	font-size: 48px;
-	font-weight: 700;
-}
-
-.story-primary-main-info-title {
-	width: 100%;
-}
-
-.story-primary-main-info-title-container input {
-	font-weight: 700;
-	font-size: 48px;
-}
-
 .story-primary-auth-buttons-container {
 	display: inline-block;
 	margin-left: auto;
@@ -76,15 +59,5 @@
 
 	.story-primary-main-info-is-authorized {
 		width: calc(100% - 12px - 75px - 32px - 20px - 32px - 8px + 18px);
-	}
-
-	.story-primary-main-info-title {
-		margin: 0;
-		font-size: 24px;
-		width: 100%;
-	}
-
-	.story-primary-main-info-title-container input {
-		font-size: 24px;
 	}
 }

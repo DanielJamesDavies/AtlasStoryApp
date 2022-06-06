@@ -11,10 +11,8 @@ module.exports = async (req, res) => {
 	if (validateStoryResult?.errors) return res.status(200).send({ errors: validateStoryResult.errors });
 
 	// Check if URL is used
-	const urlUsed = await Story.findOne({ url: req.body.url }).exec();
-
-	// If username or email is used, return error
-	if (urlUsed) {
+	const isURLUsed = await Story.findOne({ url: req.body.url }).exec();
+	if (isURLUsed) {
 		return res
 			.status(200)
 			.send({ errors: [{ attribute: "url", message: "This URL is being used by another story. Please enter a different URL" }] });

@@ -1,0 +1,32 @@
+.story-primary-main-info-title-container {
+	margin-top: -3px;
+	margin-bottom: 3px;
+	width: fit-content;
+	font-size: 48px;
+	font-weight: 700;
+}
+
+.editable-container-is-editing.story-primary-main-info-title-container {
+	align-items: flex-end;
+}
+
+.story-primary-main-info-title {
+	width: 100%;
+}
+
+.story-primary-main-info-title-container input {
+	font-weight: 700;
+	font-size: 48px;
+}
+
+@media (max-width: 700px) {
+	.story-primary-main-info-title {
+		margin: 0;
+		font-size: 24px;
+		width: 100%;
+	}
+
+	.story-primary-main-info-title-container input {
+		font-size: 24px;
+	}
+}

@@ -12,6 +12,7 @@ import { StoryPrimaryTitleLogic } from "./StoryPrimaryTitleLogic";
 // Services
 
 // Styles
+import "./StoryPrimaryTitle.css";
 
 // Assets
 

@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
 	if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
 	let newUser = JSON.parse(JSON.stringify(user));
-	delete newUser.password;
+	delete newUser.data.password;
 
 	res.status(200).send({
 		message: "Success",
