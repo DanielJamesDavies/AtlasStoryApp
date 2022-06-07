@@ -15,7 +15,11 @@ import { StoryContext } from "../StoryContext";
 // Assets
 
 export const StoryPrimaryLogic = () => {
-	const { isAuthorizedToEdit } = useContext(StoryContext);
+	const { isAuthorizedToEdit, setIsDisplayingSettings } = useContext(StoryContext);
 
-	return { isAuthorizedToEdit };
+	function openSettings() {
+		setIsDisplayingSettings(true);
+	}
+
+	return { isAuthorizedToEdit, openSettings };
 };

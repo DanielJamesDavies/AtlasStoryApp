@@ -2,6 +2,8 @@ const Group = require("../../models/Group");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 module.exports = async (req, res) => {
+	if (!req?.body?.path || req?.body?.path === ["_id"]) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
+
 	const oldGroup = await Group.findById(req.params.id)
 		.exec()
 		.catch(() => {

@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
 		});
 	if (!story || !story._id) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 	if (!story?.owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
-	if (user_id !== story.owner) return res.status(200).send({ errors: [{ message: "Unauthorized Action" }] });
+	if (JSON.stringify(user_id) !== JSON.stringify(story.owner)) return res.status(200).send({ errors: [{ message: "Unauthorized Action" }] });
 
 	try {
 		const storyDeleteResult = await Story.deleteOne({ _id: story._id });
@@ -34,15 +34,39 @@ module.exports = async (req, res) => {
 		});
 	if (!owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 
-	const ownerStoryIndex = owner.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(story._id));
+	const ownerStoryIndex = owner.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(story._id));
 	if (ownerStoryIndex !== -1) {
-		owner.stories.splice(ownerStoryIndex, 1);
+		owner.data.stories.splice(ownerStoryIndex, 1);
 		try {
 			await owner.save();
 		} catch (error) {
 			return res.status(200).send({ errors: [{ message: "Owner Could Not Be Saved" }] });
 		}
 	}
+
+	if (story?.data?.icon) {
+		try {
+			await Story.deleteOne({ _id: story.data.icon });
+		} catch (error) {}
+	}
+
+	if (story?.data?.banner) {
+		try {
+			await Story.deleteOne({ _id: story.data.banner });
+		} catch (error) {}
+	}
+
+	if (story?.data?.cover) {
+		try {
+			await Story.deleteOne({ _id: story.data.cover });
+		} catch (error) {}
+	}
+
+	// Delete Groups
+
+	// Delete Characters and Character Images
+
+	// Delete Character Types
 
 	return res.status(200).send({ message: "Success" });
 };

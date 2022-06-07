@@ -41,6 +41,10 @@ button:focus {
 	outline: 0;
 }
 
+img {
+	user-select: none;
+}
+
 .App {
 	position: relative;
 	z-index: 1;

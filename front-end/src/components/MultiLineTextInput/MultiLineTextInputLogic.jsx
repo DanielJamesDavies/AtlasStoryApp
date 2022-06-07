@@ -61,10 +61,11 @@ export const MultiLineTextInputLogic = (props) => {
 			if (!inputRef?.current || !inputHeightRef?.current) return;
 			inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
 			inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
+			inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
+			inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
 		}
-
 		resizeInput();
-		let reloadTimer = setTimeout(() => resizeInput(), 50);
+		let reloadTimer = setTimeout(() => resizeInput(), 1);
 		window.addEventListener("resize", resizeInput);
 		return () => {
 			clearTimeout(reloadTimer);

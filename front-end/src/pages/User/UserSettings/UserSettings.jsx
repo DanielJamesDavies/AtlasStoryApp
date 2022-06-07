@@ -4,9 +4,8 @@
 import { UserSettingsUsername } from "./UserSettingsUsername";
 import { UserSettingsPassword } from "./UserSettingsPassword";
 import { UserSettingsEmail } from "./UserSettingsEmail";
-import { ToggleInput } from "../../../components/ToggleInput/ToggleInput";
-import { ConfirmDelete } from "../../../components/ConfirmDelete/ConfirmDelete";
-import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
+import { UserSettingsCookiesConsent } from "./UserSettingsCookiesConsent";
+import { UserSettingsDelete } from "./UserSettingsDelete";
 
 // Logic
 import { UserSettingsLogic } from "./UserSettingsLogic";
@@ -21,14 +20,13 @@ import "./UserSettings.css";
 // Assets
 
 export const UserSettings = () => {
-	const { isAuthorizedToEdit, isDisplayingSettings, errors, closeSettings, cookiesConsent, changeCookiesConsentToFalse, deleteUser } =
-		UserSettingsLogic();
+	const { isDisplayingSettings, closeSettings } = UserSettingsLogic();
 
 	if (!isDisplayingSettings) return null;
 	return (
 		<div className='user-settings-container'>
 			<div className='user-settings'>
-				<div className='user-settings-title'>Settings</div>
+				<div className='user-settings-title'>User Settings</div>
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Username</div>
 					<UserSettingsUsername />
@@ -43,25 +41,11 @@ export const UserSettings = () => {
 				</div>
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Cookies Consent</div>
-					<ToggleInput
-						className='user-settings-cookies-consent-input'
-						label='Allow Cookies'
-						value={cookiesConsent}
-						onToggle={changeCookiesConsentToFalse}
-					/>
-					<ErrorMessage errors={errors} attribute='cookiesConsent' />
+					<UserSettingsCookiesConsent />
 				</div>
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Delete Account</div>
-					<ConfirmDelete
-						state={isDisplayingSettings}
-						className='user-settings-confirm-delete'
-						seamless={true}
-						labelContext='your account'
-						onDelete={deleteUser}
-						isAuthorizedToEdit={isAuthorizedToEdit}
-					/>
-					<ErrorMessage errors={errors} attribute='deleteUser' />
+					<UserSettingsDelete />
 				</div>
 			</div>
 			<div className='user-settings-background' onClick={closeSettings} />

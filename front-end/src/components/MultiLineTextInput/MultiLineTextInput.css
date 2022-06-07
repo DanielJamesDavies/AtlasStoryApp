@@ -11,7 +11,6 @@
 	background: var(--grey2);
 	color: #777;
 	font-family: "Inter", sans-serif;
-	transition: 0.1s;
 	vertical-align: middle;
 	cursor: text;
 }
@@ -59,6 +58,15 @@
 
 .multi-line-text-input-container-empty .multi-line-text-input {
 	height: 32px;
+}
+
+.multi-line-text-input-container-seamless.multi-line-text-input-container-empty .multi-line-text-input {
+	height: 23px;
+}
+
+.multi-line-text-input-container-seamless .multi-line-text-input {
+	min-height: 19px;
+	margin-bottom: -4px;
 }
 
 .multi-line-text-input-label {
@@ -172,6 +180,10 @@
 
 .multi-line-text-input-container-empty .multi-line-text-input-height-element {
 	height: 32px;
+}
+
+.multi-line-text-input-container-seamless.multi-line-text-input-container-empty .multi-line-text-input-height-element {
+	height: 19px;
 }
 
 .multi-line-text-input-container-seamless .multi-line-text-input-height-element {

@@ -21,7 +21,7 @@ import "./StoryPrimary.css";
 // Assets
 
 export const StoryPrimary = () => {
-	const { isAuthorizedToEdit } = StoryPrimaryLogic();
+	const { isAuthorizedToEdit, openSettings } = StoryPrimaryLogic();
 
 	return (
 		<div className='story-primary'>
@@ -34,7 +34,13 @@ export const StoryPrimary = () => {
 			</div>
 			{!isAuthorizedToEdit ? null : (
 				<div className='story-primary-auth-buttons-container'>
-					<IconBtn className='story-primary-auth-btn story-primary-auth-btn-settings' seamless={true} size='l' icon={<FaCog />} />
+					<IconBtn
+						className='story-primary-auth-btn story-primary-auth-btn-settings'
+						seamless={true}
+						size='l'
+						icon={<FaCog />}
+						onClick={openSettings}
+					/>
 				</div>
 			)}
 		</div>

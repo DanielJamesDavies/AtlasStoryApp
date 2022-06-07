@@ -24,7 +24,7 @@ export const IconBtnLogic = ({ className, seamless, size, iconName }) => {
 
 			switch (size) {
 				case "s":
-					newClassName += " icon-btn-large";
+					newClassName += " icon-btn-small";
 					break;
 				case "l":
 					newClassName += " icon-btn-large";

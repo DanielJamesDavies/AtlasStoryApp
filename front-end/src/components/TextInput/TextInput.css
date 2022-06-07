@@ -84,7 +84,8 @@
 
 .text-input-container-seamless .text-input-label {
 	display: none;
-	padding-top: 1px;
+	padding-top: 3px;
+	padding-bottom: -3px;
 }
 
 .text-input-container-seamless.text-input-container-empty .text-input-label {

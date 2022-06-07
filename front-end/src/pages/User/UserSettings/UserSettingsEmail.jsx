@@ -13,7 +13,7 @@ import { UserSettingsEmailLogic } from "./UserSettingsEmailLogic";
 // Services
 
 // Styles
-import "./UserSettings.css";
+import "./UserSettingsEmail.css";
 
 // Assets
 

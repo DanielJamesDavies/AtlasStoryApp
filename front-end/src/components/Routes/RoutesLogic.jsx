@@ -8,6 +8,7 @@ import { Verify } from "../../pages/Verify/Verify";
 import { UserContainer } from "../../pages/User/UserContainer";
 import { StoryContainer } from "../../pages/Story/StoryContainer";
 import { CharactersContainer } from "../../pages/Characters/CharactersContainer";
+import { CharacterContainer } from "../../pages/Character/CharacterContainer";
 import { SubstoriesContainer } from "../../pages/Substories/SubstoriesContainer";
 import { WorldContainer } from "../../pages/World/WorldContainer";
 
@@ -82,6 +83,8 @@ export const RoutesLogic = () => {
 								setRenderComponent(<CharactersContainer story_url={locationSplit[1]} />);
 								break;
 							case "c":
+								if (locationSplit.length > 3)
+									setRenderComponent(<CharacterContainer story_url={locationSplit[1]} character_url={locationSplit[3]} />);
 								break;
 							case "g":
 								break;

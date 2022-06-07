@@ -1,0 +1,99 @@
+.character-overview-summary-items-container {
+	width: 100%;
+	max-width: 500px;
+	max-height: calc(100vh - 12px - 48px - 59px - 48px);
+	padding-right: 20px;
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+.character-overview-summary-items-container::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.character-overview-summary-items-container::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--blue);
+}
+
+.character-overview-summary-item {
+	margin-bottom: 8px;
+	padding: 8px 12px;
+	border-radius: 8px;
+	background: var(--characterColour);
+	text-align: left;
+}
+
+.editable-container-is-editing .character-overview-summary-item {
+	padding: 4px 12px;
+	padding-bottom: 5px;
+}
+
+.character-overview-summary-item-placeholder {
+	opacity: 0.25;
+	filter: brightness(70%);
+}
+
+.editable-container-is-editing .character-overview-summary-item {
+	display: flex;
+	align-items: center;
+}
+
+.character-overview-summary-item-content {
+	margin-right: 8px;
+	width: calc(100% - 24px - 8px);
+}
+
+.character-overview-summary-item-label,
+.character-overview-summary-item-label input {
+	font-size: 13px;
+	font-weight: 400;
+	min-height: 16px;
+}
+
+.character-overview-summary-item-value,
+.character-overview-summary-item-value input {
+	font-size: 14px;
+	font-weight: 700;
+	min-height: 17px;
+}
+
+.character-overview-summary-item-value.text-input-container {
+	margin-top: -6px;
+}
+
+.character-overview-summary-item-label.text-input-container-empty .text-input {
+	height: 16px;
+}
+
+.character-overview-summary-item-label .text-input-label {
+	margin-top: -4px;
+	font-size: 13px;
+	font-weight: 400;
+}
+
+.character-overview-summary-item-value.text-input-container-empty .text-input {
+	height: 17px;
+}
+
+.character-overview-summary-item-value .text-input-label {
+	margin-top: -4px;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.drag-drop-item-enable-drag-drop.character-overview-summary-item {
+	animation: wiggle-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).character-overview-summary-item {
+	animation-delay: 0.1s;
+}
+
+@media (max-width: 700px) {
+	.character-overview-summary-items-container {
+		width: 100%;
+		max-width: 424px;
+	}
+}

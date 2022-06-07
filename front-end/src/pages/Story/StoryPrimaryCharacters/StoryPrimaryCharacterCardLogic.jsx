@@ -36,14 +36,14 @@ export const StoryPrimaryCharacterCardLogic = ({ character }) => {
 
 	// Character Colour Styles
 	const [cardStyles, setCardStyles] = useState({});
-	const [cardTopNameStyles, setCardTopNameStyles] = useState({});
-	const [cardInfoItemStyles, setCardInfoItemStyles] = useState({});
+	const [topNameStyles, setTopNameStyles] = useState({});
+	const [infoItemStyles, setInfoItemStyles] = useState({});
 
 	useEffect(() => {
 		setCardStyles(character?.data?.colour ? { borderColor: character.data.colour } : {});
-		setCardTopNameStyles(character?.data?.colour ? { color: character.data.colour } : {});
-		setCardInfoItemStyles(character?.data?.colour ? { background: character.data.colour } : {});
-	}, [character, setCardStyles, setCardTopNameStyles, setCardInfoItemStyles]);
+		setTopNameStyles(character?.data?.colour ? { color: character.data.colour } : {});
+		setInfoItemStyles(character?.data?.colour ? { background: character.data.colour } : {});
+	}, [character, setCardStyles, setTopNameStyles, setInfoItemStyles]);
 
-	return { cardBackground, characterType, navigateToCharacter, cardStyles, cardTopNameStyles, cardInfoItemStyles };
+	return { cardBackground, characterType, navigateToCharacter, cardStyles, topNameStyles, infoItemStyles };
 };

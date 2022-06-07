@@ -7,6 +7,7 @@ import { StoryPrimary } from "./StoryPrimary/StoryPrimary";
 import { StoryDescription } from "./StoryDescription/StoryDescription";
 import { StoryGenres } from "./StoryGenres/StoryGenres";
 import { StoryPrimaryCharacters } from "./StoryPrimaryCharacters/StoryPrimaryCharacters";
+import { StorySettings } from "./StorySettings/StorySettings";
 
 // Context
 
@@ -28,6 +29,7 @@ export const Story = () => {
 			<div className='story-section-2'>
 				<StoryPrimaryCharacters />
 			</div>
+			<StorySettings />
 		</div>
 	);
 };

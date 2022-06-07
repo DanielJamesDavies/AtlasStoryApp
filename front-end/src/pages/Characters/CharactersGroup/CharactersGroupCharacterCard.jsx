@@ -30,30 +30,16 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 					<CharactersGroupCharacterCardCharacterType characterType={characterType} />
 				</div>
 				<div className='characters-group-character-card-info-container'>
-					{!character?.data?.fullName ? null : (
-						<CharactersGroupCharacterCardInfoItem label={"Full Name"} value={character.data.fullName} infoItemStyles={infoItemStyles} />
-					)}
-					{!character?.data?.descriptives ? null : (
-						<CharactersGroupCharacterCardInfoItem
-							label={"Descriptives"}
-							value={character.data.descriptives}
-							infoItemStyles={infoItemStyles}
-						/>
-					)}
-					{!character?.data?.represents ? null : (
-						<CharactersGroupCharacterCardInfoItem
-							label={"Represents"}
-							value={character.data.represents}
-							infoItemStyles={infoItemStyles}
-						/>
-					)}
-					{!character?.data?.primaryAbility ? null : (
-						<CharactersGroupCharacterCardInfoItem
-							label={"Primary Ability"}
-							value={character.data.primaryAbility}
-							infoItemStyles={infoItemStyles}
-						/>
-					)}
+					{!character?.data?.summaryItems
+						? null
+						: character.data.summaryItems.map((summaryItem, index) => (
+								<CharactersGroupCharacterCardInfoItem
+									key={index}
+									label={summaryItem.label}
+									value={summaryItem.value}
+									infoItemStyles={infoItemStyles}
+								/>
+						  ))}
 				</div>
 			</div>
 			{!cardBackground ? null : (
@@ -78,9 +64,9 @@ const CharactersGroupCharacterCardCharacterType = ({ characterType }) => {
 
 const CharactersGroupCharacterCardInfoItem = ({ label, value, infoItemStyles }) => {
 	return (
-		<div className='characters-group-character-card-info-item' style={infoItemStyles}>
-			<div className='characters-group-character-card-info-item-label'>{label}</div>
-			<div className='characters-group-character-card-info-item-value'>{value}</div>
+		<div className='characters-group-character-card-summary-item' style={infoItemStyles}>
+			<div className='characters-group-character-card-summary-item-label'>{label}</div>
+			<div className='characters-group-character-card-summary-item-value'>{value}</div>
 		</div>
 	);
 };

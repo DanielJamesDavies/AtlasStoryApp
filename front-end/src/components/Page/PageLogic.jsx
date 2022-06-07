@@ -20,7 +20,7 @@ export const PageLogic = () => {
 
 	useEffect(() => {
 		setPageStyles({ "--accentColour": accentColour, "--accentHoverColour": accentHoverColour });
-	}, [accentColour, accentHoverColour]);
+	}, [setPageStyles, accentColour, accentHoverColour]);
 
 	return { pageStyles };
 };

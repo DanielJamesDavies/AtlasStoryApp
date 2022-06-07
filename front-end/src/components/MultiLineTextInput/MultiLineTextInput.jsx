@@ -38,7 +38,7 @@ export const MultiLineTextInput = (props) => {
 
 				<textarea
 					ref={inputRef}
-					value={props.value === undefined ? "" : props.value}
+					value={props.value === undefined ? [""] : props.value}
 					onChange={props.onChange}
 					autoComplete={props.autocomplete}
 					onFocus={onInputContainerFocus}

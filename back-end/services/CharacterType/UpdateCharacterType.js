@@ -2,6 +2,8 @@ const CharacterType = require("../../models/CharacterType");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 module.exports = async (req, res) => {
+	if (!req?.body?.path || req?.body?.path === ["_id"]) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
+
 	const oldCharacterType = await CharacterType.findById(req.params.id)
 		.exec()
 		.catch(() => {

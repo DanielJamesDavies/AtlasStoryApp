@@ -1,0 +1,13 @@
+.character-primary-name-container,
+.character-primary-name-container input {
+	width: fit-content;
+	font-size: 48px;
+	font-weight: 700;
+}
+
+@media (max-width: 700px) {
+	.character-primary-name-container,
+	.character-primary-name-container input {
+		font-size: 30px;
+	}
+}

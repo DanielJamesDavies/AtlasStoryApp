@@ -15,6 +15,7 @@ const StoryProvider = ({ children, story_url }) => {
 	const [primaryCharacters, setPrimaryCharacters] = useState([]);
 	const [primaryCharactersCardBackgrounds, setPrimaryCharactersCardBackgrounds] = useState([]);
 	const [characterTypes, setCharacterTypes] = useState([]);
+	const [isDisplayingSettings, setIsDisplayingSettings] = useState(false);
 	const { APIRequest } = useContext(APIContext);
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { location } = useContext(RoutesContext);
@@ -163,6 +164,8 @@ const StoryProvider = ({ children, story_url }) => {
 				characterTypes,
 				isReorderingCharacters,
 				toggleIsReorderingCharacters,
+				isDisplayingSettings,
+				setIsDisplayingSettings,
 			}}
 		>
 			{children}

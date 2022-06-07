@@ -83,7 +83,7 @@
 	width: calc(100% - 16px);
 }
 
-.story-primary-character-card-info-item {
+.story-primary-character-card-summary-item {
 	margin-bottom: 6px;
 	padding: 8px 12px;
 	border-radius: 8px;
@@ -91,12 +91,12 @@
 	text-align: left;
 }
 
-.story-primary-character-card-info-item-label {
+.story-primary-character-card-summary-item-label {
 	font-size: 12px;
 	font-weight: 400;
 }
 
-.story-primary-character-card-info-item-value {
+.story-primary-character-card-summary-item-value {
 	font-size: 13px;
 	font-weight: 700;
 }
@@ -147,20 +147,20 @@
 		top: 57%;
 	}
 
-	.story-primary-character-card-info-item {
+	.story-primary-character-card-summary-item {
 		display: none;
 	}
 
-	.story-primary-character-card-info-item:nth-child(1),
-	.story-primary-character-card-info-item:nth-child(2) {
+	.story-primary-character-card-summary-item:nth-child(1),
+	.story-primary-character-card-summary-item:nth-child(2) {
 		display: block;
 	}
 
-	.story-primary-character-card-info-item-label {
+	.story-primary-character-card-summary-item-label {
 		font-size: 12px;
 	}
 
-	.story-primary-character-card-info-item-value {
+	.story-primary-character-card-summary-item-value {
 		font-size: 12px;
 	}
 }
