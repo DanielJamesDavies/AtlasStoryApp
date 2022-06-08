@@ -50,10 +50,10 @@ const CharactersProvider = ({ children, story_url }) => {
 
 			let newCharacters = await getGroupCharacters(newGroups);
 
-			await getCharactersCardBackgrounds(newCharacters);
-
 			let newCharacterTypes = await getCharacterTypes(newStory?.data?.characterTypes);
 			if (newCharacterTypes.length > 0) setCharacterType(newCharacterTypes[0]);
+
+			await getCharactersCardBackgrounds(newCharacters);
 		}
 
 		function setStateToDefault() {

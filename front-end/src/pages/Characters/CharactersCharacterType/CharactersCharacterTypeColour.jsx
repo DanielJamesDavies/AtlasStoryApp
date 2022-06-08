@@ -2,7 +2,7 @@
 
 // Components
 import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
-import { TextInput } from "../../../components/TextInput/TextInput";
+import { ColourPicker } from "../../../components/ColourPicker/ColourPicker";
 
 // Logic
 import { CharactersCharacterTypeColourLogic } from "./CharactersCharacterTypeColourLogic";
@@ -17,7 +17,7 @@ import "./CharactersCharacterTypeColour.css";
 // Assets
 
 export const CharactersCharacterTypeColour = () => {
-	const { isAuthorizedToEdit, characterType, colourBlockStyle, changeCharacterTypeColour, revertCharacterTypeColour, saveCharacterTypeColour } =
+	const { isAuthorizedToEdit, characterType, changeCharacterTypeColour, revertCharacterTypeColour, saveCharacterTypeColour } =
 		CharactersCharacterTypeColourLogic();
 
 	return (
@@ -28,12 +28,10 @@ export const CharactersCharacterTypeColour = () => {
 			onSave={saveCharacterTypeColour}
 		>
 			<div className='characters-character-type-colour'>
-				<div className='characters-character-type-colour-block' style={colourBlockStyle} />
-				<div className='characters-character-type-colour-text'>{characterType?.data?.colour}</div>
+				<ColourPicker value={characterType.data.colour} onChange={changeCharacterTypeColour} enableEdit={false} />
 			</div>
 			<div className='characters-character-type-colour'>
-				<div className='characters-character-type-colour-block' style={colourBlockStyle} />
-				<TextInput label='Colour' value={characterType.data.colour} onChange={changeCharacterTypeColour} seamless={true} />
+				<ColourPicker value={characterType.data.colour} onChange={changeCharacterTypeColour} enableEdit={true} />
 			</div>
 		</EditableContainer>
 	);

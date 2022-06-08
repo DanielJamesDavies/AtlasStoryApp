@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 // Components
 
@@ -10,6 +10,7 @@ import { CharactersContext } from "../CharactersContext";
 import { APIContext } from "../../../context/APIContext";
 
 // Services
+import isValidHexColour from "../../../services/IsValidHexColour";
 
 // Styles
 
@@ -19,37 +20,13 @@ export const CharactersCharacterTypeColourLogic = () => {
 	const { isAuthorizedToEdit, story, setCharacterTypes, characterType, setCharacterType } = useContext(CharactersContext);
 	const { APIRequest } = useContext(APIContext);
 
-	const [colourBlockStyle, setColourBlockStyle] = useState({});
-
-	useEffect(() => {
-		function isHexColour(colour) {
-			if (!colour) return false;
-			var colourArray = colour.split("");
-			var isValid = colourArray
-				.map((value, index) => {
-					if (index === 0) {
-						if (value === "#") return "y";
-						return "n";
-					} else {
-						if (parseInt(value, 16).toString(16) === value) return "y";
-						return "n";
-					}
-				})
-				.join("");
-			if (isValid !== "yyyyyyy" && isValid !== "yyyy") return false;
-			return true;
-		}
-
-		setColourBlockStyle(isHexColour(characterType?.data?.colour) ? { background: characterType.data.colour } : {});
-	}, [characterType]);
-
-	function changeCharacterTypeColour(e) {
+	function changeCharacterTypeColour(colour) {
 		setCharacterTypes((oldCharacterTypes) => {
 			let newCharacterTypes = JSON.parse(JSON.stringify(oldCharacterTypes));
 			const characterTypeIndex = newCharacterTypes.findIndex((e) => e._id === characterType._id);
 			if (characterTypeIndex === -1) return newCharacterTypes;
 
-			newCharacterTypes[characterTypeIndex].data.colour = e.target.value;
+			newCharacterTypes[characterTypeIndex].data.colour = colour;
 			setCharacterType(newCharacterTypes[characterTypeIndex]);
 
 			return newCharacterTypes;
@@ -79,6 +56,7 @@ export const CharactersCharacterTypeColourLogic = () => {
 
 	async function saveCharacterTypeColour() {
 		let newCharacterType = JSON.parse(JSON.stringify(characterType));
+		if (!isValidHexColour(newCharacterType.data.colour)) return false;
 
 		const response = await APIRequest("/character-type/" + characterType._id, "PATCH", {
 			story_id: story._id,
@@ -89,5 +67,5 @@ export const CharactersCharacterTypeColourLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, colourBlockStyle, characterType, changeCharacterTypeColour, revertCharacterTypeColour, saveCharacterTypeColour };
+	return { isAuthorizedToEdit, characterType, changeCharacterTypeColour, revertCharacterTypeColour, saveCharacterTypeColour };
 };
