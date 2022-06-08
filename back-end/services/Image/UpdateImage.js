@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
 	newImage.image = req.body.newValue;
 
 	try {
-		await Image.findOneAndUpdate({ _id: req.params.id }, newImage, { upsert: true });
+		await Image.findOneAndReplace({ _id: req.params.id }, newImage, { upsert: true });
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Image Could Not Be Saved" }] });
 	}

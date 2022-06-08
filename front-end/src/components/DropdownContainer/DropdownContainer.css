@@ -57,7 +57,6 @@
 	padding: 8px 12px;
 	border-radius: 4px;
 	background: var(--grey2);
-	font-size: 13px;
 }
 
 .dropdown-option {
@@ -70,6 +69,7 @@
 
 	background: var(--grey3);
 	color: #fff;
+	font-size: 13px;
 	text-align: left;
 	word-break: break-all;
 	cursor: pointer;
@@ -95,4 +95,10 @@
 	width: 100vw;
 	height: 100vh;
 	background: transparent;
+}
+
+@media (max-width: 700px) {
+	.dropdown-option {
+		font-size: 14px;
+	}
 }

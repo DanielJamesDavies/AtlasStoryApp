@@ -36,6 +36,7 @@ export const CharacterPrimaryType = () => {
 				seamless={true}
 				value={characterType?.data?.name}
 				onChange={changeCharacterType}
+				includeUnselectedOption={true}
 			>
 				{story?.data?.characterTypes.map((characterTypeID, index) => (
 					<div key={index} is-active={(characterTypeID === characterType?._id).toString()}>

@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
 	const newCharacter = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldCharacter)), req?.body?.path, req?.body?.newValue);
 
 	try {
-		await Character.findOneAndUpdate({ _id: req.params.id }, newCharacter, { upsert: true });
+		await Character.findOneAndReplace({ _id: req.params.id }, newCharacter, { upsert: true });
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Character Could Not Be Saved" }] });
 	}

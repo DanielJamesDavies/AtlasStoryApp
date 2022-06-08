@@ -30,10 +30,13 @@ export const CharacterPrimaryTypeLogic = () => {
 	}, [character, characterTypes, setCharacterType]);
 
 	function changeCharacterType(index) {
-		if (!characterTypes[index]?._id) return false;
 		setCharacter((oldCharacter) => {
 			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-			newCharacter.character_type_id = characterTypes[index]._id;
+			if (!characterTypes[index]?._id) {
+				newCharacter.character_type_id = undefined;
+			} else {
+				newCharacter.character_type_id = characterTypes[index]._id;
+			}
 			return newCharacter;
 		});
 		return true;

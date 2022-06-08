@@ -89,7 +89,7 @@ module.exports = async (req, res) => {
 	}
 
 	try {
-		await User.findOneAndUpdate({ _id: user_id }, newUser, { upsert: true });
+		await User.findOneAndReplace({ _id: user_id }, newUser, { upsert: true });
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "User Could Not Be Saved" }] });
 	}

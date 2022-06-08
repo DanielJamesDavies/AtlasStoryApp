@@ -29,7 +29,7 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 					</div>
 					<CharactersGroupCharacterCardCharacterType characterType={characterType} />
 				</div>
-				<div className='characters-group-character-card-info-container'>
+				<div className='characters-group-character-card-summary-item-container'>
 					{!character?.data?.summaryItems
 						? null
 						: character.data.summaryItems.map((summaryItem, index) => (

@@ -28,7 +28,7 @@ export const StoryPrimaryCharacterCard = ({ character }) => {
 					</div>
 					<StoryPrimaryCharacterCardCharacterType characterType={characterType} />
 				</div>
-				<div className='story-primary-character-card-info-container'>
+				<div className='story-primary-character-card-summary-item-container'>
 					{!character?.data?.summaryItems
 						? null
 						: character.data.summaryItems.map((summaryItem, index) => (

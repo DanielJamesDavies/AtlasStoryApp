@@ -1,25 +1,10 @@
 .character-overview-description-container {
 	margin-left: auto;
-}
-
-.character-overview-description-container {
-	width: 100%;
+	width: calc(50% - 180px);
 	max-width: 500px;
 	height: 100%;
-	max-height: calc(100vh - 12px - 48px - 59px - 48px);
-	padding-right: 20px;
 	overflow-y: overlay;
 	overflow-x: hidden;
-}
-
-.character-overview-description-container::-webkit-scrollbar {
-	width: 6px;
-	background: transparent;
-}
-
-.character-overview-description-container::-webkit-scrollbar-thumb {
-	border-radius: 4px;
-	background: var(--blue);
 }
 
 .character-overview-description {
@@ -29,4 +14,17 @@
 	width: calc(100% - 24px);
 	background: var(--characterColour);
 	text-align: left;
+}
+
+.character-overview-description-label {
+	font-size: 13px;
+	font-weight: 400;
+}
+
+@media (max-width: 1300px) {
+	.character-overview-description-container {
+		margin: 0 auto;
+		width: 100%;
+		max-height: unset;
+	}
 }

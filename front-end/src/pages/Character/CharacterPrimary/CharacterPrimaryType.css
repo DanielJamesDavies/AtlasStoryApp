@@ -34,7 +34,8 @@
 		width: fit-content;
 	}
 
-	.character-primary-type {
-		font-size: 13px;
+	.character-primary-type,
+	.character-primary-type-dropdown .dropdown-value-container {
+		font-size: 14px;
 	}
 }

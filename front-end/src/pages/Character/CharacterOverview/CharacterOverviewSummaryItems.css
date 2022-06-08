@@ -1,20 +1,8 @@
 .character-overview-summary-items-container {
-	width: 100%;
+	width: calc(50% - 180px);
 	max-width: 500px;
-	max-height: calc(100vh - 12px - 48px - 59px - 48px);
-	padding-right: 20px;
 	overflow-y: overlay;
 	overflow-x: hidden;
-}
-
-.character-overview-summary-items-container::-webkit-scrollbar {
-	width: 6px;
-	background: transparent;
-}
-
-.character-overview-summary-items-container::-webkit-scrollbar-thumb {
-	border-radius: 4px;
-	background: var(--blue);
 }
 
 .character-overview-summary-item {
@@ -91,9 +79,10 @@
 	animation-delay: 0.1s;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1300px) {
 	.character-overview-summary-items-container {
+		margin: 0 auto;
 		width: 100%;
-		max-width: 424px;
+		max-height: unset;
 	}
 }

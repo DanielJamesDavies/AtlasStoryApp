@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
 	const newStory = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldStory)), req?.body?.path, req?.body?.newValue);
 
 	try {
-		await Story.findOneAndUpdate({ _id: req.params.id }, newStory, { upsert: true });
+		await Story.findOneAndReplace({ _id: req.params.id }, newStory, { upsert: true });
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Story Could Not Be Saved" }] });
 	}

@@ -30,15 +30,20 @@ export const CharacterOverviewDescription = () => {
 			{character?.data?.description === undefined || character?.data?.description.join("").split(" ").join("").length === 0 ? (
 				<div />
 			) : (
-				<Text className='character-overview-description' value={character?.data?.description} />
+				<div className='character-overview-description'>
+					<div className='character-overview-description-label'>Description</div>
+					<Text value={character?.data?.description} />
+				</div>
 			)}
-			<MultiLineTextInput
-				className='character-overview-description'
-				label='Description'
-				seamless={true}
-				value={character?.data?.description.join("\n")}
-				onChange={changeDescription}
-			/>
+			<div className='character-overview-description'>
+				<div className='character-overview-description-label'>Description</div>
+				<MultiLineTextInput
+					label='Description'
+					seamless={true}
+					value={character?.data?.description.join("\n")}
+					onChange={changeDescription}
+				/>
+			</div>
 		</EditableContainer>
 	);
 };

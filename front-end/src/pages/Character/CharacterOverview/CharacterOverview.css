@@ -47,3 +47,17 @@
 	-webkit-user-select: none;
 	user-select: none;
 }
+
+@media (max-width: 1300px) {
+	.character-overview-content {
+		margin-top: 50vh;
+		flex-direction: column;
+	}
+}
+
+@media (max-width: 700px) {
+	.character-overview-content {
+		margin-top: 45vh;
+		flex-direction: column;
+	}
+}

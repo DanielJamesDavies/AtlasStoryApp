@@ -74,18 +74,28 @@
 	font-weight: 700;
 }
 
-.characters-group-character-card-info-container {
+.characters-group-character-card-summary-item-container {
 	position: absolute;
 	top: calc(363px - 8px);
 	left: 50%;
 	transform: translateX(-50%);
+
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+
 	width: calc(100% - 16px);
+	max-height: calc(100% - 354px);
+	overflow: hidden;
 }
 
 .characters-group-character-card-summary-item {
 	margin-bottom: 8px;
 	padding: 8px 12px;
 	border-radius: 8px;
+
+	width: calc(100% - 24px);
+
 	background: var(--blue);
 	text-align: left;
 }
@@ -142,17 +152,9 @@
 		font-size: 22px;
 	}
 
-	.characters-group-character-card-info-container {
-		top: 57%;
-	}
-
-	.characters-group-character-card-summary-item {
-		display: none;
-	}
-
-	.characters-group-character-card-summary-item:nth-child(1),
-	.characters-group-character-card-summary-item:nth-child(2) {
-		display: block;
+	.characters-group-character-card-summary-item-container {
+		top: 61%;
+		max-height: calc(100% - 61% + 1px);
 	}
 
 	.characters-group-character-card-summary-item-label {

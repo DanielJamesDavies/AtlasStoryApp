@@ -17,8 +17,15 @@ module.exports = (object, path, newValue) => {
 
 	for (let i = path.length - 1; i >= 0; i--) {
 		let tempStorySubobject = objectUnnested.pop();
-		objectUnnested[objectUnnested.length - 1][path[i]] = tempStorySubobject;
+
+		if (tempStorySubobject !== undefined) {
+			objectUnnested[objectUnnested.length - 1][path[i]] = tempStorySubobject;
+		} else {
+			delete objectUnnested[objectUnnested.length - 1][path[i]];
+		}
 	}
+
+	console.log(objectUnnested[0]);
 
 	return objectUnnested[0];
 };
