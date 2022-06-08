@@ -1,8 +1,6 @@
 .character-overview-summary-items-container {
 	width: calc(50% - 180px);
 	max-width: 500px;
-	overflow-y: overlay;
-	overflow-x: hidden;
 }
 
 .character-overview-summary-item {

@@ -17,11 +17,11 @@ import "./CharacterOverview.css";
 // Assets
 import stars from "../../../content/stars.png";
 
-export const CharacterOverview = () => {
+export const CharacterOverview = ({ innerRef }) => {
 	const { characterOverviewBackground, backgroundGlowStyle } = CharacterOverviewLogic();
 
 	return (
-		<div className='character-overview'>
+		<div ref={innerRef} className='character-overview'>
 			<div className='character-overview-content'>
 				<CharacterOverviewSummaryItems />
 				<CharacterOverviewDescription />

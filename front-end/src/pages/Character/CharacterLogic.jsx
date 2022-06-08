@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 
 // Components
 
@@ -15,12 +15,28 @@ import { CharacterContext } from "./CharacterContext";
 // Assets
 
 export const CharacterLogic = () => {
-	const { character } = useContext(CharacterContext);
+	const { character, isOnOverviewSection } = useContext(CharacterContext);
 	const [characterStyle, setCharacterStyle] = useState({ "--characterColour": character?.data?.colour ? character.data.colour : "#0044ff" });
 
 	useEffect(() => {
 		setCharacterStyle({ "--characterColour": character?.data?.colour ? character.data.colour : "#0044ff" });
 	}, [setCharacterStyle, character]);
 
-	return { characterStyle };
+	const characterOverviewContainerRef = useRef();
+	const characterSubpagesContainerRef = useRef();
+
+	useEffect(() => {
+		function updateScroll() {
+			if (isOnOverviewSection) {
+				characterOverviewContainerRef?.current.scrollIntoView({ behavior: "smooth", block: "start" });
+			} else {
+				characterSubpagesContainerRef?.current.scrollIntoView({ behavior: "smooth", block: "start" });
+			}
+		}
+		updateScroll();
+		window.addEventListener("resize", updateScroll);
+		return () => window.removeEventListener("resize", updateScroll);
+	}, [characterOverviewContainerRef, characterSubpagesContainerRef, isOnOverviewSection]);
+
+	return { characterStyle, isOnOverviewSection, characterOverviewContainerRef, characterSubpagesContainerRef };
 };

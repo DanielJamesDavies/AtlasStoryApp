@@ -15,9 +15,38 @@
 	height: 32px;
 }
 
+.colour-picker-is-editing .colour-picker-colour-block {
+	cursor: pointer;
+}
+
 .colour-picker-sketch-picker {
 	position: absolute;
 	bottom: calc(32px + 6px);
 	left: -6px;
 	z-index: 50;
+	background: var(--grey3) !important;
+}
+
+.colour-picker-sketch-picker,
+.colour-picker-sketch-picker input,
+.colour-picker-sketch-picker label {
+	color: #fff !important;
+}
+
+.colour-picker-sketch-picker input {
+	box-shadow: none !important;
+	background: var(--grey2) !important;
+}
+
+.colour-picker-background {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1;
+	display: block;
+	content: "";
+	width: 100vw;
+	height: 100vh;
+	background: transparent;
 }

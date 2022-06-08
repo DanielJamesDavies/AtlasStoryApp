@@ -1,12 +1,37 @@
+.character-container {
+	margin: 0 auto;
+	padding: 0;
+	height: 100%;
+	overflow-y: hidden;
+}
+
 .character {
 	margin: 0 auto;
-	padding: 48px;
+	padding: 0;
 	padding-top: 6px;
 	max-width: 1800px;
+	height: calc(100% - 6px);
+}
+
+.character-content-container {
+	display: flex;
+	height: calc(100vh - 6px - 48px - 59px - 48px);
+	overflow-y: hidden;
+	overflow-x: overlay;
+}
+
+.character-content-container::-webkit-scrollbar {
+	width: 0;
 }
 
 @media (max-width: 700px) {
 	.character {
-		padding: 6px 12px;
+		padding: 0;
+	}
+
+	.character-content-container {
+		height: calc(100vh - 70px - 6px - 82px - 6px - 6px);
+		overflow-y: hidden;
+		overflow-x: overlay;
 	}
 }

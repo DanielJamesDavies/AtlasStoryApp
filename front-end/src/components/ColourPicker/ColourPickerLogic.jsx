@@ -15,6 +15,8 @@ import isValidHexColour from "../../services/IsValidHexColour";
 // Assets
 
 export const ColourPickerLogic = ({ value, onChange }) => {
+	const [isShowingPicker, setIsShowingPicker] = useState(true);
+
 	const [colourBlockStyle, setColourBlockStyle] = useState({});
 
 	const presetColours = [
@@ -36,5 +38,5 @@ export const ColourPickerLogic = ({ value, onChange }) => {
 		await onChange(colour.hex);
 	}
 
-	return { colourBlockStyle, presetColours, onSketchPickerChange };
+	return { isShowingPicker, setIsShowingPicker, colourBlockStyle, presetColours, onSketchPickerChange };
 };

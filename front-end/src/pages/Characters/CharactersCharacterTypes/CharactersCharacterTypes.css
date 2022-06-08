@@ -57,6 +57,7 @@
 	border-radius: 22px;
 
 	width: 100%;
+	min-height: 39px;
 
 	background: var(--grey3);
 	color: #fff;

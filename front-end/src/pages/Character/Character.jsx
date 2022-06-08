@@ -3,6 +3,8 @@
 // Components
 import { CharacterPrimary } from "./CharacterPrimary/CharacterPrimary";
 import { CharacterOverview } from "./CharacterOverview/CharacterOverview";
+import { CharacterSectionSwitcher } from "./CharacterSectionSwitcher/CharacterSectionSwitcher";
+import { CharacterSubpages } from "./CharacterSubpages/CharacterSubpages";
 
 // Logic
 import { CharacterLogic } from "./CharacterLogic";
@@ -17,13 +19,17 @@ import "./Character.css";
 // Assets
 
 export const Character = () => {
-	const { characterStyle } = CharacterLogic();
+	const { characterStyle, isOnOverviewSection, characterOverviewContainerRef, characterSubpagesContainerRef } = CharacterLogic();
 
 	return (
-		<div className='character' style={characterStyle}>
-			<CharacterPrimary />
-			<div className='character-content-container'>
-				<CharacterOverview />
+		<div className='character-container' style={characterStyle}>
+			<div className='character'>
+				<CharacterPrimary />
+				<div className={isOnOverviewSection ? "character-content-container" : "character-content-container"}>
+					<CharacterOverview innerRef={characterOverviewContainerRef} />
+					<CharacterSectionSwitcher />
+					<CharacterSubpages innerRef={characterSubpagesContainerRef} />
+				</div>
 			</div>
 		</div>
 	);

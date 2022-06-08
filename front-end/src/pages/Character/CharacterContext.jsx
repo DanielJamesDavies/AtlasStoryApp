@@ -22,6 +22,8 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 
 	const [characterOverviewBackground, setCharacterOverviewBackground] = useState(false);
 
+	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
+
 	useEffect(() => {
 		async function getInitial() {
 			if (!story_url || !character_url) {
@@ -143,6 +145,8 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 				setCharacterTypes,
 				characterOverviewBackground,
 				setCharacterOverviewBackground,
+				isOnOverviewSection,
+				setIsOnOverviewSection,
 			}}
 		>
 			{children}
