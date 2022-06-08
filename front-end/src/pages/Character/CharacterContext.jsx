@@ -23,6 +23,18 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 	const [characterOverviewBackground, setCharacterOverviewBackground] = useState(false);
 
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
+	const subpages = [
+		{ id: "gallery", name: "Gallery" },
+		{ id: "psychology", name: "Psychology" },
+		{ id: "efforts", name: "Efforts & History" },
+		{ id: "abilities", name: "Abilities" },
+		{ id: "physical", name: "Physical" },
+		{ id: "relationships", name: "Relationships" },
+		{ id: "miscellaneous", name: "Miscellaneous" },
+		{ id: "development", name: "Development" },
+		{ id: "settings", name: "Settings" },
+	];
+	const [openSubpageID, setOpenSubpageID] = useState(subpages[0].id);
 
 	useEffect(() => {
 		async function getInitial() {
@@ -147,6 +159,9 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 				setCharacterOverviewBackground,
 				isOnOverviewSection,
 				setIsOnOverviewSection,
+				subpages,
+				openSubpageID,
+				setOpenSubpageID,
 			}}
 		>
 			{children}

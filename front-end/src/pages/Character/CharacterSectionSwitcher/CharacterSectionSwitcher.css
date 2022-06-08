@@ -5,7 +5,7 @@
 	padding: 0 6px;
 	padding-right: 12px;
 	width: 24px;
-	height: 100%;
+	height: calc(100% - 48px - 59px - 48px);
 }
 
 .character-section-switcher-on-subpages {
@@ -26,17 +26,8 @@
 	width: 100%;
 	background: transparent;
 	color: var(--characterColour);
-	transition: filter 0.2s;
-	transition: transform 1s;
+	transition: transform 0.75s;
 	cursor: pointer;
-}
-
-.character-section-switcher-btn:hover {
-	filter: brightness(75%);
-}
-
-.character-section-switcher-btn:focus {
-	filter: brightness(100%);
 }
 
 .character-section-switcher-btn svg {
@@ -51,10 +42,15 @@
 @media (max-width: 700px) {
 	.character-section-switcher {
 		padding-right: 4px;
+		height: calc(100% - 6px - 82px - 6px);
 	}
 
 	.character-section-switcher-on-subpages {
 		padding: 0 6px;
 		padding-left: 4px;
+	}
+
+	.character-section-switcher-btn {
+		transition: transform 0.5s;
 	}
 }

@@ -6,7 +6,9 @@
 	border: 0;
 	border-radius: 100%;
 
+	min-width: 40px;
 	width: 40px;
+	min-height: 40px;
 	height: 40px;
 
 	background: var(--accentColour);

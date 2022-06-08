@@ -1,8 +1,10 @@
 // Packages
 
 // Components
+import { CharacterSubpagesBtns } from "./CharacterSubpagesBtns/CharacterSubpagesBtns";
 
 // Logic
+import { CharacterSubpagesLogic } from "./CharacterSubpagesLogic";
 
 // Context
 
@@ -14,5 +16,12 @@ import "./CharacterSubpages.css";
 // Assets
 
 export const CharacterSubpages = ({ innerRef }) => {
-	return <div ref={innerRef} className='character-subpages'></div>;
+	const { subpage } = CharacterSubpagesLogic();
+
+	return (
+		<div ref={innerRef} className='character-subpages'>
+			<CharacterSubpagesBtns />
+			<div className='character-subpage-container'>{subpage}</div>
+		</div>
+	);
 };

@@ -1,0 +1,49 @@
+.character-subpages-btns-container {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.character-subpages-btns {
+	display: flex;
+	align-items: center;
+	width: calc(100% - 28px - 28px);
+	overflow-y: hidden;
+	overflow-x: overlay;
+	scroll-behavior: smooth;
+}
+
+.character-subpages-btns::-webkit-scrollbar {
+	height: 0;
+}
+
+.character-subpages-btn {
+	flex-shrink: 0;
+	margin: 4px;
+	padding: 6px 14px;
+	border: 0;
+	border-radius: 32px;
+
+	min-width: fit-content;
+	width: calc((100% / 8) - 8px);
+
+	background: var(--grey2);
+	color: #fff;
+	text-align: left;
+	font-size: 13px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.character-subpages-btns-is-authorized .character-subpages-btn {
+	width: calc((100% / 9) - 8px);
+}
+
+.character-subpages-btn:hover {
+	background: var(--grey3);
+}
+
+.character-subpages-btn-active,
+.character-subpages-btn-active:hover {
+	background: var(--characterColour);
+}

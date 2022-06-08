@@ -25,7 +25,13 @@ export const Character = () => {
 		<div className='character-container' style={characterStyle}>
 			<div className='character'>
 				<CharacterPrimary />
-				<div className={isOnOverviewSection ? "character-content-container" : "character-content-container"}>
+				<div
+					className={
+						isOnOverviewSection
+							? "character-content-container character-content-container-is-on-overview"
+							: "character-content-container character-content-container-is-on-subpages"
+					}
+				>
 					<CharacterOverview innerRef={characterOverviewContainerRef} />
 					<CharacterSectionSwitcher />
 					<CharacterSubpages innerRef={characterSubpagesContainerRef} />
