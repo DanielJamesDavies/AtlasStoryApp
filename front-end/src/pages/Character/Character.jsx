@@ -19,10 +19,11 @@ import "./Character.css";
 // Assets
 
 export const Character = () => {
-	const { characterStyle, isOnOverviewSection, characterOverviewContainerRef, characterSubpagesContainerRef } = CharacterLogic();
+	const { characterStyle, isOnOverviewSection, characterContainerRef, characterOverviewContainerRef, characterSubpagesContainerRef } =
+		CharacterLogic();
 
 	return (
-		<div className='character-container' style={characterStyle}>
+		<div ref={characterContainerRef} className='character-container' style={characterStyle}>
 			<div className='character'>
 				<CharacterPrimary />
 				<div

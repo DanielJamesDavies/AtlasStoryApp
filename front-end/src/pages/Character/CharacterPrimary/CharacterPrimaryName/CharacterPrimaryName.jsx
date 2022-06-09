@@ -1,8 +1,8 @@
 // Packages
 
 // Components
-import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
-import { TextInput } from "../../../components/TextInput/TextInput";
+import { EditableContainer } from "../../../../components/EditableContainer/EditableContainer";
+import { TextInput } from "../../../../components/TextInput/TextInput";
 
 // Logic
 import { CharacterPrimaryNameLogic } from "./CharacterPrimaryNameLogic";

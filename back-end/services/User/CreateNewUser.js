@@ -71,7 +71,7 @@ module.exports = async (req, res) => {
 	}
 
 	// Create and Save New Profile Picture
-	const profilePicture = new Image({ _id: profilePictureID, image: req.body.profilePicture });
+	const profilePicture = new Image({ _id: profilePictureID, image: req.body.profilePicture, user_id: user._id });
 
 	try {
 		await profilePicture.save();
@@ -80,7 +80,7 @@ module.exports = async (req, res) => {
 	}
 
 	// Create and Save New Banner
-	const banner = new Image({ _id: bannerID, image: req.body.banner });
+	const banner = new Image({ _id: bannerID, image: req.body.banner, user_id: user._id });
 
 	try {
 		await banner.save();

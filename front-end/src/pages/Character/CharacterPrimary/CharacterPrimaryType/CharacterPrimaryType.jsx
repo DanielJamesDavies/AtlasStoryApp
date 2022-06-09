@@ -1,8 +1,8 @@
 // Packages
 
 // Components
-import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
-import { DropdownContainer } from "../../../components/DropdownContainer/DropdownContainer";
+import { EditableContainer } from "../../../../components/EditableContainer/EditableContainer";
+import { DropdownContainer } from "../../../../components/DropdownContainer/DropdownContainer";
 
 // Logic
 import { CharacterPrimaryTypeLogic } from "./CharacterPrimaryTypeLogic";

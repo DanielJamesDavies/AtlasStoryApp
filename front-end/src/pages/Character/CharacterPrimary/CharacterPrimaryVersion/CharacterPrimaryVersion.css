@@ -1,0 +1,44 @@
+.character-primary-version-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+}
+
+.character-primary-version {
+	display: flex;
+	flex-direction: column;
+	margin: 0 12px;
+
+	width: 96px;
+	max-height: 72px;
+	overflow: hidden;
+
+	text-align: left;
+}
+
+.character-primary-version-label {
+	margin-bottom: -2px;
+	min-height: 17px;
+	font-size: 13px;
+	font-weight: 400;
+}
+
+.character-primary-version-title {
+	min-height: 20px;
+	font-size: 15px;
+	font-weight: 700;
+}
+
+@media (max-width: 700px) {
+	.character-primary-version-container {
+		position: fixed;
+		top: 6px;
+		right: 6px;
+		min-height: 46px;
+	}
+
+	.character-primary-version {
+		width: 80px;
+	}
+}

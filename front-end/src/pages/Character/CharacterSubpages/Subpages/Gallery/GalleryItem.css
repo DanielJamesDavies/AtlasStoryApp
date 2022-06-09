@@ -1,0 +1,10 @@
+.character-subpage-gallery-item {
+	margin: 4px;
+	width: calc(50% - 8px);
+}
+
+.character-subpage-gallery-item img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}

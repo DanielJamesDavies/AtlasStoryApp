@@ -9,5 +9,6 @@
 	.character-primary-name-container,
 	.character-primary-name-container input {
 		font-size: 38px;
+		word-wrap: break-word;
 	}
 }

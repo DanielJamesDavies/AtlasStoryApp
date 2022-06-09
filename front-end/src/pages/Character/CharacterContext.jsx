@@ -21,6 +21,9 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 	const [characterTypes, setCharacterTypes] = useState([]);
 
 	const [characterOverviewBackground, setCharacterOverviewBackground] = useState(false);
+	const [characterGalleryImages, setCharacterGalleryImages] = useState([]);
+
+	const [characterVersion, setCharacterVersion] = useState(false);
 
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	const subpages = [
@@ -51,13 +54,15 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 			changeAccentHoverColour(newStory?.data?.colours?.accentHover);
 
 			getStoryIcon(newStory?.data?.icon);
+			getCharacterTypes(newStory?.data?.characterTypes);
 
 			let newCharacter = await getCharacter();
 			if (!newCharacter) return;
 
-			await getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
+			getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
+			getCharacterGalleryImages(newCharacter?.data?.versions);
 
-			await getCharacterTypes(newStory?.data?.characterTypes);
+			if (newCharacter?.data?.versions[0]) setCharacterVersion(newCharacter.data.versions[0]);
 		}
 
 		function setStateToDefault() {
@@ -99,15 +104,6 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 			return character_response.data.character;
 		}
 
-		async function getCharacterOverviewBackground(overviewBackgroundID) {
-			if (!overviewBackgroundID) return;
-			const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
-			if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image) return false;
-
-			setCharacterOverviewBackground(overview_background_image_response.data.image);
-			return overview_background_image_response.data.image;
-		}
-
 		async function getCharacterTypes(characterTypesIDs) {
 			if (!characterTypesIDs) return;
 			let newCharacterTypes = await Promise.all(
@@ -121,6 +117,33 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 
 			setCharacterTypes(newCharacterTypes);
 			return newCharacterTypes;
+		}
+
+		async function getCharacterOverviewBackground(overviewBackgroundID) {
+			if (!overviewBackgroundID) return;
+			const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
+			if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image) return false;
+
+			setCharacterOverviewBackground(overview_background_image_response.data.image);
+			return overview_background_image_response.data.image;
+		}
+
+		async function getCharacterGalleryImages(versions) {
+			let imageIDs = [];
+			versions.forEach((version) => {
+				imageIDs = imageIDs.concat(version.gallery.filter((imageID) => imageIDs.indexOf(imageID) === -1));
+			});
+
+			let newGalleryImages = await Promise.all(
+				imageIDs.map(async (imageID) => {
+					const image_response = await APIRequest("/image/" + imageID, "GET");
+					if (image_response?.errors || !image_response?.data?.image) return false;
+					return image_response.data;
+				})
+			);
+			newGalleryImages = newGalleryImages.filter((e) => e !== false);
+
+			setCharacterGalleryImages(newGalleryImages);
 		}
 
 		getInitial();
@@ -140,9 +163,24 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 		setCharacter,
 		setCharacterTypes,
 		setCharacterOverviewBackground,
+		setCharacterGalleryImages,
 		changeAccentColour,
 		changeAccentHoverColour,
 	]);
+
+	function decrementCharacterVersion() {
+		if (!character?.data?.version) return;
+		const currentVersionIndex = character.data.version.findIndex((e) => e._id === characterVersion._id);
+		if (currentVersionIndex === -1 || currentVersionIndex === 0) return;
+		setCharacterVersion(character.data.version[currentVersionIndex - 1]);
+	}
+
+	function incrementCharacterVersion() {
+		if (!character?.data?.version) return;
+		const currentVersionIndex = character.data.version.findIndex((e) => e._id === characterVersion._id);
+		if (currentVersionIndex === -1 || currentVersionIndex === character.data.version.length - 1) return;
+		setCharacterVersion(character?.data?.version[currentVersionIndex + 1]);
+	}
 
 	return (
 		<CharacterContext.Provider
@@ -157,6 +195,12 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 				setCharacterTypes,
 				characterOverviewBackground,
 				setCharacterOverviewBackground,
+				characterGalleryImages,
+				setCharacterGalleryImages,
+				characterVersion,
+				setCharacterVersion,
+				decrementCharacterVersion,
+				incrementCharacterVersion,
 				isOnOverviewSection,
 				setIsOnOverviewSection,
 				subpages,

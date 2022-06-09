@@ -1,12 +1,19 @@
-.character-subpages {
+.character-subpages-container {
+	position: relative;
 	flex-shrink: 0;
 	display: inline-block;
+	padding-top: calc(6px + 48px + 59px + 24px);
 	padding-left: 0;
 	padding-right: 24px;
 	width: calc(100vw - 70px - 24px - 24px - 12px - 12px);
 	height: 100%;
-	overflow-y: overlay;
+	overflow: visible;
 	vertical-align: top;
+}
+
+.character-subpages {
+	height: 100%;
+	overflow-y: overlay;
 }
 
 .character-subpages::-webkit-scrollbar {

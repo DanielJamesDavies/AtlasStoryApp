@@ -2,7 +2,7 @@ const jwt_decode = require("jwt-decode");
 
 const Story = require("../../models/Story");
 const User = require("../../models/User");
-const Image = require("../../models/Image");
+const deleteImagesByKey = require("../Image/deleteImagesByKey");
 
 module.exports = async (req, res) => {
 	try {
@@ -44,23 +44,8 @@ module.exports = async (req, res) => {
 		}
 	}
 
-	if (story?.data?.icon) {
-		try {
-			await Story.deleteOne({ _id: story.data.icon });
-		} catch (error) {}
-	}
-
-	if (story?.data?.banner) {
-		try {
-			await Story.deleteOne({ _id: story.data.banner });
-		} catch (error) {}
-	}
-
-	if (story?.data?.cover) {
-		try {
-			await Story.deleteOne({ _id: story.data.cover });
-		} catch (error) {}
-	}
+	const delete_images_result = await deleteImagesByKey("story_id", story._id);
+	if (delete_images_result?.errors) return res.status(200).send({ errors: delete_images_result.errors });
 
 	// Delete Groups
 

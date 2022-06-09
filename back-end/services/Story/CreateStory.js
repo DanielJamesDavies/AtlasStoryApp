@@ -4,7 +4,6 @@ const jwt_decode = require("jwt-decode");
 
 const Story = require("../../models/Story");
 const User = require("../../models/User");
-const Image = require("../../models/Image");
 
 module.exports = async (req, res) => {
 	let validateStoryResult = validateStory(req.body);
@@ -24,6 +23,9 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Authentication Error" }] });
 	}
 
+	const iconID = new mongoose.Types.ObjectId();
+	const bannerID = new mongoose.Types.ObjectId();
+
 	// New Story
 	const story = new Story({
 		_id: new mongoose.Types.ObjectId(),
@@ -36,6 +38,8 @@ module.exports = async (req, res) => {
 			groups: [],
 			primaryCharacters: [],
 			characterTypes: [],
+			icon: iconID,
+			banner: bannerID,
 		},
 	});
 

@@ -1,9 +1,12 @@
 .character-primary {
+	position: absolute;
+	z-index: 10;
 	display: flex;
 	margin: 0;
 	margin-bottom: 24px;
 	padding: 0 24px;
 	padding-top: calc(32px + 8px * 2);
+	width: calc(100vw - 76px - 48px);
 	height: 59px;
 	align-items: center;
 }
@@ -47,12 +50,18 @@
 		margin: 6px 0;
 		margin-bottom: 12px;
 		padding: 0 6px;
+		width: calc(100vw - 12px);
 		height: 82px;
 		align-items: flex-start;
 		flex-direction: column;
 	}
 
+	.character-primary-name-and-story-container {
+		width: 100%;
+	}
+
 	.character-primary-name-container {
+		max-width: calc(100% - 152px);
 		margin-bottom: 4px;
 	}
 

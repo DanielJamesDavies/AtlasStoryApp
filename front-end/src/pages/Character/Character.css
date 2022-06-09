@@ -15,7 +15,7 @@
 
 .character-content-container {
 	display: flex;
-	height: calc(100% - 6px - 48px - 59px - 24px);
+	height: 100%;
 	overflow-y: hidden;
 	overflow-x: overlay;
 }
@@ -27,11 +27,6 @@
 @media (max-width: 700px) {
 	.character {
 		padding: 0;
-	}
-
-	.character-content-container {
-		height: calc(100% - 6px - 82px - 12px);
-		overflow-y: hidden;
-		overflow-x: overlay;
+		height: 100%;
 	}
 }

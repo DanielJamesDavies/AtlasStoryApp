@@ -130,6 +130,7 @@ const CharactersProvider = ({ children, story_url }) => {
 
 		async function getCharactersCardBackgrounds(newCharacters) {
 			if (!newCharacters) return;
+
 			let newCharactersCardBackgrounds = await Promise.all(
 				newCharacters.map(async (character) => {
 					if (!character?.data?.cardBackground) return false;

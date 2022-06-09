@@ -1,8 +1,9 @@
 // Packages
 
 // Components
-import { CharacterPrimaryName } from "./CharacterPrimaryName";
-import { CharacterPrimaryType } from "./CharacterPrimaryType";
+import { CharacterPrimaryName } from "./CharacterPrimaryName/CharacterPrimaryName";
+import { CharacterPrimaryType } from "./CharacterPrimaryType/CharacterPrimaryType";
+import { CharacterPrimaryVersion } from "./CharacterPrimaryVersion/CharacterPrimaryVersion";
 
 // Logic
 import { CharacterPrimaryLogic } from "./CharacterPrimaryLogic";
@@ -29,6 +30,7 @@ export const CharacterPrimary = () => {
 				</div>
 			</div>
 			<CharacterPrimaryType />
+			<CharacterPrimaryVersion />
 		</div>
 	);
 };

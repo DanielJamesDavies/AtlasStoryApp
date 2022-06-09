@@ -15,7 +15,7 @@ import { CharacterContext } from "./CharacterContext";
 // Assets
 
 export const CharacterLogic = () => {
-	const { character, isOnOverviewSection } = useContext(CharacterContext);
+	const { character, isOnOverviewSection, setIsOnOverviewSection } = useContext(CharacterContext);
 	const [characterStyle, setCharacterStyle] = useState({ "--characterColour": character?.data?.colour ? character.data.colour : "#0044ff" });
 
 	useEffect(() => {
@@ -38,5 +38,31 @@ export const CharacterLogic = () => {
 		return () => window.removeEventListener("resize", updateScroll);
 	}, [characterOverviewContainerRef, characterSubpagesContainerRef, isOnOverviewSection]);
 
-	return { characterStyle, isOnOverviewSection, characterOverviewContainerRef, characterSubpagesContainerRef };
+	// Wheel Scroll
+	const characterContainerRef = useRef();
+
+	useEffect(() => {
+		function onWheel(e) {
+			setIsOnOverviewSection(Math.sign(e?.deltaY) === -1);
+		}
+		const characterContainerRefCurrent = characterContainerRef?.current;
+		characterContainerRefCurrent?.addEventListener("wheel", onWheel);
+		return () => characterContainerRefCurrent.removeEventListener("wheel", onWheel);
+	}, [characterContainerRef, setIsOnOverviewSection]);
+
+	useEffect(() => {
+		function onWheel(e) {
+			if (e?.target?.parentNode?.clientHeight < e?.target?.scrollHeight) e.stopPropagation();
+		}
+		const characterOverviewRefCurrent = characterOverviewContainerRef?.current?.children[0];
+		const characterSubpagesRefCurrent = characterSubpagesContainerRef?.current?.children[0];
+		characterOverviewRefCurrent?.addEventListener("wheel", onWheel);
+		characterSubpagesRefCurrent?.addEventListener("wheel", onWheel);
+		return () => {
+			characterOverviewRefCurrent?.removeEventListener("wheel", onWheel);
+			characterSubpagesRefCurrent?.removeEventListener("wheel", onWheel);
+		};
+	}, [characterOverviewContainerRef, characterSubpagesContainerRef, isOnOverviewSection]);
+
+	return { characterStyle, isOnOverviewSection, characterContainerRef, characterOverviewContainerRef, characterSubpagesContainerRef };
 };

@@ -20,5 +20,5 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Image Could Not Be Saved" }] });
 	}
 
-	res.status(200).send({ message: "Success", data: newImage });
+	res.status(200).send({ message: "Success", data: { image: newImage } });
 };
