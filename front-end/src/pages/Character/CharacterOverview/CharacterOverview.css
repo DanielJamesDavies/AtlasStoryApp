@@ -70,10 +70,12 @@
 
 	border-radius: 100%;
 
-	width: calc(100vw - 60px);
-	height: calc(100vw - 60px);
+	width: calc(100vw + 360px);
+	max-width: 2000px;
+	height: calc(100vw + 360px);
+	max-height: 2000px;
 
-	background: radial-gradient(circle at 50% 50%, rgba(0, 68, 255, 0.8), transparent 35%);
+	background: radial-gradient(circle at 50% 50%, var(--characterGlowColour), transparent 34%);
 
 	-khtml-user-select: none;
 	-o-user-select: none;

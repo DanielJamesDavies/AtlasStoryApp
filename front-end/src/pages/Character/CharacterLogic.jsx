@@ -19,47 +19,41 @@ export const CharacterLogic = () => {
 	const [characterStyle, setCharacterStyle] = useState({ "--characterColour": character?.data?.colour ? character.data.colour : "#0044ff" });
 
 	useEffect(() => {
-		setCharacterStyle({ "--characterColour": character?.data?.colour ? character.data.colour : "#0044ff" });
+		function getGlowColour(colour) {
+			if (!colour) return "rgba(0, 68, 255, 0.8)";
+			const newColour = "0x" + colour.substring(1).toUpperCase();
+			return "rgba(" + ((newColour >> 16) & 0xff) + ", " + ((newColour >> 8) & 0xff) + ", " + (newColour & 0xff) + ", 0.8)";
+		}
+		setCharacterStyle({
+			"--characterColour": character?.data?.colour ? character.data.colour : "#0044ff",
+			"--characterGlowColour": getGlowColour(character?.data?.colour),
+		});
 	}, [setCharacterStyle, character]);
 
+	const characterContainerRef = useRef();
 	const characterOverviewContainerRef = useRef();
 	const characterSubpagesContainerRef = useRef();
 
 	useEffect(() => {
-		function updateScroll() {
-			if (isOnOverviewSection) {
-				characterOverviewContainerRef?.current.scrollIntoView({ behavior: "smooth", block: "start" });
-			} else {
-				characterSubpagesContainerRef?.current.scrollIntoView({ behavior: "smooth", block: "start" });
-			}
-		}
-		updateScroll();
-		window.addEventListener("resize", updateScroll);
-		return () => window.removeEventListener("resize", updateScroll);
-	}, [characterOverviewContainerRef, characterSubpagesContainerRef, isOnOverviewSection]);
-
-	// Wheel Scroll
-	const characterContainerRef = useRef();
-
-	useEffect(() => {
-		function onWheel(e) {
-			setIsOnOverviewSection(Math.sign(e?.deltaY) === -1);
-		}
+		const onWheel = (e) => setIsOnOverviewSection(Math.sign(e?.deltaY) === -1);
 		const characterContainerRefCurrent = characterContainerRef?.current;
 		characterContainerRefCurrent?.addEventListener("wheel", onWheel);
-		return () => characterContainerRefCurrent.removeEventListener("wheel", onWheel);
+		return () => characterContainerRefCurrent?.removeEventListener("wheel", onWheel);
 	}, [characterContainerRef, setIsOnOverviewSection]);
 
 	useEffect(() => {
-		function onWheel(e) {
+		const onWheel = (e) => {
 			if (e?.target?.parentNode?.clientHeight < e?.target?.scrollHeight) e.stopPropagation();
-		}
+		};
+
 		const characterOverviewRefCurrent = characterOverviewContainerRef?.current?.children[0];
-		const characterSubpagesRefCurrent = characterSubpagesContainerRef?.current?.children[0];
 		characterOverviewRefCurrent?.addEventListener("wheel", onWheel);
+
+		const characterSubpagesRefCurrent = characterSubpagesContainerRef?.current?.children[0];
 		characterSubpagesRefCurrent?.addEventListener("wheel", onWheel);
 		return () => {
 			characterOverviewRefCurrent?.removeEventListener("wheel", onWheel);
+
 			characterSubpagesRefCurrent?.removeEventListener("wheel", onWheel);
 		};
 	}, [characterOverviewContainerRef, characterSubpagesContainerRef, isOnOverviewSection]);

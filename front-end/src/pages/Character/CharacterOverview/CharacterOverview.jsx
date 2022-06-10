@@ -18,7 +18,7 @@ import "./CharacterOverview.css";
 import stars from "../../../content/stars.png";
 
 export const CharacterOverview = ({ innerRef }) => {
-	const { characterOverviewBackground, backgroundGlowStyle } = CharacterOverviewLogic();
+	const { characterOverviewBackground } = CharacterOverviewLogic();
 
 	return (
 		<div ref={innerRef} className='character-overview-container'>
@@ -29,7 +29,7 @@ export const CharacterOverview = ({ innerRef }) => {
 				</div>
 				<div className='character-overview-background'>
 					{!characterOverviewBackground ? null : <img src={characterOverviewBackground} alt='' />}
-					<div className='character-overview-background-glow' style={backgroundGlowStyle} />
+					<div className='character-overview-background-glow' />
 					<img className='character-overview-background-stars' src={stars} alt='' />
 				</div>
 			</div>

@@ -2,31 +2,42 @@
 	margin: 0 auto;
 	padding: 0;
 	height: 100%;
-	overflow-y: hidden;
+	overflow: hidden;
 }
 
 .character {
 	margin: 0 auto;
 	padding: 0;
 	padding-top: 6px;
-	max-width: 1800px;
 	height: calc(100% - 6px);
 }
 
 .character-content-container {
 	display: flex;
 	height: 100%;
-	overflow-y: hidden;
-	overflow-x: overlay;
+	overflow: visible;
+	transition: transform 0.8s;
 }
 
 .character-content-container::-webkit-scrollbar {
-	width: 0;
+	display: none;
+}
+
+.character-content-container-is-on-subpages {
+	transform: translateX(calc(-1 * (100vw - 70px - 24px - 12px - 12px)));
 }
 
 @media (max-width: 700px) {
 	.character {
 		padding: 0;
 		height: 100%;
+	}
+
+	.character-content-container {
+		transition: transform 0.5s;
+	}
+
+	.character-content-container-is-on-subpages {
+		transform: translateX(calc(-1 * (100vw - 34px)));
 	}
 }

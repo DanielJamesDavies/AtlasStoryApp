@@ -32,9 +32,15 @@
 }
 
 @media (max-width: 700px) {
-	.character-subpages {
+	.character-subpages-container {
+		padding-top: calc(6px + 82px + 12px);
 		padding-right: 6px;
-		width: calc(100vw - 24px - 12px - 4px);
+		width: calc(100vw - 34px - 6px);
+	}
+
+	.character-subpages {
+		padding-right: 0;
+		width: 100%;
 	}
 
 	.character-overview-content {
