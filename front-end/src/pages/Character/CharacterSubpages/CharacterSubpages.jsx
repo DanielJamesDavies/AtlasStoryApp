@@ -19,8 +19,8 @@ export const CharacterSubpages = ({ innerRef }) => {
 	const { subpage } = CharacterSubpagesLogic();
 
 	return (
-		<div ref={innerRef} className='character-subpages-container'>
-			<div className='character-subpages'>
+		<div className='character-subpages-container'>
+			<div ref={innerRef} className='character-subpages'>
 				<CharacterSubpagesBtns />
 				<div className='character-subpage-container'>{subpage}</div>
 			</div>

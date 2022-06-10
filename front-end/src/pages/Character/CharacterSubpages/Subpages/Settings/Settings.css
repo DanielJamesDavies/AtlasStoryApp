@@ -1,0 +1,22 @@
+.character-subpage-settings-section-1,
+.character-subpage-settings-section-2 {
+	display: inline-block;
+	width: calc(50% - 12px);
+	vertical-align: top;
+}
+
+.character-subpage-settings-section-2 {
+	margin-right: 12px;
+}
+
+.character-subpage-settings-section-2 {
+	margin-left: 12px;
+}
+
+@media (max-width: 700px) {
+	.character-subpage-settings-section-1,
+	.character-subpage-settings-section-2 {
+		padding: 0;
+		width: 100%;
+	}
+}

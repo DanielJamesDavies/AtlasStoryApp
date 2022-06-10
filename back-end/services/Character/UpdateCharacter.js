@@ -11,7 +11,28 @@ module.exports = async (req, res) => {
 		});
 	if (!oldCharacter) return res.status(200).send({ errors: [{ message: "Character Not Found" }] });
 
-	const newCharacter = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldCharacter)), req?.body?.path, req?.body?.newValue);
+	let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+
+	switch (JSON.stringify(req.body.path)) {
+		case JSON.stringify(["url"]):
+			if (!req?.body?.newValue) return res.status(200).send({ errors: [{ attribute: "url", message: "Invalid Arguments Given" }] });
+
+			const newURL = req.body.newValue.split(" ").join("-");
+
+			if (newURL.length < 1)
+				return res.status(200).send({ errors: [{ attribute: "url", message: "This URL is too short. Please enter a different URL." }] });
+
+			const urlUsed = await Character.findOne({ url: newURL, story_id: req.body.story_id }).exec();
+			if (urlUsed)
+				return res
+					.status(200)
+					.send({ errors: [{ attribute: "url", message: "This URL is being used by another character. Please enter a different URL" }] });
+
+			newCharacter.url = newURL;
+		default:
+			newCharacter = ChangeValueInNestedObject(newCharacter, req?.body?.path, req?.body?.newValue);
+			break;
+	}
 
 	try {
 		await Character.findOneAndReplace({ _id: req.params.id }, newCharacter, { upsert: true });

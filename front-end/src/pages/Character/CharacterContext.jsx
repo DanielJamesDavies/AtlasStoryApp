@@ -185,6 +185,8 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 	return (
 		<CharacterContext.Provider
 			value={{
+				story_url,
+				character_url,
 				isAuthorizedToEdit,
 				story,
 				setStory,

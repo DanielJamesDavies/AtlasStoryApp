@@ -3,6 +3,7 @@
 // Components
 import { EditableContainer } from "../../../../components/EditableContainer/EditableContainer";
 import { TextInput } from "../../../../components/TextInput/TextInput";
+import { ErrorMessage } from "../../../../components/ErrorMessage/ErrorMessage";
 
 // Logic
 import { CharacterPrimaryNameLogic } from "./CharacterPrimaryNameLogic";
@@ -17,7 +18,7 @@ import "./CharacterPrimaryName.css";
 // Assets
 
 export const CharacterPrimaryName = () => {
-	const { isAuthorizedToEdit, character, changeName, revertName, saveName } = CharacterPrimaryNameLogic();
+	const { isAuthorizedToEdit, character, changeName, revertName, saveName, errors } = CharacterPrimaryNameLogic();
 
 	return (
 		<EditableContainer
@@ -27,7 +28,16 @@ export const CharacterPrimaryName = () => {
 			onSave={saveName}
 		>
 			<div className='character-primary-name'>{character?.data?.name}</div>
-			<TextInput className='character-primary-name' seamless={true} value={character?.data?.name} onChange={changeName} autoResize={true} />
+			<div>
+				<TextInput
+					className='character-primary-name'
+					seamless={true}
+					value={character?.data?.name}
+					onChange={changeName}
+					autoResize={true}
+				/>
+				<ErrorMessage errors={errors} />
+			</div>
 		</EditableContainer>
 	);
 };

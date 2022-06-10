@@ -1,7 +1,12 @@
 .colour-picker {
 	position: relative;
+	z-index: 100;
 	display: flex;
 	align-items: center;
+}
+
+.colour-picker-alignment-right {
+	justify-content: right;
 }
 
 .colour-picker-colour-block {
@@ -21,10 +26,29 @@
 
 .colour-picker-sketch-picker {
 	position: absolute;
+	z-index: 50;
 	bottom: calc(32px + 6px);
 	left: -6px;
-	z-index: 50;
+	height: fit-content;
 	background: var(--grey3) !important;
+}
+
+.colour-picker-sketch-picker {
+	position: absolute;
+	z-index: 50;
+	left: -6px;
+	bottom: calc(32px + 6px);
+	height: fit-content;
+	background: var(--grey3) !important;
+}
+
+.colour-picker-alignment-right .colour-picker-sketch-picker {
+	left: auto;
+	right: -6px;
+}
+
+.colour-picker-placement-bottom .colour-picker-sketch-picker {
+	top: calc(32px + 6px);
 }
 
 .colour-picker-sketch-picker,
@@ -46,7 +70,7 @@
 	z-index: 1;
 	display: block;
 	content: "";
-	width: 100vw;
-	height: 100vh;
+	width: 400vw;
+	height: 400vh;
 	background: transparent;
 }

@@ -3,6 +3,7 @@ import { useState, useContext, useEffect } from "react";
 
 // Components
 import { Gallery } from "./Subpages/Gallery/Gallery";
+import { Settings } from "./Subpages/Settings/Settings";
 
 // Logic
 
@@ -39,7 +40,7 @@ export const CharacterSubpagesLogic = () => {
 				case "development":
 					return null;
 				case "settings":
-					return null;
+					return <Settings />;
 				default:
 					return null;
 			}

@@ -5,15 +5,10 @@ const Character = require("../../models/Character");
 const Group = require("../../models/Group");
 
 module.exports = async (req, res) => {
-	let validateCharacterResult = validateCharacter(req.body);
-	if (validateCharacterResult?.errors) return res.status(200).send({ errors: validateCharacterResult.errors });
+	req.body.url = req.body.url.split(" ").join("-");
 
-	// Check if URL is used
-	const urlUsed = await Character.findOne({ url: req.body.url, story_id: req.body.story_id }).exec();
-	if (urlUsed)
-		return res
-			.status(200)
-			.send({ errors: [{ attribute: "url", message: "This URL is being used by another character. Please enter a different URL" }] });
+	let validateCharacterResult = await validateCharacter(req.body);
+	if (validateCharacterResult?.errors?.length > 0) return res.status(200).send({ errors: validateCharacterResult.errors });
 
 	// New Character
 	const character = new Character({
@@ -49,7 +44,9 @@ module.exports = async (req, res) => {
 	return res.status(200).send({ message: "Success", data: { characterURL: character.url } });
 };
 
-function validateCharacter(character) {
+async function validateCharacter(character) {
+	let errors = [];
+
 	const characterSchema = Joi.object({
 		story_id: Joi.string().required(),
 		group_id: Joi.string().required(),
@@ -69,8 +66,8 @@ function validateCharacter(character) {
 			{ key: "isPrimaryCharacter", name: "Primary Character", indefiniteArticle: "a" },
 		];
 
-		return {
-			errors: characterValidationError.map((error) => {
+		errors = errors.concat(
+			characterValidationError.map((error) => {
 				let keyData = characterKeysData.find((e) => e.key === error.path[0]);
 				let message = "";
 
@@ -104,8 +101,12 @@ function validateCharacter(character) {
 				}
 
 				return { attribute: error.path[0], message };
-			}),
-		};
+			})
+		);
 	}
-	return {};
+
+	const urlUsed = await Character.findOne({ url: character.url, story_id: character.story_id }).exec();
+	if (urlUsed) errors.push({ attribute: "url", message: "This URL is being used by another character. Please enter a different URL" });
+
+	return { errors };
 }

@@ -36,6 +36,7 @@
 
 	.character-primary-type,
 	.character-primary-type-dropdown .dropdown-value-container {
-		font-size: 14px;
+		padding: 5px 10px;
+		font-size: 13px;
 	}
 }

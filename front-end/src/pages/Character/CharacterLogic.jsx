@@ -43,17 +43,16 @@ export const CharacterLogic = () => {
 
 	useEffect(() => {
 		const onWheel = (e) => {
-			if (e?.target?.parentNode?.clientHeight < e?.target?.scrollHeight) e.stopPropagation();
+			if (characterOverviewRefCurrent?.clientHeight < characterOverviewRefCurrent?.scrollHeight) e.stopPropagation();
 		};
 
-		const characterOverviewRefCurrent = characterOverviewContainerRef?.current?.children[0];
+		const characterOverviewRefCurrent = characterOverviewContainerRef?.current;
 		characterOverviewRefCurrent?.addEventListener("wheel", onWheel);
 
-		const characterSubpagesRefCurrent = characterSubpagesContainerRef?.current?.children[0];
+		const characterSubpagesRefCurrent = characterSubpagesContainerRef?.current;
 		characterSubpagesRefCurrent?.addEventListener("wheel", onWheel);
 		return () => {
 			characterOverviewRefCurrent?.removeEventListener("wheel", onWheel);
-
 			characterSubpagesRefCurrent?.removeEventListener("wheel", onWheel);
 		};
 	}, [characterOverviewContainerRef, characterSubpagesContainerRef, isOnOverviewSection]);

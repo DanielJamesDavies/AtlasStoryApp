@@ -6,8 +6,8 @@ import { useContext, useState } from "react";
 // Logic
 
 // Context
-import { CharacterContext } from "../../CharacterContext";
-import { APIContext } from "../../../../context/APIContext";
+import { CharacterContext } from "../../../../CharacterContext";
+import { APIContext } from "../../../../../../context/APIContext";
 
 // Services
 
@@ -15,28 +15,28 @@ import { APIContext } from "../../../../context/APIContext";
 
 // Assets
 
-export const CharacterPrimaryNameLogic = () => {
+export const SettingsColourLogic = () => {
 	const { isAuthorizedToEdit, story, character, setCharacter } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 
-	function changeName(e) {
+	function changeColour(colour) {
 		setCharacter((oldCharacter) => {
 			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-			newCharacter.data.name = e.target.value;
+			newCharacter.data.colour = colour;
 			return newCharacter;
 		});
 	}
 
-	async function revertName() {
+	async function revertColour() {
 		const response = await APIRequest("/character/get-value/" + character._id, "POST", {
 			story_id: story._id,
-			path: ["data", "name"],
+			path: ["data", "colour"],
 		});
 		if (!response || response?.errors || !response?.data?.value) return false;
 
 		setCharacter((oldCharacter) => {
 			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-			newCharacter.data.name = response.data.value;
+			newCharacter.data.colour = response.data.value;
 			return newCharacter;
 		});
 
@@ -45,13 +45,13 @@ export const CharacterPrimaryNameLogic = () => {
 
 	const [errors, setErrors] = useState([]);
 
-	async function saveName() {
+	async function saveColour() {
 		setErrors([]);
 		if (!character?._id) return;
 		const response = await APIRequest("/character/" + character._id, "PATCH", {
 			story_id: story._id,
-			path: ["data", "name"],
-			newValue: character.data.name,
+			path: ["data", "colour"],
+			newValue: character.data.colour,
 		});
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);
@@ -60,5 +60,5 @@ export const CharacterPrimaryNameLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, character, changeName, revertName, saveName, errors };
+	return { isAuthorizedToEdit, character, changeColour, revertColour, saveColour, errors };
 };

@@ -1,0 +1,53 @@
+.character-subpage-settings-url {
+	display: flex;
+	justify-content: center;
+	margin: 12px 0;
+	padding: 12px;
+	border-radius: 4px;
+	width: calc(100% - 24px);
+}
+
+.character-subpage-settings-url-label {
+	margin: 0;
+	width: 85px;
+	font-size: 24px;
+	font-weight: 700;
+}
+
+.character-subpage-settings-url-value-container {
+	margin: 0;
+	margin-left: 6px;
+	width: calc(100% - 85px - 6px);
+	font-size: 16px;
+	font-weight: 400;
+	text-align: right;
+}
+
+.character-subpage-settings-url-value {
+	width: 100%;
+	vertical-align: top;
+}
+
+.character-subpage-settings-url-value .text-input {
+	width: 100%;
+}
+
+.character-subpage-settings-url-value .text-input input {
+	width: 100%;
+	text-align: right;
+}
+
+@media (max-width: 700px) {
+	.character-subpage-settings-url {
+		padding: 12px 6px;
+	}
+
+	.character-subpage-settings-url-label {
+		width: 71px;
+		font-size: 20px;
+	}
+
+	.character-subpage-settings-url-value-container {
+		width: calc(100% - 71px - 6px);
+	}
+}

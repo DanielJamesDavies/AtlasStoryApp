@@ -21,8 +21,8 @@ export const CharacterOverview = ({ innerRef }) => {
 	const { characterOverviewBackground } = CharacterOverviewLogic();
 
 	return (
-		<div ref={innerRef} className='character-overview-container'>
-			<div className='character-overview'>
+		<div className='character-overview-container'>
+			<div ref={innerRef} className='character-overview'>
 				<div className='character-overview-content'>
 					<CharacterOverviewSummaryItems />
 					<CharacterOverviewDescription />

@@ -15,20 +15,22 @@ import "./ColourPicker.css";
 
 // Assets
 
-export const ColourPicker = ({ value, onChange, enableEdit }) => {
-	const { isShowingPicker, setIsShowingPicker, colourBlockStyle, presetColours, onSketchPickerChange } = ColourPickerLogic({ value, onChange });
+export const ColourPicker = ({ value, onChange, enableEdit, pickerVerticalPlacement, horizontalAlignment }) => {
+	const { colourPickerClassName, isShowingPicker, setIsShowingPicker, colourBlockStyle, presetColours, onSketchPickerChange } = ColourPickerLogic(
+		{ value, onChange, enableEdit, pickerVerticalPlacement, horizontalAlignment }
+	);
 
 	return (
-		<div className={enableEdit ? "colour-picker colour-picker-is-editing" : "colour-picker"}>
-			{!enableEdit || (enableEdit && !isShowingPicker) ? null : (
-				<SketchPicker className='colour-picker-sketch-picker' color={value} onChange={onSketchPickerChange} presetColors={presetColours} />
-			)}
+		<div className={colourPickerClassName}>
 			<div
 				className='colour-picker-colour-block'
 				style={colourBlockStyle}
 				onClick={() => setIsShowingPicker((oldIsShowingPicker) => !oldIsShowingPicker)}
 			/>
 			<div className='colour-picker-colour-text'>{value}</div>
+			{!enableEdit || (enableEdit && !isShowingPicker) ? null : (
+				<SketchPicker className='colour-picker-sketch-picker' color={value} onChange={onSketchPickerChange} presetColors={presetColours} />
+			)}
 			{!enableEdit || (enableEdit && !isShowingPicker) ? null : (
 				<div className='colour-picker-background' onClick={() => setIsShowingPicker(false)} />
 			)}
