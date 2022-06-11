@@ -1,4 +1,4 @@
-.character-subpage-settings-colour {
+.label-container {
 	display: flex;
 	justify-content: center;
 	margin: 12px 0;
@@ -7,38 +7,38 @@
 	width: calc(100% - 24px);
 }
 
-.character-subpage-settings-colour-label {
+.label-label {
 	margin: 0;
 	width: 85px;
 	font-size: 24px;
 	font-weight: 700;
 }
 
-.character-subpage-settings-colour-value-container {
+.label-value {
 	margin: 0;
 	margin-left: 6px;
 	width: calc(100% - 85px - 6px);
 	font-size: 16px;
 	font-weight: 400;
 	text-align: right;
-}
-
-.character-subpage-settings-colour-value {
-	width: 100%;
 	vertical-align: top;
 }
 
+.label-value input {
+	text-align: right;
+}
+
 @media (max-width: 700px) {
-	.character-subpage-settings-colour {
+	.label-container {
 		padding: 12px 6px;
 	}
 
-	.character-subpage-settings-colour-label {
+	.label-label {
 		width: 71px;
 		font-size: 20px;
 	}
 
-	.character-subpage-settings-colour-value-container {
+	.label-value {
 		width: calc(100% - 71px - 6px);
 	}
 }

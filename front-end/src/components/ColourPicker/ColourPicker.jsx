@@ -21,7 +21,7 @@ export const ColourPicker = ({ value, onChange, enableEdit, pickerVerticalPlacem
 	);
 
 	return (
-		<div className={colourPickerClassName}>
+		<div className={colourPickerClassName} onTouchMove={(e) => e.stopPropagation()}>
 			<div
 				className='colour-picker-colour-block'
 				style={colourBlockStyle}

@@ -2,6 +2,7 @@
 
 // Components
 import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
+import { LabelContainer } from "../../../components/LabelContainer/LabelContainer";
 import { TextInput } from "../../../components/TextInput/TextInput";
 
 // Logic
@@ -12,7 +13,6 @@ import { StoryGenresLogic } from "./StoryGenresLogic";
 // Services
 
 // Styles
-import "./StoryGenres.css";
 
 // Assets
 
@@ -21,24 +21,11 @@ export const StoryGenres = () => {
 
 	if (story?.data?.genres)
 		return (
-			<div className='story-genres'>
-				<div className='story-genres-label'>Genres</div>
-
-				<EditableContainer
-					className='story-genres-value-container'
-					isAuthorizedToEdit={isAuthorizedToEdit}
-					onRevert={revertStoryGenres}
-					onSave={saveStoryGenres}
-				>
-					<div className='story-genres-value'>{story.data.genres}</div>
-					<TextInput
-						className='story-genres-value'
-						label='Genres'
-						value={story.data.genres}
-						onChange={changeStoryGenres}
-						seamless={true}
-					/>
+			<LabelContainer label='Genres'>
+				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertStoryGenres} onSave={saveStoryGenres}>
+					<div>{story.data.genres}</div>
+					<TextInput label='Genres' value={story.data.genres} onChange={changeStoryGenres} seamless={true} />
 				</EditableContainer>
-			</div>
+			</LabelContainer>
 		);
 };

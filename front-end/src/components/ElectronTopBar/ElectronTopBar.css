@@ -1,6 +1,0 @@
-.electron-top-bar {
-	display: inline-block;
-	width: calc(100vw - 70px);
-	height: 38px;
-	background: var(--grey2);
-}

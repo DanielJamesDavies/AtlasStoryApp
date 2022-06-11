@@ -1,18 +1,16 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AppContext } from "./AppContext";
 
 export const RoutesContext = createContext();
 
 const RoutesProvider = ({ children }) => {
 	const [location, setLocation] = useState("/");
-	const { isOnElectron } = useContext(AppContext);
 	const routerLocation = useLocation();
 	const routerNavigate = useNavigate();
 
 	useEffect(() => {
-		if (!isOnElectron) setLocation(routerLocation.pathname);
-	}, [isOnElectron, routerLocation, setLocation]);
+		setLocation(routerLocation.pathname);
+	}, [routerLocation, setLocation]);
 
 	function changeLocation(newLocation) {
 		routerNavigate(newLocation);
