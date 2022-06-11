@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
 	const oldImage = await Image.findById(req.params.id)
 		.exec()
 		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Image Not Found" }] });
+			return res.status(200).send({ errors: [{ message: "Image Not Found" }] });
 		});
 
 	let newImage = JSON.parse(JSON.stringify(oldImage));

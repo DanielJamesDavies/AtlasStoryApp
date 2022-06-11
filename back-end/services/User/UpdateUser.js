@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
 	const oldUser = await User.findById(user_id)
 		.exec()
 		.catch(() => {
-			res.status(200).send({ errors: [{ message: "User Not Found" }] });
+			return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 		});
 	if (!oldUser) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 

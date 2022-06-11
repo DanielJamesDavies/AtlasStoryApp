@@ -2,6 +2,7 @@
 
 // Components
 import { SettingsURL } from "./SettingsURL/SettingsURL";
+import { SettingsGroup } from "./SettingsGroup/SettingsGroup";
 import { SettingsColour } from "./SettingsColour/SettingsColour";
 
 // Logic
@@ -20,7 +21,7 @@ export const Settings = () => {
 		<div className='character-subpage-settings'>
 			<div className='character-subpage-settings-section-1'>
 				<SettingsURL />
-				{/* Group */}
+				<SettingsGroup />
 				<SettingsColour />
 				{/* Versions */}
 			</div>

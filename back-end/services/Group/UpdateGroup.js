@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
 	const oldGroup = await Group.findById(req.params.id)
 		.exec()
 		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Group Not Found" }] });
+			return res.status(200).send({ errors: [{ message: "Group Not Found" }] });
 		});
 	if (!oldGroup) return res.status(200).send({ errors: [{ message: "Group Not Found" }] });
 

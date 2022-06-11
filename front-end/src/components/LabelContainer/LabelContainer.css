@@ -1,6 +1,5 @@
 .label-container {
 	display: flex;
-	justify-content: center;
 	margin: 12px 0;
 	padding: 12px;
 	border-radius: 4px;
@@ -9,23 +8,43 @@
 
 .label-label {
 	margin: 0;
-	width: 85px;
+	width: fit-content;
+	max-width: 50%;
+	word-wrap: break-word;
+	word-break: break-all;
 	font-size: 24px;
 	font-weight: 700;
 }
 
 .label-value {
 	margin: 0;
-	margin-left: 6px;
-	width: calc(100% - 85px - 6px);
+	margin-top: 6px;
+	margin-left: auto;
 	font-size: 16px;
 	font-weight: 400;
+	word-wrap: break-word;
+	word-break: break-all;
 	text-align: right;
 	vertical-align: top;
 }
 
+.label-value .text-input-container {
+	margin-top: -3px;
+}
+
 .label-value input {
 	text-align: right;
+}
+
+.label-value .dropdown-container {
+	position: relative;
+	margin-left: auto;
+	width: fit-content;
+	text-align: right;
+}
+
+.label-value .dropdown-options-container {
+	width: 100% !important;
 }
 
 @media (max-width: 700px) {
@@ -34,11 +53,6 @@
 	}
 
 	.label-label {
-		width: 71px;
 		font-size: 20px;
-	}
-
-	.label-value {
-		width: calc(100% - 71px - 6px);
 	}
 }

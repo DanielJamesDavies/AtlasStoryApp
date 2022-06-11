@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
 	const story = await Story.findById(req.params.id)
 		.exec()
 		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
+			return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 		});
 	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 	let newStory = JSON.parse(JSON.stringify(story));
@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
 	const owner = await User.findById(story.owner)
 		.exec()
 		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
+			return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 		});
 	if (!owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 	newStory.data.owner = { _id: owner._id, username: owner.username, nickname: owner?.data?.nickname };

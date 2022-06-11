@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
 	const oldCharacterType = await CharacterType.findById(req.params.id)
 		.exec()
 		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Character Type Not Found" }] });
+			return res.status(200).send({ errors: [{ message: "Character Type Not Found" }] });
 		});
 	if (!oldCharacterType) return res.status(200).send({ errors: [{ message: "Character Type Not Found" }] });
 

@@ -19,6 +19,7 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 	const [character, setCharacter] = useState(false);
 
 	const [characterTypes, setCharacterTypes] = useState([]);
+	const [groups, setGroups] = useState([]);
 
 	const [characterOverviewBackground, setCharacterOverviewBackground] = useState(false);
 	const [characterGalleryImages, setCharacterGalleryImages] = useState([]);
@@ -55,6 +56,7 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 
 			getStoryIcon(newStory?.data?.icon);
 			getCharacterTypes(newStory?.data?.characterTypes);
+			getGroups(newStory?.data?.groups);
 
 			let newCharacter = await getCharacter();
 			if (!newCharacter) return;
@@ -119,6 +121,21 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 			return newCharacterTypes;
 		}
 
+		async function getGroups(groupIDs) {
+			if (!groupIDs) return;
+			let newGroups = await Promise.all(
+				groupIDs.map(async (groupID) => {
+					const group_response = await APIRequest("/group/" + groupID, "GET");
+					if (group_response?.errors || !group_response?.data?.group) return false;
+					return { _id: group_response.data.group._id, data: { name: group_response.data.group.data.name } };
+				})
+			);
+			newGroups = newGroups.filter((e) => e !== false);
+
+			setGroups(newGroups);
+			return newGroups;
+		}
+
 		async function getCharacterOverviewBackground(overviewBackgroundID) {
 			if (!overviewBackgroundID) return;
 			const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
@@ -162,6 +179,7 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 		character,
 		setCharacter,
 		setCharacterTypes,
+		setGroups,
 		setCharacterOverviewBackground,
 		setCharacterGalleryImages,
 		changeAccentColour,
@@ -195,6 +213,8 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 				setCharacter,
 				characterTypes,
 				setCharacterTypes,
+				groups,
+				setGroups,
 				characterOverviewBackground,
 				setCharacterOverviewBackground,
 				characterGalleryImages,

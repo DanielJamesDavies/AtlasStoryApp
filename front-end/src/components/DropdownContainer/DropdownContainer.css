@@ -12,6 +12,7 @@
 	border-radius: 4px;
 	background: var(--grey2);
 	color: #fff;
+	min-width: 110px;
 }
 
 .dropdown-container-seamless .dropdown-value-container {
@@ -27,6 +28,7 @@
 }
 
 .dropdown-value-arrow {
+	margin-left: auto;
 	transition: transform 0.3s;
 }
 
@@ -36,7 +38,7 @@
 
 .dropdown-options-container {
 	position: absolute;
-	z-index: 2;
+	z-index: 120;
 	top: 32px;
 	max-height: 0;
 	overflow: hidden;
@@ -71,6 +73,7 @@
 	color: #fff;
 	font-size: 13px;
 	text-align: left;
+	word-wrap: break-word;
 	word-break: break-all;
 	cursor: pointer;
 	transition: background 0.2s;
@@ -92,8 +95,8 @@
 	z-index: 1;
 	display: block;
 	content: "";
-	width: 100vw;
-	height: 100vh;
+	width: 400vw;
+	height: 400vh;
 	background: transparent;
 }
 

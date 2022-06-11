@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
 	const oldStory = await Story.findById(req.body.story_id)
 		.exec()
 		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
+			return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 		});
 	if (!oldStory) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 

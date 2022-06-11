@@ -3,6 +3,7 @@ const Joi = require("joi");
 
 const Character = require("../../models/Character");
 const Group = require("../../models/Group");
+const Story = require("../../models/Story");
 
 module.exports = async (req, res) => {
 	req.body.url = req.body.url.split(" ").join("-");
@@ -39,6 +40,18 @@ module.exports = async (req, res) => {
 		await group.save();
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Character Could Not Be Added to Group" }] });
+	}
+
+	if (req?.body?.isPrimaryCharacter === true) {
+		const story = await Story.findById(req.params.id)
+			.exec()
+			.catch(() => {});
+		if (story) {
+			story.data.primaryCharacters.push(character._id);
+			try {
+				await story.save();
+			} catch (error) {}
+		}
 	}
 
 	return res.status(200).send({ message: "Success", data: { characterURL: character.url } });

@@ -15,6 +15,7 @@ const GroupSchema = mongoose.Schema({
 			name: {
 				type: String,
 				require: true,
+				default: "",
 			},
 			characters: {
 				type: [
@@ -26,9 +27,11 @@ const GroupSchema = mongoose.Schema({
 					},
 				],
 				require: true,
+				default: [],
 			},
 		},
 		require: true,
+		default: {},
 	},
 });
 

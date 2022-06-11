@@ -24,7 +24,7 @@ export const SettingsURLLogic = () => {
 	const [url, setUrl] = useState(character.url);
 	useEffect(() => {
 		setUrl(character_url);
-	}, [character_url]);
+	}, [story_url, character_url]);
 
 	function changeUrl(e) {
 		setUrl(e.target.value);

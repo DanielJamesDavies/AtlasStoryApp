@@ -20,7 +20,7 @@ export const LabelContainerLogic = ({ label }) => {
 	useLayoutEffect(() => {
 		function updateLabelValueStyle() {
 			if (!labelLabelRef?.current?.clientWidth) return setLabelValueStyle({});
-			setLabelValueStyle({ width: "calc(100% - " + labelLabelRef?.current?.clientWidth + ")" });
+			setLabelValueStyle({ width: "calc(100% - " + labelLabelRef?.current?.clientWidth + "px - 8px)" });
 		}
 		updateLabelValueStyle();
 		window.addEventListener("resize", updateLabelValueStyle);
