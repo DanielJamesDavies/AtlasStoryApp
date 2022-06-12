@@ -1,6 +1,5 @@
 const CharacterType = require("../../models/CharacterType");
 const Story = require("../../models/Story");
-const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 module.exports = async (req, res) => {
 	const characterType = await CharacterType.findById(req.params.id)

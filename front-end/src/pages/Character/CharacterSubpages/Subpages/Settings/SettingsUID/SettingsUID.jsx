@@ -7,7 +7,7 @@ import { TextInput } from "../../../../../../components/TextInput/TextInput";
 import { ErrorMessage } from "../../../../../../components/ErrorMessage/ErrorMessage";
 
 // Logic
-import { SettingsURLLogic } from "./SettingsURLLogic";
+import { SettingsUIDLogic } from "./SettingsUIDLogic";
 
 // Context
 
@@ -17,18 +17,18 @@ import { SettingsURLLogic } from "./SettingsURLLogic";
 
 // Assets
 
-export const SettingsURL = () => {
-	const { isAuthorizedToEdit, url, changeUrl, revertUrl, saveUrl, errors } = SettingsURLLogic();
+export const SettingsUID = () => {
+	const { isAuthorizedToEdit, uid, changeUid, revertUid, saveUid, errors } = SettingsUIDLogic();
 
 	return (
-		<LabelContainer label='URL'>
-			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertUrl} onSave={saveUrl}>
+		<LabelContainer label='Unique Identifier'>
+			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertUid} onSave={saveUid}>
 				<div>
-					<div>{url}</div>
+					<div>{uid}</div>
 					<ErrorMessage errors={errors} />
 				</div>
 				<div>
-					<TextInput seamless={true} value={url} onChange={changeUrl} autoResize={true} />
+					<TextInput seamless={true} value={uid} onChange={changeUid} autoResize={true} />
 					<ErrorMessage errors={errors} />
 				</div>
 			</EditableContainer>

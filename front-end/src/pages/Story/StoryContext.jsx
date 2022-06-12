@@ -6,7 +6,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const StoryContext = createContext();
 
-const StoryProvider = ({ children, story_url }) => {
+const StoryProvider = ({ children, story_uid }) => {
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
 	const [story, setStory] = useState(false);
 	const [members, setMembers] = useState([]);
@@ -22,12 +22,12 @@ const StoryProvider = ({ children, story_url }) => {
 
 	useEffect(() => {
 		async function getStory() {
-			if (!story_url) return setStory(false);
-			if (story.url === story_url) return;
+			if (!story_uid) return setStory(false);
+			if (story.uid === story_uid) return;
 
 			// Story Data
-			const response = await APIRequest("/story?url=" + story_url, "GET");
-			if (!response?.data?.story || response?.error || story_url !== response.data.story.url) {
+			const response = await APIRequest("/story?uid=" + story_uid, "GET");
+			if (!response?.data?.story || response?.error || story_uid !== response.data.story.uid) {
 				setStory(false);
 				setIcon(false);
 				setBanner(false);
@@ -129,7 +129,7 @@ const StoryProvider = ({ children, story_url }) => {
 		};
 	}, [
 		location,
-		story_url,
+		story_uid,
 		APIRequest,
 		story,
 		setStory,

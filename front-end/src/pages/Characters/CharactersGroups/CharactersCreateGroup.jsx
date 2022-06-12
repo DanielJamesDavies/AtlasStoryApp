@@ -18,7 +18,7 @@ import "./CharactersCreateGroup.css";
 // Assets
 
 export const CharactersCreateGroup = () => {
-	const { isDisplayingCreateGroupForm, closeCreateGroupForm, groupName, changeGroupName, groupURL, changeGroupURL, errors, submitCreateGroup } =
+	const { isDisplayingCreateGroupForm, closeCreateGroupForm, groupName, changeGroupName, groupUID, changeGroupUID, errors, submitCreateGroup } =
 		CharactersCreateGroupLogic();
 
 	if (!isDisplayingCreateGroupForm) return null;
@@ -31,8 +31,8 @@ export const CharactersCreateGroup = () => {
 					<ErrorMessage errors={errors} attribute='name' />
 				</div>
 				<div className='characters-create-group-form-input-container'>
-					<TextInput label='URL' value={groupURL} onChange={changeGroupURL} isDark={true} />
-					<ErrorMessage errors={errors} attribute='url' />
+					<TextInput label='Unique Identifier' value={groupUID} onChange={changeGroupUID} isDark={true} />
+					<ErrorMessage errors={errors} attribute='uid' />
 				</div>
 				<ErrorMessage errors={errors} />
 				<div className='characters-create-group-form-submit-container'>

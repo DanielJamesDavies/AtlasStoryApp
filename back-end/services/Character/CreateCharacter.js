@@ -6,7 +6,7 @@ const Group = require("../../models/Group");
 const Story = require("../../models/Story");
 
 module.exports = async (req, res) => {
-	req.body.url = req.body.url.split(" ").join("-");
+	req.body.uid = req.body.uid.split(" ").join("-");
 
 	let validateCharacterResult = await validateCharacter(req.body);
 	if (validateCharacterResult?.errors?.length > 0) return res.status(200).send({ errors: validateCharacterResult.errors });
@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
 		_id: new mongoose.Types.ObjectId(),
 		story_id: req.body.story_id,
 		group_id: req.body.group_id,
-		url: req.body.url,
+		uid: req.body.uid,
 		isPrimaryCharacter: req.body.isPrimaryCharacter,
 		data: { name: req.body.name },
 	});
@@ -54,7 +54,7 @@ module.exports = async (req, res) => {
 		}
 	}
 
-	return res.status(200).send({ message: "Success", data: { characterURL: character.url } });
+	return res.status(200).send({ message: "Success", data: { character_uid: character.uid } });
 };
 
 async function validateCharacter(character) {
@@ -63,7 +63,7 @@ async function validateCharacter(character) {
 	const characterSchema = Joi.object({
 		story_id: Joi.string().required(),
 		group_id: Joi.string().required(),
-		url: Joi.string().min(1).max(64).required(),
+		uid: Joi.string().min(1).max(64).required(),
 		name: Joi.string().min(1).max(64).required(),
 		isPrimaryCharacter: Joi.boolean().required(),
 	});
@@ -74,7 +74,7 @@ async function validateCharacter(character) {
 		let characterKeysData = [
 			{ key: "story_id", name: "Story ID", indefiniteArticle: "a" },
 			{ key: "group_id", name: "Group ID", indefiniteArticle: "a" },
-			{ key: "url", name: "URL", indefiniteArticle: "a" },
+			{ key: "uid", name: "UID", indefiniteArticle: "a" },
 			{ key: "name", name: "Name", indefiniteArticle: "a" },
 			{ key: "isPrimaryCharacter", name: "Primary Character", indefiniteArticle: "a" },
 		];
@@ -118,8 +118,8 @@ async function validateCharacter(character) {
 		);
 	}
 
-	const urlUsed = await Character.findOne({ url: character.url, story_id: character.story_id }).exec();
-	if (urlUsed) errors.push({ attribute: "url", message: "This URL is being used by another character. Please enter a different URL" });
+	const uidUsed = await Character.findOne({ uid: character.uid, story_id: character.story_id }).exec();
+	if (uidUsed) errors.push({ attribute: "uid", message: "This UID is being used by another character. Please enter a different UID" });
 
 	return { errors };
 }

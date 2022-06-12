@@ -2,7 +2,7 @@ const CharacterType = require("../../models/CharacterType");
 const Story = require("../../models/Story");
 
 module.exports = async (req, res) => {
-	if (req.query?.story_id || req.query?.story_url) {
+	if (req.query?.story_id || req.query?.story_uid) {
 		let story = false;
 
 		if (req.query?.story_id) {
@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
 					res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 				});
 		} else {
-			story = await Story.findOne({ url: req.query.story_url })
+			story = await Story.findOne({ uid: req.query.story_uid })
 				.exec()
 				.catch(() => {
 					res.status(200).send({ errors: [{ message: "Story Not Found" }] });
@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
 		);
 		characterTypes = characterTypes.filter((e) => e !== false);
 
-		return res.status(200).send({ message: "Success", data: { characterTypes, story_url: req.query.story_url } });
+		return res.status(200).send({ message: "Success", data: { characterTypes, story_uid: req.query.story_uid } });
 	}
 
 	return res.status(200).send({ errors: [{ message: "Unknown Request" }] });

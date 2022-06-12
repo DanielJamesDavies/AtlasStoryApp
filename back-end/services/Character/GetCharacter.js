@@ -1,8 +1,8 @@
 const Character = require("../../models/Character");
 
 module.exports = async (req, res) => {
-	if (req.query?.url && req.query?.story_id) {
-		let character = await Character.findOne({ url: req.query.url, story_id: req.query.story_id })
+	if (req.query?.uid && req.query?.story_id) {
+		let character = await Character.findOne({ uid: req.query.uid, story_id: req.query.story_id })
 			.exec()
 			.catch(() => {
 				res.status(200).send({ errors: [{ message: "Character Not Found" }] });

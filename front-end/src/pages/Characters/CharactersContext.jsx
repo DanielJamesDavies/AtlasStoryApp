@@ -6,7 +6,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const CharactersContext = createContext();
 
-const CharactersProvider = ({ children, story_url }) => {
+const CharactersProvider = ({ children, story_uid }) => {
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
@@ -28,12 +28,12 @@ const CharactersProvider = ({ children, story_url }) => {
 
 	useEffect(() => {
 		async function getInitial() {
-			if (!story_url) {
+			if (!story_uid) {
 				setStory(false);
 				setGroups(false);
 				return;
 			}
-			if (story.url === story_url) return;
+			if (story.uid === story_uid) return;
 
 			let newStory = await getStory();
 			if (!newStory) return;
@@ -69,8 +69,8 @@ const CharactersProvider = ({ children, story_url }) => {
 		}
 
 		async function getStory() {
-			const story_response = await APIRequest("/story?url=" + story_url, "GET");
-			if (!story_response?.data?.story || story_response?.error || story_response?.data?.story?.url !== story_url) {
+			const story_response = await APIRequest("/story?uid=" + story_uid, "GET");
+			if (!story_response?.data?.story || story_response?.error || story_response?.data?.story?.uid !== story_uid) {
 				setStateToDefault();
 				return false;
 			}
@@ -166,7 +166,7 @@ const CharactersProvider = ({ children, story_url }) => {
 		return () => clearTimeout(reloadTimer);
 	}, [
 		location,
-		story_url,
+		story_uid,
 		APIRequest,
 		setIsAuthorizedToEdit,
 		story,

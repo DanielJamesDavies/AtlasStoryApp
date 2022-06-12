@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const StorySchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
-	url: {
+	uid: {
 		type: String,
 		require: true,
 		min: 1,

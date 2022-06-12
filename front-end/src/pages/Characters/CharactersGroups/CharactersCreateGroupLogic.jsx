@@ -28,9 +28,9 @@ export const CharactersCreateGroupLogic = () => {
 		setGroupName(e.target.value);
 	}
 
-	const [groupURL, setGroupURL] = useState("");
-	function changeGroupURL(e) {
-		setGroupURL(e.target.value);
+	const [groupUID, setGroupUID] = useState("");
+	function changeGroupUID(e) {
+		setGroupUID(e.target.value);
 	}
 
 	const { APIRequest } = useContext(APIContext);
@@ -44,21 +44,12 @@ export const CharactersCreateGroupLogic = () => {
 		const response = await APIRequest("/group", "POST", {
 			story_id: currStory._id,
 			name: JSON.parse(JSON.stringify(groupName)),
-			url: JSON.parse(JSON.stringify(groupURL)),
+			uid: JSON.parse(JSON.stringify(groupUID)),
 		});
 		if (!response) return;
 		if (response?.errors) return setErrors(response.errors);
-		if (currStory?.url && response?.data?.groupURL) changeLocation("/s/" + currStory.url + "/g/" + response.data.groupURL);
+		if (currStory?.uid && response?.data?.group_uid) changeLocation("/s/" + currStory.uid + "/g/" + response.data.group_uid);
 	}
 
-	return {
-		isDisplayingCreateGroupForm,
-		closeCreateGroupForm,
-		groupName,
-		changeGroupName,
-		groupURL,
-		changeGroupURL,
-		errors,
-		submitCreateGroup,
-	};
+	return { isDisplayingCreateGroupForm, closeCreateGroupForm, groupName, changeGroupName, groupUID, changeGroupUID, errors, submitCreateGroup };
 };

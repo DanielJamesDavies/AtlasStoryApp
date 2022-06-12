@@ -1,7 +1,7 @@
 // Packages
 
 // Components
-import { SettingsURL } from "./SettingsURL/SettingsURL";
+import { SettingsUID } from "./SettingsUID/SettingsUID";
 import { SettingsGroup } from "./SettingsGroup/SettingsGroup";
 import { SettingsColour } from "./SettingsColour/SettingsColour";
 
@@ -20,7 +20,7 @@ export const Settings = () => {
 	return (
 		<div className='character-subpage-settings'>
 			<div className='character-subpage-settings-section-1'>
-				<SettingsURL />
+				<SettingsUID />
 				<SettingsGroup />
 				<SettingsColour />
 				{/* Primary Character */}

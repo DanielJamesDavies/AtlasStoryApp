@@ -16,7 +16,7 @@ import { APIContext } from "../../../../../../context/APIContext";
 // Assets
 
 export const SettingsGroupLogic = () => {
-	const { story_url, character_url, isAuthorizedToEdit, story, character, groups } = useContext(CharacterContext);
+	const { story_uid, character_uid, isAuthorizedToEdit, story, character, groups } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 
 	const [group, setGroup] = useState(character.group);
@@ -27,7 +27,7 @@ export const SettingsGroupLogic = () => {
 			return {};
 		}
 		setGroup(getGroup());
-	}, [story_url, character_url, groups, character]);
+	}, [story_uid, character_uid, groups, character]);
 
 	function changeGroup(e) {
 		const newGroup = groups[e];

@@ -14,9 +14,9 @@ import CharacterProvider from "./CharacterContext";
 
 // Assets
 
-export const CharacterContainer = ({ story_url, character_url }) => {
+export const CharacterContainer = ({ story_uid, character_uid }) => {
 	return (
-		<CharacterProvider story_url={story_url} character_url={character_url}>
+		<CharacterProvider story_uid={story_uid} character_uid={character_uid}>
 			<Character />
 		</CharacterProvider>
 	);

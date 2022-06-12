@@ -9,12 +9,12 @@ module.exports = async (req, res) => {
 	let validateStoryResult = validateStory(req.body);
 	if (validateStoryResult?.errors) return res.status(200).send({ errors: validateStoryResult.errors });
 
-	// Check if URL is used
-	const isURLUsed = await Story.findOne({ url: req.body.url }).exec();
-	if (isURLUsed) {
+	// Check if UID is used
+	const isUIDUsed = await Story.findOne({ uid: req.body.uid }).exec();
+	if (isUIDUsed) {
 		return res
 			.status(200)
-			.send({ errors: [{ attribute: "url", message: "This URL is being used by another story. Please enter a different URL" }] });
+			.send({ errors: [{ attribute: "uid", message: "This UID is being used by another story. Please enter a different UID" }] });
 	}
 
 	try {
@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
 	// New Story
 	const story = new Story({
 		_id: new mongoose.Types.ObjectId(),
-		url: req.body.url,
+		uid: req.body.uid,
 		owner: user_id,
 		data: {
 			title: req.body.title,
@@ -64,22 +64,22 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Owner Could Not Be Saved" }] });
 	}
 
-	return res.status(200).send({ message: "Success", data: { storyURL: story.url } });
+	return res.status(200).send({ message: "Success", data: { story_uid: story.uid } });
 };
 
 function validateStory(story) {
 	const storySchema = Joi.object({
-		url: Joi.string().min(1).max(64).required(),
+		uid: Joi.string().min(1).max(64).required(),
 		title: Joi.string().min(1).max(64).required(),
 		isPrivate: Joi.boolean().required(),
 	});
 
-	const storyValidationError = storySchema.validate({ url: story.url, title: story.title, isPrivate: story.isPrivate }, { abortEarly: false })
+	const storyValidationError = storySchema.validate({ uid: story.uid, title: story.title, isPrivate: story.isPrivate }, { abortEarly: false })
 		?.error?.details;
 
 	if (storyValidationError) {
 		let storyKeysData = [
-			{ key: "url", name: "URL", indefiniteArticle: "a" },
+			{ key: "uid", name: "UID", indefiniteArticle: "a" },
 			{ key: "title", name: "Title", indefiniteArticle: "a" },
 			{ key: "Private Account", name: "Email", indefiniteArticle: "an" },
 		];

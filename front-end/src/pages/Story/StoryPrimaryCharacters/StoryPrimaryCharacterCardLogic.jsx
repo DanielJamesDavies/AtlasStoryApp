@@ -31,7 +31,7 @@ export const StoryPrimaryCharacterCardLogic = ({ character }) => {
 	}, [character, primaryCharactersCardBackgrounds, characterTypes, setCardBackground, setCharacterType]);
 
 	function navigateToCharacter() {
-		changeLocation("s/" + story.url + "/c/" + character.url);
+		if (story?.uid && character?.uid) changeLocation("s/" + story.uid + "/c/" + character.uid);
 	}
 
 	// Character Colour Styles

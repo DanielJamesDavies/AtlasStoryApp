@@ -2,9 +2,9 @@ const jwt_decode = require("jwt-decode");
 const Story = require("../../models/Story");
 
 module.exports = async (req, res) => {
-	if (!req.query.url) return;
+	if (!req.query.uid) return;
 
-	let story = await Story.findOne({ url: req.query.url })
+	let story = await Story.findOne({ uid: req.query.uid })
 		.exec()
 		.catch(() => {
 			res.status(200).send({ errors: [{ message: "Story Not Found" }] });

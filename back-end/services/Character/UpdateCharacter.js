@@ -16,23 +16,23 @@ module.exports = async (req, res) => {
 	let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
 
 	switch (JSON.stringify(req.body.path)) {
-		case JSON.stringify(["url"]):
-			if (!req?.body?.newValue) return res.status(200).send({ errors: [{ attribute: "url", message: "Invalid Arguments Given" }] });
+		case JSON.stringify(["uid"]):
+			if (!req?.body?.newValue) return res.status(200).send({ errors: [{ attribute: "uid", message: "Invalid Arguments Given" }] });
 
-			const newURL = req.body.newValue.split(" ").join("-");
+			const newUID = req.body.newValue.split(" ").join("-");
 
-			if (newURL.length < 1)
-				return res.status(200).send({ errors: [{ attribute: "url", message: "This URL is too short. Please enter a different URL." }] });
+			if (newUID.length < 1)
+				return res.status(200).send({ errors: [{ attribute: "uid", message: "This UID is too short. Please enter a different UID." }] });
 
-			const urlUsed = await Character.findOne({ url: newURL, story_id: req.body.story_id }).exec();
-			if (urlUsed)
+			const uidUsed = await Character.findOne({ uid: newUID, story_id: req.body.story_id }).exec();
+			if (uidUsed)
 				return res
 					.status(200)
-					.send({ errors: [{ attribute: "url", message: "This URL is being used by another character. Please enter a different URL" }] });
+					.send({ errors: [{ attribute: "uid", message: "This UID is being used by another character. Please enter a different UID" }] });
 
-			newCharacter.url = newURL;
+			newCharacter.uid = newUID;
 		case JSON.stringify(["group_id"]):
-			if (!req?.body?.newValue) return res.status(200).send({ errors: [{ attribute: "url", message: "Invalid Arguments Given" }] });
+			if (!req?.body?.newValue) return res.status(200).send({ errors: [{ attribute: "group_id", message: "Invalid Arguments Given" }] });
 
 			const addCharacterToGroupResult = await addCharacterToGroup(req.params.id, req.body.newValue);
 			if (addCharacterToGroupResult?.errors) return res.status(200).send({ errors: addCharacterToGroupResult?.errors });

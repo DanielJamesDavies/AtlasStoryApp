@@ -35,7 +35,7 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 	}, [characterID, characters, charactersCardBackgrounds, characterTypes, setCharacter, setCardBackground, setCharacterType]);
 
 	function navigateToCharacter() {
-		if (story?.url && character?.url) changeLocation("s/" + story.url + "/c/" + character.url);
+		if (story?.uid && character?.uid) changeLocation("s/" + story.uid + "/c/" + character.uid);
 	}
 
 	// Character Colour Styles

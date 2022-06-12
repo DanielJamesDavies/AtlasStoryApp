@@ -14,9 +14,9 @@ import SubstoriesProvider from "./SubstoriesContext";
 
 // Assets
 
-export const SubstoriesContainer = ({ story_url }) => {
+export const SubstoriesContainer = ({ story_uid }) => {
 	return (
-		<SubstoriesProvider story_url={story_url}>
+		<SubstoriesProvider story_uid={story_uid}>
 			<Substories />
 		</SubstoriesProvider>
 	);

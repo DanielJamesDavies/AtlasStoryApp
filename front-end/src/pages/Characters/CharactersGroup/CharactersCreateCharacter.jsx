@@ -24,8 +24,8 @@ export const CharactersCreateCharacter = () => {
 		closeCreateCharacterForm,
 		characterName,
 		changeCharacterName,
-		characterURL,
-		changeCharacterURL,
+		characterUID,
+		changeCharacterUID,
 		characterIsPrimaryCharacter,
 		toggleCharacterIsPrimaryCharacter,
 		errors,
@@ -42,8 +42,8 @@ export const CharactersCreateCharacter = () => {
 					<ErrorMessage errors={errors} attribute='name' />
 				</div>
 				<div className='characters-create-character-form-input-container'>
-					<TextInput label='URL' value={characterURL} onChange={changeCharacterURL} isDark={true} />
-					<ErrorMessage errors={errors} attribute='url' />
+					<TextInput label='Unique Identifier' value={characterUID} onChange={changeCharacterUID} isDark={true} />
+					<ErrorMessage errors={errors} attribute='uid' />
 				</div>
 				<div className='user-stories-create-story-form-input-container'>
 					<ToggleInput label='Primary Character' value={characterIsPrimaryCharacter} onToggle={toggleCharacterIsPrimaryCharacter} />

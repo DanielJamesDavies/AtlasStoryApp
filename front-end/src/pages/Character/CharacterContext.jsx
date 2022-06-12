@@ -6,7 +6,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const CharacterContext = createContext();
 
-const CharacterProvider = ({ children, story_url, character_url }) => {
+const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
@@ -44,11 +44,11 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 
 	useEffect(() => {
 		async function getInitial() {
-			if (failure || !story_url || !character_url) {
+			if (failure || !story_uid || !character_uid) {
 				setStateToDefault();
 				return;
 			}
-			if (story.url === story_url && character.url === character_url) return;
+			if (story.uid === story_uid && character.uid === character_uid) return;
 
 			let newStory = await getStory();
 			if (!newStory) return;
@@ -79,8 +79,8 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 		}
 
 		async function getStory() {
-			const story_response = await APIRequest("/story?url=" + story_url, "GET");
-			if (!story_response?.data?.story || story_response?.error || story_response?.data?.story?.url !== story_url) {
+			const story_response = await APIRequest("/story?uid=" + story_uid, "GET");
+			if (!story_response?.data?.story || story_response?.error || story_response?.data?.story?.uid !== story_uid) {
 				setStateToDefault();
 				return false;
 			}
@@ -100,8 +100,8 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 
 		async function getCharacter(story_id) {
 			if (!story_id) return;
-			const character_response = await APIRequest("/character?url=" + character_url + "&story_id=" + story_id, "GET");
-			if (!character_response?.data?.character || character_response?.error || character_response?.data?.character?.url !== character_url) {
+			const character_response = await APIRequest("/character?uid=" + character_uid + "&story_id=" + story_id, "GET");
+			if (!character_response?.data?.character || character_response?.error || character_response?.data?.character?.uid !== character_uid) {
 				setStateToDefault();
 				setFailure(true);
 				return false;
@@ -173,8 +173,8 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 		return () => clearTimeout(reloadTimer);
 	}, [
 		location,
-		story_url,
-		character_url,
+		story_uid,
+		character_uid,
 		APIRequest,
 		failure,
 		setFailure,
@@ -209,8 +209,8 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 	return (
 		<CharacterContext.Provider
 			value={{
-				story_url,
-				character_url,
+				story_uid,
+				character_uid,
 				isAuthorizedToEdit,
 				story,
 				setStory,

@@ -14,9 +14,9 @@ import StoryProvider from "./StoryContext";
 
 // Assets
 
-export const StoryContainer = ({ story_url }) => {
+export const StoryContainer = ({ story_uid }) => {
 	return (
-		<StoryProvider story_url={story_url}>
+		<StoryProvider story_uid={story_uid}>
 			<Story />
 		</StoryProvider>
 	);

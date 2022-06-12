@@ -14,9 +14,9 @@ import WorldProvider from "./WorldContext";
 
 // Assets
 
-export const WorldContainer = ({ story_url }) => {
+export const WorldContainer = ({ story_uid }) => {
 	return (
-		<WorldProvider story_url={story_url}>
+		<WorldProvider story_uid={story_uid}>
 			<World />
 		</WorldProvider>
 	);

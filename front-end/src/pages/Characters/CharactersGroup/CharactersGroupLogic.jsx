@@ -20,7 +20,7 @@ export const CharactersGroupLogic = () => {
 	const { isAuthorizedToEdit, story, group, setIsDisplayingCreateCharacterForm, toggleIsReorderingCharacters } = useContext(CharactersContext);
 
 	function navigateToGroup() {
-		if (story?.url && group?.url) changeLocation("s/" + story.url + "/g/" + group.url);
+		if (story?.uid && group?.uid) changeLocation("s/" + story.uid + "/g/" + group.uid);
 	}
 
 	function openCreateCharacterForm() {

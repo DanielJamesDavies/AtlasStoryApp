@@ -28,9 +28,9 @@ export const CharactersCreateCharacterLogic = () => {
 		setCharacterName(e.target.value);
 	}
 
-	const [characterURL, setCharacterURL] = useState("");
-	function changeCharacterURL(e) {
-		setCharacterURL(e.target.value);
+	const [characterUID, setCharacterUID] = useState("");
+	function changeCharacterUID(e) {
+		setCharacterUID(e.target.value);
 	}
 
 	const [characterIsPrimaryCharacter, setCharacterIsPrimaryCharacter] = useState(false);
@@ -51,12 +51,12 @@ export const CharactersCreateCharacterLogic = () => {
 			story_id: currStory._id,
 			group_id: currGroup?._id,
 			name: JSON.parse(JSON.stringify(characterName)),
-			url: JSON.parse(JSON.stringify(characterURL)),
+			uid: JSON.parse(JSON.stringify(characterUID)),
 			isPrimaryCharacter: JSON.parse(JSON.stringify(characterIsPrimaryCharacter)),
 		});
 		if (!response) return;
 		if (response?.errors) return setErrors(response.errors);
-		if (currStory?.url && response?.data?.characterURL) changeLocation("/s/" + currStory.url + "/c/" + response.data.characterURL);
+		if (currStory?.uid && response?.data?.character_uid) changeLocation("/s/" + currStory.uid + "/c/" + response.data.character_uid);
 	}
 
 	return {
@@ -64,8 +64,8 @@ export const CharactersCreateCharacterLogic = () => {
 		closeCreateCharacterForm,
 		characterName,
 		changeCharacterName,
-		characterURL,
-		changeCharacterURL,
+		characterUID,
+		changeCharacterUID,
 		characterIsPrimaryCharacter,
 		toggleCharacterIsPrimaryCharacter,
 		errors,

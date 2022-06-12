@@ -78,21 +78,21 @@ export const RoutesLogic = () => {
 					if (locationSplit.length > 2) {
 						switch (locationSplit[2]) {
 							case "characters":
-								setRenderComponent(<CharactersContainer story_url={locationSplit[1]} />);
+								setRenderComponent(<CharactersContainer story_uid={locationSplit[1]} />);
 								break;
 							case "c":
 								if (locationSplit.length > 3)
-									setRenderComponent(<CharacterContainer story_url={locationSplit[1]} character_url={locationSplit[3]} />);
+									setRenderComponent(<CharacterContainer story_uid={locationSplit[1]} character_uid={locationSplit[3]} />);
 								break;
 							case "g":
 								break;
 							case "substories":
-								setRenderComponent(<SubstoriesContainer story_url={locationSplit[1]} />);
+								setRenderComponent(<SubstoriesContainer story_uid={locationSplit[1]} />);
 								break;
 							case "s":
 								break;
 							case "world":
-								setRenderComponent(<WorldContainer story_url={locationSplit[1]} />);
+								setRenderComponent(<WorldContainer story_uid={locationSplit[1]} />);
 								break;
 							case "w":
 								break;
@@ -100,7 +100,7 @@ export const RoutesLogic = () => {
 								break;
 						}
 					} else {
-						setRenderComponent(<StoryContainer story_url={locationSplit[1]} />);
+						setRenderComponent(<StoryContainer story_uid={locationSplit[1]} />);
 					}
 					break;
 				case "search":

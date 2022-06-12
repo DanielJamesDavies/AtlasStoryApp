@@ -33,7 +33,7 @@ export const UserStoryItemLogic = ({ storyID }) => {
 	const { changeLocation } = useContext(RoutesContext);
 
 	function navigateToStory() {
-		changeLocation("/s/" + story.url);
+		changeLocation("/s/" + story.uid);
 	}
 
 	function navigateToOwner(e) {

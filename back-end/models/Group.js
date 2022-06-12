@@ -6,7 +6,7 @@ const GroupSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		require: true,
 	},
-	url: {
+	uid: {
 		type: String,
 		require: true,
 	},

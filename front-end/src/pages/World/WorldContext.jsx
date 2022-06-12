@@ -6,7 +6,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const WorldContext = createContext();
 
-const WorldProvider = ({ children, story_url }) => {
+const WorldProvider = ({ children, story_uid }) => {
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
 	const [story, setStory] = useState(false);
 	const [storyIcon, setStoryIcon] = useState(false);
@@ -17,15 +17,15 @@ const WorldProvider = ({ children, story_url }) => {
 
 	useEffect(() => {
 		async function getStoryAndWorld() {
-			if (!story_url) {
+			if (!story_uid) {
 				setStory(false);
 				return;
 			}
-			if (story.url === story_url) return;
+			if (story.uid === story_uid) return;
 
 			// Story Data
-			const story_response = await APIRequest("/story?url=" + story_url, "GET");
-			if (!story_response?.data?.story || story_response?.error || story_url !== story_response.data.story.url) {
+			const story_response = await APIRequest("/story?uid=" + story_uid, "GET");
+			if (!story_response?.data?.story || story_response?.error || story_uid !== story_response.data.story.uid) {
 				setStory(false);
 				setStoryIcon(false);
 				setIsAuthorizedToEdit(false);
@@ -55,7 +55,7 @@ const WorldProvider = ({ children, story_url }) => {
 		return () => {
 			clearTimeout(reloadTimer);
 		};
-	}, [location, story_url, APIRequest, setIsAuthorizedToEdit, story, setStory, setStoryIcon, changeAccentColour, changeAccentHoverColour]);
+	}, [location, story_uid, APIRequest, setIsAuthorizedToEdit, story, setStory, setStoryIcon, changeAccentColour, changeAccentHoverColour]);
 
 	return <WorldContext.Provider value={{ isAuthorizedToEdit, story, storyIcon, world, setWorld }}>{children}</WorldContext.Provider>;
 };

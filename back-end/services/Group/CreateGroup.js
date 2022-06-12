@@ -8,18 +8,18 @@ module.exports = async (req, res) => {
 	let validateGroupResult = validateGroup(req.body);
 	if (validateGroupResult?.errors) return res.status(200).send({ errors: validateGroupResult.errors });
 
-	// Check if URL is used
-	const urlUsed = await Group.findOne({ url: req.body.url, story_id: req.body.story_id }).exec();
-	if (urlUsed)
+	// Check if UID is used
+	const uidUsed = await Group.findOne({ uid: req.body.uid, story_id: req.body.story_id }).exec();
+	if (uidUsed)
 		return res
 			.status(200)
-			.send({ errors: [{ attribute: "url", message: "This URL is being used by another group. Please enter a different URL" }] });
+			.send({ errors: [{ attribute: "uid", message: "This UID is being used by another group. Please enter a different UID" }] });
 
 	// New Group
 	const group = new Group({
 		_id: new mongoose.Types.ObjectId(),
 		story_id: req.body.story_id,
-		url: req.body.url,
+		uid: req.body.uid,
 		data: { name: req.body.name, characters: [] },
 	});
 
@@ -44,13 +44,13 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Story Could Not Be Saved" }] });
 	}
 
-	return res.status(200).send({ message: "Success", data: { groupURL: group.url } });
+	return res.status(200).send({ message: "Success", data: { group_uid: group.uid } });
 };
 
 function validateGroup(group) {
 	const groupSchema = Joi.object({
 		story_id: Joi.string().required(),
-		url: Joi.string().min(1).max(64).required(),
+		uid: Joi.string().min(1).max(64).required(),
 		name: Joi.string().min(1).max(64).required(),
 	});
 
@@ -59,7 +59,7 @@ function validateGroup(group) {
 	if (groupValidationError) {
 		let groupKeysData = [
 			{ key: "story_id", name: "Story ID", indefiniteArticle: "a" },
-			{ key: "url", name: "URL", indefiniteArticle: "a" },
+			{ key: "uid", name: "UID", indefiniteArticle: "a" },
 			{ key: "name", name: "Name", indefiniteArticle: "a" },
 		];
 

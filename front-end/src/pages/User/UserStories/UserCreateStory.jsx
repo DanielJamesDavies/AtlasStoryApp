@@ -24,8 +24,8 @@ export const UserCreateStory = () => {
 		closeCreateStoryForm,
 		storyTitle,
 		changeStoryTitle,
-		storyURL,
-		changeStoryURL,
+		storyUID,
+		changeStoryUID,
 		storyIsPrivate,
 		toggleStoryIsPrivate,
 		errors,
@@ -42,8 +42,8 @@ export const UserCreateStory = () => {
 					<ErrorMessage errors={errors} attribute='title' />
 				</div>
 				<div className='user-stories-create-story-form-input-container'>
-					<TextInput label='URL' value={storyURL} onChange={changeStoryURL} isDark={true} />
-					<ErrorMessage errors={errors} attribute='url' />
+					<TextInput label='Unique Identifier' value={storyUID} onChange={changeStoryUID} isDark={true} />
+					<ErrorMessage errors={errors} attribute='uid' />
 				</div>
 				<div className='user-stories-create-story-form-input-container'>
 					<ToggleInput label='Private Story' value={storyIsPrivate} onToggle={toggleStoryIsPrivate} />

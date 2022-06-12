@@ -24,17 +24,17 @@ export const UserCreateStoryLogic = () => {
 	}
 
 	const [storyTitle, setStoryTitle] = useState("");
-	const [storyURL, setStoryURL] = useState("");
-	const [storyIsPrivate, setStoryIsPrivate] = useState(false);
 
 	function changeStoryTitle(e) {
 		setStoryTitle(e.target.value);
 	}
 
-	function changeStoryURL(e) {
-		setStoryURL(e.target.value);
+	const [storyUID, setStoryUID] = useState("");
+	function changeStoryUID(e) {
+		setStoryUID(e.target.value);
 	}
 
+	const [storyIsPrivate, setStoryIsPrivate] = useState(false);
 	function toggleStoryIsPrivate() {
 		setStoryIsPrivate((oldStoryIsPrivate) => !oldStoryIsPrivate);
 	}
@@ -46,12 +46,12 @@ export const UserCreateStoryLogic = () => {
 	async function submitCreateStory() {
 		const response = await APIRequest("/story", "POST", {
 			title: JSON.parse(JSON.stringify(storyTitle)),
-			url: JSON.parse(JSON.stringify(storyURL)),
+			uid: JSON.parse(JSON.stringify(storyUID)),
 			isPrivate: JSON.parse(JSON.stringify(storyIsPrivate)),
 		});
 		if (!response) return;
 		if (response?.errors) return setErrors(response.errors);
-		if (response?.data?.storyURL) changeLocation("/s/" + response.data.storyURL);
+		if (response?.data?.story_uid) changeLocation("/s/" + response.data.story_uid);
 	}
 
 	return {
@@ -59,8 +59,8 @@ export const UserCreateStoryLogic = () => {
 		closeCreateStoryForm,
 		storyTitle,
 		changeStoryTitle,
-		storyURL,
-		changeStoryURL,
+		storyUID,
+		changeStoryUID,
 		storyIsPrivate,
 		toggleStoryIsPrivate,
 		errors,
