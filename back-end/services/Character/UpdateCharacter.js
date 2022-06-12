@@ -1,5 +1,6 @@
 const Character = require("../../models/Character");
 const Group = require("../../models/Group");
+const Story = require("../../models/Story");
 
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
@@ -42,6 +43,22 @@ module.exports = async (req, res) => {
 
 			newCharacter.group_id = req.body.newValue;
 
+			break;
+		case JSON.stringify(["isPrimaryCharacter"]):
+			if (req.body.newValue) {
+				const addCharacterToStoryPrimaryCharactersResult = await addCharacterToStoryPrimaryCharacters(req.params.id, newCharacter.story_id);
+				if (addCharacterToStoryPrimaryCharactersResult?.errors)
+					return res.status(200).send({ errors: addCharacterToStoryPrimaryCharactersResult?.errors });
+			} else {
+				const removeCharacterFromStoryPrimaryCharactersResult = await removeCharacterFromStoryPrimaryCharacters(
+					req.params.id,
+					newCharacter.story_id
+				);
+				if (removeCharacterFromStoryPrimaryCharactersResult?.errors)
+					return res.status(200).send({ errors: removeCharacterFromStoryPrimaryCharactersResult?.errors });
+			}
+
+			newCharacter.isPrimaryCharacter = req.body.newValue;
 			break;
 		default:
 			newCharacter = ChangeValueInNestedObject(newCharacter, req?.body?.path, req?.body?.newValue);
@@ -94,6 +111,49 @@ async function removeCharacterFromGroup(character_id, group_id) {
 		await Group.findOneAndReplace({ _id: group_id }, newGroup, { upsert: true });
 	} catch (error) {
 		return { errors: [{ message: "Group Could Not Be Saved" }] };
+	}
+
+	return {};
+}
+
+async function addCharacterToStoryPrimaryCharacters(character_id, story_id) {
+	const oldStory = await Story.findById(story_id)
+		.exec()
+		.catch(() => {
+			return { errors: [{ message: "Story Not Found" }] };
+		});
+	if (!oldStory) return { errors: [{ message: "Story Not Found" }] };
+
+	let newStory = JSON.parse(JSON.stringify(oldStory));
+	if (!newStory?.data?.primaryCharacters) newStory.data.primaryCharacters = [];
+	if (newStory.data.primaryCharacters.findIndex((e) => e === character_id) === -1) newStory.data.primaryCharacters.push(character_id);
+
+	try {
+		await Story.findOneAndReplace({ _id: story_id }, newStory, { upsert: true });
+	} catch (error) {
+		return { errors: [{ message: "Story Could Not Be Saved" }] };
+	}
+
+	return {};
+}
+
+async function removeCharacterFromStoryPrimaryCharacters(character_id, story_id) {
+	const oldStory = await Story.findById(story_id)
+		.exec()
+		.catch(() => {
+			return { errors: [{ message: "Story Not Found" }] };
+		});
+	if (!oldStory) return { errors: [{ message: "Story Not Found" }] };
+
+	let newStory = JSON.parse(JSON.stringify(oldStory));
+	if (!newStory?.data?.primaryCharacters) newStory.data.primaryCharacters = [];
+	const characterIndex = newStory.data.primaryCharacters.findIndex((e) => e === character_id);
+	if (characterIndex !== -1) newStory.data.primaryCharacters.splice(characterIndex, 1);
+
+	try {
+		await Story.findOneAndReplace({ _id: story_id }, newStory, { upsert: true });
+	} catch (error) {
+		return { errors: [{ message: "Story Could Not Be Saved" }] };
 	}
 
 	return {};

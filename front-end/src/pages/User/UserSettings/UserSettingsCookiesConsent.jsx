@@ -26,6 +26,7 @@ export const UserSettingsCookiesConsent = () => {
 				label='Allow Cookies'
 				value={cookiesConsent}
 				onToggle={changeCookiesConsentToFalse}
+				enableEdit={true}
 			/>
 			<ErrorMessage errors={errors} attribute='cookiesConsent' />
 			<ErrorMessage errors={errors} />

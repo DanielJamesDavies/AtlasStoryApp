@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
 			const isUsernameUsed = await User.findOne({ username: req.body.newValue })
 				.exec()
 				.catch((error) => {
-					console.log(error);
+					return res.status(200).send({ errors: [{ attribute: "username", message: "This username is being used by another user." }] });
 				});
 			if (isUsernameUsed)
 				return res.status(200).send({ errors: [{ attribute: "username", message: "This username is being used by another user." }] });
@@ -136,9 +136,7 @@ async function validateEmail(email) {
 
 	const isEmailUsed = await User.findOne({ email })
 		.exec()
-		.catch((error) => {
-			console.log(error);
-		});
+		.catch((error) => {});
 	if (isEmailUsed) errors.push({ attribute: "email", message: "This email is being used by another user." });
 
 	return { errors };

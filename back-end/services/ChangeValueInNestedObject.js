@@ -25,7 +25,5 @@ module.exports = (object, path, newValue) => {
 		}
 	}
 
-	console.log(objectUnnested[0]);
-
 	return objectUnnested[0];
 };

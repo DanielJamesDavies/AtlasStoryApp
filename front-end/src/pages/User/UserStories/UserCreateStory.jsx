@@ -53,7 +53,7 @@ export const UserCreateStory = () => {
 					<ErrorMessage errors={errors} attribute='uid' />
 				</div>
 				<div className='user-stories-create-story-form-input-container'>
-					<ToggleInput label='Private Story' value={storyIsPrivate} onToggle={toggleStoryIsPrivate} />
+					<ToggleInput label='Private Story' value={storyIsPrivate} onToggle={toggleStoryIsPrivate} enableEdit={true} />
 					<ErrorMessage errors={errors} attribute='isPrivate' />
 				</div>
 				<ErrorMessage errors={errors} />

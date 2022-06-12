@@ -58,7 +58,12 @@ export const CharactersCreateCharacter = () => {
 					<ErrorMessage errors={errors} attribute='uid' />
 				</div>
 				<div className='user-stories-create-story-form-input-container'>
-					<ToggleInput label='Primary Character' value={characterIsPrimaryCharacter} onToggle={toggleCharacterIsPrimaryCharacter} />
+					<ToggleInput
+						label='Primary Character'
+						value={characterIsPrimaryCharacter}
+						onToggle={toggleCharacterIsPrimaryCharacter}
+						enableEdit={true}
+					/>
 					<ErrorMessage errors={errors} attribute='isPrimaryCharacter' />
 				</div>
 				<ErrorMessage errors={errors} />

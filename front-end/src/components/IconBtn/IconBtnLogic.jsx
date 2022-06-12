@@ -63,7 +63,6 @@ export const IconBtnLogic = ({ className, seamless, size, iconName }) => {
 	useLayoutEffect(() => {
 		function updateLabelPosition() {
 			if (!containerRef?.current || !labelRef?.current) return;
-			console.log();
 			if (containerRef?.current?.offsetLeft + labelRef?.current?.clientWidth > window?.innerWidth) {
 				setLabelStyles({
 					left: -1 * (containerRef?.current?.offsetLeft + labelRef?.current?.clientWidth - window?.innerWidth - 14) + "px",
