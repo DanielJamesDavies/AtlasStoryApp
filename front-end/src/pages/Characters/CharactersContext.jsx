@@ -219,6 +219,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 		<CharactersContext.Provider
 			value={{
 				isAuthorizedToEdit,
+				story_uid,
 				story,
 				setStory,
 				storyIcon,

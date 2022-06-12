@@ -17,20 +17,38 @@ import { RoutesContext } from "../../../context/RoutesContext";
 // Assets
 
 export const CharactersCreateCharacterLogic = () => {
-	const { story, group, isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm } = useContext(CharactersContext);
+	const { story_uid, story, group, isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm } = useContext(CharactersContext);
 
 	function closeCreateCharacterForm() {
 		setIsDisplayingCreateCharacterForm(false);
 	}
 
+	const [characterUIDSuggestions, setCharacterUIDSuggestions] = useState([]);
+
+	function updateCharacterUIDSuggestions(newName) {
+		let newCharacterUIDSuggestions = [];
+
+		newCharacterUIDSuggestions.push(newName.toLowerCase().split(" ").join(""));
+
+		const newNameSplitBySpace = newName.split(" ");
+		if (newNameSplitBySpace.length > 1) newCharacterUIDSuggestions.push(newNameSplitBySpace.join("-").toLowerCase());
+
+		if (newName.toLowerCase() !== newName) newCharacterUIDSuggestions.push(newName.split(" ").join(""));
+
+		if (newNameSplitBySpace.length > 1 && newName.toLowerCase() !== newName) newCharacterUIDSuggestions.push(newNameSplitBySpace.join("-"));
+
+		setCharacterUIDSuggestions(newCharacterUIDSuggestions);
+	}
+
 	const [characterName, setCharacterName] = useState("");
 	function changeCharacterName(e) {
 		setCharacterName(e.target.value);
+		updateCharacterUIDSuggestions(e.target.value);
 	}
 
 	const [characterUID, setCharacterUID] = useState("");
 	function changeCharacterUID(e) {
-		setCharacterUID(e.target.value);
+		setCharacterUID(e.target.value.split(" ").join("-"));
 	}
 
 	const [characterIsPrimaryCharacter, setCharacterIsPrimaryCharacter] = useState(false);
@@ -60,12 +78,14 @@ export const CharactersCreateCharacterLogic = () => {
 	}
 
 	return {
+		story_uid,
 		isDisplayingCreateCharacterForm,
 		closeCreateCharacterForm,
 		characterName,
 		changeCharacterName,
 		characterUID,
 		changeCharacterUID,
+		characterUIDSuggestions,
 		characterIsPrimaryCharacter,
 		toggleCharacterIsPrimaryCharacter,
 		errors,

@@ -23,15 +23,33 @@ export const UserCreateStoryLogic = () => {
 		setIsDisplayingCreateStoryForm(false);
 	}
 
+	const [storyUIDSuggestions, setStoryUIDSuggestions] = useState([]);
+
+	function updateStoryUIDSuggestions(newTitle) {
+		let newStoryUIDSuggestions = [];
+
+		newStoryUIDSuggestions.push(newTitle.toLowerCase().split(" ").join(""));
+
+		const newTitleSplitBySpace = newTitle.split(" ");
+		if (newTitleSplitBySpace.length > 1) newStoryUIDSuggestions.push(newTitleSplitBySpace.join("-").toLowerCase());
+
+		if (newTitle.toLowerCase() !== newTitle) newStoryUIDSuggestions.push(newTitle.split(" ").join(""));
+
+		if (newTitleSplitBySpace.length > 1 && newTitle.toLowerCase() !== newTitle) newStoryUIDSuggestions.push(newTitleSplitBySpace.join("-"));
+
+		setStoryUIDSuggestions(newStoryUIDSuggestions);
+	}
+
 	const [storyTitle, setStoryTitle] = useState("");
 
 	function changeStoryTitle(e) {
 		setStoryTitle(e.target.value);
+		updateStoryUIDSuggestions(e.target.value);
 	}
 
 	const [storyUID, setStoryUID] = useState("");
 	function changeStoryUID(e) {
-		setStoryUID(e.target.value);
+		setStoryUID(e.target.value.split(" ").join("-"));
 	}
 
 	const [storyIsPrivate, setStoryIsPrivate] = useState(false);
@@ -61,6 +79,7 @@ export const UserCreateStoryLogic = () => {
 		changeStoryTitle,
 		storyUID,
 		changeStoryUID,
+		storyUIDSuggestions,
 		storyIsPrivate,
 		toggleStoryIsPrivate,
 		errors,

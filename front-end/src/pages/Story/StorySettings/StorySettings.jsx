@@ -24,7 +24,7 @@ export const StorySettings = () => {
 			<div className='story-settings'>
 				<div className='story-settings-title'>Story Settings</div>
 				<div className='story-settings-section-container'>
-					<div className='story-settings-section-label'>Unique Identifier</div>
+					<div className='story-settings-section-label'>Unique Identifier (UID)</div>
 				</div>
 				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Cover Image</div>

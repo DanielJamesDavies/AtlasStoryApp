@@ -4,6 +4,8 @@
 import { TextInput } from "../../../components/TextInput/TextInput";
 import { ToggleInput } from "../../../components/ToggleInput/ToggleInput";
 import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
+import { SuggestionsMessage } from "../../../components/SuggestionsMessage/SuggestionsMessage";
+import { URLPreviewMessage } from "../../../components/URLPreviewMessage/URLPreviewMessage";
 import { SubmitBtn } from "../../../components/SubmitBtn/SubmitBtn";
 
 // Logic
@@ -20,12 +22,14 @@ import "./CharactersCreateCharacter.css";
 
 export const CharactersCreateCharacter = () => {
 	const {
+		story_uid,
 		isDisplayingCreateCharacterForm,
 		closeCreateCharacterForm,
 		characterName,
 		changeCharacterName,
 		characterUID,
 		changeCharacterUID,
+		characterUIDSuggestions,
 		characterIsPrimaryCharacter,
 		toggleCharacterIsPrimaryCharacter,
 		errors,
@@ -42,7 +46,15 @@ export const CharactersCreateCharacter = () => {
 					<ErrorMessage errors={errors} attribute='name' />
 				</div>
 				<div className='characters-create-character-form-input-container'>
-					<TextInput label='Unique Identifier' value={characterUID} onChange={changeCharacterUID} isDark={true} />
+					<TextInput label='Unique Identifier (UID)' value={characterUID} onChange={changeCharacterUID} isDark={true} />
+					<ErrorMessage errors={errors} attribute='uid' />
+					<SuggestionsMessage suggestions={characterUIDSuggestions} labelContext={"for UID"} />
+					{characterUID.length === 0 ? null : (
+						<URLPreviewMessage
+							path={"s/" + story_uid + "/c/" + characterUID}
+							label='With this UID, your character will be accessable on the following URL:'
+						/>
+					)}
 					<ErrorMessage errors={errors} attribute='uid' />
 				</div>
 				<div className='user-stories-create-story-form-input-container'>
