@@ -24,26 +24,28 @@ export const NavigationBarLogic = () => {
 	}, [location]);
 
 	useEffect(() => {
-		async function getUsername() {
+		async function getInitial() {
+			const user = await getUser();
+			const profilePicture = await getProfilePicture(user?.data?.profilePicture);
+
+			if (user?.username && user.username !== username) setUsername(user.username);
+			setProfilePicture(profilePicture);
+		}
+
+		async function getUser() {
 			const response = await APIRequest("/user/", "GET");
-			if (response?.errors || !response?.data?.user?.username) {
-				setProfilePicture(false);
-				return;
-			}
-			if (response.data.user.username === username) return;
-
-			setUsername(response.data.user.username);
-			getUserProfilePicture(response.data.user?.data?.profilePicture);
+			if (!response || response?.errors) return false;
+			return response?.data?.user;
 		}
 
-		async function getUserProfilePicture(profilePictureID) {
-			if (!profilePictureID) return setProfilePicture(false);
+		async function getProfilePicture(profilePictureID) {
+			if (!profilePictureID) return false;
 			const response = await APIRequest("/image/" + profilePictureID, "GET");
-			if (response?.error || !response?.data?.image) return setProfilePicture(false);
-			setProfilePicture(response.data.image);
+			if (response?.error || !response?.data?.image) return false;
+			return response.data.image;
 		}
 
-		getUsername();
+		getInitial();
 	}, [APIRequest, username, setUsername, setProfilePicture]);
 
 	function navigateToProfile() {

@@ -23,6 +23,7 @@ export const Settings = () => {
 				<SettingsURL />
 				<SettingsGroup />
 				<SettingsColour />
+				{/* Primary Character */}
 				{/* Versions */}
 			</div>
 			<div className='character-subpage-settings-section-2'>

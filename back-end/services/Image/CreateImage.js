@@ -2,7 +2,12 @@ const mongoose = require("mongoose");
 
 const Image = require("../../models/Image");
 
+const validateImage = require("./validateImage");
+
 module.exports = async (req, res) => {
+	const imageValidationResult = validateImage(req.body.image);
+	if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
+
 	const image = new Image({
 		_id: new mongoose.Types.ObjectId(),
 		image: req.body.image,

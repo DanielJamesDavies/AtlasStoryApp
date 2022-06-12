@@ -1,9 +1,14 @@
 const Image = require("../../models/Image");
 
+const validateImage = require("./validateImage");
+
 module.exports = async (req, res) => {
 	if (!req?.params?.id) return res.status(200).send({ errors: [{ message: "Image Not Found" }] });
 	if (!req?.body?.newValue) return res.status(200).send({ errors: [{ message: "New Value Not Given" }] });
 	if (typeof req?.body?.newValue !== "string") return res.status(200).send({ errors: [{ message: "Invalid New Value" }] });
+
+	const imageValidationResult = validateImage(req.body.newValue);
+	if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
 
 	const oldImage = await Image.findById(req.params.id)
 		.exec()

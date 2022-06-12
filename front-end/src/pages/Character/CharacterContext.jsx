@@ -11,6 +11,8 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
 
+	const [failure, setFailure] = useState(false);
+
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
 
 	const [story, setStory] = useState(false);
@@ -42,7 +44,7 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 
 	useEffect(() => {
 		async function getInitial() {
-			if (!story_url || !character_url) {
+			if (failure || !story_url || !character_url) {
 				setStateToDefault();
 				return;
 			}
@@ -58,7 +60,7 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 			getCharacterTypes(newStory?.data?.characterTypes);
 			getGroups(newStory?.data?.groups);
 
-			let newCharacter = await getCharacter();
+			let newCharacter = await getCharacter(newStory._id);
 			if (!newCharacter) return;
 
 			getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
@@ -96,10 +98,12 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 			return response.data.image;
 		}
 
-		async function getCharacter() {
-			const character_response = await APIRequest("/character?url=" + character_url, "GET");
+		async function getCharacter(story_id) {
+			if (!story_id) return;
+			const character_response = await APIRequest("/character?url=" + character_url + "&story_id=" + story_id, "GET");
 			if (!character_response?.data?.character || character_response?.error || character_response?.data?.character?.url !== character_url) {
 				setStateToDefault();
+				setFailure(true);
 				return false;
 			}
 			setCharacter(character_response.data.character);
@@ -172,6 +176,8 @@ const CharacterProvider = ({ children, story_url, character_url }) => {
 		story_url,
 		character_url,
 		APIRequest,
+		failure,
+		setFailure,
 		setIsAuthorizedToEdit,
 		story,
 		setStory,

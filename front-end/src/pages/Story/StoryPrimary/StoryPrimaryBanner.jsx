@@ -3,6 +3,7 @@
 // Components
 import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
 import { ImageInput } from "../../../components/ImageInput/ImageInput";
+import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 
 // Logic
 import { StoryPrimaryBannerLogic } from "./StoryPrimaryBannerLogic";
@@ -17,7 +18,7 @@ import "./StoryPrimaryBanner.css";
 // Assets
 
 export const StoryPrimaryBanner = () => {
-	const { isAuthorizedToEdit, banner, changeStoryBanner, revertStoryBanner, saveStoryBanner } = StoryPrimaryBannerLogic();
+	const { isAuthorizedToEdit, banner, changeStoryBanner, revertStoryBanner, saveStoryBanner, errors } = StoryPrimaryBannerLogic();
 
 	return (
 		<EditableContainer
@@ -29,6 +30,7 @@ export const StoryPrimaryBanner = () => {
 		>
 			<div className='story-primary-banner'>{!banner ? null : <img src={banner} alt='' />}</div>
 			<ImageInput className='story-primary-banner' value={banner} onChange={changeStoryBanner} />
+			<ErrorMessage errors={errors} />
 		</EditableContainer>
 	);
 };

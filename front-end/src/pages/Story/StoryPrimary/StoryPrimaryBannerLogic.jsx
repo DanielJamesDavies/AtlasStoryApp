@@ -1,5 +1,5 @@
 // Packages
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 // Components
 
@@ -19,11 +19,15 @@ export const StoryPrimaryBannerLogic = () => {
 	const { isAuthorizedToEdit, story, banner, setBanner } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 
+	const [errors, setErrors] = useState([]);
+
 	async function changeStoryBanner(image) {
+		setErrors([]);
 		setBanner(image);
 	}
 
 	async function revertStoryBanner() {
+		setErrors([]);
 		if (!story?.data?.banner) return false;
 		const response = await APIRequest("/image/" + story.data.banner, "GET");
 		if (!response || response?.errors || !response?.data?.image) return false;
@@ -32,11 +36,15 @@ export const StoryPrimaryBannerLogic = () => {
 	}
 
 	async function saveStoryBanner() {
+		setErrors([]);
 		if (!story?.data?.banner) return false;
 		const response = await APIRequest("/image/" + story.data.banner, "PATCH", { newValue: banner });
-		if (!response || response?.errors) return false;
+		if (!response || response?.errors) {
+			if (response?.errors) setErrors(response.errors);
+			return false;
+		}
 		return true;
 	}
 
-	return { isAuthorizedToEdit, banner, changeStoryBanner, revertStoryBanner, saveStoryBanner };
+	return { isAuthorizedToEdit, banner, changeStoryBanner, revertStoryBanner, saveStoryBanner, errors };
 };

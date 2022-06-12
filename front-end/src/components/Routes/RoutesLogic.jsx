@@ -34,14 +34,8 @@ export const RoutesLogic = () => {
 
 	useEffect(() => {
 		function updateRoutesState() {
-			if (location === "/" && username) {
-				setRenderComponent(null);
-				return changeLocation("/u/" + username);
-			}
-
-			let locationSplit = location.split("/");
+			const locationSplit = location.split("/");
 			locationSplit.splice(0, 1);
-
 			if (locationSplit.length === 0) return null;
 
 			setRenderComponent(null);
@@ -53,6 +47,8 @@ export const RoutesLogic = () => {
 						changeAccentHoverColour("default");
 						setShowUnauthorizedNavigationBar(true);
 						setRenderComponent(<Login />);
+					} else {
+						changeLocation("/u/" + username);
 					}
 					break;
 				case "register":
@@ -61,6 +57,8 @@ export const RoutesLogic = () => {
 						changeAccentHoverColour("default");
 						setShowUnauthorizedNavigationBar(true);
 						setRenderComponent(<Register />);
+					} else {
+						changeLocation("/u/" + username);
 					}
 					break;
 				case "verify":
@@ -105,7 +103,13 @@ export const RoutesLogic = () => {
 						setRenderComponent(<StoryContainer story_url={locationSplit[1]} />);
 					}
 					break;
+				case "search":
+					changeAccentColour("default");
+					changeAccentHoverColour("default");
+					setRenderComponent(null);
+					break;
 				default:
+					if (username) changeLocation("/u/" + username);
 					changeAccentColour("default");
 					changeAccentHoverColour("default");
 					setRenderComponent(null);

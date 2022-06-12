@@ -7,6 +7,7 @@ const User = require("../../models/User");
 const Image = require("../../models/Image");
 
 const { createUserVerification, sendVerificaionEmail } = require("./UserVerification");
+const validateImage = require("../Image/validateImage");
 
 const emailTransporter = nodemailer.createTransport({
 	service: "gmail",
@@ -21,9 +22,15 @@ emailTransporter.verify((error, success) => {
 module.exports = async (req, res) => {
 	if (!isEmailTransporterVerified) return res.status(200).send({ errors: [{ message: "New users cannot be created at this current time." }] });
 
-	// Validate New User Data
+	// Validate Data
 	let validateUserResult = await validateUser(req.body);
 	if (validateUserResult.errors.length > 0) return res.status(200).send({ errors: validateUserResult.errors });
+
+	const validateProfilePictureResult = validateImage(req.body.profilePicture);
+	if (validateProfilePictureResult.errors.length > 0) return res.status(200).send({ errors: validateProfilePictureResult.errors });
+
+	const validateBannerResult = validateImage(req.body.banner);
+	if (validateBannerResult.errors.length > 0) return res.status(200).send({ errors: validateBannerResult.errors });
 
 	// Hash Password
 	const passwordSalt = await bcrypt.genSalt(10);
