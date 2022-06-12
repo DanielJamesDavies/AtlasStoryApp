@@ -33,6 +33,7 @@ export const StoryPrimaryCharacters = () => {
 							icon={<FaSort />}
 							iconName='sort'
 							onClick={toggleIsReorderingCharacters}
+							label='Reorder Primary Characters'
 						/>
 					</div>
 				)}

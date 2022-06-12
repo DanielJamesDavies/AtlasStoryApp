@@ -37,6 +37,7 @@ export const UserStories = () => {
 							icon={<FaPlus />}
 							iconName='plus'
 							onClick={openCreateStoryForm}
+							label='Create Story'
 						/>
 						<IconBtn
 							className='user-stories-top-modify-btn'
@@ -44,6 +45,7 @@ export const UserStories = () => {
 							icon={<FaSort />}
 							iconName='sort'
 							onClick={toggleIsReorderingStories}
+							label='Reorder Stories'
 						/>
 					</div>
 				)}

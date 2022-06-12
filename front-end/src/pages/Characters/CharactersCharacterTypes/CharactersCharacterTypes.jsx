@@ -44,6 +44,7 @@ export const CharactersCharacterTypes = () => {
 							icon={<FaPlus />}
 							iconName='plus'
 							onClick={openCreateCharacterTypeForm}
+							label='Create Character Type'
 						/>
 						<IconBtn
 							className='characters-character-types-primary-modify-btn'
@@ -51,6 +52,7 @@ export const CharactersCharacterTypes = () => {
 							icon={<FaSort />}
 							iconName='sort'
 							onClick={toggleIsReorderingCharacterTypes}
+							label='Reorder Character Types'
 						/>
 					</div>
 				)}

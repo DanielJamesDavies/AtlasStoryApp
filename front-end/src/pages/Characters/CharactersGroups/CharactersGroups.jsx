@@ -44,6 +44,7 @@ export const CharactersGroups = () => {
 							icon={<FaPlus />}
 							iconName='plus'
 							onClick={openCreateGroupForm}
+							label='Create Group'
 						/>
 						<IconBtn
 							className='characters-groups-primary-modify-btn'
@@ -51,6 +52,7 @@ export const CharactersGroups = () => {
 							icon={<FaSort />}
 							iconName='sort'
 							onClick={toggleIsReorderingGroups}
+							label='Reorder Groups'
 						/>
 					</div>
 				)}

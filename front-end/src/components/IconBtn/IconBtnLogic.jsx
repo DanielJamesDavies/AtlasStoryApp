@@ -1,5 +1,5 @@
 // Packages
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState, useRef } from "react";
 
 // Components
 
@@ -14,20 +14,20 @@ import { useEffect, useState } from "react";
 // Assets
 
 export const IconBtnLogic = ({ className, seamless, size, iconName }) => {
-	const [iconBtnClassName, setIconBtnClassName] = useState("icon-btn icon-btn-seamless");
+	const [iconBtnClassName, setIconBtnClassName] = useState("icon-btn-container icon-btn-container-seamless");
 
 	useEffect(() => {
 		function getIconBtnClassName() {
-			let newClassName = "icon-btn";
+			let newClassName = "icon-btn-container";
 
-			if (seamless) newClassName += " icon-btn-seamless";
+			if (seamless) newClassName += " icon-btn-container-seamless";
 
 			switch (size) {
 				case "s":
-					newClassName += " icon-btn-small";
+					newClassName += " icon-btn-container-small";
 					break;
 				case "l":
-					newClassName += " icon-btn-large";
+					newClassName += " icon-btn-container-large";
 					break;
 				default:
 					break;
@@ -35,13 +35,16 @@ export const IconBtnLogic = ({ className, seamless, size, iconName }) => {
 
 			switch (iconName) {
 				case "plus":
-					newClassName += " icon-btn-plus-icon";
+					newClassName += " icon-btn-container-plus-icon";
+					break;
+				case "user-plus":
+					newClassName += " icon-btn-container-user-plus-icon";
 					break;
 				case "sort":
-					newClassName += " icon-btn-sort-icon";
+					newClassName += " icon-btn-container-sort-icon";
 					break;
 				case "trash":
-					newClassName += " icon-btn-trash-icon";
+					newClassName += " icon-btn-container-trash-icon";
 					break;
 				default:
 					break;
@@ -53,5 +56,31 @@ export const IconBtnLogic = ({ className, seamless, size, iconName }) => {
 		setIconBtnClassName(getIconBtnClassName());
 	}, [setIconBtnClassName, className, seamless, size, iconName]);
 
-	return { iconBtnClassName };
+	const containerRef = useRef();
+	const labelRef = useRef();
+	const [labelStyle, setLabelStyles] = useState({});
+
+	useLayoutEffect(() => {
+		function updateLabelPosition() {
+			if (!containerRef?.current || !labelRef?.current) return;
+			console.log();
+			if (containerRef?.current?.offsetLeft + labelRef?.current?.clientWidth > window?.innerWidth) {
+				setLabelStyles({
+					left: -1 * (containerRef?.current?.offsetLeft + labelRef?.current?.clientWidth - window?.innerWidth - 14) + "px",
+				});
+			} else {
+				setLabelStyles({});
+			}
+		}
+		updateLabelPosition();
+		window.addEventListener("resize", updateLabelPosition);
+		const containerRefCurrent = containerRef?.current;
+		containerRefCurrent.addEventListener("mouseenter", updateLabelPosition);
+		return () => {
+			window.removeEventListener("resize", updateLabelPosition);
+			containerRefCurrent.removeEventListener("mouseenter", updateLabelPosition);
+		};
+	}, [containerRef, labelRef, setLabelStyles]);
+
+	return { iconBtnClassName, containerRef, labelRef, labelStyle };
 };

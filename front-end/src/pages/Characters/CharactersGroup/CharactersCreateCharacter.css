@@ -6,6 +6,7 @@
 	z-index: 200;
 
 	padding: 24px;
+	border-radius: 4px;
 
 	width: calc(100vw - 76px - 48px - 48px);
 	max-width: 750px;

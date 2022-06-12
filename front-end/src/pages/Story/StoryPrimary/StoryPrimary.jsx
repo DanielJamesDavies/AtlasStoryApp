@@ -40,6 +40,7 @@ export const StoryPrimary = () => {
 						size='l'
 						icon={<FaCog />}
 						onClick={openSettings}
+						label='Story Settings'
 					/>
 				</div>
 			)}

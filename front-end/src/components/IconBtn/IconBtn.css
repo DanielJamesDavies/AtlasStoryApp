@@ -1,7 +1,14 @@
-.icon-btn {
+.icon-btn-container {
 	position: relative;
 	display: inline-block;
 	margin: 4px;
+	overflow: visible;
+}
+
+.icon-btn {
+	position: relative;
+	display: inline-block;
+	margin: 0;
 	padding: 0;
 	border: 0;
 	border-radius: 100%;
@@ -26,33 +33,6 @@
 	color: #fff;
 }
 
-.icon-btn-seamless {
-	min-width: 20px;
-	width: 20px;
-	min-height: 20px;
-	height: 20px;
-	background: transparent;
-}
-
-.icon-btn-seamless:hover {
-	background: transparent;
-	color: var(--accentColour);
-}
-
-.icon-btn-seamless.icon-btn-large {
-	min-width: 24px;
-	width: 24px;
-	min-height: 24px;
-	height: 24px;
-}
-
-.icon-btn-seamless.icon-btn-small {
-	min-width: 16px;
-	width: 16px;
-	min-height: 16px;
-	height: 16px;
-}
-
 .icon-btn svg {
 	position: absolute;
 	top: 50%;
@@ -61,18 +41,82 @@
 	width: 55%;
 }
 
-.icon-btn-plus-icon svg {
+.icon-btn-container-seamless .icon-btn {
+	min-width: 24px;
+	width: 24px;
+	min-height: 24px;
+	height: 24px;
+	background: transparent;
+}
+
+.icon-btn-container-seamless .icon-btn:hover {
+	background: transparent;
+	color: var(--accentColour);
+}
+
+.icon-btn-container-seamless.icon-btn-container-large .icon-btn {
+	min-width: 32px;
+	width: 32px;
+	min-height: 32px;
+	height: 32px;
+}
+
+.icon-btn-container-seamless.icon-btn-container-small .icon-btn {
+	min-width: 18px;
+	width: 18px;
+	min-height: 18px;
+	height: 18px;
+}
+
+.icon-btn-container-plus-icon svg {
 	width: 50%;
 }
 
-.icon-btn-sort-icon svg {
+.icon-btn-container-sort-icon svg {
 	width: 43%;
 }
 
-.icon-btn-trash-icon svg {
+.icon-btn-container-trash-icon svg {
 	width: 50%;
 }
 
-.icon-btn-seamless svg {
+.icon-btn-container-seamless svg {
+	width: 75%;
+}
+
+.icon-btn-container-seamless.icon-btn-container-user-plus-icon svg {
 	width: 100%;
+}
+
+.icon-btn-label {
+	position: absolute;
+	left: 0;
+	z-index: 200;
+
+	margin-top: 4px;
+	margin-left: -20px;
+	margin-right: 6px;
+	padding: 8px;
+	border-radius: 4px;
+
+	width: min-content;
+	max-width: 120px;
+	word-wrap: break-word;
+	background: var(--grey2);
+	pointer-events: none;
+	user-select: none;
+	opacity: 0;
+	transition: opacity 0.2s;
+	transition-delay: 0.1;
+}
+
+.icon-btn-container:hover .icon-btn-label {
+	transition-delay: 0.3s;
+	opacity: 1;
+}
+
+@media (max-width: 700px) {
+	.icon-btn-container-large .icon-btn-label {
+		margin-top: 16px;
+	}
 }

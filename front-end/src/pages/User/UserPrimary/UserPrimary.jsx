@@ -30,7 +30,14 @@ export const UserPrimary = () => {
 			<UserPrimaryNames />
 			{!isAuthorizedToEdit ? null : (
 				<div className='user-primary-auth-buttons-container'>
-					<IconBtn className='user-primary-auth-btn' seamless={true} size='l' icon={<FaCog />} onClick={openSettings} />
+					<IconBtn
+						className='user-primary-auth-btn'
+						seamless={true}
+						size='l'
+						icon={<FaCog />}
+						onClick={openSettings}
+						label='User Settings'
+					/>
 					<IconBtn className='user-primary-auth-btn' seamless={true} size='l' icon={<FaSignOutAlt />} onClick={logOut} />
 				</div>
 			)}
