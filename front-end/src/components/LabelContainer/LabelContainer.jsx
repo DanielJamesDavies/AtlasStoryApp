@@ -15,10 +15,10 @@ import "./LabelContainer.css";
 // Assets
 
 export const LabelContainer = ({ children, label, className }) => {
-	const { labelLabelRef, labelValueStyle } = LabelContainerLogic({ label });
+	const { labelContainerClassName, labelLabelRef, labelValueStyle } = LabelContainerLogic({ label, className });
 
 	return (
-		<div className={className ? "label-container " + className : "label-container"}>
+		<div className={labelContainerClassName}>
 			<div ref={labelLabelRef} className='label-label'>
 				{label}
 			</div>

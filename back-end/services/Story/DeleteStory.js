@@ -20,19 +20,22 @@ module.exports = async (req, res) => {
 	if (!story?.owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 	if (JSON.stringify(user_id) !== JSON.stringify(story.owner)) return res.status(200).send({ errors: [{ message: "Unauthorized Action" }] });
 
-	try {
-		const storyDeleteResult = await Story.deleteOne({ _id: story._id });
-		if (storyDeleteResult?.deletedCount !== 1) return res.status(200).send({ errors: [{ message: "Story Could Not Be Deleted" }] });
-	} catch (error) {
-		return res.status(200).send({ errors: [{ message: "Story Could Not Be Deleted" }] });
-	}
-
 	const owner = await User.findById(user_id)
 		.exec()
 		.catch(() => {
 			res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 		});
 	if (!owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
+
+	const delete_images_result = await deleteImagesByKey("story_id", story._id);
+	if (delete_images_result?.errors) return res.status(200).send({ errors: delete_images_result.errors });
+
+	try {
+		const storyDeleteResult = await Story.deleteOne({ _id: story._id });
+		if (storyDeleteResult?.deletedCount !== 1) return res.status(200).send({ errors: [{ message: "Story Could Not Be Deleted" }] });
+	} catch (error) {
+		return res.status(200).send({ errors: [{ message: "Story Could Not Be Deleted" }] });
+	}
 
 	const ownerStoryIndex = owner.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(story._id));
 	if (ownerStoryIndex !== -1) {
@@ -43,9 +46,6 @@ module.exports = async (req, res) => {
 			return res.status(200).send({ errors: [{ message: "Owner Could Not Be Saved" }] });
 		}
 	}
-
-	const delete_images_result = await deleteImagesByKey("story_id", story._id);
-	if (delete_images_result?.errors) return res.status(200).send({ errors: delete_images_result.errors });
 
 	// Delete Groups
 

@@ -54,7 +54,7 @@
 .user-stories-story-item-title {
 	position: absolute;
 	left: 50%;
-	top: 120px;
+	top: 115px;
 	transform: translateX(-50%);
 	margin: 0 auto;
 	width: calc(100% - 12px);
@@ -149,17 +149,17 @@
 		width: 240px;
 		height: 340px;
 	}
+
+	.user-stories-story-item-title {
+		top: 28%;
+		font-size: 5vw;
+	}
 }
 
 @media (max-width: 572px) {
 	.user-stories-story-item {
 		width: calc((100vw - 48px) / 2);
 		height: calc(((100vw - 48px) * 210 / 148) / 2);
-	}
-
-	.user-stories-story-item-title {
-		top: 78px;
-		font-size: 18px;
 	}
 
 	.user-stories-story-item-owner {

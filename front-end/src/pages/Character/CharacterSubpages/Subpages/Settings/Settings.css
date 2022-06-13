@@ -13,7 +13,7 @@
 	margin-left: 12px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1100px) {
 	.character-subpage-settings-section-1,
 	.character-subpage-settings-section-2 {
 		padding: 0;

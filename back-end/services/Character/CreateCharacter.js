@@ -21,14 +21,8 @@ module.exports = async (req, res) => {
 		data: { name: req.body.name },
 	});
 
-	const group = await Group.findById(req.body.group_id)
-		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Group Not Found" }] });
-		});
-	if (!group) return res.status(200).send({ errors: [{ message: "Group Not Found" }] });
-
-	if (!group.data.characters.includes(character._id)) group.data.characters.push({ character_id: character._id });
+	const addCharacterToGroupResult = await addCharacterToGroup(character._id, req.body.group_id);
+	if (addCharacterToGroupResult?.errors) return res.status(200).send({ errors: addCharacterToGroupResult?.errors });
 
 	try {
 		await character.save();
@@ -36,22 +30,10 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Character Could Not Be Created" }] });
 	}
 
-	try {
-		await group.save();
-	} catch (error) {
-		return res.status(200).send({ errors: [{ message: "Character Could Not Be Added to Group" }] });
-	}
-
 	if (req?.body?.isPrimaryCharacter === true) {
-		const story = await Story.findById(req.params.id)
-			.exec()
-			.catch(() => {});
-		if (story) {
-			story.data.primaryCharacters.push(character._id);
-			try {
-				await story.save();
-			} catch (error) {}
-		}
+		const addCharacterToStoryPrimaryCharactersResult = await addCharacterToStoryPrimaryCharacters(character._id, req.body.story_id);
+		if (addCharacterToStoryPrimaryCharactersResult?.errors)
+			return res.status(200).send({ errors: addCharacterToStoryPrimaryCharactersResult?.errors });
 	}
 
 	return res.status(200).send({ message: "Success", data: { character_uid: character.uid } });
@@ -122,4 +104,46 @@ async function validateCharacter(character) {
 	if (uidUsed) errors.push({ attribute: "uid", message: "This UID is being used by another character. Please enter a different UID" });
 
 	return { errors };
+}
+
+async function addCharacterToGroup(character_id, group_id) {
+	const oldGroup = await Group.findById(group_id)
+		.exec()
+		.catch(() => {
+			return { errors: [{ message: "Group Not Found" }] };
+		});
+	if (!oldGroup) return { errors: [{ message: "Group Not Found" }] };
+
+	let newGroup = JSON.parse(JSON.stringify(oldGroup));
+	if (!newGroup?.data?.characters) newGroup.data.characters = [];
+	if (newGroup.data.characters.findIndex((e) => e.character_id === character_id) === -1) newGroup.data.characters.push({ character_id });
+
+	try {
+		await Group.findOneAndReplace({ _id: group_id }, newGroup, { upsert: true });
+	} catch (error) {
+		return { errors: [{ message: "Group Could Not Be Saved" }] };
+	}
+
+	return {};
+}
+
+async function addCharacterToStoryPrimaryCharacters(character_id, story_id) {
+	const oldStory = await Story.findById(story_id)
+		.exec()
+		.catch(() => {
+			return { errors: [{ message: "Story Not Found" }] };
+		});
+	if (!oldStory) return { errors: [{ message: "Story Not Found" }] };
+
+	let newStory = JSON.parse(JSON.stringify(oldStory));
+	if (!newStory?.data?.primaryCharacters) newStory.data.primaryCharacters = [];
+	if (newStory.data.primaryCharacters.findIndex((e) => e === character_id) === -1) newStory.data.primaryCharacters.push(character_id);
+
+	try {
+		await Story.findOneAndReplace({ _id: story_id }, newStory, { upsert: true });
+	} catch (error) {
+		return { errors: [{ message: "Story Could Not Be Saved" }] };
+	}
+
+	return {};
 }

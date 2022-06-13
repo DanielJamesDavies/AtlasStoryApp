@@ -5,6 +5,7 @@ import { SettingsUID } from "./SettingsUID/SettingsUID";
 import { SettingsGroup } from "./SettingsGroup/SettingsGroup";
 import { SettingsColour } from "./SettingsColour/SettingsColour";
 import { SettingsPrimaryCharacter } from "./SettingsPrimaryCharacter/SettingsPrimaryCharacter";
+import { SettingsDelete } from "./SettingsDelete/SettingsDelete";
 
 // Logic
 
@@ -26,6 +27,7 @@ export const Settings = () => {
 				<SettingsColour />
 				<SettingsPrimaryCharacter />
 				{/* Versions */}
+				<SettingsDelete />
 			</div>
 			<div className='character-subpage-settings-section-2'>
 				{/* Overview Background Image */}

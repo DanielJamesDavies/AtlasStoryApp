@@ -1,4 +1,5 @@
 // Packages
+import { useEffect } from "react";
 import { useRef, useState, useLayoutEffect } from "react";
 
 // Components
@@ -13,7 +14,18 @@ import { useRef, useState, useLayoutEffect } from "react";
 
 // Assets
 
-export const LabelContainerLogic = ({ label }) => {
+export const LabelContainerLogic = ({ label, className }) => {
+	const [labelContainerClassName, setLabelContainerClassName] = useState("label-container");
+
+	useEffect(() => {
+		function getLabelContainerClassName() {
+			let newClassName = "label-container";
+			if (className) newClassName += " " + className;
+			return newClassName;
+		}
+		setLabelContainerClassName(getLabelContainerClassName());
+	}, [setLabelContainerClassName, className]);
+
 	const labelLabelRef = useRef();
 
 	const [labelValueStyle, setLabelValueStyle] = useState();
@@ -29,5 +41,5 @@ export const LabelContainerLogic = ({ label }) => {
 		};
 	}, [setLabelValueStyle, labelLabelRef, label]);
 
-	return { labelLabelRef, labelValueStyle };
+	return { labelContainerClassName, labelLabelRef, labelValueStyle };
 };

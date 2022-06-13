@@ -93,7 +93,7 @@
 	left: 0;
 	z-index: 200;
 
-	margin-top: 4px;
+	margin-top: 8px;
 	margin-left: -20px;
 	margin-right: 6px;
 	padding: 8px;
@@ -101,8 +101,10 @@
 
 	width: min-content;
 	max-width: 120px;
-	word-wrap: break-word;
+
 	background: var(--grey2);
+	font-size: 15px;
+	word-wrap: break-word;
 	pointer-events: none;
 	user-select: none;
 	opacity: 0;
