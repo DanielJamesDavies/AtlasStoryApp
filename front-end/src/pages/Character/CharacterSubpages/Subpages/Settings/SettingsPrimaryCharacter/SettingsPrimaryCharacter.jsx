@@ -22,11 +22,10 @@ export const SettingsPrimaryCharacter = () => {
 		SettingsPrimaryCharacterLogic();
 
 	return (
-		<LabelContainer label='Primary Character'>
+		<LabelContainer label='Primary Character' isInline={true}>
 			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertIsPrimaryCharacter} onSave={saveIsPrimaryCharacter}>
 				<div>
 					<ToggleInput value={character?.isPrimaryCharacter} onToggle={toggleIsPrimaryCharacter} enableEdit={false} />
-					<ErrorMessage errors={errors} />
 				</div>
 				<div>
 					<ToggleInput value={character?.isPrimaryCharacter} onToggle={toggleIsPrimaryCharacter} enableEdit={true} />

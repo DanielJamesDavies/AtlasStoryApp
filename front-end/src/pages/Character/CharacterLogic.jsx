@@ -42,18 +42,21 @@ export const CharacterLogic = () => {
 	}, [characterContainerRef, setIsOnOverviewSection]);
 
 	useEffect(() => {
-		const onWheel = (e) => {
+		const onOverviewWheel = (e) => {
 			if (characterOverviewRefCurrent?.clientHeight < characterOverviewRefCurrent?.scrollHeight) e.stopPropagation();
+		};
+		const onSubpagesWheel = (e) => {
+			if (characterSubpagesRefCurrent?.clientHeight < characterSubpagesRefCurrent?.scrollHeight) e.stopPropagation();
 		};
 
 		const characterOverviewRefCurrent = characterOverviewContainerRef?.current;
-		characterOverviewRefCurrent?.addEventListener("wheel", onWheel);
+		characterOverviewRefCurrent?.addEventListener("wheel", onOverviewWheel);
 
 		const characterSubpagesRefCurrent = characterSubpagesContainerRef?.current;
-		characterSubpagesRefCurrent?.addEventListener("wheel", onWheel);
+		characterSubpagesRefCurrent?.addEventListener("wheel", onSubpagesWheel);
 		return () => {
-			characterOverviewRefCurrent?.removeEventListener("wheel", onWheel);
-			characterSubpagesRefCurrent?.removeEventListener("wheel", onWheel);
+			characterOverviewRefCurrent?.removeEventListener("wheel", onOverviewWheel);
+			characterSubpagesRefCurrent?.removeEventListener("wheel", onSubpagesWheel);
 		};
 	}, [characterOverviewContainerRef, characterSubpagesContainerRef, isOnOverviewSection]);
 

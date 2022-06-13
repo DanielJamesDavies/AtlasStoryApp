@@ -21,11 +21,10 @@ export const SettingsGroup = () => {
 	const { isAuthorizedToEdit, groups, group, changeGroup, revertGroup, saveGroup, errors } = SettingsGroupLogic();
 
 	return (
-		<LabelContainer label='Group'>
+		<LabelContainer label='Group' isInline={true}>
 			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertGroup} onSave={saveGroup}>
 				<div>
 					<div>{group?.data?.name}</div>
-					<ErrorMessage errors={errors} />
 				</div>
 				<div>
 					<DropdownContainer value={group?.data?.name} onChange={changeGroup}>

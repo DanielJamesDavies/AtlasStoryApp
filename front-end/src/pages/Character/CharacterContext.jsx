@@ -24,6 +24,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const [groups, setGroups] = useState([]);
 
 	const [characterOverviewBackground, setCharacterOverviewBackground] = useState(false);
+	const [characterCardBackground, setCharacterCardBackground] = useState(false);
 	const [characterGalleryImages, setCharacterGalleryImages] = useState([]);
 
 	const [characterVersion, setCharacterVersion] = useState(false);
@@ -64,6 +65,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			if (!newCharacter) return;
 
 			getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
+			getCharacterCardBackground(newCharacter?.data?.cardBackground);
 			getCharacterGalleryImages(newCharacter?.data?.versions);
 
 			if (newCharacter?.data?.versions[0]) setCharacterVersion(newCharacter.data.versions[0]);
@@ -149,6 +151,15 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			return overview_background_image_response.data.image;
 		}
 
+		async function getCharacterCardBackground(cardBackgroundID) {
+			if (!cardBackgroundID) return;
+			const card_background_image_response = await APIRequest("/image/" + cardBackgroundID, "GET");
+			if (card_background_image_response?.errors || !card_background_image_response?.data?.image) return false;
+
+			setCharacterCardBackground(card_background_image_response.data.image);
+			return card_background_image_response.data.image;
+		}
+
 		async function getCharacterGalleryImages(versions) {
 			let imageIDs = [];
 			versions.forEach((version) => {
@@ -187,6 +198,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		setCharacterTypes,
 		setGroups,
 		setCharacterOverviewBackground,
+		setCharacterCardBackground,
 		setCharacterGalleryImages,
 		changeAccentColour,
 		changeAccentHoverColour,
@@ -223,6 +235,8 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				setGroups,
 				characterOverviewBackground,
 				setCharacterOverviewBackground,
+				characterCardBackground,
+				setCharacterCardBackground,
 				characterGalleryImages,
 				setCharacterGalleryImages,
 				characterVersion,

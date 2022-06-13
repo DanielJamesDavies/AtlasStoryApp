@@ -20,7 +20,7 @@ export const SettingsDelete = () => {
 	const { isAuthorizedToEdit, deleteCharacter, errors } = SettingsDeleteLogic();
 
 	return (
-		<LabelContainer label='Delete Character'>
+		<LabelContainer label='Delete Character' isInline={true}>
 			<ConfirmDelete onDelete={deleteCharacter} seamless={true} isAuthorizedToEdit={isAuthorizedToEdit} labelContext='this character' />
 			<ErrorMessage errors={errors} />
 		</LabelContainer>

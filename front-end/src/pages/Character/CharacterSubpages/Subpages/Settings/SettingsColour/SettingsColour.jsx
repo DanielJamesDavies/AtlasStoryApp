@@ -21,11 +21,10 @@ export const SettingsColour = () => {
 	const { isAuthorizedToEdit, character, changeColour, revertColour, saveColour, errors } = SettingsColourLogic();
 
 	return (
-		<LabelContainer label='Colour'>
+		<LabelContainer label='Colour' isInline={true}>
 			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertColour} onSave={saveColour}>
 				<div>
 					<ColourPicker value={character?.data?.colour} onChange={changeColour} enableEdit={false} horizontalAlignment='right' />
-					<ErrorMessage errors={errors} />
 				</div>
 				<div>
 					<ColourPicker

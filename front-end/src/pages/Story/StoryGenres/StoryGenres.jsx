@@ -21,7 +21,7 @@ export const StoryGenres = () => {
 
 	if (story?.data?.genres)
 		return (
-			<LabelContainer label='Genres'>
+			<LabelContainer label='Genres' isInline={true}>
 				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertStoryGenres} onSave={saveStoryGenres}>
 					<div>{story.data.genres}</div>
 					<TextInput label='Genres' value={story.data.genres} onChange={changeStoryGenres} seamless={true} />

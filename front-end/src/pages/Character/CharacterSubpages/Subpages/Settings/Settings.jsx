@@ -6,6 +6,8 @@ import { SettingsGroup } from "./SettingsGroup/SettingsGroup";
 import { SettingsColour } from "./SettingsColour/SettingsColour";
 import { SettingsPrimaryCharacter } from "./SettingsPrimaryCharacter/SettingsPrimaryCharacter";
 import { SettingsDelete } from "./SettingsDelete/SettingsDelete";
+import { SettingsOverviewBackgroundImage } from "./SettingsOverviewBackgroundImage/SettingsOverviewBackgroundImage";
+import { SettingsCardBackgroundImage } from "./SettingsCardBackgroundImage/SettingsCardBackgroundImage";
 
 // Logic
 
@@ -30,8 +32,8 @@ export const Settings = () => {
 				<SettingsDelete />
 			</div>
 			<div className='character-subpage-settings-section-2'>
-				{/* Overview Background Image */}
-				{/* Card Background Image */}
+				<SettingsOverviewBackgroundImage />
+				<SettingsCardBackgroundImage />
 				{/* Face Image */}
 			</div>
 		</div>

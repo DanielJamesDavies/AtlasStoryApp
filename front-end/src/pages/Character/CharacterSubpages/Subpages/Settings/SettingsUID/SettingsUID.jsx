@@ -21,7 +21,7 @@ export const SettingsUID = () => {
 	const { isAuthorizedToEdit, uid, changeUid, revertUid, saveUid, errors } = SettingsUIDLogic();
 
 	return (
-		<LabelContainer label='Unique Identifier (UID)'>
+		<LabelContainer label='Unique Identifier (UID)' isInline={true}>
 			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertUid} onSave={saveUid}>
 				<div>{uid}</div>
 				<div>

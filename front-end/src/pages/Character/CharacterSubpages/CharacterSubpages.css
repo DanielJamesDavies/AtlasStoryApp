@@ -6,7 +6,7 @@
 	padding-left: 0;
 	padding-right: 24px;
 	width: calc(100vw - 70px - 24px - 24px - 12px - 12px);
-	height: 100%;
+	height: calc(100% - (6px + 48px + 59px + 24px));
 	overflow: visible;
 	vertical-align: top;
 }

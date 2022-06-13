@@ -14,23 +14,27 @@ import { useRef, useState, useLayoutEffect } from "react";
 
 // Assets
 
-export const LabelContainerLogic = ({ label, className }) => {
-	const [labelContainerClassName, setLabelContainerClassName] = useState("label-container");
+export const LabelContainerLogic = ({ label, className, isInline }) => {
+	const [labelContainerClassName, setLabelContainerClassName] = useState(
+		isInline ? "label-container label-container-is-inline" : "label-container"
+	);
 
 	useEffect(() => {
 		function getLabelContainerClassName() {
 			let newClassName = "label-container";
+			if (isInline) newClassName += "  label-container-is-inline";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}
 		setLabelContainerClassName(getLabelContainerClassName());
-	}, [setLabelContainerClassName, className]);
+	}, [setLabelContainerClassName, isInline, className]);
 
 	const labelLabelRef = useRef();
 
 	const [labelValueStyle, setLabelValueStyle] = useState();
 	useLayoutEffect(() => {
 		function updateLabelValueStyle() {
+			if (!isInline) return setLabelValueStyle({});
 			if (!labelLabelRef?.current?.clientWidth) return setLabelValueStyle({});
 			setLabelValueStyle({ width: "calc(100% - " + labelLabelRef?.current?.clientWidth + "px - 8px)" });
 		}
@@ -39,7 +43,7 @@ export const LabelContainerLogic = ({ label, className }) => {
 		return () => {
 			window.removeEventListener("resize", updateLabelValueStyle);
 		};
-	}, [setLabelValueStyle, labelLabelRef, label]);
+	}, [setLabelValueStyle, labelLabelRef, label, isInline]);
 
 	return { labelContainerClassName, labelLabelRef, labelValueStyle };
 };
