@@ -11,7 +11,29 @@ module.exports = async (req, res) => {
 		});
 	if (!oldStory) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
-	const newStory = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldStory)), req?.body?.path, req?.body?.newValue);
+	const newStory = JSON.parse(JSON.stringify(oldStory));
+
+	switch (JSON.stringify(req.body.path)) {
+		case JSON.stringify(["uid"]):
+			if (!req?.body?.newValue) return res.status(200).send({ errors: [{ attribute: "uid", message: "Invalid Arguments Given" }] });
+
+			const newUID = req.body.newValue.split(" ").join("-");
+
+			if (newUID.length < 1)
+				return res.status(200).send({ errors: [{ attribute: "uid", message: "This UID is too short. Please enter a different UID." }] });
+
+			const uidUsed = await Story.findOne({ uid: newUID }).exec();
+			if (uidUsed)
+				return res
+					.status(200)
+					.send({ errors: [{ attribute: "uid", message: "This UID is being used by another story. Please enter a different UID" }] });
+
+			newStory.uid = newUID;
+			break;
+		default:
+			newStory = ChangeValueInNestedObject(newStory, req?.body?.path, req?.body?.newValue);
+			break;
+	}
 
 	try {
 		await Story.findOneAndReplace({ _id: req.params.id }, newStory, { upsert: true });

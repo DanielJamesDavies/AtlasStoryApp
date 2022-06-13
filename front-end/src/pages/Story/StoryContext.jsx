@@ -150,6 +150,7 @@ const StoryProvider = ({ children, story_uid }) => {
 	return (
 		<StoryContext.Provider
 			value={{
+				story_uid,
 				isAuthorizedToEdit,
 				story,
 				setStory,

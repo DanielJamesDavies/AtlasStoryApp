@@ -29,10 +29,11 @@ export const UserSettingsUsername = () => {
 				onSave={saveUsername}
 			>
 				<div className='user-settings-input-value'>{username}</div>
-				<TextInput className='user-settings-input-value' seamless={true} value={username} onChange={changeUsername} />
+				<div>
+					<TextInput className='user-settings-input-value' seamless={true} value={username} onChange={changeUsername} />
+					<ErrorMessage errors={errors} />
+				</div>
 			</EditableContainer>
-			<ErrorMessage errors={errors} attribute='username' />
-			<ErrorMessage errors={errors} />
 		</>
 	);
 };

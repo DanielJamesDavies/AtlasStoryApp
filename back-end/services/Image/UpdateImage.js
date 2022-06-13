@@ -15,15 +15,34 @@ module.exports = async (req, res) => {
 		.catch(() => {
 			return res.status(200).send({ errors: [{ message: "Image Not Found" }] });
 		});
+	if (!oldImage) {
+		const newImage = new Image({
+			_id: req.params.id,
+			image: req.body.newValue,
+			user_id: req.body.user_id,
+			story_id: req.body.story_id,
+			character_id: req.body.character_id,
+			group_id: req.body.group_id,
+			character_type_id: req.body.character_type_id,
+		});
 
-	let newImage = JSON.parse(JSON.stringify(oldImage));
-	newImage.image = req.body.newValue;
+		try {
+			await newImage.save();
+		} catch (error) {
+			return res.status(200).send({ errors: [{ message: "Image Could Not Be Created" }] });
+		}
 
-	try {
-		await Image.findOneAndReplace({ _id: req.params.id }, newImage, { upsert: true });
-	} catch (error) {
-		return res.status(200).send({ errors: [{ message: "Image Could Not Be Saved" }] });
+		return res.status(200).send({ message: "Success", data: { image: newImage } });
+	} else {
+		let newImage = JSON.parse(JSON.stringify(oldImage));
+		newImage.image = req.body.newValue;
+
+		try {
+			await Image.findOneAndReplace({ _id: req.params.id }, newImage, { upsert: true });
+		} catch (error) {
+			return res.status(200).send({ errors: [{ message: "Image Could Not Be Saved" }] });
+		}
+
+		return res.status(200).send({ message: "Success", data: { image: newImage } });
 	}
-
-	res.status(200).send({ message: "Success", data: { image: newImage } });
 };

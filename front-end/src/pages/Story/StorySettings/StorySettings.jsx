@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { StorySettingsUID } from "./StorySettingsUID/StorySettingsUID";
 import { StorySettingsDelete } from "./StorySettingsDelete/StorySettingsDelete";
 
 // Logic
@@ -23,9 +24,10 @@ export const StorySettings = () => {
 		<div className='story-settings-container'>
 			<div className='story-settings'>
 				<div className='story-settings-title'>Story Settings</div>
-				{/* <div className='story-settings-section-container'>
+				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Unique Identifier (UID)</div>
-				</div> */}
+					<StorySettingsUID />
+				</div>
 				{/* <div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Cover Image</div>
 				</div> */}

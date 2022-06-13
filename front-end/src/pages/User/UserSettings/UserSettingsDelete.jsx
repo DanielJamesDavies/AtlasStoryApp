@@ -29,7 +29,6 @@ export const UserSettingsDelete = () => {
 				onDelete={deleteUser}
 				isAuthorizedToEdit={isAuthorizedToEdit}
 			/>
-			<ErrorMessage errors={errors} attribute='deleteUser' />
 			<ErrorMessage errors={errors} />
 		</>
 	);

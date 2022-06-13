@@ -72,17 +72,6 @@
 	margin-bottom: 6px;
 }
 
-.story-settings-email-message {
-	margin-top: 12px;
-	font-size: 15px;
-	color: var(--green);
-}
-
-.story-settings-cookies-consent-input {
-	padding: 0;
-	padding-top: 8px;
-}
-
 .story-settings-confirm-delete {
 	margin-top: 12px !important;
 	justify-content: left !important;

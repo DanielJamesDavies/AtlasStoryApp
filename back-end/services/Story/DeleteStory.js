@@ -2,6 +2,9 @@ const jwt_decode = require("jwt-decode");
 
 const Story = require("../../models/Story");
 const User = require("../../models/User");
+const Character = require("../../models/Character");
+const CharacterType = require("../../models/CharacterType");
+const Group = require("../../models/Group");
 const deleteImagesByKey = require("../Image/deleteImagesByKey");
 
 module.exports = async (req, res) => {
@@ -20,16 +23,27 @@ module.exports = async (req, res) => {
 	if (!story?.owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 	if (JSON.stringify(user_id) !== JSON.stringify(story.owner)) return res.status(200).send({ errors: [{ message: "Unauthorized Action" }] });
 
-	const owner = await User.findById(user_id)
-		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
-		});
-	if (!owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
+	// Remove Story from Members
+	const removeStoryFromMembersResult = await removeStoryFromMembers(story?.data?.members, story._id);
+	if (removeStoryFromMembersResult?.errors) return res.status(200).send({ errors: removeStoryFromMembersResult.errors });
 
-	const delete_images_result = await deleteImagesByKey("story_id", story._id);
-	if (delete_images_result?.errors) return res.status(200).send({ errors: delete_images_result.errors });
+	// Delete Images
+	const deleteImagesResult = await deleteImagesByKey("story_id", story._id);
+	if (deleteImagesResult?.errors) return res.status(200).send({ errors: deleteImagesResult.errors });
 
+	// Delete Characters
+	const deleteStoryCharactersResult = await deleteStoryCharacters(story._id);
+	if (deleteStoryCharactersResult?.errors) return res.status(200).send({ errors: deleteStoryCharactersResult.errors });
+
+	// Delete Character Types
+	const deleteStoryCharacterTypesResult = await deleteStoryCharacterTypes(story._id);
+	if (deleteStoryCharacterTypesResult?.errors) return res.status(200).send({ errors: deleteStoryCharacterTypesResult.errors });
+
+	// Delete Groups
+	const deleteStoryGroupsResult = await deleteStoryGroups(story._id);
+	if (deleteStoryGroupsResult?.errors) return res.status(200).send({ errors: deleteStoryGroupsResult.errors });
+
+	// Delete Story
 	try {
 		const storyDeleteResult = await Story.deleteOne({ _id: story._id });
 		if (storyDeleteResult?.deletedCount !== 1) return res.status(200).send({ errors: [{ message: "Story Could Not Be Deleted" }] });
@@ -37,21 +51,84 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Story Could Not Be Deleted" }] });
 	}
 
-	const ownerStoryIndex = owner.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(story._id));
+	// Remove Story from Owner
+	const removeStoryFromOwnerResult = await removeStoryFromOwner(story.owner, story._id);
+	if (removeStoryFromOwnerResult?.errors) return res.status(200).send({ errors: removeStoryFromOwnerResult.errors });
+
+	return res.status(200).send({ message: "Success" });
+};
+
+async function deleteStoryCharacters(story_id) {
+	try {
+		await Character.deleteMany({ story_id });
+	} catch (error) {
+		return { errors: [{ message: "Characters Could Not Be Deleted" }] };
+	}
+	return {};
+}
+
+async function deleteStoryCharacterTypes(story_id) {
+	try {
+		await CharacterType.deleteMany({ story_id });
+	} catch (error) {
+		return { errors: [{ message: "Character Types Could Not Be Deleted" }] };
+	}
+	return {};
+}
+
+async function deleteStoryGroups(story_id) {
+	try {
+		await Group.deleteMany({ story_id });
+	} catch (error) {
+		return { errors: [{ message: "Groups Could Not Be Deleted" }] };
+	}
+	return {};
+}
+
+async function removeStoryFromMembers(members, story_id) {
+	if (!members) return { errors: [{ message: "Members Not Found" }] };
+	await Promise.all(
+		members.map(async (membersMember) => {
+			if (!membersMember?.user_id) return false;
+			const member = await User.findById(membersMember.user_id)
+				.exec()
+				.catch(() => {
+					return false;
+				});
+			if (!member || !member?.data?.stories) return false;
+
+			const memberStoryIndex = member.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(story_id));
+			if (memberStoryIndex !== -1) {
+				member.data.stories.splice(memberStoryIndex, 1);
+				try {
+					await member.save();
+				} catch (error) {
+					return false;
+				}
+			}
+			return true;
+		})
+	);
+	return {};
+}
+
+async function removeStoryFromOwner(user_id, story_id) {
+	const owner = await User.findById(user_id)
+		.exec()
+		.catch(() => {
+			return { errors: [{ message: "Owner Not Found" }] };
+		});
+	if (!owner) return { errors: [{ message: "Owner Not Found" }] };
+
+	const ownerStoryIndex = owner.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(story_id));
 	if (ownerStoryIndex !== -1) {
 		owner.data.stories.splice(ownerStoryIndex, 1);
 		try {
 			await owner.save();
 		} catch (error) {
-			return res.status(200).send({ errors: [{ message: "Owner Could Not Be Saved" }] });
+			return { errors: [{ message: "Owner Could Not Be Saved" }] };
 		}
 	}
 
-	// Delete Groups
-
-	// Delete Characters and Character Images
-
-	// Delete Character Types
-
-	return res.status(200).send({ message: "Success" });
-};
+	return {};
+}

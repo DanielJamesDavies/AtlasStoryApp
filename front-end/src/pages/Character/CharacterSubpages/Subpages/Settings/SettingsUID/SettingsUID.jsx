@@ -23,10 +23,7 @@ export const SettingsUID = () => {
 	return (
 		<LabelContainer label='Unique Identifier (UID)'>
 			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertUid} onSave={saveUid}>
-				<div>
-					<div>{uid}</div>
-					<ErrorMessage errors={errors} />
-				</div>
+				<div>{uid}</div>
 				<div>
 					<TextInput seamless={true} value={uid} onChange={changeUid} autoResize={true} />
 					<ErrorMessage errors={errors} />
