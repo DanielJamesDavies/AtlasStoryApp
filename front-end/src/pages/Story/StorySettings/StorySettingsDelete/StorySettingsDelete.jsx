@@ -1,8 +1,8 @@
 // Packages
 
 // Components
-import { ConfirmDelete } from "../../../components/ConfirmDelete/ConfirmDelete";
-import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
+import { ConfirmDelete } from "../../../../components/ConfirmDelete/ConfirmDelete";
+import { ErrorMessage } from "../../../../components/ErrorMessage/ErrorMessage";
 
 // Logic
 import { StorySettingsDeleteLogic } from "./StorySettingsDeleteLogic";
@@ -29,7 +29,6 @@ export const StorySettingsDelete = () => {
 				onDelete={deleteStory}
 				isAuthorizedToEdit={isAuthorizedToEdit}
 			/>
-			<ErrorMessage errors={errors} attribute='deleteStory' />
 			<ErrorMessage errors={errors} />
 		</>
 	);

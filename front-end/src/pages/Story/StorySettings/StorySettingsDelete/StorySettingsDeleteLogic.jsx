@@ -6,9 +6,9 @@ import { useContext, useState } from "react";
 // Logic
 
 // Context
-import { StoryContext } from "../StoryContext";
-import { APIContext } from "../../../context/APIContext";
-import { RoutesContext } from "../../../context/RoutesContext";
+import { StoryContext } from "../../StoryContext";
+import { APIContext } from "../../../../context/APIContext";
+import { RoutesContext } from "../../../../context/RoutesContext";
 
 // Services
 
@@ -24,11 +24,15 @@ export const StorySettingsDeleteLogic = () => {
 	const [errors, setErrors] = useState([]);
 
 	async function deleteStory() {
-		if (!story._id) return;
+		if (!story._id) return false;
 		setErrors([]);
 		const response = await APIRequest("/story/" + story._id, "DELETE", { story_id: story._id });
-		if (response?.errors) return setErrors(response.errors);
+		if (!response || response?.errors) {
+			if (response?.errors) setErrors(response.errors);
+			return false;
+		}
 		changeLocation("/u/" + username);
+		return true;
 	}
 
 	return { isAuthorizedToEdit, isDisplayingSettings, errors, deleteStory };

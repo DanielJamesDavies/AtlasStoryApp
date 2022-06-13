@@ -1,5 +1,5 @@
 .story-description {
-	margin: 12px 0;
+	margin: 8px 0;
 	padding: 12px;
 	border-radius: 4px;
 	width: calc(100% - 24px);
@@ -7,7 +7,7 @@
 
 .story-description-title {
 	margin-bottom: 6px;
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: 700;
 }
 
@@ -17,6 +17,6 @@
 	}
 
 	.story-description-title {
-		font-size: 20px;
+		font-size: 17px;
 	}
 }

@@ -1,7 +1,7 @@
 // Packages
 
 // Components
-// import { StorySettingsDelete } from "./StorySettingsDelete";
+import { StorySettingsDelete } from "./StorySettingsDelete/StorySettingsDelete";
 
 // Logic
 import { StorySettingsLogic } from "./StorySettingsLogic";
@@ -23,18 +23,18 @@ export const StorySettings = () => {
 		<div className='story-settings-container'>
 			<div className='story-settings'>
 				<div className='story-settings-title'>Story Settings</div>
-				<div className='story-settings-section-container'>
+				{/* <div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Unique Identifier (UID)</div>
-				</div>
-				<div className='story-settings-section-container'>
+				</div> */}
+				{/* <div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Cover Image</div>
-				</div>
-				<div className='story-settings-section-container'>
+				</div> */}
+				{/* <div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Private Story</div>
-				</div>
+				</div> */}
 				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Delete Story</div>
-					{/* <StorySettingsDelete /> */}
+					<StorySettingsDelete />
 				</div>
 			</div>
 			<div className='story-settings-background' onClick={closeSettings} />

@@ -1,6 +1,6 @@
 .label-container {
 	display: flex;
-	margin: 12px 0;
+	margin: 8px 0;
 	padding: 12px;
 	border-radius: 4px;
 	width: calc(100% - 24px);
@@ -15,12 +15,14 @@
 	justify-content: left;
 	align-items: center;
 	margin: 0;
+
 	width: fit-content;
 	max-width: 50%;
-	word-wrap: break-word;
-	word-break: break-all;
-	font-size: 24px;
+
+	font-size: 20px;
 	font-weight: 700;
+	word-break: break-word;
+	overflow-wrap: anywhere;
 }
 
 .label-value {
@@ -32,12 +34,12 @@
 
 	min-height: 29px;
 
-	font-size: 16px;
-	font-weight: 400;
-	word-wrap: break-word;
-	word-break: break-all;
 	text-align: right;
 	vertical-align: top;
+	font-size: 16px;
+	font-weight: 400;
+	word-break: break-word;
+	overflow-wrap: anywhere;
 }
 
 .label-value .editable-container {
@@ -73,14 +75,16 @@
 
 @media (max-width: 700px) {
 	.label-container {
-		padding: 12px 6px;
+		margin: 6px 0;
+		padding: 10px 6px;
 	}
 
 	.label-label {
-		font-size: 20px;
+		font-size: 17px;
 	}
 
 	.label-value {
 		margin-top: 2px;
+		font-size: 15px;
 	}
 }
