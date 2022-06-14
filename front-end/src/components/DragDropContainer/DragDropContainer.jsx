@@ -31,7 +31,7 @@ export const DragDropContainer = ({
 			className={className === undefined ? "drag-drop-list" : "drag-drop-list " + className}
 			style={style === undefined ? {} : style}
 		>
-			{updatedChildren}
+			{enableDragDrop ? updatedChildren : children}
 		</div>
 	);
 };

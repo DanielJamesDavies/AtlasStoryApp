@@ -34,8 +34,9 @@ export const DragDropItemLogic = ({
 			let newClassName = "drag-drop-item";
 			if (inlineItems) newClassName += " drag-drop-item-inline";
 			if (enableDragDrop) newClassName += " drag-drop-item-enable-drag-drop";
-			if (currentDraggingItem === orderIndex) newClassName += " drag-drop-item-dragging";
-			if (currentDraggingItem === orderIndex && isUsingTouch) newClassName += " drag-drop-item-dragging-touch";
+			if (currentDraggingItem !== undefined && currentDraggingItem === orderIndex) newClassName += " drag-drop-item-dragging";
+			if (currentDraggingItem !== undefined && currentDraggingItem === orderIndex && isUsingTouch)
+				newClassName += " drag-drop-item-dragging-touch";
 			if (!className) return newClassName;
 			return (newClassName += " " + className);
 		}
