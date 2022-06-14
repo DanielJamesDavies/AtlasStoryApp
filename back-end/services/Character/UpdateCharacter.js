@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const Character = require("../../models/Character");
 const Group = require("../../models/Group");
 const Story = require("../../models/Story");
@@ -59,6 +61,28 @@ module.exports = async (req, res) => {
 			}
 
 			newCharacter.isPrimaryCharacter = req.body.newValue;
+			break;
+		case JSON.stringify(["data", "versions"]):
+			if (req.body.newValue.length === 0) return res.status(200).send({ errors: [{ message: "A Character Cannot Have No Versions" }] });
+
+			let newVersions = req.body.newValue;
+
+			newVersions = newVersions.map((version) => {
+				const versionIndex = newCharacter.data.versions.findIndex((e) => e._id === version._id);
+				if (versionIndex === -1) {
+					version._id = new mongoose.Types.ObjectId();
+				} else {
+					const tempVersion = version;
+					version = newCharacter.data.versions[versionIndex];
+					version.title = tempVersion.title;
+				}
+				return version;
+			});
+
+			newCharacter.data.versions = newVersions;
+			newCharacter = new Character(newCharacter);
+			newCharacter = JSON.parse(JSON.stringify(newCharacter));
+
 			break;
 		default:
 			newCharacter = ChangeValueInNestedObject(newCharacter, req?.body?.path, req?.body?.newValue);

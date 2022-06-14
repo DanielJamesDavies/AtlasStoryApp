@@ -20,7 +20,13 @@ export const StoryPrimaryCharacterCard = ({ character }) => {
 	});
 
 	return (
-		<div className='story-primary-character-card drag-drop-item-content' onClick={navigateToCharacter} style={cardStyles}>
+		<div
+			className='story-primary-character-card drag-drop-item-content'
+			onClick={navigateToCharacter}
+			onAuxClick={navigateToCharacter}
+			onMouseDown={(e) => e.preventDefault()}
+			style={cardStyles}
+		>
 			<div className='story-primary-character-card-content'>
 				<div className='story-primary-character-card-top-container'>
 					<div className='story-primary-character-card-top-name' style={topNameStyles}>

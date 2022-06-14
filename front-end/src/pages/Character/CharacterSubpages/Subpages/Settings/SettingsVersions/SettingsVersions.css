@@ -1,0 +1,29 @@
+.character-subpage-settings-versions-item {
+	display: flex;
+	align-items: center;
+	margin: 6px 0;
+	padding: 6px 12px;
+	border-radius: 4px;
+
+	min-height: 32px;
+
+	background: var(--grey2);
+	text-align: left;
+}
+
+.character-subpage-settings-versions-item .text-input-container {
+	margin-top: 0;
+	height: 20px;
+}
+
+.character-subpage-settings-versions-item .text-input-container-empty .text-input-label {
+	padding: 0;
+}
+
+.drag-drop-item-enable-drag-drop.character-subpage-settings-versions-item {
+	animation: wiggle-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).character-subpage-settings-versions-item {
+	animation-delay: 0.1s;
+}

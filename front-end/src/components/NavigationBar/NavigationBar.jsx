@@ -28,10 +28,10 @@ export const NavigationBar = () => {
 	return (
 		<div className='navigation-bar'>
 			<div className='navigation-bar-primary-button-container'>
-				<button className='navigation-bar-btn navigation-bar-btn-user' onClick={navigateToProfile}>
+				<button className='navigation-bar-btn navigation-bar-btn-user' onClick={navigateToProfile} onAuxClick={navigateToProfile}>
 					{!profilePicture ? null : <img src={profilePicture} alt='' />}
 				</button>
-				<button className='navigation-bar-btn navigation-bar-btn-search' onClick={navigateToSearch}>
+				<button className='navigation-bar-btn navigation-bar-btn-search' onClick={navigateToSearch} onAuxClick={navigateToSearch}>
 					<FaSearch />
 				</button>
 			</div>
@@ -40,16 +40,16 @@ export const NavigationBar = () => {
 			) : (
 				<>
 					<div className='navigation-bar-story-button-container'>
-						<button className='navigation-bar-btn' onClick={navigateToStory}>
+						<button className='navigation-bar-btn' onClick={navigateToStory} onAuxClick={navigateToStory}>
 							<FaBook />
 						</button>
-						<button className='navigation-bar-btn' onClick={navigateToCharacters}>
+						<button className='navigation-bar-btn' onClick={navigateToCharacters} onAuxClick={navigateToCharacters}>
 							<FaUser />
 						</button>
-						<button className='navigation-bar-btn' onClick={navigateToSubstories}>
+						<button className='navigation-bar-btn' onClick={navigateToSubstories} onAuxClick={navigateToSubstories}>
 							<FaBookOpen />
 						</button>
-						<button className='navigation-bar-btn' onClick={navigateToWorld}>
+						<button className='navigation-bar-btn' onClick={navigateToWorld} onAuxClick={navigateToWorld}>
 							<FaGlobeEurope />
 						</button>
 					</div>

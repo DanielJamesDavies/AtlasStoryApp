@@ -32,7 +32,12 @@ export const CharactersGroup = () => {
 							: "characters-group-primary-buttons-container"
 					}
 				>
-					<button className='characters-group-primary-open-group-btn' onClick={navigateToGroup}>
+					<button
+						className='characters-group-primary-open-group-btn'
+						onClick={navigateToGroup}
+						onAuxClick={navigateToGroup}
+						onMouseDown={(e) => e.preventDefault()}
+					>
 						Open Group
 					</button>
 					{!isAuthorizedToEdit ? null : (

@@ -30,8 +30,8 @@ export const StoryPrimaryCharacterCardLogic = ({ character }) => {
 		setCharacterType(newCharacterType === undefined ? false : newCharacterType);
 	}, [character, primaryCharactersCardBackgrounds, characterTypes, setCardBackground, setCharacterType]);
 
-	function navigateToCharacter() {
-		if (story?.uid && character?.uid) changeLocation("s/" + story.uid + "/c/" + character.uid);
+	function navigateToCharacter(e) {
+		if (story?.uid && character?.uid) changeLocation("/s/" + story.uid + "/c/" + character.uid, e.button === 1);
 	}
 
 	// Character Colour Styles

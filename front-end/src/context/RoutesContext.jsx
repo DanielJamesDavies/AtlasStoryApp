@@ -7,12 +7,14 @@ const RoutesProvider = ({ children }) => {
 	const [location, setLocation] = useState("/");
 	const routerLocation = useLocation();
 	const routerNavigate = useNavigate();
+	const domain = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://www.atlas-story.app";
 
 	useEffect(() => {
 		setLocation(routerLocation.pathname);
 	}, [routerLocation, setLocation]);
 
-	function changeLocation(newLocation) {
+	function changeLocation(newLocation, openInNewWindow) {
+		if (openInNewWindow) return window.open(domain + newLocation, "_blank");
 		routerNavigate(newLocation);
 		setLocation(newLocation);
 	}

@@ -21,7 +21,13 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 		});
 
 	return (
-		<div className='characters-group-character-card drag-drop-item-content' onClick={navigateToCharacter} style={cardStyles}>
+		<div
+			className='characters-group-character-card drag-drop-item-content'
+			onClick={navigateToCharacter}
+			onAuxClick={navigateToCharacter}
+			onMouseDown={(e) => e.preventDefault()}
+			style={cardStyles}
+		>
 			<div className='characters-group-character-card-content'>
 				<div className='characters-group-character-card-top-container'>
 					<div className='characters-group-character-card-top-name' style={topNameStyles}>

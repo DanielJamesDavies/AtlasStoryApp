@@ -205,17 +205,17 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	]);
 
 	function decrementCharacterVersion() {
-		if (!character?.data?.version) return;
-		const currentVersionIndex = character.data.version.findIndex((e) => e._id === characterVersion._id);
+		if (!character?.data?.versions) return;
+		const currentVersionIndex = character.data.versions.findIndex((e) => e._id === characterVersion._id);
 		if (currentVersionIndex === -1 || currentVersionIndex === 0) return;
-		setCharacterVersion(character.data.version[currentVersionIndex - 1]);
+		setCharacterVersion(character.data.versions[currentVersionIndex - 1]);
 	}
 
 	function incrementCharacterVersion() {
-		if (!character?.data?.version) return;
-		const currentVersionIndex = character.data.version.findIndex((e) => e._id === characterVersion._id);
-		if (currentVersionIndex === -1 || currentVersionIndex === character.data.version.length - 1) return;
-		setCharacterVersion(character?.data?.version[currentVersionIndex + 1]);
+		if (!character?.data?.versions) return;
+		const currentVersionIndex = character.data.versions.findIndex((e) => e._id === characterVersion._id);
+		if (currentVersionIndex === -1 || currentVersionIndex === character.data.versions.length - 1) return;
+		setCharacterVersion(character?.data?.versions[currentVersionIndex + 1]);
 	}
 
 	return (

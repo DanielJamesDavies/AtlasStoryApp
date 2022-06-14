@@ -34,8 +34,9 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 		setCharacterType(newCharacterType === undefined ? false : newCharacterType);
 	}, [characterID, characters, charactersCardBackgrounds, characterTypes, setCharacter, setCardBackground, setCharacterType]);
 
-	function navigateToCharacter() {
-		if (story?.uid && character?.uid) changeLocation("s/" + story.uid + "/c/" + character.uid);
+	function navigateToCharacter(e) {
+		e.preventDefault();
+		if (story?.uid && character?.uid) changeLocation("/s/" + story.uid + "/c/" + character.uid, e.button === 1);
 	}
 
 	// Character Colour Styles

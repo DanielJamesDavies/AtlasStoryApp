@@ -48,36 +48,36 @@ export const NavigationBarLogic = () => {
 		getInitial();
 	}, [APIRequest, username, setUsername, setProfilePicture]);
 
-	function navigateToProfile() {
+	function navigateToProfile(e) {
 		if (username) {
-			changeLocation("/u/" + username);
+			changeLocation("/u/" + username, e.button === 1);
 		} else {
-			changeLocation("/login");
+			changeLocation("/login", e.button === 1);
 		}
 	}
 
-	function navigateToSearch() {
-		changeLocation("/search");
+	function navigateToSearch(e) {
+		changeLocation("/search", e.button === 1);
 	}
 
-	function navigateToStory() {
+	function navigateToStory(e) {
 		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
-		changeLocation("/s/" + location.split("/")[2]);
+		changeLocation("/s/" + location.split("/")[2], e.button === 1);
 	}
 
-	function navigateToCharacters() {
+	function navigateToCharacters(e) {
 		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
-		changeLocation("/s/" + location.split("/")[2] + "/characters");
+		changeLocation("/s/" + location.split("/")[2] + "/characters", e.button === 1);
 	}
 
-	function navigateToSubstories() {
+	function navigateToSubstories(e) {
 		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
-		changeLocation("/s/" + location.split("/")[2] + "/substories");
+		changeLocation("/s/" + location.split("/")[2] + "/substories", e.button === 1);
 	}
 
-	function navigateToWorld() {
+	function navigateToWorld(e) {
 		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
-		changeLocation("/s/" + location.split("/")[2] + "/world");
+		changeLocation("/s/" + location.split("/")[2] + "/world", e.button === 1);
 	}
 
 	return {
