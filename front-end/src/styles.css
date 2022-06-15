@@ -59,6 +59,19 @@ img {
 	color: #fff;
 }
 
+@keyframes wiggle-very-small {
+	0%,
+	100% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(0.25deg);
+	}
+	75% {
+		transform: rotate(-0.25deg);
+	}
+}
+
 @keyframes wiggle-small {
 	0%,
 	100% {

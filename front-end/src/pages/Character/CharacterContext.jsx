@@ -204,6 +204,16 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		changeAccentHoverColour,
 	]);
 
+	function changeCharacterVersion(newCharacterVersion) {
+		setCharacterVersion(newCharacterVersion);
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			const characterVersionIndex = newCharacter.data.versions.findIndex((e) => e._id === newCharacterVersion._id);
+			if (characterVersionIndex !== -1) newCharacter.data.versions[characterVersionIndex] = newCharacterVersion;
+			return newCharacter;
+		});
+	}
+
 	function decrementCharacterVersion() {
 		if (!character?.data?.versions) return;
 		const currentVersionIndex = character.data.versions.findIndex((e) => e._id === characterVersion._id);
@@ -241,6 +251,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				setCharacterGalleryImages,
 				characterVersion,
 				setCharacterVersion,
+				changeCharacterVersion,
 				decrementCharacterVersion,
 				incrementCharacterVersion,
 				isOnOverviewSection,

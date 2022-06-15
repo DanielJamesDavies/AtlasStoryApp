@@ -85,7 +85,15 @@ module.exports = async (req, res) => {
 
 			break;
 		default:
-			newCharacter = ChangeValueInNestedObject(newCharacter, req?.body?.path, req?.body?.newValue);
+			if (req.body.path.length > 2 && req.body.path[0] === "data" && req.body.path[1] === "versions") {
+				let newPath = JSON.parse(JSON.stringify(req.body.path));
+				const versionIndex = newCharacter.data.versions.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(newPath[2]));
+				if (versionIndex === -1) break;
+				newPath[2] = versionIndex;
+				newCharacter = ChangeValueInNestedObject(newCharacter, newPath, req?.body?.newValue);
+			} else {
+				newCharacter = ChangeValueInNestedObject(newCharacter, req?.body?.path, req?.body?.newValue);
+			}
 			break;
 	}
 

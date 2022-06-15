@@ -3,6 +3,7 @@ import { useState, useContext, useEffect } from "react";
 
 // Components
 import { Gallery } from "./Subpages/Gallery/Gallery";
+import { Psychology } from "./Subpages/Psychology/Psychology";
 import { Settings } from "./Subpages/Settings/Settings";
 
 // Logic
@@ -26,7 +27,7 @@ export const CharacterSubpagesLogic = () => {
 				case "gallery":
 					return <Gallery />;
 				case "psychology":
-					return null;
+					return <Psychology />;
 				case "efforts":
 					return null;
 				case "abilities":

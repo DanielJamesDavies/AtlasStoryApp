@@ -43,6 +43,7 @@ const CharacterSchema = mongoose.Schema({
 						_id: {
 							type: mongoose.Schema.Types.ObjectId,
 							require: true,
+							default: new mongoose.Types.ObjectId(),
 						},
 						title: { type: String, required: true, default: "" },
 						gallery: { type: [mongoose.Schema.Types.ObjectId], required: true, default: [] },

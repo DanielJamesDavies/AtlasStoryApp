@@ -27,7 +27,10 @@ export const SettingsColourLogic = () => {
 		});
 	}
 
+	const [errors, setErrors] = useState([]);
+
 	async function revertColour() {
+		setErrors([]);
 		const response = await APIRequest("/character/get-value/" + character._id, "POST", {
 			story_id: story._id,
 			path: ["data", "colour"],
@@ -42,8 +45,6 @@ export const SettingsColourLogic = () => {
 
 		return true;
 	}
-
-	const [errors, setErrors] = useState([]);
 
 	async function saveColour() {
 		setErrors([]);
