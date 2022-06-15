@@ -13,7 +13,17 @@ import { useEffect, useState } from "react";
 
 // Assets
 
-export const EditableContainerLogic = ({ className, isMediaContent, isAuthorizedToEdit, onAdd, onRemove, onReorder, onRevert, onSave }) => {
+export const EditableContainerLogic = ({
+	className,
+	isMediaContent,
+	isAuthorizedToEdit,
+	onAdd,
+	onRemove,
+	onDefault,
+	onReorder,
+	onRevert,
+	onSave,
+}) => {
 	const [isEditing, setIsEditing] = useState(false);
 
 	// Editable Container Class Name
@@ -54,6 +64,12 @@ export const EditableContainerLogic = ({ className, isMediaContent, isAuthorized
 		if (remove_success) setIsEditing(false);
 	}
 
+	async function onDefaultBtnClick(e) {
+		e.stopPropagation();
+		const default_success = await onDefault();
+		if (default_success) setIsEditing(false);
+	}
+
 	async function onReorderBtnClick(e) {
 		e.stopPropagation();
 		const reorder_success = await onReorder();
@@ -80,6 +96,7 @@ export const EditableContainerLogic = ({ className, isMediaContent, isAuthorized
 		onViewBtnClick,
 		onAddBtnClick,
 		onRemoveBtnClick,
+		onDefaultBtnClick,
 		onReorderBtnClick,
 		onRevertBtnClick,
 		onSaveBtnClick,

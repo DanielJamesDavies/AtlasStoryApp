@@ -27,6 +27,7 @@ export const PsychologyItems = () => {
 		changePsychologyItemValue,
 		addPsychologyItem,
 		removePsychologyItem,
+		defaultPsychologyItems,
 		isReorderingPsychologyItems,
 		toggleIsReorderingPsychologyItems,
 		reorderPsychologyItems,
@@ -40,6 +41,7 @@ export const PsychologyItems = () => {
 			className='character-subpage-psychology-items-container'
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onAdd={addPsychologyItem}
+			onDefault={defaultPsychologyItems}
 			onReorder={toggleIsReorderingPsychologyItems}
 			onRevert={revertPsychologyItems}
 			onSave={savePsychologyItems}

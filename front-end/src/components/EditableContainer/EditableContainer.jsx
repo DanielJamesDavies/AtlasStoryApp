@@ -1,5 +1,5 @@
 // Packages
-import { FaMountain, FaPencilAlt, FaPlus, FaSave, FaSort, FaTimes, FaUndoAlt } from "react-icons/fa";
+import { FaIndustry, FaMountain, FaPencilAlt, FaPlus, FaSave, FaSort, FaTimes, FaUndoAlt } from "react-icons/fa";
 
 // Components
 
@@ -15,7 +15,18 @@ import "./EditableContainer.css";
 
 // Assets
 
-export const EditableContainer = ({ children, className, isMediaContent, isAuthorizedToEdit, onAdd, onRemove, onReorder, onRevert, onSave }) => {
+export const EditableContainer = ({
+	children,
+	className,
+	isMediaContent,
+	isAuthorizedToEdit,
+	onAdd,
+	onRemove,
+	onDefault,
+	onReorder,
+	onRevert,
+	onSave,
+}) => {
 	const {
 		isEditing,
 		editableContainerClassName,
@@ -23,6 +34,7 @@ export const EditableContainer = ({ children, className, isMediaContent, isAutho
 		onViewBtnClick,
 		onAddBtnClick,
 		onRemoveBtnClick,
+		onDefaultBtnClick,
 		onReorderBtnClick,
 		onRevertBtnClick,
 		onSaveBtnClick,
@@ -32,6 +44,7 @@ export const EditableContainer = ({ children, className, isMediaContent, isAutho
 		isAuthorizedToEdit,
 		onAdd,
 		onRemove,
+		onDefault,
 		onReorder,
 		onRevert,
 		onSave,
@@ -61,6 +74,11 @@ export const EditableContainer = ({ children, className, isMediaContent, isAutho
 					{onRemove === undefined ? null : (
 						<button className='editable-container-edit-btn editable-container-edit-btn-remove' onClick={onRemoveBtnClick}>
 							<FaTimes />
+						</button>
+					)}
+					{onDefault === undefined ? null : (
+						<button className='editable-container-edit-btn editable-container-edit-btn-default' onClick={onDefaultBtnClick}>
+							<FaIndustry />
 						</button>
 					)}
 					{onReorder === undefined ? null : (

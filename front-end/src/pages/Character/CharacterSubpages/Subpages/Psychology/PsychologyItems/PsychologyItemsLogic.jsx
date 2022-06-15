@@ -48,6 +48,31 @@ export const PsychologyItemsLogic = () => {
 		changeCharacterVersion(newCharacterVersion);
 	}
 
+	function defaultPsychologyItems() {
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		const defaultPsychologyItemsTitles = [
+			"Psychological Description",
+			"Psychological Descriptives",
+			"Primary Motivation",
+			"Intelligence",
+			"Philosophies",
+			"Goals",
+			"Fears",
+			"Habits",
+			"Sayings",
+			"Other Idiosyncrasies",
+			"Likes",
+			"Dislikes",
+			"Hobbies",
+			"Love Languages",
+			"Favourite Music Genres",
+		];
+		newCharacterVersion.psychology.items = defaultPsychologyItemsTitles.map((title) => {
+			return { title, value: [""] };
+		});
+		changeCharacterVersion(newCharacterVersion);
+	}
+
 	function reorderPsychologyItems(res) {
 		if (res.from === undefined || res.to === undefined) return false;
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
@@ -95,6 +120,7 @@ export const PsychologyItemsLogic = () => {
 		changePsychologyItemValue,
 		addPsychologyItem,
 		removePsychologyItem,
+		defaultPsychologyItems,
 		isReorderingPsychologyItems,
 		toggleIsReorderingPsychologyItems,
 		reorderPsychologyItems,
