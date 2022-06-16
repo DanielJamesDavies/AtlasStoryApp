@@ -1,9 +1,9 @@
 .characters-group {
 	flex-shrink: 0;
 	display: inline-block;
-	margin-left: 20px;
+	margin-left: 12px;
 	border-radius: 4px;
-	width: calc(100% - 20px - (310px + 12px));
+	width: calc(100% - 12px - (310px + 12px));
 	min-height: 699px;
 	vertical-align: top;
 }
@@ -11,14 +11,15 @@
 .characters-group-primary {
 	display: flex;
 	align-items: center;
-	margin-bottom: 24px;
+	margin-bottom: 12px;
 	width: 100%;
+	min-height: 40px;
 }
 
 .characters-group-primary-title {
 	margin-top: -1px;
 	margin-bottom: 1px;
-	font-size: 28px;
+	font-size: 26px;
 	font-weight: 700;
 	max-width: calc(100% - 115px);
 }

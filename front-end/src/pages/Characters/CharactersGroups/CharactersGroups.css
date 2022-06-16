@@ -9,13 +9,14 @@
 .characters-groups-primary {
 	display: flex;
 	align-items: center;
-	margin-bottom: 24px;
+	margin-bottom: 12px;
 	padding-right: 12px;
+	min-height: 40px;
 }
 
 .characters-groups-primary-title {
 	margin-top: -1px;
-	font-size: 28px;
+	font-size: 26px;
 	font-weight: 700;
 	vertical-align: middle;
 }

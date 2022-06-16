@@ -1,11 +1,13 @@
 .world {
 	margin: 0 auto;
-	padding: 6px 48px;
-	max-width: 1600px;
+	padding: 48px;
+	padding-top: 0;
+	max-width: 1700px;
 }
 
 @media (max-width: 700px) {
 	.world {
-		padding: 6px 12px;
+		padding: 12px;
+		padding-top: 0;
 	}
 }

@@ -2,10 +2,11 @@
 	position: relative;
 	display: flex;
 	align-items: center;
-	margin-bottom: 48px;
-	padding: 24px;
+	margin-bottom: 40px;
+	padding: 14px 12px;
+	padding-bottom: calc(14px + 2px);
 	border-radius: 4px;
-	width: calc(100% - 48px);
+	width: calc(100% - 24px);
 }
 
 .world-title::after {
@@ -17,8 +18,8 @@
 	content: "";
 	border-radius: 4px;
 	width: 100%;
-	height: 3px;
-	background: var(--grey2);
+	height: 2px;
+	background: var(--grey3);
 }
 
 .world-title-story-icon {
@@ -26,10 +27,10 @@
 	margin: 0 24px;
 	margin-left: 0;
 	border-radius: 100%;
-	min-width: 75px;
-	width: 75px;
-	min-height: 75px;
-	height: 75px;
+	min-width: 65px;
+	width: 65px;
+	min-height: 65px;
+	height: 65px;
 	vertical-align: middle;
 	background: var(--grey3);
 }
@@ -42,9 +43,9 @@
 }
 
 .world-title-story-title {
-	margin-top: -2px;
+	margin-top: -1px;
 	margin-bottom: 2px;
-	font-size: 38px;
+	font-size: 34px;
 	font-weight: 700;
 }
 
@@ -55,14 +56,15 @@
 }
 
 .world-title-world-label {
-	font-size: 24px;
+	font-size: 22px;
 	font-weight: 400;
 }
 
 @media (max-width: 700px) {
 	.world-title {
 		margin-bottom: 24px;
-		padding: 24px 6px;
+		padding: 14px 6px;
+		padding-bottom: calc(14px + 2px);
 		width: calc(100% - 12px);
 	}
 

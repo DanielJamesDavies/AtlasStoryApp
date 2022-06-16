@@ -2,7 +2,7 @@
 	position: relative;
 	margin: 6px;
 	padding: 8px 12px;
-	padding-bottom: 11px;
+	padding-bottom: 10px;
 	border-radius: 4px;
 }
 
@@ -19,8 +19,8 @@
 	content: "";
 	border-radius: 4px;
 	width: calc(100% - 12px);
-	height: 3px;
-	background: var(--grey2);
+	height: 2px;
+	background: var(--grey3);
 }
 
 .character-subpage-psychology-item-container:last-child::after {
