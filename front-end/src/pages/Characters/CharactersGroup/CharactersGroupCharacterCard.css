@@ -57,7 +57,7 @@
 }
 
 .characters-group-character-card-top-name {
-	font-size: 30px;
+	font-size: 24px;
 	font-weight: 700;
 	color: var(--blue);
 }
@@ -76,7 +76,7 @@
 
 .characters-group-character-card-summary-item-container {
 	position: absolute;
-	top: calc(363px - 8px);
+	top: 355px;
 	left: 50%;
 	transform: translateX(-50%);
 
@@ -85,7 +85,7 @@
 	flex-wrap: wrap;
 
 	width: calc(100% - 16px);
-	max-height: calc(100% - 354px);
+	max-height: calc(100% - 355px);
 	overflow: hidden;
 }
 
@@ -132,7 +132,7 @@
 
 @media (max-width: 700px) {
 	.characters-group-character-card-container {
-		margin-left: -120px;
+		margin-left: -130px;
 	}
 
 	.characters-group-character-card {
@@ -153,8 +153,8 @@
 	}
 
 	.characters-group-character-card-summary-item-container {
-		top: 61%;
-		max-height: calc(100% - 61% + 1px);
+		top: 60%;
+		max-height: calc(100% - 60% + 1px);
 	}
 
 	.characters-group-character-card-summary-item-label {
@@ -162,6 +162,6 @@
 	}
 
 	.characters-group-character-card-summary-item-value {
-		font-size: 13px;
+		font-size: 12px;
 	}
 }

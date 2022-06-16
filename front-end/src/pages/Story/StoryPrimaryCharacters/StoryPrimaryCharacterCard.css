@@ -74,9 +74,9 @@
 	font-weight: 700;
 }
 
-.story-primary-character-card-summary-item-container {
+.story-primary-character-card-summary-items-container {
 	position: absolute;
-	top: calc(203px - 8px);
+	top: 262px;
 	left: 50%;
 	transform: translateX(-50%);
 
@@ -85,14 +85,17 @@
 	flex-wrap: wrap;
 
 	width: calc(100% - 16px);
-	max-height: calc(100% - 197px);
+	max-height: calc(100% - 262px);
 	overflow: hidden;
 }
 
 .story-primary-character-card-summary-item {
-	margin-bottom: 6px;
+	margin-bottom: 8px;
 	padding: 8px 12px;
 	border-radius: 8px;
+
+	width: calc(100% - 24px);
+
 	background: var(--blue);
 	text-align: left;
 }
@@ -149,9 +152,9 @@
 		font-size: 22px;
 	}
 
-	.story-primary-character-card-summary-item-container {
-		top: 61%;
-		max-height: calc(100% - 61% + 1px);
+	.story-primary-character-card-summary-items-container {
+		top: 60%;
+		max-height: calc(100% - 60% + 1px);
 	}
 
 	.story-primary-character-card-summary-item-label {
