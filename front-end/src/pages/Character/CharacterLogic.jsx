@@ -43,10 +43,18 @@ export const CharacterLogic = () => {
 
 	useEffect(() => {
 		const onOverviewWheel = (e) => {
-			if (characterOverviewRefCurrent?.clientHeight < characterOverviewRefCurrent?.scrollHeight) e.stopPropagation();
+			if (
+				characterOverviewRefCurrent?.clientHeight < characterOverviewRefCurrent?.scrollHeight &&
+				characterOverviewRefCurrent?.scrollTop !== characterOverviewRefCurrent?.scrollHeight - characterOverviewRefCurrent?.clientHeight
+			)
+				e.stopPropagation();
 		};
 		const onSubpagesWheel = (e) => {
-			if (characterSubpagesRefCurrent?.clientHeight < characterSubpagesRefCurrent?.scrollHeight) e.stopPropagation();
+			if (
+				characterSubpagesRefCurrent?.clientHeight < characterSubpagesRefCurrent?.scrollHeight &&
+				characterSubpagesRefCurrent?.scrollTop !== 0
+			)
+				e.stopPropagation();
 		};
 
 		const characterOverviewRefCurrent = characterOverviewContainerRef?.current;

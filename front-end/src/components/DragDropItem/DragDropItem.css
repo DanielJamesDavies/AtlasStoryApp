@@ -3,10 +3,6 @@
 	position: relative;
 }
 
-.drag-drop-item-inline {
-	display: inline-block;
-}
-
 .drag-drop-item-enable-drag-drop {
 	-webkit-user-drag: element;
 	cursor: grab;

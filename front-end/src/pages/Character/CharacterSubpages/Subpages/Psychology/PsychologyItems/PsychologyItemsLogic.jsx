@@ -19,11 +19,6 @@ export const PsychologyItemsLogic = () => {
 	const { isAuthorizedToEdit, story, character, characterVersion, changeCharacterVersion } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 
-	const [isReorderingPsychologyItems, setIsReorderingPsychologyItems] = useState(false);
-	function toggleIsReorderingPsychologyItems() {
-		setIsReorderingPsychologyItems((oldIsReorderingPsychologyItems) => !oldIsReorderingPsychologyItems);
-	}
-
 	function changePsychologyItemTitle(e, index) {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
 		newCharacterVersion.psychology.items[index].title = e.target.value;
@@ -71,6 +66,11 @@ export const PsychologyItemsLogic = () => {
 			return { title, value: [""] };
 		});
 		changeCharacterVersion(newCharacterVersion);
+	}
+
+	const [isReorderingPsychologyItems, setIsReorderingPsychologyItems] = useState(false);
+	function toggleIsReorderingPsychologyItems() {
+		setIsReorderingPsychologyItems((oldIsReorderingPsychologyItems) => !oldIsReorderingPsychologyItems);
 	}
 
 	function reorderPsychologyItems(res) {

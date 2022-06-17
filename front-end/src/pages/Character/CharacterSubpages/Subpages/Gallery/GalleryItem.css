@@ -1,10 +1,34 @@
-.character-subpage-gallery-item {
+.character-subpage-gallery-items-container .drag-drop-item {
 	margin: 4px;
-	width: calc(50% - 8px);
+	width: calc((100% / 4) - 8px);
+}
+
+.drag-drop-item .character-subpage-gallery-item {
+	width: 100%;
+}
+
+.drag-drop-item-enable-drag-drop .character-subpage-gallery-item {
+	animation: wiggle-large infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even) .character-subpage-gallery-item {
+	animation-delay: 0.1s;
+}
+
+.character-subpage-gallery-item {
+	position: relative;
+	margin: 4px;
+	width: calc((100% / 4) - 8px);
 }
 
 .character-subpage-gallery-item img {
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
+}
+
+.character-subpage-gallery-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
 }

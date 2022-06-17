@@ -1,0 +1,21 @@
+.character-image-item {
+	position: relative;
+	margin: 4px;
+	width: 100%;
+}
+
+.character-image-item-image {
+	width: 100%;
+}
+
+.character-image-item-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.character-image-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}

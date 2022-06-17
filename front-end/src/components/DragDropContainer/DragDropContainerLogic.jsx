@@ -11,7 +11,7 @@ import { useEffect, useState, cloneElement } from "react";
 
 // Assets
 
-export const DragDropContainerLogic = ({ children, inlineItems, enableDragDrop, onDropItem, afterOnTouchMove, afterOnTouchEnd }) => {
+export const DragDropContainerLogic = ({ children, className, inlineItems, enableDragDrop, onDropItem, afterOnTouchMove, afterOnTouchEnd }) => {
 	const [updatedChildren, setUpdatedChildren] = useState(null);
 	const [currentDraggingItem, setCurrentDraggingItem] = useState(null);
 	const [changedOrder, setChangedOrder] = useState(null);
@@ -72,5 +72,17 @@ export const DragDropContainerLogic = ({ children, inlineItems, enableDragDrop, 
 		setIsUsingTouch,
 	]);
 
-	return { updatedChildren };
+	const [dragDropContainerClassName, setDragDropContainerClassName] = useState("drag-drop-list");
+
+	useEffect(() => {
+		function getDragDropContainerClassName() {
+			let newClassName = "drag-drop-list";
+			if (className) newClassName += " " + className;
+			if (inlineItems) newClassName += " drag-drop-list-inline";
+			return newClassName;
+		}
+		setDragDropContainerClassName(getDragDropContainerClassName());
+	}, [setDragDropContainerClassName, className, inlineItems]);
+
+	return { updatedChildren, dragDropContainerClassName };
 };

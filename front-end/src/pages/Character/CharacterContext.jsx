@@ -25,7 +25,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 
 	const [characterOverviewBackground, setCharacterOverviewBackground] = useState(false);
 	const [characterCardBackground, setCharacterCardBackground] = useState(false);
-	const [characterGalleryImages, setCharacterGalleryImages] = useState([]);
+	const [characterImages, setCharacterImages] = useState([]);
 
 	const [characterVersion, setCharacterVersion] = useState(false);
 
@@ -66,7 +66,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 
 			getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
 			getCharacterCardBackground(newCharacter?.data?.cardBackground);
-			getCharacterGalleryImages(newCharacter?.data?.versions);
+			getCharacterImages(newCharacter?.data?.images);
 
 			if (newCharacter?.data?.versions[0]) setCharacterVersion(newCharacter.data.versions[0]);
 		}
@@ -160,22 +160,17 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			return card_background_image_response.data.image;
 		}
 
-		async function getCharacterGalleryImages(versions) {
-			let imageIDs = [];
-			versions.forEach((version) => {
-				imageIDs = imageIDs.concat(version.gallery.filter((imageID) => imageIDs.indexOf(imageID) === -1));
-			});
-
-			let newGalleryImages = await Promise.all(
+		async function getCharacterImages(imageIDs) {
+			let newCharacterImages = await Promise.all(
 				imageIDs.map(async (imageID) => {
 					const image_response = await APIRequest("/image/" + imageID, "GET");
 					if (image_response?.errors || !image_response?.data?.image) return false;
 					return image_response.data;
 				})
 			);
-			newGalleryImages = newGalleryImages.filter((e) => e !== false);
+			newCharacterImages = newCharacterImages.filter((e) => e !== false);
 
-			setCharacterGalleryImages(newGalleryImages);
+			setCharacterImages(newCharacterImages);
 		}
 
 		getInitial();
@@ -199,7 +194,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		setGroups,
 		setCharacterOverviewBackground,
 		setCharacterCardBackground,
-		setCharacterGalleryImages,
+		setCharacterImages,
 		changeAccentColour,
 		changeAccentHoverColour,
 	]);
@@ -247,8 +242,8 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				setCharacterOverviewBackground,
 				characterCardBackground,
 				setCharacterCardBackground,
-				characterGalleryImages,
-				setCharacterGalleryImages,
+				characterImages,
+				setCharacterImages,
 				characterVersion,
 				setCharacterVersion,
 				changeCharacterVersion,

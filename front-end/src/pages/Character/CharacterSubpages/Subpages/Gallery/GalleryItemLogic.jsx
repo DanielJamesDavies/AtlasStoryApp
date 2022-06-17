@@ -14,20 +14,20 @@ import { CharacterContext } from "../../../CharacterContext";
 
 // Assets
 
-export const GalleryItemLogic = ({ image }) => {
-	const { characterGalleryImages } = useContext(CharacterContext);
+export const GalleryItemLogic = ({ image, index }) => {
+	const { characterImages } = useContext(CharacterContext);
 
 	const [galleryItemImage, setGalleryItemImage] = useState(false);
 
 	useEffect(() => {
 		function getGalleryItemImage() {
-			if (!image) return false;
-			let newGalleryItemImage = characterGalleryImages.find((e) => e._id === image);
+			if (!image?.image) return false;
+			let newGalleryItemImage = characterImages.find((e) => e._id === image.image);
 			if (!newGalleryItemImage) return false;
 			return newGalleryItemImage.image;
 		}
 		setGalleryItemImage(getGalleryItemImage());
-	}, [setGalleryItemImage, characterGalleryImages, image]);
+	}, [setGalleryItemImage, characterImages, image]);
 
 	return { galleryItemImage };
 };

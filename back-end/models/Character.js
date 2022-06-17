@@ -37,6 +37,7 @@ const CharacterSchema = mongoose.Schema({
 			colour: { type: String, default: "#0044ff" },
 			cardBackground: mongoose.Schema.Types.ObjectId,
 			overviewBackground: mongoose.Schema.Types.ObjectId,
+			images: { type: [mongoose.Schema.Types.ObjectId], require: true, default: [] },
 			versions: {
 				type: [
 					{
@@ -46,7 +47,7 @@ const CharacterSchema = mongoose.Schema({
 							default: new mongoose.Types.ObjectId(),
 						},
 						title: { type: String, required: true, default: "" },
-						gallery: { type: [mongoose.Schema.Types.ObjectId], required: true, default: [] },
+						gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], required: true, default: [] },
 						psychology: {
 							type: {
 								items: {
