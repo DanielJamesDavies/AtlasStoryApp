@@ -19,18 +19,18 @@ import getImageFromFile from "../../../../services/GetImageFromFile";
 export const CharacterImagesLogic = () => {
 	const { isAuthorizedToEdit, story, character, setCharacter, setCharacterImages } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
-	const characterImagesRef = useRef();
+	const characterImagesContainerRef = useRef();
 
 	useEffect(() => {
-		const characterImagesRefCurrent = characterImagesRef?.current;
+		const characterImagesContainerRefCurrent = characterImagesContainerRef?.current;
 
 		function onCharacterImagesContainerScroll(e) {
-			if (characterImagesRefCurrent.scrollTop !== 0) e.stopPropagation();
+			if (characterImagesContainerRefCurrent.children[0].scrollTop !== 0) e.stopPropagation();
 		}
 
-		characterImagesRefCurrent?.addEventListener("wheel", onCharacterImagesContainerScroll);
-		return () => characterImagesRefCurrent?.removeEventListener("wheel", onCharacterImagesContainerScroll);
-	}, [characterImagesRef]);
+		characterImagesContainerRefCurrent?.addEventListener("wheel", onCharacterImagesContainerScroll);
+		return () => characterImagesContainerRefCurrent?.removeEventListener("wheel", onCharacterImagesContainerScroll);
+	}, [characterImagesContainerRef]);
 
 	const addImageInputRef = useRef();
 
@@ -74,7 +74,7 @@ export const CharacterImagesLogic = () => {
 	return {
 		isAuthorizedToEdit,
 		character,
-		characterImagesRef,
+		characterImagesContainerRef,
 		addImageInputRef,
 		onAddImageInputChange,
 	};

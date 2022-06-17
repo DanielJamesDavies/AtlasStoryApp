@@ -17,6 +17,7 @@ import "./EditableContainer.css";
 
 export const EditableContainer = ({
 	children,
+	innerRef,
 	className,
 	isMediaContent,
 	isAuthorizedToEdit,
@@ -52,7 +53,7 @@ export const EditableContainer = ({
 
 	return (
 		<div className={editableContainerClassName}>
-			<div className='editable-container-content'>
+			<div ref={innerRef} className='editable-container-content'>
 				{children.map((child, index) => ((isEditing && index === 0) || (!isEditing && index === 1) ? null : child))}
 			</div>
 			{!isAuthorizedToEdit ? null : !isEditing ? (

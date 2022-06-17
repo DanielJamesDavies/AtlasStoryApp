@@ -19,16 +19,16 @@ import "./CharacterImages.css";
 // Assets
 
 export const CharacterImages = ({ onAddImage }) => {
-	const { isAuthorizedToEdit, character, characterImagesRef, addImageInputRef, onAddImageInputChange } = CharacterImagesLogic();
+	const { isAuthorizedToEdit, character, characterImagesContainerRef, addImageInputRef, onAddImageInputChange } = CharacterImagesLogic();
 
 	return (
-		<EditableContainer className='character-images-container' isAuthorizedToEdit={isAuthorizedToEdit}>
-			<div ref={characterImagesRef} className='character-images'>
+		<EditableContainer innerRef={characterImagesContainerRef} className='character-images-container' isAuthorizedToEdit={isAuthorizedToEdit}>
+			<div className='character-images'>
 				{character?.data?.images?.map((image_id, index) => (
 					<CharacterImageItem key={index} image_id={image_id} index={index} onAddImage={onAddImage} />
 				))}
 			</div>
-			<div ref={characterImagesRef} className='character-images'>
+			<div className='character-images'>
 				{character?.data?.images?.map((image_id, index) => (
 					<CharacterImageItem key={index} image_id={image_id} index={index} onAddImage={onAddImage} />
 				))}
