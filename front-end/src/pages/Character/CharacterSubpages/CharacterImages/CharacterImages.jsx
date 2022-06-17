@@ -24,11 +24,13 @@ export const CharacterImages = ({ onAddImage }) => {
 	return (
 		<EditableContainer innerRef={characterImagesContainerRef} className='character-images-container' isAuthorizedToEdit={isAuthorizedToEdit}>
 			<div className='character-images'>
+				<div className='character-images-title'>All Character Images</div>
 				{character?.data?.images?.map((image_id, index) => (
 					<CharacterImageItem key={index} image_id={image_id} index={index} onAddImage={onAddImage} />
 				))}
 			</div>
 			<div className='character-images'>
+				<div className='character-images-title'>All Character Images</div>
 				{character?.data?.images?.map((image_id, index) => (
 					<CharacterImageItem key={index} image_id={image_id} index={index} onAddImage={onAddImage} />
 				))}

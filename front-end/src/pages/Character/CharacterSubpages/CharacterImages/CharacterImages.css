@@ -20,14 +20,21 @@
 	background: var(--grey3);
 }
 
+.character-images-container .editable-container-content {
+	padding-right: 10px;
+	width: calc(100% - 18px - 10px);
+}
+
 .character-images {
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	vertical-align: top;
-	padding: 14px 0;
-	width: 100%;
-	max-height: calc(100vh - (6px + 48px + 59px + 24px) - 36px - 24px - 28px - 6px);
+	padding: 0;
+	padding-right: 12px;
+	padding-bottom: 24px;
+	width: calc(100% - 12px);
+	max-height: calc(100vh - (6px + 48px + 59px + 24px) - 36px - 24px - 24px - 6px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
@@ -40,6 +47,11 @@
 .character-images::-webkit-scrollbar-thumb {
 	border-radius: 4px;
 	background: var(--characterColour);
+}
+
+.character-images-title {
+	margin-bottom: 12px;
+	font-weight: 700;
 }
 
 .character-images-add-image-container {
