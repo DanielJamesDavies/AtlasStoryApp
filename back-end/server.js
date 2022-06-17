@@ -28,6 +28,7 @@ app.use("/api/group", require("./routes/GroupRoute"));
 app.use("/api/character", require("./routes/CharacterRoute"));
 app.use("/api/character-type", require("./routes/CharacterTypeRoute"));
 app.use("/api/cookies-consent", require("./routes/CookiesConsentRoute"));
+app.use("/api/new-id", require("./routes/NewIdRoute"));
 
 // Running the Front-End
 if (process.env.NODE_ENV !== "development") {

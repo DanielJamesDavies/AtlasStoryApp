@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Character = require("../../models/Character");
 const Group = require("../../models/Group");
 const Story = require("../../models/Story");
+const Image = require("../../models/Image");
 
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
@@ -82,6 +83,54 @@ module.exports = async (req, res) => {
 			newCharacter.data.versions = newVersions;
 			newCharacter = new Character(newCharacter);
 			newCharacter = JSON.parse(JSON.stringify(newCharacter));
+
+			break;
+		case JSON.stringify(["data", "images"]):
+			const oldImages = newCharacter.data.images;
+			const newImages = req.body.newValue.character_images;
+
+			// Remove Removed Images
+			await Promise.all(
+				oldImages.map(async (oldImageID) => {
+					if (newImages.findIndex((e) => JSON.stringify(e) === JSON.stringify(oldImageID)) === -1) {
+						try {
+							await Image.deleteOne({ _id: oldImageID });
+						} catch (error) {}
+					}
+					return true;
+				})
+			);
+
+			newCharacter.data.versions = newCharacter.data.versions.map((version) => {
+				version.gallery = version.gallery.filter(
+					(galleryItem) => newImages.findIndex((e) => JSON.stringify(e) === JSON.stringify(galleryItem.image)) !== -1
+				);
+				return version;
+			});
+
+			// Create New Images
+			await Promise.all(
+				newImages.map(async (newImageID) => {
+					if (oldImages.findIndex((e) => JSON.stringify(e) === JSON.stringify(newImageID)) === -1) {
+						let newImage = req.body.newValue.images.find((e) => JSON.stringify(e._id) === JSON.stringify(newImageID))?.image;
+
+						if (newImage) {
+							const image = new Image({
+								_id: newImageID,
+								image: newImage,
+								story_id: newCharacter.story_id,
+								character_id: newCharacter._id,
+							});
+
+							try {
+								await image.save();
+							} catch (error) {}
+						}
+					}
+				})
+			);
+
+			newCharacter.data.images = newImages;
 
 			break;
 		default:

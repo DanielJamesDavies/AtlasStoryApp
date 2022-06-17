@@ -43,6 +43,9 @@ export const IconBtnLogic = ({ className, seamless, size, iconName }) => {
 				case "sort":
 					newClassName += " icon-btn-container-sort-icon";
 					break;
+				case "times":
+					newClassName += " icon-btn-container-times-icon";
+					break;
 				case "trash":
 					newClassName += " icon-btn-container-trash-icon";
 					break;

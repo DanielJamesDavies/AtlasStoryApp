@@ -88,6 +88,10 @@
 	width: 100%;
 }
 
+.icon-btn-container-seamless.icon-btn-container-times-icon svg {
+	width: 72%;
+}
+
 .icon-btn-label {
 	position: absolute;
 	left: 0;

@@ -17,7 +17,8 @@ import getImageFromFile from "../../../../services/GetImageFromFile";
 // Assets
 
 export const CharacterImagesLogic = () => {
-	const { isAuthorizedToEdit, story, character, setCharacter, setCharacterImages } = useContext(CharacterContext);
+	const { isAuthorizedToEdit, story, character, setCharacter, characterImages, setCharacterImages, characterVersion, changeCharacterVersion } =
+		useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 	const characterImagesContainerRef = useRef();
 
@@ -34,39 +35,99 @@ export const CharacterImagesLogic = () => {
 
 	const addImageInputRef = useRef();
 
-	async function onAddImageInputChange(e) {
+	async function onAddImageToCharacterImages(e) {
 		const image = await getImageFromFile(e.target.files[0]);
 		addImageInputRef.current.value = [];
 		if (image?.error || !image?.data) return false;
 
-		const create_image_response = await APIRequest("/image/", "POST", {
-			image: image.data,
-			story_id: story._id,
-			character_id: character._id,
-		});
-		if (!create_image_response || create_image_response?.errors || !create_image_response?.data?.image?._id) return false;
+		const new_id_response = await APIRequest("/new-id/", "GET");
 
-		let newCharacterImages = JSON.parse(JSON.stringify(character))?.data?.images;
-		newCharacterImages.push(create_image_response.data.image._id);
+		if (!new_id_response || new_id_response?.errors || !new_id_response?.data?._id) return false;
 
-		const character_response = await APIRequest("/character/" + character._id, "PATCH", {
-			story_id: story._id,
-			path: ["data", "images"],
-			newValue: newCharacterImages,
-		});
-		if (!character_response || character_response?.errors) return false;
+		let newCharacter = JSON.parse(JSON.stringify(character));
+		newCharacter.data.images.push(new_id_response.data._id);
 
 		setCharacter((oldCharacter) => {
-			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-			newCharacter.data.images = newCharacterImages;
+			let newCharacter2 = JSON.parse(JSON.stringify(oldCharacter));
+			newCharacter2.data.images = newCharacter.data.images;
 			return newCharacter;
 		});
 
 		setCharacterImages((oldCharacterImages) => {
 			let newCharacterImages = JSON.parse(JSON.stringify(oldCharacterImages));
-			newCharacterImages.push(create_image_response.data.image);
+			newCharacterImages.push({ _id: new_id_response.data._id, image: image.data });
 			return newCharacterImages;
 		});
+
+		return true;
+	}
+
+	function removeCharacterImage(image_id) {
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			const imageIndex = newCharacter.data.images.findIndex((e) => e === image_id);
+			if (imageIndex === -1) return newCharacter;
+			newCharacter.data.images.splice(imageIndex, 1);
+			return newCharacter;
+		});
+
+		setCharacterImages((oldCharacterImages) => {
+			let newCharacterImages = JSON.parse(JSON.stringify(oldCharacterImages));
+			const imageIndex = newCharacterImages.findIndex((e) => e._id === image_id);
+			if (imageIndex === -1) return newCharacterImages;
+			newCharacterImages.splice(imageIndex, 1);
+			return newCharacterImages;
+		});
+	}
+
+	async function revertCharacterImages() {
+		const response = await APIRequest("/character/get-value/" + character._id, "POST", {
+			story_id: story._id,
+			path: ["data", "images"],
+		});
+
+		if (!response || response?.errors || !response?.data?.value) return false;
+
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			newCharacter.data.images = response.data.value;
+			return newCharacter;
+		});
+
+		if (response?.data?.images) setCharacterImages(response.data.images);
+
+		return true;
+	}
+
+	async function saveCharacterImages() {
+		if (!character?._id) return;
+		const response = await APIRequest("/character/" + character._id, "PATCH", {
+			story_id: story._id,
+			path: ["data", "images"],
+			newValue: { character_images: character.data.images, images: characterImages },
+		});
+		if (!response || response?.errors) return false;
+
+		if (response?.data?.character) {
+			setCharacter((oldCharacter) => {
+				let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+				newCharacter.data.images = response.data.character.data.images;
+				newCharacter.data.versions = newCharacter.data.versions.map((version) => {
+					version.gallery = version.gallery.filter(
+						(galleryItem) => newCharacter.data.images.findIndex((e) => JSON.stringify(e) === JSON.stringify(galleryItem.image)) !== -1
+					);
+					return version;
+				});
+				return newCharacter;
+			});
+
+			let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+			newCharacterVersion.gallery = newCharacterVersion.gallery.filter(
+				(galleryItem) =>
+					response.data.character.data.images.findIndex((e) => JSON.stringify(e) === JSON.stringify(galleryItem.image)) !== -1
+			);
+			changeCharacterVersion(newCharacterVersion);
+		}
 
 		return true;
 	}
@@ -76,6 +137,9 @@ export const CharacterImagesLogic = () => {
 		character,
 		characterImagesContainerRef,
 		addImageInputRef,
-		onAddImageInputChange,
+		onAddImageToCharacterImages,
+		removeCharacterImage,
+		revertCharacterImages,
+		saveCharacterImages,
 	};
 };

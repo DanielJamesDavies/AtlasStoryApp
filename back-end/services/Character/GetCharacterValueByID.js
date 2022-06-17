@@ -1,4 +1,5 @@
 const Character = require("../../models/Character");
+const Image = require("../../models/Image");
 const GetValueInNestedObject = require("../GetValueInNestedObject");
 
 module.exports = async (req, res) => {
@@ -19,6 +20,18 @@ module.exports = async (req, res) => {
 		if (versionIndex === -1) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
 		newPath[2] = versionIndex;
 		value = GetValueInNestedObject(JSON.parse(JSON.stringify(character)), newPath);
+	} else if (JSON.stringify(req.body.path) === JSON.stringify(["data", "images"])) {
+		let characterImages = await Promise.all(
+			character.data.images.map(async (image_id) => {
+				const image = Image.findById(image_id)
+					.exec()
+					.catch(() => {});
+				if (!image) return false;
+				return image;
+			})
+		);
+		characterImages = characterImages.filter((e) => e !== false);
+		return res.status(200).send({ message: "Success", data: { path: req.body.path, value: character.data.images, images: characterImages } });
 	} else {
 		value = GetValueInNestedObject(JSON.parse(JSON.stringify(character)), req?.body?.path);
 	}

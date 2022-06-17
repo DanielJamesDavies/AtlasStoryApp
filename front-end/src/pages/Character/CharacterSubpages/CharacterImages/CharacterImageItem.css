@@ -18,6 +18,8 @@
 	position: absolute;
 	top: 2px;
 	right: 2px;
+	display: flex;
+	flex-direction: column;
 }
 
 @media (max-width: 1000px) {

@@ -54,12 +54,6 @@
 	font-weight: 700;
 }
 
-.character-images-add-image-container {
-	margin: 0;
-	margin-top: 24px;
-	text-align: center;
-}
-
 .character-images-add-image-input {
 	display: none;
 }
@@ -89,10 +83,5 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 		align-items: center;
-	}
-
-	.character-images-add-image-container {
-		margin: 0;
-		margin-left: 18%;
 	}
 }

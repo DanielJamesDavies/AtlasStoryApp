@@ -1,5 +1,5 @@
 // Packages
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTimes } from "react-icons/fa";
 
 // Components
 import { IconBtn } from "../../../../components/IconBtn/IconBtn";
@@ -16,7 +16,7 @@ import "./CharacterImageItem.css";
 
 // Assets
 
-export const CharacterImageItem = ({ image_id, index, onAddImage }) => {
+export const CharacterImageItem = ({ image_id, index, onAddImage, onRemoveImage }) => {
 	const { image } = CharacterImageItemLogic({ image_id, index });
 
 	return (
@@ -24,6 +24,7 @@ export const CharacterImageItem = ({ image_id, index, onAddImage }) => {
 			<div className='character-image-item-image'>{!image ? null : <img src={image} alt='' />}</div>
 			<div className='character-image-item-btns-container'>
 				<IconBtn icon={<FaPlus />} iconName='plus' seamless={true} onClick={() => onAddImage(image_id)} />
+				{!onRemoveImage ? null : <IconBtn icon={<FaTimes />} iconName='times' seamless={true} onClick={() => onRemoveImage(image_id)} />}
 			</div>
 		</div>
 	);

@@ -1,10 +1,8 @@
 // Packages
-import { FaPlus } from "react-icons/fa";
 
 // Components
 import { CharacterImageItem } from "./CharacterImageItem";
 import { EditableContainer } from "../../../../components/EditableContainer/EditableContainer";
-import { IconBtn } from "../../../../components/IconBtn/IconBtn";
 
 // Logic
 import { CharacterImagesLogic } from "./CharacterImagesLogic";
@@ -19,10 +17,26 @@ import "./CharacterImages.css";
 // Assets
 
 export const CharacterImages = ({ onAddImage }) => {
-	const { isAuthorizedToEdit, character, characterImagesContainerRef, addImageInputRef, onAddImageInputChange } = CharacterImagesLogic();
+	const {
+		isAuthorizedToEdit,
+		character,
+		characterImagesContainerRef,
+		addImageInputRef,
+		onAddImageToCharacterImages,
+		removeCharacterImage,
+		revertCharacterImages,
+		saveCharacterImages,
+	} = CharacterImagesLogic();
 
 	return (
-		<EditableContainer innerRef={characterImagesContainerRef} className='character-images-container' isAuthorizedToEdit={isAuthorizedToEdit}>
+		<EditableContainer
+			innerRef={characterImagesContainerRef}
+			className='character-images-container'
+			isAuthorizedToEdit={isAuthorizedToEdit}
+			onAdd={() => addImageInputRef.current.click()}
+			onRevert={revertCharacterImages}
+			onSave={saveCharacterImages}
+		>
 			<div className='character-images'>
 				<div className='character-images-title'>All Character Images</div>
 				{character?.data?.images?.map((image_id, index) => (
@@ -32,18 +46,21 @@ export const CharacterImages = ({ onAddImage }) => {
 			<div className='character-images'>
 				<div className='character-images-title'>All Character Images</div>
 				{character?.data?.images?.map((image_id, index) => (
-					<CharacterImageItem key={index} image_id={image_id} index={index} onAddImage={onAddImage} />
-				))}
-				<div className='character-images-add-image-container'>
-					<input
-						ref={addImageInputRef}
-						className='character-images-add-image-input'
-						type='file'
-						accept='image/*'
-						onChange={onAddImageInputChange}
+					<CharacterImageItem
+						key={index}
+						image_id={image_id}
+						index={index}
+						onAddImage={onAddImage}
+						onRemoveImage={removeCharacterImage}
 					/>
-					<IconBtn icon={<FaPlus />} iconName='plus' seamless={true} onClick={() => addImageInputRef.current.click()} />
-				</div>
+				))}
+				<input
+					ref={addImageInputRef}
+					className='character-images-add-image-input'
+					type='file'
+					accept='image/*'
+					onChange={onAddImageToCharacterImages}
+				/>
 			</div>
 		</EditableContainer>
 	);
