@@ -27,3 +27,9 @@
 .editable-container-is-editing ~ .character-images-container {
 	display: inline-block;
 }
+
+@media (max-width: 1000px) {
+	.editable-container-is-editing.character-subpage-gallery {
+		width: 100%;
+	}
+}

@@ -1,6 +1,6 @@
 .character-image-item {
 	position: relative;
-	margin: 4px;
+	margin: 4px 0;
 	width: 100%;
 }
 
@@ -18,4 +18,11 @@
 	position: absolute;
 	top: 2px;
 	right: 2px;
+}
+
+@media (max-width: 1000px) {
+	.character-image-item {
+		margin: 4px;
+		width: calc(50% - 8px);
+	}
 }

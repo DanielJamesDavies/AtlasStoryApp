@@ -32,3 +32,16 @@
 	top: 2px;
 	right: 2px;
 }
+
+@media (max-width: 1000px) {
+	.character-subpage-gallery-item {
+		position: relative;
+		margin: 4px;
+		width: calc((100% / 2) - 8px);
+	}
+
+	.character-subpage-gallery-items-container .drag-drop-item {
+		margin: 4px;
+		width: calc((100% / 2) - 8px);
+	}
+}
