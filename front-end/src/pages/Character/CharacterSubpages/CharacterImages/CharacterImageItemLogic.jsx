@@ -16,7 +16,7 @@ import { CharacterContext } from "../../CharacterContext";
 
 // Assets
 
-export const CharacterImageItemLogic = ({ image_id, index }) => {
+export const CharacterImageItemLogic = ({ image_id }) => {
 	const { characterImages } = useContext(CharacterContext);
 	const [image, setImage] = useState(false);
 

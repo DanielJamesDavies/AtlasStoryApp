@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef, useEffect, useState } from "react";
 
 // Components
 
@@ -80,6 +80,21 @@ export const CharacterImagesLogic = () => {
 		});
 	}
 
+	const [isReorderingCharacterImages, setIsReorderingCharacterImages] = useState(false);
+	function toggleIsReorderingCharacterImages() {
+		setIsReorderingCharacterImages((oldIsReorderingCharacterImages) => !oldIsReorderingCharacterImages);
+	}
+
+	function reorderCharacterImages(res) {
+		if (res.from === undefined || res.to === undefined) return false;
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			const tempImage = newCharacter.data.images.splice(res.from, 1)[0];
+			newCharacter.data.images.splice(res.to, 0, tempImage);
+			return newCharacter;
+		});
+	}
+
 	async function revertCharacterImages() {
 		const response = await APIRequest("/character/get-value/" + character._id, "POST", {
 			story_id: story._id,
@@ -139,6 +154,9 @@ export const CharacterImagesLogic = () => {
 		addImageInputRef,
 		onAddImageToCharacterImages,
 		removeCharacterImage,
+		isReorderingCharacterImages,
+		toggleIsReorderingCharacterImages,
+		reorderCharacterImages,
 		revertCharacterImages,
 		saveCharacterImages,
 	};

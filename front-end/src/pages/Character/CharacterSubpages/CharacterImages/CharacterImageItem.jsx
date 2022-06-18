@@ -16,8 +16,8 @@ import "./CharacterImageItem.css";
 
 // Assets
 
-export const CharacterImageItem = ({ image_id, index, onAddImage, onRemoveImage }) => {
-	const { image } = CharacterImageItemLogic({ image_id, index });
+export const CharacterImageItem = ({ image_id, onAddImage, onRemoveImage }) => {
+	const { image } = CharacterImageItemLogic({ image_id });
 
 	return (
 		<div className='character-image-item'>

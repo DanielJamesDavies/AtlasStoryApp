@@ -3,6 +3,8 @@
 // Components
 import { CharacterImageItem } from "./CharacterImageItem";
 import { EditableContainer } from "../../../../components/EditableContainer/EditableContainer";
+import { DragDropContainer } from "../../../../components/DragDropContainer/DragDropContainer";
+import { DragDropItem } from "../../../../components/DragDropItem/DragDropItem";
 
 // Logic
 import { CharacterImagesLogic } from "./CharacterImagesLogic";
@@ -24,6 +26,9 @@ export const CharacterImages = ({ onAddImage }) => {
 		addImageInputRef,
 		onAddImageToCharacterImages,
 		removeCharacterImage,
+		isReorderingCharacterImages,
+		toggleIsReorderingCharacterImages,
+		reorderCharacterImages,
 		revertCharacterImages,
 		saveCharacterImages,
 	} = CharacterImagesLogic();
@@ -34,26 +39,27 @@ export const CharacterImages = ({ onAddImage }) => {
 			className='character-images-container'
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onAdd={() => addImageInputRef.current.click()}
+			onReorder={toggleIsReorderingCharacterImages}
 			onRevert={revertCharacterImages}
 			onSave={saveCharacterImages}
 		>
 			<div className='character-images'>
 				<div className='character-images-title'>All Character Images</div>
 				{character?.data?.images?.map((image_id, index) => (
-					<CharacterImageItem key={index} image_id={image_id} index={index} onAddImage={onAddImage} />
+					<div key={index} className='character-image-item-container'>
+						<CharacterImageItem image_id={image_id} onAddImage={onAddImage} />
+					</div>
 				))}
 			</div>
 			<div className='character-images'>
 				<div className='character-images-title'>All Character Images</div>
-				{character?.data?.images?.map((image_id, index) => (
-					<CharacterImageItem
-						key={index}
-						image_id={image_id}
-						index={index}
-						onAddImage={onAddImage}
-						onRemoveImage={removeCharacterImage}
-					/>
-				))}
+				<DragDropContainer onDropItem={reorderCharacterImages} enableDragDrop={isReorderingCharacterImages}>
+					{character?.data?.images?.map((image_id, index) => (
+						<DragDropItem key={index} index={index} className='character-image-item-container'>
+							<CharacterImageItem image_id={image_id} onAddImage={onAddImage} onRemoveImage={removeCharacterImage} />
+						</DragDropItem>
+					))}
+				</DragDropContainer>
 				<input
 					ref={addImageInputRef}
 					className='character-images-add-image-input'

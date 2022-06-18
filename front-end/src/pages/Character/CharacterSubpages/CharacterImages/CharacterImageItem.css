@@ -1,6 +1,18 @@
+.character-image-item-container {
+	margin: 4px 0;
+	width: 100%;
+}
+
+.drag-drop-item-enable-drag-drop.character-image-item-container {
+	animation: wiggle-large infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).character-image-item-container {
+	animation-delay: 0.1s;
+}
+
 .character-image-item {
 	position: relative;
-	margin: 4px 0;
 	width: 100%;
 }
 
@@ -23,7 +35,7 @@
 }
 
 @media (max-width: 1000px) {
-	.character-image-item {
+	.character-image-item-container {
 		margin: 4px;
 		width: calc(50% - 8px);
 	}

@@ -79,7 +79,9 @@
 		background: var(--grey3);
 	}
 
-	.character-images {
+	.character-images,
+	.character-images .drag-drop-list {
+		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
 		align-items: center;
