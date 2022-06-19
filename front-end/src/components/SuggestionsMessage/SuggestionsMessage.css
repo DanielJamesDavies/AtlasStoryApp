@@ -1,7 +1,7 @@
 .suggestions-message {
 	padding: 12px 0;
 	padding-right: 12px;
-	padding-top: 6px;
+	padding-bottom: 6px;
 	text-align: right;
 	color: var(--lightgreen);
 }

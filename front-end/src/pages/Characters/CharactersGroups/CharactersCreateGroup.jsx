@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { PopUpContainer } from "../../../components/PopUpContainer/PopUpContainer";
 import { TextInput } from "../../../components/TextInput/TextInput";
 import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { SuggestionsMessage } from "../../../components/SuggestionsMessage/SuggestionsMessage";
@@ -33,9 +34,12 @@ export const CharactersCreateGroup = () => {
 		submitCreateGroup,
 	} = CharactersCreateGroupLogic();
 
-	if (!isDisplayingCreateGroupForm) return null;
 	return (
-		<div className='characters-create-group-container'>
+		<PopUpContainer
+			className='characters-create-group-container'
+			isDisplaying={isDisplayingCreateGroupForm}
+			onClosePopUp={closeCreateGroupForm}
+		>
 			<div className='characters-create-group-form'>
 				<div className='characters-create-group-form-title'>Create Group</div>
 				<div className='characters-create-group-form-input-container'>
@@ -58,7 +62,6 @@ export const CharactersCreateGroup = () => {
 					<SubmitBtn label='Create Group' onSubmit={submitCreateGroup} />
 				</div>
 			</div>
-			<div className='characters-create-group-background' onClick={closeCreateGroupForm} />
-		</div>
+		</PopUpContainer>
 	);
 };

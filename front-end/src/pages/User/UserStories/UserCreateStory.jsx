@@ -1,10 +1,12 @@
 // Packages
 
 // Components
+import { PopUpContainer } from "../../../components/PopUpContainer/PopUpContainer";
 import { TextInput } from "../../../components/TextInput/TextInput";
 import { ToggleInput } from "../../../components/ToggleInput/ToggleInput";
 import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { SuggestionsMessage } from "../../../components/SuggestionsMessage/SuggestionsMessage";
+import { URLPreviewMessage } from "../../../components/URLPreviewMessage/URLPreviewMessage";
 import { SubmitBtn } from "../../../components/SubmitBtn/SubmitBtn";
 
 // Logic
@@ -16,7 +18,6 @@ import { UserCreateStoryLogic } from "./UserCreateStoryLogic";
 
 // Styles
 import "./UserCreateStory.css";
-import { URLPreviewMessage } from "../../../components/URLPreviewMessage/URLPreviewMessage";
 
 // Assets
 
@@ -35,9 +36,12 @@ export const UserCreateStory = () => {
 		submitCreateStory,
 	} = UserCreateStoryLogic();
 
-	if (!isDisplayingCreateStoryForm) return null;
 	return (
-		<div className='user-stories-create-story-container'>
+		<PopUpContainer
+			className='user-stories-create-story-container'
+			isDisplaying={isDisplayingCreateStoryForm}
+			onClosePopUp={closeCreateStoryForm}
+		>
 			<div className='user-stories-create-story-form'>
 				<div className='user-stories-create-story-form-title'>Create Story</div>
 				<div className='user-stories-create-story-form-input-container'>
@@ -61,7 +65,6 @@ export const UserCreateStory = () => {
 					<SubmitBtn label='Create Story' onSubmit={submitCreateStory} />
 				</div>
 			</div>
-			<div className='user-stories-create-story-background' onClick={closeCreateStoryForm} />
-		</div>
+		</PopUpContainer>
 	);
 };

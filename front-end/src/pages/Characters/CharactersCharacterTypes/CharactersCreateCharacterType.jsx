@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { PopUpContainer } from "../../../components/PopUpContainer/PopUpContainer";
 import { TextInput } from "../../../components/TextInput/TextInput";
 import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { SubmitBtn } from "../../../components/SubmitBtn/SubmitBtn";
@@ -29,9 +30,12 @@ export const CharactersCreateCharacterType = () => {
 		submitCreateCharacterType,
 	} = CharactersCreateCharacterTypeLogic();
 
-	if (!isDisplayingCreateCharacterTypeForm) return null;
 	return (
-		<div className='characters-create-character-type-container'>
+		<PopUpContainer
+			className='characters-create-character-type-container'
+			isDisplaying={isDisplayingCreateCharacterTypeForm}
+			onClosePopUp={closeCreateCharacterTypeForm}
+		>
 			<div className='characters-create-character-type-form'>
 				<div className='characters-create-character-type-form-title'>Create Character Type</div>
 				<div className='characters-create-character-type-form-input-container'>
@@ -47,7 +51,6 @@ export const CharactersCreateCharacterType = () => {
 					<SubmitBtn label='Create Character Type' onSubmit={submitCreateCharacterType} />
 				</div>
 			</div>
-			<div className='characters-create-character-type-background' onClick={closeCreateCharacterTypeForm} />
-		</div>
+		</PopUpContainer>
 	);
 };

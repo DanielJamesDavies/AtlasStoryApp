@@ -14,7 +14,7 @@ import "./SuggestionsMessage.css";
 // Assets
 
 export const SuggestionsMessage = ({ suggestions, labelContext }) => {
-	if (!suggestions || !Array.isArray(suggestions)) return null;
+	if (!suggestions || !Array.isArray(suggestions) || suggestions?.length === 0) return null;
 
 	return (
 		<div className='suggestions-message'>

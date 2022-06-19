@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { PopUpContainer } from "../../../components/PopUpContainer/PopUpContainer";
 import { TextInput } from "../../../components/TextInput/TextInput";
 import { ToggleInput } from "../../../components/ToggleInput/ToggleInput";
 import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
@@ -36,9 +37,12 @@ export const CharactersCreateCharacter = () => {
 		submitCreateCharacter,
 	} = CharactersCreateCharacterLogic();
 
-	if (!isDisplayingCreateCharacterForm) return null;
 	return (
-		<div className='characters-create-character-container'>
+		<PopUpContainer
+			className='characters-create-character-container'
+			isDisplaying={isDisplayingCreateCharacterForm}
+			onClosePopUp={closeCreateCharacterForm}
+		>
 			<div className='characters-create-character-form'>
 				<div className='characters-create-character-form-title'>Create Character</div>
 				<div className='characters-create-character-form-input-container'>
@@ -71,7 +75,6 @@ export const CharactersCreateCharacter = () => {
 					<SubmitBtn label='Create Character' onSubmit={submitCreateCharacter} />
 				</div>
 			</div>
-			<div className='characters-create-character-background' onClick={closeCreateCharacterForm} />
-		</div>
+		</PopUpContainer>
 	);
 };
