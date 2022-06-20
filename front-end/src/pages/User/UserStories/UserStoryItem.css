@@ -1,5 +1,8 @@
 .user-stories-story-item-container {
 	position: relative;
+	margin: 10px;
+	width: 250px;
+	height: 355px;
 }
 
 .drag-drop-item-enable-drag-drop .user-stories-story-item {
@@ -13,7 +16,6 @@
 .user-stories-story-item {
 	position: relative;
 	display: inline-block;
-	margin: 10px;
 	border-radius: 4px;
 	width: 250px;
 	height: 355px;
