@@ -28,6 +28,10 @@
 	display: inline-block;
 }
 
+.character-subpage-gallery ~ .character-images-container .character-images {
+	max-height: calc(100vh - (6px + 48px + 59px + 24px) - 36px - 24px - 24px - 6px);
+}
+
 @media (max-width: 1000px) {
 	.editable-container-is-editing.character-subpage-gallery {
 		width: 100%;

@@ -33,7 +33,7 @@ export const DevelopmentItemsLogic = () => {
 
 	function addDevelopmentItem() {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.development.items.push({ title: "", value: [""] });
+		newCharacterVersion.development.items.push({ title: "", value: [""], images: [] });
 		changeCharacterVersion(newCharacterVersion);
 	}
 

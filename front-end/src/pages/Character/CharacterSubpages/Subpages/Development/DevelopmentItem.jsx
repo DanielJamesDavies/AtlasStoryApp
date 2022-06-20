@@ -104,6 +104,7 @@ export const DevelopmentItem = ({
 											className='character-subpage-development-item-image-item-caption'
 											seamless={true}
 											autoResize={true}
+											label='Caption'
 											value={image.caption}
 											onChange={(e) => changeDevelopmentItemImageCaption(e, imageIndex)}
 										/>
