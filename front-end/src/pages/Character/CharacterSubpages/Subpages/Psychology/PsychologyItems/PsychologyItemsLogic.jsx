@@ -62,9 +62,15 @@ export const PsychologyItemsLogic = () => {
 			"Love Languages",
 			"Favourite Music Genres",
 		];
-		newCharacterVersion.psychology.items = defaultPsychologyItemsTitles.map((title) => {
+		let newPsychologyItems = defaultPsychologyItemsTitles.map((title) => {
+			const correspondingItem = newCharacterVersion.psychology.items.find((e) => e.title === title);
+			if (correspondingItem) return correspondingItem;
 			return { title, value: [""] };
 		});
+		newPsychologyItems = newPsychologyItems.concat(
+			newCharacterVersion.psychology.items.filter((e) => !defaultPsychologyItemsTitles.includes(e.title))
+		);
+		newCharacterVersion.psychology.items = newPsychologyItems;
 		changeCharacterVersion(newCharacterVersion);
 	}
 
