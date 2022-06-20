@@ -105,8 +105,17 @@ export const SettingsVersionsLogic = () => {
 					return version;
 				});
 
-				if (newCharacter.data.versions.findIndex((e) => e._id === characterVersion._id) === -1)
+				const characterVersionIndex = newCharacter.data.versions.findIndex((e) => e._id === characterVersion._id);
+				if (characterVersionIndex === -1) {
 					setCharacterVersion(newCharacter.data.versions[0]);
+				} else {
+					setCharacterVersion((oldCharacterVersion) => {
+						let newCharacterVersion = JSON.parse(JSON.stringify(oldCharacterVersion));
+						newCharacterVersion.title = newCharacter.data.versions[characterVersionIndex]?.title;
+						return newCharacterVersion;
+					});
+				}
+
 				return newCharacter;
 			});
 		}
