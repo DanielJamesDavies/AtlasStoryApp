@@ -16,7 +16,7 @@ import "./NavigationBar.css";
 export const NavigationBar = () => {
 	const {
 		isOnStory,
-		profilePicture,
+		userProfilePicture,
 		navigateToProfile,
 		navigateToSearch,
 		navigateToStory,
@@ -29,7 +29,7 @@ export const NavigationBar = () => {
 		<div className='navigation-bar'>
 			<div className='navigation-bar-primary-button-container'>
 				<button className='navigation-bar-btn navigation-bar-btn-user' onClick={navigateToProfile} onAuxClick={navigateToProfile}>
-					{!profilePicture ? null : <img src={profilePicture} alt='' />}
+					{!userProfilePicture ? <div className='navigation-bar-btn-user-placeholder' /> : <img src={userProfilePicture} alt='' />}
 				</button>
 				<button className='navigation-bar-btn navigation-bar-btn-search' onClick={navigateToSearch} onAuxClick={navigateToSearch}>
 					<FaSearch />

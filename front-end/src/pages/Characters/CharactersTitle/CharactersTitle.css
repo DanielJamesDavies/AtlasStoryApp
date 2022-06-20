@@ -32,7 +32,13 @@
 	min-height: 65px;
 	height: 65px;
 	vertical-align: middle;
-	background: var(--grey3);
+}
+
+.characters-title-story-icon-placeholder {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	background: var(--grey2);
 }
 
 .characters-title-story-icon img {

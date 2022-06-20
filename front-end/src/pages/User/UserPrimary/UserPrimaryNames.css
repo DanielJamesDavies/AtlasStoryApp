@@ -39,6 +39,7 @@
 	}
 
 	.user-primary-profile-picture {
+		margin-left: 6px;
 		width: 60px;
 		height: 60px;
 	}
@@ -48,10 +49,11 @@
 	}
 
 	.user-primary-names-is-authorized {
-		width: calc(100% - 212px);
+		max-width: calc(100% - 210px);
 	}
 
-	.user-primary-names-nickname {
+	.user-primary-names-nickname,
+	.user-primary-names-nickname-container input {
 		font-size: 20px;
 	}
 

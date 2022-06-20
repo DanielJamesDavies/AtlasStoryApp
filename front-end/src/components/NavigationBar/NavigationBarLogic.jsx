@@ -15,8 +15,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const NavigationBarLogic = () => {
 	const [isOnStory, setIsOnStory] = useState(false);
-	const [profilePicture, setProfilePicture] = useState(false);
-	const { APIRequest, username, setUsername } = useContext(APIContext);
+	const { APIRequest, username, setUsername, userProfilePicture, setUserProfilePicture } = useContext(APIContext);
 	const { location, changeLocation } = useContext(RoutesContext);
 
 	useEffect(() => {
@@ -26,10 +25,10 @@ export const NavigationBarLogic = () => {
 	useEffect(() => {
 		async function getInitial() {
 			const user = await getUser();
-			const profilePicture = await getProfilePicture(user?.data?.profilePicture);
+			const userProfilePicture = await getUserProfilePicture(user?.data?.profilePicture);
 
 			if (user?.username && user.username !== username) setUsername(user.username);
-			setProfilePicture(profilePicture);
+			setUserProfilePicture(userProfilePicture);
 		}
 
 		async function getUser() {
@@ -38,15 +37,15 @@ export const NavigationBarLogic = () => {
 			return response?.data?.user;
 		}
 
-		async function getProfilePicture(profilePictureID) {
-			if (!profilePictureID) return false;
-			const response = await APIRequest("/image/" + profilePictureID, "GET");
+		async function getUserProfilePicture(userProfilePictureID) {
+			if (!userProfilePictureID) return false;
+			const response = await APIRequest("/image/" + userProfilePictureID, "GET");
 			if (response?.error || !response?.data?.image) return false;
 			return response.data.image;
 		}
 
 		getInitial();
-	}, [APIRequest, username, setUsername, setProfilePicture]);
+	}, [APIRequest, username, setUsername, setUserProfilePicture]);
 
 	function navigateToProfile(e) {
 		if (username) {
@@ -82,7 +81,7 @@ export const NavigationBarLogic = () => {
 
 	return {
 		isOnStory,
-		profilePicture,
+		userProfilePicture,
 		navigateToProfile,
 		navigateToSearch,
 		navigateToStory,

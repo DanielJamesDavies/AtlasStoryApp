@@ -6,6 +6,12 @@
 	width: 74px;
 	height: 74px;
 	vertical-align: middle;
+}
+
+.story-primary-icon-placeholder {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
 	background: var(--grey2);
 }
 

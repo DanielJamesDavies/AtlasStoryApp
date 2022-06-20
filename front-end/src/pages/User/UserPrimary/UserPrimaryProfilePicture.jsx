@@ -29,7 +29,9 @@ export const UserPrimaryProfilePicture = () => {
 			onRevert={revertProfilePicture}
 			onSave={saveProfilePicture}
 		>
-			<div className='user-primary-profile-picture'>{!profilePicture ? null : <img src={profilePicture} alt='' />}</div>
+			<div className='user-primary-profile-picture'>
+				{!profilePicture ? <div className='user-primary-profile-picture-placeholder' /> : <img src={profilePicture} alt='' />}
+			</div>
 			<ImageInput className='user-primary-profile-picture' isCircular={true} value={profilePicture} onChange={changeProfilePicture} />
 			<ErrorMessage errors={errors} />
 		</EditableContainer>

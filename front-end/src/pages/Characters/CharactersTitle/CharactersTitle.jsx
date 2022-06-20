@@ -19,7 +19,9 @@ export const CharactersTitle = () => {
 
 	return (
 		<div className='characters-title'>
-			<div className='characters-title-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
+			<div className='characters-title-story-icon'>
+				{!storyIcon ? <div className='characters-title-story-icon-placeholder' /> : <img src={storyIcon} alt='' />}
+			</div>
 			{!story?.data?.title ? null : (
 				<>
 					<div className='characters-title-story-title'>{story?.data?.title}</div>

@@ -28,7 +28,7 @@ export const StoryPrimaryIcon = () => {
 			onRevert={revertStoryIcon}
 			onSave={saveStoryIcon}
 		>
-			<div className='story-primary-icon'>{!icon ? null : <img src={icon} alt='' />}</div>
+			<div className='story-primary-icon'>{!icon ? <div className='story-primary-icon-placeholder' /> : <img src={icon} alt='' />}</div>
 			<ImageInput className='story-primary-icon' isCircular={true} value={icon} onChange={changeStoryIcon} />
 			<ErrorMessage errors={errors} />
 		</EditableContainer>

@@ -47,4 +47,8 @@
 		padding: 0;
 		padding-bottom: 12px;
 	}
+
+	.user-primary-auth-btn {
+		margin: 0 8px;
+	}
 }

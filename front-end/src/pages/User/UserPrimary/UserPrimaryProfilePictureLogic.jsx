@@ -17,7 +17,7 @@ import { APIContext } from "../../../context/APIContext";
 
 export const UserPrimaryProfilePictureLogic = () => {
 	const { isAuthorizedToEdit, user, profilePicture, setProfilePicture } = useContext(UserContext);
-	const { APIRequest } = useContext(APIContext);
+	const { APIRequest, setUserProfilePicture } = useContext(APIContext);
 
 	const [errors, setErrors] = useState([]);
 
@@ -43,6 +43,7 @@ export const UserPrimaryProfilePictureLogic = () => {
 			if (response?.errors) setErrors(response.errors);
 			return false;
 		}
+		setUserProfilePicture(profilePicture);
 		return true;
 	}
 

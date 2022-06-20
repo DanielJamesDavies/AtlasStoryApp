@@ -4,6 +4,7 @@ export const APIContext = createContext();
 
 const APIProvider = ({ children }) => {
 	const [username, setUsername] = useState(false);
+	const [userProfilePicture, setUserProfilePicture] = useState(false);
 	const [cookiesConsent, setCookiesConsent] = useState(false);
 	const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api" : "https://www.atlas-story.app/api";
 
@@ -32,7 +33,13 @@ const APIProvider = ({ children }) => {
 		return responseData;
 	};
 
-	return <APIContext.Provider value={{ APIRequest, username, setUsername, cookiesConsent, setCookiesConsent }}>{children}</APIContext.Provider>;
+	return (
+		<APIContext.Provider
+			value={{ APIRequest, username, setUsername, userProfilePicture, setUserProfilePicture, cookiesConsent, setCookiesConsent }}
+		>
+			{children}
+		</APIContext.Provider>
+	);
 };
 
 export default APIProvider;
