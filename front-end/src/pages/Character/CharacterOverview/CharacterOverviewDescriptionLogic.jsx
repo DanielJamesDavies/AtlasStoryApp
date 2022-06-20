@@ -16,29 +16,25 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const CharacterOverviewDescriptionLogic = () => {
-	const { isAuthorizedToEdit, story, character, setCharacter } = useContext(CharacterContext);
+	const { isAuthorizedToEdit, story, character, characterVersion, changeCharacterVersion } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 
 	function changeDescription(e) {
-		setCharacter((oldCharacter) => {
-			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-			newCharacter.data.description = e.target.value.split("\n");
-			return newCharacter;
-		});
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		newCharacterVersion.description = e.target.value.split("\n");
+		changeCharacterVersion(newCharacterVersion);
 	}
 
 	async function revertDescription() {
 		const response = await APIRequest("/character/get-value/" + character._id, "POST", {
 			story_id: story._id,
-			path: ["data", "description"],
+			path: ["data", "versions", characterVersion._id, "description"],
 		});
 		if (!response || response?.errors || !response?.data?.value) return false;
 
-		setCharacter((oldCharacter) => {
-			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-			newCharacter.data.description = response.data.value;
-			return newCharacter;
-		});
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		newCharacterVersion.description = response.data.value;
+		changeCharacterVersion(newCharacterVersion);
 
 		return true;
 	}
@@ -46,12 +42,12 @@ export const CharacterOverviewDescriptionLogic = () => {
 	async function saveDescription() {
 		const response = await APIRequest("/character/" + character._id, "PATCH", {
 			story_id: story._id,
-			path: ["data", "description"],
-			newValue: character.data.description,
+			path: ["data", "versions", characterVersion._id, "description"],
+			newValue: characterVersion.description,
 		});
 		if (!response || response?.errors) return false;
 		return true;
 	}
 
-	return { isAuthorizedToEdit, character, changeDescription, revertDescription, saveDescription };
+	return { isAuthorizedToEdit, characterVersion, changeDescription, revertDescription, saveDescription };
 };

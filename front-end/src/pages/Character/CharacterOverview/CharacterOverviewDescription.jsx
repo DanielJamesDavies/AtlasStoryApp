@@ -18,7 +18,7 @@ import "./CharacterOverviewDescription.css";
 // Assets
 
 export const CharacterOverviewDescription = () => {
-	const { isAuthorizedToEdit, character, changeDescription, revertDescription, saveDescription } = CharacterOverviewDescriptionLogic();
+	const { isAuthorizedToEdit, characterVersion, changeDescription, revertDescription, saveDescription } = CharacterOverviewDescriptionLogic();
 
 	return (
 		<EditableContainer
@@ -27,12 +27,12 @@ export const CharacterOverviewDescription = () => {
 			onRevert={revertDescription}
 			onSave={saveDescription}
 		>
-			{character?.data?.description === undefined || character?.data?.description.join("").split(" ").join("").length === 0 ? (
+			{characterVersion?.description === undefined || characterVersion?.description.join("").split(" ").join("").length === 0 ? (
 				<div />
 			) : (
 				<div className='character-overview-description'>
 					<div className='character-overview-description-label'>Description</div>
-					<Text value={character?.data?.description} />
+					<Text value={characterVersion?.description} />
 				</div>
 			)}
 			<div className='character-overview-description'>
@@ -40,7 +40,7 @@ export const CharacterOverviewDescription = () => {
 				<MultiLineTextInput
 					label='Description'
 					seamless={true}
-					value={character?.data?.description.join("\n")}
+					value={characterVersion?.description?.join("\n")}
 					onChange={changeDescription}
 				/>
 			</div>
