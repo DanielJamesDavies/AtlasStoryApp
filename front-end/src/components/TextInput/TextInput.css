@@ -114,6 +114,7 @@
 
 	background: rgba(0, 0, 0, 0);
 	color: #fff;
+	caret-color: #fff;
 	font-size: 16px;
 	font-family: "Inter", sans-serif;
 	transition: border 0.1s;
@@ -179,6 +180,7 @@
 	pointer-events: none;
 	user-select: none;
 
+	min-width: 1px;
 	width: fit-content;
 	white-space: pre;
 }

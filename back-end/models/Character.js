@@ -51,8 +51,9 @@ const CharacterSchema = mongoose.Schema({
 						psychology: {
 							type: {
 								items: {
-									type: [{ title: { type: String, required: true }, value: { type: [String], required: true } }],
+									type: [{ title: { type: String, required: true }, value: { type: [String], required: true, default: [""] } }],
 									required: true,
+									default: [],
 								},
 								bigFive: {
 									type: {
@@ -77,9 +78,11 @@ const CharacterSchema = mongoose.Schema({
 						abilities: {
 							type: [
 								{
-									name: { type: String, required: true },
+									name: { type: String, required: true, default: "" },
 									items: {
-										type: [{ title: { type: String, required: true }, value: { type: [String], required: true } }],
+										type: [
+											{ title: { type: String, required: true }, value: { type: [String], required: true, default: [""] } },
+										],
 										required: true,
 									},
 									stats: {
@@ -102,12 +105,38 @@ const CharacterSchema = mongoose.Schema({
 						physical: {
 							type: {
 								attributes: {
-									type: [{ title: { type: String, required: true }, value: { type: [String], required: true } }],
+									type: [{ title: { type: String, required: true }, value: { type: [String], required: true, default: [""] } }],
 									required: true,
 								},
 								outfits: {
-									type: [{ title: { type: String, required: true }, value: { type: [String], required: true } }],
+									type: [{ title: { type: String, required: true }, value: { type: [String], required: true, default: [""] } }],
 									required: true,
+								},
+							},
+							required: true,
+							default: {},
+						},
+						development: {
+							type: {
+								items: {
+									type: [
+										{
+											title: { type: String, required: true, default: "" },
+											value: { type: [String], required: true, default: [""] },
+											images: {
+												type: [
+													{
+														image: mongoose.Schema.Types.ObjectId,
+														caption: { type: String, required: true, default: "" },
+													},
+												],
+												required: true,
+												default: [],
+											},
+										},
+									],
+									required: true,
+									default: [],
 								},
 							},
 							required: true,

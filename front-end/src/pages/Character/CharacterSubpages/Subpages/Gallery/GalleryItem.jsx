@@ -17,7 +17,7 @@ import { FaTimes } from "react-icons/fa";
 // Assets
 
 export const GalleryItem = ({ image, index, isEditing, removeGalleryItem }) => {
-	const { galleryItemImage } = GalleryItemLogic({ image, index });
+	const { galleryItemImage } = GalleryItemLogic({ image });
 
 	return (
 		<div className='character-subpage-gallery-item'>

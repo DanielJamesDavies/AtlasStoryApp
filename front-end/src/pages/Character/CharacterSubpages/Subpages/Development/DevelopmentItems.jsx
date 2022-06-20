@@ -1,0 +1,90 @@
+// Packages
+
+// Components
+import { DevelopmentItem } from "./DevelopmentItem";
+import { EditableContainer } from "../../../../../components/EditableContainer/EditableContainer";
+import { DragDropContainer } from "../../../../../components/DragDropContainer/DragDropContainer";
+import { DragDropItem } from "../../../../../components/DragDropItem/DragDropItem";
+import { CharacterImages } from "../../CharacterImages/CharacterImages";
+import { ErrorMessage } from "../../../../../components/ErrorMessage/ErrorMessage";
+
+// Logic
+import { DevelopmentItemsLogic } from "./DevelopmentItemsLogic";
+
+// Context
+
+// Services
+
+// Styles
+import "./DevelopmentItems.css";
+
+// Assets
+
+export const DevelopmentItems = () => {
+	const {
+		isAuthorizedToEdit,
+		characterVersion,
+		changeDevelopmentItemTitle,
+		changeDevelopmentItemValue,
+		addDevelopmentItem,
+		removeDevelopmentItem,
+		isReorderingDevelopmentItems,
+		toggleIsReorderingDevelopmentItems,
+		reorderDevelopmentItems,
+		revertDevelopmentItems,
+		saveDevelopmentItems,
+		errors,
+		characterImagesCurrDevItemIndex,
+		openCharacterImages,
+		closeCharacterImages,
+		addImageToDevItem,
+	} = DevelopmentItemsLogic();
+
+	return (
+		<EditableContainer
+			className='character-subpage-development-items-container'
+			isAuthorizedToEdit={isAuthorizedToEdit}
+			onAdd={addDevelopmentItem}
+			onReorder={toggleIsReorderingDevelopmentItems}
+			onRevert={revertDevelopmentItems}
+			onSave={saveDevelopmentItems}
+		>
+			<div className='character-subpage-development-items'>
+				{characterVersion?.development?.items?.map((developmentItem, index) => (
+					<div key={index} className='character-subpage-development-item-container'>
+						<DevelopmentItem index={index} developmentItem={developmentItem} isEditing={false} />
+					</div>
+				))}
+			</div>
+			<div>
+				<ErrorMessage errors={errors} />
+				<DragDropContainer
+					className={
+						characterImagesCurrDevItemIndex === -1
+							? "character-subpage-development-items"
+							: "character-subpage-development-items character-subpage-development-items-character-images-open"
+					}
+					enableDragDrop={isReorderingDevelopmentItems}
+					onDropItem={reorderDevelopmentItems}
+				>
+					{characterVersion?.development?.items?.map((developmentItem, index) => (
+						<DragDropItem className='character-subpage-development-item-container' key={index} index={index}>
+							<DevelopmentItem
+								index={index}
+								developmentItem={developmentItem}
+								isEditing={true}
+								changeDevelopmentItemTitle={changeDevelopmentItemTitle}
+								changeDevelopmentItemValue={changeDevelopmentItemValue}
+								removeDevelopmentItem={removeDevelopmentItem}
+								isReorderingDevelopmentItems={isReorderingDevelopmentItems}
+								characterImagesCurrDevItemIndex={characterImagesCurrDevItemIndex}
+								openCharacterImages={openCharacterImages}
+							/>
+						</DragDropItem>
+					))}
+				</DragDropContainer>
+				{characterImagesCurrDevItemIndex === -1 ? null : <CharacterImages onAddImage={addImageToDevItem} onClose={closeCharacterImages} />}
+			</div>
+		</EditableContainer>
+	);
+};

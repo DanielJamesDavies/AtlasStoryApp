@@ -18,7 +18,7 @@
 }
 
 .drag-drop-item-prevent-drag {
-	-webkit-user-drag: none;
+	-webkit-user-drag: none !important;
 }
 
 .drag-drop-item-inline {

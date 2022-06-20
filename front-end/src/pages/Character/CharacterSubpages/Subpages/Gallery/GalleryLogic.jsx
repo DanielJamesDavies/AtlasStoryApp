@@ -28,7 +28,7 @@ export const GalleryLogic = () => {
 
 	function removeGalleryItem(index) {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.gallery.splice(index, index);
+		newCharacterVersion.gallery.splice(index, 1);
 		changeCharacterVersion(newCharacterVersion);
 	}
 

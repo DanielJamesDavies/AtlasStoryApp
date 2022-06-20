@@ -18,7 +18,7 @@ import "./CharacterImages.css";
 
 // Assets
 
-export const CharacterImages = ({ onAddImage }) => {
+export const CharacterImages = ({ onAddImage, onClose }) => {
 	const {
 		isAuthorizedToEdit,
 		character,
@@ -38,6 +38,7 @@ export const CharacterImages = ({ onAddImage }) => {
 			innerRef={characterImagesContainerRef}
 			className='character-images-container'
 			isAuthorizedToEdit={isAuthorizedToEdit}
+			onClose={onClose}
 			onAdd={() => addImageInputRef.current.click()}
 			onReorder={toggleIsReorderingCharacterImages}
 			onRevert={revertCharacterImages}

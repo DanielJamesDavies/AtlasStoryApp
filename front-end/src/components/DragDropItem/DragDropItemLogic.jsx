@@ -45,6 +45,7 @@ export const DragDropItemLogic = ({
 	}, [setDragDropItemClassName, orderIndex, className, inlineItems, enableDragDrop, currentDraggingItem, isUsingTouch]);
 
 	function onDragStart(e) {
+		e.stopPropagation();
 		if (!enableDragDrop) return;
 
 		setIsUsingTouch(false);
@@ -64,7 +65,8 @@ export const DragDropItemLogic = ({
 		setCurrentDraggingItem(dragKey);
 	}
 
-	function onDragEnd() {
+	function onDragEnd(e) {
+		e.stopPropagation();
 		if (!enableDragDrop) return;
 		setCurrentDraggingItem(null);
 		onDropItem(JSON.parse(JSON.stringify(changedOrder)));

@@ -21,6 +21,7 @@ export const EditableContainer = ({
 	className,
 	isMediaContent,
 	isAuthorizedToEdit,
+	onClose,
 	onAdd,
 	onRemove,
 	onDefault,
@@ -31,6 +32,7 @@ export const EditableContainer = ({
 	const {
 		isEditing,
 		editableContainerClassName,
+		onCloseBtnClick,
 		onEditBtnClick,
 		onViewBtnClick,
 		onAddBtnClick,
@@ -43,6 +45,7 @@ export const EditableContainer = ({
 		className,
 		isMediaContent,
 		isAuthorizedToEdit,
+		onClose,
 		onAdd,
 		onRemove,
 		onDefault,
@@ -58,6 +61,11 @@ export const EditableContainer = ({
 			</div>
 			{!isAuthorizedToEdit ? null : !isEditing ? (
 				<div className='editable-container-buttons-container'>
+					{onClose === undefined ? null : (
+						<button className='editable-container-edit-btn editable-container-edit-btn-close' onClick={onCloseBtnClick}>
+							<FaTimes />
+						</button>
+					)}
 					<button className='editable-container-edit-btn' onClick={onEditBtnClick}>
 						<FaPencilAlt />
 					</button>

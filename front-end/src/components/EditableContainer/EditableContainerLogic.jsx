@@ -17,6 +17,7 @@ export const EditableContainerLogic = ({
 	className,
 	isMediaContent,
 	isAuthorizedToEdit,
+	onClose,
 	onAdd,
 	onRemove,
 	onDefault,
@@ -42,6 +43,11 @@ export const EditableContainerLogic = ({
 	}, [setEditableContainerClassName, isEditing, isMediaContent, isAuthorizedToEdit, className]);
 
 	// Button Event Functions
+	async function onCloseBtnClick(e) {
+		e.stopPropagation();
+		await onClose();
+	}
+
 	function onEditBtnClick(e) {
 		e.stopPropagation();
 		setIsEditing(true);
@@ -92,6 +98,7 @@ export const EditableContainerLogic = ({
 		isEditing,
 		setIsEditing,
 		editableContainerClassName,
+		onCloseBtnClick,
 		onEditBtnClick,
 		onViewBtnClick,
 		onAddBtnClick,

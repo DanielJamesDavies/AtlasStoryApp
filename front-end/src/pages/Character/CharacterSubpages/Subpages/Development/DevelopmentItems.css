@@ -1,0 +1,13 @@
+.character-subpage-development-items {
+	display: inline-block;
+	flex-flow: column wrap;
+	width: 100%;
+}
+
+.character-subpage-development-items-character-images-open {
+	width: 80%;
+}
+
+.character-subpage-development-items-character-images-open ~ .character-images-container {
+	display: inline-block;
+}
