@@ -7,6 +7,7 @@ import { useContext } from "react";
 
 // Context
 import { StoryContext } from "../StoryContext";
+import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
 
@@ -16,6 +17,12 @@ import { StoryContext } from "../StoryContext";
 
 export const StoryPrimaryMembersLogic = () => {
 	const { members } = useContext(StoryContext);
+	const { changeLocation } = useContext(RoutesContext);
 
-	return { members };
+	function navigateToMember(e, memberUsername) {
+		if (!memberUsername) return;
+		changeLocation("/u/" + memberUsername, e.button === 1);
+	}
+
+	return { members, navigateToMember };
 };

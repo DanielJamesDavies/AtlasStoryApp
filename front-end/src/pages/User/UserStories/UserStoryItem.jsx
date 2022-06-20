@@ -19,11 +19,16 @@ export const UserStoryItem = ({ storyID }) => {
 	const { story, navigateToStory, navigateToOwner } = UserStoryItemLogic({ storyID });
 
 	return (
-		<div className='user-stories-story-item' onClick={navigateToStory}>
+		<div className='user-stories-story-item' onClick={navigateToStory} onAuxClick={navigateToStory}>
 			<div className='user-stories-story-item-spine'></div>
 			<div className='user-stories-story-item-content'>
 				<div className='user-stories-story-item-title'>{story?.data?.title}</div>
-				<div className='user-stories-story-item-owner' onClick={navigateToOwner}>
+				<div
+					className='user-stories-story-item-owner'
+					onClick={navigateToOwner}
+					onAuxClick={navigateToOwner}
+					onMouseDown={(e) => e.preventDefault()}
+				>
 					{story?.data?.owner?.nickname}
 					<div className='user-stories-story-item-owner-label'>
 						<div className='user-stories-story-item-owner-label-username'>@{story?.data?.owner?.username}</div>

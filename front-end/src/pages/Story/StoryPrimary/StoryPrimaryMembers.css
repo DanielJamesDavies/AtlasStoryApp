@@ -6,9 +6,31 @@
 }
 
 .story-primary-main-info-member {
+	position: relative;
 	display: inline-block;
 	margin: 2px;
 	margin-left: 0;
+	cursor: pointer;
+}
+
+.story-primary-main-info-member-label {
+	position: absolute;
+	left: 50%;
+	bottom: -32px;
+	z-index: 2;
+	transform: translateX(-50%);
+	padding: 4px 8px;
+	border-radius: 4px;
+
+	background: var(--grey3);
+	font-weight: 500;
+	font-size: 16px;
+	opacity: 0;
+	transition: 0.2s;
+}
+
+.story-primary-main-info-member:hover .story-primary-main-info-member-label {
+	opacity: 1;
 }
 
 @media (max-width: 700px) {
