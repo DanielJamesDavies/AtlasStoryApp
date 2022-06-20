@@ -15,16 +15,17 @@ import "./StoryPrimaryCharacterCard.css";
 // Assets
 
 export const StoryPrimaryCharacterCard = ({ character }) => {
-	const { cardBackground, characterType, navigateToCharacter, cardStyles, topNameStyles, infoItemStyles } = StoryPrimaryCharacterCardLogic({
-		character,
-	});
+	const { cardBackground, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles, topNameStyles, infoItemStyles } =
+		StoryPrimaryCharacterCardLogic({
+			character,
+		});
 
 	return (
 		<div
 			className='story-primary-character-card drag-drop-item-content'
 			onClick={navigateToCharacter}
 			onAuxClick={navigateToCharacter}
-			onMouseDown={(e) => e.preventDefault()}
+			onMouseDown={onCharacterCardMouseDown}
 			style={cardStyles}
 		>
 			<div className='story-primary-character-card-content'>

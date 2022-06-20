@@ -39,6 +39,10 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 		if (story?.uid && character?.uid) changeLocation("/s/" + story.uid + "/c/" + character.uid, e.button === 1);
 	}
 
+	function onCharacterCardMouseDown(e) {
+		if (e.button === 1) e.preventDefault();
+	}
+
 	// Character Colour Styles
 	const [cardStyles, setCardStyles] = useState({});
 	const [topNameStyles, setTopNameStyles] = useState({});
@@ -50,5 +54,5 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 		setInfoItemStyles(character?.data?.colour ? { background: character.data.colour } : {});
 	}, [character, setCardStyles, setTopNameStyles, setInfoItemStyles]);
 
-	return { character, cardBackground, characterType, navigateToCharacter, cardStyles, topNameStyles, infoItemStyles };
+	return { character, cardBackground, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles, topNameStyles, infoItemStyles };
 };

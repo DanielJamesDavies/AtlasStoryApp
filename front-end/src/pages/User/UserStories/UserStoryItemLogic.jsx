@@ -41,5 +41,9 @@ export const UserStoryItemLogic = ({ storyID }) => {
 		if (story?.data?.owner?.username) changeLocation("/u/" + story.data.owner.username, e.button === 1);
 	}
 
-	return { story, navigateToStory, navigateToOwner };
+	function onStoryItemMouseDown(e) {
+		if (e.button === 1) e.preventDefault();
+	}
+
+	return { story, navigateToStory, navigateToOwner, onStoryItemMouseDown };
 };

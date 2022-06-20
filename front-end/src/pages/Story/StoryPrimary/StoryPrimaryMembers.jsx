@@ -21,7 +21,7 @@ export const StoryPrimaryMembers = () => {
 		<div className='story-primary-main-info-members'>
 			{!Array.isArray(members) || members?.length === 0 ? null : "By "}
 			{members.map((member, index) => (
-				<p
+				<div
 					key={index}
 					className='story-primary-main-info-member'
 					onClick={(e) => navigateToMember(e, member?.username)}
@@ -33,7 +33,7 @@ export const StoryPrimaryMembers = () => {
 					<div className='story-primary-main-info-member-label'>
 						<div className='ustory-primary-main-info-member-label-username'>@{member?.username}</div>
 					</div>
-				</p>
+				</div>
 			))}
 		</div>
 	);

@@ -15,7 +15,7 @@ import "./CharactersGroupCharacterCard.css";
 // Assets
 
 export const CharactersGroupCharacterCard = ({ characterID }) => {
-	const { character, cardBackground, characterType, navigateToCharacter, cardStyles, topNameStyles, infoItemStyles } =
+	const { character, cardBackground, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles, topNameStyles, infoItemStyles } =
 		CharactersGroupCharacterCardLogic({
 			characterID,
 		});
@@ -25,7 +25,7 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 			className='characters-group-character-card drag-drop-item-content'
 			onClick={navigateToCharacter}
 			onAuxClick={navigateToCharacter}
-			onMouseDown={(e) => e.preventDefault()}
+			onMouseDown={onCharacterCardMouseDown}
 			style={cardStyles}
 		>
 			<div className='characters-group-character-card-content'>

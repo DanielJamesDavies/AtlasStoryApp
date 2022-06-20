@@ -16,10 +16,10 @@ import "./UserStoryItem.css";
 // Assets
 
 export const UserStoryItem = ({ storyID }) => {
-	const { story, navigateToStory, navigateToOwner } = UserStoryItemLogic({ storyID });
+	const { story, navigateToStory, navigateToOwner, onStoryItemMouseDown } = UserStoryItemLogic({ storyID });
 
 	return (
-		<div className='user-stories-story-item' onClick={navigateToStory} onAuxClick={navigateToStory}>
+		<div className='user-stories-story-item' onClick={navigateToStory} onAuxClick={navigateToStory} onMouseDown={onStoryItemMouseDown}>
 			<div className='user-stories-story-item-spine'></div>
 			<div className='user-stories-story-item-content'>
 				<div className='user-stories-story-item-title'>{story?.data?.title}</div>
