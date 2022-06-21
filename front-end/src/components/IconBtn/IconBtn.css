@@ -17,6 +17,7 @@
 	width: 40px;
 	min-height: 40px;
 	height: 40px;
+	overflow: visible;
 
 	background: var(--accentColour);
 	color: #fff;
@@ -90,6 +91,45 @@
 
 .icon-btn-container-seamless.icon-btn-container-times-icon svg {
 	width: 72%;
+}
+
+.icon-btn-small-icon-container {
+	position: absolute;
+	z-index: 2;
+	top: -2px;
+	right: -3px;
+	width: 16px;
+	height: 16px;
+	color: #fff;
+}
+
+.icon-btn-small-icon {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2;
+	width: 16px;
+	height: 16px;
+	color: #fff;
+	transition: background 0.2s;
+	transition: color 0.2s;
+}
+
+.icon-btn-small-icon-bg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1;
+	width: 24px;
+	height: 24px;
+	color: var(--grey1);
+}
+
+.icon-btn-container-seamless .icon-btn:hover .icon-btn-small-icon {
+	background: transparent;
+	color: var(--accentColour);
 }
 
 .icon-btn-label {

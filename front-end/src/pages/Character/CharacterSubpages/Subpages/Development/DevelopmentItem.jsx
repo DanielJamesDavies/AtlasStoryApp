@@ -1,5 +1,5 @@
 // Packages
-import { FaPlus, FaTimes, FaTrash } from "react-icons/fa";
+import { FaImage, FaPlus, FaTimes, FaTrash } from "react-icons/fa";
 
 // Components
 import { DragDropContainer } from "../../../../../components/DragDropContainer/DragDropContainer";
@@ -39,33 +39,35 @@ export const DevelopmentItem = ({
 	if (!isEditing)
 		return (
 			<div className='character-subpage-development-item'>
-				<div className='character-subpage-development-item-text-container'>
+				<div className='character-subpage-development-item-title-container'>
 					<div className='character-subpage-development-item-title'>{developmentItem?.title}</div>
-					<Text className='character-subpage-development-item-value' value={developmentItem?.value} />
 				</div>
-				<div className='character-subpage-development-item-images-container'>
-					<div className='character-subpage-development-item-images'>
-						{!developmentItem?.images
-							? null
-							: developmentItem.images.map((image, index) => (
-									<div key={index} className='character-subpage-development-item-image-item'>
-										{!characterImages.find((e) => e._id === image.image)?.image ? null : (
-											<img src={characterImages.find((e) => e._id === image.image).image} alt='' />
-										)}
-										{image.caption.split(" ").join("").length === 0 ? null : (
-											<div className='character-subpage-development-item-image-item-caption'>{image.caption}</div>
-										)}
-									</div>
-							  ))}
+				<div className='character-subpage-development-item-text-container'>
+					<Text className='character-subpage-development-item-text-value' value={developmentItem?.value} />
+				</div>
+				{!developmentItem?.images || developmentItem?.images?.length === 0 ? null : (
+					<div className='character-subpage-development-item-images-container'>
+						<div className='character-subpage-development-item-images'>
+							{developmentItem.images.map((image, index) => (
+								<div key={index} className='character-subpage-development-item-image-item'>
+									{!characterImages.find((e) => e._id === image.image)?.image ? null : (
+										<img src={characterImages.find((e) => e._id === image.image).image} alt='' />
+									)}
+									{image.caption.split(" ").join("").length === 0 ? null : (
+										<div className='character-subpage-development-item-image-item-caption'>{image.caption}</div>
+									)}
+								</div>
+							))}
+						</div>
 					</div>
-				</div>
+				)}
 			</div>
 		);
 
 	return (
 		<div className='character-subpage-development-item'>
 			<div className='character-subpage-development-item-content'>
-				<div className='character-subpage-development-item-text-container'>
+				<div className='character-subpage-development-item-title-container'>
 					<TextInput
 						className='character-subpage-development-item-title'
 						seamless={true}
@@ -73,6 +75,8 @@ export const DevelopmentItem = ({
 						value={developmentItem?.title}
 						onChange={(e) => changeDevelopmentItemTitle(e, index)}
 					/>
+				</div>
+				<div className='character-subpage-development-item-text-container'>
 					<MultiLineTextInput
 						className='character-subpage-development-item-value'
 						seamless={true}
@@ -120,7 +124,13 @@ export const DevelopmentItem = ({
 							  ))}
 					</DragDropContainer>
 					<div className='character-subpage-development-item-images-add-container'>
-						<IconBtn icon={<FaPlus />} iconName='plus' seamless={true} onClick={() => openCharacterImages(index)} />
+						<IconBtn
+							icon={<FaImage />}
+							iconName='image'
+							iconSmall={<FaPlus />}
+							seamless={true}
+							onClick={() => openCharacterImages(index)}
+						/>
 					</div>
 				</div>
 			</div>

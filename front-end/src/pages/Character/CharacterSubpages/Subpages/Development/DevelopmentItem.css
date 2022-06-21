@@ -79,6 +79,7 @@
 .character-subpage-development-item-images {
 	display: inline-flex;
 	flex-wrap: wrap;
+	width: 100%;
 }
 
 .character-subpage-development-item-images-add-container {
@@ -89,7 +90,7 @@
 .character-subpage-development-item-image-item {
 	position: relative;
 	margin: 4px;
-	width: calc(50% - 8px);
+	width: calc((100% / 3) - 8px);
 }
 
 .drag-drop-item-enable-drag-drop .character-subpage-development-item-image-item {
@@ -108,6 +109,8 @@
 
 .character-subpage-development-item-title {
 	margin-bottom: 3px;
+	word-break: break-word;
+	overflow-wrap: anywhere;
 }
 
 .character-subpage-development-item-title .text-input {
@@ -152,4 +155,30 @@
 	position: absolute;
 	top: 2px;
 	right: 2px;
+}
+
+@media (max-width: 1000px) {
+	.character-subpage-development-item-container {
+		margin: 6px 0;
+		width: calc(100% - 24px);
+	}
+
+	.character-subpage-development-item-text-container {
+		display: inline-block;
+		margin-right: 0;
+		width: 100%;
+	}
+
+	.character-subpage-development-item-images-container {
+		display: inline-block;
+		margin-top: 12px;
+		padding: 2px;
+		border-radius: 2px;
+		width: calc(100% - 4px);
+		vertical-align: top;
+	}
+
+	.character-subpage-development-item-image-item {
+		width: calc((100% / 2) - 8px);
+	}
 }

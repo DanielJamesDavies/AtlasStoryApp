@@ -11,3 +11,9 @@
 .character-subpage-development-items-character-images-open ~ .character-images-container {
 	display: inline-block;
 }
+
+@media (max-width: 1000px) {
+	.character-subpage-development-items-character-images-open {
+		width: 100%;
+	}
+}
