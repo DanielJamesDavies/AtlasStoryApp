@@ -69,18 +69,19 @@ export const DragDropItemLogic = ({
 		e.stopPropagation();
 		if (!enableDragDrop) return;
 		setCurrentDraggingItem(null);
-		onDropItem(JSON.parse(JSON.stringify(changedOrder)));
+		onDropItem(currentDraggingItem === null ? {} : JSON.parse(JSON.stringify(changedOrder)));
 		setChangedOrder(null);
 		setIsUsingTouch(false);
 	}
 
 	function onDragEnter() {
-		if (!enableDragDrop) return;
+		if (!enableDragDrop || currentDraggingItem === null) return;
 		setChangedOrder({ from: currentDraggingItem, to: index });
 		setIsUsingTouch(false);
 	}
 
 	function onTouchStart(e) {
+		e.stopPropagation();
 		if (!enableDragDrop) return;
 		setIsUsingTouch(true);
 
@@ -100,24 +101,27 @@ export const DragDropItemLogic = ({
 	}
 
 	function onTouchEnd() {
-		if (!enableDragDrop) return;
-
+		if (!enableDragDrop || currentDraggingItem === null) return;
 		setCurrentDraggingItem(null);
-		onDropItem(JSON.parse(JSON.stringify(changedOrder)));
+		onDropItem(currentDraggingItem === null ? {} : JSON.parse(JSON.stringify(changedOrder)));
 		setChangedOrder(null);
 		if (afterOnTouchEnd) afterOnTouchEnd();
 	}
 
 	function onTouchMove(e) {
-		if (!enableDragDrop) return;
+		if (!enableDragDrop || currentDraggingItem === null) return;
 		setIsUsingTouch(true);
 
 		if (e?.touches[0]?.clientX === undefined || e?.touches[0]?.clientY === undefined) return;
 		const elementsOver = document.elementsFromPoint(e.touches[0].clientX, e.touches[0].clientY);
-
 		let dragKey = false;
 		elementsOver.forEach((element) => {
-			if (element?.classList && Array.from(element?.classList).includes("drag-drop-item") && element?.getAttribute("drag-key")) {
+			if (
+				dragKey === false &&
+				element?.classList &&
+				Array.from(element?.classList).includes("drag-drop-item") &&
+				element?.getAttribute("drag-key")
+			) {
 				dragKey = element?.getAttribute("drag-key");
 			}
 		});
