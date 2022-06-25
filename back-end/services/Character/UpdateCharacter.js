@@ -140,18 +140,28 @@ module.exports = async (req, res) => {
 				if (versionIndex === -1) break;
 				newPath[2] = versionIndex;
 
-				if (newPath.length > 4 && newPath[3] === "abilities") {
-					const abilityIndex = newCharacter.data.versions[versionIndex].abilities.findIndex(
-						(e) => JSON.stringify(e._id) === JSON.stringify(newPath[4])
-					);
-					if (abilityIndex === -1) {
-						let newAbility = { _id: new mongoose.Types.ObjectId(), name: "", items: [] };
-						if (req?.body?.newValue?._id !== undefined) newAbility._id = req.body.newValue._id;
-						if (req?.body?.newValue?.name !== undefined) newAbility.name = req.body.newValue.name;
-						if (req?.body?.newValue?.items !== undefined) newAbility.items = req.body.newValue.items;
-						newCharacter.data.versions[versionIndex].abilities.push(newAbility);
+				if (newPath[3] === "abilities") {
+					if (newPath.length === 4) {
+						newAbilities = req?.body?.newValue.map((ability) => {
+							const abilityIndex = newCharacter.data.versions[versionIndex].abilities.findIndex(
+								(e) => JSON.stringify(e._id) === JSON.stringify(ability._id)
+							);
+							if (abilityIndex === -1) return { _id: ability?._id };
+							return newCharacter.data.versions[versionIndex].abilities[abilityIndex];
+						});
+						newCharacter = ChangeValueInNestedObject(newCharacter, newPath, newAbilities);
+						break;
 					}
-					newPath[4] = abilityIndex;
+
+					if (newPath.length > 4) {
+						const abilityIndex = newCharacter.data.versions[versionIndex].abilities.findIndex(
+							(e) => JSON.stringify(e._id) === JSON.stringify(newPath[4])
+						);
+						if (abilityIndex === -1)
+							return res.status(200).send({ errors: [{ message: "Character Version Ability Could Not Be Saved" }] });
+
+						newPath[4] = abilityIndex;
+					}
 				}
 
 				newCharacter = ChangeValueInNestedObject(newCharacter, newPath, req?.body?.newValue);
