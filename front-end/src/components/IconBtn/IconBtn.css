@@ -5,6 +5,10 @@
 	overflow: visible;
 }
 
+.icon-btn-container-hidden {
+	display: none;
+}
+
 .icon-btn {
 	position: relative;
 	display: inline-block;

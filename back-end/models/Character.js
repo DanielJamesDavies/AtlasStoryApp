@@ -78,23 +78,46 @@ const CharacterSchema = mongoose.Schema({
 						abilities: {
 							type: [
 								{
+									_id: {
+										type: mongoose.Schema.Types.ObjectId,
+										require: true,
+										default: new mongoose.Types.ObjectId(),
+									},
 									name: { type: String, required: true, default: "" },
 									items: {
 										type: [
-											{ title: { type: String, required: true }, value: { type: [String], required: true, default: [""] } },
+											{
+												title: { type: String, required: true },
+												text: { type: [String], required: true, default: [""] },
+												images: {
+													type: [
+														{
+															image: mongoose.Schema.Types.ObjectId,
+															caption: { type: String, required: true, default: "" },
+														},
+													],
+													required: true,
+													default: [],
+												},
+												statistics: {
+													type: {
+														values: {
+															type: [
+																{
+																	label: { type: String, required: true, default: "" },
+																	value: { type: Number, required: true, default: 0 },
+																},
+															],
+															required: true,
+															default: [],
+														},
+														maxValue: { type: Number, required: true, default: 100 },
+													},
+													required: true,
+													default: {},
+												},
+											},
 										],
-										required: true,
-									},
-									stats: {
-										type: {
-											power: { type: Number, required: true, default: 50 },
-											control: { type: Number, required: true, default: 50 },
-											stamina: { type: Number, required: true, default: 50 },
-											durability: { type: Number, required: true, default: 50 },
-											agility: { type: Number, required: true, default: 50 },
-											rapidity: { type: Number, required: true, default: 50 },
-											range: { type: Number, required: true, default: 50 },
-										},
 										required: true,
 									},
 								},

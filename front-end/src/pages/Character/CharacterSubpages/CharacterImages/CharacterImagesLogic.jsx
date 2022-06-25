@@ -41,7 +41,6 @@ export const CharacterImagesLogic = () => {
 		if (image?.error || !image?.data) return false;
 
 		const new_id_response = await APIRequest("/new-id/", "GET");
-
 		if (!new_id_response || new_id_response?.errors || !new_id_response?.data?._id) return false;
 
 		let newCharacter = JSON.parse(JSON.stringify(character));

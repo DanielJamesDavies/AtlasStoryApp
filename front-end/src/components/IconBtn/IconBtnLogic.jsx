@@ -14,7 +14,7 @@ import { useEffect, useLayoutEffect, useState, useRef } from "react";
 // Assets
 
 export const IconBtnLogic = ({ className, seamless, size, iconName }) => {
-	const [iconBtnClassName, setIconBtnClassName] = useState("icon-btn-container icon-btn-container-seamless");
+	const [iconBtnClassName, setIconBtnClassName] = useState("icon-btn-container-hidden");
 
 	useEffect(() => {
 		function getIconBtnClassName() {

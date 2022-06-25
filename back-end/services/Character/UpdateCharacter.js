@@ -139,6 +139,21 @@ module.exports = async (req, res) => {
 				const versionIndex = newCharacter.data.versions.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(newPath[2]));
 				if (versionIndex === -1) break;
 				newPath[2] = versionIndex;
+
+				if (newPath.length > 4 && newPath[3] === "abilities") {
+					const abilityIndex = newCharacter.data.versions[versionIndex].abilities.findIndex(
+						(e) => JSON.stringify(e._id) === JSON.stringify(newPath[4])
+					);
+					if (abilityIndex === -1) {
+						let newAbility = { _id: new mongoose.Types.ObjectId(), name: "", items: [] };
+						if (req?.body?.newValue?._id !== undefined) newAbility._id = req.body.newValue._id;
+						if (req?.body?.newValue?.name !== undefined) newAbility.name = req.body.newValue.name;
+						if (req?.body?.newValue?.items !== undefined) newAbility.items = req.body.newValue.items;
+						newCharacter.data.versions[versionIndex].abilities.push(newAbility);
+					}
+					newPath[4] = abilityIndex;
+				}
+
 				newCharacter = ChangeValueInNestedObject(newCharacter, newPath, req?.body?.newValue);
 			} else {
 				newCharacter = ChangeValueInNestedObject(newCharacter, req?.body?.path, req?.body?.newValue);

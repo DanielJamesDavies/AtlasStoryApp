@@ -7,14 +7,14 @@
 .editable-container-content {
 	display: inline-block;
 	position: relative;
-	padding-right: 18px;
+	padding-right: 6px;
 	width: 100%;
 	height: 100%;
 	vertical-align: top;
 }
 
 .editable-container-is-authorized .editable-container-content {
-	width: calc(100% - 18px - 18px);
+	width: calc(100% - 26px - 6px);
 }
 
 .editable-container-media .editable-container-content {
@@ -22,11 +22,20 @@
 	width: 100%;
 }
 
+.editable-container-absolute-position-edit-btns .editable-container-content {
+	padding-right: calc(6px + 26px);
+}
+
 .editable-container-buttons-container {
 	position: relative;
 	z-index: 100;
 	display: inline-flex;
 	flex-direction: column;
+	padding: 4px;
+	border-radius: 4px;
+
+	height: fit-content;
+
 	vertical-align: top;
 }
 
@@ -34,6 +43,17 @@
 	position: absolute;
 	top: 4px;
 	right: 4px;
+}
+
+.editable-container-absolute-position-edit-btns .editable-container-buttons-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.editable-container-is-editing .editable-container-buttons-container {
+	z-index: 120;
+	background: var(--grey1);
 }
 
 .editable-container-edit-btn {

@@ -20,11 +20,6 @@
 	background: var(--grey3);
 }
 
-.character-images-container .editable-container-content {
-	padding-right: 10px;
-	width: calc(100% - 18px - 10px);
-}
-
 .character-images {
 	position: relative;
 	display: flex;

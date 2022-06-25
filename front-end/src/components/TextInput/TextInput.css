@@ -111,6 +111,7 @@
 	border-radius: 4px;
 
 	width: 100%;
+	min-width: 2px;
 
 	background: rgba(0, 0, 0, 0);
 	color: #fff;

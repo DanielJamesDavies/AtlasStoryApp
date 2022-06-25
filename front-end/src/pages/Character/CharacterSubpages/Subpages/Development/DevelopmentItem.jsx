@@ -1,5 +1,5 @@
 // Packages
-import { FaImage, FaPlus, FaTimes, FaTrash } from "react-icons/fa";
+import { FaImage, FaPlus, FaTimes } from "react-icons/fa";
 
 // Components
 import { DragDropContainer } from "../../../../../components/DragDropContainer/DragDropContainer";
@@ -117,6 +117,7 @@ export const DevelopmentItem = ({
 												icon={<FaTimes />}
 												iconName='remove'
 												seamless={true}
+												size='s'
 												onClick={() => removeDevItemImage(imageIndex)}
 											/>
 										</div>
@@ -134,7 +135,7 @@ export const DevelopmentItem = ({
 					</div>
 				</div>
 			</div>
-			<IconBtn icon={<FaTrash />} iconName='trash' seamless={true} onClick={() => removeDevelopmentItem(index)} />
+			<IconBtn icon={<FaTimes />} iconName='times' seamless={true} onClick={() => removeDevelopmentItem(index)} />
 		</div>
 	);
 };

@@ -1,3 +1,7 @@
+.character-primary-name-container {
+	align-items: flex-start;
+}
+
 .character-primary-name-container,
 .character-primary-name-container input {
 	width: fit-content;

@@ -26,6 +26,7 @@ export const CharacterPrimaryType = () => {
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertCharacterType}
 			onSave={saveCharacterType}
+			absolutePositionEditBtns={true}
 		>
 			<div className='character-primary-type' style={characterType?.data?.colour ? { background: characterType.data.colour } : {}}>
 				<div className='character-primary-type-text'>{characterType?.data?.name}</div>

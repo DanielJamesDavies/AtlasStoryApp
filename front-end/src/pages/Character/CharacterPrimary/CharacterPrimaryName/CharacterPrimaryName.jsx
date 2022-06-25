@@ -26,6 +26,7 @@ export const CharacterPrimaryName = () => {
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertName}
 			onSave={saveName}
+			absolutePositionEditBtns={true}
 		>
 			<div className='character-primary-name'>{character?.data?.name}</div>
 			<div>

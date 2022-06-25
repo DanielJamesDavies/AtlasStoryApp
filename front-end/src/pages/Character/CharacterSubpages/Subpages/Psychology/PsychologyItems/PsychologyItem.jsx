@@ -1,5 +1,5 @@
 // Packages
-import { FaTrash } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 
 // Components
 import { Text } from "../../../../../../components/Text/Text";
@@ -52,7 +52,7 @@ export const PsychologyItem = ({
 					onChange={(e) => changePsychologyItemValue(e, index)}
 				/>
 			</div>
-			<IconBtn icon={<FaTrash />} iconName='trash' seamless={true} onClick={() => removePsychologyItem(index)} />
+			<IconBtn icon={<FaTimes />} iconName='times' seamless={true} size='s' onClick={() => removePsychologyItem(index)} />
 		</div>
 	);
 };

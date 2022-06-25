@@ -1,0 +1,14 @@
+.character-subpage-abilities-ability-name-container {
+	display: flex;
+	align-items: flex-start;
+	margin: 6px 0;
+
+	width: fit-content;
+	min-height: 39px;
+}
+
+.character-subpage-abilities-ability-name,
+.character-subpage-abilities-ability-name input {
+	font-size: 20px;
+	font-weight: 700;
+}

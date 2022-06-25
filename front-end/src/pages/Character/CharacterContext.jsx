@@ -44,6 +44,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const subpages = [
 		{ id: "gallery", name: "Gallery" },
 		{ id: "psychology", name: "Psychology" },
+		{ id: "abilities", name: "Abilities" },
 		{ id: "development", name: "Development" },
 		{ id: "settings", name: "Settings" },
 	];

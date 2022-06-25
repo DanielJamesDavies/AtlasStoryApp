@@ -1,0 +1,11 @@
+.character-subpage-abilities-ability {
+	display: inline-block;
+	width: calc(100% - 310px - 24px);
+	vertical-align: top;
+}
+
+@media (max-width: 700px) {
+	.character-subpage-abilities-ability {
+		width: 100%;
+	}
+}

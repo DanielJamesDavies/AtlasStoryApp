@@ -27,8 +27,17 @@ export const DragDropItemLogic = ({
 	isUsingTouch,
 	setIsUsingTouch,
 }) => {
-	const [dragDropItemClassName, setDragDropItemClassName] = useState("drag-drop-item");
-
+	function getDragDropItemClassName() {
+		let newClassName = "drag-drop-item";
+		if (inlineItems) newClassName += " drag-drop-item-inline";
+		if (enableDragDrop) newClassName += " drag-drop-item-enable-drag-drop";
+		if (currentDraggingItem !== undefined && currentDraggingItem === orderIndex) newClassName += " drag-drop-item-dragging";
+		if (currentDraggingItem !== undefined && currentDraggingItem === orderIndex && isUsingTouch)
+			newClassName += " drag-drop-item-dragging-touch";
+		if (!className) return newClassName;
+		return (newClassName += " " + className);
+	}
+	const [dragDropItemClassName, setDragDropItemClassName] = useState(getDragDropItemClassName());
 	useEffect(() => {
 		function getDragDropItemClassName() {
 			let newClassName = "drag-drop-item";
@@ -40,7 +49,6 @@ export const DragDropItemLogic = ({
 			if (!className) return newClassName;
 			return (newClassName += " " + className);
 		}
-
 		setDragDropItemClassName(getDragDropItemClassName());
 	}, [setDragDropItemClassName, orderIndex, className, inlineItems, enableDragDrop, currentDraggingItem, isUsingTouch]);
 

@@ -1,7 +1,7 @@
 .character-subpage-psychology-item-container {
 	position: relative;
-	margin: 6px;
-	padding: 8px 12px;
+	margin: 6px 0;
+	padding: 8px 8px;
 	padding-bottom: 10px;
 	border-radius: 4px;
 }
@@ -18,7 +18,7 @@
 	display: block;
 	content: "";
 	border-radius: 4px;
-	width: calc(100% - 12px);
+	width: calc(100% - 8px);
 	height: 2px;
 	background: var(--grey3);
 }

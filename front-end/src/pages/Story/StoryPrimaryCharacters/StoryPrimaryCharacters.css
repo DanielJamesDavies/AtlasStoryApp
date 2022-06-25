@@ -12,7 +12,7 @@
 }
 
 .story-primary-characters-primary-title {
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: 700;
 }
 
@@ -31,7 +31,11 @@
 		padding-bottom: 0;
 	}
 
+	.story-primary-characters-primary {
+		margin-bottom: 12px;
+	}
+
 	.story-primary-characters-primary-title {
-		font-size: 20px;
+		font-size: 17px;
 	}
 }

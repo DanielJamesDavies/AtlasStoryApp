@@ -20,6 +20,7 @@ export const EditableContainer = ({
 	innerRef,
 	className,
 	isMediaContent,
+	absolutePositionEditBtns,
 	isAuthorizedToEdit,
 	onClose,
 	onAdd,
@@ -32,6 +33,7 @@ export const EditableContainer = ({
 	const {
 		isEditing,
 		editableContainerClassName,
+		onEditableContainerKeyDown,
 		onCloseBtnClick,
 		onEditBtnClick,
 		onViewBtnClick,
@@ -44,6 +46,7 @@ export const EditableContainer = ({
 	} = EditableContainerLogic({
 		className,
 		isMediaContent,
+		absolutePositionEditBtns,
 		isAuthorizedToEdit,
 		onClose,
 		onAdd,
@@ -55,7 +58,7 @@ export const EditableContainer = ({
 	});
 
 	return (
-		<div className={editableContainerClassName}>
+		<div className={editableContainerClassName} onKeyDown={onEditableContainerKeyDown}>
 			<div ref={innerRef} className='editable-container-content'>
 				{children.map((child, index) => ((isEditing && index === 0) || (!isEditing && index === 1) ? null : child))}
 			</div>

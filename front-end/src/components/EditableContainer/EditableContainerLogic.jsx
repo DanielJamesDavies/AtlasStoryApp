@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 export const EditableContainerLogic = ({
 	className,
 	isMediaContent,
+	absolutePositionEditBtns,
 	isAuthorizedToEdit,
 	onClose,
 	onAdd,
@@ -28,7 +29,9 @@ export const EditableContainerLogic = ({
 	const [isEditing, setIsEditing] = useState(false);
 
 	// Editable Container Class Name
-	const [editableContainerClassName, setEditableContainerClassName] = useState("editable-container");
+	const [editableContainerClassName, setEditableContainerClassName] = useState(
+		className ? "editable-container " + className : "editable-container"
+	);
 
 	useEffect(() => {
 		function getEditableContainerClassName() {
@@ -36,11 +39,20 @@ export const EditableContainerLogic = ({
 			if (isEditing) newClassName += " editable-container-is-editing";
 			if (isAuthorizedToEdit) newClassName += " editable-container-is-authorized";
 			if (isMediaContent) newClassName += " editable-container-media";
+			if (absolutePositionEditBtns) newClassName += " editable-container-absolute-position-edit-btns";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}
 		setEditableContainerClassName(getEditableContainerClassName());
-	}, [setEditableContainerClassName, isEditing, isMediaContent, isAuthorizedToEdit, className]);
+	}, [setEditableContainerClassName, isEditing, isAuthorizedToEdit, absolutePositionEditBtns, isMediaContent, className]);
+
+	async function onEditableContainerKeyDown(e) {
+		if (e?.ctrlKey && (e?.key === "s" || e?.key === "S")) {
+			e.preventDefault();
+			const save_success = await onSave();
+			if (save_success) setIsEditing(false);
+		}
+	}
 
 	// Button Event Functions
 	async function onCloseBtnClick(e) {
@@ -98,6 +110,7 @@ export const EditableContainerLogic = ({
 		isEditing,
 		setIsEditing,
 		editableContainerClassName,
+		onEditableContainerKeyDown,
 		onCloseBtnClick,
 		onEditBtnClick,
 		onViewBtnClick,
