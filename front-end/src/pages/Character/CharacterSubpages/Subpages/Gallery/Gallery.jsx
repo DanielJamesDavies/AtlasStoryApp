@@ -42,6 +42,7 @@ export const Gallery = () => {
 				onReorder={toggleIsReorderingGalleryItems}
 				onRevert={revertGalleryItems}
 				onSave={saveGalleryItems}
+				onScroll={(e) => e.stopPropagation()}
 			>
 				<div className='character-subpage-gallery-items-container'>
 					<div className='character-subpage-gallery-items'>

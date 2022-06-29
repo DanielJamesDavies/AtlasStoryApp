@@ -45,6 +45,7 @@ export const PsychologyItems = () => {
 			onReorder={toggleIsReorderingPsychologyItems}
 			onRevert={revertPsychologyItems}
 			onSave={savePsychologyItems}
+			onScroll={(e) => e.stopPropagation()}
 		>
 			<div className='character-subpage-psychology-items'>
 				{characterVersion?.psychology?.items?.map((psychologyItem, index) => (
