@@ -48,6 +48,7 @@ export const DevelopmentItems = () => {
 			onReorder={toggleIsReorderingDevelopmentItems}
 			onRevert={revertDevelopmentItems}
 			onSave={saveDevelopmentItems}
+			onScroll={(e) => e.stopPropagation()}
 		>
 			<div className='character-subpage-development-items'>
 				{characterVersion?.development?.items?.map((developmentItem, index) => (

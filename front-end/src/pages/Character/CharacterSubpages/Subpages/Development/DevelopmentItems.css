@@ -2,6 +2,9 @@
 	display: inline-block;
 	flex-flow: column wrap;
 	width: 100%;
+	max-height: calc(100vh - 48px - 59px - 24px - 36px - 24px - 16px);
+	overflow-y: overlay;
+	overflow-x: hidden;
 }
 
 .character-subpage-development-items-character-images-open {

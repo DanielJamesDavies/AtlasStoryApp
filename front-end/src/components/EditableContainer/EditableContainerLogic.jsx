@@ -1,4 +1,5 @@
 // Packages
+import { useRef } from "react";
 import { useEffect, useState } from "react";
 
 // Components
@@ -25,8 +26,18 @@ export const EditableContainerLogic = ({
 	onReorder,
 	onRevert,
 	onSave,
+	onScroll,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
+
+	const editableContainerRef = useRef();
+	useEffect(() => {
+		const editableContainerRefCurrent = editableContainerRef?.current;
+		if (onScroll) editableContainerRefCurrent?.addEventListener("wheel", onScroll);
+		return () => {
+			if (onScroll) editableContainerRefCurrent?.removeEventListener("wheel", onScroll);
+		};
+	}, [editableContainerRef, onScroll]);
 
 	// Editable Container Class Name
 	const [editableContainerClassName, setEditableContainerClassName] = useState(
@@ -109,6 +120,7 @@ export const EditableContainerLogic = ({
 	return {
 		isEditing,
 		setIsEditing,
+		editableContainerRef,
 		editableContainerClassName,
 		onEditableContainerKeyDown,
 		onCloseBtnClick,

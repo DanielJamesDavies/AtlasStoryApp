@@ -25,6 +25,7 @@ export const AbilityItem = ({ ability, changeAbility, abilityItem, index, isEdit
 	return (
 		<div className='character-subpage-abilities-ability-item'>
 			<div className='character-subpage-abilities-ability-item-content'>
+				{/* Title */}
 				{!isEditing ? (
 					<div className='character-subpage-abilities-ability-item-title'>{abilityItem?.title}</div>
 				) : (
@@ -36,6 +37,8 @@ export const AbilityItem = ({ ability, changeAbility, abilityItem, index, isEdit
 						onChange={changeAbilityItemTitle}
 					/>
 				)}
+
+				{/* Text */}
 				{!isEditing ? (
 					<Text className='character-subpage-abilities-ability-item-text' value={abilityItem?.text} />
 				) : (
@@ -46,6 +49,27 @@ export const AbilityItem = ({ ability, changeAbility, abilityItem, index, isEdit
 						value={abilityItem?.text.join("\n")}
 						onChange={changeAbilityItemText}
 					/>
+				)}
+
+				{/* Statistics */}
+				{!isEditing ? (
+					<div className='character-subpage-abilities-ability-item-statistics'>
+						{abilityItem?.statistics?.values?.map((statistic, index) => (
+							<div key={index} className='character-subpage-abilities-ability-item-statistic'>
+								<div className='character-subpage-abilities-ability-item-statistic-label'>{statistic?.label}</div>
+								<div className='character-subpage-abilities-ability-item-statistic-value'>{statistic?.value}</div>
+							</div>
+						))}
+					</div>
+				) : (
+					<div className='character-subpage-abilities-ability-item-statistics'>
+						{abilityItem?.statistics?.values?.map((statistic, index) => (
+							<div key={index} className='character-subpage-abilities-ability-item-statistic'>
+								<div className='character-subpage-abilities-ability-item-statistic-label'>{statistic?.label}</div>
+								<div className='character-subpage-abilities-ability-item-statistic-value'>{statistic?.value}</div>
+							</div>
+						))}
+					</div>
 				)}
 			</div>
 			{!isEditing ? null : <IconBtn className='' seamless={true} icon={<FaTimes />} iconName='times' size='s' onClick={removeAbilityItem} />}

@@ -43,6 +43,7 @@ export const CharacterImages = ({ onAddImage, onClose }) => {
 			onReorder={toggleIsReorderingCharacterImages}
 			onRevert={revertCharacterImages}
 			onSave={saveCharacterImages}
+			onScroll={(e) => e.stopPropagation()}
 		>
 			<div className='character-images'>
 				<div className='character-images-title'>All Character Images</div>

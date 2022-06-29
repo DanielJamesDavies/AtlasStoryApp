@@ -29,9 +29,11 @@ export const EditableContainer = ({
 	onReorder,
 	onRevert,
 	onSave,
+	onScroll,
 }) => {
 	const {
 		isEditing,
+		editableContainerRef,
 		editableContainerClassName,
 		onEditableContainerKeyDown,
 		onCloseBtnClick,
@@ -55,10 +57,11 @@ export const EditableContainer = ({
 		onReorder,
 		onRevert,
 		onSave,
+		onScroll,
 	});
 
 	return (
-		<div className={editableContainerClassName} onKeyDown={onEditableContainerKeyDown}>
+		<div ref={editableContainerRef} className={editableContainerClassName} onKeyDown={onEditableContainerKeyDown}>
 			<div ref={innerRef} className='editable-container-content'>
 				{children.map((child, index) => ((isEditing && index === 0) || (!isEditing && index === 1) ? null : child))}
 			</div>

@@ -59,6 +59,16 @@ img {
 	color: #fff;
 }
 
+::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--characterColour);
+}
+
 @keyframes wiggle-very-small {
 	0%,
 	100% {
