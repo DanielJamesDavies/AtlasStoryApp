@@ -25,7 +25,13 @@ export const AbilityItemsLogic = ({ ability, changeAbility }) => {
 		const new_id_response = await APIRequest("/new-id/", "GET");
 		if (!new_id_response || new_id_response?.errors || !new_id_response?.data?._id) return false;
 
-		newAbility.items.push({ _id: new_id_response.data._id, title: "", text: [""], images: [], statistics: { values: [], maxValue: 100 } });
+		newAbility.items.push({
+			_id: new_id_response.data._id,
+			title: "",
+			text: [""],
+			images: [],
+			statistics: { values: [], maxValue: 100 },
+		});
 		changeAbility(newAbility);
 	}
 
@@ -45,6 +51,7 @@ export const AbilityItemsLogic = ({ ability, changeAbility }) => {
 	}
 
 	async function revertAbilityItems() {
+		if (!character?._id || !characterVersion?._id) return;
 		const response = await APIRequest("/character/get-value/" + character._id, "POST", {
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "abilities", ability._id, "items"],
@@ -59,7 +66,7 @@ export const AbilityItemsLogic = ({ ability, changeAbility }) => {
 	}
 
 	async function saveAbilityItems() {
-		if (!character?._id) return;
+		if (!character?._id || !characterVersion?._id) return;
 		const response = await APIRequest("/character/" + character._id, "PATCH", {
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "abilities", ability._id, "items"],

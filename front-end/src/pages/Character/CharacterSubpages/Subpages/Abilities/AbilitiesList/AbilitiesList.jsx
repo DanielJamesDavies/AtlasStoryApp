@@ -30,7 +30,8 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 		reorderAbilities,
 		revertAbilities,
 		saveAbilities,
-	} = AbilitiesListLogic();
+		onClickAbility,
+	} = AbilitiesListLogic({ currAbility, switchAbility });
 
 	return (
 		<div className='character-subpage-abilities-list'>
@@ -50,7 +51,7 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 										? "character-subpage-abilities-list-item character-subpage-abilities-list-item-active"
 										: "character-subpage-abilities-list-item"
 								}
-								onClick={() => switchAbility(ability._id)}
+								onClick={() => onClickAbility(ability)}
 							>
 								<div className='character-subpage-abilities-list-item-name'>{ability?.name}</div>
 							</div>
@@ -70,7 +71,7 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 										? "character-subpage-abilities-list-item character-subpage-abilities-list-item-active"
 										: "character-subpage-abilities-list-item"
 								}
-								onClick={() => switchAbility(ability._id)}
+								onClick={() => onClickAbility(ability)}
 							>
 								<div className='character-subpage-abilities-list-item-name'>{ability?.name}</div>
 								<IconBtn

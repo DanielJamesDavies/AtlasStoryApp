@@ -45,6 +45,7 @@ export const AbilityPrimaryStatisticLogic = ({ ability, changeAbility }) => {
 	}
 
 	async function revertAbilityPrimaryStatistic() {
+		if (!character?._id || !characterVersion?._id) return;
 		const response = await APIRequest("/character/get-value/" + character._id, "POST", {
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "abilities", ability._id, "primaryStatistic"],
@@ -59,7 +60,7 @@ export const AbilityPrimaryStatisticLogic = ({ ability, changeAbility }) => {
 	}
 
 	async function saveAbilityPrimaryStatistic() {
-		if (!character?._id) return;
+		if (!character?._id || !characterVersion?._id) return;
 		const response = await APIRequest("/character/" + character._id, "PATCH", {
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "abilities", ability._id, "primaryStatistic"],

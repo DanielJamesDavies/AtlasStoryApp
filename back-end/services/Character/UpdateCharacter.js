@@ -154,11 +154,10 @@ module.exports = async (req, res) => {
 					}
 
 					if (newPath.length > 4) {
-						const abilityIndex = newCharacter.data.versions[versionIndex].abilities.findIndex(
+						abilityIndex = newCharacter.data.versions[versionIndex].abilities.findIndex(
 							(e) => JSON.stringify(e._id) === JSON.stringify(newPath[4])
 						);
-						if (abilityIndex === -1)
-							return res.status(200).send({ errors: [{ message: "Character Version Ability Could Not Be Saved" }] });
+						if (abilityIndex === -1) abilityIndex = newCharacter.data.versions[versionIndex].abilities.length;
 
 						newPath[4] = abilityIndex;
 					}

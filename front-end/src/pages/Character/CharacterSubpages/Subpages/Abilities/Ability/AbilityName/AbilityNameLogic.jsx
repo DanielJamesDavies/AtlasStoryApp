@@ -26,6 +26,7 @@ export const AbilityNameLogic = ({ ability, changeAbility }) => {
 	}
 
 	async function revertAbilityName() {
+		if (!character?._id || !characterVersion?._id) return;
 		const response = await APIRequest("/character/get-value/" + character._id, "POST", {
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "abilities", ability._id, "name"],
@@ -40,7 +41,7 @@ export const AbilityNameLogic = ({ ability, changeAbility }) => {
 	}
 
 	async function saveAbilityName() {
-		if (!character?._id) return;
+		if (!character?._id || !characterVersion?._id) return;
 		const response = await APIRequest("/character/" + character._id, "PATCH", {
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "abilities", ability._id, "name"],

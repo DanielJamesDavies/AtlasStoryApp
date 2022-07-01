@@ -15,7 +15,7 @@ import { APIContext } from "../../../../../../context/APIContext";
 
 // Assets
 
-export const AbilitiesListLogic = () => {
+export const AbilitiesListLogic = ({ currAbility, switchAbility }) => {
 	const { isAuthorizedToEdit, story, character, characterVersion, changeCharacterVersion } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 
@@ -37,6 +37,7 @@ export const AbilitiesListLogic = () => {
 	function removeAbility(e, index) {
 		e.stopPropagation();
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		if (currAbility?._id === newCharacterVersion.abilities[index]._id) switchAbility(newCharacterVersion.abilities[0]._id);
 		newCharacterVersion.abilities.splice(index, 1);
 		changeCharacterVersion(newCharacterVersion);
 	}
@@ -84,6 +85,10 @@ export const AbilitiesListLogic = () => {
 		return true;
 	}
 
+	function onClickAbility(ability) {
+		switchAbility(ability._id);
+	}
+
 	return {
 		isAuthorizedToEdit,
 		characterVersion,
@@ -94,5 +99,6 @@ export const AbilitiesListLogic = () => {
 		reorderAbilities,
 		revertAbilities,
 		saveAbilities,
+		onClickAbility,
 	};
 };
