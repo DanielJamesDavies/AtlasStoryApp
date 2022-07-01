@@ -19,6 +19,7 @@ import "./AbilityPrimaryStatistic.css";
 export const AbilityPrimaryStatistic = ({ ability, changeAbility }) => {
 	const {
 		isAuthorizedToEdit,
+		primaryStatisticValueClassName,
 		changeAbilityPrimaryStatisticLabel,
 		changeAbilityPrimaryStatisticValue,
 		revertAbilityPrimaryStatistic,
@@ -37,7 +38,7 @@ export const AbilityPrimaryStatistic = ({ ability, changeAbility }) => {
 					<div className='character-subpage-abilities-ability-primary-statistic-label'>{ability?.primaryStatistic?.label}</div>
 				)}
 				{ability?.primaryStatistic?.value.split(" ").join("").length === 0 ? null : (
-					<div className='character-subpage-abilities-ability-primary-statistic-value'>{ability?.primaryStatistic?.value}</div>
+					<div className={primaryStatisticValueClassName}>{ability?.primaryStatistic?.value}</div>
 				)}
 			</div>
 			<div className='character-subpage-abilities-ability-primary-statistic'>
@@ -50,7 +51,7 @@ export const AbilityPrimaryStatistic = ({ ability, changeAbility }) => {
 					onChange={changeAbilityPrimaryStatisticLabel}
 				/>
 				<TextInput
-					className='character-subpage-abilities-ability-primary-statistic-value'
+					className={primaryStatisticValueClassName}
 					label='Ability Primary Statistic Value'
 					seamless={true}
 					autoResize={true}

@@ -25,7 +25,12 @@ export const AbilitiesListLogic = () => {
 		const new_id_response = await APIRequest("/new-id/", "GET");
 		if (!new_id_response || new_id_response?.errors || !new_id_response?.data?._id) return false;
 
-		newCharacterVersion.abilities.push({ _id: new_id_response.data._id, name: "New Ability", items: [] });
+		newCharacterVersion.abilities.push({
+			_id: new_id_response.data._id,
+			name: "New Ability",
+			primaryStatistic: { label: "", value: "" },
+			items: [],
+		});
 		changeCharacterVersion(newCharacterVersion);
 	}
 

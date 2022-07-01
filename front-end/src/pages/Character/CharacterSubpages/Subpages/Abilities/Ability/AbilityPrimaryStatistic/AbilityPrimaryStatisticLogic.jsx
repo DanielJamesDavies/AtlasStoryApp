@@ -1,5 +1,5 @@
 // Packages
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 
 // Components
 
@@ -18,6 +18,19 @@ import { APIContext } from "../../../../../../../context/APIContext";
 export const AbilityPrimaryStatisticLogic = ({ ability, changeAbility }) => {
 	const { isAuthorizedToEdit, story, character, characterVersion } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
+
+	const [primaryStatisticValueClassName, setPrimaryStatisticValueClassName] = useState(
+		"character-subpage-abilities-ability-primary-statistic-value"
+	);
+
+	useEffect(() => {
+		function getPrimaryStatisticValueClassName() {
+			let newClassName = "character-subpage-abilities-ability-primary-statistic-value";
+			if (ability?.primaryStatistic?.value === "∞") newClassName += " character-subpage-abilities-ability-primary-statistic-value-symbol";
+			return newClassName;
+		}
+		setPrimaryStatisticValueClassName(getPrimaryStatisticValueClassName());
+	}, [setPrimaryStatisticValueClassName, ability]);
 
 	function changeAbilityPrimaryStatisticLabel(e) {
 		let newAbility = JSON.parse(JSON.stringify(ability));
@@ -58,6 +71,7 @@ export const AbilityPrimaryStatisticLogic = ({ ability, changeAbility }) => {
 
 	return {
 		isAuthorizedToEdit,
+		primaryStatisticValueClassName,
 		changeAbilityPrimaryStatisticLabel,
 		changeAbilityPrimaryStatisticValue,
 		revertAbilityPrimaryStatistic,

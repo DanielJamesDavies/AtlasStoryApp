@@ -15,7 +15,7 @@
 }
 
 .character-subpage-abilities-ability-primary-statistic-label {
-	margin-right: 12px;
+	margin-right: 16px;
 }
 
 .character-subpage-abilities-ability-primary-statistic-label,
@@ -35,4 +35,23 @@
 	font-size: 14px;
 	font-weight: 700;
 	color: #fff;
+}
+
+.character-subpage-abilities-ability-primary-statistic-value-symbol {
+	padding: 0 12px;
+}
+
+.character-subpage-abilities-ability-primary-statistic-value-symbol,
+.character-subpage-abilities-ability-primary-statistic-value-symbol input {
+	font-size: 26px;
+}
+
+@media (max-width: 700px) {
+	.editable-container-is-editing .character-subpage-abilities-ability-primary-statistic {
+		flex-direction: column;
+	}
+
+	.editable-container-is-editing .character-subpage-abilities-ability-primary-statistic-value {
+		width: calc(100% - 24px);
+	}
 }
