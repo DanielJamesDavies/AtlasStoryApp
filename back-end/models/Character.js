@@ -84,6 +84,14 @@ const CharacterSchema = mongoose.Schema({
 										default: new mongoose.Types.ObjectId(),
 									},
 									name: { type: String, required: true, default: "" },
+									primaryStatistic: {
+										type: {
+											label: { type: String, required: true, default: "" },
+											value: { type: String, required: true, default: "" },
+										},
+										required: true,
+										default: {},
+									},
 									items: {
 										type: [
 											{
