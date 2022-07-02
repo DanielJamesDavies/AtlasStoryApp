@@ -54,7 +54,7 @@ export const CharacterImagesLogic = () => {
 
 		setCharacterImages((oldCharacterImages) => {
 			let newCharacterImages = JSON.parse(JSON.stringify(oldCharacterImages));
-			newCharacterImages.push({ _id: new_id_response.data._id, image: image.data });
+			newCharacterImages.push({ _id: new_id_response.data._id, image: image.data, isUnsaved: true });
 			return newCharacterImages;
 		});
 
@@ -121,6 +121,16 @@ export const CharacterImagesLogic = () => {
 			newValue: { character_images: character.data.images, images: characterImages },
 		});
 		if (!response || response?.errors) return false;
+
+		setCharacterImages((oldCharacterImages) => {
+			let newCharacterImages = JSON.parse(JSON.stringify(oldCharacterImages));
+			newCharacterImages = newCharacterImages.map((image) => {
+				let newImage = JSON.parse(JSON.stringify(image));
+				if (newImage.isUnsaved !== undefined) delete newImage.isUnsaved;
+				return newImage;
+			});
+			return newCharacterImages;
+		});
 
 		if (response?.data?.character) {
 			setCharacter((oldCharacter) => {

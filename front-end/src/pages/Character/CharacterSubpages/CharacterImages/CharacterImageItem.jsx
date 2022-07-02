@@ -21,10 +21,10 @@ export const CharacterImageItem = ({ image_id, onAddImage, onRemoveImage }) => {
 
 	return (
 		<div className='character-image-item'>
-			<div className='character-image-item-image'>{!image ? null : <img src={image} alt='' />}</div>
+			<div className='character-image-item-image'>{!image?.image ? null : <img src={image.image} alt='' />}</div>
 			<div className='character-image-item-btns-container'>
-				<IconBtn icon={<FaPlus />} iconName='plus' seamless={true} onClick={() => onAddImage(image_id)} />
-				{!onRemoveImage ? null : <IconBtn icon={<FaTimes />} iconName='times' seamless={true} onClick={() => onRemoveImage(image_id)} />}
+				{image?.isUnsaved ? null : <IconBtn icon={<FaPlus />} iconName='plus' onClick={() => onAddImage(image_id)} />}
+				{!onRemoveImage ? null : <IconBtn icon={<FaTimes />} iconName='times' onClick={() => onRemoveImage(image_id)} />}
 			</div>
 		</div>
 	);

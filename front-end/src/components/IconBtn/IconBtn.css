@@ -17,10 +17,10 @@
 	border: 0;
 	border-radius: 100%;
 
-	min-width: 40px;
-	width: 40px;
-	min-height: 40px;
-	height: 40px;
+	min-width: 32px;
+	width: 32px;
+	min-height: 32px;
+	height: 32px;
 	overflow: visible;
 
 	background: var(--accentColour);
@@ -29,7 +29,6 @@
 	text-align: center;
 	vertical-align: middle;
 	transition: background 0.2s;
-	transition: color 0.2s;
 	cursor: pointer;
 }
 
@@ -43,7 +42,23 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 55%;
+	width: 60%;
+}
+
+.icon-btn-container-plus-icon svg {
+	width: 50%;
+}
+
+.icon-btn-container-sort-icon svg {
+	width: 43%;
+}
+
+.icon-btn-container-trash-icon svg {
+	width: 50%;
+}
+
+.icon-btn-container-times-icon svg {
+	width: 45%;
 }
 
 .icon-btn-container-seamless .icon-btn {
@@ -71,18 +86,6 @@
 	width: 18px;
 	min-height: 18px;
 	height: 18px;
-}
-
-.icon-btn-container-plus-icon svg {
-	width: 50%;
-}
-
-.icon-btn-container-sort-icon svg {
-	width: 43%;
-}
-
-.icon-btn-container-trash-icon svg {
-	width: 50%;
 }
 
 .icon-btn-container-seamless svg {

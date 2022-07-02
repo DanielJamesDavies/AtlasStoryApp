@@ -23,7 +23,7 @@ export const CharacterImageItemLogic = ({ image_id }) => {
 	useEffect(() => {
 		function getImage() {
 			if (!image_id) return false;
-			const newImage = characterImages.find((e) => e._id === image_id)?.image;
+			const newImage = characterImages.find((e) => e._id === image_id);
 			if (!newImage) return false;
 			return newImage;
 		}
