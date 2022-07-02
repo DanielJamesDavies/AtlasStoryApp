@@ -15,26 +15,32 @@ import { CharacterContext } from "../../../CharacterContext";
 // Assets
 
 export const DevelopmentItemLogic = ({ index }) => {
-	const { characterImages, characterVersion, changeCharacterVersion } = useContext(CharacterContext);
+	const { characterImages, setCharacter } = useContext(CharacterContext);
 
 	async function reorderDevelopmentItemImages(res) {
 		if (res.from === undefined || res.to === undefined) return false;
-		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		const tempDevImageItem = newCharacterVersion.development.items[index].images.splice(res.from, 1)[0];
-		newCharacterVersion.development.items[index].images.splice(res.to, 0, tempDevImageItem);
-		changeCharacterVersion(newCharacterVersion);
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			const tempDevImageItem = newCharacter.data.development.items[index].images.splice(res.from, 1)[0];
+			newCharacter.data.development.items[index].images.splice(res.to, 0, tempDevImageItem);
+			return newCharacter;
+		});
 	}
 
 	function changeDevelopmentItemImageCaption(e, imageIndex) {
-		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.development.items[index].images[imageIndex].caption = e.target.value;
-		changeCharacterVersion(newCharacterVersion);
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			newCharacter.data.development.items[index].images[imageIndex].caption = e.target.value;
+			return newCharacter;
+		});
 	}
 
 	function removeDevItemImage(imageIndex) {
-		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.development.items[index].images.splice(imageIndex, 1);
-		changeCharacterVersion(newCharacterVersion);
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			newCharacter.data.development.items[index].images.splice(imageIndex, 1);
+			return newCharacter;
+		});
 	}
 
 	return { characterImages, reorderDevelopmentItemImages, changeDevelopmentItemImageCaption, removeDevItemImage };

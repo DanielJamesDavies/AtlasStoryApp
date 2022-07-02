@@ -20,6 +20,9 @@ export const AbilitiesLogic = () => {
 
 	useEffect(() => {
 		function getAbility() {
+			const oldAbility = JSON.parse(JSON.stringify(ability));
+			console.log(oldAbility);
+			// Get index of old ability
 			let newAbility = false;
 			if (characterVersion.abilities.length > 0) {
 				newAbility = JSON.parse(JSON.stringify(characterVersion.abilities[0]));

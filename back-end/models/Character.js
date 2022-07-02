@@ -83,7 +83,7 @@ const CharacterSchema = mongoose.Schema({
 										require: true,
 										default: new mongoose.Types.ObjectId(),
 									},
-									name: { type: String, required: true, default: "" },
+									name: { type: String, required: true, default: "New Ability" },
 									primaryStatistic: {
 										type: {
 											label: { type: String, required: true, default: "" },
@@ -147,36 +147,36 @@ const CharacterSchema = mongoose.Schema({
 							required: true,
 							default: {},
 						},
-						development: {
-							type: {
-								items: {
+					},
+				],
+				required: true,
+				default: [{ title: "Ver. 1" }],
+			},
+			development: {
+				type: {
+					items: {
+						type: [
+							{
+								title: { type: String, required: true, default: "" },
+								value: { type: [String], required: true, default: [""] },
+								images: {
 									type: [
 										{
-											title: { type: String, required: true, default: "" },
-											value: { type: [String], required: true, default: [""] },
-											images: {
-												type: [
-													{
-														image: mongoose.Schema.Types.ObjectId,
-														caption: { type: String, required: true, default: "" },
-													},
-												],
-												required: true,
-												default: [],
-											},
+											image: mongoose.Schema.Types.ObjectId,
+											caption: { type: String, required: true, default: "" },
 										},
 									],
 									required: true,
 									default: [],
 								},
 							},
-							required: true,
-							default: {},
-						},
+						],
+						required: true,
+						default: [],
 					},
-				],
+				},
 				required: true,
-				default: [{ title: "Ver. 1" }],
+				default: {},
 			},
 		},
 		require: true,

@@ -16,31 +16,39 @@ import { APIContext } from "../../../../../context/APIContext";
 // Assets
 
 export const DevelopmentItemsLogic = () => {
-	const { isAuthorizedToEdit, story, character, characterVersion, changeCharacterVersion } = useContext(CharacterContext);
+	const { isAuthorizedToEdit, story, character, setCharacter } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 
 	function changeDevelopmentItemTitle(e, index) {
-		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.development.items[index].title = e.target.value;
-		changeCharacterVersion(newCharacterVersion);
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			newCharacter.data.development.items[index].title = e.target.value;
+			return newCharacter;
+		});
 	}
 
 	function changeDevelopmentItemValue(e, index) {
-		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.development.items[index].value = e.target.value.split("\n");
-		changeCharacterVersion(newCharacterVersion);
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			newCharacter.data.development.items[index].value = e.target.value.split("\n");
+			return newCharacter;
+		});
 	}
 
 	function addDevelopmentItem() {
-		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.development.items.push({ title: "", value: [""], images: [] });
-		changeCharacterVersion(newCharacterVersion);
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			newCharacter.data.development.items.push({ title: "", value: [""], images: [] });
+			return newCharacter;
+		});
 	}
 
 	function removeDevelopmentItem(index) {
-		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.development.items.splice(index, 1);
-		changeCharacterVersion(newCharacterVersion);
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			newCharacter.data.development.items.splice(index, 1);
+			return newCharacter;
+		});
 	}
 
 	const [isReorderingDevelopmentItems, setIsReorderingDevelopmentItems] = useState(false);
@@ -50,10 +58,12 @@ export const DevelopmentItemsLogic = () => {
 
 	function reorderDevelopmentItems(res) {
 		if (res.from === undefined || res.to === undefined) return false;
-		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		const tempDevelopmentItem = newCharacterVersion.development.items.splice(res.from, 1)[0];
-		newCharacterVersion.development.items.splice(res.to, 0, tempDevelopmentItem);
-		changeCharacterVersion(newCharacterVersion);
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			const tempDevelopmentItem = newCharacter.data.development.items.splice(res.from, 1)[0];
+			newCharacter.data.development.items.splice(res.to, 0, tempDevelopmentItem);
+			return newCharacter;
+		});
 	}
 
 	const [errors, setErrors] = useState([]);
@@ -62,13 +72,15 @@ export const DevelopmentItemsLogic = () => {
 		setErrors([]);
 		const response = await APIRequest("/character/get-value/" + character._id, "POST", {
 			story_id: story._id,
-			path: ["data", "versions", characterVersion._id, "development", "items"],
+			path: ["data", "development", "items"],
 		});
 		if (!response || response?.errors || !response?.data?.value) return false;
 
-		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.development.items = response.data.value;
-		changeCharacterVersion(newCharacterVersion);
+		setCharacter((oldCharacter) => {
+			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+			newCharacter.data.development.items = response.data.value;
+			return newCharacter;
+		});
 
 		return true;
 	}
@@ -78,8 +90,8 @@ export const DevelopmentItemsLogic = () => {
 		if (!character?._id) return;
 		const response = await APIRequest("/character/" + character._id, "PATCH", {
 			story_id: story._id,
-			path: ["data", "versions", characterVersion._id, "development", "items"],
-			newValue: characterVersion.development.items,
+			path: ["data", "development", "items"],
+			newValue: character.data.development.items,
 		});
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);
@@ -99,16 +111,16 @@ export const DevelopmentItemsLogic = () => {
 
 	function addImageToDevItem(image_id) {
 		const newCharacterImagesCurrDevItemIndex = JSON.parse(JSON.stringify(characterImagesCurrDevItemIndex));
-		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		if (newCharacterVersion.development.items[newCharacterImagesCurrDevItemIndex].images.findIndex((e) => e.image === image_id) !== -1)
+		let newCharacter = JSON.parse(JSON.stringify(character));
+		if (newCharacter.data.development.items[newCharacterImagesCurrDevItemIndex].images.findIndex((e) => e.image === image_id) !== -1)
 			return false;
-		newCharacterVersion.development.items[newCharacterImagesCurrDevItemIndex].images.push({ image: image_id, caption: "" });
-		changeCharacterVersion(newCharacterVersion);
+		newCharacter.data.development.items[newCharacterImagesCurrDevItemIndex].images.push({ image: image_id, caption: "" });
+		setCharacter(newCharacter);
 	}
 
 	return {
 		isAuthorizedToEdit,
-		characterVersion,
+		character,
 		changeDevelopmentItemTitle,
 		changeDevelopmentItemValue,
 		addDevelopmentItem,

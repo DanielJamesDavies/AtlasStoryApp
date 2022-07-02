@@ -23,7 +23,7 @@ import "./DevelopmentItems.css";
 export const DevelopmentItems = () => {
 	const {
 		isAuthorizedToEdit,
-		characterVersion,
+		character,
 		changeDevelopmentItemTitle,
 		changeDevelopmentItemValue,
 		addDevelopmentItem,
@@ -51,7 +51,7 @@ export const DevelopmentItems = () => {
 			onScroll={(e) => e.stopPropagation()}
 		>
 			<div className='character-subpage-development-items'>
-				{characterVersion?.development?.items?.map((developmentItem, index) => (
+				{character?.data?.development?.items?.map((developmentItem, index) => (
 					<div key={index} className='character-subpage-development-item-container'>
 						<DevelopmentItem index={index} developmentItem={developmentItem} isEditing={false} />
 					</div>
@@ -68,7 +68,7 @@ export const DevelopmentItems = () => {
 					enableDragDrop={isReorderingDevelopmentItems}
 					onDropItem={reorderDevelopmentItems}
 				>
-					{characterVersion?.development?.items?.map((developmentItem, index) => (
+					{character?.data?.development?.items?.map((developmentItem, index) => (
 						<DragDropItem className='character-subpage-development-item-container' key={index} index={index}>
 							<DevelopmentItem
 								index={index}
