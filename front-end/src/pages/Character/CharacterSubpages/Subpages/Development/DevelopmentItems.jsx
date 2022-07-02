@@ -38,6 +38,8 @@ export const DevelopmentItems = () => {
 		openCharacterImages,
 		closeCharacterImages,
 		addImageToDevItem,
+		developmentItemsRef,
+		onDevelopmentItemsContainerScroll,
 	} = DevelopmentItemsLogic();
 
 	return (
@@ -48,9 +50,9 @@ export const DevelopmentItems = () => {
 			onReorder={toggleIsReorderingDevelopmentItems}
 			onRevert={revertDevelopmentItems}
 			onSave={saveDevelopmentItems}
-			onScroll={(e) => e.stopPropagation()}
+			onScroll={onDevelopmentItemsContainerScroll}
 		>
-			<div className='character-subpage-development-items'>
+			<div ref={developmentItemsRef} className='character-subpage-development-items'>
 				{character?.data?.development?.items?.map((developmentItem, index) => (
 					<div key={index} className='character-subpage-development-item-container'>
 						<DevelopmentItem index={index} developmentItem={developmentItem} isEditing={false} />
@@ -60,6 +62,7 @@ export const DevelopmentItems = () => {
 			<div>
 				<ErrorMessage errors={errors} />
 				<DragDropContainer
+					innerRef={developmentItemsRef}
 					className={
 						characterImagesCurrDevItemIndex === -1
 							? "character-subpage-development-items"

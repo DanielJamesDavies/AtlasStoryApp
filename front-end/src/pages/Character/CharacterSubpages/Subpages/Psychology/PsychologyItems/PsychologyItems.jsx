@@ -34,6 +34,8 @@ export const PsychologyItems = () => {
 		revertPsychologyItems,
 		savePsychologyItems,
 		errors,
+		psychologyItemsRef,
+		onPsychologyItemsContainerScroll,
 	} = PsychologyItemsLogic();
 
 	return (
@@ -45,9 +47,9 @@ export const PsychologyItems = () => {
 			onReorder={toggleIsReorderingPsychologyItems}
 			onRevert={revertPsychologyItems}
 			onSave={savePsychologyItems}
-			onScroll={(e) => e.stopPropagation()}
+			onScroll={onPsychologyItemsContainerScroll}
 		>
-			<div className='character-subpage-psychology-items'>
+			<div ref={psychologyItemsRef} className='character-subpage-psychology-items'>
 				{characterVersion?.psychology?.items?.map((psychologyItem, index) => (
 					<div key={index} className='character-subpage-psychology-item-container'>
 						<PsychologyItem index={index} psychologyItem={psychologyItem} isEditing={false} />
@@ -56,6 +58,7 @@ export const PsychologyItems = () => {
 			</div>
 			<div>
 				<DragDropContainer
+					innerRef={psychologyItemsRef}
 					className='character-subpage-psychology-items'
 					enableDragDrop={isReorderingPsychologyItems}
 					onDropItem={reorderPsychologyItems}

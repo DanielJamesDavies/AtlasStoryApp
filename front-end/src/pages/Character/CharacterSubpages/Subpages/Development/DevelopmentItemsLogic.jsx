@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 
 // Components
 
@@ -118,6 +118,12 @@ export const DevelopmentItemsLogic = () => {
 		setCharacter(newCharacter);
 	}
 
+	const developmentItemsRef = useRef();
+	function onDevelopmentItemsContainerScroll(e) {
+		if (developmentItemsRef?.current?.scrollTop === 0) return;
+		e.stopPropagation();
+	}
+
 	return {
 		isAuthorizedToEdit,
 		character,
@@ -135,5 +141,7 @@ export const DevelopmentItemsLogic = () => {
 		openCharacterImages,
 		closeCharacterImages,
 		addImageToDevItem,
+		developmentItemsRef,
+		onDevelopmentItemsContainerScroll,
 	};
 };

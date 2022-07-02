@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 
 // Components
 
@@ -119,6 +119,12 @@ export const PsychologyItemsLogic = () => {
 		return true;
 	}
 
+	const psychologyItemsRef = useRef();
+	function onPsychologyItemsContainerScroll(e) {
+		if (psychologyItemsRef?.current?.scrollTop === 0) return;
+		e.stopPropagation();
+	}
+
 	return {
 		isAuthorizedToEdit,
 		characterVersion,
@@ -133,5 +139,7 @@ export const PsychologyItemsLogic = () => {
 		revertPsychologyItems,
 		savePsychologyItems,
 		errors,
+		psychologyItemsRef,
+		onPsychologyItemsContainerScroll,
 	};
 };

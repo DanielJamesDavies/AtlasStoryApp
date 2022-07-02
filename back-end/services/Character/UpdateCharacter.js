@@ -157,8 +157,10 @@ module.exports = async (req, res) => {
 						abilityIndex = newCharacter.data.versions[versionIndex].abilities.findIndex(
 							(e) => JSON.stringify(e._id) === JSON.stringify(newPath[4])
 						);
-						if (abilityIndex === -1) abilityIndex = newCharacter.data.versions[versionIndex].abilities.length;
-
+						if (abilityIndex === -1) {
+							abilityIndex = newCharacter.data.versions[versionIndex].abilities.length;
+							newCharacter.data.versions[versionIndex].abilities.push({ _id: newPath[4] });
+						}
 						newPath[4] = abilityIndex;
 					}
 				}
