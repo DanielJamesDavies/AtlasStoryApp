@@ -76,7 +76,7 @@
 
 .story-primary-character-card-summary-items-container {
 	position: absolute;
-	top: 262px;
+	top: 252px;
 	left: 50%;
 	transform: translateX(-50%);
 
@@ -85,7 +85,7 @@
 	flex-wrap: wrap;
 
 	width: calc(100% - 16px);
-	max-height: calc(100% - 262px);
+	max-height: calc(100% - 252px);
 	overflow: hidden;
 }
 
@@ -106,7 +106,7 @@
 }
 
 .story-primary-character-card-summary-item-value {
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: 700;
 }
 
@@ -153,8 +153,8 @@
 	}
 
 	.story-primary-character-card-summary-items-container {
-		top: 60%;
-		max-height: calc(100% - 60% + 1px);
+		top: 54%;
+		max-height: calc(100% - 54% + 1px);
 	}
 
 	.story-primary-character-card-summary-item-label {
