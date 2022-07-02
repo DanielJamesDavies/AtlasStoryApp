@@ -17,14 +17,22 @@ import "./CharacterPrimaryVersion.css";
 // Assets
 
 export const CharacterPrimaryVersion = () => {
-	const { characterVersion, decrementCharacterVersion, incrementCharacterVersion } = CharacterPrimaryVersionLogic();
+	const { character, characterVersion, decrementCharacterVersion, incrementCharacterVersion, primaryVersionStyle, primaryVersionWidthRef } =
+		CharacterPrimaryVersionLogic();
 
 	return (
 		<div className='character-primary-version-container'>
 			<IconBtn icon={<FaChevronLeft />} onClick={decrementCharacterVersion} seamless={true} size='s' />
-			<div className='character-primary-version'>
+			<div className='character-primary-version' style={primaryVersionStyle}>
 				<div className='character-primary-version-label'>Version</div>
 				<div className='character-primary-version-title'>{characterVersion.title}</div>
+			</div>
+			<div ref={primaryVersionWidthRef} className='character-primary-version-width-element'>
+				{character?.data?.versions?.map((version, index) => (
+					<div key={index} className='character-primary-version-width-element-title'>
+						{version?.title}
+					</div>
+				))}
 			</div>
 			<IconBtn icon={<FaChevronRight />} onClick={incrementCharacterVersion} seamless={true} size='s' />
 		</div>

@@ -10,7 +10,9 @@
 	flex-direction: column;
 	margin: 0 12px;
 
+	min-width: 100px;
 	width: 120px;
+	max-width: 224px;
 	max-height: 72px;
 	overflow: hidden;
 
@@ -30,6 +32,16 @@
 	font-weight: 700;
 }
 
+.character-primary-version-width-element {
+	position: absolute;
+	top: 0;
+	z-index: -2;
+	visibility: hidden;
+	opacity: 0;
+	transition: 0;
+	pointer-events: none;
+}
+
 @media (max-width: 700px) {
 	.character-primary-version-container {
 		position: fixed;
@@ -40,5 +52,6 @@
 
 	.character-primary-version {
 		width: 80px;
+		max-width: 80px;
 	}
 }
