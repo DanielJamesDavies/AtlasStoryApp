@@ -99,7 +99,7 @@
 
 .character-subpage-development-item-image-item img {
 	width: 100%;
-	max-height: max(22vw, 250px);
+	max-height: max(18vw, 250px);
 	object-fit: contain;
 }
 

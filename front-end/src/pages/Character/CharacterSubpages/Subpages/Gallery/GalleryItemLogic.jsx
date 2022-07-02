@@ -14,8 +14,8 @@ import { CharacterContext } from "../../../CharacterContext";
 
 // Assets
 
-export const GalleryItemLogic = ({ image }) => {
-	const { characterImages } = useContext(CharacterContext);
+export const GalleryItemLogic = ({ image, index }) => {
+	const { characterImages, characterVersion, changeCharacterVersion } = useContext(CharacterContext);
 
 	const [galleryItemImage, setGalleryItemImage] = useState(false);
 
@@ -29,5 +29,11 @@ export const GalleryItemLogic = ({ image }) => {
 		setGalleryItemImage(getGalleryItemImage());
 	}, [setGalleryItemImage, characterImages, image]);
 
-	return { galleryItemImage };
+	function changeGalleryItemCaption(e) {
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		newCharacterVersion.gallery[index].caption = e.target.value;
+		changeCharacterVersion(newCharacterVersion);
+	}
+
+	return { galleryItemImage, changeGalleryItemCaption };
 };

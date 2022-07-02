@@ -22,7 +22,7 @@
 
 .character-image-item-image img {
 	width: 100%;
-	height: 100%;
+	max-height: max(18vw, 250px);
 	object-fit: contain;
 }
 
