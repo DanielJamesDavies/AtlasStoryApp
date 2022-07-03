@@ -59,8 +59,7 @@
 }
 
 .character-subpage-development-item-text-container-no-width {
-	margin-right: 0;
-	width: 0%;
+	display: none !important;
 }
 
 .character-subpage-development-item-images-container {
@@ -76,8 +75,7 @@
 }
 
 .character-subpage-development-item-images-container-no-width {
-	margin-right: 0;
-	width: 0%;
+	display: none !important;
 }
 
 .character-subpage-development-item-images-container-is-current {

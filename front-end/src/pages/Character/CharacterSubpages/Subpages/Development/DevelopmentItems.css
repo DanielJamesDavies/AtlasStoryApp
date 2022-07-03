@@ -20,3 +20,9 @@
 		width: 100%;
 	}
 }
+
+@media (max-width: 750px) {
+	.character-subpage-development-items {
+		max-height: calc(100vh - (6px + 69px + 12px) - 36px - 24px - 70px - 8px);
+	}
+}
