@@ -1,5 +1,5 @@
 // Packages
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 
 // Components
 
@@ -14,7 +14,7 @@ import { CharacterContext } from "../../../CharacterContext";
 
 // Assets
 
-export const DevelopmentItemLogic = ({ index }) => {
+export const DevelopmentItemLogic = ({ developmentItem, index, characterImagesCurrDevItemIndex, isEditing }) => {
 	const { characterImages, setCharacter } = useContext(CharacterContext);
 
 	async function reorderDevelopmentItemImages(res) {
@@ -43,5 +43,36 @@ export const DevelopmentItemLogic = ({ index }) => {
 		});
 	}
 
-	return { characterImages, reorderDevelopmentItemImages, changeDevelopmentItemImageCaption, removeDevItemImage };
+	const [devItemTextContainerClassName, setDevItemTextContainerClassName] = useState("character-subpage-development-item-text-container");
+	const [devItemImagesContainerClassName, setDevItemImagesContainerClassName] = useState("character-subpage-development-item-images-container");
+	useEffect(() => {
+		function getDevItemTextContainerClassName() {
+			let newClassName = "character-subpage-development-item-text-container";
+			if (!isEditing && developmentItem?.images?.length === 0)
+				newClassName += " character-subpage-development-item-text-container-full-width";
+			if (!isEditing && developmentItem?.value?.join("").split(" ").join("").length === 0)
+				newClassName += " character-subpage-development-item-text-container-no-width";
+			return newClassName;
+		}
+		function getDevItemImagesContainerClassName() {
+			let newClassName = "character-subpage-development-item-images-container";
+			if (characterImagesCurrDevItemIndex === index) newClassName += " character-subpage-development-item-images-container-is-current";
+			if (!isEditing && developmentItem?.images?.length === 0)
+				newClassName += " character-subpage-development-item-images-container-no-width";
+			if (!isEditing && developmentItem?.value?.join("").split(" ").join("").length === 0)
+				newClassName += " character-subpage-development-item-images-container-full-width";
+			return newClassName;
+		}
+		setDevItemTextContainerClassName(getDevItemTextContainerClassName());
+		setDevItemImagesContainerClassName(getDevItemImagesContainerClassName());
+	}, [setDevItemTextContainerClassName, setDevItemImagesContainerClassName, developmentItem, index, characterImagesCurrDevItemIndex, isEditing]);
+
+	return {
+		characterImages,
+		reorderDevelopmentItemImages,
+		changeDevelopmentItemImageCaption,
+		removeDevItemImage,
+		devItemTextContainerClassName,
+		devItemImagesContainerClassName,
+	};
 };

@@ -32,8 +32,18 @@ export const DevelopmentItem = ({
 	characterImagesCurrDevItemIndex,
 	openCharacterImages,
 }) => {
-	const { characterImages, reorderDevelopmentItemImages, changeDevelopmentItemImageCaption, removeDevItemImage } = DevelopmentItemLogic({
+	const {
+		characterImages,
+		reorderDevelopmentItemImages,
+		changeDevelopmentItemImageCaption,
+		removeDevItemImage,
+		devItemTextContainerClassName,
+		devItemImagesContainerClassName,
+	} = DevelopmentItemLogic({
+		developmentItem,
 		index,
+		characterImagesCurrDevItemIndex,
+		isEditing,
 	});
 
 	if (!isEditing)
@@ -42,11 +52,11 @@ export const DevelopmentItem = ({
 				<div className='character-subpage-development-item-title-container'>
 					<div className='character-subpage-development-item-title'>{developmentItem?.title}</div>
 				</div>
-				<div className='character-subpage-development-item-text-container'>
+				<div className={devItemTextContainerClassName}>
 					<Text className='character-subpage-development-item-text-value' value={developmentItem?.value} />
 				</div>
 				{!developmentItem?.images || developmentItem?.images?.length === 0 ? null : (
-					<div className='character-subpage-development-item-images-container'>
+					<div className={devItemImagesContainerClassName}>
 						<div className='character-subpage-development-item-images'>
 							{developmentItem.images.map((image, index) => (
 								<div key={index} className='character-subpage-development-item-image-item'>
@@ -76,7 +86,7 @@ export const DevelopmentItem = ({
 						onChange={(e) => changeDevelopmentItemTitle(e, index)}
 					/>
 				</div>
-				<div className='character-subpage-development-item-text-container'>
+				<div className={devItemTextContainerClassName}>
 					<MultiLineTextInput
 						className='character-subpage-development-item-value'
 						seamless={true}
@@ -85,13 +95,7 @@ export const DevelopmentItem = ({
 						onChange={(e) => changeDevelopmentItemValue(e, index)}
 					/>
 				</div>
-				<div
-					className={
-						characterImagesCurrDevItemIndex === index
-							? "character-subpage-development-item-images-container character-subpage-development-item-images-container-is-current"
-							: "character-subpage-development-item-images-container"
-					}
-				>
+				<div className={devItemImagesContainerClassName}>
 					<DragDropContainer
 						className='character-subpage-development-item-images'
 						enableDragDrop={isReorderingDevelopmentItems}

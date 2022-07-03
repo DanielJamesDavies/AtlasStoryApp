@@ -53,12 +53,31 @@
 	vertical-align: top;
 }
 
+.character-subpage-development-item-text-container-full-width {
+	margin-right: 0;
+	width: 100%;
+}
+
+.character-subpage-development-item-text-container-no-width {
+	margin-right: 0;
+	width: 0%;
+}
+
 .character-subpage-development-item-images-container {
 	display: inline-block;
 	padding: 2px;
 	border-radius: 2px;
 	width: calc(45% - 4px);
 	vertical-align: top;
+}
+
+.character-subpage-development-item-images-container-full-width {
+	width: calc(100% - 4px);
+}
+
+.character-subpage-development-item-images-container-no-width {
+	margin-right: 0;
+	width: 0%;
 }
 
 .character-subpage-development-item-images-container-is-current {
