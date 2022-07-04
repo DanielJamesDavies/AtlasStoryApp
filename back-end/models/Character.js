@@ -107,26 +107,26 @@ const CharacterSchema = mongoose.Schema({
 													required: true,
 													default: [],
 												},
-												statistics: {
-													type: {
-														values: {
-															type: [
-																{
-																	label: { type: String, required: true, default: "" },
-																	value: { type: Number, required: true, default: 0 },
-																},
-															],
-															required: true,
-															default: [],
-														},
-														maxValue: { type: Number, required: true, default: 100 },
-													},
-													required: true,
-													default: {},
-												},
 											},
 										],
 										required: true,
+									},
+									statistics: {
+										type: {
+											values: {
+												type: [
+													{
+														label: { type: String, required: true, default: "" },
+														value: { type: Number, required: true, default: 0 },
+													},
+												],
+												required: true,
+												default: [],
+											},
+											maxValue: { type: Number, required: true, default: 12 },
+										},
+										required: true,
+										default: {},
 									},
 								},
 							],

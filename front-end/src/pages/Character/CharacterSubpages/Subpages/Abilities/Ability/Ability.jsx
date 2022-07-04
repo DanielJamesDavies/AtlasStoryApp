@@ -4,6 +4,7 @@
 import { AbilityName } from "./AbilityName/AbilityName";
 import { AbilityPrimaryStatistic } from "./AbilityPrimaryStatistic/AbilityPrimaryStatistic";
 import { AbilityItems } from "./AbilityItems/AbilityItems";
+import { AbilityStatistics } from "./AbilityStatistics/AbilityStatistics";
 
 // Logic
 
@@ -23,6 +24,7 @@ export const Ability = ({ ability, changeAbility }) => {
 			<AbilityName ability={ability} changeAbility={changeAbility} />
 			<AbilityPrimaryStatistic ability={ability} changeAbility={changeAbility} />
 			<AbilityItems ability={ability} changeAbility={changeAbility} />
+			<AbilityStatistics ability={ability} changeAbility={changeAbility} />
 		</div>
 	);
 };

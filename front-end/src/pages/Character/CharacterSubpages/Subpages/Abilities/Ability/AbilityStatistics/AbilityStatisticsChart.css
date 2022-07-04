@@ -1,0 +1,11 @@
+.character-subpage-abilities-ability-statistics-chart-container {
+	display: inline-block;
+	width: 50%;
+	max-width: 348px;
+	vertical-align: top;
+}
+
+.character-subpage-abilities-ability-statistics-chart {
+	margin-top: -32px;
+	margin-bottom: -32px;
+}
