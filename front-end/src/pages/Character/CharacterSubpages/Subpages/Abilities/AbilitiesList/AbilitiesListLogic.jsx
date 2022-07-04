@@ -30,6 +30,7 @@ export const AbilitiesListLogic = ({ currAbility, switchAbility }) => {
 			name: "New Ability",
 			primaryStatistic: { label: "", value: "" },
 			items: [],
+			statistics: { values: [], maxValue: 12 },
 		});
 		changeCharacterVersion(newCharacterVersion);
 	}
