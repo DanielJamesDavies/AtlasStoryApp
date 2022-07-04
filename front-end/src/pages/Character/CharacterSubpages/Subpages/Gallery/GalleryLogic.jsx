@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 
 // Components
 
@@ -77,6 +77,12 @@ export const GalleryLogic = () => {
 		return true;
 	}
 
+	const galleryRef = useRef();
+	function onGalleryScroll(e) {
+		if (galleryRef?.current?.scrollTop === 0) return;
+		e.stopPropagation();
+	}
+
 	return {
 		isAuthorizedToEdit,
 		characterVersion,
@@ -88,5 +94,7 @@ export const GalleryLogic = () => {
 		errors,
 		revertGalleryItems,
 		saveGalleryItems,
+		galleryRef,
+		onGalleryScroll,
 	};
 };

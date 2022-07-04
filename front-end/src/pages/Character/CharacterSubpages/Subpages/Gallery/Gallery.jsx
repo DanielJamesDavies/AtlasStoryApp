@@ -32,17 +32,20 @@ export const Gallery = () => {
 		errors,
 		revertGalleryItems,
 		saveGalleryItems,
+		galleryRef,
+		onGalleryScroll,
 	} = GalleryLogic();
 
 	return (
 		<div>
 			<EditableContainer
+				innerRef={galleryRef}
 				className='character-subpage-gallery'
 				isAuthorizedToEdit={isAuthorizedToEdit}
 				onReorder={toggleIsReorderingGalleryItems}
 				onRevert={revertGalleryItems}
 				onSave={saveGalleryItems}
-				onScroll={(e) => e.stopPropagation()}
+				onScroll={onGalleryScroll}
 			>
 				<div className='character-subpage-gallery-items-container'>
 					<div className='character-subpage-gallery-items'>
