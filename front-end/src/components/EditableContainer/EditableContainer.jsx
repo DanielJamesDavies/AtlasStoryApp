@@ -1,5 +1,5 @@
 // Packages
-import { FaIndustry, FaMountain, FaPencilAlt, FaPlus, FaSave, FaSort, FaTimes, FaUndoAlt } from "react-icons/fa";
+import { FaCog, FaMountain, FaPencilAlt, FaPlus, FaSave, FaSort, FaTimes, FaUndoAlt } from "react-icons/fa";
 
 // Components
 
@@ -93,7 +93,18 @@ export const EditableContainer = ({
 					)}
 					{onDefault === undefined ? null : (
 						<button className='editable-container-edit-btn editable-container-edit-btn-default' onClick={onDefaultBtnClick}>
-							<FaIndustry />
+							<FaCog />
+							<div className='editable-container-edit-btn-small-icon-container'>
+								<div className='editable-container-edit-btn-small-icon'>
+									<FaUndoAlt />
+								</div>
+								<div className='editable-container-edit-btn-small-icon-bg-1'>
+									<FaUndoAlt />
+								</div>
+								<div className='editable-container-edit-btn-small-icon-bg-2'>
+									<FaUndoAlt />
+								</div>
+							</div>
 						</button>
 					)}
 					{onReorder === undefined ? null : (

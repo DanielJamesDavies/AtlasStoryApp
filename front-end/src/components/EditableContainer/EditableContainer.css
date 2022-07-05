@@ -106,6 +106,59 @@
 	font-size: 25px;
 }
 
+.editable-container-edit-btn-small-icon-container {
+	position: absolute;
+	z-index: 2;
+	top: -4px;
+	right: -6px;
+	width: 15px;
+	height: 15px;
+	color: #fff;
+}
+
+.editable-container-edit-btn-small-icon {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2;
+	width: 15px;
+	height: 15px;
+	color: #fff;
+	transition: background 0.2s;
+	transition: color 0.2s;
+}
+
+.editable-container-edit-btn-small-icon-bg-1,
+.editable-container-edit-btn-small-icon-bg-2 {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 1;
+	width: 20px;
+	height: 20px;
+	color: var(--grey1);
+}
+
+.editable-container-edit-btn-small-icon-bg-1 {
+	transform: translate(calc(-50% + 1px), calc(-50% + 1px));
+}
+
+.editable-container-edit-btn-small-icon-bg-2 {
+	transform: translate(calc(-50% + 1px), calc(-50% - 3px));
+}
+
+.editable-container-edit-btn-small-icon svg,
+.editable-container-edit-btn-small-icon-bg-1 svg,
+.editable-container-edit-btn-small-icon-bg-2 svg {
+	width: 100%;
+}
+
+.editable-container-edit-btn:hover .editable-container-edit-btn-small-icon {
+	background: transparent;
+	color: var(--accentColour);
+}
+
 @media (max-width: 700px) {
 	.editable-container-edit-btn {
 		padding: 16px 0;
