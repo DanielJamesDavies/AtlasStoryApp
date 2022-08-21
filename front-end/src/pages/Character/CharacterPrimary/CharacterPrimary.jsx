@@ -18,7 +18,7 @@ import "./CharacterPrimary.css";
 // Assets
 
 export const CharacterPrimary = () => {
-	const { story, storyIcon } = CharacterPrimaryLogic();
+	const { story, storyIcon, primaryStoryNameStyles } = CharacterPrimaryLogic();
 
 	return (
 		<div className='character-primary'>
@@ -26,7 +26,9 @@ export const CharacterPrimary = () => {
 				<CharacterPrimaryName />
 				<div className='character-primary-story'>
 					<div className='character-primary-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
-					<div className='character-primary-story-name'>{story?.data?.title}</div>
+					<div className='character-primary-story-name' style={primaryStoryNameStyles}>
+						{story?.data?.title}
+					</div>
 				</div>
 			</div>
 			<CharacterPrimaryType />

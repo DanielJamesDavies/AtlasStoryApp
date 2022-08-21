@@ -31,5 +31,12 @@ export const CharacterPrimaryVersionLogic = () => {
 		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 160);
 	}, [setPrimaryVersionStyle, primaryVersionWidthRef, character, characterVersion]);
 
-	return { character, characterVersion, decrementCharacterVersion, incrementCharacterVersion, primaryVersionStyle, primaryVersionWidthRef };
+	return {
+		character,
+		characterVersion,
+		decrementCharacterVersion,
+		incrementCharacterVersion,
+		primaryVersionStyle,
+		primaryVersionWidthRef,
+	};
 };

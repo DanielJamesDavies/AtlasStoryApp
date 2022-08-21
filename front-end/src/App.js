@@ -18,6 +18,7 @@ function App() {
 	return (
 		<div className='App'>
 			<BrowserContainer />
+			<canvas></canvas>
 		</div>
 	);
 }

@@ -68,9 +68,13 @@ export const TextInputLogic = (props) => {
 
 	useLayoutEffect(() => {
 		function resizeInput() {
-			if (!props?.autoResize) return setInputStyle({});
+			let newInputStyle = {};
+			if (props?.innerStyle) newInputStyle = JSON.parse(JSON.stringify(props.innerStyle));
+			if (!props?.autoResize) return setInputStyle(newInputStyle);
 			if (!inputRef?.current || !inputWidthRef?.current) return;
-			setInputStyle({ width: "calc(" + inputWidthRef.current.clientWidth + "px)", maxWidth: "100%" });
+			newInputStyle.width = "calc(" + inputWidthRef.current.clientWidth + "px)";
+			newInputStyle.maxWidth = "100%";
+			setInputStyle(newInputStyle);
 		}
 
 		resizeInput();

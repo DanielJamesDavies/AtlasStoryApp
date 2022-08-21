@@ -12,11 +12,13 @@ import { APIContext } from "../../../../context/APIContext";
 // Services
 
 // Styles
+import isLightBackground from "../../../../services/IsLightBackground";
 
 // Assets
 
 export const CharacterPrimaryTypeLogic = () => {
-	const { isAuthorizedToEdit, story, character, setCharacter, characterTypes } = useContext(CharacterContext);
+	const { isAuthorizedToEdit, story, character, setCharacter, characterTypes, isOnOverviewSection, characterOverviewBackground } =
+		useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 
 	const [characterType, setCharacterType] = useState({});
@@ -68,5 +70,26 @@ export const CharacterPrimaryTypeLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, story, characterTypes, characterType, changeCharacterType, revertCharacterType, saveCharacterType };
+	const [primaryTypeIsLight, setPrimaryTypeIsLight] = useState(true);
+
+	useEffect(() => {
+		async function getPrimaryTypeIsLight() {
+			if (!isOnOverviewSection) return setPrimaryTypeIsLight(false);
+			if (!characterOverviewBackground) setPrimaryTypeIsLight(true);
+			const isDark = await isLightBackground(characterOverviewBackground, [0, 40], [-1, 115]);
+			setPrimaryTypeIsLight(!isDark);
+		}
+		getPrimaryTypeIsLight();
+	}, [characterOverviewBackground, isOnOverviewSection, setPrimaryTypeIsLight]);
+
+	return {
+		isAuthorizedToEdit,
+		story,
+		characterTypes,
+		characterType,
+		changeCharacterType,
+		revertCharacterType,
+		saveCharacterType,
+		primaryTypeIsLight,
+	};
 };

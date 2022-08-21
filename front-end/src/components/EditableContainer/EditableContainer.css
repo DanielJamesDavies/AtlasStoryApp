@@ -98,7 +98,7 @@
 	transform: translate(-50%, -50%);
 }
 
-.editable-container-light {
+.editable-container-light:not(.editable-container-is-editing) .editable-container-edit-btn {
 	color: #fff;
 }
 

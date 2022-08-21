@@ -27,6 +27,7 @@ export const CharacterPrimaryName = () => {
 			onRevert={revertName}
 			onSave={saveName}
 			absolutePositionEditBtns={true}
+			isLight={primaryNameStyles?.color === "#fff"}
 		>
 			<div className='character-primary-name' style={primaryNameStyles}>
 				{character?.data?.name}
@@ -38,7 +39,7 @@ export const CharacterPrimaryName = () => {
 					value={character?.data?.name}
 					onChange={changeName}
 					autoResize={true}
-					inputStyle={primaryNameStyles}
+					innerStyle={primaryNameStyles}
 				/>
 				<ErrorMessage errors={errors} />
 			</div>

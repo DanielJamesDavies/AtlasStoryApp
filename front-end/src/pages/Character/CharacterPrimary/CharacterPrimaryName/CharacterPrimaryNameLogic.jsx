@@ -10,6 +10,7 @@ import { CharacterContext } from "../../CharacterContext";
 import { APIContext } from "../../../../context/APIContext";
 
 // Services
+import isLightBackground from "../../../../services/IsLightBackground";
 
 // Styles
 
@@ -21,12 +22,13 @@ export const CharacterPrimaryNameLogic = () => {
 	const [primaryNameStyles, setPrimaryNameStyles] = useState({});
 
 	useEffect(() => {
-		function getPrimaryNameStyles() {
-			return { background: "url(" + characterOverviewBackground + ")" };
-			if (!characterOverviewBackground || !isOnOverviewSection) return {};
-			return { color: "#fff" };
+		async function getPrimaryNameStyles() {
+			if (!isOnOverviewSection) return setPrimaryNameStyles({});
+			if (!characterOverviewBackground) setPrimaryNameStyles({ color: "#fff" });
+			const isDarkName = await isLightBackground(characterOverviewBackground, [0, 40], [-1, 115]);
+			setPrimaryNameStyles({ color: isDarkName ? "#000" : "#fff" });
 		}
-		setPrimaryNameStyles(getPrimaryNameStyles());
+		getPrimaryNameStyles();
 	}, [characterOverviewBackground, isOnOverviewSection, setPrimaryNameStyles]);
 
 	function changeName(e) {
