@@ -2,10 +2,12 @@
 
 :root {
 	--grey1: #010103;
+	--grey1point5: #0a0a0a;
 	--grey2: #111113;
 	--grey3: #2c2c2e;
 	--grey4: #404042;
 	--grey5: #505052;
+	--textColour: #ffffff;
 	--blue: #0044ff;
 	--blue2: #0088ff;
 	--blue3: #00aaff;
@@ -56,7 +58,7 @@ img {
 	overflow: hidden;
 
 	background: var(--grey1);
-	color: #fff;
+	color: var(--textColour);
 }
 
 ::-webkit-scrollbar {

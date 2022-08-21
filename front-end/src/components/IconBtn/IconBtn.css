@@ -24,7 +24,7 @@
 	overflow: visible;
 
 	background: var(--accentColour);
-	color: #fff;
+	color: var(--textColour);
 	font-size: 50px;
 	text-align: center;
 	vertical-align: middle;
@@ -34,7 +34,7 @@
 
 .icon-btn:hover {
 	background: var(--accentHoverColour);
-	color: #fff;
+	color: var(--textColour);
 }
 
 .icon-btn svg {
@@ -107,7 +107,7 @@
 	right: -3px;
 	width: 16px;
 	height: 16px;
-	color: #fff;
+	color: var(--textColour);
 }
 
 .icon-btn-small-icon {
@@ -118,7 +118,7 @@
 	z-index: 2;
 	width: 16px;
 	height: 16px;
-	color: #fff;
+	color: var(--textColour);
 	transition: background 0.2s;
 	transition: color 0.2s;
 }
@@ -172,4 +172,9 @@
 	.icon-btn-container-large .icon-btn-label {
 		margin-top: 16px;
 	}
+}
+
+.icon-btn-container-light .icon-btn,
+.icon-btn-container-light .icon-btn-small-icon-container {
+	color: #fff;
 }

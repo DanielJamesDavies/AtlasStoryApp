@@ -75,6 +75,7 @@ export const CharacterOverviewSummaryItems = () => {
 										label='Label'
 										value={summaryItem.label}
 										onChange={(e) => changeSummaryItemLabel(e, index)}
+										isLightText={true}
 									/>
 									<TextInput
 										className='character-overview-summary-item-value'
@@ -82,9 +83,17 @@ export const CharacterOverviewSummaryItems = () => {
 										label='Value'
 										value={summaryItem.value}
 										onChange={(e) => changeSummaryItemValue(e, index)}
+										isLightText={true}
 									/>
 								</div>
-								<IconBtn icon={<FaTrash />} iconName='trash' seamless={true} size='s' onClick={() => removeSummaryItem(index)} />
+								<IconBtn
+									icon={<FaTrash />}
+									iconName='trash'
+									seamless={true}
+									size='s'
+									onClick={() => removeSummaryItem(index)}
+									isLight={true}
+								/>
 							</DragDropItem>
 					  ))}
 			</DragDropContainer>

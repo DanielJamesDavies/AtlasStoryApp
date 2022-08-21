@@ -67,12 +67,16 @@
 	height: 18px;
 
 	background: transparent;
-	color: #fff;
+	color: var(--textColour);
 	font-size: 18px;
 	text-align: center;
 
 	transition: color 0.2s;
 	cursor: pointer;
+}
+
+.editable-container-is-editing .editable-container-edit-btn {
+	color: var(--textColour);
 }
 
 .editable-container-edit-btn:hover {
@@ -92,6 +96,10 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.editable-container-light {
+	color: #fff;
 }
 
 .editable-container-edit-btn-close {

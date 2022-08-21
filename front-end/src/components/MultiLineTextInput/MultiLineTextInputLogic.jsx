@@ -34,6 +34,7 @@ export const MultiLineTextInputLogic = (props) => {
 			if (props.isSaved === false && !focused) className += " multi-line-text-input-container-unsaved";
 			if (props.isDark) className += " multi-line-text-input-container-dark";
 			if (props.seamless) className += " multi-line-text-input-container-seamless";
+			if (props?.isLightText) className += " multi-line-text-input-container-light-text";
 			return className;
 		}
 		setInputClassName(getInputClassName());

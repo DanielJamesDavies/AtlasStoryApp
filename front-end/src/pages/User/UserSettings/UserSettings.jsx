@@ -4,6 +4,7 @@
 import { UserSettingsUsername } from "./UserSettingsUsername";
 import { UserSettingsPassword } from "./UserSettingsPassword";
 import { UserSettingsEmail } from "./UserSettingsEmail";
+import { UserSettingsTheme } from "./UserSettingsTheme";
 import { UserSettingsCookiesConsent } from "./UserSettingsCookiesConsent";
 import { UserSettingsDelete } from "./UserSettingsDelete";
 
@@ -38,6 +39,10 @@ export const UserSettings = () => {
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Email</div>
 					<UserSettingsEmail />
+				</div>
+				<div className='user-settings-section-container'>
+					<div className='user-settings-section-label'>Theme</div>
+					<UserSettingsTheme />
 				</div>
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Cookies Consent</div>

@@ -18,7 +18,7 @@ import "./CharacterPrimaryName.css";
 // Assets
 
 export const CharacterPrimaryName = () => {
-	const { isAuthorizedToEdit, character, changeName, revertName, saveName, errors } = CharacterPrimaryNameLogic();
+	const { isAuthorizedToEdit, character, primaryNameStyles, changeName, revertName, saveName, errors } = CharacterPrimaryNameLogic();
 
 	return (
 		<EditableContainer
@@ -28,7 +28,9 @@ export const CharacterPrimaryName = () => {
 			onSave={saveName}
 			absolutePositionEditBtns={true}
 		>
-			<div className='character-primary-name'>{character?.data?.name}</div>
+			<div className='character-primary-name' style={primaryNameStyles}>
+				{character?.data?.name}
+			</div>
 			<div>
 				<TextInput
 					className='character-primary-name'
@@ -36,6 +38,7 @@ export const CharacterPrimaryName = () => {
 					value={character?.data?.name}
 					onChange={changeName}
 					autoResize={true}
+					inputStyle={primaryNameStyles}
 				/>
 				<ErrorMessage errors={errors} />
 			</div>

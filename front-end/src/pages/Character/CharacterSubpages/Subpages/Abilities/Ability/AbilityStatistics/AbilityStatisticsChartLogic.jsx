@@ -77,7 +77,7 @@ export const AbilityStatisticsChartLogic = ({ ability }) => {
 		}
 		setGraphData(getGraphData());
 		setGraphOptions(getGraphOptions());
-	}, [ability, setGraphData, setGraphOptions]);
+	}, [ability, setGraphData, setGraphOptions, character]);
 
 	return { graphData, graphOptions };
 };

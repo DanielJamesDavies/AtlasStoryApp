@@ -33,6 +33,7 @@ export const TextInputLogic = (props) => {
 			if (props?.isDark) className += " text-input-container-dark";
 			if (props?.hideValue) className += " text-input-container-hide-value";
 			if (props?.seamless) className += " text-input-container-seamless";
+			if (props?.isLightText) className += " text-input-container-light-text";
 			return className;
 		}
 		setInputClassName(getInputClassName());

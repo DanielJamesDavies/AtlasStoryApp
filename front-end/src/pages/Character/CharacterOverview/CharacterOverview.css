@@ -35,8 +35,8 @@
 	z-index: -1;
 	top: 50%;
 	left: 50%;
-	transform: translate(calc(-50% - (70px) / 4), calc(-50%));
-	width: 100vw;
+	transform: translate(calc(-50% + (((70px) / 2) - 11px + 6px)), calc(-50%));
+	width: calc(100vw - 70px);
 	height: 100vh;
 	overflow: hidden;
 	transition: opacity 0.4s;

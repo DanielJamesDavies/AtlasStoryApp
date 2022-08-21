@@ -44,6 +44,11 @@ const UserSchema = mongoose.Schema({
 			],
 			require: true,
 		},
+		uiTheme: {
+			type: String,
+			require: true,
+			default: "dark",
+		},
 	},
 	verified: { type: Boolean, required: true },
 	date_created: { type: Date, default: Date.now },

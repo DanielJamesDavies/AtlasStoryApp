@@ -9,7 +9,7 @@
 .suggestions-message-label {
 	display: inline-block;
 	font-weight: 700;
-	color: #fff;
+	color: var(--textColour);
 }
 
 .suggestions-message-suggestion {

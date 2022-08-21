@@ -11,6 +11,7 @@
 	border-radius: 8px;
 	width: calc(100% - 24px);
 	background: var(--characterColour);
+	color: #fff;
 	text-align: left;
 }
 

@@ -54,7 +54,7 @@
 .colour-picker-sketch-picker,
 .colour-picker-sketch-picker input,
 .colour-picker-sketch-picker label {
-	color: #fff !important;
+	color: var(--textColour) !important;
 }
 
 .colour-picker-sketch-picker input {

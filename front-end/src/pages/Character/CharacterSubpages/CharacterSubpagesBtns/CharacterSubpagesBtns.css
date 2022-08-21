@@ -28,7 +28,7 @@
 	width: calc((100% / 8) - 8px);
 
 	background: var(--grey2);
-	color: #fff;
+	color: var(--textColour);
 	text-align: left;
 	font-size: 13px;
 	cursor: pointer;
@@ -46,4 +46,5 @@
 .character-subpages-btn-active,
 .character-subpages-btn-active:hover {
 	background: var(--characterColour);
+	color: #fff;
 }

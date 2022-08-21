@@ -13,7 +13,7 @@ import { useEffect, useLayoutEffect, useState, useRef } from "react";
 
 // Assets
 
-export const IconBtnLogic = ({ className, seamless, size, iconName }) => {
+export const IconBtnLogic = ({ className, seamless, size, iconName, isLight }) => {
 	const [iconBtnClassName, setIconBtnClassName] = useState("icon-btn-container-hidden");
 
 	useEffect(() => {
@@ -21,6 +21,7 @@ export const IconBtnLogic = ({ className, seamless, size, iconName }) => {
 			let newClassName = "icon-btn-container";
 
 			if (seamless) newClassName += " icon-btn-container-seamless";
+			if (isLight) newClassName += " icon-btn-container-light";
 
 			switch (size) {
 				case "s":
@@ -57,7 +58,7 @@ export const IconBtnLogic = ({ className, seamless, size, iconName }) => {
 			return newClassName;
 		}
 		setIconBtnClassName(getIconBtnClassName());
-	}, [setIconBtnClassName, className, seamless, size, iconName]);
+	}, [setIconBtnClassName, className, seamless, size, iconName, isLight]);
 
 	const containerRef = useRef();
 	const labelRef = useRef();

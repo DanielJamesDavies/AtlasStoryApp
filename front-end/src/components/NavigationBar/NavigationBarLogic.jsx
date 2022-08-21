@@ -6,6 +6,7 @@ import { useEffect, useState, useContext } from "react";
 // Logic
 
 // Context
+import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
 import { RoutesContext } from "../../context/RoutesContext";
 
@@ -15,6 +16,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const NavigationBarLogic = () => {
 	const [isOnStory, setIsOnStory] = useState(false);
+	const { setUITheme } = useContext(AppContext);
 	const { APIRequest, username, setUsername, userProfilePicture, setUserProfilePicture } = useContext(APIContext);
 	const { location, changeLocation } = useContext(RoutesContext);
 
@@ -28,6 +30,7 @@ export const NavigationBarLogic = () => {
 			const userProfilePicture = await getUserProfilePicture(user?.data?.profilePicture);
 
 			if (user?.username && user.username !== username) setUsername(user.username);
+			if (user?.data?.uiTheme) setUITheme(user.data.uiTheme);
 			setUserProfilePicture(userProfilePicture);
 		}
 
@@ -45,7 +48,7 @@ export const NavigationBarLogic = () => {
 		}
 
 		getInitial();
-	}, [APIRequest, username, setUsername, setUserProfilePicture]);
+	}, [APIRequest, username, setUsername, setUITheme, setUserProfilePicture]);
 
 	function navigateToProfile(e) {
 		if (username) {

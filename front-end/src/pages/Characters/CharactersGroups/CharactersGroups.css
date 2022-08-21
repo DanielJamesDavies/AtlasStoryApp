@@ -60,7 +60,7 @@
 	min-height: 39px;
 
 	background: var(--grey3);
-	color: #fff;
+	color: var(--textColour);
 	font-size: 15px;
 	text-align: left;
 	transition: 0.2s;
@@ -73,6 +73,7 @@
 
 .characters-groups-group-item-active {
 	background: var(--accentColour);
+	color: #fff;
 }
 
 .characters-groups-group-item-active:hover {

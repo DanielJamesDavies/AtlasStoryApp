@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 // Components
 
@@ -16,8 +16,18 @@ import { APIContext } from "../../../../context/APIContext";
 // Assets
 
 export const CharacterPrimaryNameLogic = () => {
-	const { isAuthorizedToEdit, story, character, setCharacter } = useContext(CharacterContext);
+	const { isAuthorizedToEdit, story, character, setCharacter, characterOverviewBackground, isOnOverviewSection } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
+	const [primaryNameStyles, setPrimaryNameStyles] = useState({});
+
+	useEffect(() => {
+		function getPrimaryNameStyles() {
+			return { background: "url(" + characterOverviewBackground + ")" };
+			if (!characterOverviewBackground || !isOnOverviewSection) return {};
+			return { color: "#fff" };
+		}
+		setPrimaryNameStyles(getPrimaryNameStyles());
+	}, [characterOverviewBackground, isOnOverviewSection, setPrimaryNameStyles]);
 
 	function changeName(e) {
 		setCharacter((oldCharacter) => {
@@ -60,5 +70,5 @@ export const CharacterPrimaryNameLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, character, changeName, revertName, saveName, errors };
+	return { isAuthorizedToEdit, character, primaryNameStyles, changeName, revertName, saveName, errors };
 };

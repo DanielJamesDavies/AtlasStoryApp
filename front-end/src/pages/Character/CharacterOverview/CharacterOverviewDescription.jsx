@@ -32,7 +32,7 @@ export const CharacterOverviewDescription = () => {
 			) : (
 				<div className='character-overview-description'>
 					<div className='character-overview-description-label'>Description</div>
-					<Text value={characterVersion?.description} />
+					<Text value={characterVersion?.description} isLightText={true} />
 				</div>
 			)}
 			<div className='character-overview-description'>
@@ -42,6 +42,7 @@ export const CharacterOverviewDescription = () => {
 					seamless={true}
 					value={characterVersion?.description?.join("\n")}
 					onChange={changeDescription}
+					isLightText={true}
 				/>
 			</div>
 		</EditableContainer>

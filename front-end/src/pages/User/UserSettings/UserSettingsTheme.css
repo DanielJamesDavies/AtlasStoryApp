@@ -1,0 +1,27 @@
+.user-settings-theme-buttons-container {
+	display: flex;
+	margin-left: -2px;
+	padding: 0;
+	padding-top: 8px;
+	width: calc(100% + 4px);
+}
+
+.user-settings-theme-btn {
+	margin: 2px;
+	display: block;
+	content: "";
+	border: 3px solid transparent;
+	border-radius: 2px;
+	width: 28px;
+	height: 28px;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.user-settings-theme-btn:hover {
+	filter: brightness(70%);
+}
+
+.user-settings-theme-btn-active {
+	border-color: var(--blue);
+}

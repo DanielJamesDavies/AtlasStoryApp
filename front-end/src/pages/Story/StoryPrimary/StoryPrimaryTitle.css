@@ -12,11 +12,13 @@
 
 .story-primary-main-info-title {
 	width: 100%;
+	color: var(--textColour);
 }
 
 .story-primary-main-info-title-container input {
 	font-weight: 700;
 	font-size: 48px;
+	color: var(--textColour);
 }
 
 @media (max-width: 700px) {

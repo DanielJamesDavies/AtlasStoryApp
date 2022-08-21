@@ -9,6 +9,7 @@
 	border-radius: 8px;
 	background: var(--characterColour);
 	text-align: left;
+	color: #fff;
 }
 
 .editable-container-is-editing .character-overview-summary-item {

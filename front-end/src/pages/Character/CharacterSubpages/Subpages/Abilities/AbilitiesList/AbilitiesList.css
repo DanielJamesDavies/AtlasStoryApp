@@ -17,7 +17,7 @@
 	min-height: 19px;
 
 	background: var(--grey3);
-	color: #fff;
+	color: var(--textColour);
 	font-size: 15px;
 	text-align: left;
 	transition: 0.2s;
@@ -31,6 +31,7 @@
 .character-subpage-abilities-list-item-active {
 	position: relative;
 	background: var(--characterColour);
+	color: #fff;
 }
 
 .character-subpage-abilities-list-item-active:hover {

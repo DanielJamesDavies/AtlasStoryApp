@@ -13,9 +13,19 @@ import "./Text.css";
 
 // Assets
 
-export const Text = ({ className, value }) => {
+export const Text = ({ className, value, isLightText }) => {
 	return (
-		<div className={className ? "text-container " + className : "text-container"}>
+		<div
+			className={
+				className
+					? isLightText
+						? "text-container text-container-light-text " + className
+						: "text-container " + className
+					: isLightText
+					? "text-container text-container-light-text"
+					: "text-container"
+			}
+		>
 			{value === undefined
 				? null
 				: value.map((paragraph, index) => (

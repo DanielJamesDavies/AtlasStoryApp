@@ -30,6 +30,7 @@ export const EditableContainer = ({
 	onRevert,
 	onSave,
 	onScroll,
+	isLight,
 }) => {
 	const {
 		isEditing,
@@ -58,6 +59,7 @@ export const EditableContainer = ({
 		onRevert,
 		onSave,
 		onScroll,
+		isLight,
 	});
 
 	return (
