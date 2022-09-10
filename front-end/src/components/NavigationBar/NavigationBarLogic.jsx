@@ -16,7 +16,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const NavigationBarLogic = () => {
 	const [isOnStory, setIsOnStory] = useState(false);
-	const { setUITheme } = useContext(AppContext);
+	const { setUITheme, setFontSizeMultiplier } = useContext(AppContext);
 	const { APIRequest, username, setUsername, userProfilePicture, setUserProfilePicture } = useContext(APIContext);
 	const { location, changeLocation } = useContext(RoutesContext);
 
@@ -31,6 +31,10 @@ export const NavigationBarLogic = () => {
 
 			if (user?.username && user.username !== username) setUsername(user.username);
 			if (user?.data?.uiTheme) setUITheme(user.data.uiTheme);
+			if (user?.data?.fontSizeMultiplier) {
+				const newFontSizeMultiplier = Number(user.data.fontSizeMultiplier);
+				setFontSizeMultiplier(isNaN(newFontSizeMultiplier) ? 1 : newFontSizeMultiplier);
+			}
 			setUserProfilePicture(userProfilePicture);
 		}
 
@@ -48,7 +52,7 @@ export const NavigationBarLogic = () => {
 		}
 
 		getInitial();
-	}, [APIRequest, username, setUsername, setUITheme, setUserProfilePicture]);
+	}, [APIRequest, username, setUsername, setUITheme, setFontSizeMultiplier, setUserProfilePicture]);
 
 	function navigateToProfile(e) {
 		if (username) {

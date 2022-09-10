@@ -108,6 +108,11 @@ module.exports = async (req, res) => {
 				return version;
 			});
 
+			newCharacter.data.development.items = newCharacter.data.development.items.map((item) => {
+				item.images = item.images.filter((image) => newImages.findIndex((e) => JSON.stringify(e) === JSON.stringify(image.image)) !== -1);
+				return item;
+			});
+
 			// Create New Images
 			await Promise.all(
 				newImages.map(async (newImageID) => {

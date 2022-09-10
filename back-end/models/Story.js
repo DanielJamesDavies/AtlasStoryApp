@@ -54,6 +54,7 @@ const StorySchema = mongoose.Schema({
 			groups: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			primaryCharacters: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			characterTypes: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+			substories: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 		},
 		required: true,
 	},

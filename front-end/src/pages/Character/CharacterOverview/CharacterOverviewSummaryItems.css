@@ -34,14 +34,14 @@
 
 .character-overview-summary-item-label,
 .character-overview-summary-item-label input {
-	font-size: 13px;
+	font-size: calc(14px * var(--fontSizeMultiplier));
 	font-weight: 400;
 	min-height: 16px;
 }
 
 .character-overview-summary-item-value,
 .character-overview-summary-item-value input {
-	font-size: 14px;
+	font-size: calc(14px * var(--fontSizeMultiplier));
 	font-weight: 700;
 	min-height: 17px;
 }

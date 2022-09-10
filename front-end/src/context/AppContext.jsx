@@ -4,6 +4,7 @@ export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
 	const [uiTheme, setUITheme] = useState("dark");
+	const [fontSizeMultiplier, setFontSizeMultiplier] = useState(1);
 	const defaultAccentColour = "#0044ff";
 	const defaultAccentHoverColour = "#0088ff";
 	const [accentColour, setAccentColour] = useState(defaultAccentColour);
@@ -20,7 +21,18 @@ const AppProvider = ({ children }) => {
 	}
 
 	return (
-		<AppContext.Provider value={{ uiTheme, setUITheme, accentColour, accentHoverColour, changeAccentColour, changeAccentHoverColour }}>
+		<AppContext.Provider
+			value={{
+				uiTheme,
+				setUITheme,
+				fontSizeMultiplier,
+				setFontSizeMultiplier,
+				accentColour,
+				accentHoverColour,
+				changeAccentColour,
+				changeAccentHoverColour,
+			}}
+		>
 			{children}
 		</AppContext.Provider>
 	);

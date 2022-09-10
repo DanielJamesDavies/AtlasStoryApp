@@ -16,6 +16,7 @@ module.exports = async (req, res) => {
 		character_id: req.body.character_id,
 		group_id: req.body.group_id,
 		character_type_id: req.body.character_type_id,
+		substory_id: req.body.substory_id,
 	});
 
 	try {

@@ -59,7 +59,7 @@
 
 .character-subpage-psychology-item-title,
 .character-subpage-psychology-item-title input {
-	font-size: 14px;
+	font-size: calc(14px * var(--fontSizeMultiplier));
 	font-weight: 700;
 }
 

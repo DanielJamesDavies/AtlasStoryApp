@@ -123,7 +123,7 @@
 
 	background: rgba(0, 0, 0, 0);
 	color: var(--textColour);
-	font-size: 16px;
+	font-size: calc(15px * var(--fontSizeMultiplier));
 	font-family: "Inter", sans-serif;
 	transition: border 0.1s;
 }
@@ -156,7 +156,7 @@
 }
 
 .multi-line-text-input-container-seamless textarea {
-	font-size: 15px;
+	font-size: calc(15px * var(--fontSizeMultiplier));
 	white-space: pre-wrap;
 }
 
@@ -178,7 +178,7 @@
 
 .multi-line-text-input-height-element p {
 	margin: 0;
-	min-height: 20px;
+	min-height: calc(18px * var(--fontSizeMultiplier));
 	word-wrap: break-word;
 }
 
@@ -187,13 +187,13 @@
 }
 
 .multi-line-text-input-container-seamless.multi-line-text-input-container-empty .multi-line-text-input-height-element {
-	height: 19px;
+	height: calc(18px * var(--fontSizeMultiplier));
 }
 
 .multi-line-text-input-container-seamless .multi-line-text-input-height-element {
-	font-size: 15px;
+	font-size: calc(15px * var(--fontSizeMultiplier));
 }
 
 .multi-line-text-input-container-seamless .multi-line-text-input-height-element p {
-	min-height: 19px;
+	min-height: calc(18px * var(--fontSizeMultiplier));
 }

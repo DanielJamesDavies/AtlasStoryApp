@@ -23,7 +23,7 @@
 
 	width: fit-content;
 
-	font-size: 20px;
+	font-size: calc(20px * var(--fontSizeMultiplier));
 	font-weight: 700;
 	word-break: break-word;
 	overflow-wrap: anywhere;
@@ -41,7 +41,7 @@
 	min-height: 29px;
 
 	vertical-align: top;
-	font-size: 16px;
+	font-size: calc(16px * var(--fontSizeMultiplier));
 	font-weight: 400;
 	word-break: break-word;
 	overflow-wrap: anywhere;
@@ -94,11 +94,11 @@
 	}
 
 	.label-label {
-		font-size: 17px;
+		font-size: calc(17px * var(--fontSizeMultiplier));
 	}
 
 	.label-value {
 		margin-top: 2px;
-		font-size: 15px;
+		font-size: calc(15px * var(--fontSizeMultiplier));
 	}
 }

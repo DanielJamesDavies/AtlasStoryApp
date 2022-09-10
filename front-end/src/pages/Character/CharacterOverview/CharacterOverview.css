@@ -105,6 +105,7 @@
 	}
 
 	.character-overview-background {
+		width: 100vw;
 		transform: translate(calc(-50% + (34px) / 2), calc(-50% + (70px) / 2));
 		transition: opacity 0.2s;
 		transition-delay: 0.1s;

@@ -8,6 +8,7 @@ const ImageSchema = mongoose.Schema({
 	character_id: mongoose.Schema.Types.ObjectId,
 	group_id: mongoose.Schema.Types.ObjectId,
 	character_type_id: mongoose.Schema.Types.ObjectId,
+	substory_id: mongoose.Schema.Types.ObjectId,
 });
 
 module.exports = mongoose.model("Image", ImageSchema);

@@ -49,6 +49,11 @@ const UserSchema = mongoose.Schema({
 			require: true,
 			default: "dark",
 		},
+		fontSizeMultiplier: {
+			type: String,
+			require: true,
+			default: "1",
+		},
 	},
 	verified: { type: Boolean, required: true },
 	date_created: { type: Date, default: Date.now },

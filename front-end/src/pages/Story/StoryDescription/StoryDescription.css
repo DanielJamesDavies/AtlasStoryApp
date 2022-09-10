@@ -7,7 +7,7 @@
 
 .story-description-title {
 	margin-bottom: 6px;
-	font-size: 20px;
+	font-size: calc(20px * var(--fontSizeMultiplier));
 	font-weight: 700;
 	color: var(--textColour);
 }
@@ -18,6 +18,6 @@
 	}
 
 	.story-description-title {
-		font-size: 17px;
+		font-size: calc(17px * var(--fontSizeMultiplier));
 	}
 }

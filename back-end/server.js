@@ -22,13 +22,14 @@ mongoose
 
 // Routes
 app.use("/api/user", require("./routes/UserRoute"));
+app.use("/api/cookies-consent", require("./routes/CookiesConsentRoute"));
+app.use("/api/new-id", require("./routes/NewIdRoute"));
 app.use("/api/image", require("./routes/ImageRoute"));
 app.use("/api/story", require("./routes/StoryRoute"));
 app.use("/api/group", require("./routes/GroupRoute"));
 app.use("/api/character", require("./routes/CharacterRoute"));
 app.use("/api/character-type", require("./routes/CharacterTypeRoute"));
-app.use("/api/cookies-consent", require("./routes/CookiesConsentRoute"));
-app.use("/api/new-id", require("./routes/NewIdRoute"));
+app.use("/api/substory", require("./routes/SubstoryRoute"));
 
 // Running the Front-End
 if (process.env.NODE_ENV !== "development") {

@@ -19,7 +19,7 @@
 .characters-group-primary-title {
 	margin-top: -1px;
 	margin-bottom: 1px;
-	font-size: 26px;
+	font-size: calc(26px * var(--fontSizeMultiplier));
 	font-weight: 700;
 	max-width: calc(100% - 115px);
 }
@@ -77,7 +77,7 @@
 	}
 
 	.characters-group-primary-title {
-		font-size: 24px;
+		font-size: calc(24px * var(--fontSizeMultiplier));
 	}
 
 	.characters-group-primary-buttons-container {

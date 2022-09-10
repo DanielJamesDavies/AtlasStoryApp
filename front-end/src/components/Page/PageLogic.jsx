@@ -15,11 +15,19 @@ import { AppContext } from "../../context/AppContext";
 // Assets
 
 export const PageLogic = () => {
-	const { uiTheme, accentColour, accentHoverColour } = useContext(AppContext);
-	const [pageStyles, setPageStyles] = useState({ "--accentColour": accentColour, "--accentHoverColour": accentHoverColour });
+	const { uiTheme, fontSizeMultiplier, accentColour, accentHoverColour } = useContext(AppContext);
+	const [pageStyles, setPageStyles] = useState({
+		"--accentColour": accentColour,
+		"--accentHoverColour": accentHoverColour,
+		"--fontSizeMultiplier": fontSizeMultiplier,
+	});
 
 	useEffect(() => {
-		let newPageStyles = { "--accentColour": accentColour, "--accentHoverColour": accentHoverColour };
+		let newPageStyles = {
+			"--accentColour": accentColour,
+			"--accentHoverColour": accentHoverColour,
+			"--fontSizeMultiplier": fontSizeMultiplier,
+		};
 
 		// UI Themes
 		switch (uiTheme) {
@@ -37,7 +45,7 @@ export const PageLogic = () => {
 		}
 
 		setPageStyles(newPageStyles);
-	}, [setPageStyles, uiTheme, accentColour, accentHoverColour]);
+	}, [setPageStyles, uiTheme, fontSizeMultiplier, accentColour, accentHoverColour]);
 
 	return { pageStyles };
 };
