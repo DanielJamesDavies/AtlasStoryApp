@@ -13,13 +13,10 @@ const SubstorySchema = mongoose.Schema({
 		type: String,
 		require: true,
 	},
-	character_type_id: mongoose.Schema.Types.ObjectId,
 	data: {
 		type: {
-			name: {
-				type: String,
-				require: true,
-			},
+			title: { type: String, require: true },
+			isStoryTitleInTitle: { type: Boolean, require: true, default: true },
 			colour: { type: String, default: "#0044ff" },
 			number: { type: String, require: true },
 			posterBackground: mongoose.Schema.Types.ObjectId,

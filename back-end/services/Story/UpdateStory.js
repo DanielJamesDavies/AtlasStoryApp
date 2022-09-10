@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
 		});
 	if (!oldStory) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
-	const newStory = JSON.parse(JSON.stringify(oldStory));
+	let newStory = JSON.parse(JSON.stringify(oldStory));
 
 	switch (JSON.stringify(req.body.path)) {
 		case JSON.stringify(["uid"]):

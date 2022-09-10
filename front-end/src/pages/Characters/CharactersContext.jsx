@@ -93,7 +93,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 
 			let newGroups = await Promise.all(
 				groupIDs.map(async (groupID) => {
-					if (!groupID) return;
+					if (!groupID) return false;
 					const group_response = await APIRequest("/group/" + groupID, "GET");
 					if (group_response?.errors || !group_response?.data?.group) return false;
 					return group_response.data.group;

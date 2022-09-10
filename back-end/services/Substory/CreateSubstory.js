@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
 		_id: new mongoose.Types.ObjectId(),
 		story_id: req.body.story_id,
 		uid: req.body.uid,
-		data: { name: req.body.name },
+		data: { title: req.body.title },
 	});
 
 	const addSubstoryToStoryResult = await addSubstoryToStory(substory._id, req.body.story_id);
@@ -36,7 +36,7 @@ async function validateSubstory(substory) {
 	const substorySchema = Joi.object({
 		story_id: Joi.string().required(),
 		uid: Joi.string().min(1).max(64).required(),
-		name: Joi.string().min(1).max(64).required(),
+		title: Joi.string().min(1).max(64).required(),
 	});
 
 	const substoryValidationError = substorySchema.validate(substory, { abortEarly: false })?.error?.details;
@@ -45,8 +45,10 @@ async function validateSubstory(substory) {
 		let substoryKeysData = [
 			{ key: "story_id", name: "Story ID", indefiniteArticle: "a" },
 			{ key: "uid", name: "UID", indefiniteArticle: "a" },
-			{ key: "name", name: "Name", indefiniteArticle: "a" },
+			{ key: "title", name: "Title", indefiniteArticle: "a" },
 		];
+
+		console.log(substoryValidationError);
 
 		errors = errors.concat(
 			substoryValidationError.map((error) => {

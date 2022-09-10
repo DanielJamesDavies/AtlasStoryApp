@@ -10,7 +10,8 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
 	const [story, setStory] = useState(false);
 	const [storyIcon, setStoryIcon] = useState(false);
-	const [substories, setSubstories] = useState(false);
+	const [substories, setSubstories] = useState([]);
+	const [substoriesPosterBackgrounds, setSubstoriesPosterBackgrounds] = useState([]);
 	const { APIRequest } = useContext(APIContext);
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { location } = useContext(RoutesContext);
@@ -33,6 +34,7 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 			}
 
 			setStory(story_response.data.story);
+			getSubstories(story_response.data.story?.data?.substories);
 
 			setIsAuthorizedToEdit(story_response?.data?.isAuthorizedToEdit);
 
@@ -49,16 +51,81 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 			setStoryIcon(response.data.image);
 		}
 
+		async function getSubstories(substoryIDs) {
+			let newSubstories = await Promise.all(
+				substoryIDs.map(async (substoryID) => {
+					if (!substoryID) return false;
+					const substory_response = await APIRequest("/substory/" + substoryID, "GET");
+					if (substory_response?.errors || !substory_response?.data?.substory) return false;
+					return substory_response.data.substory;
+				})
+			);
+			newSubstories = newSubstories.filter((e) => e !== false);
+
+			setSubstories(newSubstories);
+			getSubstoriesPosterBackgrounds(newSubstories);
+		}
+
+		async function getSubstoriesPosterBackgrounds(newSubstories) {
+			if (!newSubstories) return;
+
+			let newSubstoriesPosterBackgrounds = await Promise.all(
+				newSubstories.map(async (substory) => {
+					if (!substory?.data?.posterBackground) return false;
+					const poster_background_image_response = await APIRequest("/image/" + substory.data.posterBackground, "GET");
+					if (poster_background_image_response?.errors || !poster_background_image_response?.data?.image) return false;
+					return poster_background_image_response.data;
+				})
+			);
+			newSubstoriesPosterBackgrounds = newSubstoriesPosterBackgrounds.filter((e) => e !== false);
+
+			setSubstoriesPosterBackgrounds(newSubstoriesPosterBackgrounds);
+			return newSubstoriesPosterBackgrounds;
+		}
+
 		getStoryAndSubstories();
 
 		let reloadTimer = setTimeout(() => getStoryAndSubstories(), 1);
 		return () => {
 			clearTimeout(reloadTimer);
 		};
-	}, [location, story_uid, APIRequest, setIsAuthorizedToEdit, story, setStory, setStoryIcon, changeAccentColour, changeAccentHoverColour]);
+	}, [
+		location,
+		story_uid,
+		APIRequest,
+		setIsAuthorizedToEdit,
+		story,
+		setStory,
+		setStoryIcon,
+		setSubstories,
+		setSubstoriesPosterBackgrounds,
+		changeAccentColour,
+		changeAccentHoverColour,
+	]);
+
+	const [isDisplayingCreateSubstoryForm, setIsDisplayingCreateSubstoryForm] = useState(false);
+	const [isReorderingSubstories, setIsReorderingSubstories] = useState(false);
+	function toggleIsReorderingSubstories() {
+		setIsReorderingSubstories((oldIsReorderingSubstories) => !oldIsReorderingSubstories);
+	}
 
 	return (
-		<SubstoriesContext.Provider value={{ isAuthorizedToEdit, story, storyIcon, substories, setSubstories }}>
+		<SubstoriesContext.Provider
+			value={{
+				isAuthorizedToEdit,
+				story_uid,
+				story,
+				setStory,
+				storyIcon,
+				substories,
+				setSubstories,
+				substoriesPosterBackgrounds,
+				isDisplayingCreateSubstoryForm,
+				setIsDisplayingCreateSubstoryForm,
+				isReorderingSubstories,
+				toggleIsReorderingSubstories,
+			}}
+		>
 			{children}
 		</SubstoriesContext.Provider>
 	);

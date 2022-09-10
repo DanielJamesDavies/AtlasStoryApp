@@ -2,6 +2,7 @@
 
 // Components
 import { SubstoriesTitle } from "./SubstoriesTitle/SubstoriesTitle";
+import { SubstoriesList } from "./SubstoriesList/SubstoriesList";
 
 // Logic
 
@@ -18,6 +19,7 @@ export const Substories = () => {
 	return (
 		<div className='substories'>
 			<SubstoriesTitle />
+			<SubstoriesList />
 		</div>
 	);
 };

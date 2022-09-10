@@ -1,0 +1,29 @@
+.substories-create-substory-form-title {
+	margin: 20px 4px;
+	margin-top: 0;
+	font-size: 28px;
+	font-weight: 700;
+}
+
+.substories-create-substory-form-input-container {
+	margin: 12px 0;
+}
+
+.substories-create-substory-form-submit-container {
+	margin-top: 20px;
+	text-align: right;
+}
+
+.substories-create-substory-form-submit-btn-text {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 14px;
+}
+
+.substories-create-substory-form-submit-btn-icon {
+	display: inline-block;
+	margin-top: 1px;
+	margin-left: 8px;
+	vertical-align: middle;
+	font-size: 15px;
+}

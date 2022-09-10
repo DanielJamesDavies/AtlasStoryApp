@@ -1,0 +1,16 @@
+.substories-list {
+	flex-shrink: 0;
+	display: inline-block;
+	border-radius: 4px;
+	width: 100%;
+	vertical-align: top;
+}
+
+@media (max-width: 950px) {
+	.substories-list {
+		margin: 0;
+		margin-top: 12px;
+		width: 100%;
+		min-height: 0;
+	}
+}

@@ -6,8 +6,8 @@ import { useContext, useState, useEffect } from "react";
 // Logic
 
 // Context
-import { RoutesContext } from "../../../context/RoutesContext";
 import { CharactersContext } from "../CharactersContext";
+import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
 
@@ -16,8 +16,8 @@ import { CharactersContext } from "../CharactersContext";
 // Assets
 
 export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
-	const { changeLocation } = useContext(RoutesContext);
 	const { story, characters, characterTypes, charactersCardBackgrounds } = useContext(CharactersContext);
+	const { changeLocation } = useContext(RoutesContext);
 
 	const [character, setCharacter] = useState(false);
 	const [cardBackground, setCardBackground] = useState(false);
