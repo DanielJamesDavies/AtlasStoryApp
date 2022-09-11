@@ -37,7 +37,7 @@ export const SubstoriesListSubstoryPostersLogic = () => {
 				(substoryPosters.current.scrollLeft !== substoryPosters.current.scrollWidth - substoryPosters.current.clientWidth ||
 					substoryPostersScrollValue < 0)
 			) {
-				substoryPosters.current.scrollLeft += substoryPostersScrollValue * 2;
+				substoryPosters.current.scrollLeft += substoryPostersScrollValue * 1.5;
 			} else {
 				clearInterval(interval);
 				setSubstoryPostersScrollInterval(false);

@@ -1,12 +1,16 @@
 .substories-list-substories-posters-container {
 	position: relative;
-	width: 100%;
+	margin-left: -8px;
+	width: calc(100% + 16px);
+	overflow-y: visible;
 }
 
 .substories-list-substories-posters {
 	display: flex;
+	margin-top: -24px;
 	padding-bottom: 8px;
 	overflow-x: overlay;
+	overflow-y: visible;
 }
 
 .substories-list-substories-posters::-webkit-scrollbar {

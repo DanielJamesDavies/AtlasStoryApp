@@ -1,9 +1,11 @@
 .substories-list-primary {
+	position: relative;
 	display: flex;
 	align-items: center;
 	margin-bottom: 12px;
 	width: 100%;
 	min-height: 40px;
+	z-index: 4;
 }
 
 .substories-list-primary-title {
@@ -38,6 +40,11 @@
 }
 
 @media (max-width: 950px) {
+	.substories-list-primary {
+		min-height: 24px;
+		height: 24px;
+	}
+
 	.substories-list-primary-title {
 		font-size: calc(24px * var(--fontSizeMultiplier));
 	}
@@ -46,10 +53,6 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-	}
-
-	.substories-list-primary-buttons-container-authorized-to-edit {
-		height: 96px;
 	}
 
 	.substories-list-primary-modify-btn {

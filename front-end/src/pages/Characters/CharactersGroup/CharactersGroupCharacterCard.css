@@ -156,8 +156,8 @@
 	}
 
 	.characters-group-character-card-summary-item-container {
-		top: 60%;
-		max-height: calc(100% - 60% + 1px);
+		top: 54%;
+		max-height: calc(100% - 54% + 1px);
 	}
 
 	.characters-group-character-card-summary-item-label {

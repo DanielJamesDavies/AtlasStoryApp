@@ -2,20 +2,37 @@
 	margin: 0 4px;
 }
 
+.substories-list-substories-poster-container {
+	margin: 4px 8px;
+	margin-top: calc(24px + 4px);
+	margin-bottom: 12px;
+	transition: margin 0.4s;
+}
+
+.substories-list-substories-poster-container:hover {
+	margin-top: 16px;
+}
+
 .substories-list-substories-poster {
 	flex-shrink: 0;
 	position: relative;
 	z-index: 1;
 	display: inline-block;
-	margin: 4px 8px;
-	border-radius: 2px;
+	margin: 0;
+	border: 5px solid var(--accentColour);
+	border-radius: 6px;
 
-	width: 380px;
-	height: 570px;
+	width: 340px;
+	height: 510px;
 
 	background: var(--grey1point5);
-	transition: margin 0.4s;
+	box-shadow: 0 0 20px transparent;
+	transition: 0.3s;
 	cursor: pointer;
+}
+
+.substories-list-substories-poster-container:hover .substories-list-substories-poster {
+	box-shadow: 0 0 20px var(--blue);
 }
 
 .drag-drop-item-enable-drag-drop .substories-list-substories-poster {
@@ -35,16 +52,16 @@
 
 .substories-list-substories-poster-content-title-container {
 	position: absolute;
-	top: 450px;
+	top: 394px;
 	left: 50%;
 	transform: translateX(-50%);
 	width: 100%;
-	height: calc(100% - 450px - 12px);
+	height: calc(100% - 394px - 12px);
 }
 
 .substories-list-substories-poster-content-title-container-with-story-title {
-	top: 435px;
-	height: calc(100% - 440px - 12px);
+	top: 385px;
+	height: calc(100% - 385px - 12px);
 }
 
 .substories-list-substories-poster-content-title-story,
@@ -52,18 +69,107 @@
 	font-weight: 700;
 	text-transform: uppercase;
 	font-family: "Palatino Linotype", sans-serif;
-	letter-spacing: 6px;
+	letter-spacing: 5px;
 	word-spacing: 1px;
 }
 
 .substories-list-substories-poster-content-title-substory {
-	font-size: 38px;
+	font-size: 36px;
 }
 
 .substories-list-substories-poster-content-title-story {
-	font-size: 32px;
+	font-size: 28px;
 }
 
 .substories-list-substories-poster-content-title-container-with-story-title .substories-list-substories-poster-content-title-substory {
-	font-size: 25px;
+	font-size: 24px;
+}
+
+.substories-list-substories-poster-number-container {
+	position: relative;
+	margin-top: calc(12px - 4px);
+	width: 100%;
+	height: 46px;
+}
+
+.substories-list-substories-poster-number {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 18px;
+	color: #ddd;
+	transition: 0.3s;
+}
+
+.substories-list-substories-poster-container:hover .substories-list-substories-poster-number {
+	color: #fff;
+	text-shadow: 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue),
+		0 0 12px var(--blue);
+}
+
+.substories-list-substories-poster-number-background {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 46px;
+	height: 46px;
+	filter: invert(1);
+	opacity: 0.4;
+	transition: 0.3s;
+}
+
+.substories-list-substories-poster-container:hover .substories-list-substories-poster-number-background {
+	opacity: 0.6;
+}
+
+.substories-list-substories-poster-number-background img {
+	width: 100%;
+	height: 100%;
+}
+
+.substories-list-substories-poster-title-container {
+	margin-top: 12px;
+	text-align: center;
+	font-size: 15px;
+	transition: 0.3s;
+}
+
+.substories-list-substories-poster-container:hover .substories-list-substories-poster-title-container {
+	text-shadow: 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue);
+}
+
+@media (max-width: 950px) {
+	.substories-list-substories-poster-container {
+		margin-left: 4px;
+		margin-right: 4px;
+	}
+
+	.substories-list-substories-poster {
+		width: 240px;
+		height: 360px;
+	}
+
+	.substories-list-substories-poster-content-title-container {
+		top: 271px;
+		height: calc(100% - 271px - 12px);
+	}
+
+	.substories-list-substories-poster-content-title-container-with-story-title {
+		top: 260px;
+		height: calc(100% - 260px - 12px);
+	}
+
+	.substories-list-substories-poster-content-title-substory {
+		font-size: 23px;
+	}
+
+	.substories-list-substories-poster-content-title-story {
+		font-size: 20px;
+	}
+
+	.substories-list-substories-poster-content-title-container-with-story-title .substories-list-substories-poster-content-title-substory {
+		font-size: 18px;
+	}
 }

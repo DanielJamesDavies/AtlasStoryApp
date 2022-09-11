@@ -18,7 +18,7 @@ const SubstorySchema = mongoose.Schema({
 			title: { type: String, require: true },
 			isStoryTitleInTitle: { type: Boolean, require: true, default: true },
 			colour: { type: String, default: "#0044ff" },
-			number: { type: String, require: true },
+			number: { type: String, require: true, default: "" },
 			posterBackground: mongoose.Schema.Types.ObjectId,
 			overviewBackground: mongoose.Schema.Types.ObjectId,
 			images: { type: [mongoose.Schema.Types.ObjectId], require: true, default: [] },
