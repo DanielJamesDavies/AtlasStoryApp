@@ -37,6 +37,7 @@ export const DevelopmentItem = ({
 		reorderDevelopmentItemImages,
 		changeDevelopmentItemImageCaption,
 		removeDevItemImage,
+		onDevelopmentItemImageClick,
 		devItemTextContainerClassName,
 		devItemImagesContainerClassName,
 	} = DevelopmentItemLogic({
@@ -61,7 +62,11 @@ export const DevelopmentItem = ({
 							{developmentItem.images.map((image, index) => (
 								<div key={index} className='character-subpage-development-item-image-item'>
 									{!characterImages.find((e) => e._id === image.image)?.image ? null : (
-										<img src={characterImages.find((e) => e._id === image.image).image} alt='' />
+										<img
+											src={characterImages.find((e) => e._id === image.image).image}
+											alt=''
+											onClick={() => onDevelopmentItemImageClick(index)}
+										/>
 									)}
 									{image.caption.split(" ").join("").length === 0 ? null : (
 										<div className='character-subpage-development-item-image-item-caption'>{image.caption}</div>

@@ -124,3 +124,12 @@ img {
 		transform: rotate(-1deg);
 	}
 }
+
+.lightbox-openable-image {
+	cursor: pointer;
+	transition: opacity 0.2s;
+}
+
+.lightbox-openable-image:hover {
+	opacity: 0.8;
+}

@@ -7,6 +7,7 @@ import { useContext, useState, useEffect } from "react";
 
 // Context
 import { CharacterContext } from "../../../CharacterContext";
+import { LightboxContext } from "../../../../../context/LightboxContext";
 
 // Services
 
@@ -16,6 +17,7 @@ import { CharacterContext } from "../../../CharacterContext";
 
 export const DevelopmentItemLogic = ({ developmentItem, index, characterImagesCurrDevItemIndex, isEditing }) => {
 	const { characterImages, setCharacter } = useContext(CharacterContext);
+	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
 
 	async function reorderDevelopmentItemImages(res) {
 		if (res.from === undefined || res.to === undefined) return false;
@@ -41,6 +43,11 @@ export const DevelopmentItemLogic = ({ developmentItem, index, characterImagesCu
 			newCharacter.data.development.items[index].images.splice(imageIndex, 1);
 			return newCharacter;
 		});
+	}
+
+	function onDevelopmentItemImageClick(imageIndex) {
+		setLightboxImageIDs(developmentItem.images);
+		setLightboxIndex(imageIndex);
 	}
 
 	const [devItemTextContainerClassName, setDevItemTextContainerClassName] = useState("character-subpage-development-item-text-container");
@@ -72,6 +79,7 @@ export const DevelopmentItemLogic = ({ developmentItem, index, characterImagesCu
 		reorderDevelopmentItemImages,
 		changeDevelopmentItemImageCaption,
 		removeDevItemImage,
+		onDevelopmentItemImageClick,
 		devItemTextContainerClassName,
 		devItemImagesContainerClassName,
 	};

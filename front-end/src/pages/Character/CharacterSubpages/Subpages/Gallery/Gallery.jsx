@@ -34,6 +34,7 @@ export const Gallery = () => {
 		saveGalleryItems,
 		galleryRef,
 		onGalleryScroll,
+		onGalleryItemClick,
 	} = GalleryLogic();
 
 	return (
@@ -51,7 +52,9 @@ export const Gallery = () => {
 					<div className='character-subpage-gallery-items'>
 						{!characterVersion
 							? null
-							: characterVersion.gallery.map((image, index) => <GalleryItem key={index} image={image} isEditing={false} />)}
+							: characterVersion.gallery.map((image, index) => (
+									<GalleryItem key={index} index={index} image={image} isEditing={false} onClick={onGalleryItemClick} />
+							  ))}
 					</div>
 				</div>
 				<div className='character-subpage-gallery-edit'>

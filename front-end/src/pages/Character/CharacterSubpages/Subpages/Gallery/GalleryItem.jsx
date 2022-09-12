@@ -17,12 +17,12 @@ import "./GalleryItem.css";
 
 // Assets
 
-export const GalleryItem = ({ image, index, isEditing, removeGalleryItem }) => {
+export const GalleryItem = ({ image, index, isEditing, removeGalleryItem, onClick }) => {
 	const { galleryItemImage, changeGalleryItemCaption } = GalleryItemLogic({ image, index });
 
 	return (
 		<div className='character-subpage-gallery-item'>
-			{!galleryItemImage ? null : <img src={galleryItemImage} alt='' />}
+			{!galleryItemImage ? null : <img src={galleryItemImage} alt='' className='lightbox-openable-image' onClick={() => onClick(index)} />}
 			{!isEditing ? (
 				<>
 					{image.caption.split(" ").join("").length === 0 ? null : (

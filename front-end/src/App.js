@@ -1,7 +1,7 @@
 // Packages
 
 // Components
-import { BrowserContainer } from "./components/BrowserContainer/BrowserContainer";
+import { Page } from "./components/Page/Page";
 
 // Logic
 
@@ -17,7 +17,7 @@ import "./styles.css";
 function App() {
 	return (
 		<div className='App'>
-			<BrowserContainer />
+			<Page />
 			<canvas></canvas>
 		</div>
 	);

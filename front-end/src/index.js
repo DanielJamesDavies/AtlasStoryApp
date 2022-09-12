@@ -11,6 +11,7 @@ import reportWebVitals from "./reportWebVitals";
 // Context
 import AppProvider from "./context/AppContext";
 import APIProvider from "./context/APIContext";
+import LightboxProvider from "./context/LightboxContext";
 
 // Services
 
@@ -23,7 +24,9 @@ root.render(
 	<BrowserRouter>
 		<AppProvider>
 			<APIProvider>
-				<App />
+				<LightboxProvider>
+					<App />
+				</LightboxProvider>
 			</APIProvider>
 		</AppProvider>
 	</BrowserRouter>

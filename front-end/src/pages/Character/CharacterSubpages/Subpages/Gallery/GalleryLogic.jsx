@@ -8,6 +8,7 @@ import { useContext, useState, useRef } from "react";
 // Context
 import { CharacterContext } from "../../../CharacterContext";
 import { APIContext } from "../../../../../context/APIContext";
+import { LightboxContext } from "../../../../../context/LightboxContext";
 
 // Services
 
@@ -18,6 +19,7 @@ import { APIContext } from "../../../../../context/APIContext";
 export const GalleryLogic = () => {
 	const { isAuthorizedToEdit, story, character, characterVersion, changeCharacterVersion } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
+	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
 
 	function addImageToVersionGallery(image_id) {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
@@ -83,6 +85,11 @@ export const GalleryLogic = () => {
 		e.stopPropagation();
 	}
 
+	function onGalleryItemClick(index) {
+		setLightboxImageIDs(characterVersion.gallery);
+		setLightboxIndex(index);
+	}
+
 	return {
 		isAuthorizedToEdit,
 		characterVersion,
@@ -96,5 +103,6 @@ export const GalleryLogic = () => {
 		saveGalleryItems,
 		galleryRef,
 		onGalleryScroll,
+		onGalleryItemClick,
 	};
 };
