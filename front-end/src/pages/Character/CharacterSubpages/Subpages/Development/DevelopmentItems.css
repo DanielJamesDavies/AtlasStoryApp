@@ -23,6 +23,6 @@
 
 @media (max-width: 750px) {
 	.character-subpage-development-items {
-		max-height: calc(100vh - (6px + 69px + 12px) - 36px - 24px - 70px - 8px);
+		max-height: calc(var(--vh) - 70px - (6px + 61px + 12px + 12px) - 36px - 24px - 4px);
 	}
 }

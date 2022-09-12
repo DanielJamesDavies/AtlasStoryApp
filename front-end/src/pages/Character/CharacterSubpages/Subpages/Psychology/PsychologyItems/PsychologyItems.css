@@ -5,3 +5,9 @@
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
+
+@media (max-width: 750px) {
+	.character-subpage-psychology-items {
+		max-height: calc(var(--vh) - 70px - (6px + 61px + 12px + 12px) - 36px - 24px);
+	}
+}

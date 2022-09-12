@@ -17,6 +17,7 @@ import { AppContext } from "../../context/AppContext";
 export const PageLogic = () => {
 	const { uiTheme, fontSizeMultiplier, accentColour, accentHoverColour } = useContext(AppContext);
 	const [pageStyles, setPageStyles] = useState({
+		"--vh": window.innerHeight + "px",
 		"--accentColour": accentColour,
 		"--accentHoverColour": accentHoverColour,
 		"--fontSizeMultiplier": fontSizeMultiplier,
@@ -24,6 +25,7 @@ export const PageLogic = () => {
 
 	useEffect(() => {
 		let newPageStyles = {
+			"--vh": window.innerHeight + "px",
 			"--accentColour": accentColour,
 			"--accentHoverColour": accentHoverColour,
 			"--fontSizeMultiplier": fontSizeMultiplier,
