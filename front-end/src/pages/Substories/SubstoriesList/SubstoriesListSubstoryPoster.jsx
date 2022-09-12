@@ -16,7 +16,9 @@ import "./SubstoriesListSubstoryPoster.css";
 import Shine from "../../../content/shine.svg";
 
 export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
-	const { story, substory, navigateToSubstory, onSubstoryMouseDown, posterStyles } = SubstoriesListSubstoryPosterLogic({ substoryID });
+	const { story, substory, posterBackground, navigateToSubstory, onSubstoryMouseDown, posterStyles } = SubstoriesListSubstoryPosterLogic({
+		substoryID,
+	});
 
 	return (
 		<div
@@ -39,13 +41,22 @@ export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
 						</div>
 					)}
 				</div>
+				{!posterBackground ? null : (
+					<div className='substories-list-substories-poster-background-container'>
+						<img className='substories-list-substories-poster-background' src={posterBackground} alt='' />
+					</div>
+				)}
 			</div>
-			<div className='substories-list-substories-poster-number-container'>
-				<div className='substories-list-substories-poster-number'>{substory?.data?.number}</div>
-				<div className='substories-list-substories-poster-number-background'>
-					<img src={Shine} alt='' />
+			{substory?.data?.number === "" ? (
+				<div className='substories-list-substories-poster-number-container-placeholder' />
+			) : (
+				<div className='substories-list-substories-poster-number-container'>
+					<div className='substories-list-substories-poster-number'>{substory?.data?.number}</div>
+					<div className='substories-list-substories-poster-number-background'>
+						<img src={Shine} alt='' />
+					</div>
 				</div>
-			</div>
+			)}
 			<div className='substories-list-substories-poster-title-container'>
 				{substory?.data?.isStoryTitleInTitle ? (
 					<div className='substories-list-substories-poster-title'>

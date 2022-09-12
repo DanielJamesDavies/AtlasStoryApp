@@ -92,6 +92,10 @@
 	height: 46px;
 }
 
+.substories-list-substories-poster-number-container-placeholder {
+	height: 12px;
+}
+
 .substories-list-substories-poster-number {
 	position: absolute;
 	top: 50%;
@@ -138,6 +142,26 @@
 
 .substories-list-substories-poster-container:hover .substories-list-substories-poster-title-container {
 	text-shadow: 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue);
+}
+
+.substories-list-substories-poster-background-container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+}
+
+.substories-list-substories-poster-background {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 @media (max-width: 950px) {
