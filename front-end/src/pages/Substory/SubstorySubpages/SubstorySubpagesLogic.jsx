@@ -2,6 +2,7 @@
 import { useState, useContext, useEffect } from "react";
 
 // Components
+import { Gallery } from "./Subpages/Gallery/Gallery";
 
 // Logic
 
@@ -22,7 +23,7 @@ export const SubstorySubpagesLogic = () => {
 		function getSubpage() {
 			switch (openSubpageID) {
 				case "gallery":
-					return null;
+					return <Gallery />;
 				case "plot":
 					return null;
 				case "characters":

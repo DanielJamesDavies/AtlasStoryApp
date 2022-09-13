@@ -28,7 +28,7 @@ export const SubstoryOverviewDescriptionLogic = () => {
 	async function revertDescription() {
 		const response = await APIRequest("/substory/get-value/" + substory._id, "POST", {
 			story_id: story._id,
-			path: ["data", "versions", substory._id, "description"],
+			path: ["data", "description"],
 		});
 		if (!response || response?.errors || !response?.data?.value) return false;
 

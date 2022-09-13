@@ -17,8 +17,7 @@ import getImageFromFile from "../../../../services/GetImageFromFile";
 // Assets
 
 export const SubstoryImagesLogic = () => {
-	const { isAuthorizedToEdit, story, substory, setSubstory, substoryImages, setSubstoryImages, substoryVersion, changeSubstoryVersion } =
-		useContext(SubstoryContext);
+	const { isAuthorizedToEdit, story, substory, setSubstory, substoryImages, setSubstoryImages } = useContext(SubstoryContext);
 	const { APIRequest } = useContext(APIContext);
 	const substoryImagesContainerRef = useRef();
 
@@ -136,20 +135,11 @@ export const SubstoryImagesLogic = () => {
 			setSubstory((oldSubstory) => {
 				let newSubstory = JSON.parse(JSON.stringify(oldSubstory));
 				newSubstory.data.images = response.data.substory.data.images;
-				newSubstory.data.versions = newSubstory.data.versions.map((version) => {
-					version.gallery = version.gallery.filter(
-						(galleryItem) => newSubstory.data.images.findIndex((e) => JSON.stringify(e) === JSON.stringify(galleryItem.image)) !== -1
-					);
-					return version;
-				});
+				newSubstory.data.gallery = newSubstory.data.gallery.filter(
+					(galleryItem) => newSubstory.data.images.findIndex((e) => JSON.stringify(e) === JSON.stringify(galleryItem.image)) !== -1
+				);
 				return newSubstory;
 			});
-
-			let newSubstoryVersion = JSON.parse(JSON.stringify(substoryVersion));
-			newSubstoryVersion.gallery = newSubstoryVersion.gallery.filter(
-				(galleryItem) => response.data.substory.data.images.findIndex((e) => JSON.stringify(e) === JSON.stringify(galleryItem.image)) !== -1
-			);
-			changeSubstoryVersion(newSubstoryVersion);
 		}
 
 		return true;
