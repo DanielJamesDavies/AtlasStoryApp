@@ -1,0 +1,113 @@
+.substory-overview-container {
+	position: relative;
+	flex-shrink: 0;
+	display: inline-block;
+	padding-top: calc(6px + 48px + 59px + 24px);
+	padding-left: 24px;
+	padding-right: 0;
+	width: calc(100vw - 70px - 24px - 12px - 12px - 24px);
+	height: calc(100% - (6px + 48px + 59px + 24px));
+	overflow: visible;
+	vertical-align: top;
+}
+
+.substory-overview {
+	height: 100%;
+	overflow-y: overlay;
+}
+
+.substory-overview::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.substory-overview::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--substoryColour);
+}
+
+.substory-overview-content {
+	display: flex;
+}
+
+.substory-overview-background {
+	position: absolute;
+	z-index: -1;
+	top: 50%;
+	left: 50%;
+	transform: translate(calc(-50% + (((70px) / 2) - 11px + 6px)), calc(-50%));
+	width: calc(100vw - 70px);
+	height: 100vh;
+	overflow: hidden;
+	transition: opacity 0.4s;
+	transition-delay: 0.2s;
+}
+
+.substory-content-container-is-on-subpages .substory-overview-background {
+	opacity: 0;
+}
+
+.substory-overview-background img {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.substory-overview-background-stars {
+	position: relative;
+	z-index: -2;
+}
+
+.substory-overview-background-glow {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	display: block;
+	content: "";
+
+	border-radius: 100%;
+
+	width: calc(100vw + 360px);
+	max-width: 2000px;
+	height: calc(100vw + 360px);
+	max-height: 2000px;
+
+	background: radial-gradient(circle at 50% 50%, var(--substoryGlowColour), transparent 34%);
+
+	-khtml-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+@media (max-width: 1300px) {
+	.substory-overview-content {
+		margin-top: 50vh;
+		flex-direction: column;
+	}
+}
+
+@media (max-width: 700px) {
+	.substory-overview-container {
+		padding-top: calc(6px + 61px + 12px + 12px);
+		padding-left: 6px;
+		width: calc(100vw - 24px - 12px - 4px);
+		height: calc(100% - (6px + 61px + 12px + 12px));
+	}
+
+	.substory-overview-content {
+		margin-top: 45vh;
+		flex-direction: column;
+	}
+
+	.substory-overview-background {
+		width: 100vw;
+		transform: translate(calc(-50% + (34px) / 2), calc(-50% + (70px) / 2));
+		transition: opacity 0.2s;
+		transition-delay: 0.1s;
+	}
+}

@@ -11,6 +11,11 @@
 }
 
 @media (max-width: 700px) {
+	.character-primary-name-container {
+		max-width: calc(100% - 152px);
+		margin-bottom: 4px;
+	}
+
 	.character-primary-name-container,
 	.character-primary-name-container input {
 		font-size: 30px;

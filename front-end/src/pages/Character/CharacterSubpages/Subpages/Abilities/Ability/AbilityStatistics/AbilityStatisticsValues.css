@@ -78,3 +78,10 @@
 	font-size: 13px;
 	font-weight: 700;
 }
+
+@media (max-width: 750px) {
+	.character-subpage-abilities-ability-statistics-values-container {
+		margin-right: 0;
+		width: 100%;
+	}
+}

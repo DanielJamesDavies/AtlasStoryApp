@@ -9,3 +9,9 @@
 	margin-top: -32px;
 	margin-bottom: -32px;
 }
+
+@media (max-width: 750px) {
+	.character-subpage-abilities-ability-statistics-chart-container {
+		width: 100%;
+	}
+}

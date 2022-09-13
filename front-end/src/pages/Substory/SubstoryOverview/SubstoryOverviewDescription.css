@@ -1,0 +1,29 @@
+.substory-overview-description-container {
+	margin-left: auto;
+	width: calc(50% - 180px);
+	max-width: 500px;
+	height: 100%;
+}
+
+.substory-overview-description {
+	margin: 0;
+	padding: 8px 12px;
+	border-radius: 8px;
+	width: calc(100% - 24px);
+	background: var(--substoryColour);
+	color: #fff;
+	text-align: left;
+}
+
+.substory-overview-description-label {
+	font-size: 13px;
+	font-weight: 400;
+}
+
+@media (max-width: 1300px) {
+	.substory-overview-description-container {
+		margin: 0 auto;
+		width: 100%;
+		max-height: unset;
+	}
+}

@@ -85,6 +85,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			setCharacter(false);
 			setCharacterTypes([]);
 			setCharacterOverviewBackground(false);
+			setCharacterCardBackground(false);
 		}
 
 		async function getStory() {

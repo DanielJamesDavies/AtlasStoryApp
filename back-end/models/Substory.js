@@ -22,6 +22,13 @@ const SubstorySchema = mongoose.Schema({
 			posterBackground: mongoose.Schema.Types.ObjectId,
 			overviewBackground: mongoose.Schema.Types.ObjectId,
 			images: { type: [mongoose.Schema.Types.ObjectId], require: true, default: [] },
+			summaryItems: {
+				type: [{ label: { type: String, required: true }, value: { type: String, required: true } }],
+				required: true,
+				default: [],
+			},
+			description: { type: [String], default: [""] },
+			gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], required: true, default: [] },
 			development: {
 				type: {
 					items: {

@@ -10,6 +10,7 @@ import { StoryContainer } from "../../pages/Story/StoryContainer";
 import { CharactersContainer } from "../../pages/Characters/CharactersContainer";
 import { CharacterContainer } from "../../pages/Character/CharacterContainer";
 import { SubstoriesContainer } from "../../pages/Substories/SubstoriesContainer";
+import { SubstoryContainer } from "../../pages/Substory/SubstoryContainer";
 import { WorldContainer } from "../../pages/World/WorldContainer";
 
 // Logic
@@ -90,6 +91,8 @@ export const RoutesLogic = () => {
 								setRenderComponent(<SubstoriesContainer story_uid={locationSplit[1]} />);
 								break;
 							case "s":
+								if (locationSplit.length > 3)
+									setRenderComponent(<SubstoryContainer story_uid={locationSplit[1]} substory_uid={locationSplit[3]} />);
 								break;
 							case "world":
 								setRenderComponent(<WorldContainer story_uid={locationSplit[1]} />);

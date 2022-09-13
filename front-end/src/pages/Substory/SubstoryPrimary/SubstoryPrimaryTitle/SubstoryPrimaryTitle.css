@@ -1,0 +1,24 @@
+.substory-primary-title-container {
+	align-items: flex-start;
+}
+
+.substory-primary-title-container,
+.substory-primary-title-container input {
+	width: fit-content;
+	font-size: 48px;
+	font-weight: 700;
+	transition: 0.5s color;
+}
+
+@media (max-width: 700px) {
+	.substory-primary-title-container {
+		margin-bottom: 4px;
+	}
+
+	.substory-primary-title-container,
+	.substory-primary-title-container input {
+		font-size: 28px;
+		word-break: break-word;
+		overflow-wrap: anywhere;
+	}
+}

@@ -1,0 +1,50 @@
+.substory-subpages-btns-container {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.substory-subpages-btns {
+	display: flex;
+	align-items: center;
+	width: calc(100% - 28px - 28px);
+	overflow-y: hidden;
+	overflow-x: overlay;
+	scroll-behavior: smooth;
+}
+
+.substory-subpages-btns::-webkit-scrollbar {
+	height: 0;
+}
+
+.substory-subpages-btn {
+	flex-shrink: 0;
+	margin: 4px;
+	padding: 6px 14px;
+	border: 0;
+	border-radius: 32px;
+
+	min-width: fit-content;
+	width: calc((100% / 8) - 8px);
+
+	background: var(--grey2);
+	color: var(--textColour);
+	text-align: left;
+	font-size: 13px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.substory-subpages-btns-is-authorized .substory-subpages-btn {
+	width: calc((100% / 9) - 8px);
+}
+
+.substory-subpages-btn:hover {
+	background: var(--grey3);
+}
+
+.substory-subpages-btn-active,
+.substory-subpages-btn-active:hover {
+	background: var(--substoryColour);
+	color: #fff;
+}
