@@ -29,6 +29,7 @@
 	text-align: center;
 	vertical-align: middle;
 	transition: background 0.2s;
+	transition: color 0.2s;
 	cursor: pointer;
 }
 
@@ -98,6 +99,10 @@
 
 .icon-btn-container-seamless.icon-btn-container-times-icon svg {
 	width: 72%;
+}
+
+.icon-btn-container-seamless.icon-btn-container-plus-icon svg {
+	width: 85%;
 }
 
 .icon-btn-small-icon-container {

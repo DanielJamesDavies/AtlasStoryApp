@@ -65,5 +65,14 @@ export const SubstoryLogic = () => {
 		};
 	}, [substoryOverviewContainerRef, substorySubpagesContainerRef, isOnOverviewSection]);
 
-	return { substoryStyle, isOnOverviewSection, substoryContainerRef, substoryOverviewContainerRef, substorySubpagesContainerRef };
+	const substoryPrimaryTitleRef = useRef();
+
+	return {
+		substoryStyle,
+		isOnOverviewSection,
+		substoryContainerRef,
+		substoryOverviewContainerRef,
+		substorySubpagesContainerRef,
+		substoryPrimaryTitleRef,
+	};
 };

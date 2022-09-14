@@ -17,7 +17,7 @@ import "./SubstoryPrimaryTitle.css";
 
 // Assets
 
-export const SubstoryPrimaryTitle = () => {
+export const SubstoryPrimaryTitle = ({ substoryPrimaryTitleRef }) => {
 	const { isAuthorizedToEdit, story, substory, primaryTitleStyles, changeTitle, revertTitle, saveTitle, errors } = SubstoryPrimaryTitleLogic();
 
 	return (
@@ -29,11 +29,16 @@ export const SubstoryPrimaryTitle = () => {
 			absolutePositionEditBtns={true}
 			isLight={primaryTitleStyles?.color === "#fff"}
 		>
-			<div className='substory-primary-title' style={primaryTitleStyles}>
-				{!substory?.data?.isStoryTitleInTitle ? null : <>{story?.data?.title}:&nbsp;</>}
-				{substory?.data?.title}
-			</div>
-			<div>
+			{!substory?.data?.isStoryTitleInTitle ? (
+				<div ref={substoryPrimaryTitleRef} className='substory-primary-title' style={primaryTitleStyles}>
+					{substory?.data?.title}
+				</div>
+			) : (
+				<div ref={substoryPrimaryTitleRef} className='substory-primary-title' style={primaryTitleStyles}>
+					{story?.data?.title + ": " + substory?.data?.title}
+				</div>
+			)}
+			<div ref={substoryPrimaryTitleRef}>
 				<TextInput
 					className='substory-primary-title'
 					seamless={true}

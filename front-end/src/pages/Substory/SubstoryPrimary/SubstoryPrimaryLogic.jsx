@@ -17,8 +17,8 @@ import isLightBackground from "../../../services/IsLightBackground";
 
 export const SubstoryPrimaryLogic = () => {
 	const { story, storyIcon, isOnOverviewSection, substoryOverviewBackground } = useContext(SubstoryContext);
-	const [primaryStoryNameStyles, setPrimaryStoryNameStyles] = useState({});
 
+	const [primaryStoryNameStyles, setPrimaryStoryNameStyles] = useState({});
 	useEffect(() => {
 		async function getPrimaryNameStyles() {
 			if (!isOnOverviewSection) return setPrimaryStoryNameStyles({});

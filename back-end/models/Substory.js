@@ -25,10 +25,62 @@ const SubstorySchema = mongoose.Schema({
 			summaryItems: {
 				type: [{ label: { type: String, required: true }, value: { type: String, required: true } }],
 				required: true,
-				default: [],
+				default: [{ label: "Genres", value: "" }],
 			},
-			description: { type: [String], default: [""] },
+			description: { type: [String], required: true, default: [""] },
 			gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], required: true, default: [] },
+			plot: {
+				type: {
+					items: {
+						type: [
+							{
+								_id: {
+									type: mongoose.Schema.Types.ObjectId,
+									require: true,
+									default: new mongoose.Types.ObjectId(),
+								},
+								label: { type: String, require: true, default: "" },
+								text: { type: [String], required: true, default: [""] },
+								images: { type: [mongoose.Schema.Types.ObjectId], require: true, default: [] },
+							},
+						],
+						required: true,
+						default: [],
+					},
+					clusters: {
+						type: [
+							{
+								_id: {
+									type: mongoose.Schema.Types.ObjectId,
+									require: true,
+									default: new mongoose.Types.ObjectId(),
+								},
+								isAll: { type: Boolean, require: true, default: false },
+								name: { type: String, require: true, default: "" },
+								groups: {
+									type: [
+										{
+											_id: {
+												type: mongoose.Schema.Types.ObjectId,
+												require: true,
+												default: new mongoose.Types.ObjectId(),
+											},
+											name: { type: String, require: true, default: "" },
+											items: { type: [mongoose.Schema.Types.ObjectId], require: true, default: [] },
+										},
+									],
+									required: true,
+									default: [],
+								},
+							},
+						],
+						required: true,
+						default: [{ isAll: true, name: "All Plot Items" }],
+					},
+				},
+				required: true,
+				default: {},
+			},
 			development: {
 				type: {
 					items: {

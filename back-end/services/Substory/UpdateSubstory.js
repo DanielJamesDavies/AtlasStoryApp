@@ -81,8 +81,53 @@ module.exports = async (req, res) => {
 			newSubstory.data.images = newImages;
 
 			break;
+		case JSON.stringify(["data", "plot", "clusters"]):
+			newSubstory.data.plot.clusters = req?.body?.newValue.map((cluster) => {
+				let newCluster = cluster;
+				const clusterIndex = newSubstory.data.plot.clusters.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(cluster._id));
+				if (clusterIndex === -1) return newCluster;
+				newCluster = newSubstory.data.plot.clusters[clusterIndex];
+				newCluster.name = cluster.name;
+				return newCluster;
+			});
+			if (newSubstory.data.plot.clusters.findIndex((e) => e.isAll === true) === -1)
+				newSubstory.data.plot.clusters.splice(0, 0, { isAll: true, name: "All Plot Items" });
+
+			break;
 		default:
-			newSubstory = ChangeValueInNestedObject(newSubstory, req?.body?.path, req?.body?.newValue);
+			if (req.body.path.length > 3 && req.body.path[0] === "data" && req.body.path[1] === "plot" && req.body.path[2] === "clusters") {
+				let newPath = JSON.parse(JSON.stringify(req.body.path));
+				const clusterIndex = newSubstory.data.plot.clusters.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(newPath[3]));
+				if (clusterIndex === -1) break;
+				newPath[3] = clusterIndex;
+
+				if (req.body.path.length === 5 && req.body.path[4] === "groups") {
+					newSubstory.data.plot.clusters[clusterIndex].groups = req?.body?.newValue.map((group) => {
+						let newGroup = group;
+						const groupIndex = newSubstory.data.plot.clusters[clusterIndex].groups.findIndex(
+							(e) => JSON.stringify(e._id) === JSON.stringify(group._id)
+						);
+						if (groupIndex === -1) return newGroup;
+						newGroup = newSubstory.data.plot.clusters[clusterIndex].groups[groupIndex];
+						newGroup.name = group.name;
+						return newGroup;
+					});
+					break;
+				}
+
+				if (newPath.length >= 6 && newPath[4] === "groups") {
+					console.log(newPath[5]);
+					const groupIndex = newSubstory.data.plot.clusters[clusterIndex].groups.findIndex(
+						(e) => JSON.stringify(e._id) === JSON.stringify(newPath[5])
+					);
+					if (groupIndex === -1) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
+					newPath[5] = groupIndex;
+				}
+
+				newSubstory = ChangeValueInNestedObject(newSubstory, newPath, req?.body?.newValue);
+			} else {
+				newSubstory = ChangeValueInNestedObject(newSubstory, req?.body?.path, req?.body?.newValue);
+			}
 			break;
 	}
 

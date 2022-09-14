@@ -1,0 +1,65 @@
+.substory-subpage-plot-item {
+	position: relative;
+	margin: 6px 0;
+	padding: 8px 0px;
+}
+
+.substory-subpage-plot-item:first-child {
+	margin-top: 0;
+}
+
+.substory-subpage-plot-item:after {
+	position: absolute;
+	bottom: -2px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: block;
+	content: "";
+	border-radius: 4px;
+	width: calc(100% - 8px);
+	height: 2px;
+	background: var(--grey3);
+}
+
+.substory-subpage-plot-item:last-child:after {
+	display: none;
+}
+
+.substory-subpage-plot-item-content {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 12px;
+	width: calc(100% - 22px - 8px - 12px);
+}
+
+.substory-subpage-plot-item-btns-container {
+	display: inline-block;
+	vertical-align: top;
+	width: calc(22px + 8px);
+}
+
+.substory-subpage-plot-item-label {
+	margin-bottom: 3px;
+}
+
+.substory-subpage-plot-item-label,
+.substory-subpage-plot-item-label input {
+	font-size: calc(14px * var(--fontSizeMultiplier));
+	font-weight: 700;
+}
+
+.substory-subpage-plot-item-label .text-input {
+	height: 17px;
+}
+
+.substory-subpage-plot-item-label .text-input .text-input-label {
+	padding-top: 0px !important;
+}
+
+.substory-subpage-plot-item-label.text-input-container input {
+	padding-top: 2px;
+}
+
+.substory-subpage-plot-item-label.text-input-container-empty input {
+	padding-top: 4px;
+}

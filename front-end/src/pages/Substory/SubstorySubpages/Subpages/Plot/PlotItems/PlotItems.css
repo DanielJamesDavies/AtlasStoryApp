@@ -1,0 +1,14 @@
+.substory-subpage-plot-items-container {
+	display: inline-block;
+	width: calc(100% - 260px - 24px - 300px - 24px);
+	vertical-align: top;
+}
+
+.substory-subpage-plot-items-container-all {
+	width: calc(100% - 260px - 24px);
+}
+
+.substory-subpage-plot-items-name {
+	font-size: 18px;
+	font-weight: 700;
+}

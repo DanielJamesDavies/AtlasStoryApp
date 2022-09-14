@@ -19,13 +19,19 @@ import "./Substory.css";
 // Assets
 
 export const Substory = () => {
-	const { substoryStyle, isOnOverviewSection, substoryContainerRef, substoryOverviewContainerRef, substorySubpagesContainerRef } =
-		SubstoryLogic();
+	const {
+		substoryStyle,
+		isOnOverviewSection,
+		substoryContainerRef,
+		substoryOverviewContainerRef,
+		substorySubpagesContainerRef,
+		substoryPrimaryTitleRef,
+	} = SubstoryLogic();
 
 	return (
 		<div ref={substoryContainerRef} className='substory-container' style={substoryStyle}>
 			<div className='substory'>
-				<SubstoryPrimary />
+				<SubstoryPrimary substoryPrimaryTitleRef={substoryPrimaryTitleRef} />
 				<div
 					className={
 						isOnOverviewSection
@@ -35,7 +41,7 @@ export const Substory = () => {
 				>
 					<SubstoryOverview innerRef={substoryOverviewContainerRef} />
 					<SubstorySectionSwitcher />
-					<SubstorySubpages innerRef={substorySubpagesContainerRef} />
+					<SubstorySubpages innerRef={substorySubpagesContainerRef} substoryPrimaryTitleRef={substoryPrimaryTitleRef} />
 				</div>
 			</div>
 		</div>

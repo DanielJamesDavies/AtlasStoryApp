@@ -1,0 +1,13 @@
+.substory-subpage-plot-item-groups-container {
+	display: inline-block;
+	margin-right: 24px;
+	width: 300px;
+	vertical-align: top;
+}
+
+@media (max-width: 700px) {
+	.substory-subpage-plot-item-groups-container {
+		margin-right: 0;
+		width: 100%;
+	}
+}

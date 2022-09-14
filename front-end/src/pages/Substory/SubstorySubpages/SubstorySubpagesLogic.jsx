@@ -1,8 +1,9 @@
 // Packages
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useLayoutEffect } from "react";
 
 // Components
 import { Gallery } from "./Subpages/Gallery/Gallery";
+import { Plot } from "./Subpages/Plot/Plot";
 
 // Logic
 
@@ -15,8 +16,30 @@ import { SubstoryContext } from "../SubstoryContext";
 
 // Assets
 
-export const SubstorySubpagesLogic = () => {
+export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef }) => {
 	const { openSubpageID } = useContext(SubstoryContext);
+
+	const [subpagesContainerStyles, setSubpagesContainerStyles] = useState({});
+	useLayoutEffect(() => {
+		function getSubpagesContainerStyles(e) {
+			let newSubpagesContainerStyles = {};
+			const primaryTitleHeight = substoryPrimaryTitleRef?.current?.clientHeight;
+			if (primaryTitleHeight === undefined) return setSubpagesContainerStyles(newSubpagesContainerStyles);
+			newSubpagesContainerStyles.paddingTop = "calc((32px + 8px * 2) + " + primaryTitleHeight + "px + 24px)";
+			const windowWidth = window?.innerWidth;
+			if (windowWidth !== undefined && windowWidth <= 700)
+				newSubpagesContainerStyles.paddingTop = "calc(6px + " + primaryTitleHeight + "px + 12px)";
+			setSubpagesContainerStyles(newSubpagesContainerStyles);
+		}
+		setTimeout(() => getSubpagesContainerStyles(), 100);
+		setTimeout(() => getSubpagesContainerStyles(), 200);
+		setTimeout(() => getSubpagesContainerStyles(), 400);
+		window.addEventListener("resize", getSubpagesContainerStyles);
+		return () => {
+			window.removeEventListener("resize", getSubpagesContainerStyles);
+		};
+	}, [setSubpagesContainerStyles, substoryPrimaryTitleRef]);
+
 	const [subpage, setSubpage] = useState(null);
 
 	useEffect(() => {
@@ -25,7 +48,7 @@ export const SubstorySubpagesLogic = () => {
 				case "gallery":
 					return <Gallery />;
 				case "plot":
-					return null;
+					return <Plot />;
 				case "characters":
 					return null;
 				case "locations":
@@ -43,5 +66,5 @@ export const SubstorySubpagesLogic = () => {
 		setSubpage(getSubpage());
 	}, [openSubpageID]);
 
-	return { subpage };
+	return { subpagesContainerStyles, subpage };
 };

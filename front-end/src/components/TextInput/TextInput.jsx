@@ -48,6 +48,7 @@ export const TextInput = (props) => {
 					onFocus={onInputContainerFocus}
 					onBlur={onInputContainerBlur}
 					style={inputStyle}
+					onClick={(e) => e.stopPropagation()}
 				/>
 
 				<div ref={inputWidthRef} className='text-input text-input-width-element'>

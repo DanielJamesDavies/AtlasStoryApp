@@ -7,8 +7,7 @@
 	padding: 0 24px;
 	padding-top: calc(32px + 8px * 2);
 	width: calc(100vw - 76px - 48px);
-	height: 59px;
-	align-items: center;
+	min-height: 59px;
 }
 
 .substory-primary-name-and-story-container {
