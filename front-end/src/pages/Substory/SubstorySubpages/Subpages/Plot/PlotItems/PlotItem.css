@@ -1,6 +1,6 @@
 .substory-subpage-plot-item {
 	position: relative;
-	margin: 6px 0;
+	margin: 0;
 	padding: 8px 0px;
 }
 
@@ -21,7 +21,7 @@
 	background: var(--grey3);
 }
 
-.substory-subpage-plot-item:last-child:after {
+.substory-subpage-plot-item-container:last-child .substory-subpage-plot-item:after {
 	display: none;
 }
 

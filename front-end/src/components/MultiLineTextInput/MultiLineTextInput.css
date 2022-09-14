@@ -195,5 +195,5 @@
 }
 
 .multi-line-text-input-container-seamless .multi-line-text-input-height-element p {
-	min-height: calc(18px * var(--fontSizeMultiplier));
+	min-height: calc(19px * var(--fontSizeMultiplier));
 }
