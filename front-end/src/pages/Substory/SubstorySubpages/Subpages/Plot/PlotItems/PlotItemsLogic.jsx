@@ -75,25 +75,26 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 
 	async function savePlotItems() {
 		if (cluster?.isAll) {
+			let newSubstory = JSON.parse(JSON.stringify(substory));
+			newSubstory.data.plot.items = newSubstory.data.plot.items.map((item) => {
+				let newItem = JSON.parse(JSON.stringify(item));
+				if (newItem?.isUnsaved) delete newItem.isUnsaved;
+				return newItem;
+			});
+
 			const response = await APIRequest("/substory/" + substory._id, "PATCH", {
 				story_id: story._id,
 				path: ["data", "plot", "items"],
-				newValue: substory.data.plot.items,
+				newValue: newSubstory.data.plot.items,
 			});
-			console.log(response);
 			if (!response || response?.errors) return false;
 
+			setSubstory(newSubstory);
 			return true;
 		} else {
 			let newCluster = JSON.parse(JSON.stringify(cluster));
 			const groupIndex = newCluster.groups.findIndex((e) => e._id === groupID);
 			if (groupIndex === -1) return false;
-
-			newCluster.groups[groupIndex].items = newCluster.groups[groupIndex].items.map((item) => {
-				let newItem = JSON.parse(JSON.stringify(item));
-				if (newItem?.isUnsaved) delete newItem.isUnsaved;
-				return item;
-			});
 
 			const response = await APIRequest("/substory/" + substory._id, "PATCH", {
 				story_id: story._id,

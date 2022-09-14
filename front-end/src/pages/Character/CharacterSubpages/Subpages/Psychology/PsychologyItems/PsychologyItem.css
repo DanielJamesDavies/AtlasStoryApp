@@ -32,7 +32,7 @@
 }
 
 .drag-drop-item-enable-drag-drop.character-subpage-psychology-item-container {
-	animation: wiggle-very-small infinite 0.5s linear;
+	animation: wiggle-very-small infinite 0.7s linear;
 }
 
 .drag-drop-item-enable-drag-drop:nth-child(even).character-subpage-psychology-item-container {

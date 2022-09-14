@@ -25,6 +25,14 @@
 	display: none;
 }
 
+.drag-drop-item-enable-drag-drop.substory-subpage-plot-item-container {
+	animation: wiggle-very-small infinite 0.7s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).substory-subpage-plot-item-container {
+	animation-delay: 0.1s;
+}
+
 .substory-subpage-plot-item-content {
 	display: inline-block;
 	vertical-align: top;

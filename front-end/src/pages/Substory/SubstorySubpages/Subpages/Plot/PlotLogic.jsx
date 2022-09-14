@@ -23,14 +23,14 @@ export const PlotLogic = () => {
 				setCluster(substory?.data?.plot?.clusters[0]);
 			}
 
-			if (cluster && cluster.groups.length !== 0) {
+			if (cluster && cluster.groups.length !== 0 && cluster.groups.findIndex((e) => e._id === groupID) === -1) {
 				setGroupID(cluster.groups[0]._id);
 			} else {
-				setGroupID(false);
+				if (!cluster || cluster.groups.length === 0) setGroupID(false);
 			}
 		}
 		getCluster();
-	}, [substory, cluster, setCluster]);
+	}, [substory, cluster, setCluster, groupID]);
 
 	function changeCluster(newCluster) {
 		setCluster(newCluster);
