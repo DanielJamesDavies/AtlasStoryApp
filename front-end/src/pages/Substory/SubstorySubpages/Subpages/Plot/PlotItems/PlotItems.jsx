@@ -101,36 +101,40 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 				onSave={savePlotItems}
 			>
 				<div className='substory-subpage-plot-items-list'>
-					{cluster.groups
-						.find((e) => e._id === groupID)
-						?.items.map((itemID, index) => (
-							<div key={index} className='substory-subpage-plot-item-container'>
-								<PlotItem
-									item={substory?.data?.plot?.items.find((e) => e._id === itemID)}
-									removePlotItem={removePlotItem}
-									addPlotItem={addPlotItem}
-									cluster={cluster}
-									groupID={groupID}
-									isEditing={false}
-								/>
-							</div>
-						))}
+					{!substory?.data?.plot?.items || !cluster?.groups
+						? null
+						: substory?.data?.plot?.items
+								.filter((e) => cluster.groups.find((e) => e._id === groupID)?.items.includes(e._id))
+								.map((item, index) => (
+									<div key={index} className='substory-subpage-plot-item-container'>
+										<PlotItem
+											item={item}
+											removePlotItem={removePlotItem}
+											addPlotItem={addPlotItem}
+											cluster={cluster}
+											groupID={groupID}
+											isEditing={false}
+										/>
+									</div>
+								))}
 				</div>
 				<div className='substory-subpage-plot-items-list'>
-					{cluster.groups
-						.find((e) => e._id === groupID)
-						?.items.map((itemID, index) => (
-							<div key={index} className='substory-subpage-plot-item-container'>
-								<PlotItem
-									item={substory?.data?.plot?.items.find((e) => e._id === itemID)}
-									removePlotItem={removePlotItem}
-									addPlotItem={addPlotItem}
-									cluster={cluster}
-									groupID={groupID}
-									isEditing={true}
-								/>
-							</div>
-						))}
+					{!substory?.data?.plot?.items || !cluster?.groups
+						? null
+						: substory?.data?.plot?.items
+								.filter((e) => cluster.groups.find((e) => e._id === groupID)?.items.includes(e._id))
+								.map((item, index) => (
+									<div key={index} className='substory-subpage-plot-item-container'>
+										<PlotItem
+											item={item}
+											removePlotItem={removePlotItem}
+											addPlotItem={addPlotItem}
+											cluster={cluster}
+											groupID={groupID}
+											isEditing={true}
+										/>
+									</div>
+								))}
 				</div>
 			</EditableContainer>
 		</div>

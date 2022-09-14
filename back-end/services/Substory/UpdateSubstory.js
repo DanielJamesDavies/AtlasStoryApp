@@ -116,7 +116,6 @@ module.exports = async (req, res) => {
 				}
 
 				if (newPath.length >= 6 && newPath[4] === "groups") {
-					console.log(newPath[5]);
 					const groupIndex = newSubstory.data.plot.clusters[clusterIndex].groups.findIndex(
 						(e) => JSON.stringify(e._id) === JSON.stringify(newPath[5])
 					);
