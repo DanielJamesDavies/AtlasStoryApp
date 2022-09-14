@@ -25,10 +25,16 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef }) => {
 			let newSubpagesContainerStyles = {};
 			const primaryTitleHeight = substoryPrimaryTitleRef?.current?.clientHeight;
 			if (primaryTitleHeight === undefined) return setSubpagesContainerStyles(newSubpagesContainerStyles);
+
 			newSubpagesContainerStyles.paddingTop = "calc((32px + 8px * 2) + " + primaryTitleHeight + "px + 24px)";
+			newSubpagesContainerStyles["--substoryPrimaryPaddingTop"] = 32 + 8 * 2 + primaryTitleHeight + 24 + "px";
+
 			const windowWidth = window?.innerWidth;
-			if (windowWidth !== undefined && windowWidth <= 700)
+			if (windowWidth !== undefined && windowWidth <= 700) {
 				newSubpagesContainerStyles.paddingTop = "calc(6px + " + primaryTitleHeight + "px + 12px)";
+				newSubpagesContainerStyles["--substoryPrimaryPaddingTop"] = 6 + primaryTitleHeight + 12 + "px";
+			}
+
 			setSubpagesContainerStyles(newSubpagesContainerStyles);
 		}
 		setTimeout(() => getSubpagesContainerStyles(), 100);

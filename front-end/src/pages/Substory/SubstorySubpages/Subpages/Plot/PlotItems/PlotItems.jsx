@@ -29,6 +29,7 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 		revertPlotItems,
 		savePlotItems,
 		removePlotItem,
+		plotItemsContainerRef,
 	} = PlotItemsLogic({
 		cluster,
 		changeCluster,
@@ -39,7 +40,7 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 
 	if (cluster?.isAll)
 		return (
-			<div className='substory-subpage-plot-items-container substory-subpage-plot-items-container-all'>
+			<div className='substory-subpage-plot-items-container substory-subpage-plot-items-container-all' ref={plotItemsContainerRef}>
 				<div className='substory-subpage-plot-items-name'>{cluster?.name}</div>
 				<EditableContainer
 					className='substory-subpage-plot-items-list'
@@ -90,7 +91,7 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 		);
 
 	return (
-		<div className='substory-subpage-plot-items-container'>
+		<div className='substory-subpage-plot-items-container' ref={plotItemsContainerRef}>
 			<div className='substory-subpage-plot-items-name'>{cluster.groups.find((e) => e._id === groupID)?.name}</div>
 			<div className='substory-subpage-plot-items-description'>{cluster.groups.find((e) => e._id === groupID)?.description}</div>
 			<EditableContainer

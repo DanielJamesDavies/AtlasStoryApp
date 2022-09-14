@@ -1,8 +1,27 @@
 .substory-subpage-plot-item-groups-container {
 	display: inline-block;
 	margin-right: 24px;
-	width: 300px;
+
+	width: 312px;
+
 	vertical-align: top;
+}
+
+.substory-subpage-plot-item-groups {
+	padding-right: 12px;
+	max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 24px - 6px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+.substory-subpage-plot-item-groups::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.substory-subpage-plot-item-groups::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--substoryColour);
 }
 
 @media (max-width: 700px) {

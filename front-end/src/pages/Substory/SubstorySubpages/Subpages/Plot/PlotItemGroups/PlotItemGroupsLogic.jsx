@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 
 // Components
 
@@ -95,6 +95,12 @@ export const PlotItemGroupsLogic = ({ cluster, changeCluster, setGroupID }) => {
 		changeCluster(newCluster);
 	}
 
+	const plotItemGroupsRef = useRef();
+	function onPlotItemGroupsContainerScroll(e) {
+		if (plotItemGroupsRef?.current?.scrollTop === 0) return;
+		e.stopPropagation();
+	}
+
 	return {
 		isAuthorizedToEdit,
 		addItemGroup,
@@ -106,5 +112,7 @@ export const PlotItemGroupsLogic = ({ cluster, changeCluster, setGroupID }) => {
 		onClickItemGroup,
 		removeItemGroup,
 		changeItemGroupName,
+		plotItemGroupsRef,
+		onPlotItemGroupsContainerScroll,
 	};
 };

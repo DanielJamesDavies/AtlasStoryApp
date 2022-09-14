@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useLayoutEffect } from "react";
 
 // Components
 
@@ -135,6 +135,17 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 		}
 	}
 
+	const plotItemsContainerRef = useRef();
+	useLayoutEffect(() => {
+		function onPlotItemsContainerScroll(e) {
+			if (plotItemsContainerRef?.current?.scrollTop === 0) return;
+			e.stopPropagation();
+		}
+		const plotItemsContainerRefCurrent = plotItemsContainerRef?.current;
+		plotItemsContainerRefCurrent?.addEventListener("wheel", onPlotItemsContainerScroll);
+		return () => plotItemsContainerRefCurrent?.removeEventListener("wheel", onPlotItemsContainerScroll);
+	}, [plotItemsContainerRef, cluster]);
+
 	return {
 		isAuthorizedToEdit,
 		substory,
@@ -145,5 +156,6 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 		revertPlotItems,
 		savePlotItems,
 		removePlotItem,
+		plotItemsContainerRef,
 	};
 };

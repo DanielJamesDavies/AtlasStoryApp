@@ -31,6 +31,8 @@ export const PlotClusters = ({ currCluster, switchCluster }) => {
 		onClickCluster,
 		removeCluster,
 		changeClusterName,
+		onPlotClustersRef,
+		onPlotClustersContainerScroll,
 	} = PlotClustersLogic({ switchCluster });
 
 	return (
@@ -41,8 +43,9 @@ export const PlotClusters = ({ currCluster, switchCluster }) => {
 			onReorder={toggleIsReorderingClusters}
 			onRevert={revertClusters}
 			onSave={saveClusters}
+			onScroll={onPlotClustersContainerScroll}
 		>
-			<div className='substory-subpage-plot-clusters'>
+			<div ref={onPlotClustersRef} className='substory-subpage-plot-clusters'>
 				{!substory?.data?.plot?.clusters ? null : (
 					<div className='substory-subpage-plot-clusters-list'>
 						{substory?.data?.plot?.clusters.map((cluster, index) => (
@@ -60,7 +63,7 @@ export const PlotClusters = ({ currCluster, switchCluster }) => {
 					</div>
 				)}
 			</div>
-			<div className='substory-subpage-plot-clusters'>
+			<div ref={onPlotClustersRef} className='substory-subpage-plot-clusters'>
 				{!substory?.data?.plot?.clusters ? null : (
 					<DragDropContainer
 						className='substory-subpage-plot-clusters-list'

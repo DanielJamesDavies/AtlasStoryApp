@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 
 // Components
 
@@ -94,6 +94,12 @@ export const PlotClustersLogic = ({ switchCluster }) => {
 		setSubstory(newSubstory);
 	}
 
+	const onPlotClustersRef = useRef();
+	function onPlotClustersContainerScroll(e) {
+		if (onPlotClustersRef?.current?.scrollTop === 0) return;
+		e.stopPropagation();
+	}
+
 	return {
 		isAuthorizedToEdit,
 		substory,
@@ -106,5 +112,7 @@ export const PlotClustersLogic = ({ switchCluster }) => {
 		onClickCluster,
 		removeCluster,
 		changeClusterName,
+		onPlotClustersRef,
+		onPlotClustersContainerScroll,
 	};
 };

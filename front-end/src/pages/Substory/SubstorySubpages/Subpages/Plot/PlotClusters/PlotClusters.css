@@ -1,8 +1,27 @@
 .substory-subpage-plot-clusters-container {
 	display: inline-block;
 	margin-right: 24px;
-	width: 260px;
+
+	width: 272px;
+
 	vertical-align: top;
+}
+
+.substory-subpage-plot-clusters {
+	padding-right: 12px;
+	max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 24px - 6px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+.substory-subpage-plot-clusters::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.substory-subpage-plot-clusters::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--substoryColour);
 }
 
 @media (max-width: 700px) {

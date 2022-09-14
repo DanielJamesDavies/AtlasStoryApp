@@ -1,11 +1,27 @@
 .substory-subpage-plot-items-container {
 	display: inline-block;
-	width: calc(100% - 260px - 24px - 300px - 24px);
+	padding-right: 12px;
+
+	width: calc(100% - 260px - 24px - 300px - 24px - 12px - 12px - 12px);
+	max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 24px - 6px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+
 	vertical-align: top;
 }
 
+.substory-subpage-plot-items-container::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.substory-subpage-plot-items-container::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--substoryColour);
+}
+
 .substory-subpage-plot-items-container-all {
-	width: calc(100% - 260px - 24px);
+	width: calc(100% - 260px - 24px - 12px - 12px);
 }
 
 .substory-subpage-plot-items-name {

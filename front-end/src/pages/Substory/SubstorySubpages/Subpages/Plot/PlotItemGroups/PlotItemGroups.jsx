@@ -29,6 +29,8 @@ export const PlotItemGroups = ({ cluster, changeCluster, currGroupID, setGroupID
 		onClickItemGroup,
 		removeItemGroup,
 		changeItemGroupName,
+		plotItemGroupsRef,
+		onPlotItemGroupsContainerScroll,
 	} = PlotItemGroupsLogic({ cluster, changeCluster, setGroupID });
 
 	if (cluster?.isAll) return null;
@@ -40,8 +42,9 @@ export const PlotItemGroups = ({ cluster, changeCluster, currGroupID, setGroupID
 			onReorder={toggleIsReorderingItemGroups}
 			onRevert={revertItemGroups}
 			onSave={saveItemGroups}
+			onScroll={onPlotItemGroupsContainerScroll}
 		>
-			<div className='substory-subpage-plot-item-groups'>
+			<div ref={plotItemGroupsRef} className='substory-subpage-plot-item-groups'>
 				{!cluster?.groups ? null : (
 					<div className='substory-subpage-plot-item-groups-list'>
 						{cluster.groups.map((group, index) => (
@@ -60,7 +63,7 @@ export const PlotItemGroups = ({ cluster, changeCluster, currGroupID, setGroupID
 					</div>
 				)}
 			</div>
-			<div className='substory-subpage-plot-item-groups'>
+			<div ref={plotItemGroupsRef} className='substory-subpage-plot-item-groups'>
 				{!cluster?.groups ? null : (
 					<DragDropContainer
 						className='substory-subpage-plot-item-groups-list'
