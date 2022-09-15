@@ -2,7 +2,7 @@
 	display: inline-block;
 	margin-right: 24px;
 
-	width: 312px;
+	width: calc(356px - 24px);
 
 	vertical-align: top;
 }
