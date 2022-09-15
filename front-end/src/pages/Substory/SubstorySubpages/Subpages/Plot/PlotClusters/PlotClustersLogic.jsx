@@ -15,7 +15,7 @@ import { APIContext } from "../../../../../../context/APIContext";
 
 // Assets
 
-export const PlotClustersLogic = ({ switchCluster }) => {
+export const PlotClustersLogic = ({ switchCluster, setIsDisplayingClusters }) => {
 	const { isAuthorizedToEdit, story, substory, setSubstory } = useContext(SubstoryContext);
 	const { APIRequest } = useContext(APIContext);
 
@@ -45,6 +45,7 @@ export const PlotClustersLogic = ({ switchCluster }) => {
 
 	function onClickCluster(cluster) {
 		switchCluster(cluster._id);
+		setIsDisplayingClusters(false);
 	}
 
 	async function revertClusters() {
@@ -94,9 +95,9 @@ export const PlotClustersLogic = ({ switchCluster }) => {
 		setSubstory(newSubstory);
 	}
 
-	const onPlotClustersRef = useRef();
+	const plotClustersRef = useRef();
 	function onPlotClustersContainerScroll(e) {
-		if (onPlotClustersRef?.current?.scrollTop === 0) return;
+		if (plotClustersRef?.current?.scrollTop === 0) return;
 		e.stopPropagation();
 	}
 
@@ -112,7 +113,7 @@ export const PlotClustersLogic = ({ switchCluster }) => {
 		onClickCluster,
 		removeCluster,
 		changeClusterName,
-		onPlotClustersRef,
+		plotClustersRef,
 		onPlotClustersContainerScroll,
 	};
 };

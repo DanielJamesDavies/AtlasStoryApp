@@ -57,5 +57,30 @@ export const PlotLogic = () => {
 		setCluster(newCluster);
 	}
 
-	return { cluster, changeCluster, switchCluster, groupID, setGroupID, changeGroup };
+	const [isDisplayingClusters, setIsDisplayingClusters] = useState(false);
+	function toggleIsDisplayingClusters() {
+		setIsDisplayingClusters((oldIsDisplayingClusters) => !oldIsDisplayingClusters);
+		setIsDisplayingItemGroups(false);
+	}
+
+	const [isDisplayingItemGroups, setIsDisplayingItemGroups] = useState(false);
+	function toggleIsDisplayingItemGroups() {
+		setIsDisplayingItemGroups((oldIsDisplayingItemGroups) => !oldIsDisplayingItemGroups);
+		setIsDisplayingClusters(false);
+	}
+
+	return {
+		cluster,
+		changeCluster,
+		switchCluster,
+		groupID,
+		setGroupID,
+		changeGroup,
+		isDisplayingClusters,
+		setIsDisplayingClusters,
+		toggleIsDisplayingClusters,
+		isDisplayingItemGroups,
+		setIsDisplayingItemGroups,
+		toggleIsDisplayingItemGroups,
+	};
 };

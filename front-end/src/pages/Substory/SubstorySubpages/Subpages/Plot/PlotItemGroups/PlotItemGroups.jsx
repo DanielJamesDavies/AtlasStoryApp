@@ -17,7 +17,7 @@ import { PlotItemGroupsLogic } from "./PlotItemGroupsLogic";
 import "./PlotItemGroups.css";
 
 // Assets
-export const PlotItemGroups = ({ cluster, changeCluster, currGroupID, setGroupID }) => {
+export const PlotItemGroups = ({ cluster, changeCluster, currGroupID, setGroupID, isDisplayingItemGroups, setIsDisplayingItemGroups }) => {
 	const {
 		isAuthorizedToEdit,
 		addItemGroup,
@@ -31,12 +31,16 @@ export const PlotItemGroups = ({ cluster, changeCluster, currGroupID, setGroupID
 		changeItemGroupName,
 		plotItemGroupsRef,
 		onPlotItemGroupsContainerScroll,
-	} = PlotItemGroupsLogic({ cluster, changeCluster, setGroupID });
+	} = PlotItemGroupsLogic({ cluster, changeCluster, setGroupID, setIsDisplayingItemGroups });
 
 	if (cluster?.isAll) return null;
 	return (
 		<EditableContainer
-			className='substory-subpage-plot-item-groups-container'
+			className={
+				isDisplayingItemGroups
+					? "substory-subpage-plot-item-groups-container substory-subpage-plot-item-groups-container-displaying"
+					: "substory-subpage-plot-item-groups-container"
+			}
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onAdd={addItemGroup}
 			onReorder={toggleIsReorderingItemGroups}

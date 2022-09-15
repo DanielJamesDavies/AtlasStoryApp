@@ -15,7 +15,7 @@ import { APIContext } from "../../../../../../context/APIContext";
 
 // Assets
 
-export const PlotItemGroupsLogic = ({ cluster, changeCluster, setGroupID }) => {
+export const PlotItemGroupsLogic = ({ cluster, changeCluster, setGroupID, setIsDisplayingItemGroups }) => {
 	const { isAuthorizedToEdit, story, substory } = useContext(SubstoryContext);
 	const { APIRequest } = useContext(APIContext);
 
@@ -35,6 +35,7 @@ export const PlotItemGroupsLogic = ({ cluster, changeCluster, setGroupID }) => {
 
 	function onClickItemGroup(group) {
 		setGroupID(group._id);
+		setIsDisplayingItemGroups(false);
 	}
 
 	async function revertItemGroups() {

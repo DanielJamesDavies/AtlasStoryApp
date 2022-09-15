@@ -26,7 +26,7 @@ export const PlotClusterBtn = ({ cluster, currCluster, onClickCluster, removeClu
 			}
 			onClick={() => onClickCluster(cluster)}
 		>
-			{!isEditing ? (
+			{!isEditing || cluster?.isAll ? (
 				<div className='substory-subpage-plot-cluster-btn-name'>{cluster?.name}</div>
 			) : (
 				<TextInput
@@ -36,7 +36,7 @@ export const PlotClusterBtn = ({ cluster, currCluster, onClickCluster, removeClu
 					onChange={(e) => changeClusterName(e, cluster)}
 				/>
 			)}
-			{!isEditing || cluster._id === "all" ? null : (
+			{!isEditing || cluster?.isAll ? null : (
 				<IconBtn
 					className='substory-subpage-plot-cluster-btn-remove-btn'
 					icon={<FaTimes />}

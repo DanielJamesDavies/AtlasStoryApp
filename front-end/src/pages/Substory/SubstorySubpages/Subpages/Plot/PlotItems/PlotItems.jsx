@@ -30,6 +30,8 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 		savePlotItems,
 		removePlotItem,
 		plotItemsContainerRef,
+		plotItemsListRef,
+		onPlotItemsListContainerScroll,
 	} = PlotItemsLogic({
 		cluster,
 		changeCluster,
@@ -43,14 +45,15 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 			<div className='substory-subpage-plot-items-container substory-subpage-plot-items-container-all' ref={plotItemsContainerRef}>
 				<div className='substory-subpage-plot-items-name'>{cluster?.name}</div>
 				<EditableContainer
-					className='substory-subpage-plot-items-list'
+					className='substory-subpage-plot-items-list-container'
 					isAuthorizedToEdit={isAuthorizedToEdit}
 					onAdd={addPlotItem}
 					onReorder={toggleIsReorderingPlotItems}
 					onRevert={revertPlotItems}
 					onSave={savePlotItems}
+					onScroll={onPlotItemsListContainerScroll}
 				>
-					<div className='substory-subpage-plot-clusters-list'>
+					<div ref={plotItemsListRef} className='substory-subpage-plot-items-list'>
 						{!substory?.data?.plot?.items
 							? null
 							: substory.data.plot.items.map((item, index) => (
@@ -67,9 +70,10 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 							  ))}
 					</div>
 					<DragDropContainer
-						className='substory-subpage-plot-clusters-list'
+						className='substory-subpage-plot-items-list'
 						enableDragDrop={isReorderingPlotItems}
 						onDropItem={reorderPlotItems}
+						innerRef={plotItemsListRef}
 					>
 						{!substory?.data?.plot?.items
 							? null
@@ -95,12 +99,13 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 			<div className='substory-subpage-plot-items-name'>{cluster.groups.find((e) => e._id === groupID)?.name}</div>
 			<div className='substory-subpage-plot-items-description'>{cluster.groups.find((e) => e._id === groupID)?.description}</div>
 			<EditableContainer
-				className='substory-subpage-plot-items-list'
+				className='substory-subpage-plot-items-list-container'
 				isAuthorizedToEdit={isAuthorizedToEdit}
 				onRevert={revertPlotItems}
 				onSave={savePlotItems}
+				onScroll={onPlotItemsListContainerScroll}
 			>
-				<div className='substory-subpage-plot-items-list'>
+				<div ref={plotItemsListRef} className='substory-subpage-plot-items-list'>
 					{!substory?.data?.plot?.items || !cluster?.groups
 						? null
 						: substory?.data?.plot?.items
@@ -118,7 +123,7 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 									</div>
 								))}
 				</div>
-				<div className='substory-subpage-plot-items-list'>
+				<div ref={plotItemsListRef} className='substory-subpage-plot-items-list'>
 					{!substory?.data?.plot?.items || !cluster?.groups
 						? null
 						: substory?.data?.plot?.items

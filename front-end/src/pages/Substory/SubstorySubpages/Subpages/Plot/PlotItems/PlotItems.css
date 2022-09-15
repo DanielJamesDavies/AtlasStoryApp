@@ -28,3 +28,31 @@
 	font-size: 18px;
 	font-weight: 700;
 }
+
+.substory-subpage-plot-items-list {
+	max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 24px - 6px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+.substory-subpage-plot-items-list::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.substory-subpage-plot-items-list::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--substoryColour);
+}
+
+@media (max-width: 1200px) {
+	.substory-subpage-plot-items-container {
+		padding-right: 0;
+		width: 100%;
+		max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 24px - 6px - 59px - 64px);
+	}
+
+	.substory-subpage-plot-items-list {
+		max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 24px - 6px - 144px);
+	}
+}

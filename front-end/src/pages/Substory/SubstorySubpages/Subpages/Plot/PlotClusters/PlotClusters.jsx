@@ -18,7 +18,7 @@ import "./PlotClusters.css";
 
 // Assets
 
-export const PlotClusters = ({ currCluster, switchCluster }) => {
+export const PlotClusters = ({ currCluster, switchCluster, isDisplayingClusters, setIsDisplayingClusters }) => {
 	const {
 		isAuthorizedToEdit,
 		substory,
@@ -31,13 +31,17 @@ export const PlotClusters = ({ currCluster, switchCluster }) => {
 		onClickCluster,
 		removeCluster,
 		changeClusterName,
-		onPlotClustersRef,
+		plotClustersRef,
 		onPlotClustersContainerScroll,
-	} = PlotClustersLogic({ switchCluster });
+	} = PlotClustersLogic({ switchCluster, setIsDisplayingClusters });
 
 	return (
 		<EditableContainer
-			className='substory-subpage-plot-clusters-container'
+			className={
+				isDisplayingClusters
+					? "substory-subpage-plot-clusters-container substory-subpage-plot-clusters-container-displaying"
+					: "substory-subpage-plot-clusters-container"
+			}
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onAdd={addCluster}
 			onReorder={toggleIsReorderingClusters}
@@ -45,7 +49,7 @@ export const PlotClusters = ({ currCluster, switchCluster }) => {
 			onSave={saveClusters}
 			onScroll={onPlotClustersContainerScroll}
 		>
-			<div ref={onPlotClustersRef} className='substory-subpage-plot-clusters'>
+			<div ref={plotClustersRef} className='substory-subpage-plot-clusters'>
 				{!substory?.data?.plot?.clusters ? null : (
 					<div className='substory-subpage-plot-clusters-list'>
 						{substory?.data?.plot?.clusters.map((cluster, index) => (
@@ -63,7 +67,7 @@ export const PlotClusters = ({ currCluster, switchCluster }) => {
 					</div>
 				)}
 			</div>
-			<div ref={onPlotClustersRef} className='substory-subpage-plot-clusters'>
+			<div ref={plotClustersRef} className='substory-subpage-plot-clusters'>
 				{!substory?.data?.plot?.clusters ? null : (
 					<DragDropContainer
 						className='substory-subpage-plot-clusters-list'

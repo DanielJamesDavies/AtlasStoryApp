@@ -147,6 +147,22 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 		return () => plotItemsContainerRefCurrent?.removeEventListener("wheel", onPlotItemsContainerScroll);
 	}, [plotItemsContainerRef, cluster]);
 
+	const plotItemsListRef = useRef();
+	function onPlotItemsListContainerScroll(e) {
+		if (
+			Math.sign(e.deltaY) === 1 &&
+			plotItemsContainerRef?.current?.scrollTop !== undefined &&
+			plotItemsContainerRef?.current?.scrollTop !==
+				plotItemsContainerRef?.current?.scrollHeight - plotItemsContainerRef?.current?.clientHeight
+		) {
+			plotItemsContainerRef.current.scrollTop = plotItemsContainerRef?.current?.scrollHeight - plotItemsContainerRef?.current?.clientHeight;
+			return;
+		}
+
+		if (plotItemsListRef?.current?.scrollTop === 0) return;
+		e.stopPropagation();
+	}
+
 	return {
 		isAuthorizedToEdit,
 		substory,
@@ -158,5 +174,7 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 		savePlotItems,
 		removePlotItem,
 		plotItemsContainerRef,
+		plotItemsListRef,
+		onPlotItemsListContainerScroll,
 	};
 };

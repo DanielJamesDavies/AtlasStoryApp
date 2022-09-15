@@ -2,11 +2,11 @@
 	position: relative;
 	flex-shrink: 0;
 	display: inline-block;
-	padding-top: calc(6px + 48px + 59px + 24px);
+	padding-top: calc(var(--substoryPrimaryPaddingTop));
 	padding-left: 0;
 	padding-right: 16px;
 	width: calc(100vw - 70px - 24px - 16px - 12px - 12px);
-	height: calc(100% - (6px + 48px + 59px + 24px));
+	height: calc(100% - (var(--substoryPrimaryPaddingTop)));
 	overflow: visible;
 	vertical-align: top;
 }
@@ -37,10 +37,10 @@
 
 @media (max-width: 700px) {
 	.substory-subpages-container {
-		padding-top: calc(6px + 61px + 12px + 12px);
+		padding-top: calc(6px + var(--substoryPrimaryPaddingTop) + 12px + 12px);
 		padding-right: 6px;
 		width: calc(100vw - 34px - 6px);
-		height: calc(100% - (6px + 61px + 12px + 12px));
+		height: calc(100% - (var(--substoryPrimaryPaddingTop)));
 	}
 
 	.substory-subpages {
