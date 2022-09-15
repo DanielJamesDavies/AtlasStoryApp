@@ -33,6 +33,10 @@
 	animation-delay: 0.1s;
 }
 
+.substory-subpage-plot-item-container:last-child .substory-subpage-plot-item {
+	min-height: 150px;
+}
+
 .substory-subpage-plot-item-content {
 	display: inline-block;
 	vertical-align: top;

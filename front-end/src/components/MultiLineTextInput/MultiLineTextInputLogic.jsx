@@ -59,9 +59,13 @@ export const MultiLineTextInputLogic = (props) => {
 	// Resize Input
 	useLayoutEffect(() => {
 		function resizeInput() {
-			if (!inputRef?.current || !inputHeightRef?.current) return;
+			if (!inputContainerRef?.current || !inputRef?.current || !inputHeightRef?.current) return;
+
+			inputContainerRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
 			inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
 			inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
+
+			inputContainerRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
 			inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
 			inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
 		}
@@ -72,7 +76,7 @@ export const MultiLineTextInputLogic = (props) => {
 			clearTimeout(reloadTimer);
 			window.removeEventListener("resize", resizeInput);
 		};
-	}, [props, focused, inputRef, inputHeightRef]);
+	}, [props, focused, inputContainerRef, inputRef, inputHeightRef]);
 
 	function onKeyDownTextArea(e) {
 		if (e.key === "Tab") {
