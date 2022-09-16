@@ -1,5 +1,8 @@
 .text-container {
 	color: var(--textColour);
+	white-space: pre-wrap;
+	word-break: break-word;
+	overflow-wrap: anywhere;
 }
 
 .text-container-light-text {

@@ -85,6 +85,7 @@ export const MultiLineTextInputLogic = (props) => {
 			inputRef.current.value =
 				inputRef.current.value.substring(0, start) + "\t" + inputRef.current.value.substring(inputRef.current.selectionEnd);
 			inputRef.current.selectionStart = inputRef.current.selectionEnd = start + 1;
+			props.onChange(e);
 		}
 	}
 
