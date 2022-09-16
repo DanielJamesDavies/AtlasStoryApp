@@ -21,7 +21,9 @@ module.exports = async (req, res) => {
 		newPath[3] = clusterIndex;
 
 		if (newPath.length >= 6 && newPath[4] === "groups") {
-			const groupIndex = substory.data.plot.clusters.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(newPath[5]));
+			const groupIndex = substory.data.plot.clusters[clusterIndex].groups.findIndex(
+				(e) => JSON.stringify(e._id) === JSON.stringify(newPath[5])
+			);
 			if (groupIndex === -1) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
 			newPath[5] = groupIndex;
 		}

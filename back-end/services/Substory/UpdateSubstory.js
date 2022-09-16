@@ -121,6 +121,17 @@ module.exports = async (req, res) => {
 					);
 					if (groupIndex === -1) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
 					newPath[5] = groupIndex;
+
+					if (newPath.length === 7 && newPath[6] === "items" && req?.body?.newValue?.itemIDs && req?.body?.newValue?.items) {
+						newSubstory.data.plot.clusters[clusterIndex].groups[groupIndex].items = req?.body?.newValue?.itemIDs;
+						req?.body?.newValue?.itemIDs.forEach((itemID) => {
+							const oldItemIndex = newSubstory.data.plot.items.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(itemID));
+							const newItemIndex = req?.body?.newValue?.items.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(itemID));
+							if (oldItemIndex !== -1 && newItemIndex !== -1)
+								newSubstory.data.plot.items[oldItemIndex] = req?.body?.newValue?.items[newItemIndex];
+						});
+						break;
+					}
 				}
 
 				newSubstory = ChangeValueInNestedObject(newSubstory, newPath, req?.body?.newValue);

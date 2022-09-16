@@ -57,17 +57,32 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 
 			return true;
 		} else {
-			const response = await APIRequest("/substory/get-value/" + substory._id, "POST", {
+			const group_items_response = await APIRequest("/substory/get-value/" + substory._id, "POST", {
 				story_id: story._id,
 				path: ["data", "plot", "clusters", cluster._id, "groups", groupID, "items"],
 			});
-			if (!response || response?.errors || !response?.data?.value) return false;
+			if (!group_items_response || group_items_response?.errors || !group_items_response?.data?.value) return false;
 
 			let newCluster = JSON.parse(JSON.stringify(cluster));
 			const groupIndex = newCluster.groups.findIndex((e) => e._id === groupID);
 			if (groupIndex === -1) return false;
-			newCluster.groups[groupIndex].items = response.data.value;
+			newCluster.groups[groupIndex].items = group_items_response.data.value;
 			changeCluster(newCluster);
+
+			const items_response = await APIRequest("/substory/get-value/" + substory._id, "POST", {
+				story_id: story._id,
+				path: ["data", "plot", "items"],
+			});
+			if (!items_response || items_response?.errors || !items_response?.data?.value) return false;
+
+			let newSubstory = JSON.parse(JSON.stringify(substory));
+			newSubstory.data.plot.items = newSubstory.data.plot.items.map((item) => {
+				return group_items_response.data.value.findIndex((e) => e === item._id) === -1 ||
+					items_response.data.value.findIndex((e) => e._id === item._id) === -1
+					? item
+					: items_response.data.value.find((e) => e._id === item._id);
+			});
+			setSubstory(newSubstory);
 
 			return true;
 		}
@@ -92,18 +107,18 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 			setSubstory(newSubstory);
 			return true;
 		} else {
+			let newSubstory = JSON.parse(JSON.stringify(substory));
 			let newCluster = JSON.parse(JSON.stringify(cluster));
 			const groupIndex = newCluster.groups.findIndex((e) => e._id === groupID);
 			if (groupIndex === -1) return false;
 
 			const response = await APIRequest("/substory/" + substory._id, "PATCH", {
 				story_id: story._id,
-				path: ["data", "plot", "clusters", cluster._id, "groups", groupID, "items"],
-				newValue: newCluster.groups[groupIndex].items,
+				path: ["data", "plot", "clusters", newCluster._id, "groups", groupID, "items"],
+				newValue: { itemIDs: newCluster.groups[groupIndex].items, items: newSubstory.data.plot.items },
 			});
 			if (!response || response?.errors) return false;
 
-			changeCluster(newCluster);
 			return true;
 		}
 	}
