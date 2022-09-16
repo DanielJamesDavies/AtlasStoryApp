@@ -40,7 +40,11 @@
 	}
 
 	.substory-subpage-plot-item-groups-container-displaying {
-		height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 6px - 51px - 76px);
+		height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 6px - 29px);
 		opacity: 1;
+	}
+
+	.substory-subpage-plot-item-groups {
+		max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 6px - 51px - 76px);
 	}
 }

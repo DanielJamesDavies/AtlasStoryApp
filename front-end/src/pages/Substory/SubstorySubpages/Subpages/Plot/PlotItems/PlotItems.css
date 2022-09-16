@@ -30,6 +30,8 @@
 }
 
 .substory-subpage-plot-items-list {
+	padding-right: 12px;
+	width: calc(100% - 12px);
 	max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 24px - 6px);
 	overflow-y: overlay;
 	overflow-x: hidden;
@@ -49,10 +51,10 @@
 	.substory-subpage-plot-items-container {
 		padding-right: 0;
 		width: 100%;
-		max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 24px - 6px - 59px - 64px);
+		max-height: 100%;
 	}
 
 	.substory-subpage-plot-items-list {
-		max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 24px - 6px - 144px);
+		max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 24px - 6px - 34px);
 	}
 }
