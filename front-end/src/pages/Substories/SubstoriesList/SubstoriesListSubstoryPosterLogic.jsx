@@ -40,11 +40,11 @@ export const SubstoriesListSubstoryPosterLogic = ({ substoryID }) => {
 	}
 
 	// Substory Colour Styles
-	const [posterStyles, setPosterStyles] = useState({});
+	const [posterContainerStyles, setPosterContainerStyles] = useState({});
 
 	useEffect(() => {
-		setPosterStyles(substory?.data?.colour ? { borderColor: substory.data.colour } : {});
-	}, [substory, setPosterStyles]);
+		setPosterContainerStyles({ "--substoryColour": substory?.data?.colour ? substory.data.colour : "#0044ff" });
+	}, [substory, setPosterContainerStyles]);
 
-	return { story, substory, posterBackground, navigateToSubstory, onSubstoryMouseDown, posterStyles };
+	return { story, substory, posterBackground, navigateToSubstory, onSubstoryMouseDown, posterContainerStyles };
 };

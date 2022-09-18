@@ -16,9 +16,11 @@ import "./SubstoriesListSubstoryPoster.css";
 import Shine from "../../../content/shine.svg";
 
 export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
-	const { story, substory, posterBackground, navigateToSubstory, onSubstoryMouseDown, posterStyles } = SubstoriesListSubstoryPosterLogic({
-		substoryID,
-	});
+	const { story, substory, posterBackground, navigateToSubstory, onSubstoryMouseDown, posterContainerStyles } = SubstoriesListSubstoryPosterLogic(
+		{
+			substoryID,
+		}
+	);
 
 	return (
 		<div
@@ -26,7 +28,7 @@ export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
 			onClick={navigateToSubstory}
 			onAuxClick={navigateToSubstory}
 			onMouseDown={onSubstoryMouseDown}
-			style={posterStyles}
+			style={posterContainerStyles}
 		>
 			<div className='substories-list-substories-poster'>
 				<div className='substories-list-substories-poster-content'>

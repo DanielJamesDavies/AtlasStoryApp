@@ -20,6 +20,7 @@
 	display: inline-block;
 	margin: 0;
 	border: 5px solid var(--accentColour);
+	border-color: var(--substoryColour);
 	border-radius: 6px;
 
 	width: 340px;
@@ -32,7 +33,7 @@
 }
 
 .substories-list-substories-poster-container:hover .substories-list-substories-poster {
-	box-shadow: 0 0 20px var(--blue);
+	box-shadow: 0 0 20px var(--substoryColour);
 }
 
 .drag-drop-item-enable-drag-drop .substories-list-substories-poster {
@@ -108,8 +109,8 @@
 
 .substories-list-substories-poster-container:hover .substories-list-substories-poster-number {
 	color: #fff;
-	text-shadow: 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue),
-		0 0 12px var(--blue);
+	text-shadow: 0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour),
+		0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour);
 }
 
 .substories-list-substories-poster-number-background {
@@ -141,7 +142,7 @@
 }
 
 .substories-list-substories-poster-container:hover .substories-list-substories-poster-title-container {
-	text-shadow: 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue);
+	text-shadow: 0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour);
 }
 
 .substories-list-substories-poster-background-container {
