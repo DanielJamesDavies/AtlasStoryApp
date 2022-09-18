@@ -24,6 +24,7 @@ module.exports = async (req, res) => {
 	try {
 		await substory.save();
 	} catch (error) {
+		console.log(error);
 		return res.status(200).send({ errors: [{ message: "Substory Could Not Be Created" }] });
 	}
 

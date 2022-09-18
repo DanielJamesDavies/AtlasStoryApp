@@ -1,0 +1,22 @@
+.substory-subpage-settings-section-1 {
+	display: inline-block;
+	margin-right: 12px;
+	width: calc(45% - 12px);
+	vertical-align: top;
+}
+
+.substory-subpage-settings-section-2 {
+	display: inline-block;
+	margin-left: 12px;
+	width: calc(55% - 12px);
+	vertical-align: top;
+}
+
+@media (max-width: 1100px) {
+	.substory-subpage-settings-section-1,
+	.substory-subpage-settings-section-2 {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+}

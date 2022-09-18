@@ -55,7 +55,7 @@ const UserSchema = mongoose.Schema({
 			default: "1",
 		},
 	},
-	verified: { type: Boolean, required: true },
+	verified: { type: Boolean, require: true },
 	date_created: { type: Date, default: Date.now },
 });
 

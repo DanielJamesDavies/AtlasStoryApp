@@ -35,6 +35,8 @@ module.exports = async (req, res) => {
 					.send({ errors: [{ attribute: "uid", message: "This UID is being used by another character. Please enter a different UID" }] });
 
 			newCharacter.uid = newUID;
+
+			break;
 		case JSON.stringify(["group_id"]):
 			if (!req?.body?.newValue) return res.status(200).send({ errors: [{ attribute: "group_id", message: "Invalid Arguments Given" }] });
 

@@ -56,7 +56,7 @@ const StorySchema = mongoose.Schema({
 			characterTypes: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			substories: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 		},
-		required: true,
+		require: true,
 	},
 	date_created: { type: Date, default: Date.now },
 });

@@ -26,18 +26,15 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	// const subpages = [
-	// 	{ id: "gallery", name: "Gallery" },
-	// 	{ id: "plot", name: "Plot" },
 	// 	{ id: "characters", name: "Characters" },
 	// 	{ id: "locations", name: "Locations" },
 	// 	{ id: "miscellaneous", name: "Miscellaneous" },
-	// 	{ id: "development", name: "Development" },
-	// 	{ id: "settings", name: "Settings" },
 	// ];
 	const subpages = [
 		{ id: "gallery", name: "Gallery" },
 		{ id: "plot", name: "Plot" },
 		{ id: "development", name: "Development" },
+		{ id: "settings", name: "Settings" },
 	];
 	const [openSubpageID, setOpenSubpageID] = useState(subpages[0].id);
 

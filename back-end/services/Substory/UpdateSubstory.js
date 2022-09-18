@@ -35,6 +35,8 @@ module.exports = async (req, res) => {
 					.send({ errors: [{ attribute: "uid", message: "This UID is being used by another substory. Please enter a different UID" }] });
 
 			newSubstory.uid = newUID;
+
+			break;
 		case JSON.stringify(["data", "images"]):
 			const oldImages = newSubstory.data.images;
 			const newImages = req.body.newValue.substory_images;
