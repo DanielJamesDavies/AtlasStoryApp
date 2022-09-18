@@ -1,0 +1,24 @@
+.character-subpage-physical-attribute-items-container {
+	display: inline-block;
+	padding-right: 8px;
+	width: calc(50% - 8px);
+}
+
+.character-subpage-physical-attribute-items-title {
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.character-subpage-physical-attribute-items {
+	padding-right: 8px;
+	width: calc(100% - 8px);
+	max-height: calc(100vh - 48px - 59px - 24px - 36px - 24px - 16px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+@media (max-width: 750px) {
+	.character-subpage-physical-attribute-items {
+		max-height: calc(var(--vh) - 70px - (6px + 61px + 12px + 12px) - 36px - 24px);
+	}
+}

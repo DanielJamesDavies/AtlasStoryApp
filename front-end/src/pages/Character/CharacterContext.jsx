@@ -30,21 +30,14 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const [characterVersion, setCharacterVersion] = useState(false);
 
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
-	// const subpages = [
-	// 	{ id: "gallery", name: "Gallery" },
-	// 	{ id: "psychology", name: "Psychology" },
 	// 	{ id: "efforts", name: "Efforts & History" },
-	// 	{ id: "abilities", name: "Abilities" },
-	// 	{ id: "physical", name: "Physical" },
 	// 	{ id: "relationships", name: "Relationships" },
 	// 	{ id: "miscellaneous", name: "Miscellaneous" },
-	// 	{ id: "development", name: "Development" },
-	// 	{ id: "settings", name: "Settings" },
-	// ];
 	const subpages = [
 		{ id: "gallery", name: "Gallery" },
 		{ id: "psychology", name: "Psychology" },
 		{ id: "abilities", name: "Abilities" },
+		{ id: "physical", name: "Physical" },
 		{ id: "development", name: "Development" },
 		{ id: "settings", name: "Settings" },
 	];
