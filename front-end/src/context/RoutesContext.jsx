@@ -10,7 +10,7 @@ const RoutesProvider = ({ children }) => {
 	const domain = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://www.atlas-story.app";
 
 	useEffect(() => {
-		setLocation(routerLocation.pathname);
+		setLocation(routerLocation.pathname + routerLocation.search);
 	}, [routerLocation, setLocation]);
 
 	function changeLocation(newLocation, openInNewWindow) {

@@ -4,6 +4,7 @@ import { useState, useContext, useEffect, useLayoutEffect } from "react";
 // Components
 import { Gallery } from "./Subpages/Gallery/Gallery";
 import { Plot } from "./Subpages/Plot/Plot";
+import { Development } from "./Subpages/Development/Development";
 
 // Logic
 
@@ -64,7 +65,7 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef }) => {
 				case "miscellaneous":
 					return null;
 				case "development":
-					return null;
+					return <Development />;
 				case "settings":
 					return null;
 				default:

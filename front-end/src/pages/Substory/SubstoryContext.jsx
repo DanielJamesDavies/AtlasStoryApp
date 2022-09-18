@@ -37,6 +37,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const subpages = [
 		{ id: "gallery", name: "Gallery" },
 		{ id: "plot", name: "Plot" },
+		{ id: "development", name: "Development" },
 	];
 	const [openSubpageID, setOpenSubpageID] = useState(subpages[0].id);
 

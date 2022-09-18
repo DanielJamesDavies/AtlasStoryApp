@@ -35,9 +35,11 @@ export const RoutesLogic = () => {
 
 	useEffect(() => {
 		function updateRoutesState() {
-			const locationSplit = location.split("/");
+			const locationSplit = location.split("?")[0].split("/");
 			locationSplit.splice(0, 1);
 			if (locationSplit.length === 0) return null;
+
+			// const parametersSplit = location.split("?").length < 2 ? [] : location.split("?")[1].split("&");
 
 			setRenderComponent(null);
 			setShowUnauthorizedNavigationBar(false);
