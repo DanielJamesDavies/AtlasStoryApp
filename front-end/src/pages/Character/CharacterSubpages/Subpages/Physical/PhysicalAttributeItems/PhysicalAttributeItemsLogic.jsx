@@ -51,6 +51,7 @@ export const PhysicalAttributeItemsLogic = () => {
 			"Facial Hair",
 			"Hair Colour",
 			"Eye Colour",
+			"Voice Descriptives",
 			"Height",
 			"Build",
 			"Ethnicity",

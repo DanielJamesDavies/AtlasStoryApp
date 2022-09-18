@@ -30,7 +30,11 @@ export const UserPrimaryProfilePicture = () => {
 			onSave={saveProfilePicture}
 		>
 			<div className='user-primary-profile-picture'>
-				{!profilePicture ? <div className='user-primary-profile-picture-placeholder' /> : <img src={profilePicture} alt='' />}
+				{!profilePicture ? (
+					<div className='user-primary-profile-picture-placeholder' />
+				) : (
+					<img src={profilePicture} alt='' draggable={false} />
+				)}
 			</div>
 			<ImageInput className='user-primary-profile-picture' isCircular={true} value={profilePicture} onChange={changeProfilePicture} />
 			<ErrorMessage errors={errors} />

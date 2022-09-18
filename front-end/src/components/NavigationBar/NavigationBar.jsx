@@ -29,7 +29,11 @@ export const NavigationBar = () => {
 		<div className='navigation-bar'>
 			<div className='navigation-bar-primary-button-container'>
 				<button className='navigation-bar-btn navigation-bar-btn-user' onClick={navigateToProfile} onAuxClick={navigateToProfile}>
-					{!userProfilePicture ? <div className='navigation-bar-btn-user-placeholder' /> : <img src={userProfilePicture} alt='' />}
+					{!userProfilePicture ? (
+						<div className='navigation-bar-btn-user-placeholder' />
+					) : (
+						<img src={userProfilePicture} alt='' draggable={false} />
+					)}
 				</button>
 				<button className='navigation-bar-btn navigation-bar-btn-search' onClick={navigateToSearch} onAuxClick={navigateToSearch}>
 					<FaSearch />
