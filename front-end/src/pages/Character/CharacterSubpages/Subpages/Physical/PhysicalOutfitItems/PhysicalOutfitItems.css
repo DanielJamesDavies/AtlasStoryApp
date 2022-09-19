@@ -26,6 +26,6 @@
 	}
 
 	.character-subpage-physical-outfit-items {
-		max-height: calc(var(--vh) - 70px - (6px + 61px + 12px + 12px) - 36px - 24px - 24px);
+		max-height: calc(var(--vh) - 70px - (6px + 61px + 12px + 12px) - 36px - 24px - 24px - 38px);
 	}
 }

@@ -26,15 +26,19 @@ export const CharacterSubpagesBtns = () => {
 				ref={subpagesBtnsRef}
 				className={isAuthorizedToEdit ? "character-subpages-btns character-subpages-btns-is-authorized" : "character-subpages-btns"}
 			>
-				{subpages.map((subpage, index) => (
-					<button
-						key={index}
-						className={subpage.id === openSubpageID ? "character-subpages-btn character-subpages-btn-active" : "character-subpages-btn"}
-						onClick={() => setOpenSubpageID(subpage.id)}
-					>
-						{subpage.name}
-					</button>
-				))}
+				{subpages
+					.filter((e) => (isAuthorizedToEdit ? true : e.id !== "settings"))
+					.map((subpage, index) => (
+						<button
+							key={index}
+							className={
+								subpage.id === openSubpageID ? "character-subpages-btn character-subpages-btn-active" : "character-subpages-btn"
+							}
+							onClick={() => setOpenSubpageID(subpage.id)}
+						>
+							{subpage.name}
+						</button>
+					))}
 			</div>
 			<IconBtn icon={<FaChevronRight />} seamless={true} onClick={() => scrollSubpageBtns(1)} />
 		</div>

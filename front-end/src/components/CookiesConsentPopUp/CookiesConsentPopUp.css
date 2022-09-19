@@ -1,4 +1,6 @@
 .cookies-consent-pop-up {
+	position: relative;
+	z-index: 10000;
 	animation: cookies-consent-pop-up-show 0.5s 1;
 	animation-delay: 0.5s;
 	animation-fill-mode: forwards;
