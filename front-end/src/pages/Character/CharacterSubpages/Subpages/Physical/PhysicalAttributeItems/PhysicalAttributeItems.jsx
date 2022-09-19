@@ -24,7 +24,7 @@ export const PhysicalAttributeItems = () => {
 		isAuthorizedToEdit,
 		characterVersion,
 		changePhysicalAttributeItemTitle,
-		changePhysicalAttributeItemValue,
+		changePhysicalAttributeItemText,
 		addPhysicalAttributeItem,
 		removePhysicalAttributeItem,
 		defaultPhysicalAttributeItems,
@@ -74,7 +74,7 @@ export const PhysicalAttributeItems = () => {
 								physicalAttributeItem={physicalAttributeItem}
 								isEditing={true}
 								changePhysicalAttributeItemTitle={changePhysicalAttributeItemTitle}
-								changePhysicalAttributeItemValue={changePhysicalAttributeItemValue}
+								changePhysicalAttributeItemText={changePhysicalAttributeItemText}
 								removePhysicalAttributeItem={removePhysicalAttributeItem}
 							/>
 						</DragDropItem>

@@ -25,7 +25,7 @@ export const DevelopmentItems = () => {
 		isAuthorizedToEdit,
 		substory,
 		changeDevelopmentItemTitle,
-		changeDevelopmentItemValue,
+		changeDevelopmentItemText,
 		addDevelopmentItem,
 		removeDevelopmentItem,
 		isReorderingDevelopmentItems,
@@ -78,7 +78,7 @@ export const DevelopmentItems = () => {
 								developmentItem={developmentItem}
 								isEditing={true}
 								changeDevelopmentItemTitle={changeDevelopmentItemTitle}
-								changeDevelopmentItemValue={changeDevelopmentItemValue}
+								changeDevelopmentItemText={changeDevelopmentItemText}
 								removeDevelopmentItem={removeDevelopmentItem}
 								isReorderingDevelopmentItems={isReorderingDevelopmentItems}
 								substoryImagesCurrDevItemIndex={substoryImagesCurrDevItemIndex}

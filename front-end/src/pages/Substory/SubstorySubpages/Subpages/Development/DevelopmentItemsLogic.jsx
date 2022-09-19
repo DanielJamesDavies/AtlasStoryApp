@@ -27,10 +27,10 @@ export const DevelopmentItemsLogic = () => {
 		});
 	}
 
-	function changeDevelopmentItemValue(e, index) {
+	function changeDevelopmentItemText(e, index) {
 		setSubstory((oldSubstory) => {
 			let newSubstory = JSON.parse(JSON.stringify(oldSubstory));
-			newSubstory.data.development.items[index].value = e.target.value.split("\n");
+			newSubstory.data.development.items[index].text = e.target.value.split("\n");
 			return newSubstory;
 		});
 	}
@@ -38,7 +38,7 @@ export const DevelopmentItemsLogic = () => {
 	function addDevelopmentItem() {
 		setSubstory((oldSubstory) => {
 			let newSubstory = JSON.parse(JSON.stringify(oldSubstory));
-			newSubstory.data.development.items.push({ title: "", value: [""], images: [] });
+			newSubstory.data.development.items.push({ title: "", text: [""], images: [] });
 			return newSubstory;
 		});
 	}
@@ -128,7 +128,7 @@ export const DevelopmentItemsLogic = () => {
 		isAuthorizedToEdit,
 		substory,
 		changeDevelopmentItemTitle,
-		changeDevelopmentItemValue,
+		changeDevelopmentItemText,
 		addDevelopmentItem,
 		removeDevelopmentItem,
 		isReorderingDevelopmentItems,

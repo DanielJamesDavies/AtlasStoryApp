@@ -39,14 +39,14 @@
 	min-height: 16px;
 }
 
-.substory-overview-summary-item-value,
-.substory-overview-summary-item-value input {
+.substory-overview-summary-item-text,
+.substory-overview-summary-item-text input {
 	font-size: calc(14px * var(--fontSizeMultiplier));
 	font-weight: 700;
 	min-height: 17px;
 }
 
-.substory-overview-summary-item-value.text-input-container {
+.substory-overview-summary-item-text.text-input-container {
 	margin-top: -6px;
 }
 
@@ -60,11 +60,11 @@
 	font-weight: 400;
 }
 
-.substory-overview-summary-item-value.text-input-container-empty .text-input {
+.substory-overview-summary-item-text.text-input-container-empty .text-input {
 	height: 17px;
 }
 
-.substory-overview-summary-item-value .text-input-label {
+.substory-overview-summary-item-text .text-input-label {
 	margin-top: -4px;
 	font-size: 14px;
 	font-weight: 700;

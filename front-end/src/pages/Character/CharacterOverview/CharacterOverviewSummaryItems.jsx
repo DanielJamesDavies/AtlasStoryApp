@@ -1,4 +1,5 @@
 // Packages
+import { FaTrash } from "react-icons/fa";
 
 // Components
 import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
@@ -16,7 +17,6 @@ import { CharacterOverviewSummaryItemsLogic } from "./CharacterOverviewSummaryIt
 
 // Styles
 import "./CharacterOverviewSummaryItems.css";
-import { FaTrash } from "react-icons/fa";
 
 // Assets
 
@@ -25,7 +25,7 @@ export const CharacterOverviewSummaryItems = () => {
 		isAuthorizedToEdit,
 		character,
 		changeSummaryItemLabel,
-		changeSummaryItemValue,
+		changeSummaryItemText,
 		removeSummaryItem,
 		addSummaryItem,
 		isReorderingSummaryItems,
@@ -48,13 +48,13 @@ export const CharacterOverviewSummaryItems = () => {
 				{!character?.data?.summaryItems ? null : character.data.summaryItems.length === 0 && isAuthorizedToEdit ? (
 					<div className='character-overview-summary-item character-overview-summary-item-placeholder'>
 						<div className='character-overview-summary-item-label'>Label</div>
-						<div className='character-overview-summary-item-value'>Value</div>
+						<div className='character-overview-summary-item-text'>Text</div>
 					</div>
 				) : (
 					character.data.summaryItems.map((summaryItem, index) => (
 						<div key={index} className='character-overview-summary-item'>
 							<div className='character-overview-summary-item-label'>{summaryItem.label}</div>
-							<div className='character-overview-summary-item-value'>{summaryItem.value}</div>
+							<div className='character-overview-summary-item-text'>{summaryItem.text}</div>
 						</div>
 					))
 				)}
@@ -80,9 +80,9 @@ export const CharacterOverviewSummaryItems = () => {
 									<TextInput
 										className='character-overview-summary-item-value'
 										seamless={true}
-										label='Value'
-										value={summaryItem.value}
-										onChange={(e) => changeSummaryItemValue(e, index)}
+										label='Text'
+										value={summaryItem.text}
+										onChange={(e) => changeSummaryItemText(e, index)}
 										isLightText={true}
 									/>
 								</div>

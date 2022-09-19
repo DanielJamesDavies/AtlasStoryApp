@@ -42,7 +42,7 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 								<CharactersGroupCharacterCardInfoItem
 									key={index}
 									label={summaryItem.label}
-									value={summaryItem.value}
+									text={summaryItem.text}
 									infoItemStyles={infoItemStyles}
 								/>
 						  ))}
@@ -68,11 +68,11 @@ const CharactersGroupCharacterCardCharacterType = ({ characterType }) => {
 	);
 };
 
-const CharactersGroupCharacterCardInfoItem = ({ label, value, infoItemStyles }) => {
+const CharactersGroupCharacterCardInfoItem = ({ label, text, infoItemStyles }) => {
 	return (
 		<div className='characters-group-character-card-summary-item' style={infoItemStyles}>
 			<div className='characters-group-character-card-summary-item-label'>{label}</div>
-			<div className='characters-group-character-card-summary-item-value'>{value}</div>
+			<div className='characters-group-character-card-summary-item-text'>{text}</div>
 		</div>
 	);
 };

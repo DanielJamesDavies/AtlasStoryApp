@@ -25,15 +25,15 @@ export const PhysicalAttributeItemsLogic = () => {
 		changeCharacterVersion(newCharacterVersion);
 	}
 
-	function changePhysicalAttributeItemValue(e, index) {
+	function changePhysicalAttributeItemText(e, index) {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.physical.attributes[index].value = e.target.value.split("\n");
+		newCharacterVersion.physical.attributes[index].text = e.target.value.split("\n");
 		changeCharacterVersion(newCharacterVersion);
 	}
 
 	function addPhysicalAttributeItem() {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.physical.attributes.push({ title: "", value: [""] });
+		newCharacterVersion.physical.attributes.push({ title: "", text: [""] });
 		changeCharacterVersion(newCharacterVersion);
 	}
 
@@ -125,7 +125,7 @@ export const PhysicalAttributeItemsLogic = () => {
 		isAuthorizedToEdit,
 		characterVersion,
 		changePhysicalAttributeItemTitle,
-		changePhysicalAttributeItemValue,
+		changePhysicalAttributeItemText,
 		addPhysicalAttributeItem,
 		removePhysicalAttributeItem,
 		defaultPhysicalAttributeItems,

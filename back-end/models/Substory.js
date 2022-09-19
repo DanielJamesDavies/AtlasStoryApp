@@ -23,9 +23,9 @@ const SubstorySchema = mongoose.Schema({
 			overviewBackground: mongoose.Schema.Types.ObjectId,
 			images: { type: [mongoose.Schema.Types.ObjectId], require: true, default: [] },
 			summaryItems: {
-				type: [{ label: { type: String, require: true, default: "" }, value: { type: String, require: true, default: "" } }],
+				type: [{ label: { type: String, require: true, default: "" }, text: { type: String, require: true, default: "" } }],
 				require: true,
-				default: [{ label: "Genres", value: "" }],
+				default: [{ label: "Genres", text: "" }],
 			},
 			description: { type: [String], require: true, default: [""] },
 			gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], require: true, default: [] },

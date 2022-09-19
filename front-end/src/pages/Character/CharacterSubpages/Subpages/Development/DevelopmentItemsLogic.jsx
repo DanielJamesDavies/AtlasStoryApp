@@ -27,10 +27,10 @@ export const DevelopmentItemsLogic = () => {
 		});
 	}
 
-	function changeDevelopmentItemValue(e, index) {
+	function changeDevelopmentItemText(e, index) {
 		setCharacter((oldCharacter) => {
 			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-			newCharacter.data.development.items[index].value = e.target.value.split("\n");
+			newCharacter.data.development.items[index].text = e.target.value.split("\n");
 			return newCharacter;
 		});
 	}
@@ -38,7 +38,7 @@ export const DevelopmentItemsLogic = () => {
 	function addDevelopmentItem() {
 		setCharacter((oldCharacter) => {
 			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-			newCharacter.data.development.items.push({ title: "", value: [""], images: [] });
+			newCharacter.data.development.items.push({ title: "", text: [""], images: [] });
 			return newCharacter;
 		});
 	}
@@ -128,7 +128,7 @@ export const DevelopmentItemsLogic = () => {
 		isAuthorizedToEdit,
 		character,
 		changeDevelopmentItemTitle,
-		changeDevelopmentItemValue,
+		changeDevelopmentItemText,
 		addDevelopmentItem,
 		removeDevelopmentItem,
 		isReorderingDevelopmentItems,

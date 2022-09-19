@@ -30,7 +30,7 @@ const CharacterSchema = mongoose.Schema({
 				default: "",
 			},
 			summaryItems: {
-				type: [{ label: { type: String, require: true, default: "" }, value: { type: String, require: true, default: "" } }],
+				type: [{ label: { type: String, require: true, default: "" }, text: { type: String, require: true, default: "" } }],
 				require: true,
 				default: [],
 			},
@@ -52,7 +52,12 @@ const CharacterSchema = mongoose.Schema({
 						psychology: {
 							type: {
 								items: {
-									type: [{ title: { type: String, require: true }, value: { type: [String], require: true, default: [""] } }],
+									type: [
+										{
+											title: { type: String, require: true, default: "" },
+											text: { type: [String], require: true, default: [""] },
+										},
+									],
 									require: true,
 									default: [],
 								},
@@ -137,11 +142,21 @@ const CharacterSchema = mongoose.Schema({
 						physical: {
 							type: {
 								attributes: {
-									type: [{ title: { type: String, require: true }, value: { type: [String], require: true, default: [""] } }],
+									type: [
+										{
+											title: { type: String, require: true, default: "" },
+											text: { type: [String], require: true, default: [""] },
+										},
+									],
 									require: true,
 								},
 								outfits: {
-									type: [{ title: { type: String, require: true }, value: { type: [String], require: true, default: [""] } }],
+									type: [
+										{
+											title: { type: String, require: true, default: "" },
+											text: { type: [String], require: true, default: [""] },
+										},
+									],
 									require: true,
 								},
 							},
@@ -159,7 +174,7 @@ const CharacterSchema = mongoose.Schema({
 						type: [
 							{
 								title: { type: String, require: true, default: "" },
-								value: { type: [String], require: true, default: [""] },
+								text: { type: [String], require: true, default: [""] },
 								images: {
 									type: [
 										{

@@ -42,7 +42,7 @@ export const StoryPrimaryCharacterCard = ({ character }) => {
 								<StoryPrimaryCharacterCardInfoItem
 									key={index}
 									label={summaryItem.label}
-									value={summaryItem.value}
+									text={summaryItem.text}
 									infoItemStyles={infoItemStyles}
 								/>
 						  ))}
@@ -68,11 +68,11 @@ const StoryPrimaryCharacterCardCharacterType = ({ characterType }) => {
 	);
 };
 
-const StoryPrimaryCharacterCardInfoItem = ({ label, value, infoItemStyles }) => {
+const StoryPrimaryCharacterCardInfoItem = ({ label, text, infoItemStyles }) => {
 	return (
 		<div className='story-primary-character-card-summary-item' style={infoItemStyles}>
 			<div className='story-primary-character-card-summary-item-label'>{label}</div>
-			<div className='story-primary-character-card-summary-item-value'>{value}</div>
+			<div className='story-primary-character-card-summary-item-text'>{text}</div>
 		</div>
 	);
 };

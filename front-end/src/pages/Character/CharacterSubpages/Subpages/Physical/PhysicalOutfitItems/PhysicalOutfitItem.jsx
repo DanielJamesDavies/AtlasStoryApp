@@ -23,14 +23,14 @@ export const PhysicalOutfitItem = ({
 	index,
 	isEditing,
 	changePhysicalOutfitItemTitle,
-	changePhysicalOutfitItemValue,
+	changePhysicalOutfitItemText,
 	removePhysicalOutfitItem,
 }) => {
 	if (!isEditing)
 		return (
 			<div className='character-subpage-physical-outfit-item'>
 				<div className='character-subpage-physical-outfit-item-title'>{physicalOutfitItem?.title}</div>
-				<Text className='character-subpage-physical-outfit-item-value' value={physicalOutfitItem?.value} />
+				<Text className='character-subpage-physical-outfit-item-text' value={physicalOutfitItem?.text} />
 			</div>
 		);
 
@@ -45,11 +45,11 @@ export const PhysicalOutfitItem = ({
 					onChange={(e) => changePhysicalOutfitItemTitle(e, index)}
 				/>
 				<MultiLineTextInput
-					className='character-subpage-physical-outfit-item-value'
+					className='character-subpage-physical-outfit-item-text'
 					seamless={true}
-					label='Physical Outfit Item Value'
-					value={physicalOutfitItem?.value.join("\n")}
-					onChange={(e) => changePhysicalOutfitItemValue(e, index)}
+					label='Physical Outfit Item Text'
+					value={physicalOutfitItem?.text.join("\n")}
+					onChange={(e) => changePhysicalOutfitItemText(e, index)}
 				/>
 			</div>
 			<IconBtn icon={<FaTimes />} iconName='times' seamless={true} size='s' onClick={() => removePhysicalOutfitItem(index)} />

@@ -27,10 +27,10 @@ export const SubstoryOverviewSummaryItemsLogic = () => {
 		});
 	}
 
-	function changeSummaryItemValue(e, index) {
+	function changeSummaryItemText(e, index) {
 		setSubstory((oldSubstory) => {
 			let newSubstory = JSON.parse(JSON.stringify(oldSubstory));
-			newSubstory.data.summaryItems[index].value = e.target.value;
+			newSubstory.data.summaryItems[index].text = e.target.value;
 			return newSubstory;
 		});
 	}
@@ -46,7 +46,7 @@ export const SubstoryOverviewSummaryItemsLogic = () => {
 	function addSummaryItem() {
 		setSubstory((oldSubstory) => {
 			let newSubstory = JSON.parse(JSON.stringify(oldSubstory));
-			newSubstory.data.summaryItems.push({ label: "", value: "" });
+			newSubstory.data.summaryItems.push({ label: "", text: "" });
 			return newSubstory;
 		});
 	}
@@ -96,7 +96,7 @@ export const SubstoryOverviewSummaryItemsLogic = () => {
 		isAuthorizedToEdit,
 		substory,
 		changeSummaryItemLabel,
-		changeSummaryItemValue,
+		changeSummaryItemText,
 		removeSummaryItem,
 		addSummaryItem,
 		isReorderingSummaryItems,

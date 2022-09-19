@@ -107,7 +107,7 @@
 	font-weight: 400;
 }
 
-.story-primary-character-card-summary-item-value {
+.story-primary-character-card-summary-item-text {
 	font-size: 12px;
 	font-weight: 700;
 }
@@ -165,7 +165,7 @@
 		font-size: 12px;
 	}
 
-	.story-primary-character-card-summary-item-value {
+	.story-primary-character-card-summary-item-text {
 		font-size: 12px;
 	}
 }

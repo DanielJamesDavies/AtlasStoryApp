@@ -26,7 +26,7 @@ export const DevelopmentItem = ({
 	index,
 	isEditing,
 	changeDevelopmentItemTitle,
-	changeDevelopmentItemValue,
+	changeDevelopmentItemText,
 	removeDevelopmentItem,
 	isReorderingDevelopmentItems,
 	characterImagesCurrDevItemIndex,
@@ -54,7 +54,7 @@ export const DevelopmentItem = ({
 					<div className='character-subpage-development-item-title'>{developmentItem?.title}</div>
 				</div>
 				<div className={devItemTextContainerClassName}>
-					<Text className='character-subpage-development-item-text-value' value={developmentItem?.value} />
+					<Text className='character-subpage-development-item-text-text' value={developmentItem?.text} />
 				</div>
 				{!developmentItem?.images || developmentItem?.images?.length === 0 ? null : (
 					<div className={devItemImagesContainerClassName}>
@@ -93,11 +93,11 @@ export const DevelopmentItem = ({
 				</div>
 				<div className={devItemTextContainerClassName}>
 					<MultiLineTextInput
-						className='character-subpage-development-item-value'
+						className='character-subpage-development-item-text'
 						seamless={true}
-						label='Development Item Value'
-						value={developmentItem?.value.join("\n")}
-						onChange={(e) => changeDevelopmentItemValue(e, index)}
+						label='Development Item Text'
+						value={developmentItem?.text.join("\n")}
+						onChange={(e) => changeDevelopmentItemText(e, index)}
 					/>
 				</div>
 				<div className={devItemImagesContainerClassName}>

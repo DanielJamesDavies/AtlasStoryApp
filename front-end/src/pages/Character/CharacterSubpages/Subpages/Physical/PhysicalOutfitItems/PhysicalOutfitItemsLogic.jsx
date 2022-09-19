@@ -25,15 +25,15 @@ export const PhysicalOutfitItemsLogic = () => {
 		changeCharacterVersion(newCharacterVersion);
 	}
 
-	function changePhysicalOutfitItemValue(e, index) {
+	function changePhysicalOutfitItemText(e, index) {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.physical.outfits[index].value = e.target.value.split("\n");
+		newCharacterVersion.physical.outfits[index].text = e.target.value.split("\n");
 		changeCharacterVersion(newCharacterVersion);
 	}
 
 	function addPhysicalOutfitItem() {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.physical.outfits.push({ title: "", value: [""] });
+		newCharacterVersion.physical.outfits.push({ title: "", text: [""] });
 		changeCharacterVersion(newCharacterVersion);
 	}
 
@@ -98,7 +98,7 @@ export const PhysicalOutfitItemsLogic = () => {
 		isAuthorizedToEdit,
 		characterVersion,
 		changePhysicalOutfitItemTitle,
-		changePhysicalOutfitItemValue,
+		changePhysicalOutfitItemText,
 		addPhysicalOutfitItem,
 		removePhysicalOutfitItem,
 		isReorderingPhysicalOutfitItems,

@@ -27,10 +27,10 @@ export const CharacterOverviewSummaryItemsLogic = () => {
 		});
 	}
 
-	function changeSummaryItemValue(e, index) {
+	function changeSummaryItemText(e, index) {
 		setCharacter((oldCharacter) => {
 			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-			newCharacter.data.summaryItems[index].value = e.target.value;
+			newCharacter.data.summaryItems[index].text = e.target.value;
 			return newCharacter;
 		});
 	}
@@ -46,7 +46,7 @@ export const CharacterOverviewSummaryItemsLogic = () => {
 	function addSummaryItem() {
 		setCharacter((oldCharacter) => {
 			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-			newCharacter.data.summaryItems.push({ label: "", value: "" });
+			newCharacter.data.summaryItems.push({ label: "", text: "" });
 			return newCharacter;
 		});
 	}
@@ -96,7 +96,7 @@ export const CharacterOverviewSummaryItemsLogic = () => {
 		isAuthorizedToEdit,
 		character,
 		changeSummaryItemLabel,
-		changeSummaryItemValue,
+		changeSummaryItemText,
 		removeSummaryItem,
 		addSummaryItem,
 		isReorderingSummaryItems,

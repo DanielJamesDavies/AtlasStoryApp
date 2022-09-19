@@ -25,15 +25,15 @@ export const PsychologyItemsLogic = () => {
 		changeCharacterVersion(newCharacterVersion);
 	}
 
-	function changePsychologyItemValue(e, index) {
+	function changePsychologyItemText(e, index) {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.psychology.items[index].value = e.target.value.split("\n");
+		newCharacterVersion.psychology.items[index].text = e.target.value.split("\n");
 		changeCharacterVersion(newCharacterVersion);
 	}
 
 	function addPsychologyItem() {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.psychology.items.push({ title: "", value: [""] });
+		newCharacterVersion.psychology.items.push({ title: "", text: [""] });
 		changeCharacterVersion(newCharacterVersion);
 	}
 
@@ -129,7 +129,7 @@ export const PsychologyItemsLogic = () => {
 		isAuthorizedToEdit,
 		characterVersion,
 		changePsychologyItemTitle,
-		changePsychologyItemValue,
+		changePsychologyItemText,
 		addPsychologyItem,
 		removePsychologyItem,
 		defaultPsychologyItems,

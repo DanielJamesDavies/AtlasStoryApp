@@ -1,4 +1,5 @@
 // Packages
+import { FaTrash } from "react-icons/fa";
 
 // Components
 import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
@@ -16,7 +17,6 @@ import { SubstoryOverviewSummaryItemsLogic } from "./SubstoryOverviewSummaryItem
 
 // Styles
 import "./SubstoryOverviewSummaryItems.css";
-import { FaTrash } from "react-icons/fa";
 
 // Assets
 
@@ -25,7 +25,7 @@ export const SubstoryOverviewSummaryItems = () => {
 		isAuthorizedToEdit,
 		substory,
 		changeSummaryItemLabel,
-		changeSummaryItemValue,
+		changeSummaryItemText,
 		removeSummaryItem,
 		addSummaryItem,
 		isReorderingSummaryItems,
@@ -48,13 +48,13 @@ export const SubstoryOverviewSummaryItems = () => {
 				{!substory?.data?.summaryItems ? null : substory.data.summaryItems.length === 0 && isAuthorizedToEdit ? (
 					<div className='substory-overview-summary-item substory-overview-summary-item-placeholder'>
 						<div className='substory-overview-summary-item-label'>Label</div>
-						<div className='substory-overview-summary-item-value'>Value</div>
+						<div className='substory-overview-summary-item-text'>Text</div>
 					</div>
 				) : (
 					substory.data.summaryItems.map((summaryItem, index) => (
 						<div key={index} className='substory-overview-summary-item'>
 							<div className='substory-overview-summary-item-label'>{summaryItem.label}</div>
-							<div className='substory-overview-summary-item-value'>{summaryItem.value}</div>
+							<div className='substory-overview-summary-item-text'>{summaryItem.text}</div>
 						</div>
 					))
 				)}
@@ -78,11 +78,11 @@ export const SubstoryOverviewSummaryItems = () => {
 										isLightText={true}
 									/>
 									<TextInput
-										className='substory-overview-summary-item-value'
+										className='substory-overview-summary-item-text'
 										seamless={true}
-										label='Value'
-										value={summaryItem.value}
-										onChange={(e) => changeSummaryItemValue(e, index)}
+										label='Text'
+										value={summaryItem.text}
+										onChange={(e) => changeSummaryItemText(e, index)}
 										isLightText={true}
 									/>
 								</div>

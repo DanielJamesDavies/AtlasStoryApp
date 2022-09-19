@@ -24,7 +24,7 @@ export const PsychologyItems = () => {
 		isAuthorizedToEdit,
 		characterVersion,
 		changePsychologyItemTitle,
-		changePsychologyItemValue,
+		changePsychologyItemText,
 		addPsychologyItem,
 		removePsychologyItem,
 		defaultPsychologyItems,
@@ -70,7 +70,7 @@ export const PsychologyItems = () => {
 								psychologyItem={psychologyItem}
 								isEditing={true}
 								changePsychologyItemTitle={changePsychologyItemTitle}
-								changePsychologyItemValue={changePsychologyItemValue}
+								changePsychologyItemText={changePsychologyItemText}
 								removePsychologyItem={removePsychologyItem}
 							/>
 						</DragDropItem>

@@ -18,19 +18,12 @@ import "./PsychologyItem.css";
 
 // Assets
 
-export const PsychologyItem = ({
-	psychologyItem,
-	index,
-	isEditing,
-	changePsychologyItemTitle,
-	changePsychologyItemValue,
-	removePsychologyItem,
-}) => {
+export const PsychologyItem = ({ psychologyItem, index, isEditing, changePsychologyItemTitle, changePsychologyItemText, removePsychologyItem }) => {
 	if (!isEditing)
 		return (
 			<div className='character-subpage-psychology-item'>
 				<div className='character-subpage-psychology-item-title'>{psychologyItem?.title}</div>
-				<Text className='character-subpage-psychology-item-value' value={psychologyItem?.value} />
+				<Text className='character-subpage-psychology-item-text' value={psychologyItem?.text} />
 			</div>
 		);
 
@@ -45,11 +38,11 @@ export const PsychologyItem = ({
 					onChange={(e) => changePsychologyItemTitle(e, index)}
 				/>
 				<MultiLineTextInput
-					className='character-subpage-psychology-item-value'
+					className='character-subpage-psychology-item-text'
 					seamless={true}
 					label='Psychology Item Value'
-					value={psychologyItem?.value.join("\n")}
-					onChange={(e) => changePsychologyItemValue(e, index)}
+					value={psychologyItem?.text.join("\n")}
+					onChange={(e) => changePsychologyItemText(e, index)}
 				/>
 			</div>
 			<IconBtn icon={<FaTimes />} iconName='times' seamless={true} size='s' onClick={() => removePsychologyItem(index)} />

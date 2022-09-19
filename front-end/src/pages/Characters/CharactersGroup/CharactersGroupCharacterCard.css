@@ -107,7 +107,7 @@
 	font-weight: 400;
 }
 
-.characters-group-character-card-summary-item-value {
+.characters-group-character-card-summary-item-text {
 	font-size: 13px;
 	font-weight: 700;
 }
@@ -164,7 +164,7 @@
 		font-size: 12px;
 	}
 
-	.characters-group-character-card-summary-item-value {
+	.characters-group-character-card-summary-item-text {
 		font-size: 12px;
 	}
 }
