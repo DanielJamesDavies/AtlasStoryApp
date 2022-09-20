@@ -24,7 +24,7 @@ export const PhysicalOutfitItems = () => {
 		isAuthorizedToEdit,
 		characterVersion,
 		changePhysicalOutfitItemTitle,
-		changePhysicalOutfitItemValue,
+		changePhysicalOutfitItemText,
 		addPhysicalOutfitItem,
 		removePhysicalOutfitItem,
 		isReorderingPhysicalOutfitItems,
@@ -72,7 +72,7 @@ export const PhysicalOutfitItems = () => {
 								physicalOutfitItem={physicalOutfitItem}
 								isEditing={true}
 								changePhysicalOutfitItemTitle={changePhysicalOutfitItemTitle}
-								changePhysicalOutfitItemValue={changePhysicalOutfitItemValue}
+								changePhysicalOutfitItemText={changePhysicalOutfitItemText}
 								removePhysicalOutfitItem={removePhysicalOutfitItem}
 							/>
 						</DragDropItem>
