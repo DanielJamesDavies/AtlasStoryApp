@@ -1,11 +1,10 @@
 // Packages
-import { useState } from "react";
-import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 
 // Components
 
 // Logic
+import { TextLogic } from "./TextLogic";
 
 // Context
 
@@ -17,19 +16,7 @@ import "./Text.css";
 // Assets
 
 export const Text = ({ className, value, isLightText }) => {
-	const [text, setText] = useState("");
-
-	useEffect(() => {
-		function getNewValue() {
-			let newText = [];
-			for (let i = 0; i < value.length; i++) {
-				newText.push(value[i]);
-				if (value[i].split(" ").join("").split("").length === 0 && i !== value.length - 1) newText.push("\\");
-			}
-			setText(newText.join("\n"));
-		}
-		getNewValue();
-	}, [value]);
+	const { text } = TextLogic({ value });
 
 	return (
 		<div
@@ -43,7 +30,7 @@ export const Text = ({ className, value, isLightText }) => {
 					: "text-container"
 			}
 		>
-			{value === undefined ? null : <ReactMarkdown children={text} />}
+			<ReactMarkdown children={text} components={{ br: () => <span className='line-break'></span> }} />
 		</div>
 	);
 };
