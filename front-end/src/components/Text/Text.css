@@ -3,45 +3,34 @@
 	white-space: pre-wrap;
 	word-break: break-word;
 	overflow-wrap: anywhere;
+	font-size: calc(15px * var(--fontSizeMultiplier));
+	line-height: calc(18px * var(--fontSizeMultiplier));
+	display: grid;
+	gap: 4px;
 }
 
 .text-container-light-text {
 	color: #fff;
 }
 
-.text-paragraph-container {
-	display: flex;
-	align-items: flex-start;
+.text-container p {
+	margin: 0;
 }
 
-.text-paragraph-bullet-point-container {
-	display: flex;
-	align-items: center;
-	margin-left: 0px;
-	margin-right: 6px;
-	min-height: calc(15px * var(--fontSizeMultiplier));
+.text-container ul,
+.text-container ol {
+	display: grid;
+	gap: 4px;
+	margin: 4px 0;
+	padding-left: 20px;
 }
 
-.text-paragraph-bullet-point {
+.text-container li ul,
+.text-container li ol {
+	margin-bottom: -18px;
+}
+
+.text-container br {
 	display: block;
 	content: "";
-	margin-top: 4.5px;
-	border-radius: 100%;
-
-	min-width: 5px;
-	width: 5px;
-	min-height: 5px;
-	height: 5px;
-
-	background: var(--textColour);
-}
-
-.text-paragraph {
-	margin: 0;
-	min-height: calc(18px * var(--fontSizeMultiplier));
-	font-size: calc(15px * var(--fontSizeMultiplier));
-}
-
-.text-paragraph:last-child {
-	margin-bottom: 0;
 }
