@@ -1,5 +1,6 @@
 .character-overview-description-container {
 	margin-left: auto;
+	padding-right: 8px;
 	width: calc(50% - 180px);
 	max-width: 500px;
 	height: 100%;

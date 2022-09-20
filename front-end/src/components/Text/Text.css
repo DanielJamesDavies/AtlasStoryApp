@@ -13,6 +13,44 @@
 	color: #fff;
 }
 
+.text-container h1 {
+	margin: 4px 0;
+	margin-top: calc(4px + 12px);
+	font-size: calc(19px * var(--fontSizeMultiplier));
+}
+
+.text-container h2 {
+	margin: 4px 0;
+	margin-top: calc(4px + 12px);
+	font-size: calc(16px * var(--fontSizeMultiplier));
+}
+
+.text-container h3 {
+	margin: 4px 0;
+	margin-top: calc(4px + 12px);
+	font-size: calc(15px * var(--fontSizeMultiplier));
+}
+
+.text-container h4 {
+	margin: 4px 0;
+	margin-top: calc(4px + 12px);
+	font-size: calc(14px * var(--fontSizeMultiplier));
+}
+
+.text-container h5 {
+	margin: 4px 0;
+	margin-top: calc(4px + 12px);
+	font-size: calc(13px * var(--fontSizeMultiplier));
+}
+
+.text-container h6 {
+	margin: 4px 0;
+	margin-top: calc(4px + 12px);
+	font-size: calc(13px * var(--fontSizeMultiplier));
+	font-weight: 400;
+	text-decoration: underline;
+}
+
 .text-container p {
 	margin: 0;
 }

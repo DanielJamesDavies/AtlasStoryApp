@@ -23,6 +23,13 @@ export const TextLogic = ({ value }) => {
 			let newText = [];
 			for (let i = 0; i < value.length; i++) {
 				if (
+					value[i].split(" ").join("").split("").length === 0 &&
+					i !== value.length - 1 &&
+					value[i + 1].split(" ").join("").split("").length === 0 &&
+					value[i + 1].split("")[0] !== "#"
+				) {
+					newText.push("&nbsp;");
+				} else if (
 					i !== 0 &&
 					value[i - 1].split(" ").join("").split("\t").join("").split("")[0] === "-" &&
 					i !== 0 &&
