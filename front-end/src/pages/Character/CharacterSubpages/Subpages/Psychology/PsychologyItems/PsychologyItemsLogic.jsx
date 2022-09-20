@@ -65,7 +65,7 @@ export const PsychologyItemsLogic = () => {
 		let newPsychologyItems = defaultPsychologyItemsTitles.map((title) => {
 			const correspondingItem = newCharacterVersion.psychology.items.find((e) => e.title === title);
 			if (correspondingItem) return correspondingItem;
-			return { title, value: [""] };
+			return { title, text: [""] };
 		});
 		newPsychologyItems = newPsychologyItems.concat(
 			newCharacterVersion.psychology.items.filter((e) => !defaultPsychologyItemsTitles.includes(e.title))

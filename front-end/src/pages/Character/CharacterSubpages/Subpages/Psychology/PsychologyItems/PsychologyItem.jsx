@@ -40,8 +40,8 @@ export const PsychologyItem = ({ psychologyItem, index, isEditing, changePsychol
 				<MultiLineTextInput
 					className='character-subpage-psychology-item-text'
 					seamless={true}
-					label='Psychology Item Value'
-					value={psychologyItem?.text.join("\n")}
+					label='Psychology Item Text'
+					value={psychologyItem?.text?.join("\n")}
 					onChange={(e) => changePsychologyItemText(e, index)}
 				/>
 			</div>

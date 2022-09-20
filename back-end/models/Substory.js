@@ -87,7 +87,7 @@ const SubstorySchema = mongoose.Schema({
 						type: [
 							{
 								title: { type: String, require: true, default: "" },
-								value: { type: [String], require: true, default: [""] },
+								text: { type: [String], require: true, default: [""] },
 								images: {
 									type: [
 										{

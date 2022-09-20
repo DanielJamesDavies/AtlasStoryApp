@@ -61,7 +61,7 @@ export const PhysicalAttributeItemsLogic = () => {
 		let newPhysicalAttributeItems = defaultPhysicalAttributeItemsTitles.map((title) => {
 			const correspondingItem = newCharacterVersion.physical.attributes.find((e) => e.title === title);
 			if (correspondingItem) return correspondingItem;
-			return { title, value: [""] };
+			return { title, text: [""] };
 		});
 		newPhysicalAttributeItems = newPhysicalAttributeItems.concat(
 			newCharacterVersion.physical.attributes.filter((e) => !defaultPhysicalAttributeItemsTitles.includes(e.title))
