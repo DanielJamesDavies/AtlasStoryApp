@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext, useEffect, useMemo } from "react";
 
 import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
@@ -33,15 +33,19 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	// 	{ id: "efforts", name: "Efforts & History" },
 	// 	{ id: "relationships", name: "Relationships" },
 	// 	{ id: "miscellaneous", name: "Miscellaneous" },
-	const subpages = [
-		{ id: "gallery", name: "Gallery" },
-		{ id: "psychology", name: "Psychology" },
-		{ id: "abilities", name: "Abilities" },
-		{ id: "physical", name: "Physical" },
-		{ id: "development", name: "Development" },
-		{ id: "settings", name: "Settings" },
-	];
-	const [openSubpageID, setOpenSubpageID] = useState(subpages[0].id);
+	const allSubpages = useMemo(
+		() => [
+			{ id: "gallery", name: "Gallery", isEnabled: true },
+			{ id: "psychology", name: "Psychology", isEnabled: true },
+			{ id: "abilities", name: "Abilities", isEnabled: true },
+			{ id: "physical", name: "Physical", isEnabled: true },
+			{ id: "development", name: "Development", isEnabled: true },
+			{ id: "settings", name: "Settings", isEnabled: true },
+		],
+		[]
+	);
+	const [subpages, setSubpages] = useState([]);
+	const [openSubpageID, setOpenSubpageID] = useState(false);
 
 	useEffect(() => {
 		async function getInitial() {
@@ -64,6 +68,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			let newCharacter = await getCharacter(newStory._id);
 			if (!newCharacter) return;
 
+			getCharacterSubpages(newCharacter?.data?.subpages);
 			getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
 			getCharacterCardBackground(newCharacter?.data?.cardBackground);
 			getCharacterImages(newCharacter?.data?.images);
@@ -143,6 +148,26 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			return newGroups;
 		}
 
+		function getCharacterSubpages(characterSubpages) {
+			let newSubpages = [];
+
+			for (let i = 0; i < characterSubpages.length; i++) {
+				let newSubpage = allSubpages.find((e) => e.id === characterSubpages[i].id);
+				if (newSubpage) {
+					newSubpage.isEnabled = characterSubpages[i]?.isEnabled;
+					newSubpages.push(newSubpage);
+				}
+			}
+
+			newSubpages = newSubpages.concat(allSubpages.filter((e) => newSubpages.findIndex((e2) => e2.id === e.id) === -1));
+
+			setSubpages(newSubpages);
+			setOpenSubpageID((oldOpenSubpageID) => {
+				if (oldOpenSubpageID !== false) return oldOpenSubpageID;
+				return newSubpages.filter((e) => e?.isEnabled)[0].id;
+			});
+		}
+
 		async function getCharacterOverviewBackground(overviewBackgroundID) {
 			if (!overviewBackgroundID) return;
 			const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
@@ -193,6 +218,9 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		setCharacter,
 		setCharacterTypes,
 		setGroups,
+		allSubpages,
+		setSubpages,
+		setOpenSubpageID,
 		setCharacterOverviewBackground,
 		setCharacterCardBackground,
 		setCharacterImages,
@@ -253,6 +281,8 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				isOnOverviewSection,
 				setIsOnOverviewSection,
 				subpages,
+				setSubpages,
+				allSubpages,
 				openSubpageID,
 				setOpenSubpageID,
 			}}

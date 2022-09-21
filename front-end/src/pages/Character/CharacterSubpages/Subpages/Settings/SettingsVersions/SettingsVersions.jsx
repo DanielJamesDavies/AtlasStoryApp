@@ -38,7 +38,7 @@ export const SettingsVersions = () => {
 	} = SettingsVersionsLogic();
 
 	return (
-		<LabelContainer label='Versions'>
+		<LabelContainer label='Versions' className='character-subpage-settings-versions-container'>
 			<EditableContainer
 				isAuthorizedToEdit={isAuthorizedToEdit}
 				onAdd={addVersion}

@@ -1,3 +1,7 @@
+.character-subpage-settings-versions-container .label-value {
+	margin-top: 6px;
+}
+
 .character-subpage-settings-versions-item {
 	display: flex;
 	align-items: center;
