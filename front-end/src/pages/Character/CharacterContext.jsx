@@ -55,7 +55,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			}
 			if (story.uid === story_uid && character.uid === character_uid) return;
 
-			let newStory = await getStory();
+			let { newStory, newIsAuthorizedToEdit } = await getStory();
 			if (!newStory) return;
 
 			changeAccentColour(newStory?.data?.colours?.accent);
@@ -68,7 +68,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			let newCharacter = await getCharacter(newStory._id);
 			if (!newCharacter) return;
 
-			getCharacterSubpages(newCharacter?.data?.subpages);
+			getCharacterSubpages(newCharacter?.data?.subpages, newIsAuthorizedToEdit);
 			getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
 			getCharacterCardBackground(newCharacter?.data?.cardBackground);
 			getCharacterImages(newCharacter?.data?.images);
@@ -94,7 +94,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			}
 			setStory(story_response.data.story);
 			setIsAuthorizedToEdit(story_response?.data?.isAuthorizedToEdit);
-			return story_response.data.story;
+			return { newStory: story_response.data.story, newIsAuthorizedToEdit: story_response?.data?.isAuthorizedToEdit };
 		}
 
 		async function getStoryIcon(iconID) {
@@ -148,7 +148,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			return newGroups;
 		}
 
-		function getCharacterSubpages(characterSubpages) {
+		function getCharacterSubpages(characterSubpages, isAuthorizedToEdit) {
 			let newSubpages = [];
 
 			for (let i = 0; i < characterSubpages.length; i++) {
@@ -164,7 +164,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			setSubpages(newSubpages);
 			setOpenSubpageID((oldOpenSubpageID) => {
 				if (oldOpenSubpageID !== false) return oldOpenSubpageID;
-				return newSubpages.filter((e) => e?.isEnabled)[0].id;
+				return newSubpages.filter((e) => (isAuthorizedToEdit ? e?.isEnabled : e?.isEnabled && e?.id !== "settings"))[0]?.id;
 			});
 		}
 

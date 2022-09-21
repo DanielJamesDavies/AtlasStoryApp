@@ -50,7 +50,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			}
 			if (story.uid === story_uid && substory.uid === substory_uid) return;
 
-			let newStory = await getStory();
+			let { newStory, newIsAuthorizedToEdit } = await getStory();
 			if (!newStory) return;
 
 			changeAccentColour(newStory?.data?.colours?.accent);
@@ -61,7 +61,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			let newSubstory = await getSubstory(newStory._id);
 			if (!newSubstory) return;
 
-			getSubstorySubpages(newSubstory?.data?.subpages);
+			getSubstorySubpages(newSubstory?.data?.subpages, newIsAuthorizedToEdit);
 			getSubstoryOverviewBackground(newSubstory?.data?.overviewBackground);
 			getSubstoryPosterBackground(newSubstory?.data?.posterBackground);
 			getSubstoryImages(newSubstory?.data?.images);
@@ -84,7 +84,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			}
 			setStory(story_response.data.story);
 			setIsAuthorizedToEdit(story_response?.data?.isAuthorizedToEdit);
-			return story_response.data.story;
+			return { newStory: story_response.data.story, newIsAuthorizedToEdit: story_response?.data?.isAuthorizedToEdit };
 		}
 
 		async function getStoryIcon(iconID) {
@@ -108,7 +108,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			return substory_response.data.substory;
 		}
 
-		function getSubstorySubpages(substorySubpages) {
+		function getSubstorySubpages(substorySubpages, isAuthorizedToEdit) {
 			let newSubpages = [];
 
 			for (let i = 0; i < substorySubpages.length; i++) {
@@ -124,7 +124,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			setSubpages(newSubpages);
 			setOpenSubpageID((oldOpenSubpageID) => {
 				if (oldOpenSubpageID !== false) return oldOpenSubpageID;
-				return newSubpages.filter((e) => e?.isEnabled)[0].id;
+				return newSubpages.filter((e) => (isAuthorizedToEdit ? e?.isEnabled : e?.isEnabled && e?.id !== "settings"))[0]?.id;
 			});
 		}
 
@@ -170,6 +170,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		APIRequest,
 		failure,
 		setFailure,
+		isAuthorizedToEdit,
 		setIsAuthorizedToEdit,
 		story,
 		setStory,
