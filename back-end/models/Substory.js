@@ -107,6 +107,11 @@ const SubstorySchema = mongoose.Schema({
 				require: true,
 				default: {},
 			},
+			subpages: {
+				type: [{ id: { type: String, require: true }, isEnabled: { type: Boolean, require: true } }],
+				require: true,
+				default: [],
+			},
 		},
 		require: true,
 	},

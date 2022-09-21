@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext, useEffect, useMemo } from "react";
 
 import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
@@ -26,17 +26,21 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	// const subpages = [
-	// 	{ id: "characters", name: "Characters" },
-	// 	{ id: "locations", name: "Locations" },
-	// 	{ id: "miscellaneous", name: "Miscellaneous" },
+	// 	{ id: "characters", name: "Characters", isEnabled: true },
+	// 	{ id: "locations", name: "Locations", isEnabled: true },
+	// 	{ id: "miscellaneous", name: "Miscellaneous", isEnabled: true },
 	// ];
-	const subpages = [
-		{ id: "gallery", name: "Gallery" },
-		{ id: "plot", name: "Plot" },
-		{ id: "development", name: "Development" },
-		{ id: "settings", name: "Settings" },
-	];
-	const [openSubpageID, setOpenSubpageID] = useState(subpages[0].id);
+	const allSubpages = useMemo(
+		() => [
+			{ id: "gallery", name: "Gallery", isEnabled: true },
+			{ id: "plot", name: "Plot", isEnabled: true },
+			{ id: "development", name: "Development", isEnabled: true },
+			{ id: "settings", name: "Settings", isEnabled: true },
+		],
+		[]
+	);
+	const [subpages, setSubpages] = useState([]);
+	const [openSubpageID, setOpenSubpageID] = useState(false);
 
 	useEffect(() => {
 		async function getInitial() {
@@ -57,6 +61,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			let newSubstory = await getSubstory(newStory._id);
 			if (!newSubstory) return;
 
+			getSubstorySubpages(newSubstory?.data?.subpages);
 			getSubstoryOverviewBackground(newSubstory?.data?.overviewBackground);
 			getSubstoryPosterBackground(newSubstory?.data?.posterBackground);
 			getSubstoryImages(newSubstory?.data?.images);
@@ -101,6 +106,26 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			}
 			setSubstory(substory_response.data.substory);
 			return substory_response.data.substory;
+		}
+
+		function getSubstorySubpages(substorySubpages) {
+			let newSubpages = [];
+
+			for (let i = 0; i < substorySubpages.length; i++) {
+				let newSubpage = allSubpages.find((e) => e?.id === substorySubpages[i]?.id);
+				if (newSubpage) {
+					newSubpage.isEnabled = substorySubpages[i]?.isEnabled;
+					newSubpages.push(newSubpage);
+				}
+			}
+
+			newSubpages = newSubpages.concat(allSubpages.filter((e) => newSubpages.findIndex((e2) => e2.id === e.id) === -1));
+
+			setSubpages(newSubpages);
+			setOpenSubpageID((oldOpenSubpageID) => {
+				if (oldOpenSubpageID !== false) return oldOpenSubpageID;
+				return newSubpages.filter((e) => e?.isEnabled)[0].id;
+			});
 		}
 
 		async function getSubstoryOverviewBackground(overviewBackgroundID) {
@@ -150,7 +175,9 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		setStory,
 		setStoryIcon,
 		substory,
+		allSubpages,
 		setSubstory,
+		setOpenSubpageID,
 		setSubstoryOverviewBackground,
 		setSubstoryPosterBackground,
 		setSubstoryImages,
@@ -177,7 +204,9 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				setSubstoryImages,
 				isOnOverviewSection,
 				setIsOnOverviewSection,
+				allSubpages,
 				subpages,
+				setSubpages,
 				openSubpageID,
 				setOpenSubpageID,
 			}}

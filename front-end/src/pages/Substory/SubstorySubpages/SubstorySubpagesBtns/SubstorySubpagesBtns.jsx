@@ -27,7 +27,7 @@ export const SubstorySubpagesBtns = () => {
 				className={isAuthorizedToEdit ? "substory-subpages-btns substory-subpages-btns-is-authorized" : "substory-subpages-btns"}
 			>
 				{subpages
-					.filter((e) => (isAuthorizedToEdit ? true : e.id !== "settings"))
+					.filter((e) => (isAuthorizedToEdit ? e.isEnabled : e.id !== "settings" && e.isEnabled))
 					.map((subpage, index) => (
 						<button
 							key={index}
