@@ -45,7 +45,7 @@ export const SearchResultListItemLogic = ({ searchResult }) => {
 			setIcon({ _id: icon_id, image: response.data.image });
 		}
 		getIcon();
-	}, [icon, setIcon, searchResult]);
+	}, [searchResult, APIRequest, icon, setIcon]);
 
 	return { goToPage, icon };
 };

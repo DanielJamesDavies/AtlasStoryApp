@@ -10,7 +10,7 @@
 }
 
 .character-subpage-development-items-character-images-open {
-	width: 80%;
+	width: calc(80% - 12px);
 }
 
 .character-subpage-development-items-character-images-open ~ .character-images-container {
