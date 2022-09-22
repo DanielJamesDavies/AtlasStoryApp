@@ -6,6 +6,7 @@ import { Login } from "../../pages/Login/Login";
 import { Register } from "../../pages/Register/Register";
 import { Verify } from "../../pages/Verify/Verify";
 import { UserContainer } from "../../pages/User/UserContainer";
+import { Search } from "../../pages/Search/Search";
 import { StoryContainer } from "../../pages/Story/StoryContainer";
 import { CharactersContainer } from "../../pages/Characters/CharactersContainer";
 import { CharacterContainer } from "../../pages/Character/CharacterContainer";
@@ -76,6 +77,11 @@ export const RoutesLogic = () => {
 					changeAccentColour("default");
 					changeAccentHoverColour("default");
 					setRenderComponent(<UserContainer user_username={locationSplit[1]} />);
+					break;
+				case "search":
+					changeAccentColour("default");
+					changeAccentHoverColour("default");
+					setRenderComponent(<Search />);
 					break;
 				case "s":
 					if (locationSplit.length > 2) {

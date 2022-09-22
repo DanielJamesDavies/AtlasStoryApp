@@ -5,6 +5,7 @@
 	--grey1: #010103;
 	--grey1point5: #0a0a0a;
 	--grey2: #111113;
+	--grey2point5: #16161a;
 	--grey3: #2c2c2e;
 	--grey4: #404042;
 	--grey5: #505052;
@@ -33,7 +34,12 @@ body {
 	overflow: hidden;
 
 	font-family: "Inter", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
 
+input {
+	font-family: "Inter", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -70,7 +76,7 @@ img {
 
 ::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--characterColour);
+	background: var(--blue);
 }
 
 @keyframes wiggle-very-small {

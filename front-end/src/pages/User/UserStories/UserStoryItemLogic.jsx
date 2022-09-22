@@ -18,6 +18,7 @@ import { RoutesContext } from "../../../context/RoutesContext";
 export const UserStoryItemLogic = ({ storyID }) => {
 	const { stories } = useContext(UserContext);
 	const [story, setStory] = useState(false);
+	const { changeLocation } = useContext(RoutesContext);
 
 	useEffect(() => {
 		function getStory() {
@@ -29,8 +30,6 @@ export const UserStoryItemLogic = ({ storyID }) => {
 
 		setStory(getStory());
 	}, [storyID, stories, setStory]);
-
-	const { changeLocation } = useContext(RoutesContext);
 
 	function navigateToStory(e) {
 		changeLocation("/s/" + story.uid, e.button === 1);

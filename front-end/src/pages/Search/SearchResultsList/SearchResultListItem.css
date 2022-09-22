@@ -1,0 +1,66 @@
+.search-results-list-item {
+	display: flex;
+	align-items: center;
+	content: "";
+	margin: 4px 0;
+	padding: 0 18px;
+	border-radius: 24px;
+	width: 100%;
+	height: 80px;
+	background: var(--grey2);
+	transition: 0.2s;
+	cursor: pointer;
+	user-select: none;
+	color: #fff;
+}
+
+.search-results-list-item:first-child {
+	margin-top: 0;
+}
+
+.search-results-list-item:hover,
+.search-results-list-item:focus {
+	background: var(--grey3);
+}
+
+.search-results-list-item-icon {
+	display: block;
+	content: "";
+	border-radius: 100%;
+	min-width: 56px;
+	width: 56px;
+	min-height: 56px;
+	height: 56px;
+	background: var(--grey3);
+	transition: 0.2s;
+}
+
+.search-results-list-item-icon img {
+	border-radius: 100%;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.search-results-list-item:hover .search-results-list-item-icon {
+	background: var(--grey4);
+}
+
+.search-results-list-item-text {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin-left: 18px;
+	text-align: left;
+}
+
+.search-results-list-item-nickname,
+.search-results-list-item-title {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.search-results-list-item-username,
+.search-results-list-item-owner {
+	font-size: 14px;
+}
