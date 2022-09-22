@@ -30,6 +30,7 @@ app.use("/api/group", require("./routes/GroupRoute"));
 app.use("/api/character", require("./routes/CharacterRoute"));
 app.use("/api/character-type", require("./routes/CharacterTypeRoute"));
 app.use("/api/substory", require("./routes/SubstoryRoute"));
+app.use("/api/search", require("./routes/SearchRoute"));
 
 // Running the Front-End
 if (process.env.NODE_ENV !== "development") {
