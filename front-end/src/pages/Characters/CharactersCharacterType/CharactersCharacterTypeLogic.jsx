@@ -45,5 +45,5 @@ export const CharactersCharacterTypeLogic = () => {
 		});
 	}
 
-	return { isAuthorizedToEdit, characterType, deleteCharacterType };
+	return { isAuthorizedToEdit, story, characterType, deleteCharacterType };
 };

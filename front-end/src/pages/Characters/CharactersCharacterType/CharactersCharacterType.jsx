@@ -19,8 +19,9 @@ import "./CharactersCharacterType.css";
 // Assets
 
 export const CharactersCharacterType = () => {
-	const { isAuthorizedToEdit, characterType, deleteCharacterType } = CharactersCharacterTypeLogic();
+	const { isAuthorizedToEdit, story, characterType, deleteCharacterType } = CharactersCharacterTypeLogic();
 
+	if (!isAuthorizedToEdit && (!story?.data?.characterTypes || story?.data?.characterTypes.length === 0)) return null;
 	return (
 		<div className='characters-character-type'>
 			{!characterType ? null : (

@@ -32,6 +32,7 @@ export const CharactersCharacterTypes = () => {
 		changeCharacterTypesOrder,
 	} = CharactersCharacterTypesLogic();
 
+	if (!isAuthorizedToEdit && (!story?.data?.characterTypes || story?.data?.characterTypes.length === 0)) return null;
 	return (
 		<div className='characters-character-types'>
 			<div className='characters-character-types-primary'>
