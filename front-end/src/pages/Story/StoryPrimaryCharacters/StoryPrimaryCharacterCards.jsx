@@ -30,7 +30,11 @@ export const StoryPrimaryCharacterCards = () => {
 
 	if (!primaryCharacters) return null;
 	return (
-		<div className='story-primary-characters-cards-container'>
+		<div
+			className='story-primary-characters-cards-container'
+			onMouseEnter={() => scrollCharacterCards(0)}
+			onMouseLeave={() => scrollCharacterCards(-0.75)}
+		>
 			<DragDropContainer
 				innerRef={charactersCards}
 				className='story-primary-characters-cards'

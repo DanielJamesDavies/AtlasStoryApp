@@ -26,6 +26,7 @@
 	display: inline-block;
 	margin: 4px;
 	border: 6px solid var(--accentColour);
+	border-color: var(--characterColour);
 	border-radius: 16px;
 
 	width: 441px;
@@ -60,6 +61,7 @@
 	font-size: 28px;
 	font-weight: 700;
 	color: var(--blue);
+	color: var(--characterColour);
 }
 
 .characters-group-character-card-character-type {
@@ -98,6 +100,7 @@
 	width: calc(100% - 24px);
 
 	background: var(--blue);
+	background: var(--characterColour);
 	color: #fff;
 	text-align: left;
 }

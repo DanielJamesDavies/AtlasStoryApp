@@ -45,14 +45,17 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 
 	// Character Colour Styles
 	const [cardStyles, setCardStyles] = useState({});
-	const [topNameStyles, setTopNameStyles] = useState({});
-	const [infoItemStyles, setInfoItemStyles] = useState({});
 
 	useEffect(() => {
-		setCardStyles(character?.data?.colour ? { borderColor: character.data.colour } : {});
-		setTopNameStyles(character?.data?.colour ? { color: character.data.colour } : {});
-		setInfoItemStyles(character?.data?.colour ? { background: character.data.colour } : {});
-	}, [character, setCardStyles, setTopNameStyles, setInfoItemStyles]);
+		setCardStyles({ "--characterColour": character?.data?.colour ? character.data.colour : "#0044ff" });
+	}, [character, setCardStyles]);
 
-	return { character, cardBackground, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles, topNameStyles, infoItemStyles };
+	return {
+		character,
+		cardBackground,
+		characterType,
+		navigateToCharacter,
+		onCharacterCardMouseDown,
+		cardStyles,
+	};
 };

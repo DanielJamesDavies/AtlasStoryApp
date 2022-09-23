@@ -3,7 +3,7 @@
 }
 
 .substories-list-substories-poster-container {
-	margin: 4px 8px;
+	margin: 4px 12px;
 	margin-top: calc(24px + 4px);
 	margin-bottom: 12px;
 	transition: margin 0.4s;

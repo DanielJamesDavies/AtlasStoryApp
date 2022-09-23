@@ -19,28 +19,27 @@ export const NavigationBarLogic = () => {
 	const { setUITheme, setFontSizeMultiplier } = useContext(AppContext);
 	const { APIRequest, username, setUsername, userProfilePicture, setUserProfilePicture } = useContext(APIContext);
 	const { location, changeLocation } = useContext(RoutesContext);
+	const [storyIcon, setStoryIcon] = useState(false);
 
 	useEffect(() => {
 		setIsOnStory(location.split("/")[1] === "s");
 	}, [location]);
 
 	useEffect(() => {
-		async function getInitial() {
-			const user = await getUser();
-			const userProfilePicture = await getUserProfilePicture(user?.data?.profilePicture);
+		async function getUser() {
+			const response = await APIRequest("/user/", "GET");
+			if (!response || response?.errors || !response?.data?.user) return false;
 
+			const user = response.data.user;
 			if (user?.username && user.username !== username) setUsername(user.username);
 			if (user?.data?.uiTheme) setUITheme(user.data.uiTheme);
 			if (user?.data?.fontSizeMultiplier) {
 				const newFontSizeMultiplier = Number(user.data.fontSizeMultiplier);
 				setFontSizeMultiplier(isNaN(newFontSizeMultiplier) ? 1 : newFontSizeMultiplier);
 			}
-			setUserProfilePicture(userProfilePicture);
-		}
 
-		async function getUser() {
-			const response = await APIRequest("/user/", "GET");
-			if (!response || response?.errors) return false;
+			getUserProfilePicture(user?.data?.profilePicture);
+
 			return response?.data?.user;
 		}
 
@@ -48,11 +47,33 @@ export const NavigationBarLogic = () => {
 			if (!userProfilePictureID) return false;
 			const response = await APIRequest("/image/" + userProfilePictureID, "GET");
 			if (response?.error || !response?.data?.image) return false;
+			setUserProfilePicture(response.data.image);
 			return response.data.image;
 		}
 
-		getInitial();
+		getUser();
 	}, [APIRequest, username, setUsername, setUITheme, setFontSizeMultiplier, setUserProfilePicture]);
+
+	useEffect(() => {
+		async function getStory() {
+			const locationSplit = location.split("/");
+			if (locationSplit.length < 3 || locationSplit[1] !== "s") return setStoryIcon(false);
+			const response = await APIRequest("/story?uid=" + locationSplit[2], "GET");
+			if (response?.error || !response?.data?.story || locationSplit[2] !== response?.data?.story?.uid) return setStoryIcon(false);
+			const story = response.data.story;
+			getStoryIcon(story?.data?.icon);
+		}
+
+		async function getStoryIcon(storyIconID) {
+			if (!storyIconID) return false;
+			const response = await APIRequest("/image/" + storyIconID, "GET");
+			if (response?.error || !response?.data?.image) return setStoryIcon(false);
+			setStoryIcon(response.data.image);
+			return response.data.image;
+		}
+
+		getStory();
+	}, [APIRequest, location, setStoryIcon]);
 
 	function navigateToProfile(e) {
 		if (username) {
@@ -89,6 +110,7 @@ export const NavigationBarLogic = () => {
 	return {
 		isOnStory,
 		userProfilePicture,
+		storyIcon,
 		navigateToProfile,
 		navigateToSearch,
 		navigateToStory,

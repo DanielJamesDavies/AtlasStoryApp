@@ -16,6 +16,7 @@ import "./NavigationBar.css";
 export const NavigationBar = () => {
 	const {
 		isOnStory,
+		storyIcon,
 		userProfilePicture,
 		navigateToProfile,
 		navigateToSearch,
@@ -28,7 +29,11 @@ export const NavigationBar = () => {
 	return (
 		<div className='navigation-bar'>
 			<div className='navigation-bar-primary-button-container'>
-				<button className='navigation-bar-btn navigation-bar-btn-user' onClick={navigateToProfile} onAuxClick={navigateToProfile}>
+				<button
+					className={userProfilePicture ? "navigation-bar-btn navigation-bar-btn-with-image" : "navigation-bar-btn"}
+					onClick={navigateToProfile}
+					onAuxClick={navigateToProfile}
+				>
 					{!userProfilePicture ? (
 						<div className='navigation-bar-btn-user-placeholder' />
 					) : (
@@ -44,8 +49,12 @@ export const NavigationBar = () => {
 			) : (
 				<>
 					<div className='navigation-bar-story-button-container'>
-						<button className='navigation-bar-btn' onClick={navigateToStory} onAuxClick={navigateToStory}>
-							<FaBook />
+						<button
+							className={storyIcon ? "navigation-bar-btn navigation-bar-btn-with-image" : "navigation-bar-btn"}
+							onClick={navigateToStory}
+							onAuxClick={navigateToStory}
+						>
+							{!storyIcon ? <FaBook /> : <img src={storyIcon} alt='' draggable={false} />}
 						</button>
 						<button className='navigation-bar-btn' onClick={navigateToCharacters} onAuxClick={navigateToCharacters}>
 							<FaUser />

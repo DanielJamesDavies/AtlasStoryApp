@@ -15,7 +15,7 @@ import "./CharactersGroupCharacterCard.css";
 // Assets
 
 export const CharactersGroupCharacterCard = ({ characterID }) => {
-	const { character, cardBackground, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles, topNameStyles, infoItemStyles } =
+	const { character, cardBackground, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles } =
 		CharactersGroupCharacterCardLogic({
 			characterID,
 		});
@@ -30,21 +30,14 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 		>
 			<div className='characters-group-character-card-content'>
 				<div className='characters-group-character-card-top-container'>
-					<div className='characters-group-character-card-top-name' style={topNameStyles}>
-						{character?.data?.name}
-					</div>
+					<div className='characters-group-character-card-top-name'>{character?.data?.name}</div>
 					<CharactersGroupCharacterCardCharacterType characterType={characterType} />
 				</div>
 				<div className='characters-group-character-card-summary-item-container'>
 					{!character?.data?.summaryItems
 						? null
 						: character.data.summaryItems.map((summaryItem, index) => (
-								<CharactersGroupCharacterCardInfoItem
-									key={index}
-									label={summaryItem.label}
-									text={summaryItem.text}
-									infoItemStyles={infoItemStyles}
-								/>
+								<CharactersGroupCharacterCardInfoItem key={index} label={summaryItem.label} text={summaryItem.text} />
 						  ))}
 				</div>
 			</div>
@@ -68,9 +61,9 @@ const CharactersGroupCharacterCardCharacterType = ({ characterType }) => {
 	);
 };
 
-const CharactersGroupCharacterCardInfoItem = ({ label, text, infoItemStyles }) => {
+const CharactersGroupCharacterCardInfoItem = ({ label, text }) => {
 	return (
-		<div className='characters-group-character-card-summary-item' style={infoItemStyles}>
+		<div className='characters-group-character-card-summary-item'>
 			<div className='characters-group-character-card-summary-item-label'>{label}</div>
 			<div className='characters-group-character-card-summary-item-text'>{text}</div>
 		</div>

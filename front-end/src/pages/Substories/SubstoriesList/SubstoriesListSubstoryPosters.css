@@ -1,7 +1,7 @@
 .substories-list-substories-posters-container {
 	position: relative;
-	margin-left: -8px;
-	width: calc(100% + 16px);
+	margin-left: -12px;
+	width: calc(100% + 24px);
 	overflow-y: visible;
 }
 
