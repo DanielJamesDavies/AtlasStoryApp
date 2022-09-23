@@ -45,7 +45,7 @@ export const PhysicalAttributeItemsLogic = () => {
 
 	function addPhysicalAttributeItem() {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.physical.attributes.push({ title: "", text: [""] });
+		newCharacterVersion.physical.attributes.push({ title: "", text: [""], images: [] });
 		changeCharacterVersion(newCharacterVersion);
 	}
 
@@ -73,7 +73,7 @@ export const PhysicalAttributeItemsLogic = () => {
 		let newPhysicalAttributeItems = defaultPhysicalAttributeItemsTitles.map((title) => {
 			const correspondingItem = newCharacterVersion.physical.attributes.find((e) => e.title === title);
 			if (correspondingItem) return correspondingItem;
-			return { title, text: [""] };
+			return { title, text: [""], images: [] };
 		});
 		newPhysicalAttributeItems = newPhysicalAttributeItems.concat(
 			newCharacterVersion.physical.attributes.filter((e) => !defaultPhysicalAttributeItemsTitles.includes(e.title))

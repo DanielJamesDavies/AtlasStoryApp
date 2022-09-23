@@ -45,7 +45,7 @@ export const PhysicalOutfitItemsLogic = () => {
 
 	function addPhysicalOutfitItem() {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
-		newCharacterVersion.physical.outfits.push({ title: "", text: [""] });
+		newCharacterVersion.physical.outfits.push({ title: "", text: [""], images: [] });
 		changeCharacterVersion(newCharacterVersion);
 	}
 
