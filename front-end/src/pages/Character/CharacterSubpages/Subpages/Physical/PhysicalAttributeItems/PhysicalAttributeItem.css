@@ -74,3 +74,56 @@
 .character-subpage-physical-attribute-item-text {
 	min-height: 23px;
 }
+
+.character-subpage-physical-attribute-item-btns-container {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	vertical-align: top;
+	width: calc(22px + 8px);
+	gap: 4px 0;
+}
+
+.character-subpage-physical-attribute-item-images {
+	display: inline-flex;
+	flex-wrap: wrap;
+	text-align: left;
+	width: 100%;
+}
+
+.character-subpage-physical-attribute-item-image-item {
+	position: relative;
+	margin: 4px;
+	width: calc((100% / 3) - 8px);
+}
+
+.drag-drop-item-enable-drag-drop .character-subpage-physical-attribute-item-image-item {
+	-webkit-user-drag: element;
+}
+
+.character-subpage-physical-attribute-item-image-item img {
+	width: 100%;
+	max-height: max(18vw, 140px);
+	object-fit: contain;
+}
+.character-subpage-physical-attribute-item-image-item-caption {
+	padding: 3px 8px;
+	border-radius: 4px;
+	width: fit-content;
+	max-width: calc(100% - 16px);
+	word-break: break-word;
+	overflow-wrap: anywhere;
+	background: var(--grey2);
+}
+
+.character-subpage-physical-attribute-item-image-item-caption,
+.character-subpage-physical-attribute-item-image-item-caption input {
+	font-size: 14px;
+	min-height: 20px;
+}
+
+.character-subpage-physical-attribute-item-image-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}

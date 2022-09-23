@@ -6,6 +6,7 @@ import { EditableContainer } from "../../../../../../components/EditableContaine
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
 import { ErrorMessage } from "../../../../../../components/ErrorMessage/ErrorMessage";
+import { CharacterImages } from "../../../CharacterImages/CharacterImages";
 
 // Logic
 import { PhysicalOutfitItemsLogic } from "./PhysicalOutfitItemsLogic";
@@ -19,17 +20,27 @@ import "./PhysicalOutfitItems.css";
 
 // Assets
 
-export const PhysicalOutfitItems = () => {
+export const PhysicalOutfitItems = ({
+	characterImagesCurrItem,
+	characterImages,
+	openCharacterImages,
+	closeCharacterImages,
+	addImageToItem,
+	onPhysicalItemImageClick,
+}) => {
 	const {
 		isAuthorizedToEdit,
 		characterVersion,
 		changePhysicalOutfitItemTitle,
 		changePhysicalOutfitItemText,
+		changePhysicalOutfitItemImageCaption,
+		removePhysicalOutfitItemImage,
 		addPhysicalOutfitItem,
 		removePhysicalOutfitItem,
 		isReorderingPhysicalOutfitItems,
 		toggleIsReorderingPhysicalOutfitItems,
 		reorderPhysicalOutfitItems,
+		reorderPhysicalOutfitItemImages,
 		revertPhysicalOutfitItems,
 		savePhysicalOutfitItems,
 		errors,
@@ -52,13 +63,20 @@ export const PhysicalOutfitItems = () => {
 				<div ref={physicalOutfitItemsRef} className='character-subpage-physical-outfit-items'>
 					{characterVersion?.physical?.outfits?.map((physicalOutfitItem, index) => (
 						<div key={index} className='character-subpage-physical-outfit-item-container'>
-							<PhysicalOutfitItem index={index} physicalOutfitItem={physicalOutfitItem} isEditing={false} />
+							<PhysicalOutfitItem
+								index={index}
+								physicalOutfitItem={physicalOutfitItem}
+								isEditing={false}
+								characterImages={characterImages}
+								onPhysicalItemImageClick={onPhysicalItemImageClick}
+							/>
 						</div>
 					))}
 				</div>
 			</div>
 			<div>
 				<div className='character-subpage-physical-outfit-items-title'>Outfits</div>
+				<ErrorMessage errors={errors} />
 				<DragDropContainer
 					innerRef={physicalOutfitItemsRef}
 					className='character-subpage-physical-outfit-items'
@@ -74,11 +92,20 @@ export const PhysicalOutfitItems = () => {
 								changePhysicalOutfitItemTitle={changePhysicalOutfitItemTitle}
 								changePhysicalOutfitItemText={changePhysicalOutfitItemText}
 								removePhysicalOutfitItem={removePhysicalOutfitItem}
+								openCharacterImages={openCharacterImages}
+								characterImages={characterImages}
+								onPhysicalItemImageClick={onPhysicalItemImageClick}
+								changePhysicalOutfitItemImageCaption={changePhysicalOutfitItemImageCaption}
+								removePhysicalOutfitItemImage={removePhysicalOutfitItemImage}
+								isReorderingPhysicalOutfitItems={isReorderingPhysicalOutfitItems}
+								reorderPhysicalOutfitItemImages={reorderPhysicalOutfitItemImages}
 							/>
 						</DragDropItem>
 					))}
 				</DragDropContainer>
-				<ErrorMessage errors={errors} />
+				{characterImagesCurrItem === false || characterImagesCurrItem?.type !== "outfits" ? null : (
+					<CharacterImages onAddImage={addImageToItem} onClose={closeCharacterImages} />
+				)}
 			</div>
 		</EditableContainer>
 	);

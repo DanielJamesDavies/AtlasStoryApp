@@ -31,6 +31,18 @@ export const PhysicalOutfitItemsLogic = () => {
 		changeCharacterVersion(newCharacterVersion);
 	}
 
+	function changePhysicalOutfitItemImageCaption(e, index, imageIndex) {
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		newCharacterVersion.physical.outfits[index].images[imageIndex].caption = e.target.value;
+		changeCharacterVersion(newCharacterVersion);
+	}
+
+	function removePhysicalOutfitItemImage(index, imageIndex) {
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		newCharacterVersion.physical.outfits[index].images.splice(imageIndex, 1);
+		changeCharacterVersion(newCharacterVersion);
+	}
+
 	function addPhysicalOutfitItem() {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
 		newCharacterVersion.physical.outfits.push({ title: "", text: [""] });
@@ -53,6 +65,14 @@ export const PhysicalOutfitItemsLogic = () => {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
 		const tempPhysicalOutfitItem = newCharacterVersion.physical.outfits.splice(res.from, 1)[0];
 		newCharacterVersion.physical.outfits.splice(res.to, 0, tempPhysicalOutfitItem);
+		changeCharacterVersion(newCharacterVersion);
+	}
+
+	function reorderPhysicalOutfitItemImages(res, index) {
+		if (res.from === undefined || res.to === undefined) return false;
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		const tempPhysicalAttributeItemImage = newCharacterVersion.physical.outfits[index].images.splice(res.from, 1)[0];
+		newCharacterVersion.physical.outfits[index].images.splice(res.to, 0, tempPhysicalAttributeItemImage);
 		changeCharacterVersion(newCharacterVersion);
 	}
 
@@ -99,11 +119,14 @@ export const PhysicalOutfitItemsLogic = () => {
 		characterVersion,
 		changePhysicalOutfitItemTitle,
 		changePhysicalOutfitItemText,
+		changePhysicalOutfitItemImageCaption,
+		removePhysicalOutfitItemImage,
 		addPhysicalOutfitItem,
 		removePhysicalOutfitItem,
 		isReorderingPhysicalOutfitItems,
 		toggleIsReorderingPhysicalOutfitItems,
 		reorderPhysicalOutfitItems,
+		reorderPhysicalOutfitItemImages,
 		revertPhysicalOutfitItems,
 		savePhysicalOutfitItems,
 		errors,

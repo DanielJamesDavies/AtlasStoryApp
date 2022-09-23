@@ -31,6 +31,18 @@ export const PhysicalAttributeItemsLogic = () => {
 		changeCharacterVersion(newCharacterVersion);
 	}
 
+	function changePhysicalAttributeItemImageCaption(e, index, imageIndex) {
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		newCharacterVersion.physical.attributes[index].images[imageIndex].caption = e.target.value;
+		changeCharacterVersion(newCharacterVersion);
+	}
+
+	function removePhysicalAttributeItemImage(index, imageIndex) {
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		newCharacterVersion.physical.attributes[index].images.splice(imageIndex, 1);
+		changeCharacterVersion(newCharacterVersion);
+	}
+
 	function addPhysicalAttributeItem() {
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
 		newCharacterVersion.physical.attributes.push({ title: "", text: [""] });
@@ -83,6 +95,14 @@ export const PhysicalAttributeItemsLogic = () => {
 		changeCharacterVersion(newCharacterVersion);
 	}
 
+	function reorderPhysicalAttributeItemImages(res, index) {
+		if (res.from === undefined || res.to === undefined) return false;
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		const tempPhysicalAttributeItemImage = newCharacterVersion.physical.attributes[index].images.splice(res.from, 1)[0];
+		newCharacterVersion.physical.attributes[index].images.splice(res.to, 0, tempPhysicalAttributeItemImage);
+		changeCharacterVersion(newCharacterVersion);
+	}
+
 	const [errors, setErrors] = useState([]);
 
 	async function revertPhysicalAttributeItems() {
@@ -126,12 +146,15 @@ export const PhysicalAttributeItemsLogic = () => {
 		characterVersion,
 		changePhysicalAttributeItemTitle,
 		changePhysicalAttributeItemText,
+		changePhysicalAttributeItemImageCaption,
+		removePhysicalAttributeItemImage,
 		addPhysicalAttributeItem,
 		removePhysicalAttributeItem,
 		defaultPhysicalAttributeItems,
 		isReorderingPhysicalAttributeItems,
 		toggleIsReorderingPhysicalAttributeItems,
 		reorderPhysicalAttributeItems,
+		reorderPhysicalAttributeItemImages,
 		revertPhysicalAttributeItems,
 		savePhysicalAttributeItems,
 		errors,

@@ -6,6 +6,7 @@ import { EditableContainer } from "../../../../../../components/EditableContaine
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
 import { ErrorMessage } from "../../../../../../components/ErrorMessage/ErrorMessage";
+import { CharacterImages } from "../../../CharacterImages/CharacterImages";
 
 // Logic
 import { PhysicalAttributeItemsLogic } from "./PhysicalAttributeItemsLogic";
@@ -19,18 +20,28 @@ import "./PhysicalAttributeItems.css";
 
 // Assets
 
-export const PhysicalAttributeItems = () => {
+export const PhysicalAttributeItems = ({
+	characterImagesCurrItem,
+	characterImages,
+	openCharacterImages,
+	closeCharacterImages,
+	addImageToItem,
+	onPhysicalItemImageClick,
+}) => {
 	const {
 		isAuthorizedToEdit,
 		characterVersion,
 		changePhysicalAttributeItemTitle,
 		changePhysicalAttributeItemText,
+		changePhysicalAttributeItemImageCaption,
+		removePhysicalAttributeItemImage,
 		addPhysicalAttributeItem,
 		removePhysicalAttributeItem,
 		defaultPhysicalAttributeItems,
 		isReorderingPhysicalAttributeItems,
 		toggleIsReorderingPhysicalAttributeItems,
 		reorderPhysicalAttributeItems,
+		reorderPhysicalAttributeItemImages,
 		revertPhysicalAttributeItems,
 		savePhysicalAttributeItems,
 		errors,
@@ -54,13 +65,20 @@ export const PhysicalAttributeItems = () => {
 				<div ref={physicalAttributeItemsRef} className='character-subpage-physical-attribute-items'>
 					{characterVersion?.physical?.attributes?.map((physicalAttributeItem, index) => (
 						<div key={index} className='character-subpage-physical-attribute-item-container'>
-							<PhysicalAttributeItem index={index} physicalAttributeItem={physicalAttributeItem} isEditing={false} />
+							<PhysicalAttributeItem
+								index={index}
+								physicalAttributeItem={physicalAttributeItem}
+								isEditing={false}
+								characterImages={characterImages}
+								onPhysicalItemImageClick={onPhysicalItemImageClick}
+							/>
 						</div>
 					))}
 				</div>
 			</div>
 			<div>
 				<div className='character-subpage-physical-attribute-items-title'>Physical Attributes</div>
+				<ErrorMessage errors={errors} />
 				<DragDropContainer
 					innerRef={physicalAttributeItemsRef}
 					className='character-subpage-physical-attribute-items'
@@ -76,11 +94,20 @@ export const PhysicalAttributeItems = () => {
 								changePhysicalAttributeItemTitle={changePhysicalAttributeItemTitle}
 								changePhysicalAttributeItemText={changePhysicalAttributeItemText}
 								removePhysicalAttributeItem={removePhysicalAttributeItem}
+								openCharacterImages={openCharacterImages}
+								characterImages={characterImages}
+								onPhysicalItemImageClick={onPhysicalItemImageClick}
+								changePhysicalAttributeItemImageCaption={changePhysicalAttributeItemImageCaption}
+								removePhysicalAttributeItemImage={removePhysicalAttributeItemImage}
+								isReorderingPhysicalAttributeItems={isReorderingPhysicalAttributeItems}
+								reorderPhysicalAttributeItemImages={reorderPhysicalAttributeItemImages}
 							/>
 						</DragDropItem>
 					))}
 				</DragDropContainer>
-				<ErrorMessage errors={errors} />
+				{characterImagesCurrItem === false || characterImagesCurrItem?.type !== "attributes" ? null : (
+					<CharacterImages onAddImage={addImageToItem} onClose={closeCharacterImages} />
+				)}
 			</div>
 		</EditableContainer>
 	);

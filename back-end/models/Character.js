@@ -146,6 +146,16 @@ const CharacterSchema = mongoose.Schema({
 										{
 											title: { type: String, require: true, default: "" },
 											text: { type: [String], require: true, default: [""] },
+											images: {
+												type: [
+													{
+														image: mongoose.Schema.Types.ObjectId,
+														caption: { type: String, require: true, default: "" },
+													},
+												],
+												require: true,
+												default: [],
+											},
 										},
 									],
 									require: true,
@@ -155,6 +165,16 @@ const CharacterSchema = mongoose.Schema({
 										{
 											title: { type: String, require: true, default: "" },
 											text: { type: [String], require: true, default: [""] },
+											images: {
+												type: [
+													{
+														image: mongoose.Schema.Types.ObjectId,
+														caption: { type: String, require: true, default: "" },
+													},
+												],
+												require: true,
+												default: [],
+											},
 										},
 									],
 									require: true,

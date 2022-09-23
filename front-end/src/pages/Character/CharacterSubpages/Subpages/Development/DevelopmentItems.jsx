@@ -5,8 +5,8 @@ import { DevelopmentItem } from "./DevelopmentItem";
 import { EditableContainer } from "../../../../../components/EditableContainer/EditableContainer";
 import { DragDropContainer } from "../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../components/DragDropItem/DragDropItem";
-import { CharacterImages } from "../../CharacterImages/CharacterImages";
 import { ErrorMessage } from "../../../../../components/ErrorMessage/ErrorMessage";
+import { CharacterImages } from "../../CharacterImages/CharacterImages";
 
 // Logic
 import { DevelopmentItemsLogic } from "./DevelopmentItemsLogic";

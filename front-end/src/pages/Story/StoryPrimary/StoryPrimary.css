@@ -31,6 +31,7 @@
 	display: inline-block;
 	margin-left: 12px;
 	width: calc(100% - 12px - 164px - 18px - 27px - 32px - 8px + 48px - 1px);
+	min-height: 73px;
 	vertical-align: middle;
 }
 
