@@ -16,7 +16,7 @@
 .user-primary-names-nickname,
 .user-primary-names-nickname-container input {
 	font-weight: 700;
-	font-size: 28px;
+	font-size: 24px;
 }
 
 .user-primary-names-nickname-container {
@@ -29,7 +29,8 @@
 
 .user-primary-names-username {
 	font-weight: 400;
-	font-size: 18px;
+	font-size: 16px;
+	color: #aaa;
 }
 
 @media (max-width: 700px) {

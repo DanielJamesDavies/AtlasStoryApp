@@ -42,7 +42,9 @@ export const EditableContainerLogic = ({
 
 	// Editable Container Class Name
 	const [editableContainerClassName, setEditableContainerClassName] = useState(
-		className ? "editable-container " + className : "editable-container"
+		className
+			? "editable-container editable-container-absolute-position-edit-btns " + className
+			: "editable-container editable-container-absolute-position-edit-btns"
 	);
 
 	useEffect(() => {

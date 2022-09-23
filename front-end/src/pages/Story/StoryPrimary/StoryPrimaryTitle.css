@@ -2,7 +2,6 @@
 	margin-top: -3px;
 	margin-bottom: 3px;
 	width: fit-content;
-	font-size: 48px;
 	font-weight: 700;
 }
 
@@ -12,12 +11,12 @@
 
 .story-primary-main-info-title {
 	width: 100%;
-	color: var(--textColour);
 }
 
+.story-primary-main-info-title,
 .story-primary-main-info-title-container input {
 	font-weight: 700;
-	font-size: 48px;
+	font-size: 40px;
 	color: var(--textColour);
 }
 

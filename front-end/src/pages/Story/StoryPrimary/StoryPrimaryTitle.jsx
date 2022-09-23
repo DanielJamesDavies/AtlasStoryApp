@@ -22,6 +22,7 @@ export const StoryPrimaryTitle = () => {
 	return (
 		<EditableContainer
 			className='story-primary-main-info-title-container'
+			absolutePositionEditBtns={true}
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertStoryTitle}
 			onSave={saveStoryTitle}

@@ -1,10 +1,11 @@
 .user-primary-profile-picture {
 	display: inline-block;
-	margin: 5px 12px;
-	margin-right: 24px;
+	margin: 0 12px;
+	margin-top: -76px;
+	margin-right: 18px;
 	border-radius: 100%;
-	width: 74px;
-	height: 74px;
+	width: 128px;
+	height: 128px;
 	vertical-align: middle;
 }
 
@@ -27,7 +28,12 @@
 }
 
 @media (max-width: 700px) {
+	.user-primary-profile-picture-container {
+		margin-top: -30px;
+	}
+
 	.user-primary-profile-picture {
+		margin-top: -44px;
 		width: 60px;
 		height: 60px;
 	}

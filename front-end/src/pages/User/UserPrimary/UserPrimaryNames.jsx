@@ -22,6 +22,7 @@ export const UserPrimaryNames = () => {
 	return (
 		<div className={isAuthorizedToEdit ? "user-primary-names user-primary-names-is-authorized" : "user-primary-names"}>
 			<EditableContainer
+				absolutePositionEditBtns={true}
 				className='user-primary-names-nickname-container'
 				isAuthorizedToEdit={isAuthorizedToEdit}
 				onRevert={revertNickname}
@@ -36,7 +37,7 @@ export const UserPrimaryNames = () => {
 					onChange={changeNickname}
 				/>
 			</EditableContainer>
-			<div className='user-primary-names-username'>{user?.username}</div>
+			<div className='user-primary-names-username'>@{user?.username}</div>
 		</div>
 	);
 };

@@ -1,10 +1,11 @@
 .story-primary-icon {
 	display: inline-block;
-	margin: 5px 12px;
-	margin-right: 24px;
+	margin: 0 12px;
+	margin-top: -98px;
+	margin-right: 18px;
 	border-radius: 100%;
-	width: 74px;
-	height: 74px;
+	width: 164px;
+	height: 164px;
 	vertical-align: middle;
 }
 
@@ -16,7 +17,7 @@
 }
 
 .editable-container-is-authorized .story-primary-icon {
-	margin-right: 32px;
+	margin-right: 28px;
 }
 
 .story-primary-icon img {
@@ -27,7 +28,12 @@
 }
 
 @media (max-width: 700px) {
+	.story-primary-icon-container {
+		margin-top: -38px;
+	}
+
 	.story-primary-icon {
+		margin-top: -44px;
 		margin-left: 6px;
 		width: 60px;
 		height: 60px;

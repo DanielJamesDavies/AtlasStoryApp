@@ -40,7 +40,7 @@
 .user-stories-story-items-container {
 	display: flex;
 	flex-wrap: wrap;
-	margin-bottom: 48px;
+	margin-bottom: 32px;
 	margin-left: -10px;
 	width: calc(100% + 20px);
 }
