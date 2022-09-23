@@ -1,0 +1,13 @@
+.character-subpage-big-five-title {
+	margin-bottom: 24px;
+	font-size: 22px;
+	font-weight: 700;
+}
+
+.character-subpage-big-five-traits-container {
+	padding-right: 12px;
+	width: calc(100% - 12px);
+	max-height: calc(100vh - 48px - 59px - 24px - 36px - 24px - 16px - 26px - 24px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}

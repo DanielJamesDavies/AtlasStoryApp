@@ -57,6 +57,7 @@ export const PsychologyItems = () => {
 				))}
 			</div>
 			<div>
+				<ErrorMessage errors={errors} />
 				<DragDropContainer
 					innerRef={psychologyItemsRef}
 					className='character-subpage-psychology-items'
@@ -76,7 +77,6 @@ export const PsychologyItems = () => {
 						</DragDropItem>
 					))}
 				</DragDropContainer>
-				<ErrorMessage errors={errors} />
 			</div>
 		</EditableContainer>
 	);

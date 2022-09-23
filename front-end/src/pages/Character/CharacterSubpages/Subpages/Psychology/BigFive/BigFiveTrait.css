@@ -1,0 +1,18 @@
+.character-subpage-big-five-trait-container {
+	margin: 24px 0;
+}
+
+.character-subpage-big-five-trait-container:first-child {
+	margin-top: 0;
+}
+
+.character-subpage-big-five-trait-name {
+	margin-bottom: 8px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.character-subpage-big-five-trait-aspects-container {
+	display: flex;
+	width: 100%;
+}

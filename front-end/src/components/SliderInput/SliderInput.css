@@ -1,0 +1,114 @@
+.slider-input-container {
+	position: relative;
+	margin: 0;
+	width: 100%;
+	height: 18px;
+}
+
+.slider-input {
+	position: relative;
+	z-index: 2;
+	-webkit-appearance: none;
+	margin: 0;
+	width: 100%;
+	height: 18px;
+	background: transparent;
+}
+
+.slider-input::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	margin-top: 0px;
+	border: 0;
+	border-radius: 4px;
+
+	height: 6px;
+	width: 0px;
+
+	background: transparent;
+	cursor: pointer;
+}
+
+.slider-input:focus {
+	outline: none;
+}
+
+.slider-input::-webkit-slider-runnable-track {
+	border: 0;
+	border-radius: 4px;
+	width: 100%;
+	height: 6px;
+
+	background: var(--blue);
+	background: var(--grey4);
+	background: transparent;
+	cursor: pointer;
+}
+
+.slider-input-progress {
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+
+	display: block;
+	content: "";
+	border-radius: 4px;
+
+	height: 6px;
+	width: 0%;
+
+	background: var(--blue);
+}
+
+.slider-input-background {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+
+	display: block;
+	content: "";
+	border-radius: 4px;
+
+	height: 6px;
+	width: 100%;
+
+	background: var(--grey3);
+}
+
+.slider-input-container-percentage-colour-exceptionally-high .slider-input-progress {
+	background: #0077ff;
+}
+
+.slider-input-container-percentage-colour-very-high .slider-input-progress {
+	background: #00d1ff;
+}
+
+.slider-input-container-percentage-colour-high .slider-input-progress {
+	background: #00ff47;
+}
+
+.slider-input-container-percentage-colour-moderately-high .slider-input-progress {
+	background: #60df7b;
+}
+
+.slider-input-container-percentage-colour-typical .slider-input-progress {
+	background: #ffffff;
+}
+
+.slider-input-container-percentage-colour-moderately-low .slider-input-progress {
+	background: #dbe734;
+}
+
+.slider-input-container-percentage-colour-low .slider-input-progress {
+	background: #ffaa00;
+}
+
+.slider-input-container-percentage-colour-very-low .slider-input-progress {
+	background: #ff6600;
+}
+
+.slider-input-container-percentage-colour-exceptionally-low .slider-input-progress {
+	background: #ff0000;
+}
