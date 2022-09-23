@@ -16,3 +16,10 @@
 	display: flex;
 	width: 100%;
 }
+
+@media (max-width: 750px) {
+	.character-subpage-big-five-trait-aspects-container {
+		flex-direction: column;
+		gap: 16px 0;
+	}
+}
