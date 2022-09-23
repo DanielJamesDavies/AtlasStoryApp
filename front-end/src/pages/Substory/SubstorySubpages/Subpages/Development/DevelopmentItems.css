@@ -9,7 +9,7 @@
 }
 
 .substory-subpage-development-items-substory-images-open {
-	width: 80%;
+	width: calc(80% - 12px);
 }
 
 .substory-subpage-development-items-substory-images-open ~ .substory-images-container {
