@@ -2,6 +2,7 @@
 	padding: 16px 24px;
 	border: 3px solid var(--grey2point5);
 	border-radius: 30px;
+	outline: 0;
 	background: var(--grey2point5);
 	color: #fff;
 	width: calc(100% - 48px - 6px - 12px);
@@ -14,4 +15,11 @@
 	outline: 0;
 	border-color: var(--blue);
 	background: var(--grey2);
+}
+
+@media (max-width: 750px) {
+	.search-input {
+		padding: 12px 20px;
+		width: calc(100% - 40px - 6px - 12px);
+	}
 }

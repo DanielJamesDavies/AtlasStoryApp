@@ -38,3 +38,9 @@
 .search-results-list-item-placeholder:nth-child(3) {
 	opacity: 0.25;
 }
+
+@media (max-width: 750px) {
+	.search-results-list-container {
+		max-height: calc(var(--vh) - 70px - 6px - 6px - 18px - 31px - 18px - 50px - 8px);
+	}
+}

@@ -30,6 +30,15 @@
 	}
 
 	.search-title-container {
-		margin: 24px auto;
+		margin: 18px auto;
+	}
+
+	.search-title-icon {
+		margin-right: 12px;
+		font-size: 30px;
+	}
+
+	.search-title-text {
+		font-size: 26px;
 	}
 }
