@@ -19,10 +19,10 @@ export const BigFiveAspect = ({ trait, aspect, isEditing }) => {
 	const { characterVersion, aspectValueText, getPercentileText, changeBigFiveAspect } = BigFiveAspectLogic({ aspect });
 
 	return (
-		<div className='character-subpage-big-five-aspect-container'>
-			<div className='character-subpage-big-five-aspect-text-container'>
-				<div className='character-subpage-big-five-aspect-name'>{aspect?.name}</div>
-				<div className='character-subpage-big-five-aspect-value-percentile'>
+		<div className='character-subpage-psychology-big-five-aspect-container'>
+			<div className='character-subpage-psychology-big-five-aspect-text-container'>
+				<div className='character-subpage-psychology-big-five-aspect-name'>{aspect?.name}</div>
+				<div className='character-subpage-psychology-big-five-aspect-value-percentile'>
 					{getPercentileText(characterVersion.psychology.bigFive[aspect.id])}
 				</div>
 			</div>
@@ -36,7 +36,7 @@ export const BigFiveAspect = ({ trait, aspect, isEditing }) => {
 				hasPercentageColours={true}
 				flipPercentageColours={trait?.id === "neuroticism"}
 			/>
-			<div className='character-subpage-big-five-aspect-value-text'>{aspectValueText}</div>
+			<div className='character-subpage-psychology-big-five-aspect-value-text'>{aspectValueText}</div>
 		</div>
 	);
 };

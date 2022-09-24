@@ -1,27 +1,27 @@
-.character-subpage-big-five-aspect-container {
+.character-subpage-psychology-big-five-aspect-container {
 	width: 100%;
 }
 
-.character-subpage-big-five-aspect-container:first-child {
+.character-subpage-psychology-big-five-aspect-container:first-child {
 	margin-right: 24px;
 }
 
-.character-subpage-big-five-aspect-text-container {
+.character-subpage-psychology-big-five-aspect-text-container {
 	display: flex;
 	align-items: center;
 }
 
-.character-subpage-big-five-aspect-name {
+.character-subpage-psychology-big-five-aspect-name {
 	font-size: 15px;
 }
 
-.character-subpage-big-five-aspect-value-percentile {
+.character-subpage-psychology-big-five-aspect-value-percentile {
 	margin-left: auto;
 	font-size: 14px;
 	font-weight: 700;
 }
 
-.character-subpage-big-five-aspect-value-text {
+.character-subpage-psychology-big-five-aspect-value-text {
 	text-align: right;
 	font-size: 14px;
 	font-weight: 500;
