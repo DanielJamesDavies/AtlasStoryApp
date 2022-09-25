@@ -81,6 +81,43 @@ const CharacterSchema = mongoose.Schema({
 							require: true,
 							default: {},
 						},
+						biography: {
+							type: [
+								{
+									type: {
+										_id: {
+											type: mongoose.Schema.Types.ObjectId,
+											require: true,
+											default: new mongoose.Types.ObjectId(),
+										},
+										name: { type: String, require: true, default: "" },
+										items: {
+											type: [
+												{
+													title: { type: String, require: true },
+													text: { type: [String], require: true, default: [""] },
+													images: {
+														type: [
+															{
+																image: mongoose.Schema.Types.ObjectId,
+																caption: { type: String, require: true, default: "" },
+															},
+														],
+														require: true,
+														default: [],
+													},
+												},
+											],
+											require: true,
+										},
+									},
+									require: true,
+									default: {},
+								},
+							],
+							require: true,
+							default: [],
+						},
 						abilities: {
 							type: [
 								{

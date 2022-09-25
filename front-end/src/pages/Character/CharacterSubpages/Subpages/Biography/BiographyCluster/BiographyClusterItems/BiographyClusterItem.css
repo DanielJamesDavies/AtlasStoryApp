@@ -1,0 +1,64 @@
+.character-subpage-biography-cluster-item-container {
+	position: relative;
+	margin: 6px 0;
+	padding: 8px 0;
+	padding-bottom: 10px;
+	border-radius: 4px;
+}
+
+.character-subpage-biography-cluster-item-container:first-child {
+	margin-top: 0;
+}
+
+.character-subpage-biography-cluster-item-container:after {
+	position: absolute;
+	bottom: -2px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: block;
+	content: "";
+	border-radius: 4px;
+	width: calc(100% - 8px);
+	height: 2px;
+	background: var(--grey3);
+}
+
+.character-subpage-biography-cluster-item-container:last-child::after {
+	display: none;
+}
+
+.character-subpage-biography-cluster-item-container:last-child {
+	padding-bottom: 8px;
+}
+
+.drag-drop-item-enable-drag-drop.character-subpage-biography-cluster-item-container {
+	animation: wiggle-very-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).character-subpage-biography-cluster-item-container {
+	animation-delay: 0.1s;
+}
+
+.editable-container-is-editing .character-subpage-biography-cluster-item-content {
+	display: inline-block;
+	width: calc(100% - 24px - 8px);
+	vertical-align: top;
+}
+
+.text-input-container.character-subpage-biography-cluster-item-title {
+	height: 17px;
+}
+
+.character-subpage-biography-cluster-item-title .text-input-label {
+	padding-top: 0;
+}
+
+.character-subpage-biography-cluster-item-title {
+	margin-bottom: 4px;
+}
+
+.character-subpage-biography-cluster-item-title,
+.character-subpage-biography-cluster-item-title input {
+	font-size: 14px;
+	font-weight: 700;
+}

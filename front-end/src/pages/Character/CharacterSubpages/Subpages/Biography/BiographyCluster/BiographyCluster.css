@@ -1,0 +1,11 @@
+.character-subpage-biography-cluster {
+	display: inline-block;
+	width: calc(100% - 310px - 24px);
+	vertical-align: top;
+}
+
+@media (max-width: 700px) {
+	.character-subpage-biography-cluster {
+		width: 100%;
+	}
+}

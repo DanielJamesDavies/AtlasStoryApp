@@ -172,6 +172,31 @@ module.exports = async (req, res) => {
 					}
 				}
 
+				if (newPath[3] === "biography") {
+					if (newPath.length === 4) {
+						newBiographyClusters = req?.body?.newValue.map((biographyCluster) => {
+							const biographyClusterIndex = newCharacter.data.versions[versionIndex].biography.findIndex(
+								(e) => JSON.stringify(e._id) === JSON.stringify(biographyCluster._id)
+							);
+							if (biographyClusterIndex === -1) return { _id: biographyCluster?._id, name: biographyCluster?.name };
+							return newCharacter.data.versions[versionIndex].biography[biographyClusterIndex];
+						});
+						newCharacter = ChangeValueInNestedObject(newCharacter, newPath, newBiographyClusters);
+						break;
+					}
+
+					if (newPath.length > 4) {
+						biographyClustersIndex = newCharacter.data.versions[versionIndex].biography.findIndex(
+							(e) => JSON.stringify(e._id) === JSON.stringify(newPath[4])
+						);
+						if (biographyClustersIndex === -1) {
+							biographyClustersIndex = newCharacter.data.versions[versionIndex].biography.length;
+							newCharacter.data.versions[versionIndex].biography.push({ _id: newPath[4] });
+						}
+						newPath[4] = biographyClustersIndex;
+					}
+				}
+
 				newCharacter = ChangeValueInNestedObject(newCharacter, newPath, req?.body?.newValue);
 			} else {
 				newCharacter = ChangeValueInNestedObject(newCharacter, req?.body?.path, req?.body?.newValue);

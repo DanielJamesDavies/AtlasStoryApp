@@ -1,0 +1,19 @@
+.character-subpage-abilities-biography-cluster-name-container {
+	display: flex;
+	align-items: flex-start;
+	margin: 0;
+	margin-top: 6px;
+
+	width: fit-content;
+	min-height: 39px;
+}
+
+.character-subpage-abilities-biography-cluster-name {
+	margin-top: 6px;
+}
+
+.character-subpage-abilities-biography-cluster-name,
+.character-subpage-abilities-biography-cluster-name input {
+	font-size: 20px;
+	font-weight: 700;
+}

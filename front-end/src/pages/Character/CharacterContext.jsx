@@ -30,13 +30,13 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const [characterVersion, setCharacterVersion] = useState(false);
 
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
-	// 	{ id: "efforts", name: "Efforts & History", isEnabled: true },
 	// 	{ id: "relationships", name: "Relationships", isEnabled: true },
 	// 	{ id: "miscellaneous", name: "Miscellaneous", isEnabled: true },
 	const allSubpages = useMemo(
 		() => [
 			{ id: "gallery", name: "Gallery", isEnabled: true },
 			{ id: "psychology", name: "Psychology", isEnabled: true },
+			{ id: "biography", name: "Biography", isEnabled: true },
 			{ id: "abilities", name: "Abilities", isEnabled: true },
 			{ id: "physical", name: "Physical", isEnabled: true },
 			{ id: "development", name: "Development", isEnabled: true },
