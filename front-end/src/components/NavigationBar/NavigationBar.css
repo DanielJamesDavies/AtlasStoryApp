@@ -1,23 +1,24 @@
 .navigation-bar {
+	position: relative;
 	display: inline-block;
-	width: 76px;
+	width: 74px;
 	height: 100%;
 }
 
 .navigation-bar-primary-button-container {
-	margin: 6px;
+	margin: 5px;
 	margin-right: 0;
 	border-radius: 4px;
-	width: calc(100% - 6px);
+	width: calc(100% - 10px);
 	text-align: center;
 	background: var(--grey2);
 }
 
 .navigation-bar-story-button-container {
-	margin: 6px;
+	margin: 5px;
 	margin-right: 0;
 	border-radius: 4px;
-	width: calc(100% - 6px);
+	width: calc(100% - 10px);
 	text-align: center;
 	background: var(--grey2);
 }
@@ -25,16 +26,16 @@
 .navigation-bar-placeholder-section {
 	display: block;
 	content: "";
-	margin: 6px;
+	margin: 5px;
 	margin-right: 0;
 	border-radius: 4px;
-	width: calc(100% - 6px);
-	height: calc(100% - 78px - 78px - 12px - 6px);
+	width: calc(100% - 10px);
+	height: calc(100% - 78px - 78px - 10px - 5px);
 	background: var(--grey2);
 }
 
 .navigation-bar-placeholder-section-story-open {
-	height: calc(100vh - 78px - 78px - 12px - 78px - 78px - 78px - 78px - 12px);
+	height: calc(100vh - 78px - 78px - 10px - 78px - 78px - 78px - 78px - 5px - 5px);
 }
 
 .navigation-bar-btn {
@@ -109,13 +110,13 @@
 	.navigation-bar-placeholder-section {
 		display: inline-block;
 		margin-top: 6px;
-		width: calc(100vw - 150px);
+		width: calc(100vw - 130px - 4px);
 		height: 58px;
 		vertical-align: middle;
 	}
 
 	.navigation-bar-placeholder-section-story-open {
-		width: calc(100vw - 350px - 32px);
+		width: calc(100vw - 130px - 5px - 8px - 224px - 4px);
 	}
 
 	.navigation-bar-btn {

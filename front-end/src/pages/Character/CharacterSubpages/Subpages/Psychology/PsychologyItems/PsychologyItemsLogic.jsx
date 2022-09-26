@@ -60,8 +60,8 @@ export const PsychologyItemsLogic = () => {
 			"Dislikes",
 			"Hobbies",
 			"Love Languages",
-			"Favourite Music Genres",
 			"Work Ethic",
+			"Favourite Music Genres",
 		];
 		let newPsychologyItems = defaultPsychologyItemsTitles.map((title) => {
 			const correspondingItem = newCharacterVersion.psychology.items.find((e) => e.title === title);
