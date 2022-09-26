@@ -32,6 +32,8 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 		saveBiographyClusters,
 		defaultBiographyClusters,
 		onClickBiographyCluster,
+		biographyClusterListItemsRef,
+		onBiographyClusterListScroll,
 	} = BiographyClusterListLogic({ currBiographyCluster, switchBiographyCluster });
 
 	return (
@@ -43,8 +45,9 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 				onRevert={revertBiographyClusters}
 				onSave={saveBiographyClusters}
 				onDefault={defaultBiographyClusters}
+				onScroll={onBiographyClusterListScroll}
 			>
-				<div className='character-subpage-biography-cluster-list-items'>
+				<div ref={biographyClusterListItemsRef} className='character-subpage-biography-cluster-list-items'>
 					{characterVersion?.biography?.map((biologyCluster, index) => (
 						<div key={index} className='character-subpage-biography-cluster-list-item-container'>
 							<div
@@ -64,6 +67,7 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 					className='character-subpage-biography-cluster-list-items'
 					enableDragDrop={isReorderingBiographyCluster}
 					onDropItem={reorderBiographyCluster}
+					innerRef={biographyClusterListItemsRef}
 				>
 					{characterVersion?.biography?.map((biologyCluster, index) => (
 						<DragDropItem key={index} index={index} className='character-subpage-biography-cluster-list-item-container'>

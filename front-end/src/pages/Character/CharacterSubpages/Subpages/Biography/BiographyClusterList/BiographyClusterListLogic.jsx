@@ -111,6 +111,13 @@ export const BiographyClusterListLogic = ({ currBiographyCluster, switchBiograph
 		switchBiographyCluster(biographyCluster._id);
 	}
 
+	const [biographyClusterListItemsRefCurrent, biographyClusterListItemsRef] = useState(undefined);
+
+	function onBiographyClusterListScroll(e) {
+		if (biographyClusterListItemsRefCurrent?.scrollTop === 0) return;
+		e.stopPropagation();
+	}
+
 	return {
 		isAuthorizedToEdit,
 		characterVersion,
@@ -123,5 +130,7 @@ export const BiographyClusterListLogic = ({ currBiographyCluster, switchBiograph
 		saveBiographyClusters,
 		defaultBiographyClusters,
 		onClickBiographyCluster,
+		biographyClusterListItemsRef,
+		onBiographyClusterListScroll,
 	};
 };

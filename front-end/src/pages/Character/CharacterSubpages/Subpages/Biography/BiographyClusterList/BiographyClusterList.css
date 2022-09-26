@@ -5,6 +5,13 @@
 	vertical-align: top;
 }
 
+.character-subpage-biography-cluster-list-items {
+	padding-right: 12px;
+	max-height: calc(100vh - 48px - 59px - 24px - 36px - 24px - 16px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
 .character-subpage-biography-cluster-list-item {
 	display: flex;
 	align-items: top;
@@ -85,5 +92,9 @@
 	.character-subpage-biography-cluster-list {
 		margin-right: 0;
 		width: 100%;
+	}
+
+	.character-subpage-biography-cluster-list-items {
+		max-height: calc(var(--vh) - 70px - (6px + 61px + 12px + 12px) - 36px - 24px - 38px);
 	}
 }
