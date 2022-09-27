@@ -19,6 +19,23 @@ module.exports = async (req, res) => {
 		const versionIndex = character.data.versions.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(newPath[2]));
 		if (versionIndex === -1) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
 		newPath[2] = versionIndex;
+
+		if (newPath.length >= 5 && newPath[3] === "biography") {
+			const biographyClusterIndex = character.data.versions[versionIndex].biography.findIndex(
+				(e) => JSON.stringify(e._id) === JSON.stringify(newPath[4])
+			);
+			if (biographyClusterIndex === -1) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
+			newPath[4] = biographyClusterIndex;
+		}
+
+		if (newPath.length >= 5 && newPath[3] === "abilities") {
+			const abilityIndex = character.data.versions[versionIndex].abilities.findIndex(
+				(e) => JSON.stringify(e._id) === JSON.stringify(newPath[4])
+			);
+			if (abilityIndex === -1) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
+			newPath[4] = abilityIndex;
+		}
+
 		value = GetValueInNestedObject(JSON.parse(JSON.stringify(character)), newPath);
 	} else if (JSON.stringify(req.body.path) === JSON.stringify(["data", "images"])) {
 		let characterImages = await Promise.all(

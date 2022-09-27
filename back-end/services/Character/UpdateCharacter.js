@@ -147,7 +147,7 @@ module.exports = async (req, res) => {
 				if (versionIndex === -1) break;
 				newPath[2] = versionIndex;
 
-				if (newPath[3] === "abilities") {
+				if (newPath.length >= 4 && newPath[3] === "abilities") {
 					if (newPath.length === 4) {
 						newAbilities = req?.body?.newValue.map((ability) => {
 							const abilityIndex = newCharacter.data.versions[versionIndex].abilities.findIndex(
@@ -172,7 +172,7 @@ module.exports = async (req, res) => {
 					}
 				}
 
-				if (newPath[3] === "biography") {
+				if (newPath.length >= 4 && newPath[3] === "biography") {
 					if (newPath.length === 4) {
 						newBiographyClusters = req?.body?.newValue.map((biographyCluster) => {
 							const biographyClusterIndex = newCharacter.data.versions[versionIndex].biography.findIndex(
