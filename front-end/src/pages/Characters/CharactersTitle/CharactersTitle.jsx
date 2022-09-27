@@ -1,6 +1,8 @@
 // Packages
+import { FaStickyNote } from "react-icons/fa";
 
 // Components
+import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Logic
 import { CharactersTitleLogic } from "./CharactersTitleLogic";
@@ -15,7 +17,7 @@ import "./CharactersTitle.css";
 // Assets
 
 export const CharactersTitle = () => {
-	const { story, storyIcon } = CharactersTitleLogic();
+	const { story, storyIcon, goToCharactersNotes } = CharactersTitleLogic();
 
 	return (
 		<div className='characters-title'>
@@ -29,6 +31,17 @@ export const CharactersTitle = () => {
 					<div className='characters-title-characters-label'>Characters</div>
 				</>
 			)}
+			<div className='characters-title-notes-btn-container'>
+				<IconBtn
+					className='characters-title-notes-btn'
+					seamless={true}
+					size='l'
+					icon={<FaStickyNote />}
+					iconName='sticky-note'
+					onClick={goToCharactersNotes}
+					label='Characters Notes'
+				/>
+			</div>
 		</div>
 	);
 };

@@ -18,7 +18,7 @@ import "./StoryPrimaryBanner.css";
 // Assets
 
 export const StoryPrimaryBanner = () => {
-	const { isAuthorizedToEdit, banner, changeStoryBanner, revertStoryBanner, saveStoryBanner, errors } = StoryPrimaryBannerLogic();
+	const { isAuthorizedToEdit, banner, changeStoryBanner, errors, revertStoryBanner, saveStoryBanner } = StoryPrimaryBannerLogic();
 
 	return (
 		<EditableContainer

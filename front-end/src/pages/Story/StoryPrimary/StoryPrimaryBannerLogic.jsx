@@ -46,5 +46,5 @@ export const StoryPrimaryBannerLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, banner, changeStoryBanner, revertStoryBanner, saveStoryBanner, errors };
+	return { isAuthorizedToEdit, banner, changeStoryBanner, errors, revertStoryBanner, saveStoryBanner };
 };

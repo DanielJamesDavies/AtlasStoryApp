@@ -66,6 +66,10 @@
 	font-weight: 400;
 }
 
+.substories-title-notes-btn-container {
+	margin-left: auto;
+}
+
 @media (max-width: 700px) {
 	.substories-title {
 		margin-bottom: 24px;

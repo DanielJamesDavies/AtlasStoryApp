@@ -1,6 +1,8 @@
 // Packages
+import { FaStickyNote } from "react-icons/fa";
 
 // Components
+import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Logic
 import { SubstoriesTitleLogic } from "./SubstoriesTitleLogic";
@@ -15,7 +17,7 @@ import "./SubstoriesTitle.css";
 // Assets
 
 export const SubstoriesTitle = () => {
-	const { story, storyIcon } = SubstoriesTitleLogic();
+	const { story, storyIcon, goToSubstoriesNotes } = SubstoriesTitleLogic();
 
 	return (
 		<div className='substories-title'>
@@ -29,6 +31,17 @@ export const SubstoriesTitle = () => {
 					<div className='substories-title-substories-label'>Substories</div>
 				</>
 			)}
+			<div className='substories-title-notes-btn-container'>
+				<IconBtn
+					className='substories-title-notes-btn'
+					seamless={true}
+					size='l'
+					icon={<FaStickyNote />}
+					iconName='sticky-note'
+					onClick={goToSubstoriesNotes}
+					label='Substories Notes'
+				/>
+			</div>
 		</div>
 	);
 };

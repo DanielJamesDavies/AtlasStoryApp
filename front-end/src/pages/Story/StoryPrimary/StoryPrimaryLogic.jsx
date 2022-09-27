@@ -7,6 +7,7 @@ import { useContext } from "react";
 
 // Context
 import { StoryContext } from "../StoryContext";
+import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
 
@@ -15,11 +16,17 @@ import { StoryContext } from "../StoryContext";
 // Assets
 
 export const StoryPrimaryLogic = () => {
-	const { isAuthorizedToEdit, setIsDisplayingSettings } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setIsDisplayingSettings } = useContext(StoryContext);
+	const { changeLocation } = useContext(RoutesContext);
+
+	function goToStoryNotes(e) {
+		e.preventDefault();
+		if (story?.uid) changeLocation("/s/" + story.uid + "/notes", e.button === 1);
+	}
 
 	function openSettings() {
 		setIsDisplayingSettings(true);
 	}
 
-	return { isAuthorizedToEdit, openSettings };
+	return { isAuthorizedToEdit, goToStoryNotes, openSettings };
 };

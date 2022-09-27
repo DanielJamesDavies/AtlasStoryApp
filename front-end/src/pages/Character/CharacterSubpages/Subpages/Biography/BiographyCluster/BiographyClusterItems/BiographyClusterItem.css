@@ -45,14 +45,6 @@
 	vertical-align: top;
 }
 
-.text-input-container.character-subpage-biography-cluster-item-title {
-	height: 17px;
-}
-
-.character-subpage-biography-cluster-item-title .text-input-label {
-	padding-top: 0;
-}
-
 .character-subpage-biography-cluster-item-title {
 	margin-bottom: 4px;
 }
@@ -61,4 +53,33 @@
 .character-subpage-biography-cluster-item-title input {
 	font-size: 14px;
 	font-weight: 700;
+}
+
+.character-subpage-biography-cluster-item-title {
+	margin-bottom: 3px;
+}
+
+.character-subpage-biography-cluster-item-title .text-input {
+	margin-top: 2px;
+}
+
+.character-subpage-biography-cluster-item-title .text-input-label ~ input {
+	margin-top: 2px;
+	height: 17px;
+}
+
+.character-subpage-biography-cluster-item-title .text-input-label {
+	margin-top: -5px;
+}
+
+.character-subpage-biography-cluster-item-title,
+.character-subpage-biography-cluster-item-title input {
+	font-size: calc(14px * var(--fontSizeMultiplier));
+	font-weight: 700;
+}
+
+.character-subpage-biography-cluster-item .text-input-container-empty {
+	margin-top: 3px;
+	margin-bottom: 4px;
+	height: 17px;
 }

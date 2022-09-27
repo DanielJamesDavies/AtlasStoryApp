@@ -31,6 +31,18 @@ module.exports = async (req, res) => {
 			newStory.uid = newUID;
 			break;
 		default:
+			if (req.body.path.length === 3 && req.body.path[0] === "data" && req.body.path[1] === "notes") {
+				let newPath = JSON.parse(JSON.stringify(req.body.path));
+				const notesIndex = newStory.data.notes.findIndex((e) => e.uid === newPath[2]);
+				if (notesIndex === -1) {
+					if (req?.body?.newValue) newStory.data.notes.push(req.body.newValue);
+					break;
+				}
+				newPath[2] = notesIndex;
+				newStory = ChangeValueInNestedObject(newStory, newPath, req?.body?.newValue);
+				break;
+			}
+
 			newStory = ChangeValueInNestedObject(newStory, req?.body?.path, req?.body?.newValue);
 			break;
 	}

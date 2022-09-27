@@ -28,8 +28,7 @@
 	font-size: 50px;
 	text-align: center;
 	vertical-align: middle;
-	transition: background 0.2s;
-	transition: color 0.2s;
+	transition: 0.2s;
 	cursor: pointer;
 }
 

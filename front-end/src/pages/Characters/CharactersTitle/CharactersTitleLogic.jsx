@@ -7,6 +7,7 @@ import { useContext } from "react";
 
 // Context
 import { CharactersContext } from "../CharactersContext";
+import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
 
@@ -16,6 +17,12 @@ import { CharactersContext } from "../CharactersContext";
 
 export const CharactersTitleLogic = () => {
 	const { story, storyIcon } = useContext(CharactersContext);
+	const { changeLocation } = useContext(RoutesContext);
 
-	return { story, storyIcon };
+	function goToCharactersNotes(e) {
+		e.preventDefault();
+		if (story?.uid) changeLocation("/s/" + story.uid + "/characters/notes", e.button === 1);
+	}
+
+	return { story, storyIcon, goToCharactersNotes };
 };

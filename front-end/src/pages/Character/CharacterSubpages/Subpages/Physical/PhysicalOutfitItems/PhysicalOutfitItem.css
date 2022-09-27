@@ -54,7 +54,17 @@
 }
 
 .character-subpage-physical-outfit-item-title .text-input {
-	margin-top: -4px;
+	margin-top: 2px;
+}
+
+.character-subpage-physical-outfit-item-title .text-input-label ~ input {
+	margin-top: 2px;
+	height: 17px;
+}
+
+.character-subpage-physical-outfit-item-title .text-input-label {
+	margin-top: -5px;
+	font-size: calc(15px * var(--fontSizeMultiplier));
 }
 
 .character-subpage-physical-outfit-item-title,
@@ -64,15 +74,17 @@
 }
 
 .character-subpage-physical-outfit-item .text-input-container-empty {
-	height: 20px;
-}
-
-.character-subpage-physical-outfit-item .text-input-container-empty .text-input-title {
-	padding-top: 1px;
+	margin-top: 3px;
+	margin-bottom: 4px;
+	height: 17px;
 }
 
 .character-subpage-physical-outfit-item-text {
 	min-height: 23px;
+}
+
+.character-subpage-physical-outfit-item-text .multi-line-text-input-label {
+	font-size: calc(15px * var(--fontSizeMultiplier));
 }
 
 .character-subpage-physical-outfit-item-btns-container {

@@ -1,5 +1,5 @@
 // Packages
-import { FaCog } from "react-icons/fa";
+import { FaCog, FaStickyNote } from "react-icons/fa";
 
 // Components
 import { StoryPrimaryBanner } from "./StoryPrimaryBanner";
@@ -21,7 +21,7 @@ import "./StoryPrimary.css";
 // Assets
 
 export const StoryPrimary = () => {
-	const { isAuthorizedToEdit, openSettings } = StoryPrimaryLogic();
+	const { isAuthorizedToEdit, goToStoryNotes, openSettings } = StoryPrimaryLogic();
 
 	return (
 		<div className='story-primary'>
@@ -32,18 +32,27 @@ export const StoryPrimary = () => {
 				<StoryPrimaryTitle />
 				<StoryPrimaryMembers />
 			</div>
-			{!isAuthorizedToEdit ? null : (
-				<div className='story-primary-auth-buttons-container'>
+
+			<div className='story-primary-buttons-container'>
+				<IconBtn
+					className='story-primary-btn'
+					seamless={true}
+					size='l'
+					icon={<FaStickyNote />}
+					onClick={goToStoryNotes}
+					label='Story Notes'
+				/>
+				{!isAuthorizedToEdit ? null : (
 					<IconBtn
-						className='story-primary-auth-btn story-primary-auth-btn-settings'
+						className='story-primary-btn'
 						seamless={true}
 						size='l'
 						icon={<FaCog />}
 						onClick={openSettings}
 						label='Story Settings'
 					/>
-				</div>
-			)}
+				)}
+			</div>
 		</div>
 	);
 };

@@ -13,6 +13,7 @@ import { CharacterContainer } from "../../pages/Character/CharacterContainer";
 import { SubstoriesContainer } from "../../pages/Substories/SubstoriesContainer";
 import { SubstoryContainer } from "../../pages/Substory/SubstoryContainer";
 import { WorldContainer } from "../../pages/World/WorldContainer";
+import { NotesContainer } from "../../pages/Notes/NotesContainer";
 
 // Logic
 
@@ -87,6 +88,10 @@ export const RoutesLogic = () => {
 					if (locationSplit.length > 2) {
 						switch (locationSplit[2]) {
 							case "characters":
+								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
+									setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid={locationSplit[2]} />);
+									break;
+								}
 								setRenderComponent(<CharactersContainer story_uid={locationSplit[1]} />);
 								break;
 							case "c":
@@ -96,6 +101,10 @@ export const RoutesLogic = () => {
 							case "g":
 								break;
 							case "substories":
+								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
+									setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid={locationSplit[2]} />);
+									break;
+								}
 								setRenderComponent(<SubstoriesContainer story_uid={locationSplit[1]} />);
 								break;
 							case "s":
@@ -103,9 +112,16 @@ export const RoutesLogic = () => {
 									setRenderComponent(<SubstoryContainer story_uid={locationSplit[1]} substory_uid={locationSplit[3]} />);
 								break;
 							case "world":
+								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
+									setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid={locationSplit[2]} />);
+									break;
+								}
 								setRenderComponent(<WorldContainer story_uid={locationSplit[1]} />);
 								break;
 							case "w":
+								break;
+							case "notes":
+								setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid='all' />);
 								break;
 							default:
 								break;
@@ -113,11 +129,6 @@ export const RoutesLogic = () => {
 					} else {
 						setRenderComponent(<StoryContainer story_uid={locationSplit[1]} />);
 					}
-					break;
-				case "search":
-					changeAccentColour("default");
-					changeAccentHoverColour("default");
-					setRenderComponent(null);
 					break;
 				default:
 					if (username) changeLocation("/u/" + username);

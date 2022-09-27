@@ -7,6 +7,7 @@ import { useContext } from "react";
 
 // Context
 import { SubstoriesContext } from "../SubstoriesContext";
+import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
 
@@ -16,6 +17,11 @@ import { SubstoriesContext } from "../SubstoriesContext";
 
 export const SubstoriesTitleLogic = () => {
 	const { story, storyIcon } = useContext(SubstoriesContext);
+	const { changeLocation } = useContext(RoutesContext);
 
-	return { story, storyIcon };
+	function goToSubstoriesNotes(e) {
+		e.preventDefault();
+		if (story?.uid) changeLocation("/s/" + story.uid + "/substories/notes", e.button === 1);
+	}
+	return { story, storyIcon, goToSubstoriesNotes };
 };

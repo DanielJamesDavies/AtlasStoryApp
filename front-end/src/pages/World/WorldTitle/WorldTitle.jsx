@@ -1,6 +1,8 @@
 // Packages
+import { FaStickyNote } from "react-icons/fa";
 
 // Components
+import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Logic
 import { WorldTitleLogic } from "./WorldTitleLogic";
@@ -15,7 +17,7 @@ import "./WorldTitle.css";
 // Assets
 
 export const WorldTitle = () => {
-	const { story, storyIcon } = WorldTitleLogic();
+	const { story, storyIcon, goToWorldNotes } = WorldTitleLogic();
 
 	return (
 		<div className='world-title'>
@@ -29,6 +31,17 @@ export const WorldTitle = () => {
 					<div className='world-title-world-label'>World</div>
 				</>
 			)}
+			<div className='world-title-notes-btn-container'>
+				<IconBtn
+					className='world-title-notes-btn'
+					seamless={true}
+					size='l'
+					icon={<FaStickyNote />}
+					iconName='sticky-note'
+					onClick={goToWorldNotes}
+					label='World Notes'
+				/>
+			</div>
 		</div>
 	);
 };
