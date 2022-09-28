@@ -86,3 +86,39 @@
 .notes-list-item-text .multi-line-text-input-label {
 	font-size: calc(15px * var(--fontSizeMultiplier));
 }
+
+.notes-list-item-images-container {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.notes-list-item-images-add-container {
+	width: 100%;
+	text-align: center;
+}
+
+.notes-list-item-image-item {
+	position: relative;
+	margin: 4px;
+	width: calc((100% / 3) - 8px);
+}
+
+.drag-drop-item-enable-drag-drop .notes-list-item-image-item {
+	-webkit-user-drag: element;
+}
+
+.notes-list-item-image-item img {
+	width: 100%;
+	max-height: max(18vw, 250px);
+	object-fit: contain;
+}
+
+.notes-list-item-buttons-container {
+	display: inline-flex;
+	flex-direction: column;
+}
+
+.notes-list-item-add-image-input {
+	display: none;
+}

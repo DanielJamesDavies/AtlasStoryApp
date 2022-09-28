@@ -59,7 +59,7 @@ export const NotesList = () => {
 						.find((e) => e.uid === notes_uid)
 						?.items.map((item, index) => (
 							<DragDropItem key={index} index={index} className='notes-list-item-container'>
-								<NotesListItem item={item} index={index} isEditing={true} />
+								<NotesListItem item={item} index={index} isEditing={true} isReorderingNotes={isReorderingNotes} />
 							</DragDropItem>
 						))}
 				</DragDropContainer>

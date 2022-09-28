@@ -59,7 +59,24 @@ const StorySchema = mongoose.Schema({
 				type: [
 					{
 						uid: { type: String, default: "" },
-						items: [{ type: { title: { type: String, default: "" }, text: { type: [String], default: [""] } } }],
+						items: [
+							{
+								type: {
+									title: { type: String, default: "" },
+									text: { type: [String], default: [""] },
+									images: {
+										type: [
+											{
+												image: mongoose.Schema.Types.ObjectId,
+												caption: { type: String, require: true, default: "" },
+											},
+										],
+										require: true,
+										default: [],
+									},
+								},
+							},
+						],
 					},
 				],
 				default: [],

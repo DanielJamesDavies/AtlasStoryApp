@@ -1,4 +1,5 @@
 const Story = require("../../models/Story");
+const Image = require("../../models/Image");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 module.exports = async (req, res) => {
@@ -39,6 +40,47 @@ module.exports = async (req, res) => {
 					break;
 				}
 				newPath[2] = notesIndex;
+
+				// Notes Images
+				let oldNotesImages = [];
+				newStory.data.notes[notesIndex].items.forEach((item) => {
+					if (item.images) oldNotesImages = oldNotesImages.concat(item.images.map((image) => image?.image));
+				});
+
+				let newNotesImages = [];
+				req.body.newValue.items.forEach((item) => {
+					if (item.images) newNotesImages = newNotesImages.concat(item.images.map((image) => image?.image));
+				});
+
+				// Notes Images: Remove Removed Images
+				await Promise.all(
+					oldNotesImages.map(async (oldImageID) => {
+						if (newNotesImages.findIndex((e) => JSON.stringify(e) === JSON.stringify(oldImageID)) === -1) {
+							try {
+								await Image.deleteOne({ _id: oldImageID });
+							} catch (error) {}
+						}
+						return true;
+					})
+				);
+
+				// Notes Images: Create New Images
+				await Promise.all(
+					newNotesImages.map(async (newImageID) => {
+						if (oldNotesImages.findIndex((e) => JSON.stringify(e) === JSON.stringify(newImageID)) === -1) {
+							let newImage = req.body.newImages.find((e) => JSON.stringify(e._id) === JSON.stringify(newImageID))?.image;
+							if (!newImage) return false;
+
+							const image = new Image({ _id: newImageID, image: newImage, story_id: newStory._id });
+
+							try {
+								await image.save();
+							} catch (error) {}
+							return true;
+						}
+					})
+				);
+
 				newStory = ChangeValueInNestedObject(newStory, newPath, req?.body?.newValue);
 				break;
 			}

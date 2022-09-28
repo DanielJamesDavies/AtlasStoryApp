@@ -37,7 +37,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			{ id: "gallery", name: "Gallery", isEnabled: true },
 			{ id: "psychology", name: "Psychology", isEnabled: true },
 			{ id: "biography", name: "Biography", isEnabled: true },
-			{ id: "abilities", name: "Abilities", isEnabled: true },
+			{ id: "abilities", name: "Abilities & Equipment", isEnabled: true },
 			{ id: "physical", name: "Physical", isEnabled: true },
 			{ id: "development", name: "Development", isEnabled: true },
 			{ id: "settings", name: "Settings", isEnabled: true },

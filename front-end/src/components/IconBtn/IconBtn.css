@@ -25,7 +25,6 @@
 
 	background: var(--accentColour);
 	color: var(--textColour);
-	font-size: 50px;
 	text-align: center;
 	vertical-align: middle;
 	transition: 0.2s;
@@ -43,6 +42,7 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 60%;
+	font-size: 28px;
 }
 
 .icon-btn-container-plus-icon svg {
@@ -112,6 +112,7 @@
 	width: 16px;
 	height: 16px;
 	color: var(--textColour);
+	pointer-events: none;
 }
 
 .icon-btn-small-icon {
@@ -127,6 +128,11 @@
 	transition: color 0.2s;
 }
 
+.icon-btn-small-icon svg {
+	max-width: 16px;
+	max-height: 16px;
+}
+
 .icon-btn-small-icon-bg {
 	position: absolute;
 	top: 50%;
@@ -136,6 +142,11 @@
 	width: 24px;
 	height: 24px;
 	color: var(--grey1);
+}
+
+.icon-btn-small-icon-bg svg {
+	max-width: 24px;
+	max-height: 24px;
 }
 
 .icon-btn-container-seamless .icon-btn:hover .icon-btn-small-icon {

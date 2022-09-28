@@ -16,14 +16,14 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const NotesListLogic = () => {
-	const { notes_uid, isAuthorizedToEdit, story, setStory } = useContext(NotesContext);
+	const { notes_uid, isAuthorizedToEdit, story, setStory, noteImages } = useContext(NotesContext);
 	const { APIRequest } = useContext(APIContext);
 
 	function addNotesItem() {
 		let newStory = JSON.parse(JSON.stringify(story));
 		const notesIndex = newStory.data.notes.findIndex((e) => e.uid === notes_uid);
 		if (notesIndex === -1) return false;
-		newStory.data.notes[notesIndex].items.push({ title: "", text: [""] });
+		newStory.data.notes[notesIndex].items.push({ title: "", text: [""], images: [] });
 		setStory(newStory);
 	}
 
@@ -71,6 +71,7 @@ export const NotesListLogic = () => {
 			story_id: story._id,
 			path: ["data", "notes", notes_uid],
 			newValue: story.data.notes[notesIndex],
+			newImages: noteImages,
 		});
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);
