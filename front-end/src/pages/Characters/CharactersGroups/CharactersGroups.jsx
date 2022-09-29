@@ -57,7 +57,13 @@ export const CharactersGroups = () => {
 					</div>
 				)}
 			</div>
-			{!story?.data?.groups || !groups ? null : (
+			{!story?.data?.groups || !groups ? (
+				<div className='characters-groups-group-items-container'>
+					<div className='characters-groups-group-item-placeholder'></div>
+					<div className='characters-groups-group-item-placeholder'></div>
+					<div className='characters-groups-group-item-placeholder'></div>
+				</div>
+			) : (
 				<DragDropContainer
 					className='characters-groups-group-items-container'
 					inlineItems={false}
