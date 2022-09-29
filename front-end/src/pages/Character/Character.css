@@ -7,14 +7,23 @@
 	overflow: hidden;
 }
 
-.character-container-hidden {
-	display: none;
-}
-
 .character {
 	margin: 0 auto;
 	padding: 0;
 	height: calc(100%);
+}
+
+.character-hidden {
+	display: none;
+}
+
+.character-loading-container {
+	position: absolute;
+	display: flex;
+	width: calc(100%);
+	height: var(--vh);
+	justify-content: center;
+	align-items: center;
 }
 
 .character-content-container {

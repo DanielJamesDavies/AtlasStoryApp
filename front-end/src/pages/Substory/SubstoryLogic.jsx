@@ -16,18 +16,21 @@ import { SubstoryContext } from "./SubstoryContext";
 
 export const SubstoryLogic = () => {
 	const { substory, isOnOverviewSection, setIsOnOverviewSection } = useContext(SubstoryContext);
-	const [substoryStyle, setSubstoryStyle] = useState({ "--substoryColour": substory?.data?.colour ? substory.data.colour : "#0044ff" });
+	const [substoryStyle, setSubstoryStyle] = useState(false);
 
 	useEffect(() => {
-		function getGlowColour(colour) {
-			if (!colour) return "rgba(0, 68, 255, 0.8)";
-			const newColour = "0x" + colour.substring(1).toUpperCase();
-			return "rgba(" + ((newColour >> 16) & 0xff) + ", " + ((newColour >> 8) & 0xff) + ", " + (newColour & 0xff) + ", 0.8)";
+		function getSubstoryStyle() {
+			let newSubstoryStyle = {};
+			newSubstoryStyle["--substoryColour"] = substory?.data?.colour ? substory.data.colour : "#0044ff";
+			newSubstoryStyle["--substoryGlowColour"] = "rgba(0, 68, 255, 0.8)";
+			if (substory?.data?.colour) {
+				const newColour = "0x" + substory?.data?.colour?.substring(1).toUpperCase();
+				newSubstoryStyle["--substoryGlowColour"] =
+					"rgba(" + ((newColour >> 16) & 0xff) + ", " + ((newColour >> 8) & 0xff) + ", " + (newColour & 0xff) + ", 0.8)";
+			}
+			setSubstoryStyle(newSubstoryStyle);
 		}
-		setSubstoryStyle({
-			"--substoryColour": substory?.data?.colour ? substory.data.colour : "#0044ff",
-			"--substoryGlowColour": getGlowColour(substory?.data?.colour),
-		});
+		getSubstoryStyle();
 	}, [setSubstoryStyle, substory]);
 
 	const substoryContainerRef = useRef();

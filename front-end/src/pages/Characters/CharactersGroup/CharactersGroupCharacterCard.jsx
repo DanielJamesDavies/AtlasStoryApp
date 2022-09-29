@@ -20,6 +20,7 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 			characterID,
 		});
 
+	if (!character) return null;
 	return (
 		<div
 			className='characters-group-character-card drag-drop-item-content'

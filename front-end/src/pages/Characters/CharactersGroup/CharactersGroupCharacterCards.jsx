@@ -27,7 +27,7 @@ export const CharactersGroupCharacterCards = () => {
 			onMouseEnter={() => scrollCharacterCards(0)}
 			onMouseLeave={() => scrollCharacterCards(-1.75)}
 		>
-			{!group ? null : (
+			{!group?.data?.characters ? null : (
 				<DragDropContainer
 					innerRef={charactersCards}
 					className='characters-group-characters-cards'

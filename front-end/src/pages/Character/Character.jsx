@@ -5,6 +5,7 @@ import { CharacterPrimary } from "./CharacterPrimary/CharacterPrimary";
 import { CharacterOverview } from "./CharacterOverview/CharacterOverview";
 import { CharacterSectionSwitcher } from "./CharacterSectionSwitcher/CharacterSectionSwitcher";
 import { CharacterSubpages } from "./CharacterSubpages/CharacterSubpages";
+import { LoadingCircle } from "../../components/LoadingCircle/LoadingCircle";
 
 // Logic
 import { CharacterLogic } from "./CharacterLogic";
@@ -29,12 +30,8 @@ export const Character = () => {
 	} = CharacterLogic();
 
 	return (
-		<div
-			ref={characterContainerRef}
-			className={characterStyle ? "character-container" : "character-container character-container-hidden"}
-			style={characterStyle ? characterStyle : {}}
-		>
-			<div className='character'>
+		<div ref={characterContainerRef} className='character-container' style={characterStyle ? characterStyle : {}}>
+			<div className={characterStyle ? "character" : "character character-hidden"}>
 				<CharacterPrimary characterPrimaryRef={characterPrimaryRef} />
 				<div
 					className={
@@ -47,6 +44,9 @@ export const Character = () => {
 					<CharacterSectionSwitcher />
 					<CharacterSubpages innerRef={characterSubpagesContainerRef} />
 				</div>
+			</div>
+			<div className='character-loading-container'>
+				<LoadingCircle size='l' />
 			</div>
 		</div>
 	);

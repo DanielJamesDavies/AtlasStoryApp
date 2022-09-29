@@ -25,7 +25,7 @@ export const CharacterLogic = () => {
 
 			let newCharacterStyle = {};
 
-			newCharacterStyle["--characterColour"] = character?.data?.colour ? character.data.colour : "#ffffff";
+			newCharacterStyle["--characterColour"] = character?.data?.colour ? character.data.colour : "#0044ff";
 			newCharacterStyle["--characterGlowColour"] = getGlowColour(character?.data?.colour);
 
 			const primaryHeight = characterPrimaryRef?.current?.clientHeight;
@@ -36,7 +36,7 @@ export const CharacterLogic = () => {
 			}
 
 			setCharacterStyle((oldCharacterStyle) => {
-				if (!character?.data?.colour && oldCharacterStyle["--characterColour"] !== "#ffffff") {
+				if (!character?.data?.colour && oldCharacterStyle["--characterColour"] !== "#0044ff") {
 					newCharacterStyle["--characterColour"] = oldCharacterStyle["--characterColour"];
 					newCharacterStyle["--characterGlowColour"] = oldCharacterStyle["--characterGlowColour"];
 				}

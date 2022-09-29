@@ -13,6 +13,19 @@
 	height: calc(100%);
 }
 
+.substory-hidden {
+	display: none;
+}
+
+.substory-loading-container {
+	position: absolute;
+	display: flex;
+	width: calc(100%);
+	height: var(--vh);
+	justify-content: center;
+	align-items: center;
+}
+
 .substory-content-container {
 	display: flex;
 	height: 100%;

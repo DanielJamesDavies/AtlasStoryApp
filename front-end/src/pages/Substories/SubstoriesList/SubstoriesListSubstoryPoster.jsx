@@ -17,11 +17,10 @@ import Shine from "../../../content/shine.svg";
 
 export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
 	const { story, substory, posterBackground, navigateToSubstory, onSubstoryMouseDown, posterContainerStyles } = SubstoriesListSubstoryPosterLogic(
-		{
-			substoryID,
-		}
+		{ substoryID }
 	);
 
+	if (!substory) return null;
 	return (
 		<div
 			className='substories-list-substories-poster-container drag-drop-item-content'
