@@ -1,5 +1,9 @@
 .character-primary-name-container {
 	align-items: flex-start;
+	overflow: visible;
+	max-width: calc(100vw - 74px - 48px - 48px - 281px - 180px);
+	word-break: break-word;
+	overflow-wrap: anywhere;
 }
 
 .character-primary-name-container,
@@ -10,15 +14,28 @@
 	transition: 0.5s color;
 }
 
+.character-primary-name-container input {
+	margin-top: -8px;
+}
+
 @media (max-width: 700px) {
 	.character-primary-name-container {
-		max-width: calc(100% - 152px);
-		margin-bottom: 4px;
+		margin: 4px 0;
+		max-width: calc(100% - 145px);
+	}
+
+	.editable-container-is-authorized.character-primary-name-container {
+		max-width: calc(100% - 172px);
 	}
 
 	.character-primary-name-container,
 	.character-primary-name-container input {
 		font-size: 30px;
 		word-wrap: break-word;
+	}
+
+	.editable-container-is-editing.character-primary-name-container {
+		margin-top: 3px;
+		margin-bottom: 5px;
 	}
 }

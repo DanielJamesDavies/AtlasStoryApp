@@ -11,13 +11,9 @@
 	align-items: center;
 }
 
-.character-primary-name-and-story-container {
-	position: relative;
-}
-
 .character-primary-story {
 	position: absolute;
-	top: calc(-1 * (32px + 8px));
+	top: 8px;
 	display: flex;
 	align-items: center;
 

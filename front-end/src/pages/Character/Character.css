@@ -7,6 +7,10 @@
 	overflow: hidden;
 }
 
+.character-container-hidden {
+	display: none;
+}
+
 .character {
 	margin: 0 auto;
 	padding: 0;

@@ -16,18 +16,49 @@ import { CharacterContext } from "./CharacterContext";
 
 export const CharacterLogic = () => {
 	const { character, isOnOverviewSection, setIsOnOverviewSection } = useContext(CharacterContext);
-	const [characterStyle, setCharacterStyle] = useState({ "--characterColour": character?.data?.colour ? character.data.colour : "#0044ff" });
+	const [characterStyle, setCharacterStyle] = useState(false);
+	const characterPrimaryRef = useRef();
 
 	useEffect(() => {
+		function getCharacterStyle() {
+			if (!character) return false;
+
+			let newCharacterStyle = {};
+
+			newCharacterStyle["--characterColour"] = character?.data?.colour ? character.data.colour : "#ffffff";
+			newCharacterStyle["--characterGlowColour"] = getGlowColour(character?.data?.colour);
+
+			const primaryHeight = characterPrimaryRef?.current?.clientHeight;
+			if (primaryHeight !== undefined) {
+				let characterPaddingTop = primaryHeight + 24;
+				if (window?.innerWidth !== undefined && window?.innerWidth <= 700) characterPaddingTop = 6 + primaryHeight + 12;
+				newCharacterStyle["--characterPaddingTop"] = characterPaddingTop + "px";
+			}
+
+			setCharacterStyle((oldCharacterStyle) => {
+				if (!character?.data?.colour && oldCharacterStyle["--characterColour"] !== "#ffffff") {
+					newCharacterStyle["--characterColour"] = oldCharacterStyle["--characterColour"];
+					newCharacterStyle["--characterGlowColour"] = oldCharacterStyle["--characterGlowColour"];
+				}
+				return newCharacterStyle;
+			});
+		}
+
 		function getGlowColour(colour) {
-			if (!colour) return "rgba(0, 68, 255, 0.8)";
+			if (!colour) return "rgba(0, 0, 0, 0)";
 			const newColour = "0x" + colour.substring(1).toUpperCase();
 			return "rgba(" + ((newColour >> 16) & 0xff) + ", " + ((newColour >> 8) & 0xff) + ", " + (newColour & 0xff) + ", 0.8)";
 		}
-		setCharacterStyle({
-			"--characterColour": character?.data?.colour ? character.data.colour : "#0044ff",
-			"--characterGlowColour": getGlowColour(character?.data?.colour),
-		});
+
+		setTimeout(() => getCharacterStyle(), 100);
+		setTimeout(() => getCharacterStyle(), 200);
+		setTimeout(() => getCharacterStyle(), 400);
+		setTimeout(() => getCharacterStyle(), 600);
+		setTimeout(() => getCharacterStyle(), 800);
+		window.addEventListener("resize", getCharacterStyle);
+		return () => {
+			window.removeEventListener("resize", getCharacterStyle);
+		};
 	}, [setCharacterStyle, character]);
 
 	const characterContainerRef = useRef();
@@ -68,5 +99,12 @@ export const CharacterLogic = () => {
 		};
 	}, [characterOverviewContainerRef, characterSubpagesContainerRef, isOnOverviewSection]);
 
-	return { characterStyle, isOnOverviewSection, characterContainerRef, characterOverviewContainerRef, characterSubpagesContainerRef };
+	return {
+		characterStyle,
+		characterPrimaryRef,
+		isOnOverviewSection,
+		characterContainerRef,
+		characterOverviewContainerRef,
+		characterSubpagesContainerRef,
+	};
 };

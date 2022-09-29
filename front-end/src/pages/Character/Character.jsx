@@ -19,13 +19,23 @@ import "./Character.css";
 // Assets
 
 export const Character = () => {
-	const { characterStyle, isOnOverviewSection, characterContainerRef, characterOverviewContainerRef, characterSubpagesContainerRef } =
-		CharacterLogic();
+	const {
+		characterStyle,
+		characterPrimaryRef,
+		isOnOverviewSection,
+		characterContainerRef,
+		characterOverviewContainerRef,
+		characterSubpagesContainerRef,
+	} = CharacterLogic();
 
 	return (
-		<div ref={characterContainerRef} className='character-container' style={characterStyle}>
+		<div
+			ref={characterContainerRef}
+			className={characterStyle ? "character-container" : "character-container character-container-hidden"}
+			style={characterStyle ? characterStyle : {}}
+		>
 			<div className='character'>
-				<CharacterPrimary />
+				<CharacterPrimary characterPrimaryRef={characterPrimaryRef} />
 				<div
 					className={
 						isOnOverviewSection
