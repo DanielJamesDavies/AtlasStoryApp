@@ -15,10 +15,9 @@ import "./StoryPrimaryCharacterCard.css";
 // Assets
 
 export const StoryPrimaryCharacterCard = ({ character }) => {
-	const { cardBackground, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles, topNameStyles, infoItemStyles } =
-		StoryPrimaryCharacterCardLogic({
-			character,
-		});
+	const { cardBackground, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles } = StoryPrimaryCharacterCardLogic({
+		character,
+	});
 
 	return (
 		<div
@@ -30,21 +29,14 @@ export const StoryPrimaryCharacterCard = ({ character }) => {
 		>
 			<div className='story-primary-character-card-content'>
 				<div className='story-primary-character-card-top-container'>
-					<div className='story-primary-character-card-top-name' style={topNameStyles}>
-						{character?.data?.name}
-					</div>
+					<div className='story-primary-character-card-top-name'>{character?.data?.name}</div>
 					<StoryPrimaryCharacterCardCharacterType characterType={characterType} />
 				</div>
 				<div className='story-primary-character-card-summary-items-container'>
 					{!character?.data?.summaryItems
 						? null
 						: character.data.summaryItems.map((summaryItem, index) => (
-								<StoryPrimaryCharacterCardInfoItem
-									key={index}
-									label={summaryItem.label}
-									text={summaryItem.text}
-									infoItemStyles={infoItemStyles}
-								/>
+								<StoryPrimaryCharacterCardInfoItem key={index} label={summaryItem.label} text={summaryItem.text} />
 						  ))}
 				</div>
 			</div>
@@ -68,9 +60,9 @@ const StoryPrimaryCharacterCardCharacterType = ({ characterType }) => {
 	);
 };
 
-const StoryPrimaryCharacterCardInfoItem = ({ label, text, infoItemStyles }) => {
+const StoryPrimaryCharacterCardInfoItem = ({ label, text }) => {
 	return (
-		<div className='story-primary-character-card-summary-item' style={infoItemStyles}>
+		<div className='story-primary-character-card-summary-item'>
 			<div className='story-primary-character-card-summary-item-label'>{label}</div>
 			<div className='story-primary-character-card-summary-item-text'>{text}</div>
 		</div>

@@ -52,7 +52,6 @@ export const StorySettingsUIDLogic = () => {
 			path: ["uid"],
 			newValue: uid,
 		});
-		console.log(response);
 		if (!response || response?.errors || !response?.data?.story?.uid) {
 			if (response?.errors) setErrors(response.errors);
 			return false;

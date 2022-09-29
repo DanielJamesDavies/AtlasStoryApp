@@ -2,6 +2,7 @@
 
 // Components
 import { StorySettingsUID } from "./StorySettingsUID/StorySettingsUID";
+import { StorySettingsColours } from "./StorySettingsColours/StorySettingsColours";
 import { StorySettingsDelete } from "./StorySettingsDelete/StorySettingsDelete";
 
 // Logic
@@ -29,11 +30,15 @@ export const StorySettings = () => {
 					<StorySettingsUID />
 				</div>
 				{/* <div className='story-settings-section-container'>
-					<div className='story-settings-section-label'>Cover Image</div>
-				</div> */}
-				{/* <div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Private Story</div>
 				</div> */}
+				{/* <div className='story-settings-section-container'>
+					<div className='story-settings-section-label'>Cover Image</div>
+				</div> */}
+				<div className='story-settings-section-container'>
+					<div className='story-settings-section-label'>Colours</div>
+					<StorySettingsColours />
+				</div>
 				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Delete Story</div>
 					<StorySettingsDelete />

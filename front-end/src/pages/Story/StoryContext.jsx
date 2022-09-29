@@ -147,6 +147,11 @@ const StoryProvider = ({ children, story_uid }) => {
 		setIsReorderingCharacters((oldIsReorderingCharacters) => !oldIsReorderingCharacters);
 	}
 
+	function updateStoryColours(newColours) {
+		changeAccentColour(newColours?.accent);
+		changeAccentHoverColour(newColours?.accentHover);
+	}
+
 	return (
 		<StoryContext.Provider
 			value={{
@@ -167,6 +172,7 @@ const StoryProvider = ({ children, story_uid }) => {
 				toggleIsReorderingCharacters,
 				isDisplayingSettings,
 				setIsDisplayingSettings,
+				updateStoryColours,
 			}}
 		>
 			{children}

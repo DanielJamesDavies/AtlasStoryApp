@@ -21,19 +21,28 @@ export const ColourPicker = ({ value, onChange, enableEdit, pickerVerticalPlacem
 	);
 
 	return (
-		<div className={colourPickerClassName} onTouchMove={(e) => e.stopPropagation()}>
-			<div
-				className='colour-picker-colour-block'
-				style={colourBlockStyle}
-				onClick={() => setIsShowingPicker((oldIsShowingPicker) => !oldIsShowingPicker)}
-			/>
+		<div
+			className={colourPickerClassName}
+			onTouchMove={(e) => e.stopPropagation()}
+			onClick={() => setIsShowingPicker((oldIsShowingPicker) => !oldIsShowingPicker)}
+		>
+			<div className='colour-picker-colour-block' style={colourBlockStyle} />
 			<div className='colour-picker-colour-text'>{value}</div>
-			{!enableEdit || (enableEdit && !isShowingPicker) ? null : (
-				<SketchPicker className='colour-picker-sketch-picker' color={value} onChange={onSketchPickerChange} presetColors={presetColours} />
-			)}
-			{!enableEdit || (enableEdit && !isShowingPicker) ? null : (
-				<div className='colour-picker-background' onClick={() => setIsShowingPicker(false)} />
-			)}
+			<div onClick={(e) => e.stopPropagation()}>
+				{!enableEdit || (enableEdit && !isShowingPicker) ? null : (
+					<SketchPicker
+						className='colour-picker-sketch-picker'
+						color={value}
+						onChange={onSketchPickerChange}
+						presetColors={presetColours}
+					/>
+				)}
+			</div>
+			<div onClick={(e) => e.stopPropagation()}>
+				{!enableEdit || (enableEdit && !isShowingPicker) ? null : (
+					<div className='colour-picker-background' onClick={() => setIsShowingPicker(false)} />
+				)}
+			</div>
 		</div>
 	);
 };

@@ -26,6 +26,7 @@
 	display: inline-block;
 	margin: 4px;
 	border: 5px solid var(--accentColour);
+	border-color: var(--characterColour);
 	border-radius: 16px;
 
 	width: 305px;
@@ -59,7 +60,7 @@
 .story-primary-character-card-top-name {
 	font-size: 24px;
 	font-weight: 700;
-	color: var(--blue);
+	color: var(--characterColour);
 }
 
 .story-primary-character-card-character-type {
@@ -97,7 +98,7 @@
 
 	width: calc(100% - 24px);
 
-	background: var(--blue);
+	background: var(--characterColour);
 	color: #fff;
 	text-align: left;
 }
@@ -118,16 +119,21 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	border-radius: inherit;
+
 	width: 100%;
 	height: 100%;
 }
 
 .story-primary-character-card-background img {
+	transform: translate(-6px, -5px);
+
 	border: 5px solid var(--accentColour);
+	border-color: var(--characterColour);
 	border-radius: inherit;
+
 	width: calc(100% + 1px);
 	height: 100%;
-	transform: translate(-6px, -5px);
+
 	object-fit: cover;
 	-webkit-user-select: none;
 	user-select: none;

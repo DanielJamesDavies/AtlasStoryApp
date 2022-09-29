@@ -22,7 +22,7 @@ export const LabelContainerLogic = ({ label, className, isInline }) => {
 	useEffect(() => {
 		function getLabelContainerClassName() {
 			let newClassName = "label-container";
-			if (isInline) newClassName += "  label-container-is-inline";
+			if (isInline) newClassName += " label-container-is-inline";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}

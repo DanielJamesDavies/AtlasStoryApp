@@ -1,8 +1,12 @@
 .colour-picker {
 	position: relative;
-	z-index: 100;
+	z-index: 300;
 	display: flex;
 	align-items: center;
+}
+
+.colour-picker-is-showing-picker {
+	z-index: 301;
 }
 
 .colour-picker-alignment-right {
@@ -11,6 +15,7 @@
 
 .colour-picker-colour-block {
 	position: relative;
+	z-index: 2;
 	margin-right: 12px;
 	border-radius: 4px;
 
@@ -26,16 +31,7 @@
 
 .colour-picker-sketch-picker {
 	position: absolute;
-	z-index: 50;
-	bottom: calc(32px + 6px);
-	left: -6px;
-	height: fit-content;
-	background: var(--grey3) !important;
-}
-
-.colour-picker-sketch-picker {
-	position: absolute;
-	z-index: 50;
+	z-index: 3;
 	left: -6px;
 	bottom: calc(32px + 6px);
 	height: fit-content;

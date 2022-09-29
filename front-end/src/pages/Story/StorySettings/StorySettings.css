@@ -61,15 +61,21 @@
 }
 
 .story-settings-input-container {
-	margin-top: 6px;
+	position: relative;
+	margin: 6px 0;
 }
 
 .editable-container-is-editing.story-settings-input-container {
 	margin-top: 4px;
 }
 
-.story-settings-input-container {
-	margin-bottom: 6px;
+.story-settings-input-container .label-container {
+	padding: 0;
+}
+
+.story-settings-input-container .label-container .label-label {
+	font-size: 16px;
+	font-weight: 500;
 }
 
 .story-settings-confirm-delete {

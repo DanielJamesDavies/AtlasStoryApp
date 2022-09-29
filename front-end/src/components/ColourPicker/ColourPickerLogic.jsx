@@ -18,19 +18,7 @@ export const ColourPickerLogic = ({ value, onChange, enableEdit, pickerVerticalP
 	const [colourPickerClassName, setColourPickerClassName] = useState(
 		pickerVerticalPlacement === "bottom" ? "colour-picker colour-picker-placement-bottom" : "colour-picker"
 	);
-
-	useEffect(() => {
-		function getColourPickerClassName() {
-			let className = "colour-picker";
-			if (enableEdit) className += " colour-picker-is-editing";
-			if (pickerVerticalPlacement === "bottom") className += " colour-picker-placement-bottom";
-			if (horizontalAlignment === "right") className += " colour-picker-alignment-right";
-			return className;
-		}
-		setColourPickerClassName(getColourPickerClassName());
-	}, [setColourPickerClassName, enableEdit, pickerVerticalPlacement, horizontalAlignment]);
-
-	const [isShowingPicker, setIsShowingPicker] = useState(true);
+	const [isShowingPicker, setIsShowingPicker] = useState(false);
 
 	const [colourBlockStyle, setColourBlockStyle] = useState({});
 
@@ -44,6 +32,18 @@ export const ColourPickerLogic = ({ value, onChange, enableEdit, pickerVerticalP
 		{ color: "#ffdd00", title: "Yellow" },
 		{ color: "#ff7700", title: "Orange" },
 	];
+
+	useEffect(() => {
+		function getColourPickerClassName() {
+			let className = "colour-picker";
+			if (enableEdit) className += " colour-picker-is-editing";
+			if (pickerVerticalPlacement === "bottom") className += " colour-picker-placement-bottom";
+			if (horizontalAlignment === "right") className += " colour-picker-alignment-right";
+			if (isShowingPicker) className += " colour-picker-is-showing-picker";
+			return className;
+		}
+		setColourPickerClassName(getColourPickerClassName());
+	}, [setColourPickerClassName, enableEdit, pickerVerticalPlacement, horizontalAlignment, isShowingPicker]);
 
 	useEffect(() => {
 		setColourBlockStyle(isValidHexColour(value) ? { background: value } : {});
