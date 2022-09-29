@@ -31,6 +31,37 @@ export const AbilityStatisticsLogic = ({ ability, changeAbility }) => {
 		changeAbility(newAbility);
 	}
 
+	async function defaultAbilityStatistics() {
+		if (!story?._id) return false;
+		const response = await APIRequest("/story/get-value/" + story._id, "POST", {
+			story_id: story._id,
+			path: ["data", "characterPreferences", "abilities", "defaultStatistics"],
+		});
+		if (!response || response?.errors || !response?.data?.value) return false;
+
+		let newAbility = JSON.parse(JSON.stringify(ability));
+		newAbility.statistics.values = response.data.value.labels.map((label) => {
+			const oldValue = newAbility.statistics.values.find((e) => e.label === label)?.value;
+			if (oldValue !== undefined) return { label, value: oldValue };
+			return { label, value: 0 };
+		});
+		newAbility.statistics.maxValue = response.data.value.maxValue;
+		changeAbility(newAbility);
+
+		return true;
+	}
+
+	async function saveDefaultAbilityStatistics() {
+		if (!story?._id) return;
+		const response = await APIRequest("/story/" + story._id, "PATCH", {
+			story_id: story._id,
+			path: ["data", "characterPreferences", "abilities", "defaultStatistics"],
+			newValue: { labels: ability.statistics.values.map((value) => value.label), maxValue: ability.statistics.maxValue },
+		});
+		if (!response) return false;
+		return true;
+	}
+
 	const [isReorderingAbilityStatisticsValues, setIsReorderingAbilityStatisticsValues] = useState(false);
 	function toggleIsReorderingAbilityStatisticsValues() {
 		setIsReorderingAbilityStatisticsValues((oldIsReorderingAbilityStatisticsValues) => !oldIsReorderingAbilityStatisticsValues);
@@ -100,6 +131,8 @@ export const AbilityStatisticsLogic = ({ ability, changeAbility }) => {
 		saveAbilityStatistics,
 		addAbilityStatisticsValue,
 		removeAbilityStatisticsValue,
+		defaultAbilityStatistics,
+		saveDefaultAbilityStatistics,
 		isReorderingAbilityStatisticsValues,
 		toggleIsReorderingAbilityStatisticsValues,
 		reorderAbilityStatisticsValues,

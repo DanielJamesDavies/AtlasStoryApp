@@ -51,10 +51,6 @@ const StorySchema = mongoose.Schema({
 				accent: { type: String, default: "#0044ff" },
 				accentHover: { type: String, default: "#0088ff" },
 			},
-			groups: { type: [mongoose.Schema.Types.ObjectId], default: [] },
-			primaryCharacters: { type: [mongoose.Schema.Types.ObjectId], default: [] },
-			characterTypes: { type: [mongoose.Schema.Types.ObjectId], default: [] },
-			substories: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			notes: {
 				type: [
 					{
@@ -81,6 +77,32 @@ const StorySchema = mongoose.Schema({
 				],
 				default: [],
 			},
+			groups: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+			primaryCharacters: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+			characterTypes: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+			characterPreferences: {
+				type: {
+					abilities: {
+						type: {
+							defaultStatistics: {
+								type: {
+									labels: {
+										type: [{ type: String, require: true, default: "" }],
+										require: true,
+										default: [],
+									},
+									maxValue: { type: Number, require: true, default: 12 },
+								},
+								require: true,
+								default: {},
+							},
+						},
+						default: {},
+					},
+				},
+				default: {},
+			},
+			substories: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 		},
 		require: true,
 	},

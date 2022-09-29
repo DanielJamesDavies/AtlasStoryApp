@@ -26,6 +26,7 @@ export const EditableContainer = ({
 	onAdd,
 	onRemove,
 	onDefault,
+	onSaveDefault,
 	onReorder,
 	onRevert,
 	onSave,
@@ -43,6 +44,7 @@ export const EditableContainer = ({
 		onAddBtnClick,
 		onRemoveBtnClick,
 		onDefaultBtnClick,
+		onSaveDefaultBtnClick,
 		onReorderBtnClick,
 		onRevertBtnClick,
 		onSaveBtnClick,
@@ -55,6 +57,7 @@ export const EditableContainer = ({
 		onAdd,
 		onRemove,
 		onDefault,
+		onSaveDefault,
 		onReorder,
 		onRevert,
 		onSave,
@@ -105,6 +108,22 @@ export const EditableContainer = ({
 								</div>
 								<div className='editable-container-edit-btn-small-icon-bg-2'>
 									<FaUndoAlt />
+								</div>
+							</div>
+						</button>
+					)}
+					{onSaveDefault === undefined ? null : (
+						<button className='editable-container-edit-btn editable-container-edit-btn-save-default' onClick={onSaveDefaultBtnClick}>
+							<FaCog />
+							<div className='editable-container-edit-btn-small-icon-container'>
+								<div className='editable-container-edit-btn-small-icon'>
+									<FaSave />
+								</div>
+								<div className='editable-container-edit-btn-small-icon-bg-1'>
+									<FaSave />
+								</div>
+								<div className='editable-container-edit-btn-small-icon-bg-2'>
+									<FaSave />
 								</div>
 							</div>
 						</button>

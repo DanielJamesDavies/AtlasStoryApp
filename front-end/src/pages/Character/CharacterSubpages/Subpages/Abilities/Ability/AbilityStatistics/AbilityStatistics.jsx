@@ -24,6 +24,8 @@ export const AbilityStatistics = ({ ability, changeAbility }) => {
 		saveAbilityStatistics,
 		addAbilityStatisticsValue,
 		removeAbilityStatisticsValue,
+		defaultAbilityStatistics,
+		saveDefaultAbilityStatistics,
 		isReorderingAbilityStatisticsValues,
 		toggleIsReorderingAbilityStatisticsValues,
 		reorderAbilityStatisticsValues,
@@ -37,6 +39,8 @@ export const AbilityStatistics = ({ ability, changeAbility }) => {
 			className='character-subpage-abilities-ability-statistics-container'
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onAdd={addAbilityStatisticsValue}
+			onDefault={defaultAbilityStatistics}
+			onSaveDefault={saveDefaultAbilityStatistics}
 			onReorder={toggleIsReorderingAbilityStatisticsValues}
 			onRevert={revertAbilityStatistics}
 			onSave={saveAbilityStatistics}

@@ -23,6 +23,7 @@ export const EditableContainerLogic = ({
 	onAdd,
 	onRemove,
 	onDefault,
+	onSaveDefault,
 	onReorder,
 	onRevert,
 	onSave,
@@ -103,6 +104,12 @@ export const EditableContainerLogic = ({
 		if (default_success) setIsEditing(false);
 	}
 
+	async function onSaveDefaultBtnClick(e) {
+		e.stopPropagation();
+		const save_default_success = await onSaveDefault();
+		if (save_default_success) setIsEditing(false);
+	}
+
 	async function onReorderBtnClick(e) {
 		e.stopPropagation();
 		const reorder_success = await onReorder();
@@ -133,6 +140,7 @@ export const EditableContainerLogic = ({
 		onAddBtnClick,
 		onRemoveBtnClick,
 		onDefaultBtnClick,
+		onSaveDefaultBtnClick,
 		onReorderBtnClick,
 		onRevertBtnClick,
 		onSaveBtnClick,

@@ -66,9 +66,13 @@
 	font-size: 14px;
 }
 
-.character-subpage-abilities-ability-statistics-max-value-value {
+.character-subpage-abilities-ability-statistics-value-value {
 	margin-left: auto;
 	margin-right: 5px;
+	width: fit-content;
+}
+
+.character-subpage-abilities-ability-statistics-max-value-value {
 	width: fit-content;
 }
 

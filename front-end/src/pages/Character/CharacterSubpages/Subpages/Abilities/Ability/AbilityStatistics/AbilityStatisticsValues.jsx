@@ -56,6 +56,7 @@ export const AbilityStatisticsValues = ({
 									value={value?.value}
 									onChange={(e) => changeAbilityStatisticsValueValue(e, index)}
 									seamless={true}
+									autoResize={true}
 								/>
 							)}
 						</div>
