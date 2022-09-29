@@ -84,14 +84,15 @@
 
 	.substories-title-story-title {
 		margin: 0;
-		font-size: 24px;
+		font-size: 22px;
 	}
 
 	.substories-title-divider {
+		margin: 0 8px;
 		margin-top: -1px;
 	}
 
 	.substories-title-substories-label {
-		font-size: 20px;
+		font-size: 18px;
 	}
 }
