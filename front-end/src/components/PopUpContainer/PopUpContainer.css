@@ -6,7 +6,7 @@
 	z-index: 200;
 
 	width: 100vw;
-	height: 100vh;
+	height: var(--vh);
 }
 
 .pop-up-content-container {
@@ -20,7 +20,7 @@
 	width: calc(100vw - 76px - 48px);
 	max-width: 750px;
 	height: 600px;
-	max-height: calc(100vh - 24px);
+	max-height: calc(var(--vh) - 24px);
 	overflow-y: overlay;
 }
 
@@ -39,7 +39,7 @@
 	border-radius: 4px;
 
 	width: calc(100% - 48px);
-	max-height: calc(100vh - 48px);
+	max-height: calc(var(--vh) - 48px);
 
 	background: var(--grey2);
 }
@@ -54,7 +54,7 @@
 	content: "";
 
 	width: 100vw;
-	height: 100vh;
+	height: var(--vh);
 
 	background: #00000088;
 }
