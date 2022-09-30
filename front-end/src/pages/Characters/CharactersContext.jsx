@@ -83,14 +83,12 @@ const CharactersProvider = ({ children, story_uid }) => {
 			if (!iconID) return setStoryIcon(false);
 			const response = await APIRequest("/image/" + iconID, "GET");
 			if (response?.error || !response?.data?.image) return setStoryIcon(false);
-
 			setStoryIcon(response.data.image);
 			return response.data.image;
 		}
 
 		async function getGroups(groupIDs) {
 			if (!groupIDs) return false;
-
 			let newGroups = await Promise.all(
 				groupIDs.map(async (groupID) => {
 					if (!groupID) return false;
@@ -100,7 +98,6 @@ const CharactersProvider = ({ children, story_uid }) => {
 				})
 			);
 			newGroups = newGroups.filter((e) => e !== false);
-
 			setGroups(newGroups);
 			return newGroups;
 		}
@@ -123,7 +120,6 @@ const CharactersProvider = ({ children, story_uid }) => {
 			);
 			newCharacters = newCharacters.flat(1);
 			newCharacters = newCharacters.filter((e) => e !== false);
-
 			setCharacters(newCharacters);
 			return newCharacters;
 		}

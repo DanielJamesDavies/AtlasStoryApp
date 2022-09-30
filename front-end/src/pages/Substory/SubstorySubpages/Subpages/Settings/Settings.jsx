@@ -4,6 +4,7 @@
 import { SettingsUID } from "./SettingsUID/SettingsUID";
 import { SettingsColour } from "./SettingsColour/SettingsColour";
 import { SettingsStoryTitleInTitle } from "./SettingsStoryTitleInTitle/SettingsStoryTitleInTitle";
+import { SettingsTitleOnPoster } from "./SettingsTitleOnPoster/SettingsTitleOnPoster";
 import { SettingsSubpages } from "./SettingsSubpages/SettingsSubpages";
 import { SettingsDelete } from "./SettingsDelete/SettingsDelete";
 import { SettingsOverviewBackgroundImage } from "./SettingsOverviewBackgroundImage/SettingsOverviewBackgroundImage";
@@ -27,6 +28,7 @@ export const Settings = () => {
 				<SettingsUID />
 				<SettingsColour />
 				<SettingsStoryTitleInTitle />
+				<SettingsTitleOnPoster />
 				<SettingsSubpages />
 				<SettingsDelete />
 			</div>

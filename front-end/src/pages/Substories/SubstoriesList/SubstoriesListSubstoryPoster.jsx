@@ -31,7 +31,7 @@ export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
 		>
 			<div className='substories-list-substories-poster'>
 				<div className='substories-list-substories-poster-content'>
-					{substory?.data?.isStoryTitleInTitle ? (
+					{!substory?.data?.isTitleOnPoster ? null : substory?.data?.isStoryTitleInTitle ? (
 						<div className='substories-list-substories-poster-content-title-container substories-list-substories-poster-content-title-container-with-story-title'>
 							<div className='substories-list-substories-poster-content-title-story'>{story?.data?.title}</div>
 							<div className='substories-list-substories-poster-content-title-substory'>{substory?.data?.title}</div>
