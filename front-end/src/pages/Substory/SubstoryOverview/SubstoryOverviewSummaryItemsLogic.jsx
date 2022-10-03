@@ -71,7 +71,7 @@ export const SubstoryOverviewSummaryItemsLogic = () => {
 			story_id: story._id,
 			path: ["data", "summaryItems"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		setSubstory((oldSubstory) => {
 			let newSubstory = JSON.parse(JSON.stringify(oldSubstory));

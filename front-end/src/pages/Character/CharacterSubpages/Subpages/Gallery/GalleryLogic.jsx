@@ -55,7 +55,7 @@ export const GalleryLogic = () => {
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "gallery"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
 		newCharacterVersion.gallery = response.data.value;

@@ -111,7 +111,7 @@ export const PhysicalAttributeItemsLogic = () => {
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "physical", "attributes"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
 		newCharacterVersion.physical.attributes = response.data.value;

@@ -43,7 +43,7 @@ export const PlotItemGroupsLogic = ({ cluster, changeCluster, setGroupID, setIsD
 			story_id: story._id,
 			path: ["data", "plot", "clusters", cluster?._id, "groups"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		let newCluster = JSON.parse(JSON.stringify(cluster));
 		newCluster.groups = response?.data?.value.map((group) => {

@@ -55,7 +55,7 @@ export const GalleryLogic = () => {
 			story_id: story._id,
 			path: ["data", "gallery"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		let newSubstory = JSON.parse(JSON.stringify(substory));
 		newSubstory.data.gallery = response.data.value;

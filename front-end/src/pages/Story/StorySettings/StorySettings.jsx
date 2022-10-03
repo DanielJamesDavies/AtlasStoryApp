@@ -2,6 +2,7 @@
 
 // Components
 import { StorySettingsUID } from "./StorySettingsUID/StorySettingsUID";
+import { StorySettingsMembers } from "./StorySettingsMembers/StorySettingsMembers";
 import { StorySettingsColours } from "./StorySettingsColours/StorySettingsColours";
 import { StorySettingsDelete } from "./StorySettingsDelete/StorySettingsDelete";
 
@@ -32,8 +33,12 @@ export const StorySettings = () => {
 				{/* <div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Private Story</div>
 				</div> */}
+				<div className='story-settings-section-container'>
+					<div className='story-settings-section-label'>Members</div>
+					<StorySettingsMembers />
+				</div>
 				{/* <div className='story-settings-section-container'>
-					<div className='story-settings-section-label'>Cover Image</div>
+					<div className='story-settings-section-label'>Cover</div>
 				</div> */}
 				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Colours</div>

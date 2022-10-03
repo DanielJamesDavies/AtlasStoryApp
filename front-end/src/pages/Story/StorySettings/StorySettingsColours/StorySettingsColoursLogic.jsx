@@ -33,7 +33,7 @@ export const StorySettingsColoursLogic = () => {
 			story_id: story._id,
 			path: ["data", "colours", "accent"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		let newStory = JSON.parse(JSON.stringify(story));
 		newStory.data.colours.accent = response.data.value;
@@ -70,7 +70,7 @@ export const StorySettingsColoursLogic = () => {
 			story_id: story._id,
 			path: ["data", "colours", "accentHover"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		let newStory = JSON.parse(JSON.stringify(story));
 		newStory.data.colours.accentHover = response.data.value;

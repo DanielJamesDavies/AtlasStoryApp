@@ -38,7 +38,7 @@ export const CharactersCharacterTypeColourLogic = () => {
 			story_id: story._id,
 			path: ["data", "colour"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		setCharacterTypes((oldCharacterTypes) => {
 			let newCharacterTypes = JSON.parse(JSON.stringify(oldCharacterTypes));

@@ -39,7 +39,7 @@ export const SettingsGroupLogic = () => {
 			story_id: story._id,
 			path: ["group_id"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		const newGroup = groups.find((e) => e._id === response.data.value);
 		if (newGroup) setGroup(newGroup);

@@ -70,7 +70,7 @@ export const BigFiveLogic = () => {
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "psychology", "bigFive"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
 		newCharacterVersion.psychology.bigFive = response.data.value;

@@ -69,7 +69,7 @@ export const SettingsVersionsLogic = () => {
 			story_id: story._id,
 			path: ["data", "versions"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		setVersions(response.data.value);
 

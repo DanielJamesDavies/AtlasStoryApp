@@ -55,7 +55,7 @@ export const BiographyClusterItemsLogic = ({ biographyCluster, changeBiographyCl
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "biography", biographyCluster._id, "items"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		let newBiographyCluster = JSON.parse(JSON.stringify(biographyCluster));
 		newBiographyCluster.items = response.data.value;

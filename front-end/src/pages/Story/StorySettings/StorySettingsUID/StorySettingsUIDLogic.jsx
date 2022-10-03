@@ -35,7 +35,7 @@ export const StorySettingsUIDLogic = () => {
 			story_id: story._id,
 			path: ["uid"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		setUid(response.data.value);
 

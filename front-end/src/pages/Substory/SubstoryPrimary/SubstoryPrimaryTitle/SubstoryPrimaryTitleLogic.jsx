@@ -44,7 +44,7 @@ export const SubstoryPrimaryTitleLogic = () => {
 			story_id: story._id,
 			path: ["data", "title"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		setSubstory((oldSubstory) => {
 			let newSubstory = JSON.parse(JSON.stringify(oldSubstory));

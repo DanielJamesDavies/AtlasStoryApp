@@ -49,7 +49,7 @@ export const CharacterPrimaryTypeLogic = () => {
 			story_id: story._id,
 			path: ["character_type_id"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		setCharacter((oldCharacter) => {
 			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));

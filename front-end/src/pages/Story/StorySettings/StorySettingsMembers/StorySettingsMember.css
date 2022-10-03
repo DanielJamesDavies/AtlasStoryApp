@@ -1,0 +1,49 @@
+.story-settings-member-container {
+	margin: 16px 0;
+}
+
+.story-settings-member-container:first-child {
+	margin-top: 8px;
+}
+
+.story-settings-member-container:last-child {
+	margin-bottom: 8px;
+}
+
+.story-settings-member-profile-picture-container {
+	margin-right: 16px;
+	border-radius: 100%;
+	width: 50px;
+	height: 50px;
+}
+
+.story-settings-member {
+	display: flex;
+	align-items: center;
+}
+
+.story-settings-member-profile-picture-container img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.story-settings-member-names-container {
+	margin-right: 16px;
+}
+
+.story-settings-member-nickname {
+	font-weight: 700;
+}
+
+.story-settings-member-username {
+	font-weight: 400;
+	font-size: 16px;
+	color: #aaa;
+}
+
+.story-settings-member-type {
+	margin-left: auto;
+	margin-right: 16px;
+}

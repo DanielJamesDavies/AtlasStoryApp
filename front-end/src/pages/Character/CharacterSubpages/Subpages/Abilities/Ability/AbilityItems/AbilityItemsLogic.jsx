@@ -56,7 +56,7 @@ export const AbilityItemsLogic = ({ ability, changeAbility }) => {
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "abilities", ability._id, "items"],
 		});
-		if (!response || response?.errors || !response?.data?.value) return false;
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		let newAbility = JSON.parse(JSON.stringify(ability));
 		newAbility.items = response.data.value;
