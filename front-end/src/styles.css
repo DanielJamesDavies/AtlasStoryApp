@@ -2,12 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Palatino+Linotype&display=swap");
 
 :root {
-	--grey1: #010103;
-	--grey1point5: #0a0a0a;
-	--grey2: #111113;
+	--grey1: #050508;
+	--grey1point5: #0a0a0f;
+	--grey2: #101017;
 	--grey2point5: #16161a;
-	--grey3: #2c2c2e;
-	--grey4: #404042;
+	--grey3: #282834;
+	--grey4: #3f3f50;
 	--grey5: #505052;
 	--textColour: #ffffff;
 	--blue: #0044ff;

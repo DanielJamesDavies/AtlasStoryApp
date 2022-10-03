@@ -35,11 +35,12 @@ export const PageLogic = () => {
 			// UI Themes
 			switch (uiTheme) {
 				case "light":
-					newPageStyles["--grey1"] = "#ffffff";
-					newPageStyles["--grey1point5"] = "#dfdfdf";
-					newPageStyles["--grey2"] = "#dadada";
-					newPageStyles["--grey3"] = "#c8c8c8";
-					newPageStyles["--grey4"] = "#bbbbbb";
+					newPageStyles["--grey1"] = "#f0f0ff";
+					newPageStyles["--grey1point5"] = "#eaeaef";
+					newPageStyles["--grey2"] = "#ddddef";
+					newPageStyles["--grey2point5"] = "#d0d0df";
+					newPageStyles["--grey3"] = "#cfcfdf";
+					newPageStyles["--grey4"] = "#c2c2d2";
 					newPageStyles["--grey5"] = "#aaaaaa";
 					newPageStyles["--textColour"] = "#000000";
 					break;
