@@ -3,6 +3,11 @@
 	margin: 10px;
 	width: 290px;
 	height: 412px;
+	transition: margin 0.3s;
+}
+
+.user-stories-story-item-container:hover {
+	margin-top: 4px;
 }
 
 .drag-drop-item-enable-drag-drop .user-stories-story-item {
@@ -21,11 +26,11 @@
 	height: 100%;
 	background: var(--grey2);
 	cursor: pointer;
-	transition: 0.4s;
+	transition: background 0.3s;
 }
 
 .user-stories-story-item:hover {
-	box-shadow: 0 0 20px var(--blue);
+	background: var(--grey2point5);
 }
 
 .user-stories-story-item-spine {
@@ -43,9 +48,7 @@
 	border-radius: inherit;
 	width: calc(100% - 28px);
 	height: 100%;
-	background: var(--grey2);
 	vertical-align: middle;
-	transition: 0.2s;
 }
 
 .user-stories-story-item-title {
@@ -64,7 +67,6 @@
 	text-transform: uppercase;
 	letter-spacing: 3px;
 	word-spacing: 1px;
-	transition: 0.4s;
 }
 
 .user-stories-story-item-owner {
@@ -79,12 +81,6 @@
 	text-align: center;
 	font-size: 18px;
 	font-weight: 700;
-	transition: 0.4s;
-}
-
-.user-stories-story-item:hover .user-stories-story-item-title,
-.user-stories-story-item:hover .user-stories-story-item-owner {
-	text-shadow: 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue), 0 0 12px var(--blue);
 }
 
 .user-stories-story-item-owner-label {

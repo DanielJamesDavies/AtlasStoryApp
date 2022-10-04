@@ -131,7 +131,7 @@
 	border-color: var(--characterColour);
 	border-radius: inherit;
 
-	width: calc(100% + 1px);
+	width: calc(100% + 2px);
 	height: 100%;
 
 	object-fit: cover;

@@ -60,7 +60,7 @@
 	width: 100%;
 	min-height: 39px;
 
-	background: var(--grey3);
+	background: var(--grey2);
 	color: var(--textColour);
 	font-size: calc(15px * var(--fontSizeMultiplier));
 	text-align: left;
@@ -69,7 +69,7 @@
 }
 
 .characters-character-types-character-type-item:hover {
-	background: var(--grey4);
+	background: var(--grey3);
 }
 
 .characters-character-types-character-type-item-active {

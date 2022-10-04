@@ -66,11 +66,11 @@ export const CharacterLogic = () => {
 	const characterSubpagesContainerRef = useRef();
 
 	useEffect(() => {
-		const onWheel = (e) => setIsOnOverviewSection(Math.sign(e?.deltaY) === -1);
+		const onWheel = (e) => (!character ? null : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1));
 		const characterContainerRefCurrent = characterContainerRef?.current;
 		characterContainerRefCurrent?.addEventListener("wheel", onWheel);
 		return () => characterContainerRefCurrent?.removeEventListener("wheel", onWheel);
-	}, [characterContainerRef, setIsOnOverviewSection]);
+	}, [character, characterContainerRef, setIsOnOverviewSection]);
 
 	useEffect(() => {
 		const onOverviewWheel = (e) => {

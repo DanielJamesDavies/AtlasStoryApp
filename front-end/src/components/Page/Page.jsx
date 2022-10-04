@@ -17,10 +17,10 @@ import "./Page.css";
 // Assets
 
 export const Page = () => {
-	const { pageStyles } = PageLogic();
+	const { pageClassName, pageStyles } = PageLogic();
 
 	return (
-		<div className='page' style={pageStyles}>
+		<div className={pageClassName} style={pageStyles}>
 			<RoutesContainer />
 			<Lightbox />
 		</div>

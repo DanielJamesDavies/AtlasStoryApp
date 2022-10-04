@@ -23,7 +23,7 @@
 	width: calc(100% - 32px);
 	min-height: 19px;
 
-	background: var(--grey3);
+	background: var(--grey2);
 	color: var(--textColour);
 	font-size: 15px;
 	text-align: left;
@@ -32,7 +32,7 @@
 }
 
 .character-subpage-biography-cluster-list-item:hover {
-	background: var(--grey4);
+	background: var(--grey3);
 }
 
 .character-subpage-biography-cluster-list-item-active {

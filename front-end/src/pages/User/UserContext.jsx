@@ -20,8 +20,12 @@ const UserProvider = ({ children, user_username }) => {
 		let reloadTimer = setTimeout(() => getUser(), 1);
 
 		async function getUser() {
-			if (!user_username) return setUser(false);
 			if (user.username === user_username) return;
+			setUser(false);
+			setProfilePicture(false);
+			setBanner(false);
+			setIsAuthorizedToEdit(false);
+			if (!user_username) return;
 
 			// User Data
 			const response = await APIRequest("/user?username=" + user_username, "GET");

@@ -127,8 +127,8 @@
 
 .characters-group-character-card-background img {
 	border-radius: 11px;
-	width: calc(100% + 1px);
-	height: calc(100% + 1px);
+	width: calc(100% + 2px);
+	height: calc(100% + 2px);
 	transform: translate(-1px, -1px);
 	object-fit: cover;
 	-webkit-user-select: none;

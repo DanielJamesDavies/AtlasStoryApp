@@ -8,7 +8,7 @@
 
 	width: calc(100% - 30px);
 
-	background: var(--grey3);
+	background: var(--grey2);
 	color: var(--textColour);
 	font-size: 14px;
 	text-align: left;
@@ -17,7 +17,7 @@
 }
 
 .substory-subpage-plot-item-group-btn:hover {
-	background: var(--grey4);
+	background: var(--grey3);
 }
 
 .substory-subpage-plot-item-group-btn-active {

@@ -37,7 +37,7 @@ export const UserPrimaryNames = () => {
 					onChange={changeNickname}
 				/>
 			</EditableContainer>
-			<div className='user-primary-names-username'>@{user?.username}</div>
+			<div className='user-primary-names-username'>{!user?.username ? null : "@" + user?.username}</div>
 		</div>
 	);
 };
