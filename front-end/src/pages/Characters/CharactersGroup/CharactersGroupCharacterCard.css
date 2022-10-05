@@ -45,6 +45,42 @@
 	animation-delay: 0.1s;
 }
 
+.characters-group-character-card-placeholder {
+	flex-shrink: 0;
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	margin: 4px;
+	border: 6px solid var(--accentColour);
+	border-color: var(--grey2);
+	border-radius: 16px;
+
+	width: 441px;
+	height: 607px;
+
+	background: var(--grey1point5);
+	transition: margin 0.4s;
+	cursor: pointer;
+	animation: characters-group-character-card-placeholder 2s infinite;
+}
+
+@keyframes characters-group-character-card-placeholder {
+	0% {
+		border-color: var(--grey1);
+		background: var(--grey1);
+	}
+	10%,
+	55% {
+		border-color: var(--grey2);
+		background: var(--grey1point5);
+	}
+	88%,
+	100% {
+		border-color: var(--grey1);
+		background: var(--grey1);
+	}
+}
+
 .characters-group-character-card-content {
 	position: relative;
 	z-index: 1;
