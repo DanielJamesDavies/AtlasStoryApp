@@ -20,7 +20,7 @@ export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
 		{ substoryID }
 	);
 
-	if (!substory) return null;
+	if (!substory) return <div className='substories-list-substories-poster-placeholder' />;
 	return (
 		<div
 			className='substories-list-substories-poster-container drag-drop-item-content'
