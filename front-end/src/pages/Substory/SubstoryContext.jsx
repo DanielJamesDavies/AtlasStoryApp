@@ -61,6 +61,13 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			let newSubstory = await getSubstory(newStory._id);
 			if (!newSubstory) return;
 
+			// Document Title
+			if (newStory?.data?.title && newSubstory?.data?.title) {
+				document.title = newSubstory?.data?.title + " | " + newStory?.data?.title + " | Substory | Atlas Story App";
+			} else {
+				document.title = "https://www.atlas-story.app" + location;
+			}
+
 			getSubstorySubpages(newSubstory?.data?.subpages, newIsAuthorizedToEdit);
 			getSubstoryOverviewBackground(newSubstory?.data?.overviewBackground);
 			getSubstoryPosterBackground(newSubstory?.data?.posterBackground);

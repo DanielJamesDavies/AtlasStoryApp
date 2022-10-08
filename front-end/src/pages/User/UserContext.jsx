@@ -39,7 +39,14 @@ const UserProvider = ({ children, user_username }) => {
 
 			setIsAuthorizedToEdit(response.data?.isAuthorizedToEdit);
 
-			if (user_username === response.data.user.username) setUser(response.data.user);
+			if (user_username === response?.data?.user?.username) setUser(response.data.user);
+
+			// Document Title
+			if (response?.data?.user?.data?.nickname) {
+				document.title = response.data.user.data.nickname + " | User | Atlas Story App";
+			} else {
+				document.title = "https://www.atlas-story.app" + location;
+			}
 
 			getUserProfilePicture(response.data.user?.data?.profilePicture);
 			getStories(response.data.user?.data?.stories);

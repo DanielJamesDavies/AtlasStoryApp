@@ -52,6 +52,7 @@ export const RoutesLogic = () => {
 						changeAccentHoverColour("default");
 						setShowUnauthorizedNavigationBar(true);
 						setRenderComponent(<Login />);
+						document.title = "Login | Atlas Story App";
 					} else {
 						changeLocation("/u/" + username);
 					}
@@ -62,6 +63,7 @@ export const RoutesLogic = () => {
 						changeAccentHoverColour("default");
 						setShowUnauthorizedNavigationBar(true);
 						setRenderComponent(<Register />);
+						document.title = "Register | Atlas Story App";
 					} else {
 						changeLocation("/u/" + username);
 					}
@@ -83,6 +85,7 @@ export const RoutesLogic = () => {
 					changeAccentColour("default");
 					changeAccentHoverColour("default");
 					setRenderComponent(<Search />);
+					document.title = "Search | Atlas Story App";
 					break;
 				case "s":
 					if (locationSplit.length > 2) {
@@ -132,6 +135,7 @@ export const RoutesLogic = () => {
 					break;
 				default:
 					if (username) changeLocation("/u/" + username);
+					document.title = "Atlas Story App";
 					changeAccentColour("default");
 					changeAccentHoverColour("default");
 					setRenderComponent(null);

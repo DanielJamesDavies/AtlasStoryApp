@@ -43,6 +43,13 @@ const CharactersProvider = ({ children, story_uid }) => {
 
 			getStoryIcon(newStory?.data?.icon);
 
+			// Document Title
+			if (newStory?.data?.title) {
+				document.title = "Characters | " + newStory?.data?.title + " | Atlas Story App";
+			} else {
+				document.title = "https://www.atlas-story.app" + location;
+			}
+
 			let newGroups = await getGroups(newStory?.data?.groups);
 			if (!newGroups) return;
 

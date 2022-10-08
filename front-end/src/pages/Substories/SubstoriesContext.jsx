@@ -43,6 +43,13 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 				changeAccentHoverColour(story_response.data.story.data.colours.accentHover);
 
 			if (story_response.data.story?.data?.icon) getStoryIcon(story_response.data.story.data.icon);
+
+			// Document Title
+			if (story_response?.data?.story?.data?.title) {
+				document.title = "Substories | " + story_response.data.story.data.title + " | Atlas Story App";
+			} else {
+				document.title = "https://www.atlas-story.app" + location;
+			}
 		}
 
 		async function getStoryIcon(iconID) {

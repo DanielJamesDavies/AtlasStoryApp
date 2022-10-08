@@ -42,6 +42,14 @@ const StoryProvider = ({ children, story_uid }) => {
 			changeAccentColour(response?.data?.story?.data?.colours?.accent);
 			changeAccentHoverColour(response?.data?.story?.data?.colours?.accentHover);
 
+			// Document Title
+			if (response?.data?.story?.data?.title) {
+				console.log(response?.data?.story?.data?.title);
+				document.title = response?.data?.story?.data?.title + " | Atlas Story App";
+			} else {
+				document.title = "https://www.atlas-story.app" + location;
+			}
+
 			getStoryMembers(response.data.story?.data?.members);
 			getStoryIcon(response.data.story?.data?.icon);
 			getStoryBanner(response.data.story?.data?.banner);

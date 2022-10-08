@@ -68,6 +68,13 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			let newCharacter = await getCharacter(newStory._id);
 			if (!newCharacter) return;
 
+			// Document Title
+			if (newCharacter?.data?.name && newStory?.data?.title) {
+				document.title = newCharacter?.data?.name + " | " + newStory?.data?.title + " | Characters | Atlas Story App";
+			} else {
+				document.title = "https://www.atlas-story.app" + location;
+			}
+
 			getCharacterSubpages(newCharacter?.data?.subpages, newIsAuthorizedToEdit);
 			getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
 			getCharacterCardBackground(newCharacter?.data?.cardBackground);
