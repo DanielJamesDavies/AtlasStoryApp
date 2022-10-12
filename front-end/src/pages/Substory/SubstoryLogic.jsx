@@ -38,7 +38,7 @@ export const SubstoryLogic = () => {
 	const substorySubpagesContainerRef = useRef();
 
 	useEffect(() => {
-		const onWheel = (e) => (!substory ? null : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1));
+		const onWheel = (e) => (!substory || e?.ctrlKey ? null : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1));
 		const substoryContainerRefCurrent = substoryContainerRef?.current;
 		substoryContainerRefCurrent?.addEventListener("wheel", onWheel);
 		return () => substoryContainerRefCurrent?.removeEventListener("wheel", onWheel);
