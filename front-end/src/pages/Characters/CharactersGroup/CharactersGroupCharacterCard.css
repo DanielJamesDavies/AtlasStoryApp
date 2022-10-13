@@ -1,5 +1,5 @@
 .characters-group-character-card-container {
-	margin-left: -180px;
+	margin-left: -178px;
 	transition: margin 0.4s;
 }
 
@@ -29,8 +29,8 @@
 	border-color: var(--characterColour);
 	border-radius: 16px;
 
-	width: 441px;
-	height: 607px;
+	width: 418px;
+	height: 585px;
 
 	background: var(--grey1point5);
 	transition: margin 0.4s;
@@ -55,8 +55,8 @@
 	border-color: var(--grey2);
 	border-radius: 16px;
 
-	width: 441px;
-	height: 607px;
+	width: 418px;
+	height: 585px;
 
 	background: var(--grey1point5);
 	transition: margin 0.4s;
@@ -105,17 +105,17 @@
 	justify-content: center;
 	align-items: center;
 	margin-left: auto;
-	padding: 6px 12px;
+	padding: 7px 12px;
 	border-radius: 32px;
 	height: fit-content;
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: 700;
 	color: #fff;
 }
 
 .characters-group-character-card-summary-item-container {
 	position: absolute;
-	top: 339px;
+	top: 324px;
 	left: 50%;
 	transform: translateX(-50%);
 
@@ -124,7 +124,7 @@
 	flex-wrap: wrap;
 
 	width: calc(100% - 16px);
-	max-height: calc(100% - 339px);
+	max-height: calc(100% - 324px);
 	overflow: hidden;
 }
 
@@ -147,7 +147,7 @@
 }
 
 .characters-group-character-card-summary-item-text {
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: 700;
 }
 
@@ -195,15 +195,15 @@
 	}
 
 	.characters-group-character-card-summary-item-container {
-		top: 54%;
-		max-height: calc(100% - 54% + 1px);
+		top: 47.5%;
+		max-height: calc(100% - 47.5% + 1px);
 	}
 
 	.characters-group-character-card-summary-item-label {
-		font-size: 12px;
+		font-size: 11px;
 	}
 
 	.characters-group-character-card-summary-item-text {
-		font-size: 12px;
+		font-size: 11px;
 	}
 }

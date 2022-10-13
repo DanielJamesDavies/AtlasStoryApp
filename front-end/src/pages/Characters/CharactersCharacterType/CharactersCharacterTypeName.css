@@ -10,7 +10,7 @@
 
 .characters-character-type-primary-name,
 .characters-character-type-name-container input {
-	font-size: calc(26px * var(--fontSizeMultiplier));
+	font-size: calc(24px * var(--fontSizeMultiplier));
 	font-weight: 700;
 }
 

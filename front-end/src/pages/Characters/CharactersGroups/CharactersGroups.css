@@ -2,7 +2,7 @@
 	flex-shrink: 0;
 	display: inline-block;
 	border-radius: 4px;
-	width: calc(310px + 12px);
+	width: calc(290px + 12px);
 	vertical-align: top;
 }
 
@@ -16,7 +16,7 @@
 
 .characters-groups-primary-title {
 	margin-top: -1px;
-	font-size: calc(26px * var(--fontSizeMultiplier));
+	font-size: calc(24px * var(--fontSizeMultiplier));
 	font-weight: 700;
 	vertical-align: middle;
 }
