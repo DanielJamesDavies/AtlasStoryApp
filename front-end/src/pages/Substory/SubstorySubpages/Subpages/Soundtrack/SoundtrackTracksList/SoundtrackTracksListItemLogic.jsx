@@ -15,7 +15,7 @@ import { useState } from "react";
 // Assets
 
 export const SoundtrackTracksListItemLogic = ({ track }) => {
-	const [artwork, setArtwork] = useState(false);
+	const [artwork, setArtwork] = useState(track?.artwork ? track.artwork : false);
 
 	useEffect(() => {
 		async function getArtwork() {

@@ -24,7 +24,7 @@ export const SoundtrackTracksList = ({ isEditing }) => {
 						<SoundtrackTracksListItem key={index} track={track} index={index} isEditing={isEditing} changeTrackText={changeTrackText} />
 				  ))
 				: substory?.data?.soundtrack?.tracks?.map((track, index) => (
-						<SoundtrackTracksListItem key={index} track={track} index={index} isEditing={false} changeTrackText={changeTrackText} />
+						<SoundtrackTracksListItem key={index} track={track} index={index} isEditing={isEditing} changeTrackText={changeTrackText} />
 				  ))}
 		</div>
 	);

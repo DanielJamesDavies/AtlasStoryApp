@@ -8,6 +8,7 @@ import { useContext, useRef } from "react";
 // Context
 import { SubstoryContext } from "../../../SubstoryContext";
 import { APIContext } from "../../../../../context/APIContext";
+import { SpotifyContext } from "../../../../../context/SpotifyContext";
 
 // Services
 
@@ -18,6 +19,7 @@ import { APIContext } from "../../../../../context/APIContext";
 export const SoundtrackLogic = () => {
 	const { isAuthorizedToEdit, story, substory, setSubstory, substorySoundtrack, setSubstorySoundtrack } = useContext(SubstoryContext);
 	const { APIRequest } = useContext(APIContext);
+	const { spotify_refresh_token } = useContext(SpotifyContext);
 
 	async function revertSoundtrack() {
 		const response = await APIRequest("/substory/get-value/" + substory._id, "POST", {
@@ -30,15 +32,17 @@ export const SoundtrackLogic = () => {
 		newSubstory.data.soundtrack = response.data.value;
 		setSubstory(newSubstory);
 
-		let newSubstorySoundtrack = JSON.parse(JSON.stringify(substorySoundtrack));
-		newSubstorySoundtrack.tracks = newSubstorySoundtrack.tracks.map((track) => {
-			let newTrackIndex = response.data.value?.tracks?.findIndex((e) => e.uri === track.uri);
-			if (newTrackIndex === -1) return track;
-			let newTrack = JSON.parse(JSON.stringify(track));
-			newTrack.text = response.data.value?.tracks[newTrackIndex].text;
-			return newTrack;
-		});
-		setSubstorySoundtrack(newSubstorySoundtrack);
+		if (substorySoundtrack) {
+			let newSubstorySoundtrack = JSON.parse(JSON.stringify(substorySoundtrack));
+			newSubstorySoundtrack.tracks = newSubstorySoundtrack.tracks.map((track) => {
+				let newTrackIndex = response.data.value?.tracks?.findIndex((e) => e.uri === track.uri);
+				if (newTrackIndex === -1) return track;
+				let newTrack = JSON.parse(JSON.stringify(track));
+				newTrack.text = response.data.value?.tracks[newTrackIndex].text;
+				return newTrack;
+			});
+			setSubstorySoundtrack(newSubstorySoundtrack);
+		}
 
 		return true;
 	}
@@ -47,6 +51,7 @@ export const SoundtrackLogic = () => {
 		let newSoundtrack = JSON.parse(JSON.stringify(substory)).data.soundtrack;
 		let newSubstorySoundtrack = JSON.parse(JSON.stringify(substorySoundtrack));
 
+		if (!newSubstorySoundtrack) newSubstorySoundtrack = { playlist_id: newSoundtrack.playlist_id, tracks: [] };
 		newSubstorySoundtrack.tracks = newSubstorySoundtrack?.tracks.map((track) => {
 			return {
 				id: track?.id,
@@ -71,7 +76,7 @@ export const SoundtrackLogic = () => {
 				album: track?.album,
 				artwork_url: track?.artwork_url,
 				text: track?.text,
-				is_removed: true,
+				is_removed: spotify_refresh_token ? true : false,
 			};
 		});
 

@@ -105,7 +105,7 @@ const SpofityProvider = ({ children }) => {
 	};
 
 	return (
-		<SpotifyContext.Provider value={{ SpotifyRequest, connectAllDevicesToSpotify, setConnectAllDevicesToSpotify }}>
+		<SpotifyContext.Provider value={{ SpotifyRequest, spotify_refresh_token, connectAllDevicesToSpotify, setConnectAllDevicesToSpotify }}>
 			{children}
 		</SpotifyContext.Provider>
 	);
