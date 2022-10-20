@@ -22,6 +22,7 @@ import "./Soundtrack.css";
 export const Soundtrack = () => {
 	const {
 		isAuthorizedToEdit,
+		substory,
 		revertSoundtrack,
 		saveSoundtrack,
 		soundtrackRef,
@@ -29,6 +30,7 @@ export const Soundtrack = () => {
 		isDisplayingPlaylistSelector,
 		showPlaylistSelector,
 		hidePlaylistSelector,
+		spotify_refresh_token,
 	} = SoundtrackLogic();
 
 	return (
@@ -44,11 +46,15 @@ export const Soundtrack = () => {
 				<SoundtrackRemovedTracksList isEditing={false} />
 			</div>
 			<div ref={soundtrackRef} className='substory-subpage-soundtrack'>
-				<SoundtrackOpenPlaylistSelectorBtn showPlaylistSelector={showPlaylistSelector} />
-				<SoundtrackPlaylistSelector
-					isDisplayingPlaylistSelector={isDisplayingPlaylistSelector}
-					hidePlaylistSelector={hidePlaylistSelector}
-				/>
+				{!spotify_refresh_token ? null : (
+					<>
+						<SoundtrackOpenPlaylistSelectorBtn substory={substory} showPlaylistSelector={showPlaylistSelector} />
+						<SoundtrackPlaylistSelector
+							isDisplayingPlaylistSelector={isDisplayingPlaylistSelector}
+							hidePlaylistSelector={hidePlaylistSelector}
+						/>
+					</>
+				)}
 				<SoundtrackTracksList isEditing={true} />
 				<SoundtrackRemovedTracksList isEditing={true} />
 			</div>

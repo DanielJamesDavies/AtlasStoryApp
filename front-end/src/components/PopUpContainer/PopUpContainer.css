@@ -35,10 +35,10 @@
 }
 
 .pop-up-content {
-	padding: 24px;
-	border-radius: 4px;
+	padding: 24px 34px;
+	border-radius: 8px;
 
-	width: calc(100% - 48px);
+	width: calc(100% - (34px * 2));
 	max-height: calc(var(--vh) - 48px);
 
 	background: var(--grey2);

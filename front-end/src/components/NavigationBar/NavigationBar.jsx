@@ -18,6 +18,7 @@ export const NavigationBar = () => {
 		isOnStory,
 		storyIcon,
 		userProfilePicture,
+		getBtnClassName,
 		navigateToProfile,
 		navigateToSearch,
 		navigateToStory,
@@ -28,45 +29,37 @@ export const NavigationBar = () => {
 
 	return (
 		<div className='navigation-bar'>
-			<div className='navigation-bar-primary-button-container'>
-				<button
-					className={userProfilePicture ? "navigation-bar-btn navigation-bar-btn-with-image" : "navigation-bar-btn"}
-					onClick={navigateToProfile}
-					onAuxClick={navigateToProfile}
-				>
+			<div className='navigation-bar-primary-button-container navigation-bar-section-container'>
+				<button className={getBtnClassName("user", userProfilePicture)} onClick={navigateToProfile} onAuxClick={navigateToProfile}>
 					{!userProfilePicture ? (
 						<div className='navigation-bar-btn-user-placeholder' />
 					) : (
 						<img src={userProfilePicture} alt='' draggable={false} />
 					)}
 				</button>
-				<button className='navigation-bar-btn navigation-bar-btn-search' onClick={navigateToSearch} onAuxClick={navigateToSearch}>
+				<button className={getBtnClassName("search", false)} onClick={navigateToSearch} onAuxClick={navigateToSearch}>
 					<FaSearch />
 				</button>
 			</div>
 			{!isOnStory ? (
-				<div className='navigation-bar-placeholder-section' />
+				<div className='navigation-bar-placeholder-section navigation-bar-section-container' />
 			) : (
 				<>
-					<div className='navigation-bar-story-button-container'>
-						<button
-							className={storyIcon ? "navigation-bar-btn navigation-bar-btn-with-image" : "navigation-bar-btn"}
-							onClick={navigateToStory}
-							onAuxClick={navigateToStory}
-						>
+					<div className='navigation-bar-story-button-container navigation-bar-section-container'>
+						<button className={getBtnClassName("story", storyIcon)} onClick={navigateToStory} onAuxClick={navigateToStory}>
 							{!storyIcon ? <FaBook /> : <img src={storyIcon} alt='' draggable={false} />}
 						</button>
-						<button className='navigation-bar-btn' onClick={navigateToCharacters} onAuxClick={navigateToCharacters}>
+						<button className={getBtnClassName("characters", false)} onClick={navigateToCharacters} onAuxClick={navigateToCharacters}>
 							<FaUser />
 						</button>
-						<button className='navigation-bar-btn' onClick={navigateToSubstories} onAuxClick={navigateToSubstories}>
+						<button className={getBtnClassName("substories", false)} onClick={navigateToSubstories} onAuxClick={navigateToSubstories}>
 							<FaBookOpen />
 						</button>
-						<button className='navigation-bar-btn' onClick={navigateToWorld} onAuxClick={navigateToWorld}>
+						<button className={getBtnClassName("world", false)} onClick={navigateToWorld} onAuxClick={navigateToWorld}>
 							<FaGlobeEurope />
 						</button>
 					</div>
-					<div className='navigation-bar-placeholder-section navigation-bar-placeholder-section-story-open' />
+					<div className='navigation-bar-placeholder-section navigation-bar-placeholder-section-story-open navigation-bar-section-container' />
 				</>
 			)}
 		</div>

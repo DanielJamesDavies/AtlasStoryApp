@@ -18,6 +18,32 @@
 	animation-delay: 0.1s;
 }
 
+.user-stories-story-item-placeholder {
+	position: relative;
+	display: inline-block;
+	border-radius: 4px;
+	width: 100%;
+	height: 100%;
+	background: var(--grey2);
+	cursor: pointer;
+	transition: background 0.3s;
+	animation: user-stories-story-item-placeholder 1s infinite;
+}
+
+@keyframes user-stories-story-item-placeholder {
+	0% {
+		background: var(--grey1);
+	}
+	10%,
+	55% {
+		background: var(--grey1point5);
+	}
+	88%,
+	100% {
+		background: var(--grey1);
+	}
+}
+
 .user-stories-story-item {
 	position: relative;
 	display: inline-block;

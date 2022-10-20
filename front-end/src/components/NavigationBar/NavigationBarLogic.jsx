@@ -78,6 +78,56 @@ export const NavigationBarLogic = () => {
 		getStory();
 	}, [APIRequest, location, setStoryIcon]);
 
+	function getBtnClassName(btnName, isWithImage) {
+		let newBtnClassName = "navigation-bar-btn";
+		if (isWithImage) newBtnClassName += " navigation-bar-btn-with-image";
+		if (btnName) {
+			newBtnClassName += " navigation-bar-btn-" + btnName;
+			const locationSplit = location.split("/").filter((e) => e !== "");
+			switch (btnName) {
+				case "user":
+					if (locationSplit.length === 2 && locationSplit[0] === "u" && locationSplit[1] === username) {
+						newBtnClassName += " navigation-bar-btn-active";
+					}
+					break;
+				case "search":
+					if (locationSplit.length === 1 && locationSplit[0] === "search") {
+						newBtnClassName += " navigation-bar-btn-active";
+					}
+					break;
+				case "story":
+					if (locationSplit.length === 2 && locationSplit[0] === "s") {
+						newBtnClassName += " navigation-bar-btn-active";
+					}
+					break;
+				case "characters":
+					if (
+						(locationSplit.length === 3 && locationSplit[2] === "characters") ||
+						(locationSplit.length === 4 && locationSplit[2] === "c")
+					) {
+						newBtnClassName += " navigation-bar-btn-active";
+					}
+					break;
+				case "substories":
+					if (
+						(locationSplit.length === 3 && locationSplit[2] === "substories") ||
+						(locationSplit.length === 4 && locationSplit[2] === "s")
+					) {
+						newBtnClassName += " navigation-bar-btn-active";
+					}
+					break;
+				case "world":
+					if (locationSplit.length === 3 && locationSplit[2] === "world") {
+						newBtnClassName += " navigation-bar-btn-active";
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		return newBtnClassName;
+	}
+
 	function navigateToProfile(e) {
 		if (username) {
 			changeLocation("/u/" + username, e.button === 1);
@@ -114,6 +164,7 @@ export const NavigationBarLogic = () => {
 		isOnStory,
 		userProfilePicture,
 		storyIcon,
+		getBtnClassName,
 		navigateToProfile,
 		navigateToSearch,
 		navigateToStory,

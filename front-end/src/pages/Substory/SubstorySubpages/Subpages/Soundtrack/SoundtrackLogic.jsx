@@ -117,6 +117,7 @@ export const SoundtrackLogic = () => {
 
 	return {
 		isAuthorizedToEdit,
+		substory,
 		revertSoundtrack,
 		saveSoundtrack,
 		soundtrackRef,
@@ -124,5 +125,6 @@ export const SoundtrackLogic = () => {
 		isDisplayingPlaylistSelector,
 		showPlaylistSelector,
 		hidePlaylistSelector,
+		spotify_refresh_token,
 	};
 };

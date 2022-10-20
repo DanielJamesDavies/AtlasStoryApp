@@ -18,6 +18,7 @@ import "./UserStoryItem.css";
 export const UserStoryItem = ({ storyID }) => {
 	const { story, navigateToStory, navigateToOwner, onStoryItemMouseDown } = UserStoryItemLogic({ storyID });
 
+	if (!story) return <div className='user-stories-story-item-placeholder' />;
 	return (
 		<div className='user-stories-story-item' onClick={navigateToStory} onAuxClick={navigateToStory} onMouseDown={onStoryItemMouseDown}>
 			<div className='user-stories-story-item-spine'></div>

@@ -1,10 +1,18 @@
+.substory-subpage-soundtrack-open-playlist-selector-btn-container {
+	display: flex;
+	justify-content: right;
+	width: 100%;
+}
+
 .substory-subpage-soundtrack-open-playlist-selector-btn {
+	margin: 6px;
 	padding: 6px 12px;
 	border: 0;
 	border-radius: 8px;
 	background: var(--grey2);
 	color: var(--textColour);
 	transition: background 0.2s;
+	cursor: pointer;
 }
 
 .substory-subpage-soundtrack-open-playlist-selector-btn:hover {
