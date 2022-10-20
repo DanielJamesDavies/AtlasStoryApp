@@ -2,6 +2,7 @@
 import { FaTimes } from "react-icons/fa";
 
 // Components
+import { ContentItem } from "../../../../../../../components/ContentItem/ContentItem";
 import { TextInput } from "../../../../../../../components/TextInput/TextInput";
 import { Text } from "../../../../../../../components/Text/Text";
 import { MultiLineTextInput } from "../../../../../../../components/MultiLineTextInput/MultiLineTextInput";
@@ -24,55 +25,59 @@ export const AbilityItem = ({ ability, changeAbility, abilityItem, index, isEdit
 
 	return (
 		<div className='character-subpage-abilities-ability-item'>
-			<div className='character-subpage-abilities-ability-item-content'>
-				{/* Title */}
-				{!isEditing ? (
-					<div className='character-subpage-abilities-ability-item-title'>{abilityItem?.title}</div>
-				) : (
-					<TextInput
-						className='character-subpage-abilities-ability-item-title'
-						seamless={true}
-						label='Ability Item Title'
-						value={abilityItem?.title}
-						onChange={changeAbilityItemTitle}
-					/>
-				)}
+			<ContentItem>
+				<div className='character-subpage-abilities-ability-item-content'>
+					{/* Title */}
+					{!isEditing ? (
+						<div className='character-subpage-abilities-ability-item-title'>{abilityItem?.title}</div>
+					) : (
+						<TextInput
+							className='character-subpage-abilities-ability-item-title'
+							seamless={true}
+							label='Ability Item Title'
+							value={abilityItem?.title}
+							onChange={changeAbilityItemTitle}
+						/>
+					)}
 
-				{/* Text */}
-				{!isEditing ? (
-					<Text className='character-subpage-abilities-ability-item-text' value={abilityItem?.text} />
-				) : (
-					<MultiLineTextInput
-						className='character-subpage-abilities-ability-item-text'
-						seamless={true}
-						label='Ability Item Text'
-						value={abilityItem?.text.join("\n")}
-						onChange={changeAbilityItemText}
-					/>
-				)}
+					{/* Text */}
+					{!isEditing ? (
+						<Text className='character-subpage-abilities-ability-item-text' value={abilityItem?.text} />
+					) : (
+						<MultiLineTextInput
+							className='character-subpage-abilities-ability-item-text'
+							seamless={true}
+							label='Ability Item Text'
+							value={abilityItem?.text.join("\n")}
+							onChange={changeAbilityItemText}
+						/>
+					)}
 
-				{/* Statistics */}
-				{!isEditing ? (
-					<div className='character-subpage-abilities-ability-item-statistics'>
-						{abilityItem?.statistics?.values?.map((statistic, index) => (
-							<div key={index} className='character-subpage-abilities-ability-item-statistic'>
-								<div className='character-subpage-abilities-ability-item-statistic-label'>{statistic?.label}</div>
-								<div className='character-subpage-abilities-ability-item-statistic-value'>{statistic?.value}</div>
-							</div>
-						))}
-					</div>
-				) : (
-					<div className='character-subpage-abilities-ability-item-statistics'>
-						{abilityItem?.statistics?.values?.map((statistic, index) => (
-							<div key={index} className='character-subpage-abilities-ability-item-statistic'>
-								<div className='character-subpage-abilities-ability-item-statistic-label'>{statistic?.label}</div>
-								<div className='character-subpage-abilities-ability-item-statistic-value'>{statistic?.value}</div>
-							</div>
-						))}
-					</div>
+					{/* Statistics */}
+					{!isEditing ? (
+						<div className='character-subpage-abilities-ability-item-statistics'>
+							{abilityItem?.statistics?.values?.map((statistic, index) => (
+								<div key={index} className='character-subpage-abilities-ability-item-statistic'>
+									<div className='character-subpage-abilities-ability-item-statistic-label'>{statistic?.label}</div>
+									<div className='character-subpage-abilities-ability-item-statistic-value'>{statistic?.value}</div>
+								</div>
+							))}
+						</div>
+					) : (
+						<div className='character-subpage-abilities-ability-item-statistics'>
+							{abilityItem?.statistics?.values?.map((statistic, index) => (
+								<div key={index} className='character-subpage-abilities-ability-item-statistic'>
+									<div className='character-subpage-abilities-ability-item-statistic-label'>{statistic?.label}</div>
+									<div className='character-subpage-abilities-ability-item-statistic-value'>{statistic?.value}</div>
+								</div>
+							))}
+						</div>
+					)}
+				</div>
+				{!isEditing ? null : (
+					<IconBtn className='' seamless={true} icon={<FaTimes />} iconName='times' size='s' onClick={removeAbilityItem} />
 				)}
-			</div>
-			{!isEditing ? null : <IconBtn className='' seamless={true} icon={<FaTimes />} iconName='times' size='s' onClick={removeAbilityItem} />}
+			</ContentItem>
 		</div>
 	);
 };

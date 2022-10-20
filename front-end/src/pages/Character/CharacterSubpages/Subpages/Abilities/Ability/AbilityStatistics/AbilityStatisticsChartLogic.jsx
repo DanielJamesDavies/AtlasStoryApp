@@ -15,7 +15,7 @@ import { CharacterContext } from "../../../../../CharacterContext";
 // Assets
 
 export const AbilityStatisticsChartLogic = ({ ability }) => {
-	const { character } = useContext(CharacterContext);
+	const { character, isOnOverviewSection } = useContext(CharacterContext);
 
 	const [graphData, setGraphData] = useState(false);
 	const [graphOptions, setGraphOptions] = useState(false);
@@ -79,5 +79,5 @@ export const AbilityStatisticsChartLogic = ({ ability }) => {
 		setGraphOptions(getGraphOptions());
 	}, [ability, setGraphData, setGraphOptions, character]);
 
-	return { graphData, graphOptions };
+	return { isOnOverviewSection, graphData, graphOptions };
 };

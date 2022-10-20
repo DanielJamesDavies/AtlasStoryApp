@@ -2,14 +2,18 @@
 	display: inline-flex;
 	align-items: flex-start;
 	margin: 0;
-	margin-top: 8px;
+	margin-top: -8px;
 	margin-bottom: 8px;
 	width: 100%;
 }
 
 .character-subpage-abilities-ability-statistics {
-	margin-top: 8px;
 	width: 100%;
+}
+
+.character-subpage-abilities-ability-statistics .content-item {
+	margin-left: 0;
+	margin-right: 0;
 }
 
 .character-subpage-abilities-ability-statistics-title {

@@ -22,6 +22,7 @@ export const AbilityName = ({ ability, changeAbility }) => {
 	return (
 		<EditableContainer
 			className='character-subpage-abilities-ability-name-container'
+			absolutePositionEditBtns={true}
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertAbilityName}
 			onSave={saveAbilityName}

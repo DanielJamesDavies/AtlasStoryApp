@@ -1,30 +1,6 @@
-.character-subpage-physical-attribute-item-container {
-	position: relative;
-	margin: 6px 0;
-	padding: 8px 0;
-	padding-bottom: 10px;
-	border-radius: 4px;
-}
-
-.character-subpage-physical-attribute-item-container:first-child {
-	margin-top: 0;
-}
-
-.character-subpage-physical-attribute-item-container:after {
-	position: absolute;
-	bottom: -2px;
-	left: 50%;
-	transform: translateX(-50%);
-	display: block;
-	content: "";
-	border-radius: 4px;
-	width: 100%;
-	height: 2px;
-	background: var(--grey3);
-}
-
-.character-subpage-physical-attribute-item-container:last-child::after {
-	display: none;
+.character-subpage-physical-attribute-item-container .content-item {
+	margin-left: 0;
+	margin-right: 0;
 }
 
 .character-subpage-physical-attribute-item-container:last-child {

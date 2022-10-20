@@ -4,6 +4,7 @@ import { FaTrash } from "react-icons/fa";
 // Components
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
+import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
 import { TextInput } from "../../../../../../components/TextInput/TextInput";
@@ -51,7 +52,9 @@ export const SettingsVersions = () => {
 						? null
 						: versions.map((version, index) => (
 								<div key={index} className='character-subpage-settings-versions-item'>
-									<div className='character-subpage-settings-versions-item-title'>{version.title}</div>
+									<ContentItem>
+										<div className='character-subpage-settings-versions-item-title'>{version.title}</div>
+									</ContentItem>
 								</div>
 						  ))}
 				</div>
@@ -60,20 +63,22 @@ export const SettingsVersions = () => {
 						<DragDropContainer enableDragDrop={isReorderingVersions} onDropItem={changeVersionsOrder}>
 							{versions.map((version, index) => (
 								<DragDropItem key={index} index={index} className='character-subpage-settings-versions-item'>
-									<TextInput
-										className='character-subpage-settings-versions-item-title'
-										label='Version Title'
-										seamless={true}
-										value={version.title}
-										onChange={(e) => changeVersionTitle(e, index)}
-									/>
-									<IconBtn
-										className='character-subpage-settings-versions-item-remove-btn'
-										icon={<FaTrash />}
-										iconName='trash'
-										seamless={true}
-										onClick={() => removeVersion(index)}
-									/>
+									<ContentItem>
+										<TextInput
+											className='character-subpage-settings-versions-item-title'
+											label='Version Title'
+											seamless={true}
+											value={version.title}
+											onChange={(e) => changeVersionTitle(e, index)}
+										/>
+										<IconBtn
+											className='character-subpage-settings-versions-item-remove-btn'
+											icon={<FaTrash />}
+											iconName='trash'
+											seamless={true}
+											onClick={() => removeVersion(index)}
+										/>
+									</ContentItem>
 								</DragDropItem>
 							))}
 						</DragDropContainer>

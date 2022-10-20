@@ -1,9 +1,6 @@
-.character-subpage-psychology-big-five-trait-container {
-	margin: 24px 0;
-}
-
-.character-subpage-psychology-big-five-trait-container:first-child {
-	margin-top: 0;
+.character-subpage-psychology-big-five-trait-container .content-item {
+	margin-left: 0;
+	margin-right: 0;
 }
 
 .character-subpage-psychology-big-five-trait-name {

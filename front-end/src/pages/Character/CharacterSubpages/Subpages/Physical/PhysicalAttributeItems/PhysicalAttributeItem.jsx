@@ -4,6 +4,7 @@ import { FaTimes, FaImage, FaPlus } from "react-icons/fa";
 // Components
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
+import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { Text } from "../../../../../../components/Text/Text";
 import { TextInput } from "../../../../../../components/TextInput/TextInput";
 import { MultiLineTextInput } from "../../../../../../components/MultiLineTextInput/MultiLineTextInput";
@@ -38,26 +39,28 @@ export const PhysicalAttributeItem = ({
 	if (!isEditing)
 		return (
 			<div className='character-subpage-physical-attribute-item'>
-				<div className='character-subpage-physical-attribute-item-title'>{physicalAttributeItem?.title}</div>
-				<Text className='character-subpage-physical-attribute-item-text' value={physicalAttributeItem?.text} />
-				{physicalAttributeItem.images.length === 0 ? null : (
-					<div className='character-subpage-physical-attribute-item-images'>
-						{physicalAttributeItem.images.map((image, imageIndex) => (
-							<div key={imageIndex} className='character-subpage-physical-attribute-item-image-item'>
-								{!characterImages.find((e) => e._id === image.image)?.image ? null : (
-									<img
-										src={characterImages.find((e) => e._id === image.image).image}
-										alt=''
-										onClick={() => onPhysicalItemImageClick("attributes", index, imageIndex)}
-									/>
-								)}
-								{image.caption.split(" ").join("").length === 0 ? null : (
-									<div className='character-subpage-development-item-image-item-caption'>{image.caption}</div>
-								)}
-							</div>
-						))}
-					</div>
-				)}
+				<ContentItem>
+					<div className='character-subpage-physical-attribute-item-title'>{physicalAttributeItem?.title}</div>
+					<Text className='character-subpage-physical-attribute-item-text' value={physicalAttributeItem?.text} />
+					{physicalAttributeItem.images.length === 0 ? null : (
+						<div className='character-subpage-physical-attribute-item-images'>
+							{physicalAttributeItem.images.map((image, imageIndex) => (
+								<div key={imageIndex} className='character-subpage-physical-attribute-item-image-item'>
+									{!characterImages.find((e) => e._id === image.image)?.image ? null : (
+										<img
+											src={characterImages.find((e) => e._id === image.image).image}
+											alt=''
+											onClick={() => onPhysicalItemImageClick("attributes", index, imageIndex)}
+										/>
+									)}
+									{image.caption.split(" ").join("").length === 0 ? null : (
+										<div className='character-subpage-development-item-image-item-caption'>{image.caption}</div>
+									)}
+								</div>
+							))}
+						</div>
+					)}
+				</ContentItem>
 			</div>
 		);
 

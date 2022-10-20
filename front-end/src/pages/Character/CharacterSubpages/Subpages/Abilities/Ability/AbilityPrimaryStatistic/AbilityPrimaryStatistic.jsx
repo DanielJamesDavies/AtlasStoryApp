@@ -28,7 +28,13 @@ export const AbilityPrimaryStatistic = ({ ability, changeAbility }) => {
 
 	return (
 		<EditableContainer
-			className='character-subpage-abilities-ability-primary-statistic-container'
+			className={
+				ability?.primaryStatistic?.label.split(" ").join("").length === 0 &&
+				ability?.primaryStatistic?.value.split(" ").join("").length === 0
+					? "character-subpage-abilities-ability-primary-statistic-container character-subpage-abilities-ability-primary-statistic-container-empty"
+					: "character-subpage-abilities-ability-primary-statistic-container"
+			}
+			absolutePositionEditBtns={true}
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertAbilityPrimaryStatistic}
 			onSave={saveAbilityPrimaryStatistic}

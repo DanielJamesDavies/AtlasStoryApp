@@ -16,8 +16,9 @@ import "./AbilityStatisticsChart.css";
 // Assets
 
 export const AbilityStatisticsChart = ({ ability }) => {
-	const { graphData, graphOptions } = AbilityStatisticsChartLogic({ ability });
+	const { isOnOverviewSection, graphData, graphOptions } = AbilityStatisticsChartLogic({ ability });
 
+	if (isOnOverviewSection) return null;
 	return (
 		<div className='character-subpage-abilities-ability-statistics-chart-container'>
 			{!graphData || !graphOptions ? null : (

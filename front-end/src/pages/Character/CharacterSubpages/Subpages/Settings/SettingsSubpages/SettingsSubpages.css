@@ -2,17 +2,18 @@
 	margin-top: 6px;
 }
 
-.character-subpage-settings-subpages-item {
+.character-subpage-settings-subpages-item .content-item {
 	display: flex;
 	align-items: center;
-	margin: 6px 0;
-	padding: 6px 12px;
-	border-radius: 4px;
+	margin-left: 0;
+	margin-right: 0;
+	padding-top: 5px;
+	padding-bottom: 4px;
+}
 
-	min-height: 32px;
-
-	background: var(--grey2);
-	text-align: left;
+.character-subpage-settings-subpages-container .editable-container-is-editing .character-subpage-settings-subpages-item .content-item {
+	padding-top: 4px;
+	padding-bottom: 4px;
 }
 
 .character-subpage-settings-subpages-item,

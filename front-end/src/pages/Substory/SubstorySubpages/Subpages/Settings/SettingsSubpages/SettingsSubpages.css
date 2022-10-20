@@ -1,46 +1,42 @@
-.character-subpage-settings-subpages-container .label-value {
+.substory-subpage-settings-subpages-container .label-value {
 	margin-top: 6px;
 }
 
-.character-subpage-settings-subpages-item {
+.substory-subpage-settings-subpages-item .content-item {
 	display: flex;
 	align-items: center;
-	margin: 6px 0;
-	padding: 6px 12px;
-	border-radius: 4px;
-
-	min-height: 32px;
-
-	background: var(--grey2);
-	text-align: left;
+	margin-left: 0;
+	margin-right: 0;
+	padding-top: 5px;
+	padding-bottom: 4px;
 }
 
-.character-subpage-settings-subpages-item,
-.character-subpage-settings-subpages-item input {
+.substory-subpage-settings-subpages-item,
+.substory-subpage-settings-subpages-item input {
 	font-size: 14px;
 }
 
-.character-subpage-settings-subpages-item-name {
+.substory-subpage-settings-subpages-item-name {
 	margin-top: -2px;
 }
 
-.character-subpage-settings-subpages-item .toggle-input-container {
+.substory-subpage-settings-subpages-item .toggle-input-container {
 	margin-left: auto;
 }
 
-.character-subpage-settings-subpages-item .text-input-container {
+.substory-subpage-settings-subpages-item .text-input-container {
 	margin-top: -2px;
 	height: 17px;
 }
 
-.character-subpage-settings-subpages-item .text-input-container-empty .text-input-label {
+.substory-subpage-settings-subpages-item .text-input-container-empty .text-input-label {
 	padding: 0;
 }
 
-.drag-drop-item-enable-drag-drop.character-subpage-settings-subpages-item {
+.drag-drop-item-enable-drag-drop.substory-subpage-settings-subpages-item {
 	animation: wiggle-small infinite 0.5s linear;
 }
 
-.drag-drop-item-enable-drag-drop:nth-child(even).character-subpage-settings-subpages-item {
+.drag-drop-item-enable-drag-drop:nth-child(even).substory-subpage-settings-subpages-item {
 	animation-delay: 0.1s;
 }

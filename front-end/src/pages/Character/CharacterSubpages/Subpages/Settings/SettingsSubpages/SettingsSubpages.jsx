@@ -3,6 +3,7 @@
 // Components
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
+import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
 import { ToggleInput } from "../../../../../../components/ToggleInput/ToggleInput";
@@ -34,7 +35,7 @@ export const SettingsSubpages = () => {
 	} = SettingsSubpagesLogic();
 
 	return (
-		<LabelContainer label='Subpages' className='character-subpage-settings-versions-container'>
+		<LabelContainer label='Subpages' className='character-subpage-settings-subpage-container'>
 			<EditableContainer
 				isAuthorizedToEdit={isAuthorizedToEdit}
 				onReorder={toggleIsReorderingSubpages}
@@ -48,8 +49,10 @@ export const SettingsSubpages = () => {
 								.filter((e) => e.id !== "settings")
 								.map((subpage, index) => (
 									<div key={index} className='character-subpage-settings-subpages-item'>
-										<div className='character-subpage-settings-subpages-item-name'>{subpage.name}</div>
-										<ToggleInput className label value={subpage?.isEnabled} enableEdit={false} />
+										<ContentItem>
+											<div className='character-subpage-settings-subpages-item-name'>{subpage.name}</div>
+											<ToggleInput className label value={subpage?.isEnabled} enableEdit={false} />
+										</ContentItem>
 									</div>
 								))}
 				</div>
@@ -60,14 +63,16 @@ export const SettingsSubpages = () => {
 								.filter((e) => e.id !== "settings")
 								.map((subpage, index) => (
 									<DragDropItem key={index} index={index} className='character-subpage-settings-subpages-item'>
-										<div className='character-subpage-settings-subpages-item-name'>{subpage.name}</div>
-										<ToggleInput
-											className
-											label
-											value={subpage?.isEnabled}
-											onToggle={() => toggleEnableSubpage(index)}
-											enableEdit={!isReorderingSubpages}
-										/>
+										<ContentItem>
+											<div className='character-subpage-settings-subpages-item-name'>{subpage.name}</div>
+											<ToggleInput
+												className
+												label
+												value={subpage?.isEnabled}
+												onToggle={() => toggleEnableSubpage(index)}
+												enableEdit={!isReorderingSubpages}
+											/>
+										</ContentItem>
 									</DragDropItem>
 								))}
 						</DragDropContainer>

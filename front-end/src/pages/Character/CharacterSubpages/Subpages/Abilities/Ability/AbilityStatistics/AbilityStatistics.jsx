@@ -2,6 +2,7 @@
 
 // Components
 import { EditableContainer } from "../../../../../../../components/EditableContainer/EditableContainer";
+import { ContentItem } from "../../../../../../../components/ContentItem/ContentItem";
 import { AbilityStatisticsValues } from "./AbilityStatisticsValues";
 import { AbilityStatisticsChart } from "./AbilityStatisticsChart";
 
@@ -47,32 +48,36 @@ export const AbilityStatistics = ({ ability, changeAbility }) => {
 		>
 			<div className='character-subpage-abilities-ability-statistics'>
 				{ability?.statistics?.values?.length === 0 ? null : (
-					<div className='character-subpage-abilities-ability-statistics-title'>Statistics</div>
+					<ContentItem>
+						<div className='character-subpage-abilities-ability-statistics-title'>Statistics</div>
+						<AbilityStatisticsValues
+							ability={ability}
+							removeAbilityStatisticsValue={removeAbilityStatisticsValue}
+							isReorderingAbilityStatisticsValues={isReorderingAbilityStatisticsValues}
+							reorderAbilityStatisticsValues={reorderAbilityStatisticsValues}
+							changeAbilityStatisticsValueLabel={changeAbilityStatisticsValueLabel}
+							changeAbilityStatisticsValueValue={changeAbilityStatisticsValueValue}
+							isEditing={false}
+						/>
+						<AbilityStatisticsChart ability={ability} />
+					</ContentItem>
 				)}
-				<AbilityStatisticsValues
-					ability={ability}
-					removeAbilityStatisticsValue={removeAbilityStatisticsValue}
-					isReorderingAbilityStatisticsValues={isReorderingAbilityStatisticsValues}
-					reorderAbilityStatisticsValues={reorderAbilityStatisticsValues}
-					changeAbilityStatisticsValueLabel={changeAbilityStatisticsValueLabel}
-					changeAbilityStatisticsValueValue={changeAbilityStatisticsValueValue}
-					isEditing={false}
-				/>
-				<AbilityStatisticsChart ability={ability} />
 			</div>
 			<div className='character-subpage-abilities-ability-statistics'>
-				<div className='character-subpage-abilities-ability-statistics-title'>Statistics</div>
-				<AbilityStatisticsValues
-					ability={ability}
-					removeAbilityStatisticsValue={removeAbilityStatisticsValue}
-					isReorderingAbilityStatisticsValues={isReorderingAbilityStatisticsValues}
-					reorderAbilityStatisticsValues={reorderAbilityStatisticsValues}
-					changeAbilityStatisticsValueLabel={changeAbilityStatisticsValueLabel}
-					changeAbilityStatisticsValueValue={changeAbilityStatisticsValueValue}
-					changeAbilityStatisticsMaxValue={changeAbilityStatisticsMaxValue}
-					isEditing={true}
-				/>
-				<AbilityStatisticsChart ability={ability} />
+				<ContentItem>
+					<div className='character-subpage-abilities-ability-statistics-title'>Statistics</div>
+					<AbilityStatisticsValues
+						ability={ability}
+						removeAbilityStatisticsValue={removeAbilityStatisticsValue}
+						isReorderingAbilityStatisticsValues={isReorderingAbilityStatisticsValues}
+						reorderAbilityStatisticsValues={reorderAbilityStatisticsValues}
+						changeAbilityStatisticsValueLabel={changeAbilityStatisticsValueLabel}
+						changeAbilityStatisticsValueValue={changeAbilityStatisticsValueValue}
+						changeAbilityStatisticsMaxValue={changeAbilityStatisticsMaxValue}
+						isEditing={true}
+					/>
+					<AbilityStatisticsChart ability={ability} />
+				</ContentItem>
 			</div>
 		</EditableContainer>
 	);
