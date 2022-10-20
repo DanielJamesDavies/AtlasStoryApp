@@ -4,6 +4,7 @@ import { useState, useContext, useEffect, useLayoutEffect } from "react";
 // Components
 import { Gallery } from "./Subpages/Gallery/Gallery";
 import { Plot } from "./Subpages/Plot/Plot";
+import { Soundtrack } from "./Subpages/Soundtrack/Soundtrack";
 import { Development } from "./Subpages/Development/Development";
 import { Settings } from "./Subpages/Settings/Settings";
 
@@ -18,7 +19,7 @@ import { SubstoryContext } from "../SubstoryContext";
 
 // Assets
 
-export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef }) => {
+export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef, setSubstoryPrimaryPaddingTop }) => {
 	const { openSubpageID } = useContext(SubstoryContext);
 
 	const [subpagesContainerStyles, setSubpagesContainerStyles] = useState({});
@@ -30,11 +31,13 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef }) => {
 
 			newSubpagesContainerStyles.paddingTop = "calc((32px + 8px * 2) + " + primaryTitleHeight + "px + 24px)";
 			newSubpagesContainerStyles["--substoryPrimaryPaddingTop"] = 32 + 8 * 2 + primaryTitleHeight + 24 + "px";
+			setSubstoryPrimaryPaddingTop(newSubpagesContainerStyles["--substoryPrimaryPaddingTop"]);
 
 			const windowWidth = window?.innerWidth;
 			if (windowWidth !== undefined && windowWidth <= 700) {
 				newSubpagesContainerStyles.paddingTop = "calc(6px + " + primaryTitleHeight + "px + 12px)";
 				newSubpagesContainerStyles["--substoryPrimaryPaddingTop"] = 6 + primaryTitleHeight + 12 + "px";
+				setSubstoryPrimaryPaddingTop(newSubpagesContainerStyles["--substoryPrimaryPaddingTop"]);
 			}
 
 			setSubpagesContainerStyles(newSubpagesContainerStyles);
@@ -48,7 +51,7 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef }) => {
 		return () => {
 			window.removeEventListener("resize", getSubpagesContainerStyles);
 		};
-	}, [setSubpagesContainerStyles, substoryPrimaryTitleRef]);
+	}, [setSubpagesContainerStyles, substoryPrimaryTitleRef, setSubstoryPrimaryPaddingTop]);
 
 	const [subpage, setSubpage] = useState(null);
 
@@ -63,6 +66,8 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef }) => {
 					return null;
 				case "locations":
 					return null;
+				case "soundtrack":
+					return <Soundtrack />;
 				case "miscellaneous":
 					return null;
 				case "development":

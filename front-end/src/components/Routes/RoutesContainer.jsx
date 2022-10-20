@@ -7,6 +7,7 @@ import { Routes } from "./Routes";
 
 // Context
 import RoutesProvider from "../../context/RoutesContext";
+import SpofityProvider from "../../context/SpotifyContext";
 
 // Services
 
@@ -17,7 +18,9 @@ import RoutesProvider from "../../context/RoutesContext";
 export const RoutesContainer = () => {
 	return (
 		<RoutesProvider>
-			<Routes />
+			<SpofityProvider>
+				<Routes />
+			</SpofityProvider>
 		</RoutesProvider>
 	);
 };

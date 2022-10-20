@@ -3,6 +3,7 @@ import React, { createContext, useState, useContext, useEffect, useMemo } from "
 import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
 import { RoutesContext } from "../../context/RoutesContext";
+import { SpotifyContext } from "../../context/SpotifyContext";
 
 export const SubstoryContext = createContext();
 
@@ -10,6 +11,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
+	const { SpotifyRequest } = useContext(SpotifyContext);
 
 	const [failure, setFailure] = useState(false);
 
@@ -23,6 +25,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const [substoryOverviewBackground, setSubstoryOverviewBackground] = useState(false);
 	const [substoryPosterBackground, setSubstoryPosterBackground] = useState(false);
 	const [substoryImages, setSubstoryImages] = useState([]);
+	const [substorySoundtrack, setSubstorySoundtrack] = useState(false);
 
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	// const subpages = [
@@ -34,6 +37,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		() => [
 			{ id: "gallery", name: "Gallery", isEnabled: true },
 			{ id: "plot", name: "Plot", isEnabled: true },
+			{ id: "soundtrack", name: "Soundtrack", isEnabled: true },
 			{ id: "development", name: "Development", isEnabled: true },
 			{ id: "settings", name: "Settings", isEnabled: true },
 		],
@@ -72,6 +76,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			getSubstoryOverviewBackground(newSubstory?.data?.overviewBackground);
 			getSubstoryPosterBackground(newSubstory?.data?.posterBackground);
 			getSubstoryImages(newSubstory?.data?.images);
+			getSubstorySoundtrack(newSubstory?.data?.soundtrack?.playlist_id, newSubstory?.data?.soundtrack?.tracks);
 		}
 
 		function setStateToDefault() {
@@ -166,6 +171,50 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			setSubstoryImages(newSubstoryImages);
 		}
 
+		async function getSubstorySoundtrack(playlist_id, old_tracks) {
+			if (!playlist_id) return false;
+
+			const response = await SpotifyRequest("/playlists/" + playlist_id, "GET");
+			if (!response || response?.errors) return false;
+
+			let tracks = await Promise.all(
+				!response?.tracks?.items
+					? null
+					: response.tracks.items.map(async (item) => {
+							let artwork = undefined;
+							if (!item?.is_local) {
+								try {
+									artwork = await new Promise(async (resolve) => {
+										const artwork_response = await fetch(item?.track?.album?.images[0]?.url);
+										const reader = new FileReader();
+										reader.onloadend = () => resolve(reader.result);
+										reader.readAsDataURL(await artwork_response.blob());
+									});
+								} catch (e) {}
+							}
+
+							return {
+								id: item?.track?.id,
+								uri: item?.track?.uri,
+								is_local: item?.is_local,
+								name: item?.track?.name,
+								album: item?.track?.album?.name,
+								artists: item?.track?.artists?.map((artist) => artist?.name).join(","),
+								artwork,
+								artwork_url: item?.track?.album?.images[0]?.url,
+								text:
+									old_tracks?.findIndex((e) => e?.uri === item?.track?.uri) === -1
+										? [""]
+										: old_tracks?.find((e) => e?.uri === item?.track?.uri)?.text,
+							};
+					  })
+			);
+
+			let newSubstorySoundtrack = { playlist_id, tracks };
+
+			setSubstorySoundtrack(newSubstorySoundtrack);
+		}
+
 		getInitial();
 
 		let reloadTimer = setTimeout(() => getInitial(), 50);
@@ -175,6 +224,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		story_uid,
 		substory_uid,
 		APIRequest,
+		SpotifyRequest,
 		failure,
 		setFailure,
 		isAuthorizedToEdit,
@@ -189,6 +239,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		setSubstoryOverviewBackground,
 		setSubstoryPosterBackground,
 		setSubstoryImages,
+		setSubstorySoundtrack,
 		changeAccentColour,
 		changeAccentHoverColour,
 	]);
@@ -210,6 +261,8 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				setSubstoryPosterBackground,
 				substoryImages,
 				setSubstoryImages,
+				substorySoundtrack,
+				setSubstorySoundtrack,
 				isOnOverviewSection,
 				setIsOnOverviewSection,
 				allSubpages,

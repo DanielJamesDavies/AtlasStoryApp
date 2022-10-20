@@ -16,22 +16,29 @@ import { SubstoryContext } from "./SubstoryContext";
 
 export const SubstoryLogic = () => {
 	const { substory, isOnOverviewSection, setIsOnOverviewSection } = useContext(SubstoryContext);
+	const [substoryPrimaryPaddingTop, setSubstoryPrimaryPaddingTop] = useState(false);
 	const [substoryStyle, setSubstoryStyle] = useState(false);
 
 	useEffect(() => {
 		function getSubstoryStyle() {
 			let newSubstoryStyle = {};
+
 			newSubstoryStyle["--substoryColour"] = substory?.data?.colour ? substory.data.colour : "#0044ff";
+
 			newSubstoryStyle["--substoryGlowColour"] = "rgba(0, 68, 255, 0.8)";
 			if (substory?.data?.colour) {
 				const newColour = "0x" + substory?.data?.colour?.substring(1).toUpperCase();
 				newSubstoryStyle["--substoryGlowColour"] =
 					"rgba(" + ((newColour >> 16) & 0xff) + ", " + ((newColour >> 8) & 0xff) + ", " + (newColour & 0xff) + ", 0.8)";
 			}
+
+			if (substoryPrimaryPaddingTop !== false)
+				newSubstoryStyle["--substoryPrimaryPaddingTop"] = JSON.parse(JSON.stringify(substoryPrimaryPaddingTop));
+
 			setSubstoryStyle(newSubstoryStyle);
 		}
 		getSubstoryStyle();
-	}, [setSubstoryStyle, substory]);
+	}, [setSubstoryStyle, substory, substoryPrimaryPaddingTop]);
 
 	const substoryContainerRef = useRef();
 	const substoryOverviewContainerRef = useRef();
@@ -71,6 +78,7 @@ export const SubstoryLogic = () => {
 	const substoryPrimaryTitleRef = useRef();
 
 	return {
+		setSubstoryPrimaryPaddingTop,
 		substoryStyle,
 		isOnOverviewSection,
 		substoryContainerRef,

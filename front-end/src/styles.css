@@ -20,6 +20,8 @@
 	--grey3: #2b2b31;
 	--grey4: #404047;
 	--textColour: #ffffff;
+	--textSecondaryColour: #dddddd;
+	--textTertiaryColour: #cccccc;
 }
 
 .theme-light {
@@ -30,6 +32,8 @@
 	--grey3: #d0d0d4;
 	--grey4: #c3c3c8;
 	--textColour: #000000;
+	--textSecondaryColour: #888888;
+	--textTertiaryColour: #aaaaaa;
 }
 
 html,

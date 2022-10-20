@@ -44,7 +44,6 @@ const StoryProvider = ({ children, story_uid }) => {
 
 			// Document Title
 			if (response?.data?.story?.data?.title) {
-				console.log(response?.data?.story?.data?.title);
 				document.title = response?.data?.story?.data?.title + " | Atlas Story App";
 			} else {
 				document.title = "https://www.atlas-story.app" + location;

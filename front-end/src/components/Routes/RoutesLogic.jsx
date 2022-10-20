@@ -133,6 +133,8 @@ export const RoutesLogic = () => {
 						setRenderComponent(<StoryContainer story_uid={locationSplit[1]} />);
 					}
 					break;
+				case "spotify":
+					break;
 				default:
 					if (username) changeLocation("/u/" + username);
 					document.title = "Atlas Story App";

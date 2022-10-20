@@ -9,6 +9,7 @@ import { useEffect, useState, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
 import { RoutesContext } from "../../context/RoutesContext";
+import { SpotifyContext } from "../../context/SpotifyContext";
 
 // Styles
 
@@ -19,6 +20,7 @@ export const NavigationBarLogic = () => {
 	const { setUITheme, setFontSizeMultiplier } = useContext(AppContext);
 	const { APIRequest, username, setUsername, userProfilePicture, setUserProfilePicture } = useContext(APIContext);
 	const { location, changeLocation } = useContext(RoutesContext);
+	const { setConnectAllDevicesToSpotify } = useContext(SpotifyContext);
 	const [storyIcon, setStoryIcon] = useState(false);
 
 	useEffect(() => {
@@ -37,6 +39,7 @@ export const NavigationBarLogic = () => {
 				const newFontSizeMultiplier = Number(user.data.fontSizeMultiplier);
 				setFontSizeMultiplier(isNaN(newFontSizeMultiplier) ? 1 : newFontSizeMultiplier);
 			}
+			if (user?.data?.connectToSpotify) setConnectAllDevicesToSpotify(user?.data?.connectToSpotify);
 
 			getUserProfilePicture(user?.data?.profilePicture);
 
@@ -52,7 +55,7 @@ export const NavigationBarLogic = () => {
 		}
 
 		getUser();
-	}, [APIRequest, username, setUsername, setUITheme, setFontSizeMultiplier, setUserProfilePicture]);
+	}, [APIRequest, username, setUsername, setUITheme, setFontSizeMultiplier, setConnectAllDevicesToSpotify, setUserProfilePicture]);
 
 	useEffect(() => {
 		async function getStory() {

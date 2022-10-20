@@ -30,7 +30,11 @@ export const Character = () => {
 	} = CharacterLogic();
 
 	return (
-		<div ref={characterContainerRef} className='character-container' style={characterStyle ? characterStyle : {}}>
+		<div
+			ref={characterContainerRef}
+			className={isOnOverviewSection ? "character-container character-container-is-on-overview" : "character-container"}
+			style={characterStyle ? characterStyle : {}}
+		>
 			<div className={characterStyle ? "character" : "character character-hidden"}>
 				<CharacterPrimary characterPrimaryRef={characterPrimaryRef} />
 				<div

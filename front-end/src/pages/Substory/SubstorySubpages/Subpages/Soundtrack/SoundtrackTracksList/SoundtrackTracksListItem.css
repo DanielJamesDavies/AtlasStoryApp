@@ -1,0 +1,102 @@
+.substory-subpage-soundtrack-track {
+	margin: 6px 0;
+	width: 100%;
+}
+
+.substory-subpage-soundtrack-track-song {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 6px;
+	padding: 6px 0;
+	border: 0;
+	border-radius: 8px;
+
+	width: calc(50% - 6px);
+
+	background: var(--grey1);
+	color: var(--textColour);
+	text-align: left;
+	transition: background 0.1s;
+	cursor: pointer;
+}
+
+.substory-subpage-soundtrack-track:hover .substory-subpage-soundtrack-track-song {
+	background: var(--grey2);
+}
+
+.substory-subpage-soundtrack-track-song:focus {
+	background: var(--grey3) !important;
+}
+
+.substory-subpage-soundtrack-track-number {
+	display: inline-block;
+	vertical-align: middle;
+	flex-shrink: 0;
+	margin: 0 12px;
+	font-size: 14px;
+	font-weight: 400;
+	color: var(--textSecondaryColour);
+	width: 27px;
+	text-align: right;
+}
+
+.substory-subpage-soundtrack-track-artwork {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 12px;
+	border-radius: 2px;
+
+	--artworkWidth: 48px;
+	min-width: var(--artworkWidth);
+	width: var(--artworkWidth);
+	min-height: var(--artworkWidth);
+	height: var(--artworkWidth);
+	background: var(--grey1point5);
+}
+
+.substory-subpage-soundtrack-track-artwork img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.substory-subpage-soundtrack-track-name-container {
+	display: inline-block;
+	vertical-align: middle;
+	width: calc(100% - 12px - 26px - 12px - 12px - 50px - 12px - 1px);
+}
+
+.substory-subpage-soundtrack-track-name {
+	font-size: 13px;
+}
+
+.substory-subpage-soundtrack-track-artists {
+	font-size: 11px;
+	color: var(--textTertiaryColour);
+}
+
+.substory-subpage-soundtrack-track-album {
+	font-size: 11px;
+	color: var(--textTertiaryColour);
+}
+
+.substory-subpage-soundtrack-track-text-container {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 6px;
+
+	width: calc(50% - 6px);
+	max-width: 700px;
+
+	opacity: 0.85;
+	transition: opacity 0.1s;
+}
+
+.substory-subpage-soundtrack-track:hover .substory-subpage-soundtrack-track-text-container {
+	opacity: 1;
+}
+
+.substory-subpage-soundtrack-track-text-container .text-container {
+	margin-top: 2px;
+}

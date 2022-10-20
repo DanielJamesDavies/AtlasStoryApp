@@ -15,8 +15,8 @@ import "./SubstorySubpages.css";
 
 // Assets
 
-export const SubstorySubpages = ({ innerRef, substoryPrimaryTitleRef }) => {
-	const { subpagesContainerStyles, subpage } = SubstorySubpagesLogic({ substoryPrimaryTitleRef });
+export const SubstorySubpages = ({ innerRef, substoryPrimaryTitleRef, setSubstoryPrimaryPaddingTop }) => {
+	const { subpagesContainerStyles, subpage } = SubstorySubpagesLogic({ substoryPrimaryTitleRef, setSubstoryPrimaryPaddingTop });
 
 	return (
 		<div className='substory-subpages-container' style={subpagesContainerStyles}>

@@ -82,6 +82,25 @@ const SubstorySchema = mongoose.Schema({
 				require: true,
 				default: {},
 			},
+			soundtrack: {
+				playlist_id: { type: String },
+				tracks: {
+					type: [
+						{
+							id: { type: String },
+							uri: { type: String },
+							is_local: { type: Boolean },
+							name: { type: String },
+							artists: { type: String },
+							album: { type: String },
+							artwork_url: { type: String },
+							text: { type: [String], default: [""] },
+							is_removed: { type: Boolean },
+						},
+					],
+					default: [],
+				},
+			},
 			development: {
 				type: {
 					items: {

@@ -27,10 +27,15 @@ export const Substory = () => {
 		substoryOverviewContainerRef,
 		substorySubpagesContainerRef,
 		substoryPrimaryTitleRef,
+		setSubstoryPrimaryPaddingTop,
 	} = SubstoryLogic();
 
 	return (
-		<div ref={substoryContainerRef} className='substory-container' style={substoryStyle ? substoryStyle : {}}>
+		<div
+			ref={substoryContainerRef}
+			className={isOnOverviewSection ? "substory-container substory-container-is-on-overview" : "substory-container"}
+			style={substoryStyle ? substoryStyle : {}}
+		>
 			<div className={substoryStyle ? "substory" : "substory substory-hidden"}>
 				<SubstoryPrimary substoryPrimaryTitleRef={substoryPrimaryTitleRef} />
 				<div
@@ -42,7 +47,11 @@ export const Substory = () => {
 				>
 					<SubstoryOverview innerRef={substoryOverviewContainerRef} />
 					<SubstorySectionSwitcher />
-					<SubstorySubpages innerRef={substorySubpagesContainerRef} substoryPrimaryTitleRef={substoryPrimaryTitleRef} />
+					<SubstorySubpages
+						innerRef={substorySubpagesContainerRef}
+						substoryPrimaryTitleRef={substoryPrimaryTitleRef}
+						setSubstoryPrimaryPaddingTop={setSubstoryPrimaryPaddingTop}
+					/>
 				</div>
 			</div>
 			<div className='substory-loading-container'>
