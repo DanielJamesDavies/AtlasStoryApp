@@ -2,6 +2,10 @@
 	width: 100%;
 }
 
+.characters-character-type-name-container .editable-container-content {
+	margin-top: 5.5px;
+}
+
 .characters-character-type-primary-name {
 	margin-top: -1px;
 	margin-bottom: 1px;
