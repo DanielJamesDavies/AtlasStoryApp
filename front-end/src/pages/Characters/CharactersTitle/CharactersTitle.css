@@ -2,7 +2,7 @@
 	position: relative;
 	display: flex;
 	align-items: center;
-	margin-bottom: 40px;
+	margin-bottom: 24px;
 	padding: 14px 12px;
 	padding-bottom: calc(14px + 2px);
 	border-radius: 4px;
@@ -19,7 +19,7 @@
 	border-radius: 4px;
 	width: 100%;
 	height: 2px;
-	background: var(--grey3);
+	background: var(--grey2);
 }
 
 .characters-title-story-icon {
@@ -72,10 +72,11 @@
 
 @media (max-width: 700px) {
 	.characters-title {
+		margin: 0 12px;
 		margin-bottom: 24px;
 		padding: 14px 6px;
 		padding-bottom: calc(14px + 2px);
-		width: calc(100% - 12px);
+		width: calc(100% - 24px - 12px);
 	}
 
 	.characters-title-story-icon {

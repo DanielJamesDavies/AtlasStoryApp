@@ -1,4 +1,5 @@
 .characters-group-characters-cards-container {
+	margin-top: 12px;
 	position: relative;
 	width: 100%;
 }
@@ -45,4 +46,10 @@
 
 .characters-group-characters-cards-scroll-hidden {
 	display: none;
+}
+
+@media (max-width: 950px) {
+	.characters-group-characters-cards-container {
+		margin-top: 12px;
+	}
 }

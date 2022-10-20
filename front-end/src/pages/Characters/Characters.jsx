@@ -25,8 +25,10 @@ export const Characters = () => {
 			<div className='characters-content-container'>
 				<CharactersGroups />
 				<CharactersGroup />
-				<CharactersCharacterTypes />
-				<CharactersCharacterType />
+				<div className='characters-character-types-content-container'>
+					<CharactersCharacterTypes />
+					<CharactersCharacterType />
+				</div>
 			</div>
 		</div>
 	);

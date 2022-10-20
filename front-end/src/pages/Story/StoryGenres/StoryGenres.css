@@ -1,0 +1,8 @@
+.story-genres-value-container {
+	margin-top: -8px;
+}
+
+.story-genres-value,
+.story-genres-value-container .text-input-container {
+	margin-top: 8px;
+}

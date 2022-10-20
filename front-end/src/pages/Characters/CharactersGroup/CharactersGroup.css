@@ -1,9 +1,8 @@
-.characters-group {
+.characters-group-container {
 	flex-shrink: 0;
 	display: inline-block;
-	margin-left: 12px;
 	border-radius: 4px;
-	width: calc(100% - 12px - (290px + 12px));
+	width: calc(100% - (315px + 12px));
 	min-height: 699px;
 	vertical-align: top;
 }
@@ -11,7 +10,6 @@
 .characters-group-primary {
 	display: flex;
 	align-items: center;
-	margin-bottom: 12px;
 	width: 100%;
 	min-height: 40px;
 }
@@ -19,7 +17,7 @@
 .characters-group-primary-title {
 	margin-top: -1px;
 	margin-bottom: 1px;
-	font-size: calc(24px * var(--fontSizeMultiplier));
+	font-size: calc(22px * var(--fontSizeMultiplier));
 	font-weight: 700;
 	max-width: calc(100% - 115px);
 }
@@ -69,9 +67,8 @@
 }
 
 @media (max-width: 950px) {
-	.characters-group {
+	.characters-group-container {
 		margin: 0;
-		margin-top: 12px;
 		width: 100%;
 		min-height: 0;
 	}

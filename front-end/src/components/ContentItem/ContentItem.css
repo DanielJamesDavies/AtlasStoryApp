@@ -1,0 +1,24 @@
+.content-item {
+	margin: 8px;
+	padding: 12px 24px;
+	border: 1px solid var(--grey2);
+	border-radius: 5px;
+	background: var(--grey1point5);
+	box-sizing: border-box;
+}
+
+.content-item-loading {
+	opacity: 0;
+}
+
+.content-item-size-s {
+	padding: 4px 8px;
+}
+
+.content-item-size-m {
+	padding: 10px 20px;
+}
+
+.content-item-size-l {
+	padding: 12px 24px;
+}

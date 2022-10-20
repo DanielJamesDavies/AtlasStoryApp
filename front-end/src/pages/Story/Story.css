@@ -7,16 +7,14 @@
 .story-section-1 {
 	display: inline-block;
 	margin-top: 12px;
-	margin-right: 12px;
-	width: calc(52% - 12px);
+	width: calc(52%);
 	vertical-align: top;
 }
 
 .story-section-2 {
 	display: inline-block;
 	margin-top: 12px;
-	margin-left: 12px;
-	width: calc(48% - 12px);
+	width: calc(48%);
 	vertical-align: top;
 }
 

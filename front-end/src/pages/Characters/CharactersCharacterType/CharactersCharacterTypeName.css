@@ -14,7 +14,7 @@
 
 .characters-character-type-primary-name,
 .characters-character-type-name-container input {
-	font-size: calc(24px * var(--fontSizeMultiplier));
+	font-size: calc(22px * var(--fontSizeMultiplier));
 	font-weight: 700;
 }
 
@@ -25,7 +25,7 @@
 @media (max-width: 950px) {
 	.characters-character-type-primary-name,
 	.characters-character-type-name-container input {
-		font-size: calc(24px * var(--fontSizeMultiplier));
+		font-size: calc(22px * var(--fontSizeMultiplier));
 		font-weight: 700;
 	}
 }

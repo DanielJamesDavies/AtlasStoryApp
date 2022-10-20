@@ -1,11 +1,7 @@
-.characters-character-type {
-	flex-shrink: 0;
+.characters-character-type-container {
 	display: inline-block;
-	margin-top: 24px;
-	margin-left: 20px;
-	border-radius: 4px;
-	width: calc(100% - 20px - (290px + 12px));
-	min-height: calc(50vh + 96px);
+	flex-shrink: 0;
+	width: calc(100% - (315px + 12px));
 	vertical-align: top;
 }
 
@@ -16,9 +12,8 @@
 }
 
 @media (max-width: 950px) {
-	.characters-character-type {
+	.characters-character-type-container {
 		margin: 0;
-		margin-top: 24px;
 		width: 100%;
 		min-height: 0;
 	}

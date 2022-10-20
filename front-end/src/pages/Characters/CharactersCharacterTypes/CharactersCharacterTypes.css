@@ -1,9 +1,8 @@
-.characters-character-types {
-	flex-shrink: 0;
+.characters-character-types-container {
 	display: inline-block;
-	margin-top: 24px;
+	flex-shrink: 0;
 	border-radius: 4px;
-	width: calc(290px + 12px);
+	width: calc(315px + 12px);
 	vertical-align: top;
 }
 
@@ -11,13 +10,12 @@
 	display: flex;
 	align-items: center;
 	margin-bottom: 12px;
-	padding-right: 12px;
 	height: 40px;
 }
 
 .characters-character-types-primary-title {
 	margin-top: -1px;
-	font-size: calc(24px * var(--fontSizeMultiplier));
+	font-size: calc(22px * var(--fontSizeMultiplier));
 	font-weight: 700;
 	vertical-align: middle;
 }
@@ -90,13 +88,12 @@
 }
 
 @media (max-width: 950px) {
-	.characters-character-types {
-		margin-top: 24px;
+	.characters-character-types-container {
 		width: 100%;
 	}
 
 	.characters-character-types-primary-title {
-		font-size: calc(24px * var(--fontSizeMultiplier));
+		font-size: calc(22px * var(--fontSizeMultiplier));
 	}
 
 	.characters-character-types-primary-modify-btn {

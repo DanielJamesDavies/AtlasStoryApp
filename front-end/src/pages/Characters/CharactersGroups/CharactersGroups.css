@@ -1,8 +1,8 @@
-.characters-groups {
+.characters-groups-container {
 	flex-shrink: 0;
 	display: inline-block;
 	border-radius: 4px;
-	width: calc(290px + 12px);
+	width: calc(315px + 12px);
 	vertical-align: top;
 }
 
@@ -16,7 +16,7 @@
 
 .characters-groups-primary-title {
 	margin-top: -1px;
-	font-size: calc(24px * var(--fontSizeMultiplier));
+	font-size: calc(22px * var(--fontSizeMultiplier));
 	font-weight: 700;
 	vertical-align: middle;
 }
@@ -119,7 +119,7 @@
 }
 
 @media (max-width: 950px) {
-	.characters-groups {
+	.characters-groups-container {
 		width: 100%;
 	}
 

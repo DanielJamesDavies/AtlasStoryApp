@@ -12,6 +12,15 @@
 	color: var(--textColour);
 }
 
+.story-description-value-container {
+	margin-top: -8px;
+}
+
+.story-description-value,
+.story-description-value-container .multi-line-text-input-container {
+	margin-top: 8px;
+}
+
 @media (max-width: 700px) {
 	.story-description {
 		padding: 12px 6px;

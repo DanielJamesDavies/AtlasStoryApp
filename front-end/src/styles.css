@@ -15,9 +15,10 @@
 .theme-dark {
 	--grey1: #000000;
 	--grey1point5: #09090e;
-	--grey2: #15151a;
-	--grey2point5: #1d1d23;
-	--grey3: #2b2b31;
+	--grey1point75: #0d0d16;
+	--grey2: #15151c;
+	--grey2point5: #1d1d26;
+	--grey3: #2b2b34;
 	--grey4: #404047;
 	--textColour: #ffffff;
 	--textSecondaryColour: #dddddd;

@@ -1,3 +1,7 @@
+.substories-list-container {
+	margin-top: 32px;
+}
+
 .substories-list {
 	flex-shrink: 0;
 	display: inline-block;

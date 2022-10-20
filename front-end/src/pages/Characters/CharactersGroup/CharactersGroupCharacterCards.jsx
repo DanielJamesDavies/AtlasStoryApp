@@ -21,6 +21,7 @@ export const CharactersGroupCharacterCards = () => {
 	const { group, charactersCards, scrollCharacterCards, isReorderingCharacters, changeCharactersOrder, afterOnTouchMove, afterOnTouchEnd } =
 		CharactersGroupCharacterCardsLogic();
 
+	if (!group) return null;
 	return (
 		<div
 			className='characters-group-characters-cards-container'

@@ -2,14 +2,14 @@
 	display: flex;
 	align-items: center;
 	content: "";
-	margin: 4px 0;
-	padding: 0 18px;
-	border: 0;
-	border-radius: 24px;
+	margin: 6px 0;
+	padding: 0 12px;
+	border: 2px solid var(--grey2point5);
+	border-radius: 12px;
 	outline: 0;
 	width: 100%;
 	height: 80px;
-	background: var(--grey2);
+	background: var(--grey1point75);
 	transition: 0.2s;
 	cursor: pointer;
 	user-select: none;
@@ -23,7 +23,8 @@
 .search-results-list-item:hover,
 .search-results-list-item:focus {
 	outline: 0;
-	background: var(--grey3);
+	border: 2px solid var(--blue);
+	background: var(--grey2);
 }
 
 .search-results-list-item-icon {
