@@ -9,6 +9,7 @@ import { useContext, useRef } from "react";
 import { SubstoryContext } from "../../../SubstoryContext";
 import { APIContext } from "../../../../../context/APIContext";
 import { SpotifyContext } from "../../../../../context/SpotifyContext";
+import { useState } from "react";
 
 // Services
 
@@ -98,11 +99,30 @@ export const SoundtrackLogic = () => {
 		return true;
 	}
 
+	const [isDisplayingPlaylistSelector, setIsDisplayingPlaylistSelector] = useState(false);
+
+	function showPlaylistSelector() {
+		setIsDisplayingPlaylistSelector(true);
+	}
+
+	function hidePlaylistSelector() {
+		setIsDisplayingPlaylistSelector(false);
+	}
+
 	const soundtrackRef = useRef();
 	function onSoundtrackContainerScroll(e) {
-		if (soundtrackRef?.current?.scrollTop === 0) return;
+		if (soundtrackRef?.current?.scrollTop === 0 && !isDisplayingPlaylistSelector) return;
 		e.stopPropagation();
 	}
 
-	return { isAuthorizedToEdit, revertSoundtrack, saveSoundtrack, soundtrackRef, onSoundtrackContainerScroll };
+	return {
+		isAuthorizedToEdit,
+		revertSoundtrack,
+		saveSoundtrack,
+		soundtrackRef,
+		onSoundtrackContainerScroll,
+		isDisplayingPlaylistSelector,
+		showPlaylistSelector,
+		hidePlaylistSelector,
+	};
 };

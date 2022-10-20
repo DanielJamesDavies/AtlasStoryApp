@@ -1,0 +1,12 @@
+.substory-subpage-soundtrack-open-playlist-selector-btn {
+	padding: 6px 12px;
+	border: 0;
+	border-radius: 8px;
+	background: var(--grey2);
+	color: var(--textColour);
+	transition: background 0.2s;
+}
+
+.substory-subpage-soundtrack-open-playlist-selector-btn:hover {
+	background: var(--grey3);
+}

@@ -10,6 +10,7 @@
 	padding: 6px 0;
 	border: 0;
 	border-radius: 8px;
+	outline: 0;
 
 	width: calc(50% - 6px);
 
@@ -89,7 +90,7 @@
 	width: calc(50% - 6px);
 	max-width: 700px;
 
-	opacity: 0.85;
+	opacity: 0.75;
 	transition: opacity 0.1s;
 }
 
@@ -99,4 +100,46 @@
 
 .substory-subpage-soundtrack-track-text-container .text-container {
 	margin-top: 2px;
+}
+
+.substory-subpage-soundtrack-track-buttons-container {
+	display: none;
+	width: 32px;
+}
+
+@media (max-width: 700px) {
+	.substory-subpage-soundtrack-track-song {
+		margin-right: 0;
+		width: 100%;
+	}
+
+	.substory-subpage-soundtrack-track-number {
+		display: none;
+	}
+
+	.substory-subpage-soundtrack-track-name-container {
+		display: inline-block;
+		vertical-align: middle;
+		width: calc(100% - 12px - 50px - 12px - 32px + 2px);
+	}
+
+	.substory-subpage-soundtrack-track-album {
+		display: none;
+	}
+
+	.substory-subpage-soundtrack-track-text-container {
+		display: none;
+		margin-left: 0;
+		padding: 4px 8px;
+		padding-bottom: 12px;
+		width: 100%;
+	}
+
+	.substory-subpage-soundtrack-track-text-container-is-displaying {
+		display: block;
+	}
+
+	.substory-subpage-soundtrack-track-buttons-container {
+		display: inline-block;
+	}
 }

@@ -1,6 +1,5 @@
 // Packages
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Components
 
@@ -35,5 +34,11 @@ export const SoundtrackTracksListItemLogic = ({ track }) => {
 		getArtwork();
 	}, [track]);
 
-	return { artwork };
+	const [isDisplayingText, setIsDisplayingText] = useState(false);
+	function toggleIsDisplayingText(e) {
+		e.stopPropagation();
+		setIsDisplayingText((oldIsDisplayingText) => !oldIsDisplayingText);
+	}
+
+	return { artwork, isDisplayingText, toggleIsDisplayingText };
 };

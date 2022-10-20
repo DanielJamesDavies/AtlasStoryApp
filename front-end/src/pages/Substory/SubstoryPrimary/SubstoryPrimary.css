@@ -1,6 +1,6 @@
 .substory-primary {
 	position: absolute;
-	z-index: 10;
+	z-index: 2;
 	display: flex;
 	margin: 0;
 	margin-bottom: 24px;

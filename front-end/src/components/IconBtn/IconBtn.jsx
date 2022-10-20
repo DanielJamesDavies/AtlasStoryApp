@@ -19,7 +19,7 @@ export const IconBtn = ({ className, seamless, size, icon, iconName, iconSmall, 
 
 	return (
 		<div ref={containerRef} className={iconBtnClassName}>
-			<button className='icon-btn' onClick={onClick} onAuxClick={onClick} onMouseDown={(e) => e.preventDefault()}>
+			<button tabIndex='1' className='icon-btn' onClick={onClick} onAuxClick={onClick} onMouseDown={(e) => e.preventDefault()}>
 				{icon}
 				{iconSmall === undefined ? null : (
 					<div className='icon-btn-small-icon-container'>

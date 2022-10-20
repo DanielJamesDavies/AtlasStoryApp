@@ -31,7 +31,8 @@
 	cursor: pointer;
 }
 
-.icon-btn:hover {
+.icon-btn:hover,
+.icon-btn:focus {
 	background: var(--accentHoverColour);
 	color: var(--textColour);
 }
@@ -69,7 +70,8 @@
 	background: transparent;
 }
 
-.icon-btn-container-seamless .icon-btn:hover {
+.icon-btn-container-seamless .icon-btn:hover,
+.icon-btn-container-seamless .icon-btn:focus {
 	background: transparent;
 	color: var(--accentColour);
 }
@@ -149,7 +151,8 @@
 	max-height: 24px;
 }
 
-.icon-btn-container-seamless .icon-btn:hover .icon-btn-small-icon {
+.icon-btn-container-seamless .icon-btn:hover .icon-btn-small-icon,
+.icon-btn-container-seamless .icon-btn:focus .icon-btn-small-icon {
 	background: transparent;
 	color: var(--accentColour);
 }

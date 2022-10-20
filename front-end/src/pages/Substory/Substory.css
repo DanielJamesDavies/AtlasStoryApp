@@ -60,6 +60,8 @@
 }
 
 .substory-content-container {
+	position: relative;
+	z-index: 1;
 	display: flex;
 	height: 100%;
 	overflow: visible;
