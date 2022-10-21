@@ -63,6 +63,12 @@
 	.pop-up-content-container {
 		transform: translate(-50%, -50%);
 
-		width: calc(100vw - 24px);
+		width: calc(100vw - 48px);
+		height: calc(600px - 24px);
+		max-height: calc(var(--vh) - 48px);
+	}
+
+	.pop-up-content {
+		max-height: calc(var(--vh) - 96px);
 	}
 }

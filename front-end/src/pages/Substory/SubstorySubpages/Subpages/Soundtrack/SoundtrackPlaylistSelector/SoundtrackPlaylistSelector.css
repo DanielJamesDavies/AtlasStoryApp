@@ -1,5 +1,5 @@
 .substory-subpage-soundtrack-playlist-selector-container.pop-up-container {
-	transform: translate(calc(-50% + ((100vw - 70px - 24px - 12px - 12px))), -50%);
+	transform: translate(calc(-50% + ((100vw - 74px - 24px - 12px - 12px))), -50%);
 }
 
 .substory-content-container-is-on-overview .substory-subpage-soundtrack-playlist-selector-container {
@@ -24,4 +24,16 @@
 	padding-right: 12px;
 	max-height: calc(min(600px, calc(var(--vh) - 48px)) - 24px - 24px - 24px - 12px);
 	overflow-y: overlay;
+}
+
+@media (max-width: 750px) {
+	.substory-subpage-soundtrack-playlist-selector-container.pop-up-container {
+		top: var(--substoryPrimaryPaddingTop);
+		transform: translate(calc(-50% + 100vw - 24px - 4px - 6px), 0%);
+		max-height: calc(var(--vh) - 70px - var(--substoryPrimaryPaddingTop) - 12px);
+	}
+
+	.substory-subpage-soundtrack-playlist-selector-container.pop-up-container .pop-up-content-container {
+		max-height: 100%;
+	}
 }
