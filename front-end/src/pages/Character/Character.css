@@ -21,6 +21,10 @@
 	transition: opacity 0.2s;
 }
 
+.theme-light .character-container::before {
+	opacity: 0.88;
+}
+
 .character-container::after {
 	position: absolute;
 	z-index: -100;
@@ -33,6 +37,10 @@
 	background: linear-gradient(180deg, var(--characterColour), var(--grey1));
 	opacity: 0.35;
 	transition: opacity 0.2s;
+}
+
+.theme-light .character-container::after {
+	opacity: 0.75;
 }
 
 .character-container-is-on-overview::before,
