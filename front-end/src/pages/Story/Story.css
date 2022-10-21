@@ -1,20 +1,20 @@
 .story {
 	margin: 0 auto;
 	padding: 6px 48px;
-	max-width: 1600px;
+	max-width: 1650px;
 }
 
 .story-section-1 {
 	display: inline-block;
 	margin-top: 12px;
-	width: calc(52%);
+	width: 50%;
 	vertical-align: top;
 }
 
 .story-section-2 {
 	display: inline-block;
 	margin-top: 12px;
-	width: calc(48%);
+	width: 50%;
 	vertical-align: top;
 }
 

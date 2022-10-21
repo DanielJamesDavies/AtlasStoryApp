@@ -59,7 +59,9 @@ export const PhysicalOutfitItems = ({
 			onScroll={onPhysicalOutfitItemsContainerScroll}
 		>
 			<div>
-				<div className='character-subpage-physical-outfit-items-title'>Outfits</div>
+				{characterVersion?.physical?.outfits.length === 0 ? null : (
+					<div className='character-subpage-physical-outfit-items-title'>Outfits</div>
+				)}
 				<div ref={physicalOutfitItemsRef} className='character-subpage-physical-outfit-items'>
 					{characterVersion?.physical?.outfits?.map((physicalOutfitItem, index) => (
 						<div key={index} className='character-subpage-physical-outfit-item-container'>

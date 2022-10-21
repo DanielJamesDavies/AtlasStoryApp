@@ -45,7 +45,7 @@
 
 .character-container-is-on-overview::before,
 .character-container-is-on-overview::after {
-	opacity: 0;
+	opacity: 0 !important;
 }
 
 .character {

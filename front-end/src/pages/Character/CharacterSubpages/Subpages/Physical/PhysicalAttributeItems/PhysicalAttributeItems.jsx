@@ -61,7 +61,9 @@ export const PhysicalAttributeItems = ({
 			onScroll={onPhysicalAttributeItemsContainerScroll}
 		>
 			<div>
-				<div className='character-subpage-physical-attribute-items-title'>Physical Attributes</div>
+				{characterVersion?.physical?.attributes?.length === 0 ? null : (
+					<div className='character-subpage-physical-attribute-items-title'>Physical Attributes</div>
+				)}
 				<div ref={physicalAttributeItemsRef} className='character-subpage-physical-attribute-items'>
 					{characterVersion?.physical?.attributes?.map((physicalAttributeItem, index) => (
 						<div key={index} className='character-subpage-physical-attribute-item-container'>
