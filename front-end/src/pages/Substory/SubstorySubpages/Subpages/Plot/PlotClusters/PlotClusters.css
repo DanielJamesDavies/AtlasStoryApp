@@ -24,6 +24,21 @@
 	background: var(--substoryColour);
 }
 
+.substory-subpage-plot-clusters-list-item-container .btn-list-item-active,
+.substory-subpage-plot-clusters-list-item-container .btn-list-item-active:hover {
+	background: var(--substoryColour);
+	border-color: var(--substoryColour);
+	color: #fff;
+}
+
+.drag-drop-item-enable-drag-drop.substory-subpage-plot-clusters-list-item-container .btn-list-item {
+	animation: wiggle-medium infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).substory-subpage-plot-clusters-list-item-container .btn-list-item {
+	animation-delay: 0.1s;
+}
+
 @media (max-width: 1200px) {
 	.substory-subpage-plot-clusters-container {
 		position: absolute;

@@ -3,6 +3,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Components
 import { IconBtn } from "../../../../components/IconBtn/IconBtn";
+import { BtnListItem } from "../../../../components/BtnListItem/BtnListItem";
 
 // Logic
 import { CharacterSubpagesBtnsLogic } from "./CharacterSubpagesBtnsLogic";
@@ -29,15 +30,14 @@ export const CharacterSubpagesBtns = () => {
 				{subpages
 					.filter((e) => (isAuthorizedToEdit ? e.isEnabled : e.id !== "settings" && e.isEnabled))
 					.map((subpage, index) => (
-						<button
+						<BtnListItem
 							key={index}
-							className={
-								subpage.id === openSubpageID ? "character-subpages-btn character-subpages-btn-active" : "character-subpages-btn"
-							}
+							className='character-subpages-btn'
+							size='s'
+							value={subpage.name}
+							isActive={subpage.id === openSubpageID}
 							onClick={() => setOpenSubpageID(subpage.id)}
-						>
-							{subpage.name}
-						</button>
+						/>
 					))}
 			</div>
 			<IconBtn icon={<FaChevronRight />} seamless={true} onClick={() => scrollSubpageBtns(1)} />

@@ -1,6 +1,7 @@
 .character-subpages-btns-container {
 	display: flex;
 	align-items: center;
+	margin-bottom: 4px;
 	width: 100%;
 }
 
@@ -19,32 +20,24 @@
 
 .character-subpages-btn {
 	flex-shrink: 0;
-	margin: 4px;
-	padding: 6px 14px;
-	border: 0;
+	margin: 0 4px;
 	border-radius: 32px;
 
 	min-width: fit-content;
 	width: calc((100% / 8) - 8px);
+}
 
-	background: var(--grey2);
-	color: var(--textColour);
-	text-align: left;
+.character-subpages-btn .btn-list-item-value {
 	font-size: 13px;
-	cursor: pointer;
-	transition: background 0.2s;
 }
 
 .character-subpages-btns-is-authorized .character-subpages-btn {
 	width: calc((100% / 9) - 8px);
 }
 
-.character-subpages-btn:hover {
-	background: var(--grey3);
-}
-
-.character-subpages-btn-active,
-.character-subpages-btn-active:hover {
+.character-subpages-btn.btn-list-item-active,
+.character-subpages-btn.btn-list-item-active:hover {
 	background: var(--characterColour);
+	border-color: var(--characterColour);
 	color: #fff;
 }

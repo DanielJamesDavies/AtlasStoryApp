@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Palatino+Linotype&display=swap");
 
 :root {
+	--white: #ffffff;
 	--blue: #0044ff;
 	--blue2: #0088ff;
 	--blue3: #00aaff;
@@ -15,11 +16,13 @@
 .theme-dark {
 	--grey1: #000000;
 	--grey1point5: #09090e;
-	--grey1point75: #0d0d16;
+	--grey1point75: #0d0d14;
+	--grey1point85: #12121b;
 	--grey2: #15151c;
 	--grey2point5: #1d1d26;
 	--grey3: #2b2b34;
-	--grey4: #404047;
+	--grey4: #40404f;
+	--grey5: #9090a0;
 	--textColour: #ffffff;
 	--textSecondaryColour: #dddddd;
 	--textTertiaryColour: #cccccc;

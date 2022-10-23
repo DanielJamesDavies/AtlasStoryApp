@@ -49,42 +49,18 @@
 	background: var(--blue);
 }
 
-.characters-groups-group-item {
-	display: block;
-	margin: 6px 0;
-	padding: 10px 16px;
-	border: 0;
-	border-radius: 22px;
-
-	width: 100%;
-	min-height: 39px;
-
-	background: var(--grey2);
-	color: var(--textColour);
-	font-size: calc(15px * var(--fontSizeMultiplier));
-	text-align: left;
-	transition: 0.2s;
-	cursor: pointer;
-}
-
-.characters-groups-group-item:hover {
-	background: var(--grey3);
-}
-
-.characters-groups-group-item-active {
+.characters-groups-group-item-container .btn-list-item-active,
+.characters-groups-group-item-container .btn-list-item-active:hover {
 	background: var(--accentColour);
+	border-color: var(--accentColour);
 	color: #fff;
 }
 
-.characters-groups-group-item-active:hover {
-	background: var(--accentHoverColour);
-}
-
-.drag-drop-item-enable-drag-drop .characters-groups-group-item {
+.drag-drop-item-enable-drag-drop.characters-groups-group-item-container .btn-list-item {
 	animation: wiggle-medium infinite 0.5s linear;
 }
 
-.drag-drop-item-enable-drag-drop:nth-child(even) .characters-groups-group-item {
+.drag-drop-item-enable-drag-drop:nth-child(even).characters-groups-group-item-container .btn-list-item {
 	animation-delay: 0.1s;
 }
 

@@ -34,7 +34,6 @@ export const BiographyClusterListLogic = ({ currBiographyCluster, switchBiograph
 	}
 
 	function removeBiographyCluster(e, index) {
-		e.stopPropagation();
 		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
 		if (currBiographyCluster?._id === newCharacterVersion.biography[index]._id) switchBiographyCluster(newCharacterVersion.biography[0]._id);
 		newCharacterVersion.biography.splice(index, 1);

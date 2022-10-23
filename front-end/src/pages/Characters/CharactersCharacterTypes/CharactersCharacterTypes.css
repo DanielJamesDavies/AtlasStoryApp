@@ -48,42 +48,18 @@
 	background: var(--blue);
 }
 
-.characters-character-types-character-type-item {
-	display: block;
-	margin: 6px 0;
-	padding: 10px 16px;
-	border: 0;
-	border-radius: 22px;
-
-	width: 100%;
-	min-height: 39px;
-
-	background: var(--grey2);
-	color: var(--textColour);
-	font-size: calc(15px * var(--fontSizeMultiplier));
-	text-align: left;
-	transition: 0.2s;
-	cursor: pointer;
-}
-
-.characters-character-types-character-type-item:hover {
-	background: var(--grey3);
-}
-
-.characters-character-types-character-type-item-active {
+.characters-character-types-character-type-item-container .btn-list-item-active,
+.characters-character-types-character-type-item-container .btn-list-item-active:hover {
 	background: var(--accentColour);
+	border-color: var(--accentColour);
 	color: #fff;
 }
 
-.characters-character-types-character-type-item-active:hover {
-	background: var(--accentHoverColour);
-}
-
-.drag-drop-item-enable-drag-drop .characters-character-types-character-type-item {
+.drag-drop-item-enable-drag-drop.characters-character-types-character-type-item-container .btn-list-item {
 	animation: wiggle-medium infinite 0.5s linear;
 }
 
-.drag-drop-item-enable-drag-drop:nth-child(even) .characters-character-types-character-type-item {
+.drag-drop-item-enable-drag-drop:nth-child(even).characters-character-types-character-type-item-container .btn-list-item {
 	animation-delay: 0.1s;
 }
 

@@ -4,7 +4,7 @@
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
-import { IconBtn } from "../../../../../../components/IconBtn/IconBtn";
+import { BtnListItem } from "../../../../../../components/BtnListItem/BtnListItem";
 
 // Logic
 import { AbilitiesListLogic } from "./AbilitiesListLogic";
@@ -15,7 +15,6 @@ import { AbilitiesListLogic } from "./AbilitiesListLogic";
 
 // Styles
 import "./AbilitiesList.css";
-import { FaTimes } from "react-icons/fa";
 
 // Assets
 
@@ -45,16 +44,12 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 				<div className='character-subpage-abilities-list-items'>
 					{characterVersion?.abilities?.map((ability, index) => (
 						<div key={index} className='character-subpage-abilities-list-item-container'>
-							<div
-								className={
-									ability._id === currAbility._id
-										? "character-subpage-abilities-list-item character-subpage-abilities-list-item-active"
-										: "character-subpage-abilities-list-item"
-								}
+							<BtnListItem
+								value={ability?.name}
+								index={index}
+								isActive={ability._id === currAbility._id}
 								onClick={() => onClickAbility(ability)}
-							>
-								<div className='character-subpage-abilities-list-item-name'>{ability?.name}</div>
-							</div>
+							/>
 						</div>
 					))}
 				</div>
@@ -65,24 +60,13 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 				>
 					{characterVersion?.abilities?.map((ability, index) => (
 						<DragDropItem key={index} index={index} className='character-subpage-abilities-list-item-container'>
-							<div
-								className={
-									ability._id === currAbility._id
-										? "character-subpage-abilities-list-item character-subpage-abilities-list-item-active"
-										: "character-subpage-abilities-list-item"
-								}
+							<BtnListItem
+								value={ability?.name}
+								index={index}
+								isActive={ability._id === currAbility._id}
 								onClick={() => onClickAbility(ability)}
-							>
-								<div className='character-subpage-abilities-list-item-name'>{ability?.name}</div>
-								<IconBtn
-									className='character-subpage-abilities-list-item-remove-btn'
-									icon={<FaTimes />}
-									iconName='times'
-									size='s'
-									seamless={true}
-									onClick={(e) => removeAbility(e, index)}
-								/>
-							</div>
+								onRemove={(e) => removeAbility(e, index)}
+							/>
 						</DragDropItem>
 					))}
 				</DragDropContainer>

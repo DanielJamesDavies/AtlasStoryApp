@@ -7,6 +7,7 @@ import { IconBtn } from "../../../components/IconBtn/IconBtn";
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { CharactersCreateCharacterType } from "./CharactersCreateCharacterType";
+import { BtnListItem } from "../../../components/BtnListItem/BtnListItem";
 
 // Logic
 import { CharactersCharacterTypesLogic } from "./CharactersCharacterTypesLogic";
@@ -69,16 +70,12 @@ export const CharactersCharacterTypes = () => {
 					>
 						{story.data.characterTypes.map((characterTypeID, index) => (
 							<DragDropItem key={index} index={index} className='characters-character-types-character-type-item-container'>
-								<button
-									className={
-										characterType._id === characterTypeID
-											? "characters-character-types-character-type-item characters-character-types-character-type-item-active"
-											: "characters-character-types-character-type-item"
-									}
+								<BtnListItem
+									value={characterTypes.find((e) => e._id === characterTypeID)?.data?.name}
+									index={index}
+									isActive={characterType._id === characterTypeID}
 									onClick={() => changeCharacterType(characterTypeID)}
-								>
-									{characterTypes.find((e) => e._id === characterTypeID)?.data?.name}
-								</button>
+								/>
 							</DragDropItem>
 						))}
 					</DragDropContainer>

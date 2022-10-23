@@ -4,7 +4,7 @@
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
-import { PlotItemGroupBtn } from "./PlotItemGroupBtn";
+import { BtnListItem } from "../../../../../../components/BtnListItem/BtnListItem";
 
 // Logic
 import { PlotItemGroupsLogic } from "./PlotItemGroupsLogic";
@@ -52,15 +52,13 @@ export const PlotItemGroups = ({ cluster, changeCluster, currGroupID, setGroupID
 				{!cluster?.groups ? null : (
 					<div className='substory-subpage-plot-item-groups-list'>
 						{cluster.groups.map((group, index) => (
-							<div key={index}>
-								<PlotItemGroupBtn
-									group={group}
+							<div key={index} className='substory-subpage-plot-clusters-list-item-container'>
+								<BtnListItem
+									size='s'
+									value={index + 1 + "\t" + group?.name}
 									index={index}
-									currGroupID={currGroupID}
-									onClickItemGroup={onClickItemGroup}
-									removeItemGroup={removeItemGroup}
-									changeItemGroupName={changeItemGroupName}
-									isEditing={false}
+									isActive={group._id === currGroupID}
+									onClick={() => onClickItemGroup(group)}
 								/>
 							</div>
 						))}
@@ -75,15 +73,15 @@ export const PlotItemGroups = ({ cluster, changeCluster, currGroupID, setGroupID
 						onDropItem={reorderItemGroups}
 					>
 						{cluster.groups.map((group, index) => (
-							<DragDropItem key={index} index={index}>
-								<PlotItemGroupBtn
-									group={group}
+							<DragDropItem key={index} index={index} className='substory-subpage-plot-clusters-list-item-container'>
+								<BtnListItem
+									size='s'
+									value={group?.name}
 									index={index}
-									currGroupID={currGroupID}
-									onClickItemGroup={onClickItemGroup}
-									removeItemGroup={removeItemGroup}
-									changeItemGroupName={changeItemGroupName}
-									isEditing={true}
+									isActive={group._id === currGroupID}
+									onClick={() => onClickItemGroup(group)}
+									onChange={(e) => changeItemGroupName(e, group)}
+									onRemove={(e) => removeItemGroup(e, group)}
 								/>
 							</DragDropItem>
 						))}

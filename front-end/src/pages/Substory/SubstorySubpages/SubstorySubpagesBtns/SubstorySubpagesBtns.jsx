@@ -13,6 +13,7 @@ import { SubstorySubpagesBtnsLogic } from "./SubstorySubpagesBtnsLogic";
 
 // Styles
 import "./SubstorySubpagesBtns.css";
+import { BtnListItem } from "../../../../components/BtnListItem/BtnListItem";
 
 // Assets
 
@@ -29,15 +30,14 @@ export const SubstorySubpagesBtns = () => {
 				{subpages
 					.filter((e) => (isAuthorizedToEdit ? e.isEnabled : e.id !== "settings" && e.isEnabled))
 					.map((subpage, index) => (
-						<button
+						<BtnListItem
 							key={index}
-							className={
-								subpage.id === openSubpageID ? "substory-subpages-btn substory-subpages-btn-active" : "substory-subpages-btn"
-							}
+							className='substory-subpages-btn'
+							size='s'
+							value={subpage.name}
+							isActive={subpage.id === openSubpageID}
 							onClick={() => setOpenSubpageID(subpage.id)}
-						>
-							{subpage.name}
-						</button>
+						/>
 					))}
 			</div>
 			<IconBtn icon={<FaChevronRight />} seamless={true} onClick={() => scrollSubpageBtns(1)} />

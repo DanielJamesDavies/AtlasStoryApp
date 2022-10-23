@@ -1,7 +1,7 @@
 .content-item {
 	margin: 8px;
 	padding: 12px 24px;
-	border: 1px solid var(--grey2);
+	border: 2px solid var(--grey2);
 	border-radius: 5px;
 	background: var(--grey1point5);
 	box-sizing: border-box;

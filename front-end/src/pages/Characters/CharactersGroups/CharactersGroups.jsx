@@ -7,6 +7,7 @@ import { DragDropContainer } from "../../../components/DragDropContainer/DragDro
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { CharactersCreateGroup } from "./CharactersCreateGroup";
 import { ContentItem } from "../../../components/ContentItem/ContentItem";
+import { BtnListItem } from "../../../components/BtnListItem/BtnListItem";
 
 // Logic
 import { CharactersGroupsLogic } from "./CharactersGroupsLogic";
@@ -61,9 +62,9 @@ export const CharactersGroups = () => {
 				</div>
 				{!story?.data?.groups || !groups ? (
 					<div className='characters-groups-group-items-container'>
-						<div className='characters-groups-group-item-placeholder'></div>
-						<div className='characters-groups-group-item-placeholder'></div>
-						<div className='characters-groups-group-item-placeholder'></div>
+						<BtnListItem />
+						<BtnListItem />
+						<BtnListItem />
 					</div>
 				) : (
 					<DragDropContainer
@@ -74,16 +75,12 @@ export const CharactersGroups = () => {
 					>
 						{story.data.groups.map((groupID, index) => (
 							<DragDropItem key={index} index={index} className='characters-groups-group-item-container'>
-								<button
-									className={
-										group._id === groupID
-											? "characters-groups-group-item characters-groups-group-item-active"
-											: "characters-groups-group-item"
-									}
+								<BtnListItem
+									value={groups.find((e) => e._id === groupID)?.data?.name}
+									index={index}
+									isActive={group._id === groupID}
 									onClick={() => changeGroup(groupID)}
-								>
-									{groups.find((e) => e._id === groupID)?.data?.name}
-								</button>
+								/>
 							</DragDropItem>
 						))}
 					</DragDropContainer>

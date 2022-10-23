@@ -4,7 +4,7 @@
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
-import { PlotClusterBtn } from "./PlotClusterBtn";
+import { BtnListItem } from "../../../../../../components/BtnListItem/BtnListItem";
 
 // Logic
 import { PlotClustersLogic } from "./PlotClustersLogic";
@@ -53,14 +53,12 @@ export const PlotClusters = ({ currCluster, switchCluster, isDisplayingClusters,
 				{!substory?.data?.plot?.clusters ? null : (
 					<div className='substory-subpage-plot-clusters-list'>
 						{substory?.data?.plot?.clusters.map((cluster, index) => (
-							<div key={index}>
-								<PlotClusterBtn
-									cluster={cluster}
-									currCluster={currCluster}
-									onClickCluster={onClickCluster}
-									removeCluster={removeCluster}
-									changeClusterName={changeClusterName}
-									isEditing={false}
+							<div key={index} className='substory-subpage-plot-clusters-list-item-container'>
+								<BtnListItem
+									value={cluster?.name}
+									index={index}
+									isActive={cluster._id === currCluster._id}
+									onClick={() => onClickCluster(cluster)}
 								/>
 							</div>
 						))}
@@ -75,14 +73,14 @@ export const PlotClusters = ({ currCluster, switchCluster, isDisplayingClusters,
 						onDropItem={reorderClusters}
 					>
 						{substory?.data?.plot?.clusters.map((cluster, index) => (
-							<DragDropItem key={index} index={index}>
-								<PlotClusterBtn
-									cluster={cluster}
-									currCluster={currCluster}
-									onClickCluster={onClickCluster}
-									removeCluster={removeCluster}
-									changeClusterName={changeClusterName}
-									isEditing={true}
+							<DragDropItem key={index} index={index} className='substory-subpage-plot-clusters-list-item-container'>
+								<BtnListItem
+									value={cluster?.name}
+									index={index}
+									isActive={cluster._id === currCluster._id}
+									onClick={() => onClickCluster(cluster)}
+									onChange={(e) => changeClusterName(e, cluster)}
+									onRemove={(e) => removeCluster(e, cluster)}
 								/>
 							</DragDropItem>
 						))}

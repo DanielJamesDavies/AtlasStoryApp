@@ -1,11 +1,10 @@
 // Packages
-import { FaTimes } from "react-icons/fa";
 
 // Components
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
-import { IconBtn } from "../../../../../../components/IconBtn/IconBtn";
+import { BtnListItem } from "../../../../../../components/BtnListItem/BtnListItem";
 
 // Logic
 import { BiographyClusterListLogic } from "./BiographyClusterListLogic";
@@ -50,16 +49,12 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 				<div ref={biographyClusterListItemsRef} className='character-subpage-biography-cluster-list-items'>
 					{characterVersion?.biography?.map((biologyCluster, index) => (
 						<div key={index} className='character-subpage-biography-cluster-list-item-container'>
-							<div
-								className={
-									biologyCluster._id === currBiographyCluster._id
-										? "character-subpage-biography-cluster-list-item character-subpage-biography-cluster-list-item-active"
-										: "character-subpage-biography-cluster-list-item"
-								}
+							<BtnListItem
+								value={biologyCluster?.name}
+								index={index}
+								isActive={biologyCluster._id === currBiographyCluster._id}
 								onClick={() => onClickBiographyCluster(biologyCluster)}
-							>
-								<div className='character-subpage-biography-cluster-list-item-name'>{biologyCluster?.name}</div>
-							</div>
+							/>
 						</div>
 					))}
 				</div>
@@ -71,24 +66,13 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 				>
 					{characterVersion?.biography?.map((biologyCluster, index) => (
 						<DragDropItem key={index} index={index} className='character-subpage-biography-cluster-list-item-container'>
-							<div
-								className={
-									biologyCluster._id === currBiographyCluster._id
-										? "character-subpage-biography-cluster-list-item character-subpage-biography-cluster-list-item-active"
-										: "character-subpage-biography-cluster-list-item"
-								}
+							<BtnListItem
+								value={biologyCluster?.name}
+								index={index}
+								isActive={biologyCluster._id === currBiographyCluster._id}
 								onClick={() => onClickBiographyCluster(biologyCluster)}
-							>
-								<div className='character-subpage-biography-cluster-list-item-name'>{biologyCluster?.name}</div>
-								<IconBtn
-									className='character-subpage-biography-cluster-list-item-remove-btn'
-									icon={<FaTimes />}
-									iconName='times'
-									size='s'
-									seamless={true}
-									onClick={(e) => removeBiographyCluster(e, index)}
-								/>
-							</div>
+								onRemove={(e) => removeBiographyCluster(e, index)}
+							/>
 						</DragDropItem>
 					))}
 				</DragDropContainer>

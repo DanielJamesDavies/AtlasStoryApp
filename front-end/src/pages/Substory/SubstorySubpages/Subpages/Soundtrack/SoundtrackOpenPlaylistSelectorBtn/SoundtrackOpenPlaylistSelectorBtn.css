@@ -18,3 +18,9 @@
 .substory-subpage-soundtrack-open-playlist-selector-btn:hover {
 	background: var(--grey3);
 }
+
+@media (max-width: 750px) {
+	.substory-subpage-soundtrack-open-playlist-selector-btn {
+		font-size: 15px;
+	}
+}
