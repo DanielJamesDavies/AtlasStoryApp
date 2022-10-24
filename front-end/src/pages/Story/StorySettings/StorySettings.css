@@ -1,51 +1,3 @@
-.story-settings {
-	position: fixed;
-	top: 120px;
-	left: calc(50% + 76px / 2);
-	transform: translateX(-50%);
-	z-index: 200;
-	padding: 24px 34px;
-	border-radius: 4px;
-
-	width: calc(100vw - 76px - 48px - 48px);
-	max-width: 750px;
-	max-height: calc(100vh - 120px - 120px - 48px);
-	overflow-y: overlay;
-	overflow-x: hidden;
-
-	background: var(--grey2);
-}
-
-.story-settings::-webkit-scrollbar {
-	width: 6px;
-	background: transparent;
-}
-
-.story-settings::-webkit-scrollbar-thumb {
-	border-radius: 4px;
-	background: var(--blue);
-}
-
-.story-settings-background {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 199;
-	display: block;
-	content: "";
-	width: 100vw;
-	height: 100vh;
-	background: #00000088;
-}
-
-.story-settings-title {
-	margin: 0;
-	margin-bottom: 20px;
-	font-size: 28px;
-	font-weight: 700;
-}
-
 .story-settings-section-container {
 	margin: 12px 0;
 	margin-bottom: 24px;
@@ -90,15 +42,4 @@
 
 .story-settings-confirm-delete.confirm-delete-container-is-confirming .confirm-delete-btn {
 	margin-left: 12px;
-}
-
-@media (max-width: 700px) {
-	.story-settings {
-		position: fixed;
-		top: 32px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: calc(100vw - 48px - 48px);
-		max-height: calc(100vh - 32px - 32px - 48px);
-	}
 }

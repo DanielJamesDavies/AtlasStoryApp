@@ -37,11 +37,11 @@ export const CharactersCreateGroup = () => {
 	return (
 		<PopUpContainer
 			className='characters-create-group-container'
+			title='Create Group'
 			isDisplaying={isDisplayingCreateGroupForm}
 			onClosePopUp={closeCreateGroupForm}
 		>
 			<div className='characters-create-group-form'>
-				<div className='characters-create-group-form-title'>Create Group</div>
 				<div className='characters-create-group-form-input-container'>
 					<TextInput label='Name' value={groupName} onChange={changeGroupName} isDark={true} />
 					<ErrorMessage errors={errors} attribute='name' />

@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { PopUpContainer } from "../../../components/PopUpContainer/PopUpContainer";
 import { UserSettingsUsername } from "./UserSettingsUsername";
 import { UserSettingsPassword } from "./UserSettingsPassword";
 import { UserSettingsEmail } from "./UserSettingsEmail";
@@ -24,11 +25,9 @@ import "./UserSettings.css";
 export const UserSettings = () => {
 	const { isDisplayingSettings, closeSettings } = UserSettingsLogic();
 
-	if (!isDisplayingSettings) return null;
 	return (
-		<div className='user-settings-container'>
-			<div className='user-settings'>
-				<div className='user-settings-title'>User Settings</div>
+		<PopUpContainer className='user-settings-container' title='User Settings' isDisplaying={isDisplayingSettings} onClosePopUp={closeSettings}>
+			<div className='user-settings-form'>
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Username</div>
 					<UserSettingsUsername />
@@ -58,7 +57,6 @@ export const UserSettings = () => {
 					<UserSettingsDelete />
 				</div>
 			</div>
-			<div className='user-settings-background' onClick={closeSettings} />
-		</div>
+		</PopUpContainer>
 	);
 };

@@ -1,4 +1,5 @@
 // Packages
+import "chart.js/auto";
 import { Radar } from "react-chartjs-2";
 
 // Components

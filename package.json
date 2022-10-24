@@ -6,15 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server.js --prefix ./back-end/",
-    "postinstall": "npm install --prefix ./back-end/ && npm install --prefix ./front-end/ && npm run build --prefix ./front-end/",
-    "dev": "set \"NODE_ENV=development\" && concurrently --kill-others-on-fail \"nodemon server.js --prefix ./back-end/\" \"npm start --prefix ./front-end/\""
+    "postinstall": "(npm install --prefix ./back-end/ && npm install --prefix ./front-end/ && npm run build --prefix ./front-end/) || npm -v",
+    "dev": "set \"NODE_ENV=development\" && concurrently --raw --kill-others-on-fail \"nodemon server.js --prefix ./back-end/\" \"npm start --prefix ./front-end/\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^7.2.0",
+    "concurrently": "^7.5.0",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.16",
+    "npm": "^8.19.2",
     "query-string": "^7.1.1"
   }
 }

@@ -39,11 +39,11 @@ export const UserCreateStory = () => {
 	return (
 		<PopUpContainer
 			className='user-stories-create-story-container'
+			title='Create Story'
 			isDisplaying={isDisplayingCreateStoryForm}
 			onClosePopUp={closeCreateStoryForm}
 		>
 			<div className='user-stories-create-story-form'>
-				<div className='user-stories-create-story-form-title'>Create Story</div>
 				<div className='user-stories-create-story-form-input-container'>
 					<TextInput label='Title' value={storyTitle} onChange={changeStoryTitle} isDark={true} />
 					<ErrorMessage errors={errors} attribute='title' />

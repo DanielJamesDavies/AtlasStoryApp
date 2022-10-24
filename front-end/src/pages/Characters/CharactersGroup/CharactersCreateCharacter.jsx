@@ -40,11 +40,11 @@ export const CharactersCreateCharacter = () => {
 	return (
 		<PopUpContainer
 			className='characters-create-character-container'
+			title='Create Character'
 			isDisplaying={isDisplayingCreateCharacterForm}
 			onClosePopUp={closeCreateCharacterForm}
 		>
 			<div className='characters-create-character-form'>
-				<div className='characters-create-character-form-title'>Create Character</div>
 				<div className='characters-create-character-form-input-container'>
 					<TextInput label='Name' value={characterName} onChange={changeCharacterName} isDark={true} />
 					<ErrorMessage errors={errors} attribute='name' />

@@ -37,11 +37,11 @@ export const SubstoriesListCreateSubstory = () => {
 	return (
 		<PopUpContainer
 			className='substories-create-substory-container'
+			title='Create Substory'
 			isDisplaying={isDisplayingCreateSubstoryForm}
 			onClosePopUp={closeCreateSubstoryForm}
 		>
 			<div className='substories-create-substory-form'>
-				<div className='substories-create-substory-form-title'>Create Substory</div>
 				<div className='substories-create-substory-form-input-container'>
 					<TextInput label='Title' value={substoryTitle} onChange={changeSubstoryTitle} isDark={true} />
 					<ErrorMessage errors={errors} attribute='name' />

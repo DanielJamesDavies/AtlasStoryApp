@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { PopUpContainer } from "../../../components/PopUpContainer/PopUpContainer";
 import { StorySettingsUID } from "./StorySettingsUID/StorySettingsUID";
 import { StorySettingsMembers } from "./StorySettingsMembers/StorySettingsMembers";
 import { StorySettingsColours } from "./StorySettingsColours/StorySettingsColours";
@@ -21,11 +22,14 @@ import "./StorySettings.css";
 export const StorySettings = () => {
 	const { isDisplayingSettings, closeSettings } = StorySettingsLogic();
 
-	if (!isDisplayingSettings) return null;
 	return (
-		<div className='story-settings-container'>
-			<div className='story-settings'>
-				<div className='story-settings-title'>Story Settings</div>
+		<PopUpContainer
+			className='story-settings-container'
+			title='Story Settings'
+			isDisplaying={isDisplayingSettings}
+			onClosePopUp={closeSettings}
+		>
+			<div className='story-settings-form'>
 				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Unique Identifier (UID)</div>
 					<StorySettingsUID />
@@ -49,7 +53,6 @@ export const StorySettings = () => {
 					<StorySettingsDelete />
 				</div>
 			</div>
-			<div className='story-settings-background' onClick={closeSettings} />
-		</div>
+		</PopUpContainer>
 	);
 };

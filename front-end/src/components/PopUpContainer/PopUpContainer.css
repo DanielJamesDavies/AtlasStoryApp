@@ -19,7 +19,7 @@
 
 	width: calc(100vw - 76px - 48px);
 	max-width: 750px;
-	height: 600px;
+	height: 680px;
 	max-height: calc(var(--vh) - 24px);
 	overflow-y: overlay;
 }
@@ -42,6 +42,22 @@
 	max-height: calc(var(--vh) - 48px);
 
 	background: var(--grey2);
+}
+
+.pop-up-content-primary-container {
+	display: flex;
+	align-items: center;
+	margin-bottom: 24px;
+}
+
+.pop-up-content-primary-title {
+	margin: 0;
+	font-size: 26px;
+	font-weight: 700;
+}
+
+.pop-up-content-primary-btn-container {
+	margin-left: auto;
 }
 
 .pop-up-background {
@@ -70,5 +86,9 @@
 
 	.pop-up-content {
 		max-height: calc(var(--vh) - 96px);
+	}
+
+	.pop-up-content-primary-title {
+		font-size: 22px;
 	}
 }
