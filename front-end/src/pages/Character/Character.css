@@ -22,7 +22,9 @@
 }
 
 .theme-light .character-container::before {
-	opacity: 0.88;
+	top: calc(-24px + -96px);
+	height: calc(var(--characterPaddingTop) + 12px + 96px);
+	opacity: 1;
 }
 
 .character-container::after {
@@ -40,7 +42,7 @@
 }
 
 .theme-light .character-container::after {
-	opacity: 0.75;
+	opacity: 1;
 }
 
 .character-container-is-on-overview::before,

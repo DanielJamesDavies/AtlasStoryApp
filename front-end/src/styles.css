@@ -30,11 +30,14 @@
 
 .theme-light {
 	--grey1: #ffffff;
-	--grey1point5: #eaeaef;
-	--grey2: #e6e6e8;
-	--grey2point5: #dddddf;
-	--grey3: #d0d0d4;
-	--grey4: #c3c3c8;
+	--grey1point5: #f9f9f9;
+	--grey1point75: #f0f0f0;
+	--grey1point85: #ededed;
+	--grey2: #e8e8e8;
+	--grey2point5: #e0e0e0;
+	--grey3: #dddddd;
+	--grey4: #d0d0d0;
+	--grey5: #c7c7c7;
 	--textColour: #000000;
 	--textSecondaryColour: #888888;
 	--textTertiaryColour: #aaaaaa;

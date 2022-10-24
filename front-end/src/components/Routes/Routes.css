@@ -5,7 +5,7 @@
 
 .content-container {
 	display: inline-block;
-	width: calc(100vw - 74px);
+	width: calc(100vw - 68px);
 	height: 100%;
 	vertical-align: top;
 	overflow-y: overlay;

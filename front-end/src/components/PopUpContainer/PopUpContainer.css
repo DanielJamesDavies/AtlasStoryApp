@@ -39,7 +39,6 @@
 	border-radius: 8px;
 
 	width: calc(100% - (34px * 2));
-	max-height: calc(var(--vh) - 48px);
 
 	background: var(--grey2);
 }
@@ -82,10 +81,6 @@
 		width: calc(100vw - 48px);
 		height: calc(600px - 24px);
 		max-height: calc(var(--vh) - 48px);
-	}
-
-	.pop-up-content {
-		max-height: calc(var(--vh) - 96px);
 	}
 
 	.pop-up-content-primary-title {

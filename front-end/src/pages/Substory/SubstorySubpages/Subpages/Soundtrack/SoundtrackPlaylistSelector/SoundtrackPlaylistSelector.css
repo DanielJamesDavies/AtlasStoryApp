@@ -6,10 +6,9 @@
 	display: none;
 }
 
-.substory-subpage-soundtrack-playlist-selector-title {
-	margin: 0 8px;
-	font-size: 20px;
-	font-weight: 700;
+.substory-subpage-soundtrack-playlist-selector-subtitle {
+	margin: 0;
+	font-size: 14px;
 }
 
 .substory-subpage-soundtrack-playlist-selector-loading-circle-container {
@@ -21,7 +20,9 @@
 
 .substory-subpage-soundtrack-playlist-selector-playlist-items {
 	margin-top: 12px;
+	margin-left: -16px;
 	padding-right: 12px;
+	width: calc(100% + 16px);
 	max-height: calc(min(600px, calc(var(--vh) - 48px)) - 24px - 24px - 24px - 12px);
 	overflow-y: overlay;
 }

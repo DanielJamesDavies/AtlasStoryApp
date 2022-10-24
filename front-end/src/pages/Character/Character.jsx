@@ -32,7 +32,11 @@ export const Character = () => {
 	return (
 		<div
 			ref={characterContainerRef}
-			className={isOnOverviewSection ? "character-container character-container-is-on-overview" : "character-container"}
+			className={
+				isOnOverviewSection
+					? "character-container character-container-is-on-overview"
+					: "character-container character-container-is-on-subpages"
+			}
 			style={characterStyle ? characterStyle : {}}
 		>
 			<div className={characterStyle ? "character" : "character character-hidden"}>

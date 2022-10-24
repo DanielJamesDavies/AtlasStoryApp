@@ -18,6 +18,11 @@
 	margin-top: -8px;
 }
 
+.character-container-is-on-subpages .character-primary-name-container,
+.character-container-is-on-subpages .character-primary-name-container input {
+	color: #ffffff;
+}
+
 @media (max-width: 700px) {
 	.character-primary-name-container {
 		margin: 4px 0;

@@ -25,12 +25,13 @@ export const SoundtrackPlaylistSelector = ({ isDisplayingPlaylistSelector, hideP
 	return (
 		<PopUpContainer
 			className='substory-subpage-soundtrack-playlist-selector-container'
+			title='Change Spotify Playlist'
 			isDisplaying={isDisplayingPlaylistSelector}
 			onClosePopUp={hidePlaylistSelector}
 		>
 			<div className='substory-subpage-soundtrack-playlist-selector-form'>
-				<div className='substory-subpage-soundtrack-playlist-selector-title'>
-					Please Select a Spotify Playlist for This Substory's Soundtrack
+				<div className='substory-subpage-soundtrack-playlist-selector-subtitle'>
+					Please Select a Spotify Playlist for This Substory's Soundtrack:
 				</div>
 				{playlists === false ? (
 					<div className='substory-subpage-soundtrack-playlist-selector-loading-circle-container'>
