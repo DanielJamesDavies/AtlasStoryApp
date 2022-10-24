@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server.js --prefix ./back-end/",
-    "postinstall": "(npm install --prefix ./back-end/ && npm install --prefix ./front-end/ && npm run build --prefix ./front-end/) || npm -v",
+    "postinstall": "cd ./back-end/ && npm install --ignore-scripts && cd ../front-end/ && npm install --ignore-scripts && npm run build",
     "dev": "set \"NODE_ENV=development\" && concurrently --raw --kill-others-on-fail \"nodemon server.js --prefix ./back-end/\" \"npm start --prefix ./front-end/\""
   },
   "author": "",
