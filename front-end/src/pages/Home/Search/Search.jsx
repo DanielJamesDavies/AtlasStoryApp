@@ -21,11 +21,7 @@ export const Search = () => {
 	const { searchValue, changeSearchValue, searchResults } = SearchLogic();
 
 	return (
-		<div className='search'>
-			<div className='search-title-container'>
-				<FaSearch className='search-title-icon' />
-				<div className='search-title-text'>Search</div>
-			</div>
+		<div className='home-search-container'>
 			<SearchInput searchValue={searchValue} changeSearchValue={changeSearchValue} />
 			<SearchResultsList searchResults={searchResults} />
 		</div>

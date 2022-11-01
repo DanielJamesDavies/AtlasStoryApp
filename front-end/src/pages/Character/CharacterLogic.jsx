@@ -30,7 +30,7 @@ export const CharacterLogic = () => {
 
 			const primaryHeight = characterPrimaryRef?.current?.clientHeight;
 			if (primaryHeight !== undefined) {
-				let characterPaddingTop = primaryHeight + 24;
+				let characterPaddingTop = primaryHeight + 10;
 				if (window?.innerWidth !== undefined && window?.innerWidth <= 700) characterPaddingTop = 6 + primaryHeight + 12;
 				newCharacterStyle["--characterPaddingTop"] = characterPaddingTop + "px";
 			}
@@ -66,11 +66,11 @@ export const CharacterLogic = () => {
 	const characterSubpagesContainerRef = useRef();
 
 	useEffect(() => {
-		const onWheel = (e) => (!character || e?.ctrlKey ? null : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1));
+		const onWheel = (e) => (!character || !characterStyle || e?.ctrlKey ? null : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1));
 		const characterContainerRefCurrent = characterContainerRef?.current;
 		characterContainerRefCurrent?.addEventListener("wheel", onWheel);
 		return () => characterContainerRefCurrent?.removeEventListener("wheel", onWheel);
-	}, [character, characterContainerRef, setIsOnOverviewSection]);
+	}, [character, characterStyle, characterContainerRef, setIsOnOverviewSection]);
 
 	useEffect(() => {
 		const onOverviewWheel = (e) => {

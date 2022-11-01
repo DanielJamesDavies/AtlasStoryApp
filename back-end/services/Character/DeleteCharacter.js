@@ -3,6 +3,7 @@ const Story = require("../../models/Story");
 const Group = require("../../models/Group");
 
 const deleteImagesByKey = require("../Image/deleteImagesByKey");
+const addToStoryChangeLog = require("../Story/AddToStoryChangeLog");
 
 module.exports = async (req, res) => {
 	const character = await Character.findById(req.params.id)
@@ -28,6 +29,8 @@ module.exports = async (req, res) => {
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Character Could Not Be Deleted" }] });
 	}
+
+	addToStoryChangeLog(req.body.story_id, { content_type: "character", title: 'Deleted Character "' + character?.data?.name + '"' });
 
 	return res.status(200).send({ message: "Success" });
 };

@@ -1,0 +1,21 @@
+.home-feed-container {
+	position: absolute;
+	top: calc(12px + 42px + 12px);
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	text-align: center;
+}
+
+.home-feed-loading-container {
+	position: absolute;
+	top: 12px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+@media (max-width: 750px) {
+	.home-feed-container {
+		top: calc(6px + 50px + 12px);
+	}
+}

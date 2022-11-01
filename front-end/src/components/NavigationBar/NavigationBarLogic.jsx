@@ -136,8 +136,12 @@ export const NavigationBarLogic = () => {
 		}
 	}
 
-	function navigateToSearch(e) {
-		changeLocation("/search", e.button === 1);
+	function navigateToHome(e) {
+		if (username) {
+			changeLocation("/home", e.button === 1);
+		} else {
+			changeLocation("/login", e.button === 1);
+		}
 	}
 
 	function navigateToStory(e) {
@@ -166,7 +170,7 @@ export const NavigationBarLogic = () => {
 		storyIcon,
 		getBtnClassName,
 		navigateToProfile,
-		navigateToSearch,
+		navigateToHome,
 		navigateToStory,
 		navigateToCharacters,
 		navigateToSubstories,

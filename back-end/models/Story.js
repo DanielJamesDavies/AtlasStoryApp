@@ -39,9 +39,6 @@ const StorySchema = mongoose.Schema({
 				],
 				require: true,
 			},
-			preferences: {
-				accentColour: String,
-			},
 			icon: mongoose.Schema.Types.ObjectId,
 			banner: mongoose.Schema.Types.ObjectId,
 			cover: mongoose.Schema.Types.ObjectId,
@@ -103,6 +100,18 @@ const StorySchema = mongoose.Schema({
 				default: {},
 			},
 			substories: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+			changeLog: {
+				type: [
+					{
+						content_type: { type: String, default: "" },
+						content_id: mongoose.Schema.Types.ObjectId,
+						title: { type: String, default: "" },
+						path: { type: [String], default: [] },
+						date_changed: { type: Date, default: Date.now },
+					},
+				],
+				default: [],
+			},
 		},
 		require: true,
 	},

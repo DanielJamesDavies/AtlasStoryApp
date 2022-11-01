@@ -5,7 +5,9 @@ const Group = require("../../models/Group");
 const Story = require("../../models/Story");
 const Image = require("../../models/Image");
 
+const GetValueInNestedObject = require("../GetValueInNestedObject");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
+const addToStoryChangeLog = require("../Story/AddToStoryChangeLog");
 
 module.exports = async (req, res) => {
 	if (!req?.body?.path || req?.body?.path === ["_id"]) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
@@ -18,6 +20,7 @@ module.exports = async (req, res) => {
 	if (!oldCharacter) return res.status(200).send({ errors: [{ message: "Character Not Found" }] });
 
 	let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
+	const oldValue = GetValueInNestedObject(newCharacter, req.body.path);
 
 	switch (JSON.stringify(req.body.path)) {
 		case JSON.stringify(["uid"]):
@@ -210,6 +213,16 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Character Could Not Be Saved" }] });
 	}
 
+	if (JSON.stringify(oldValue) !== JSON.stringify(req?.body?.newValue))
+		addToStoryChangeLog(
+			req.body.story_id,
+			generateChangeLogItem({
+				content_id: req.params.id,
+				path: req.body.path,
+				character: newCharacter,
+			})
+		);
+
 	return res.status(200).send({ message: "Success", data: { character: newCharacter } });
 };
 
@@ -296,4 +309,65 @@ async function removeCharacterFromStoryPrimaryCharacters(character_id, story_id)
 	}
 
 	return {};
+}
+
+function generateChangeLogItem({ content_id, path, character }) {
+	let newPath = JSON.parse(JSON.stringify(path));
+	const newChangeLogItem = { content_type: "character", content_id, title: "", path };
+
+	const pathTitlePairs = [
+		{ path: ["uid"], title: "Unique Identifier" },
+		{ path: ["group_id"], title: "Group" },
+		{ path: ["isPrimaryCharacter"], title: "Primary Character Status" },
+		{ path: ["character_type_id"], title: "Character Type" },
+		{ path: ["data", "name"], title: "Name" },
+		{ path: ["data", "summaryItems"], title: "Summary Items" },
+		{ path: ["data", "colour"], title: "Colour" },
+		{ path: ["data", "cardBackground"], title: "Card Background Image" },
+		{ path: ["data", "overviewBackground"], title: "Overview Background Image" },
+		{ path: ["data", "images"], title: "Images" },
+		{ path: ["data", "versions"], title: "Versions" },
+		{ path: ["data", "versions", "description"], title: "Description" },
+		{ path: ["data", "versions", "gallery"], title: "Gallery" },
+		{ path: ["data", "versions", "psychology", "items"], title: "Psychology Items" },
+		{ path: ["data", "versions", "psychology", "bigFive"], title: "Big Five Personality Traits" },
+		{ path: ["data", "versions", "biography"], title: "Biography Clusters" },
+		{ path: ["data", "versions", "biography", "items"], title: "Items on Biography Cluster" },
+		{ path: ["data", "versions", "abilities"], title: "Abilities" },
+		{ path: ["data", "versions", "abilities", "name"], title: "Name of Ability" },
+		{ path: ["data", "versions", "abilities", "items"], title: "Items on Ability" },
+		{ path: ["data", "versions", "abilities", "statistics"], title: "Statistics of Ability" },
+		{ path: ["data", "versions", "physical", "attributes"], title: "Physical Attributes" },
+		{ path: ["data", "versions", "physical", "outfits"], title: "Outfits" },
+		{ path: ["data", "development", "items"], title: "Development Items" },
+		{ path: ["data", "subpages"], title: "Subpages" },
+	];
+
+	let version = false;
+	if (newPath.length > 2 && newPath[0] === "data" && newPath[1] === "versions") {
+		const versionID = newPath.splice(2, 1)[0];
+		version = character.data.versions.find((e) => JSON.stringify(e._id) === JSON.stringify(versionID));
+	}
+
+	let biographyCluster = false;
+	if (newPath.length > 3 && newPath[0] === "data" && newPath[1] === "versions" && newPath[2] === "biography") {
+		const biographyClusterID = newPath.splice(3, 1)[0];
+		biographyCluster = version.biography.find((e) => JSON.stringify(e._id) === JSON.stringify(biographyClusterID));
+	}
+
+	let ability = false;
+	if (newPath.length > 3 && newPath[0] === "data" && newPath[1] === "versions" && newPath[2] === "abilities") {
+		const abilityId = newPath.splice(3, 1)[0];
+		ability = version.abilities.find((e) => JSON.stringify(e._id) === JSON.stringify(abilityId));
+	}
+
+	const pathTitlePair = pathTitlePairs.find((e) => JSON.stringify(e.path) === JSON.stringify(newPath));
+	newChangeLogItem.title = pathTitlePair ? pathTitlePair?.title : "";
+
+	if (biographyCluster?.name) newChangeLogItem.title += ' "' + biographyCluster.name + '"';
+	if (ability?.name) newChangeLogItem.title += ' "' + ability.name + '"';
+
+	if (version?.title) newChangeLogItem.title += ' on Version "' + version.title + '"';
+
+	return newChangeLogItem;
 }

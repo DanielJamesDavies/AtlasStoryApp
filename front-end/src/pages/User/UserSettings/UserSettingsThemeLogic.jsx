@@ -20,7 +20,8 @@ export const UserSettingsThemeLogic = () => {
 	const { APIRequest } = useContext(APIContext);
 
 	const themes = [
-		{ id: "dark", styles: { background: "#010103" } },
+		{ id: "dark", styles: { background: "#01010a" } },
+		{ id: "dim", styles: { background: "#303030" } },
 		{ id: "light", styles: { background: "#ffffff" } },
 	];
 	const [errors, setErrors] = useState([]);

@@ -6,7 +6,7 @@ import { Login } from "../../pages/Login/Login";
 import { Register } from "../../pages/Register/Register";
 import { Verify } from "../../pages/Verify/Verify";
 import { UserContainer } from "../../pages/User/UserContainer";
-import { Search } from "../../pages/Search/Search";
+import { Home } from "../../pages/Home/Home";
 import { StoryContainer } from "../../pages/Story/StoryContainer";
 import { CharactersContainer } from "../../pages/Characters/CharactersContainer";
 import { CharacterContainer } from "../../pages/Character/CharacterContainer";
@@ -81,11 +81,11 @@ export const RoutesLogic = () => {
 					changeAccentHoverColour("default");
 					setRenderComponent(<UserContainer user_username={locationSplit[1]} />);
 					break;
-				case "search":
+				case "home":
 					changeAccentColour("default");
 					changeAccentHoverColour("default");
-					setRenderComponent(<Search />);
-					document.title = "Search | Atlas Story App";
+					setRenderComponent(<Home />);
+					document.title = "Home | Atlas Story App";
 					break;
 				case "s":
 					if (locationSplit.length > 2) {
@@ -136,7 +136,7 @@ export const RoutesLogic = () => {
 				case "spotify":
 					break;
 				default:
-					if (username) changeLocation("/u/" + username);
+					if (username) changeLocation("/home");
 					document.title = "Atlas Story App";
 					changeAccentColour("default");
 					changeAccentHoverColour("default");

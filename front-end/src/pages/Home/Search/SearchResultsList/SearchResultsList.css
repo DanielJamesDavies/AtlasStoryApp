@@ -1,9 +1,12 @@
 .search-results-list-container {
-	margin-top: 8px;
-	padding-right: 12px;
-	width: calc(100% - 12px);
-	max-height: calc(var(--vh) - 6px - 6px - 64px - 59px - 64px - 58px - 8px - 8px);
+	margin-top: 4px;
+	padding: 6px 12px;
+	border-radius: 8px;
+	width: calc(100% - 24px);
+	max-height: calc(var(--vh) - 12px - 50px - 4px - 12px);
 	overflow-y: overlay;
+	text-align: center;
+	background: var(--grey1point5);
 }
 
 .search-results-list-container::-webkit-scrollbar {
@@ -43,6 +46,10 @@
 
 @media (max-width: 750px) {
 	.search-results-list-container {
-		max-height: calc(var(--vh) - 70px - 6px - 6px - 18px - 31px - 18px - 50px - 8px);
+		max-height: calc(var(--vh) - 70px - 6px - 50px - 4px - 12px);
+		width: calc(100% - 12px - 6px);
+		margin-left: 6px;
+		margin-right: 6px;
+		padding-right: 6px;
 	}
 }

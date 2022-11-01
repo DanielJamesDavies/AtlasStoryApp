@@ -1,6 +1,9 @@
 const Story = require("../../models/Story");
 const Image = require("../../models/Image");
+
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
+const GetValueInNestedObject = require("../GetValueInNestedObject");
+const addToStoryChangeLog = require("./AddToStoryChangeLog");
 
 module.exports = async (req, res) => {
 	if (!req?.body?.path || req?.body?.path === ["_id"]) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
@@ -13,6 +16,7 @@ module.exports = async (req, res) => {
 	if (!oldStory) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
 	let newStory = JSON.parse(JSON.stringify(oldStory));
+	const oldValue = GetValueInNestedObject(newStory, req.body.path);
 
 	switch (JSON.stringify(req.body.path)) {
 		case JSON.stringify(["uid"]):
@@ -95,5 +99,62 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Story Could Not Be Saved" }] });
 	}
 
+	if (JSON.stringify(oldValue) !== JSON.stringify(req?.body?.newValue))
+		addToStoryChangeLog(
+			req.body.story_id,
+			generateChangeLogItem({
+				content_id: req.params.id,
+				path: req.body.path,
+			})
+		);
+
 	return res.status(200).send({ message: "Success", data: { story: newStory } });
 };
+
+function generateChangeLogItem({ content_id, path }) {
+	let newPath = JSON.parse(JSON.stringify(path));
+	const newChangeLogItem = { content_type: "story", content_id, title: "", path };
+
+	const pathTitlePairs = [
+		{ path: ["uid"], title: "Unique Identifier" },
+		{ path: ["owner"], title: "Owner" },
+		{ path: ["data", "title"], title: "Title" },
+		{ path: ["data", "isPrivate"], title: "Privacy" },
+		{ path: ["data", "members"], title: "Members" },
+		{ path: ["data", "icon"], title: "Icon Image" },
+		{ path: ["data", "banner"], title: "Banner Image" },
+		{ path: ["data", "description"], title: "Description" },
+		{ path: ["data", "genres"], title: "Genres" },
+		{ path: ["data", "colours", "accent"], title: "Accent Colour" },
+		{ path: ["data", "colours", "accentHover"], title: "Accent Hover Colour" },
+		{ path: ["data", "notes"], title: "Notes" },
+		{ path: ["data", "groups"], title: "Groups" },
+		{ path: ["data", "primaryCharacters"], title: "Primary Characters" },
+		{ path: ["data", "characterTypes"], title: "Character Types" },
+		{ path: ["data", "characterPreferences", "abilities", "defaultStatistics"], title: "Character Ability Default Statistics" },
+		{ path: ["data", "substories"], title: "Substories" },
+	];
+
+	if (newPath.length > 2 && newPath[0] === "data" && newPath[1] === "notes") {
+		const notesUid = newPath.splice(2, 1)[0];
+		switch (notesUid) {
+			case "all":
+				newChangeLogItem.title += "All ";
+				break;
+			case "characters":
+				newChangeLogItem.title += "Characters ";
+				break;
+			case "substories":
+				newChangeLogItem.title += "Substories ";
+				break;
+			case "world":
+				newChangeLogItem.title += "World ";
+				break;
+		}
+	}
+
+	const pathTitlePair = pathTitlePairs.find((e) => JSON.stringify(e.path) === JSON.stringify(newPath));
+	newChangeLogItem.title += pathTitlePair ? pathTitlePair?.title : "";
+
+	return newChangeLogItem;
+}

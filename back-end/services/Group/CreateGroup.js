@@ -4,6 +4,8 @@ const Joi = require("joi");
 const Group = require("../../models/Group");
 const Story = require("../../models/Story");
 
+const addToStoryChangeLog = require("../Story/AddToStoryChangeLog");
+
 module.exports = async (req, res) => {
 	let validateGroupResult = validateGroup(req.body);
 	if (validateGroupResult?.errors) return res.status(200).send({ errors: validateGroupResult.errors });
@@ -43,6 +45,8 @@ module.exports = async (req, res) => {
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Story Could Not Be Saved" }] });
 	}
+
+	addToStoryChangeLog(req.body.story_id, { content_type: "group", content_id: group?._id, title: "New Group Created" });
 
 	return res.status(200).send({ message: "Success", data: { group_uid: group.uid } });
 };

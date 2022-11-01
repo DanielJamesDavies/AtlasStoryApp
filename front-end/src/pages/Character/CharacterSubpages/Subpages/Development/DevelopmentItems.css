@@ -4,7 +4,7 @@
 	padding-right: 12px;
 
 	width: calc(100% - 12px);
-	max-height: calc(100vh - 48px - 59px - 24px - 36px - 24px - 16px);
+	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 4px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
@@ -25,6 +25,6 @@
 
 @media (max-width: 750px) {
 	.character-subpage-development-items {
-		max-height: calc(var(--vh) - 70px - (6px + 61px + 12px + 12px) - 36px - 24px - 4px);
+		max-height: calc(var(--vh) - 70px - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 4px);
 	}
 }

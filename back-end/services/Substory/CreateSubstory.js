@@ -4,6 +4,8 @@ const Joi = require("joi");
 const Substory = require("../../models/Substory");
 const Story = require("../../models/Story");
 
+const addToStoryChangeLog = require("../Story/AddToStoryChangeLog");
+
 module.exports = async (req, res) => {
 	req.body.uid = req.body.uid.split(" ").join("-");
 
@@ -27,6 +29,8 @@ module.exports = async (req, res) => {
 		console.log(error);
 		return res.status(200).send({ errors: [{ message: "Substory Could Not Be Created" }] });
 	}
+
+	addToStoryChangeLog(req.body.story_id, { content_type: "substory", content_id: substory?._id, title: "New Substory Created" });
 
 	return res.status(200).send({ message: "Success", data: { substory_uid: substory.uid } });
 };

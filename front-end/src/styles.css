@@ -24,16 +24,31 @@
 	--grey4: #40404f;
 	--grey5: #9090a0;
 	--textColour: #ffffff;
-	--textSecondaryColour: #dddddd;
-	--textTertiaryColour: #cccccc;
+	--textSecondaryColour: #bbbbbb;
+	--textTertiaryColour: #999999;
+}
+
+.theme-dim {
+	--grey1: #0b0b0f;
+	--grey1point5: #101013;
+	--grey1point75: #151518;
+	--grey1point85: #18181a;
+	--grey2: #202024;
+	--grey2point5: #2a2a2e;
+	--grey3: #323236;
+	--grey4: #424248;
+	--grey5: #9090a0;
+	--textColour: #ffffff;
+	--textSecondaryColour: #bbbbbb;
+	--textTertiaryColour: #999999;
 }
 
 .theme-light {
-	--grey1: #ffffff;
-	--grey1point5: #f9f9f9;
-	--grey1point75: #f0f0f0;
+	--grey1: #fbfbff;
+	--grey1point5: #f0f0f7;
+	--grey1point75: #e5e5ea;
 	--grey1point85: #ededed;
-	--grey2: #e8e8e8;
+	--grey2: #e5e5e5;
 	--grey2point5: #e0e0e0;
 	--grey3: #dddddd;
 	--grey4: #d0d0d0;

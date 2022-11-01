@@ -20,7 +20,7 @@
 .character-subpage-physical-attribute-items {
 	padding-right: 12px;
 	width: calc(100% - 12px);
-	max-height: calc(100vh - 48px - 59px - 24px - 36px - 24px - 16px - 24px);
+	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 24px - 12px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
@@ -49,7 +49,7 @@
 
 .character-subpage-physical-attribute-character-images-open .character-images {
 	display: inline-block;
-	max-height: calc(100vh - 48px - 59px - 24px - 36px - 24px - 16px - 24px - 24px);
+	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 56px);
 }
 
 @media (max-width: 750px) {
@@ -60,6 +60,6 @@
 	}
 
 	.character-subpage-physical-attribute-items {
-		max-height: calc(var(--vh) - 70px - (6px + 61px + 12px + 12px) - 36px - 24px - 24px - 38px);
+		max-height: calc(var(--vh) - 70px - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 56px);
 	}
 }

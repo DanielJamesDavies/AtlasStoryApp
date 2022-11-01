@@ -7,8 +7,8 @@ import { useContext, useState } from "react";
 // Logic
 
 // Context
-import { RoutesContext } from "../../../context/RoutesContext";
-import { APIContext } from "../../../context/APIContext";
+import { RoutesContext } from "../../../../context/RoutesContext";
+import { APIContext } from "../../../../context/APIContext";
 
 // Services
 

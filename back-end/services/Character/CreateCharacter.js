@@ -5,6 +5,8 @@ const Character = require("../../models/Character");
 const Group = require("../../models/Group");
 const Story = require("../../models/Story");
 
+const addToStoryChangeLog = require("../Story/AddToStoryChangeLog");
+
 module.exports = async (req, res) => {
 	req.body.uid = req.body.uid.split(" ").join("-");
 
@@ -29,6 +31,8 @@ module.exports = async (req, res) => {
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Character Could Not Be Created" }] });
 	}
+
+	addToStoryChangeLog(req.body.story_id, { content_type: "character", content_id: character?._id, title: "New Character Created" });
 
 	if (req?.body?.isPrimaryCharacter === true) {
 		const addCharacterToStoryPrimaryCharactersResult = await addCharacterToStoryPrimaryCharacters(character._id, req.body.story_id);

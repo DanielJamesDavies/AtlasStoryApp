@@ -3,9 +3,9 @@
 	z-index: 10;
 	display: flex;
 	margin: 0;
-	margin-bottom: 24px;
+	margin-bottom: 10px;
 	padding: 0 24px;
-	padding-top: calc(32px + 8px * 2);
+	padding-top: calc(28px + 4px * 2);
 	width: calc(100vw - 76px - 48px);
 	height: 59px;
 	align-items: center;
@@ -13,7 +13,7 @@
 
 .character-primary-story {
 	position: absolute;
-	top: 8px;
+	top: 6px;
 	display: flex;
 	align-items: center;
 
@@ -24,8 +24,8 @@
 .character-primary-story-icon {
 	margin-right: 12px;
 	border-radius: 100%;
-	width: 32px;
-	height: 32px;
+	width: 28px;
+	height: 28px;
 }
 
 .character-primary-story-icon img {
@@ -37,7 +37,7 @@
 
 .character-primary-story-name {
 	width: max-content;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 700;
 }
 

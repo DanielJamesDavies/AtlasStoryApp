@@ -40,6 +40,7 @@ module.exports = async (req, res) => {
 			characterTypes: [],
 			icon: iconID,
 			banner: bannerID,
+			changeLog: [{ type: "Story", title: "Created Story" }],
 		},
 	});
 

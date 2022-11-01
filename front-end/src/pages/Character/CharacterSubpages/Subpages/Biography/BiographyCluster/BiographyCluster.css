@@ -2,7 +2,7 @@
 	display: inline-block;
 	padding-right: 12px;
 	width: calc(100% - 310px - 24px - 12px);
-	max-height: calc(100vh - 48px - 59px - 24px - 36px - 24px - 16px);
+	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 	vertical-align: top;
@@ -11,6 +11,6 @@
 @media (max-width: 700px) {
 	.character-subpage-biography-cluster {
 		width: 100%;
-		max-height: calc(var(--vh) - 70px - (6px + 61px + 12px + 12px) - 36px - 24px - 38px);
+		max-height: calc(var(--vh) - 70px - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 48px);
 	}
 }

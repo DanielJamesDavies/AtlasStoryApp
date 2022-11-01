@@ -1,0 +1,15 @@
+.home-search-container {
+	position: absolute;
+	z-index: 1;
+	top: 12px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	text-align: center;
+}
+
+@media (max-width: 750px) {
+	.home-search-container {
+		top: 6px;
+	}
+}

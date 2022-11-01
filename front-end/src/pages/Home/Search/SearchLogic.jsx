@@ -6,7 +6,7 @@ import { useState, useContext } from "react";
 // Logic
 
 // Context
-import { APIContext } from "../../context/APIContext";
+import { APIContext } from "../../../context/APIContext";
 
 // Services
 
@@ -21,11 +21,11 @@ export const SearchLogic = () => {
 
 	async function changeSearchValue(e) {
 		setSearchValue(e.target.value);
-		if (e.target.value === "") return setSearchResults([]);
+		if (e.target.value.length === 0) return setSearchResults([]);
 
 		const response = await APIRequest("/search?value=" + e.target.value, "GET");
 		if (!response?.data?.searchResults || response?.error) return setSearchResults([]);
-		setSearchResults(response.data.searchResults);
+		if (e.target.value.length !== 0) setSearchResults(response.data.searchResults);
 	}
 
 	return { searchValue, changeSearchValue, searchResults };

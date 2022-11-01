@@ -142,12 +142,12 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-size: 18px;
-	color: #ddd;
+	color: var(--textSecondaryColour);
 	transition: 0.3s;
 }
 
 .substories-list-substories-poster-container:hover .substories-list-substories-poster-number {
-	color: #fff;
+	color: var(--textPrimaryColour);
 	text-shadow: 0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour),
 		0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour), 0 0 12px var(--substoryColour);
 }
@@ -162,6 +162,10 @@
 	filter: invert(1);
 	opacity: 0.4;
 	transition: 0.3s;
+}
+
+.theme-light .substories-list-substories-poster-number-background {
+	filter: invert(0);
 }
 
 .substories-list-substories-poster-container:hover .substories-list-substories-poster-number-background {

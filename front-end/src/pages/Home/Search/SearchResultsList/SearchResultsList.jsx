@@ -15,16 +15,7 @@ import "./SearchResultsList.css";
 // Assets
 
 export const SearchResultsList = ({ searchResults }) => {
-	if (searchResults.length === 0) {
-		return (
-			<div className='search-results-list-container'>
-				<div className='search-results-list-item-placeholder'></div>
-				<div className='search-results-list-item-placeholder'></div>
-				<div className='search-results-list-item-placeholder'></div>
-			</div>
-		);
-	}
-
+	if (searchResults.length === 0) return null;
 	return (
 		<div className='search-results-list-container'>
 			{searchResults.map((searchResult, index) => (

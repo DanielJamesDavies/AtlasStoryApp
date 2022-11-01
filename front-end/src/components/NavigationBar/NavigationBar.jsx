@@ -1,5 +1,5 @@
 // Packages
-import { FaUser, FaSearch, FaBookOpen, FaGlobeEurope, FaBook } from "react-icons/fa";
+import { FaUser, FaHome, FaBookOpen, FaGlobeEurope, FaBook } from "react-icons/fa";
 
 // Components
 
@@ -20,7 +20,7 @@ export const NavigationBar = () => {
 		userProfilePicture,
 		getBtnClassName,
 		navigateToProfile,
-		navigateToSearch,
+		navigateToHome,
 		navigateToStory,
 		navigateToCharacters,
 		navigateToSubstories,
@@ -37,13 +37,11 @@ export const NavigationBar = () => {
 						<img src={userProfilePicture} alt='' draggable={false} />
 					)}
 				</button>
-				<button className={getBtnClassName("search", false)} onClick={navigateToSearch} onAuxClick={navigateToSearch}>
-					<FaSearch />
+				<button className={getBtnClassName("home", false)} onClick={navigateToHome} onAuxClick={navigateToHome}>
+					<FaHome />
 				</button>
 			</div>
-			{!isOnStory ? (
-				<div className='navigation-bar-placeholder-section navigation-bar-section-container' />
-			) : (
+			{!isOnStory ? null : (
 				<>
 					<div className='navigation-bar-story-button-container navigation-bar-section-container'>
 						<button className={getBtnClassName("story", storyIcon)} onClick={navigateToStory} onAuxClick={navigateToStory}>
@@ -59,7 +57,6 @@ export const NavigationBar = () => {
 							<FaGlobeEurope />
 						</button>
 					</div>
-					<div className='navigation-bar-placeholder-section navigation-bar-placeholder-section-story-open navigation-bar-section-container' />
 				</>
 			)}
 		</div>

@@ -66,64 +66,70 @@ export const PhysicalAttributeItem = ({
 
 	return (
 		<div className='character-subpage-physical-attribute-item'>
-			<div className='character-subpage-physical-attribute-item-content'>
-				<TextInput
-					className='character-subpage-physical-attribute-item-title'
-					seamless={true}
-					label='Physical Attribute Item Title'
-					value={physicalAttributeItem?.title}
-					onChange={(e) => changePhysicalAttributeItemTitle(e, index)}
-				/>
-				<MultiLineTextInput
-					className='character-subpage-physical-attribute-item-text'
-					seamless={true}
-					label='Physical Attribute Item Text'
-					value={physicalAttributeItem?.text.join("\n")}
-					onChange={(e) => changePhysicalAttributeItemText(e, index)}
-				/>
-				<DragDropContainer
-					className='character-subpage-physical-attribute-item-images'
-					enableDragDrop={isReorderingPhysicalAttributeItems}
-					onDropItem={(res) => reorderPhysicalAttributeItemImages(res, index)}
-				>
-					{!physicalAttributeItem?.images
-						? null
-						: physicalAttributeItem.images.map((image, imageIndex) => (
-								<DragDropItem key={imageIndex} index={imageIndex} className='character-subpage-physical-attribute-item-image-item'>
-									{!characterImages.find((e) => e._id === image.image)?.image ? null : (
-										<img src={characterImages.find((e) => e._id === image.image).image} alt='' />
-									)}
-									<TextInput
-										className='character-subpage-physical-attribute-item-image-item-caption'
-										seamless={true}
-										autoResize={true}
-										label='Caption'
-										value={image.caption}
-										onChange={(e) => changePhysicalAttributeItemImageCaption(e, index, imageIndex)}
-									/>
-									<div className='character-subpage-physical-attribute-item-image-item-btns-container'>
-										<IconBtn
-											icon={<FaTimes />}
-											iconName='remove'
+			<ContentItem>
+				<div className='character-subpage-physical-attribute-item-content'>
+					<TextInput
+						className='character-subpage-physical-attribute-item-title'
+						seamless={true}
+						label='Physical Attribute Item Title'
+						value={physicalAttributeItem?.title}
+						onChange={(e) => changePhysicalAttributeItemTitle(e, index)}
+					/>
+					<MultiLineTextInput
+						className='character-subpage-physical-attribute-item-text'
+						seamless={true}
+						label='Physical Attribute Item Text'
+						value={physicalAttributeItem?.text.join("\n")}
+						onChange={(e) => changePhysicalAttributeItemText(e, index)}
+					/>
+					<DragDropContainer
+						className='character-subpage-physical-attribute-item-images'
+						enableDragDrop={isReorderingPhysicalAttributeItems}
+						onDropItem={(res) => reorderPhysicalAttributeItemImages(res, index)}
+					>
+						{!physicalAttributeItem?.images
+							? null
+							: physicalAttributeItem.images.map((image, imageIndex) => (
+									<DragDropItem
+										key={imageIndex}
+										index={imageIndex}
+										className='character-subpage-physical-attribute-item-image-item'
+									>
+										{!characterImages.find((e) => e._id === image.image)?.image ? null : (
+											<img src={characterImages.find((e) => e._id === image.image).image} alt='' />
+										)}
+										<TextInput
+											className='character-subpage-physical-attribute-item-image-item-caption'
 											seamless={true}
-											size='s'
-											onClick={() => removePhysicalAttributeItemImage(index, imageIndex)}
+											autoResize={true}
+											label='Caption'
+											value={image.caption}
+											onChange={(e) => changePhysicalAttributeItemImageCaption(e, index, imageIndex)}
 										/>
-									</div>
-								</DragDropItem>
-						  ))}
-				</DragDropContainer>
-			</div>
-			<div className='character-subpage-physical-attribute-item-btns-container'>
-				<IconBtn icon={<FaTimes />} iconName='times' seamless={true} size='s' onClick={() => removePhysicalAttributeItem(index)} />
-				<IconBtn
-					icon={<FaImage />}
-					iconName='image'
-					iconSmall={<FaPlus />}
-					seamless={true}
-					onClick={() => openCharacterImages("attributes", index)}
-				/>
-			</div>
+										<div className='character-subpage-physical-attribute-item-image-item-btns-container'>
+											<IconBtn
+												icon={<FaTimes />}
+												iconName='remove'
+												seamless={true}
+												size='s'
+												onClick={() => removePhysicalAttributeItemImage(index, imageIndex)}
+											/>
+										</div>
+									</DragDropItem>
+							  ))}
+					</DragDropContainer>
+				</div>
+				<div className='character-subpage-physical-attribute-item-btns-container'>
+					<IconBtn icon={<FaTimes />} iconName='times' seamless={true} size='s' onClick={() => removePhysicalAttributeItem(index)} />
+					<IconBtn
+						icon={<FaImage />}
+						iconName='image'
+						iconSmall={<FaPlus />}
+						seamless={true}
+						onClick={() => openCharacterImages("attributes", index)}
+					/>
+				</div>
+			</ContentItem>
 		</div>
 	);
 };

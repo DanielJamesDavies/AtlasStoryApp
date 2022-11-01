@@ -9,7 +9,7 @@
 .character-primary-name-container,
 .character-primary-name-container input {
 	width: fit-content;
-	font-size: 48px;
+	font-size: 40px;
 	font-weight: 700;
 	transition: 0.5s color;
 }
