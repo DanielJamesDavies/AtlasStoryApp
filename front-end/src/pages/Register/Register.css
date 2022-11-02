@@ -12,7 +12,7 @@
 	width: calc(100% - 48px - 24px);
 	max-width: 600px;
 
-	background: var(--grey2);
+	background: var(--grey3);
 	text-align: center;
 }
 
@@ -41,7 +41,7 @@
 	width: calc(100% - 48px - 24px);
 	max-width: 600px;
 
-	background: var(--grey2);
+	background: var(--grey3);
 	text-align: left;
 }
 

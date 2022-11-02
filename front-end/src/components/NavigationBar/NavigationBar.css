@@ -3,10 +3,10 @@
 	display: inline-block;
 	width: 68px;
 	height: 100%;
-	background: var(--grey1point5);
+	background: var(--grey1);
 }
 
-.navigation-bar::after {
+/* .navigation-bar::after {
 	display: block;
 	content: "";
 	position: absolute;
@@ -18,8 +18,8 @@
 	width: 2px;
 	height: calc(var(--vh));
 
-	background: var(--grey2);
-}
+	background: var(--grey3);
+} */
 
 .navigation-bar-section-container {
 	margin: 5px;
@@ -41,7 +41,8 @@
 	display: inline-block;
 	margin: 8px auto;
 	padding: 0;
-	border: 2px solid var(--grey1point5);
+	border: 2px solid var(--grey2);
+	border: 0;
 	border-radius: 18px;
 
 	width: 44px;
@@ -51,7 +52,7 @@
 	color: var(--accentColour);
 	font-size: 22px;
 	text-align: center;
-	transition: 0.1s;
+	transition: 0.2s;
 	cursor: pointer;
 }
 
@@ -60,7 +61,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	border: 2px solid var(--grey1point5);
+	border: 0;
 	border-radius: inherit;
 	min-width: 100%;
 	width: 100%;
@@ -71,8 +72,7 @@
 
 .navigation-bar-btn:hover,
 .navigation-bar-btn:hover img {
-	border-color: var(--grey4);
-	background: var(--grey2point5);
+	background: var(--grey4);
 }
 
 .navigation-bar-btn::before {
@@ -80,26 +80,24 @@
 	content: "";
 	position: absolute;
 	top: 50%;
-	left: -14px;
+	left: -12px;
 	transform: translateY(-50%);
 	width: 3px;
 	height: 28px;
-	transition: 0.1s;
+	transition: 0.2s;
 }
 
 .navigation-bar-btn:hover::before {
-	background: var(--grey3);
+	background: var(--grey4);
 }
 
 .navigation-bar-btn-active,
 .navigation-bar-btn-active img {
-	border-color: var(--grey5);
-	background: var(--grey2);
+	background: var(--grey3);
 }
 
 .navigation-bar-btn-active:hover,
 .navigation-bar-btn-active:hover img {
-	border-color: var(--grey5);
 	color: var(--accentColour);
 }
 
@@ -123,7 +121,7 @@
 	border-radius: inherit;
 	width: 100%;
 	height: 100%;
-	background: var(--grey2);
+	background: var(--grey3);
 }
 
 @media (max-width: 700px) {
@@ -145,7 +143,7 @@
 		width: 100%;
 		height: 2px;
 
-		background: var(--grey2);
+		background: var(--grey3);
 	}
 
 	.navigation-bar-primary-button-container,

@@ -3,11 +3,11 @@
 	display: flex;
 	margin: 6px 0;
 	padding: 8px 16px;
-	border: 2px solid var(--grey4);
+	border: 0;
 	border-radius: 20px;
 	box-sizing: border-box;
 	min-height: 39px;
-	background: var(--grey1point75);
+	background: var(--grey3);
 }
 
 .btn-list-item {
@@ -19,21 +19,21 @@
 }
 
 .btn-list-item-clickable:hover {
-	background: var(--grey2point5);
-	border-color: var(--grey5);
+	background: var(--grey4);
 }
 
 .btn-list-item-active {
-	background: var(--grey3);
+	background: var(--grey4);
 	border-color: var(--white);
 }
 
 .btn-list-item-active:hover {
-	background: var(--grey2point5);
+	background: var(--grey5);
 	border-color: var(--white);
 }
 
 .btn-list-item-value {
+	margin-top: 2px;
 	font-size: 15px;
 	word-break: break-word;
 	overflow-wrap: anywhere;
@@ -49,9 +49,9 @@
 	content: "";
 	margin-top: 2px;
 	border-radius: 12px;
-	width: calc(100% - 12px);
-	height: 15px;
-	background: linear-gradient(90deg, var(--grey2point5), var(--grey3), var(--grey2point5));
+	width: calc(100% - 10px);
+	height: 19px;
+	background: linear-gradient(90deg, var(--grey3), var(--grey5), var(--grey3));
 	background-size: 400%;
 	animation: btn-list-item-value-placeholder 5s infinite linear;
 }
@@ -61,6 +61,10 @@
 	border-width: 1px;
 	border-radius: 8px;
 	min-height: 27px;
+}
+
+.btn-list-item-size-s .btn-list-item-value {
+	margin-top: 0;
 }
 
 .btn-list-item-size-s .btn-list-item-value,

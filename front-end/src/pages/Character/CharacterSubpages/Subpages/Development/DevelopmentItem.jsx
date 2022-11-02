@@ -51,7 +51,7 @@ export const DevelopmentItem = ({
 	if (!isEditing)
 		return (
 			<div className='character-subpage-development-item'>
-				<ContentItem>
+				<ContentItem hasBg={true}>
 					<div className='character-subpage-development-item-title-container'>
 						<div className='character-subpage-development-item-title'>{developmentItem?.title}</div>
 					</div>
@@ -84,7 +84,7 @@ export const DevelopmentItem = ({
 
 	return (
 		<div className='character-subpage-development-item'>
-			<ContentItem>
+			<ContentItem hasBg={true}>
 				<div className='character-subpage-development-item-content'>
 					<div className='character-subpage-development-item-title-container'>
 						<TextInput

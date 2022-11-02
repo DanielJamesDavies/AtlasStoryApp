@@ -48,7 +48,7 @@ export const AbilityStatistics = ({ ability, changeAbility }) => {
 		>
 			<div className='character-subpage-abilities-ability-statistics'>
 				{ability?.statistics?.values?.length === 0 ? null : (
-					<ContentItem>
+					<ContentItem hasBg={true}>
 						<div className='character-subpage-abilities-ability-statistics-title'>Statistics</div>
 						<AbilityStatisticsValues
 							ability={ability}
@@ -64,7 +64,7 @@ export const AbilityStatistics = ({ ability, changeAbility }) => {
 				)}
 			</div>
 			<div className='character-subpage-abilities-ability-statistics'>
-				<ContentItem>
+				<ContentItem hasBg={true}>
 					<div className='character-subpage-abilities-ability-statistics-title'>Statistics</div>
 					<AbilityStatisticsValues
 						ability={ability}

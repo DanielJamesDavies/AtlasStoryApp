@@ -18,7 +18,7 @@ import "./BigFiveTrait.css";
 export const BigFiveTrait = ({ trait, isEditing }) => {
 	return (
 		<div className='character-subpage-psychology-big-five-trait-container'>
-			<ContentItem>
+			<ContentItem hasBg={true}>
 				<div className='character-subpage-psychology-big-five-trait-name'>{trait?.name}</div>
 				<div className='character-subpage-psychology-big-five-trait-aspects-container'>
 					{trait?.aspects.map((aspect, index) => (

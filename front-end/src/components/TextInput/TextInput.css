@@ -8,7 +8,7 @@
 
 	width: calc(100% - 32px - 6px);
 
-	background: var(--grey2);
+	background: var(--grey3);
 	color: #777;
 	font-family: "Inter", sans-serif;
 	transition: border-color 0.1s;
@@ -25,7 +25,7 @@
 }
 
 .text-input-container-unsaved {
-	border-color: var(--grey4);
+	border-color: var(--grey5);
 	animation: text-input-container-unsaved 2.25s infinite;
 	outline: 0;
 }
@@ -42,10 +42,10 @@
 		border-color: var(--grey1);
 	}
 	35% {
-		border-color: var(--grey4);
+		border-color: var(--grey5);
 	}
 	65% {
-		border-color: var(--grey4);
+		border-color: var(--grey5);
 	}
 	100% {
 		border-color: var(--grey1);

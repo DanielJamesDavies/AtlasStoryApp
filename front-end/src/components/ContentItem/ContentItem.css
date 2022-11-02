@@ -1,9 +1,4 @@
 .content-item {
-	margin: 8px;
-	padding: 12px 24px;
-	border: 2px solid var(--grey2);
-	border-radius: 5px;
-	background: var(--grey1point5);
 	box-sizing: border-box;
 }
 
@@ -11,14 +6,21 @@
 	opacity: 0;
 }
 
-.content-item-size-s {
+.content-item-w-bg {
+	margin: 8px;
+	padding: 12px 24px;
+	border-radius: 8px;
+	background: var(--grey2);
+}
+
+.content-item-w-bg.content-item-size-s {
 	padding: 4px 8px;
 }
 
-.content-item-size-m {
+.content-item-w-bg.content-item-size-m {
 	padding: 10px 20px;
 }
 
-.content-item-size-l {
+.content-item-w-bg.content-item-size-l {
 	padding: 12px 24px;
 }

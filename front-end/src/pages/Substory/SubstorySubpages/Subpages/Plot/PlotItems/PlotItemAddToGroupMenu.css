@@ -6,7 +6,7 @@
 	padding: 10px 16px;
 	width: 200px;
 	border-radius: 2px;
-	background: var(--grey2);
+	background: var(--grey3);
 }
 
 .substory-subpage-plot-item-add-to-group-menu-container-hidden {
@@ -67,7 +67,7 @@
 
 	width: 100%;
 
-	background: var(--grey3);
+	background: var(--grey4);
 	color: var(--textColour);
 	font-size: 14px;
 	text-align: left;
@@ -76,7 +76,7 @@
 }
 
 .substory-subpage-plot-item-add-to-group-menu-slide-btn:hover {
-	background: var(--grey4);
+	background: var(--grey5);
 }
 
 .substory-subpage-plot-item-add-to-group-menu-slide-btn-active,

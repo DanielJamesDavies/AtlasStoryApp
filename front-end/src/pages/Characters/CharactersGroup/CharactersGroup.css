@@ -2,7 +2,8 @@
 	flex-shrink: 0;
 	display: inline-block;
 	border-radius: 4px;
-	width: calc(100% - (315px + 12px));
+	margin-left: 12px;
+	width: calc(100% - (315px + 12px) - 12px);
 	min-height: 699px;
 	vertical-align: top;
 }

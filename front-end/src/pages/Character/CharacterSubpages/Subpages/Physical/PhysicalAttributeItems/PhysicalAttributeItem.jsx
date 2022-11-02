@@ -39,7 +39,7 @@ export const PhysicalAttributeItem = ({
 	if (!isEditing)
 		return (
 			<div className='character-subpage-physical-attribute-item'>
-				<ContentItem>
+				<ContentItem hasBg={true}>
 					<div className='character-subpage-physical-attribute-item-title'>{physicalAttributeItem?.title}</div>
 					<Text className='character-subpage-physical-attribute-item-text' value={physicalAttributeItem?.text} />
 					{physicalAttributeItem.images.length === 0 ? null : (
@@ -66,7 +66,7 @@ export const PhysicalAttributeItem = ({
 
 	return (
 		<div className='character-subpage-physical-attribute-item'>
-			<ContentItem>
+			<ContentItem hasBg={true}>
 				<div className='character-subpage-physical-attribute-item-content'>
 					<TextInput
 						className='character-subpage-physical-attribute-item-title'

@@ -49,7 +49,7 @@ export const SettingsSubpages = () => {
 								.filter((e) => e.id !== "settings")
 								.map((subpage, index) => (
 									<div key={index} className='substory-subpage-settings-subpages-item'>
-										<ContentItem>
+										<ContentItem hasBg={true}>
 											<div className='substory-subpage-settings-subpages-item-name'>{subpage.name}</div>
 											<ToggleInput className label value={subpage?.isEnabled} enableEdit={false} />
 										</ContentItem>
@@ -63,7 +63,7 @@ export const SettingsSubpages = () => {
 								.filter((e) => e.id !== "settings")
 								.map((subpage, index) => (
 									<DragDropItem key={index} index={index} className='substory-subpage-settings-subpages-item'>
-										<ContentItem>
+										<ContentItem hasBg={true}>
 											<div className='substory-subpage-settings-subpages-item-name'>{subpage.name}</div>
 											<ToggleInput
 												className

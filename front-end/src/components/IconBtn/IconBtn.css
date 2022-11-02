@@ -171,7 +171,7 @@
 	width: min-content;
 	max-width: 120px;
 
-	background: var(--grey2);
+	background: var(--grey3);
 	font-size: 15px;
 	word-wrap: break-word;
 	pointer-events: none;

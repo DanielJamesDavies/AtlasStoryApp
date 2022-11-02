@@ -6,7 +6,7 @@
 	max-height: calc(var(--vh) - 12px - 50px - 4px - 12px);
 	overflow-y: overlay;
 	text-align: center;
-	background: var(--grey1point5);
+	background: var(--grey1);
 }
 
 .search-results-list-container::-webkit-scrollbar {
@@ -23,11 +23,11 @@
 	display: block;
 	content: "";
 	margin: 8px 0;
-	border: 2px solid var(--grey2point5);
+	border: 2px solid var(--grey3);
 	border-radius: 12px;
 	width: 100%;
 	height: 80px;
-	background: var(--grey2);
+	background: var(--grey3);
 	box-sizing: border-box;
 }
 

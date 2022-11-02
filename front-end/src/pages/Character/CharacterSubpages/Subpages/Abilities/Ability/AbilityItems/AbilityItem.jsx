@@ -25,7 +25,7 @@ export const AbilityItem = ({ ability, changeAbility, abilityItem, index, isEdit
 
 	return (
 		<div className='character-subpage-abilities-ability-item'>
-			<ContentItem>
+			<ContentItem hasBg={true}>
 				<div className='character-subpage-abilities-ability-item-content'>
 					{/* Title */}
 					{!isEditing ? (

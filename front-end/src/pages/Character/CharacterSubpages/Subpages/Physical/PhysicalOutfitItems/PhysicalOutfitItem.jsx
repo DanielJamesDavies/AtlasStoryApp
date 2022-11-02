@@ -39,7 +39,7 @@ export const PhysicalOutfitItem = ({
 	if (!isEditing)
 		return (
 			<div className='character-subpage-physical-outfit-item'>
-				<ContentItem>
+				<ContentItem hasBg={true}>
 					<div className='character-subpage-physical-outfit-item-title'>{physicalOutfitItem?.title}</div>
 					<Text className='character-subpage-physical-outfit-item-text' value={physicalOutfitItem?.text} />
 					{physicalOutfitItem.images.length === 0 ? null : (
@@ -66,7 +66,7 @@ export const PhysicalOutfitItem = ({
 
 	return (
 		<div className='character-subpage-physical-outfit-item'>
-			<ContentItem>
+			<ContentItem hasBg={true}>
 				<div className='character-subpage-physical-outfit-item-content'>
 					<TextInput
 						className='character-subpage-physical-outfit-item-title'

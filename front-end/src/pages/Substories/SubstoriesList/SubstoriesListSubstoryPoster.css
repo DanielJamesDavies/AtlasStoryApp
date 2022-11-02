@@ -28,7 +28,7 @@
 	width: 340px;
 	height: 510px;
 
-	background: var(--grey1point5);
+	background: var(--grey1);
 	box-shadow: 0 0 20px transparent;
 	cursor: pointer;
 	animation: substories-list-substories-poster-placeholder 2s infinite;
@@ -41,8 +41,8 @@
 	}
 	10%,
 	55% {
-		border-color: var(--grey2);
-		background: var(--grey1point5);
+		border-color: var(--grey4);
+		background: var(--grey3);
 	}
 	88%,
 	100% {
@@ -64,7 +64,7 @@
 	width: 340px;
 	height: 510px;
 
-	background: var(--grey1point5);
+	background: var(--grey1);
 	box-shadow: 0 0 20px transparent;
 	transition: 0.3s;
 	cursor: pointer;

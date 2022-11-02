@@ -15,29 +15,21 @@
 
 .theme-dark {
 	--grey1: #000000;
-	--grey1point5: #09090e;
-	--grey1point75: #0d0d14;
-	--grey1point85: #12121b;
-	--grey2: #15151c;
-	--grey2point5: #1d1d26;
-	--grey3: #2b2b34;
-	--grey4: #40404f;
-	--grey5: #9090a0;
+	--grey2: #0d0d12;
+	--grey3: #18181e;
+	--grey4: #2d2d33;
+	--grey5: #40404f;
 	--textColour: #ffffff;
 	--textSecondaryColour: #bbbbbb;
 	--textTertiaryColour: #999999;
 }
 
 .theme-dim {
-	--grey1: #0b0b0f;
-	--grey1point5: #101013;
-	--grey1point75: #151518;
-	--grey1point85: #18181a;
-	--grey2: #202024;
-	--grey2point5: #2a2a2e;
-	--grey3: #323236;
-	--grey4: #424248;
-	--grey5: #9090a0;
+	--grey1: #0d0d0f;
+	--grey2: #1e1e20;
+	--grey3: #2e2e31;
+	--grey4: #48484d;
+	--grey5: #505053;
 	--textColour: #ffffff;
 	--textSecondaryColour: #bbbbbb;
 	--textTertiaryColour: #999999;
@@ -45,14 +37,10 @@
 
 .theme-light {
 	--grey1: #fbfbff;
-	--grey1point5: #f0f0f7;
-	--grey1point75: #e5e5ea;
-	--grey1point85: #ededed;
-	--grey2: #e5e5e5;
-	--grey2point5: #e0e0e0;
-	--grey3: #dddddd;
-	--grey4: #d0d0d0;
-	--grey5: #c7c7c7;
+	--grey2: #e8e8ea;
+	--grey3: #e2e2e5;
+	--grey4: #d3d3d8;
+	--grey5: #c0c0c5;
 	--textColour: #000000;
 	--textSecondaryColour: #888888;
 	--textTertiaryColour: #aaaaaa;

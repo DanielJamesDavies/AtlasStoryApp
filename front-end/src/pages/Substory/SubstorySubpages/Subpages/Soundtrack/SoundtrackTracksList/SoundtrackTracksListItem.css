@@ -22,11 +22,11 @@
 }
 
 .substory-subpage-soundtrack-track:hover .substory-subpage-soundtrack-track-song {
-	background: var(--grey2);
+	background: var(--grey3);
 }
 
 .substory-subpage-soundtrack-track-song:focus {
-	background: var(--grey3) !important;
+	background: var(--grey4) !important;
 }
 
 .substory-subpage-soundtrack-track-number {
@@ -52,7 +52,7 @@
 	width: var(--artworkWidth);
 	min-height: var(--artworkWidth);
 	height: var(--artworkWidth);
-	background: var(--grey1point5);
+	background: var(--grey2);
 }
 
 .substory-subpage-soundtrack-track-artwork img {

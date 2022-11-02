@@ -101,7 +101,7 @@
 	max-width: calc(100% - 16px);
 	word-break: break-word;
 	overflow-wrap: anywhere;
-	background: var(--grey2);
+	background: var(--grey3);
 }
 
 .character-subpage-physical-outfit-item-image-item-caption,

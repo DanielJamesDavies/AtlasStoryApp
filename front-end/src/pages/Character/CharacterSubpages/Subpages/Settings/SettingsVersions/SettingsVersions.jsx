@@ -52,7 +52,7 @@ export const SettingsVersions = () => {
 						? null
 						: versions.map((version, index) => (
 								<div key={index} className='character-subpage-settings-versions-item'>
-									<ContentItem>
+									<ContentItem hasBg={true}>
 										<div className='character-subpage-settings-versions-item-title'>{version.title}</div>
 									</ContentItem>
 								</div>
@@ -63,7 +63,7 @@ export const SettingsVersions = () => {
 						<DragDropContainer enableDragDrop={isReorderingVersions} onDropItem={changeVersionsOrder}>
 							{versions.map((version, index) => (
 								<DragDropItem key={index} index={index} className='character-subpage-settings-versions-item'>
-									<ContentItem>
+									<ContentItem hasBg={true}>
 										<TextInput
 											className='character-subpage-settings-versions-item-title'
 											label='Version Title'

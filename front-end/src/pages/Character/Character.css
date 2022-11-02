@@ -81,7 +81,7 @@
 }
 
 .character-content-container-is-on-subpages {
-	transform: translateX(calc(-1 * (100vw - 70px - 24px - 12px - 12px)));
+	transform: translateX(calc(-1 * (100vw - 68px - 24px - 12px - 6px)));
 }
 
 @media (max-width: 700px) {

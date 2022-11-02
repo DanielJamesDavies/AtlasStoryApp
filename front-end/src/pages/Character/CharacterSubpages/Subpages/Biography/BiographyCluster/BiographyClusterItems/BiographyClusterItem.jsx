@@ -29,7 +29,7 @@ export const BiographyClusterItem = ({ biographyCluster, changeBiographyCluster,
 
 	return (
 		<div className='character-subpage-biography-cluster-item'>
-			<ContentItem>
+			<ContentItem hasBg={true}>
 				<div className='character-subpage-biography-cluster-item-content'>
 					{!isEditing ? (
 						<div className='character-subpage-biography-cluster-item-title'>{biographyClusterItem?.title}</div>

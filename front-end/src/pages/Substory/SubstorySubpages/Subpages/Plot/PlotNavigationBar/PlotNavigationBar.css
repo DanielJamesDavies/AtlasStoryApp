@@ -14,7 +14,7 @@
 
 	min-height: 19px;
 
-	background: var(--grey2);
+	background: var(--grey3);
 	color: var(--textColour);
 	font-size: 15px;
 	text-align: left;
@@ -23,7 +23,7 @@
 }
 
 .substory-subpage-plot-navigation-bar-btn:hover {
-	background: var(--grey3);
+	background: var(--grey4);
 }
 
 .substory-subpage-plot-navigation-bar-btn-active,

@@ -39,7 +39,7 @@
 	height: 6px;
 
 	background: var(--blue);
-	background: var(--grey4);
+	background: var(--grey5);
 	background: transparent;
 	cursor: pointer;
 }
@@ -74,7 +74,7 @@
 	height: 6px;
 	width: 100%;
 
-	background: var(--grey3);
+	background: var(--grey4);
 }
 
 .slider-input-container-percentage-colour-exceptionally-high .slider-input-progress {

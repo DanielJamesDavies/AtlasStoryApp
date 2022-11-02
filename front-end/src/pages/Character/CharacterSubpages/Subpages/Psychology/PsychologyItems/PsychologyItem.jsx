@@ -23,7 +23,7 @@ export const PsychologyItem = ({ psychologyItem, index, isEditing, changePsychol
 	if (!isEditing)
 		return (
 			<div className='character-subpage-psychology-item'>
-				<ContentItem>
+				<ContentItem hasBg={true}>
 					<div className='character-subpage-psychology-item-title'>{psychologyItem?.title}</div>
 					<Text className='character-subpage-psychology-item-text' value={psychologyItem?.text} />
 				</ContentItem>
@@ -32,7 +32,7 @@ export const PsychologyItem = ({ psychologyItem, index, isEditing, changePsychol
 
 	return (
 		<div className='character-subpage-psychology-item'>
-			<ContentItem>
+			<ContentItem hasBg={true}>
 				<div className='character-subpage-psychology-item-content'>
 					<TextInput
 						className='character-subpage-psychology-item-title'

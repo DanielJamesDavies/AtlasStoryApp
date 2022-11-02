@@ -5,7 +5,7 @@
 	padding-top: calc(6px + 48px + 59px + 24px);
 	padding-left: 24px;
 	padding-right: 0;
-	width: calc(100vw - 70px - 24px - 12px - 12px - 24px);
+	width: calc(100vw - 68px - 24px - 6px - 24px - 12px);
 	height: calc(100% - (6px + 48px + 59px + 24px));
 	overflow: visible;
 	vertical-align: top;

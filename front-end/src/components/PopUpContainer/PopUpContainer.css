@@ -40,7 +40,7 @@
 
 	width: calc(100% - (34px * 2));
 
-	background: var(--grey2);
+	background: var(--grey3);
 }
 
 .pop-up-content-primary-container {

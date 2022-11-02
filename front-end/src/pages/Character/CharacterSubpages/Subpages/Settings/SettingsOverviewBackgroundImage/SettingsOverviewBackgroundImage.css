@@ -5,7 +5,7 @@
 	border-radius: 4px 4px 0 0;
 	width: 100%;
 	height: calc(((100vw - 76px - 12px - 24px - 6px - 16px - 24px) / 2) * (9 / 16));
-	background: var(--grey2);
+	background: var(--grey3);
 }
 
 .character-subpage-settings-overview-background-image img {

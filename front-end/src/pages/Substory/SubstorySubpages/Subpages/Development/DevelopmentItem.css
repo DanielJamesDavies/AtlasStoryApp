@@ -68,7 +68,7 @@
 	}
 	35%,
 	65% {
-		background: var(--grey2);
+		background: var(--grey3);
 	}
 }
 
@@ -138,7 +138,7 @@
 	max-width: calc(100% - 16px);
 	word-break: break-word;
 	overflow-wrap: anywhere;
-	background: var(--grey2);
+	background: var(--grey3);
 }
 
 .substory-subpage-development-item-image-item-caption,

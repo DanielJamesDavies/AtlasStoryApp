@@ -35,7 +35,7 @@
 	left: -6px;
 	bottom: calc(32px + 6px);
 	height: fit-content;
-	background: var(--grey3) !important;
+	background: var(--grey4) !important;
 }
 
 .colour-picker-alignment-right .colour-picker-sketch-picker {
@@ -55,7 +55,7 @@
 
 .colour-picker-sketch-picker input {
 	box-shadow: none !important;
-	background: var(--grey2) !important;
+	background: var(--grey3) !important;
 }
 
 .colour-picker-background {

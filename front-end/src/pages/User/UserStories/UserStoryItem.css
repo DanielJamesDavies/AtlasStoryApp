@@ -1,16 +1,14 @@
 .user-stories-story-item-container {
 	position: relative;
 	margin: 10px;
-	border: 1px solid var(--grey3);
 	border-radius: 5px;
-	width: 290px;
-	height: 412px;
+	width: calc(((390px / 3) * 2) + 20px);
+	height: 390px;
 	transition: margin 0.3s, border-color 0.3s;
 }
 
 .user-stories-story-item-container:hover {
 	margin-top: 4px;
-	border-color: var(--grey4);
 }
 
 .drag-drop-item-enable-drag-drop .user-stories-story-item {
@@ -27,7 +25,7 @@
 	border-radius: inherit;
 	width: 100%;
 	height: 100%;
-	background: var(--grey1point75);
+	background: var(--grey2);
 	cursor: pointer;
 	transition: background 0.3s;
 	animation: user-stories-story-item-placeholder 1s infinite;
@@ -39,7 +37,7 @@
 	}
 	10%,
 	55% {
-		background: var(--grey1point5);
+		background: var(--grey2);
 	}
 	88%,
 	100% {
@@ -53,20 +51,20 @@
 	border-radius: inherit;
 	width: 100%;
 	height: 100%;
-	background: var(--grey1point75);
+	background: var(--grey3);
 	cursor: pointer;
 	transition: background 0.3s;
 }
 
 .user-stories-story-item-container:hover .user-stories-story-item {
-	background: var(--grey1point85);
+	background: var(--grey4);
 }
 
 .user-stories-story-item-spine {
 	display: inline-block;
 	border: 3px solid var(--grey1);
 	border-width: 0 2px 0 0;
-	width: 25px;
+	width: 20px;
 	height: 100%;
 	vertical-align: middle;
 }
@@ -83,7 +81,7 @@
 .user-stories-story-item-title {
 	position: absolute;
 	left: 50%;
-	top: 95px;
+	top: 85px;
 	transform: translateX(-50%);
 	margin: 0 auto;
 	width: calc(100% - 24px);
@@ -91,7 +89,7 @@
 	font-weight: 700;
 	text-align: center;
 
-	font-size: 34px;
+	font-size: 30px;
 	font-family: "Palatino Linotype", sans-serif;
 	text-transform: uppercase;
 	letter-spacing: 3px;
@@ -108,7 +106,7 @@
 	width: calc(100% - 24px);
 
 	text-align: center;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 700;
 }
 
@@ -120,7 +118,7 @@
 	padding: 4px 8px;
 	border-radius: 4px;
 
-	background: var(--grey3);
+	background: var(--grey4);
 	font-weight: 500;
 	font-size: 16px;
 	opacity: 0;

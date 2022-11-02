@@ -5,10 +5,10 @@
 
 .search-input {
 	padding: 10px 20px;
-	border: 3px solid var(--grey2point5);
+	border: 3px solid var(--grey4);
 	border-radius: 30px;
 	outline: 0;
-	background: var(--grey2point5);
+	background: var(--grey4);
 	color: #fff;
 	box-sizing: border-box;
 	width: calc(100% - 12px);
@@ -20,7 +20,7 @@
 .search-input:focus {
 	outline: 0;
 	border-color: var(--blue);
-	background: var(--grey2);
+	background: var(--grey4);
 }
 
 .search-input-placeholder-container {

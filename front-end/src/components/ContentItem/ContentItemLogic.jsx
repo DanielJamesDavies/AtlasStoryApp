@@ -12,18 +12,19 @@ import { useState } from "react";
 
 // Assets
 
-export const ContentItemLogic = ({ className, size }) => {
+export const ContentItemLogic = ({ className, size, hasBg }) => {
 	const [contentItemClassName, setContentItemClassName] = useState("content-item-loading");
 
 	useEffect(() => {
 		function getContentItemClassName() {
 			let newContentItemClassName = "content-item";
+			if (hasBg) newContentItemClassName += " content-item-w-bg";
 			if (className) newContentItemClassName += " " + className;
 			if (size) newContentItemClassName += " content-item-size-" + size;
 			setContentItemClassName(newContentItemClassName);
 		}
 		getContentItemClassName();
-	}, [setContentItemClassName, className, size]);
+	}, [setContentItemClassName, className, size, hasBg]);
 
 	return { contentItemClassName };
 };

@@ -6,7 +6,7 @@
 	padding-left: 0;
 	padding-right: 16px;
 
-	width: calc(100vw - 70px - 24px - 16px - 12px - 12px);
+	width: calc(100vw - 68px - 6px - 24px - 12px - 16px);
 	height: calc(100% - var(--characterPaddingTop));
 	overflow: visible;
 

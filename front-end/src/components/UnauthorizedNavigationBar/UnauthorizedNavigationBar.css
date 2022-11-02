@@ -9,7 +9,7 @@
 
 	width: calc(100% - 8px - 24px);
 
-	background: var(--grey2);
+	background: var(--grey3);
 }
 
 .unauthorized-navigation-bar-landing-btn {

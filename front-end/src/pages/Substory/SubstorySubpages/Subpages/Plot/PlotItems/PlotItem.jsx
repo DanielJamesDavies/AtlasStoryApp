@@ -28,7 +28,7 @@ export const PlotItem = ({ item, removePlotItem, cluster, isEditing }) => {
 	if (!isEditing)
 		return (
 			<div className='substory-subpage-plot-item'>
-				<ContentItem>
+				<ContentItem hasBg={true}>
 					<div className='substory-subpage-plot-item-label'>{item?.label}</div>
 					<Text className='substory-subpage-plot-item-text' value={item?.text} />
 				</ContentItem>
@@ -37,7 +37,7 @@ export const PlotItem = ({ item, removePlotItem, cluster, isEditing }) => {
 
 	return (
 		<div className='substory-subpage-plot-item'>
-			<ContentItem>
+			<ContentItem hasBg={true}>
 				<div className='substory-subpage-plot-item-content'>
 					<TextInput
 						className='substory-subpage-plot-item-label'
