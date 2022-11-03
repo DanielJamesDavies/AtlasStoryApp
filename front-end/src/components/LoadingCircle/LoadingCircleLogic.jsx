@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 // Assets
 
-export const LoadingCircleLogic = ({ className, size }) => {
+export const LoadingCircleLogic = ({ className, size, center }) => {
 	const [loadingCircleContainerClassName, setLoadingCircleContainerClassName] = useState("loading-circle-container");
 
 	useEffect(() => {
@@ -32,10 +32,11 @@ export const LoadingCircleLogic = ({ className, size }) => {
 				}
 			}
 			if (className) newClassName += " " + className;
+			if (center) newClassName += " loading-circle-container-centered";
 			return newClassName;
 		}
 		setLoadingCircleContainerClassName(getLoadingCircleContainerClassName());
-	}, [className, size, setLoadingCircleContainerClassName]);
+	}, [className, size, center, setLoadingCircleContainerClassName]);
 
 	return { loadingCircleContainerClassName };
 };

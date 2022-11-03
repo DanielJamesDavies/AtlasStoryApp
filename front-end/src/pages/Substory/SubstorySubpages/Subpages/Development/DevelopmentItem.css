@@ -99,6 +99,11 @@
 	object-fit: contain;
 }
 
+.substory-subpage-development-item-image-item-placeholder {
+	position: relative;
+	min-height: 200px;
+}
+
 .substory-subpage-development-item .multi-line-text-input {
 	margin-bottom: -4px;
 }

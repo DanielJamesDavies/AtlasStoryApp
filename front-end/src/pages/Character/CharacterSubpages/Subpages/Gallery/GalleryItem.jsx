@@ -4,6 +4,7 @@ import { FaTimes } from "react-icons/fa";
 // Components
 import { IconBtn } from "../../../../../components/IconBtn/IconBtn";
 import { TextInput } from "../../../../../components/TextInput/TextInput";
+import { LoadingCircle } from "../../../../../components/LoadingCircle/LoadingCircle";
 
 // Logic
 import { GalleryItemLogic } from "./GalleryItemLogic";
@@ -22,7 +23,13 @@ export const GalleryItem = ({ image, index, isEditing, removeGalleryItem, onClic
 
 	return (
 		<div className='character-subpage-gallery-item'>
-			{!galleryItemImage ? null : <img src={galleryItemImage} alt='' className='lightbox-openable-image' onClick={() => onClick(index)} />}
+			{!galleryItemImage ? (
+				<div className='character-subpage-gallery-item-placeholder'>
+					<LoadingCircle center={true} />
+				</div>
+			) : (
+				<img src={galleryItemImage} alt='' className='lightbox-openable-image' onClick={() => onClick(index)} />
+			)}
 			{!isEditing ? (
 				<>
 					{image.caption.split(" ").join("").length === 0 ? null : (

@@ -19,6 +19,7 @@ import { DevelopmentItemLogic } from "./DevelopmentItemLogic";
 
 // Styles
 import "./DevelopmentItem.css";
+import { LoadingCircle } from "../../../../../components/LoadingCircle/LoadingCircle";
 
 // Assets
 
@@ -63,7 +64,11 @@ export const DevelopmentItem = ({
 							<div className='character-subpage-development-item-images'>
 								{developmentItem.images.map((image, index) => (
 									<div key={index} className='character-subpage-development-item-image-item'>
-										{!characterImages.find((e) => e._id === image.image)?.image ? null : (
+										{!characterImages.find((e) => e._id === image.image)?.image ? (
+											<div className='character-subpage-development-item-image-item-placeholder'>
+												<LoadingCircle center='true' />
+											</div>
+										) : (
 											<img
 												src={characterImages.find((e) => e._id === image.image).image}
 												alt=''

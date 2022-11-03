@@ -1,12 +1,12 @@
 .btn-list-item,
 .btn-list-item-loading {
 	display: flex;
-	margin: 6px 0;
+	margin: 5px 0;
 	padding: 8px 16px;
 	border: 0;
 	border-radius: 20px;
 	box-sizing: border-box;
-	min-height: 39px;
+	min-height: 35px;
 	background: var(--grey3);
 }
 
@@ -33,7 +33,6 @@
 }
 
 .btn-list-item-value {
-	margin-top: 2px;
 	font-size: 15px;
 	word-break: break-word;
 	overflow-wrap: anywhere;

@@ -9,6 +9,7 @@ import { Text } from "../../../../../components/Text/Text";
 import { TextInput } from "../../../../../components/TextInput/TextInput";
 import { MultiLineTextInput } from "../../../../../components/MultiLineTextInput/MultiLineTextInput";
 import { IconBtn } from "../../../../../components/IconBtn/IconBtn";
+import { LoadingCircle } from "../../../../../components/LoadingCircle/LoadingCircle";
 
 // Logic
 import { DevelopmentItemLogic } from "./DevelopmentItemLogic";
@@ -63,7 +64,11 @@ export const DevelopmentItem = ({
 							<div className='substory-subpage-development-item-images'>
 								{developmentItem.images.map((image, index) => (
 									<div key={index} className='substory-subpage-development-item-image-item'>
-										{!substoryImages.find((e) => e._id === image.image)?.image ? null : (
+										{!substoryImages.find((e) => e._id === image.image)?.image ? (
+											<div className='substory-subpage-development-item-image-item-placeholder'>
+												<LoadingCircle center='true' />
+											</div>
+										) : (
 											<img
 												src={substoryImages.find((e) => e._id === image.image).image}
 												alt=''

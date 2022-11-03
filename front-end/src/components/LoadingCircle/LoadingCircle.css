@@ -1,16 +1,23 @@
-.loading-circle-container {
+.loading-circle-container-centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.loading-circle {
 	width: 48px;
 	height: 48px;
 	vertical-align: middle;
 	animation: loading-circle-spin infinite 1s linear;
 }
 
-.loading-circle-container-small {
+.loading-circle-container-small .loading-circle {
 	width: 30px;
 	height: 30px;
 }
 
-.loading-circle-container-large {
+.loading-circle-container-large .loading-circle {
 	width: 64px;
 	height: 64px;
 }
@@ -27,7 +34,7 @@
 	}
 }
 
-.loading-circle {
+.loading-circle-circle {
 	border: 4px solid var(--blue);
 	border-bottom: 0;
 	border-radius: 32px 32px 0 0;
@@ -38,14 +45,14 @@
 	background: transparent;
 }
 
-.loading-circle-container-small .loading-circle {
+.loading-circle-container-small .loading-circle-circle {
 	border: 3px solid var(--blue);
 	border-bottom: 0;
 
 	width: calc(100% - (3px * 2));
 }
 
-.loading-circle-container-large .loading-circle {
+.loading-circle-container-large .loading-circle-circle {
 	border: 5px solid var(--blue);
 	border-bottom: 0;
 
