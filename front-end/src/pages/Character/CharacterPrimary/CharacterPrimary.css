@@ -6,7 +6,7 @@
 	margin-bottom: 10px;
 	padding: 0 24px;
 	padding-top: calc(28px + 4px * 2);
-	width: calc(100vw - 68px - 48px);
+	width: calc(100vw - var(--navbarWidth) - 48px);
 	height: 59px;
 	align-items: center;
 }

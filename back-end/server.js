@@ -21,16 +21,18 @@ mongoose
 	});
 
 // Routes
-app.use("/api/user", require("./routes/UserRoute"));
-app.use("/api/cookies-consent", require("./routes/CookiesConsentRoute"));
 app.use("/api/new-id", require("./routes/NewIdRoute"));
+app.use("/api/cookies-consent", require("./routes/CookiesConsentRoute"));
 app.use("/api/image", require("./routes/ImageRoute"));
+app.use("/api/user", require("./routes/UserRoute"));
+app.use("/api/search", require("./routes/SearchRoute"));
+app.use("/api/feed", require("./routes/FeedRoute"));
 app.use("/api/story", require("./routes/StoryRoute"));
 app.use("/api/group", require("./routes/GroupRoute"));
 app.use("/api/character", require("./routes/CharacterRoute"));
 app.use("/api/character-type", require("./routes/CharacterTypeRoute"));
 app.use("/api/substory", require("./routes/SubstoryRoute"));
-app.use("/api/search", require("./routes/SearchRoute"));
+app.use("/api/follow-relationship", require("./routes/FollowRelationshipRoute"));
 app.use("/api/spotify", require("./routes/SpotifyRoute"));
 
 // Running the Front-End

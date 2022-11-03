@@ -2,12 +2,12 @@
 	display: inline-block;
 	flex-shrink: 0;
 	margin-left: 12px;
-	width: calc(100% - (315px + 12px) - 12px);
+	width: calc(100% - (275px + 12px) - 12px);
 	vertical-align: top;
 }
 
 .characters-character-type-primary {
-	margin-bottom: 12px;
+	margin-bottom: 18px;
 	width: 100%;
 	height: 40px;
 }

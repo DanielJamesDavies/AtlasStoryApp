@@ -81,7 +81,7 @@
 }
 
 .substory-content-container-is-on-subpages {
-	transform: translateX(calc(-1 * (100vw - 68px - 24px - 12px - 6px)));
+	transform: translateX(calc(-1 * (100vw - var(--navbarWidth) - 24px - 12px - 6px)));
 }
 
 @media (max-width: 700px) {

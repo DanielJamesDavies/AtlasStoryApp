@@ -2,7 +2,7 @@
 	flex-shrink: 0;
 	display: inline-block;
 	border-radius: 4px;
-	width: calc(315px + 12px);
+	width: calc(275px + 12px);
 	vertical-align: top;
 }
 

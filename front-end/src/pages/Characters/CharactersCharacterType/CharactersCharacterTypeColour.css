@@ -1,10 +1,11 @@
 .characters-character-type-colour-container {
-	margin: 24px 0;
+	margin: 12px 0;
 }
 
 .characters-character-type-colour {
 	display: flex;
 	align-items: center;
+	margin: 0;
 }
 
 .characters-character-type-colour-block {

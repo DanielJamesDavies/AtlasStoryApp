@@ -7,6 +7,7 @@
 	width: 128px;
 	height: 128px;
 	vertical-align: middle;
+	background: var(--grey2);
 }
 
 .user-primary-profile-picture-placeholder {

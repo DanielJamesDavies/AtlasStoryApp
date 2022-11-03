@@ -2,6 +2,7 @@
 
 // Components
 import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
+import { ContentItem } from "../../../components/ContentItem/ContentItem";
 import { Text } from "../../../components/Text/Text";
 import { MultiLineTextInput } from "../../../components/MultiLineTextInput/MultiLineTextInput";
 
@@ -13,6 +14,7 @@ import { CharactersCharacterTypeDescriptionLogic } from "./CharactersCharacterTy
 // Services
 
 // Styles
+import "./CharactersCharacterTypeDescription.css";
 
 // Assets
 
@@ -27,8 +29,10 @@ export const CharactersCharacterTypeDescription = () => {
 			onRevert={revertCharacterTypeDescription}
 			onSave={saveCharacterTypeDescription}
 		>
-			<div>{!characterType?.data?.description ? null : <Text value={characterType.data.description} />}</div>
-			<div>
+			<ContentItem className='characters-character-type-description' hasBg={true}>
+				{!characterType?.data?.description ? null : <Text value={characterType.data.description} />}
+			</ContentItem>
+			<ContentItem className='characters-character-type-description' hasBg={true}>
 				{
 					<MultiLineTextInput
 						label='Description'
@@ -37,7 +41,7 @@ export const CharactersCharacterTypeDescription = () => {
 						seamless={true}
 					/>
 				}
-			</div>
+			</ContentItem>
 		</EditableContainer>
 	);
 };

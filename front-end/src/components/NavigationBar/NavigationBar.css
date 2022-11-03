@@ -1,7 +1,7 @@
 .navigation-bar {
 	position: relative;
 	display: inline-block;
-	width: 68px;
+	width: var(--navbarWidth);
 	height: 100%;
 	background: var(--grey1);
 }
@@ -72,7 +72,7 @@
 
 .navigation-bar-btn:hover,
 .navigation-bar-btn:hover img {
-	background: var(--grey4);
+	background: var(--grey3);
 }
 
 .navigation-bar-btn::before {
@@ -80,7 +80,7 @@
 	content: "";
 	position: absolute;
 	top: 50%;
-	left: -12px;
+	left: -15px;
 	transform: translateY(-50%);
 	width: 3px;
 	height: 28px;
@@ -88,12 +88,12 @@
 }
 
 .navigation-bar-btn:hover::before {
-	background: var(--grey4);
+	background: var(--grey3);
 }
 
 .navigation-bar-btn-active,
 .navigation-bar-btn-active img {
-	background: var(--grey3);
+	background: var(--grey2);
 }
 
 .navigation-bar-btn-active:hover,

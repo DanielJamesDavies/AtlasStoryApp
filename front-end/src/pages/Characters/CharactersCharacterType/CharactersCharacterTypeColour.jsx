@@ -2,6 +2,7 @@
 
 // Components
 import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
+import { ContentItem } from "../../../components/ContentItem/ContentItem";
 import { ColourPicker } from "../../../components/ColourPicker/ColourPicker";
 
 // Logic
@@ -27,12 +28,12 @@ export const CharactersCharacterTypeColour = () => {
 			onRevert={revertCharacterTypeColour}
 			onSave={saveCharacterTypeColour}
 		>
-			<div className='characters-character-type-colour'>
+			<ContentItem className='characters-character-type-colour' hasBg={true}>
 				<ColourPicker value={characterType.data.colour} onChange={changeCharacterTypeColour} enableEdit={false} />
-			</div>
-			<div className='characters-character-type-colour'>
+			</ContentItem>
+			<ContentItem className='characters-character-type-colour' hasBg={true}>
 				<ColourPicker value={characterType.data.colour} onChange={changeCharacterTypeColour} enableEdit={true} />
-			</div>
+			</ContentItem>
 		</EditableContainer>
 	);
 };
