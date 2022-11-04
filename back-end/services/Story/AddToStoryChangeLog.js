@@ -22,7 +22,7 @@ module.exports = async (story_id, changeLogItem) => {
 	try {
 		user_id = jwt_decode(req?.cookies?.AtlasStoryAppToken)?.user_id;
 	} catch (error) {}
-	if (user_id === false) return res.status(200).send({ errors: [{ message: "Authentication Error" }] });
+	if (user_id === false) return false;
 	newChangeLogItem.author_id = mongoose.Types.ObjectId(user_id);
 
 	let previousChangeLogItem =
