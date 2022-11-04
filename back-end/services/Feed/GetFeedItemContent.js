@@ -16,16 +16,12 @@ module.exports = async (content_id, content_type) => {
 			break;
 		case "story":
 			const story = await Story.findOne({ _id: content_id });
-			if (story) content = { _id: content_id, content_type, story_id: story?.story_id, name: story?.data?.title };
-
-			if (story?.data?.icon) {
-				const storyIcon = await Image.findOne({ _id: story?.data?.icon });
-				if (storyIcon?.image) content.icon = storyIcon.image;
-			}
+			if (story) content = { _id: content_id, content_type, uid: story?.uid, story_id: story?._id };
+			includeStoryData = true;
 			break;
 		case "group":
 			const group = await Group.findOne({ _id: content_id });
-			if (group) content = { _id: content_id, content_type, story_id: group?.story_id, name: group?.data?.name };
+			if (group) content = { _id: content_id, content_type, uid: group?.uid, story_id: group?.story_id, name: group?.data?.name };
 			includeStoryData = true;
 			break;
 		case "character_type":
@@ -35,19 +31,21 @@ module.exports = async (content_id, content_type) => {
 			break;
 		case "character":
 			const character = await Character.findOne({ _id: content_id });
-			if (character) content = { _id: content_id, content_type, story_id: character?.story_id, name: character?.data?.name };
+			if (character)
+				content = { _id: content_id, content_type, uid: character?.uid, story_id: character?.story_id, name: character?.data?.name };
 			includeStoryData = true;
 			break;
 		case "substory":
 			const substory = await Substory.findOne({ _id: content_id });
-			if (substory) content = { _id: content_id, content_type, story_id: substory?.story_id, name: substory?.data?.title };
+			if (substory)
+				content = { _id: content_id, content_type, uid: substory?.uid, story_id: substory?.story_id, name: substory?.data?.title };
 			includeStoryData = true;
 			break;
 	}
 
 	if (includeStoryData) {
 		const story = await Story.findOne({ _id: content?.story_id });
-		if (story) content.story = { _id: story._id, title: story?.data?.title };
+		if (story) content.story = { _id: story._id, uid: story?.uid, title: story?.data?.title };
 
 		if (story?.data?.icon) {
 			const storyIcon = await Image.findOne({ _id: story?.data?.icon });

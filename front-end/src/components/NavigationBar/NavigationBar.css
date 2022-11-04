@@ -6,21 +6,6 @@
 	background: var(--grey1);
 }
 
-/* .navigation-bar::after {
-	display: block;
-	content: "";
-	position: absolute;
-	top: 50%;
-	right: 0;
-	transform: translateY(-50%);
-	border-radius: 2px;
-
-	width: 2px;
-	height: calc(var(--vh));
-
-	background: var(--grey3);
-} */
-
 .navigation-bar-section-container {
 	margin: 5px;
 	margin-right: 0;
@@ -80,7 +65,7 @@
 	content: "";
 	position: absolute;
 	top: 50%;
-	left: -15px;
+	left: -12px;
 	transform: translateY(-50%);
 	width: 3px;
 	height: 28px;

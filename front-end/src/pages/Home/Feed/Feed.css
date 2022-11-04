@@ -10,7 +10,7 @@
 
 .home-feed-loading-container {
 	position: absolute;
-	top: 12px;
+	top: 24px;
 	left: 50%;
 	transform: translateX(-50%);
 }
@@ -18,7 +18,7 @@
 .home-feed-items-container {
 	padding: 0 12px;
 	box-sizing: border-box;
-	max-height: calc(var(--vh) - var(--homeFeedTop));
+	max-height: calc(var(--vh) - var(--homeFeedTop) - 12px);
 	overflow-y: overlay;
 }
 

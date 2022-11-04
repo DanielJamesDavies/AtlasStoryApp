@@ -23,7 +23,7 @@ export const Feed = () => {
 		<div className='home-feed-container'>
 			{feedItems === false ? (
 				<div className='home-feed-loading-container'>
-					<LoadingCircle size='s' />
+					<LoadingCircle />
 				</div>
 			) : (
 				<div className='home-feed-items-container'>
