@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Character Could Not Be Created" }] });
 	}
 
-	addToStoryChangeLog(req.body.story_id, { content_type: "character", content_id: character?._id, title: "New Character Created" });
+	addToStoryChangeLog(req, req.body.story_id, { content_type: "character", content_id: character?._id, title: "New Character Created" });
 
 	if (req?.body?.isPrimaryCharacter === true) {
 		const addCharacterToStoryPrimaryCharactersResult = await addCharacterToStoryPrimaryCharacters(character._id, req.body.story_id);

@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Substory Could Not Be Created" }] });
 	}
 
-	addToStoryChangeLog(req.body.story_id, { content_type: "substory", content_id: substory?._id, title: "New Substory Created" });
+	addToStoryChangeLog(req, req.body.story_id, { content_type: "substory", content_id: substory?._id, title: "New Substory Created" });
 
 	return res.status(200).send({ message: "Success", data: { substory_uid: substory.uid } });
 };

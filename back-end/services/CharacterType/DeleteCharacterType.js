@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Character Type Could Not Be Deleted" }] });
 	}
 
-	addToStoryChangeLog(req.body.story_id, {
+	addToStoryChangeLog(req, req.body.story_id, {
 		content_type: "character_type",
 		title: 'Deleted Character Type "' + characterType?.data?.name + '"',
 	});

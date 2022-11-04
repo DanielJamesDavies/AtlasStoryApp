@@ -150,6 +150,7 @@ module.exports = async (req, res) => {
 
 	if (JSON.stringify(oldValue) !== JSON.stringify(req?.body?.newValue))
 		addToStoryChangeLog(
+			req,
 			req.body.story_id,
 			generateChangeLogItem({
 				content_id: req.params.id,

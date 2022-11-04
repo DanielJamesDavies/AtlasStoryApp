@@ -3,7 +3,7 @@ const jwt_decode = require("jwt-decode");
 
 const Story = require("../../models/Story");
 
-module.exports = async (story_id, changeLogItem) => {
+module.exports = async (req, story_id, changeLogItem) => {
 	if (!changeLogItem || !changeLogItem?.content_type || !changeLogItem?.content_id || !changeLogItem?.path || !changeLogItem?.title) return false;
 
 	const oldStory = await Story.findById(story_id)

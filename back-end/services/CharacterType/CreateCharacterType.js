@@ -38,7 +38,11 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Story Could Not Be Saved" }] });
 	}
 
-	addToStoryChangeLog(req.body.story_id, { content_type: "character_type", content_id: characterType?._id, title: "New Character Type Created" });
+	addToStoryChangeLog(req, req.body.story_id, {
+		content_type: "character_type",
+		content_id: characterType?._id,
+		title: "New Character Type Created",
+	});
 
 	return res.status(200).send({ message: "Success", data: { characterType } });
 };

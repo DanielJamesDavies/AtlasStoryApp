@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Character Could Not Be Deleted" }] });
 	}
 
-	addToStoryChangeLog(req.body.story_id, { content_type: "character", title: 'Deleted Character "' + character?.data?.name + '"' });
+	addToStoryChangeLog(req, req.body.story_id, { content_type: "character", title: 'Deleted Character "' + character?.data?.name + '"' });
 
 	return res.status(200).send({ message: "Success" });
 };

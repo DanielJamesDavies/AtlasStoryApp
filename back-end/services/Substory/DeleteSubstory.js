@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Substory Could Not Be Deleted" }] });
 	}
 
-	addToStoryChangeLog(req.body.story_id, {
+	addToStoryChangeLog(req, req.body.story_id, {
 		content_type: "substory",
 		title: 'Deleted Substory "' + substory?.data?.name + '"',
 	});

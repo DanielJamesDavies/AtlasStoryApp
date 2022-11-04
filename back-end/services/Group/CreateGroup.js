@@ -46,7 +46,7 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Story Could Not Be Saved" }] });
 	}
 
-	addToStoryChangeLog(req.body.story_id, { content_type: "group", content_id: group?._id, title: "New Group Created" });
+	addToStoryChangeLog(req, req.body.story_id, { content_type: "group", content_id: group?._id, title: "New Group Created" });
 
 	return res.status(200).send({ message: "Success", data: { group_uid: group.uid } });
 };
