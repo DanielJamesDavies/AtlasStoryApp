@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const jwt_decode = require("jwt-decode");
+
 const Story = require("../../models/Story");
 
 module.exports = async (story_id, changeLogItem) => {
@@ -15,6 +17,13 @@ module.exports = async (story_id, changeLogItem) => {
 
 	let newChangeLogItem = JSON.parse(JSON.stringify(changeLogItem));
 	if (newChangeLogItem.content_id) newChangeLogItem.content_id = mongoose.Types.ObjectId(newChangeLogItem.content_id);
+
+	let user_id = false;
+	try {
+		user_id = jwt_decode(req?.cookies?.AtlasStoryAppToken)?.user_id;
+	} catch (error) {}
+	if (user_id === false) return res.status(200).send({ errors: [{ message: "Authentication Error" }] });
+	newChangeLogItem.author_id = mongoose.Types.ObjectId(user_id);
 
 	let previousChangeLogItem =
 		newStory.data?.changeLog.length === 0 ? {} : JSON.parse(JSON.stringify(newStory.data?.changeLog[newStory.data?.changeLog.length - 1]));

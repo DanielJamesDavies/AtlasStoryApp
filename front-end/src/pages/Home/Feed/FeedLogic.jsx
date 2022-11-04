@@ -1,6 +1,5 @@
 // Packages
-import { useEffect } from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 // Components
 
@@ -21,8 +20,9 @@ export const FeedLogic = () => {
 
 	useEffect(() => {
 		async function getFeedItems() {
-			let newFeedItems = [];
-			setFeedItems(newFeedItems);
+			const response = await APIRequest("/feed", "GET");
+			if (!response || response?.errors || !response?.data?.feedItems) return false;
+			setFeedItems(response.data.feedItems);
 		}
 		getFeedItems();
 	}, [setFeedItems, APIRequest]);

@@ -80,14 +80,15 @@
 
 	.notes-title-story-title {
 		margin: 0;
-		font-size: 24px;
+		font-size: 22px;
 	}
 
 	.notes-title-divider {
-		margin-top: -1px;
+		margin: 0 8px;
+		font-size: 18px;
 	}
 
 	.notes-title-notes-label {
-		font-size: 20px;
+		font-size: 18px;
 	}
 }

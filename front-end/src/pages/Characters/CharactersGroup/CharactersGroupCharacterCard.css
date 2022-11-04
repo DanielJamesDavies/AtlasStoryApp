@@ -29,7 +29,7 @@
 	border-color: var(--characterColour);
 	border-radius: 16px;
 
-	width: 418px;
+	width: 412px;
 	height: 585px;
 
 	background: var(--grey1);
@@ -52,7 +52,7 @@
 	display: inline-block;
 	margin: 4px;
 	border: 6px solid var(--accentColour);
-	border-color: var(--grey3);
+	border-color: var(--grey2);
 	border-radius: 16px;
 
 	width: 418px;
@@ -61,7 +61,7 @@
 	background: var(--grey1);
 	transition: margin 0.4s;
 	cursor: pointer;
-	animation: characters-group-character-card-placeholder 2s infinite;
+	animation: characters-group-character-card-placeholder 1.8s infinite;
 }
 
 @keyframes characters-group-character-card-placeholder {
@@ -69,10 +69,10 @@
 		border-color: var(--grey1);
 		background: var(--grey1);
 	}
-	10%,
+	15%,
 	55% {
-		border-color: var(--grey4);
-		background: var(--grey3);
+		border-color: var(--grey3);
+		background: var(--grey2);
 	}
 	88%,
 	100% {

@@ -65,6 +65,8 @@ export const CharactersGroups = () => {
 						<BtnListItem />
 						<BtnListItem />
 						<BtnListItem />
+						<BtnListItem />
+						<BtnListItem />
 					</div>
 				) : (
 					<DragDropContainer

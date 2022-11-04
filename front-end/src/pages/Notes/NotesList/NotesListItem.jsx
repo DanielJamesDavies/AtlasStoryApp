@@ -86,14 +86,14 @@ export const NotesListItem = ({ item, index, isEditing, isReorderingNotes }) => 
 										<img src={noteImages.find((e) => e._id === image.image).image} alt='' />
 									)}
 									<TextInput
-										className='character-subpage-development-item-image-item-caption'
+										className='notes-list-item-image-item-caption'
 										seamless={true}
 										autoResize={true}
 										label='Caption'
 										value={image.caption}
 										onChange={(e) => changeItemImageCaption(e, imageIndex)}
 									/>
-									<div className='character-subpage-development-item-image-item-btns-container'>
+									<div className='notes-list-item-image-item-btns-container'>
 										<IconBtn
 											icon={<FaTimes />}
 											iconName='remove'

@@ -39,10 +39,10 @@
 		border-color: var(--grey1);
 		background: var(--grey1);
 	}
-	10%,
+	15%,
 	55% {
-		border-color: var(--grey4);
-		background: var(--grey3);
+		border-color: var(--grey3);
+		background: var(--grey2);
 	}
 	88%,
 	100% {
@@ -212,6 +212,11 @@
 	.substories-list-substories-poster-container {
 		margin-left: 4px;
 		margin-right: 4px;
+	}
+
+	.substories-list-substories-poster-placeholder {
+		width: 226px;
+		height: 340px;
 	}
 
 	.substories-list-substories-poster {

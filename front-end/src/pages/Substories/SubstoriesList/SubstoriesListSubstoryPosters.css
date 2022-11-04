@@ -50,3 +50,10 @@
 .substories-list-substories-posters-scroll-hidden {
 	display: none;
 }
+
+@media (max-width: 700px) {
+	.substories-list-substories-posters-container {
+		margin-left: 0;
+		width: 100%;
+	}
+}

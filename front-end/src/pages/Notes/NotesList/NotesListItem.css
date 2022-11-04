@@ -122,3 +122,39 @@
 .notes-list-item-add-image-input {
 	display: none;
 }
+
+.notes-list-item-image-item-caption {
+	padding: 3px 8px;
+	border-radius: 4px;
+	width: fit-content;
+	max-width: calc(100% - 16px);
+	word-break: break-word;
+	overflow-wrap: anywhere;
+	background: var(--grey3);
+	color: var(--textColour);
+}
+
+.notes-list-item-image-item-caption,
+.notes-list-item-image-item-caption input {
+	font-size: 14px;
+	min-height: 20px;
+}
+
+.notes-list-item-image-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}
+
+@media (max-width: 1000px) {
+	.notes-list-item-image-item {
+		position: relative;
+		margin: 4px;
+		width: calc((100% / 2) - 8px);
+	}
+
+	.notes-list .drag-drop-item {
+		margin: 4px;
+		width: calc((100% / 2) - 8px);
+	}
+}

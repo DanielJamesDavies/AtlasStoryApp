@@ -46,7 +46,6 @@
 .btn-list-item-value-placeholder {
 	display: block;
 	content: "";
-	margin-top: 2px;
 	border-radius: 12px;
 	width: calc(100% - 10px);
 	height: 19px;

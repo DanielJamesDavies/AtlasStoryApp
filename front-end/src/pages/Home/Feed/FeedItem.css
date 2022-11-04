@@ -1,0 +1,113 @@
+.home-feed-item {
+	margin: 8px 0;
+	padding: 8px 12px;
+	border-radius: 8px;
+	box-sizing: border-box;
+	background: var(--grey2);
+	text-align: left;
+}
+
+.home-feed-item:first-child {
+	margin-top: 0;
+}
+
+.home-feed-item-primary {
+	margin-bottom: 8px;
+}
+
+.home-feed-item-primary-story {
+	display: flex;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.home-feed-item-primary-story-icon {
+	margin-right: 8px;
+	border-radius: 100%;
+
+	--storyIconWidth: 28px;
+	min-width: var(--storyIconWidth);
+	width: var(--storyIconWidth);
+	min-height: var(--storyIconWidth);
+	height: var(--storyIconWidth);
+}
+
+.home-feed-item-primary-story-icon img {
+	border-radius: inherit;
+	min-width: 100%;
+	width: 100%;
+	min-height: 100%;
+	height: 100%;
+}
+
+.home-feed-item-primary-story-title {
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.home-feed-item-primary-title-container {
+	display: flex;
+	align-items: center;
+}
+
+.home-feed-item-primary-title-image {
+	margin-right: 12px;
+	border-radius: 100%;
+
+	--primaryImageWidth: 48px;
+	min-width: var(--primaryImageWidth);
+	width: var(--primaryImageWidth);
+	min-height: var(--primaryImageWidth);
+	height: var(--primaryImageWidth);
+}
+
+.home-feed-item-primary-title-image img {
+	border-radius: inherit;
+	min-width: 100%;
+	width: 100%;
+	min-height: 100%;
+	height: 100%;
+}
+
+.home-feed-item-primary-title-name {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.home-feed-item-primary-title-type {
+	margin-left: 10px;
+	font-size: 13px;
+	font-weight: 400;
+	color: var(--textTertiaryColour);
+}
+
+.home-feed-item-story .home-feed-item-primary-title-type {
+	margin-top: 1px;
+}
+
+.home-feed-item-changes-title {
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.home-feed-item-change-item {
+	display: flex;
+}
+
+.home-feed-item-change-item-bullet-point {
+	display: block;
+	content: "";
+	margin-top: 6px;
+	margin-left: 1px;
+	margin-right: 4px;
+	border-radius: 100%;
+	--bulletPointWidth: 5px;
+	width: var(--bulletPointWidth);
+	height: var(--bulletPointWidth);
+	background: var(--textColour);
+}
+
+.home-feed-item-change-item-title {
+	font-size: 13px;
+	font-weight: 400;
+}

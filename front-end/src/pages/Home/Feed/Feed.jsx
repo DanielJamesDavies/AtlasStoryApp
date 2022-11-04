@@ -2,6 +2,7 @@
 
 // Components
 import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
+import { FeedItem } from "./FeedItem";
 
 // Logic
 import { FeedLogic } from "./FeedLogic";
@@ -25,7 +26,11 @@ export const Feed = () => {
 					<LoadingCircle size='s' />
 				</div>
 			) : (
-				<div className='home-feed-items-container'></div>
+				<div className='home-feed-items-container'>
+					{feedItems.map((feedItem, index) => (
+						<FeedItem key={index} feedItem={feedItem} />
+					))}
+				</div>
 			)}
 		</div>
 	);

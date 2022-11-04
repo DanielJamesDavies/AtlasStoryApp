@@ -4,7 +4,7 @@ const jwt_decode = require("jwt-decode");
 const FollowRelationship = require("../../models/FollowRelationship");
 
 module.exports = async (req, res) => {
-	if (!req?.query?.id) return res.status(200).send({ errors: [{ message: "Invalid Arguments" }] });
+	if (!req?.params?.id) return res.status(200).send({ errors: [{ message: "Invalid Arguments" }] });
 
 	let user_id = false;
 	try {
@@ -12,14 +12,14 @@ module.exports = async (req, res) => {
 	} catch (error) {}
 	if (user_id === false) return res.status(200).send({ errors: [{ message: "Authentication Error" }] });
 
-	const followRelationships = await FollowRelationship.find({ followerId: user_id, followingId: req.query.id, followingType: "user" });
+	const followRelationships = await FollowRelationship.find({ followerId: user_id, followingId: req.params.id, followingType: "user" });
 
 	if (followRelationships.length !== 0) return res.status(200).send({ errors: [{ message: "You Are Already Following This User" }] });
 
 	const followRelationship = new FollowRelationship({
 		_id: new mongoose.Types.ObjectId(),
 		followerId: user_id,
-		followingId: req.query.id,
+		followingId: req.params.id,
 		followingType: "user",
 	});
 

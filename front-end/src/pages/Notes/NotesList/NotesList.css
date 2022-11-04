@@ -5,13 +5,13 @@
 .notes-list {
 	padding-right: 12px;
 	width: calc(100% - 12px);
-	max-height: calc(var(--vh) - 14px - 65px - 16px - 40px);
+	max-height: calc(var(--vh) - 14px - 65px - 16px - 40px - 24px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
 
 @media (max-width: 750px) {
 	.notes-list {
-		max-height: calc(var(--vh) - 70px - 14px - 65px - 16px - 40px);
+		max-height: calc(var(--vh) - 70px - 14px - 26px - 16px - 24px - 12px);
 	}
 }

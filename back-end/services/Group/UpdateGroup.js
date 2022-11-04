@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
 
 function generateChangeLogItem({ content_id, path }) {
 	let newPath = JSON.parse(JSON.stringify(path));
-	const newChangeLogItem = { content_type: "story", content_id, title: "", path };
+	const newChangeLogItem = { content_type: "group", content_id, title: "", path };
 
 	const pathTitlePairs = [
 		{ path: ["data", "name"], title: "Name" },

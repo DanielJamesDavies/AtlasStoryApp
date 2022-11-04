@@ -72,11 +72,11 @@
 
 @media (max-width: 700px) {
 	.characters-title {
-		margin: 0 12px;
+		margin: 0;
 		margin-bottom: 24px;
 		padding: 14px 6px;
 		padding-bottom: calc(14px + 2px);
-		width: calc(100% - 24px - 12px);
+		width: calc(100% - 12px);
 	}
 
 	.characters-title-story-icon {
@@ -90,7 +90,7 @@
 
 	.characters-title-divider {
 		margin: 0 8px;
-		margin-top: -1px;
+		font-size: 18px;
 	}
 
 	.characters-title-characters-label {

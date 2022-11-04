@@ -105,6 +105,7 @@ const StorySchema = mongoose.Schema({
 					{
 						content_type: { type: String, default: "" },
 						content_id: mongoose.Schema.Types.ObjectId,
+						author_id: mongoose.Schema.Types.ObjectId,
 						title: { type: String, default: "" },
 						path: { type: [String], default: [] },
 						date_changed: { type: Date, default: Date.now },

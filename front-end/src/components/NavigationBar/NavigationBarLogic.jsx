@@ -90,20 +90,24 @@ export const NavigationBarLogic = () => {
 						newBtnClassName += " navigation-bar-btn-active";
 					}
 					break;
-				case "search":
-					if (locationSplit.length === 1 && locationSplit[0] === "search") {
+				case "home":
+					if (locationSplit.length === 1 && locationSplit[0] === "home") {
 						newBtnClassName += " navigation-bar-btn-active";
 					}
 					break;
 				case "story":
-					if (locationSplit.length === 2 && locationSplit[0] === "s") {
+					if (
+						(locationSplit.length === 2 && locationSplit[0] === "s") ||
+						(locationSplit.length === 3 && locationSplit[0] === "s" && locationSplit[2] === "notes")
+					) {
 						newBtnClassName += " navigation-bar-btn-active";
 					}
 					break;
 				case "characters":
 					if (
 						(locationSplit.length === 3 && locationSplit[2] === "characters") ||
-						(locationSplit.length === 4 && locationSplit[2] === "c")
+						(locationSplit.length === 4 && locationSplit[2] === "c") ||
+						(locationSplit.length === 4 && locationSplit[2] === "characters" && locationSplit[3] === "notes")
 					) {
 						newBtnClassName += " navigation-bar-btn-active";
 					}
@@ -111,13 +115,17 @@ export const NavigationBarLogic = () => {
 				case "substories":
 					if (
 						(locationSplit.length === 3 && locationSplit[2] === "substories") ||
-						(locationSplit.length === 4 && locationSplit[2] === "s")
+						(locationSplit.length === 4 && locationSplit[2] === "s") ||
+						(locationSplit.length === 4 && locationSplit[2] === "substories" && locationSplit[3] === "notes")
 					) {
 						newBtnClassName += " navigation-bar-btn-active";
 					}
 					break;
 				case "world":
-					if (locationSplit.length === 3 && locationSplit[2] === "world") {
+					if (
+						(locationSplit.length === 3 && locationSplit[2] === "world") ||
+						(locationSplit.length === 4 && locationSplit[2] === "world" && locationSplit[3] === "notes")
+					) {
 						newBtnClassName += " navigation-bar-btn-active";
 					}
 					break;
