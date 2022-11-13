@@ -11,6 +11,6 @@
 @media (max-width: 700px) {
 	.character-subpage-biography-cluster {
 		width: 100%;
-		max-height: calc(var(--vh) - 70px - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 48px);
+		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 48px);
 	}
 }

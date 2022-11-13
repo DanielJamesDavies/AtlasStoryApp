@@ -36,6 +36,6 @@
 
 	.content-container {
 		width: 100vw;
-		height: calc(100% - 70px);
+		height: calc(100% - var(--navbarMobileHeight));
 	}
 }

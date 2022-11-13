@@ -45,6 +45,6 @@
 
 @media (max-width: 750px) {
 	.substory-subpage-gallery-items-container {
-		max-height: calc(var(--vh) - 70px - (6px + 61px + 12px + 12px) - 36px - 24px);
+		max-height: calc(var(--vh) - var(--navbarMobileHeight) - (6px + 61px + 12px + 12px) - 36px - 24px);
 	}
 }

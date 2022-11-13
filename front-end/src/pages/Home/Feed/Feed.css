@@ -31,7 +31,7 @@
 
 	.home-feed-items-container {
 		padding: 0;
-		max-height: calc(var(--vh) - 70px - var(--homeFeedTop) - 8px);
+		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--homeFeedTop) - 8px);
 		overflow-y: overlay;
 	}
 }

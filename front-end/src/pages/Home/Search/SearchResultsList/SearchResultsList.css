@@ -46,7 +46,7 @@
 
 @media (max-width: 750px) {
 	.search-results-list-container {
-		max-height: calc(var(--vh) - 70px - 6px - 50px - 4px - 12px);
+		max-height: calc(var(--vh) - var(--navbarMobileHeight) - 6px - 50px - 4px - 12px);
 		width: calc(100% - 12px - 6px);
 		margin-left: 6px;
 		margin-right: 6px;

@@ -181,9 +181,9 @@
 		border-width: 5px;
 
 		width: calc(100vw - 24px - 10px - 48px);
-		max-width: min(441px, calc((100vh - 70px - 8px - 12px - 10px - 24px - 39px - 48px) * (441 / 607)));
+		max-width: min(441px, calc((var(--vh) - var(--navbarMobileHeight) - 8px - 12px - 10px - 24px - 39px - 48px) * (441 / 607)));
 		height: calc((100vw - 24px - 10px - 48px) * (607 / 441));
-		max-height: min(607px, calc(100vh - 70px - 8px - 12px - 10px - 24px - 39px - 48px));
+		max-height: min(607px, calc(var(--vh) - var(--navbarMobileHeight) - 8px - 12px - 10px - 24px - 39px - 48px));
 	}
 
 	.characters-group-character-card-top-container {

@@ -27,18 +27,13 @@ export const UserPrimary = () => {
 			<UserPrimaryBanner />
 			<div className='user-primary-break'></div>
 			<UserPrimaryProfilePicture />
-			<UserPrimaryNames />
+			<div className={isAuthorizedToEdit ? "user-primary-main-info user-primary-main-info-is-authorized" : "user-primary-main-info"}>
+				<UserPrimaryNames />
+			</div>
 			{!isAuthorizedToEdit ? null : (
-				<div className='user-primary-auth-buttons-container'>
-					<IconBtn
-						className='user-primary-auth-btn'
-						seamless={true}
-						size='l'
-						icon={<FaCog />}
-						onClick={openSettings}
-						label='User Settings'
-					/>
-					<IconBtn className='user-primary-auth-btn' seamless={true} size='l' icon={<FaSignOutAlt />} onClick={logOut} />
+				<div className='user-primary-buttons-container'>
+					<IconBtn className='user-primary-btn' seamless={true} size='l' icon={<FaCog />} onClick={openSettings} label='User Settings' />
+					<IconBtn className='user-primary-btn' seamless={true} size='l' icon={<FaSignOutAlt />} onClick={logOut} />
 				</div>
 			)}
 		</div>

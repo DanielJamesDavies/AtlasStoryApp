@@ -60,6 +60,6 @@
 	}
 
 	.character-subpage-physical-attribute-items {
-		max-height: calc(var(--vh) - 70px - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 56px);
+		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 56px);
 	}
 }

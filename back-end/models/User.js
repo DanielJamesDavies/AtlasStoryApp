@@ -44,6 +44,10 @@ const UserSchema = mongoose.Schema({
 			],
 			require: true,
 		},
+		favouritedGenres: {
+			type: [mongoose.Schema.Types.ObjectId],
+			default: [],
+		},
 		uiTheme: {
 			type: String,
 			require: true,
