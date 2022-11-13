@@ -135,7 +135,7 @@
 	}
 
 	.navigation-bar-btn::before {
-		top: 46px;
+		top: 48px;
 		left: 50%;
 		transform: translate(-50%, 0%);
 		width: 28px;

@@ -1,12 +1,12 @@
 .user-primary-names {
 	display: inline-block;
-	max-width: calc(100% - 110px);
+	max-width: 100%;
 	vertical-align: middle;
 }
 
 .user-primary-names-is-authorized {
 	margin-left: 12px;
-	max-width: calc(100% - 226px);
+	max-width: calc(100% - 12px);
 }
 
 .editable-container-is-editing.user-primary-names-nickname-container {
@@ -46,20 +46,20 @@
 	}
 
 	.user-primary-names {
-		width: calc(100% - 96px);
+		max-width: 100%;
 	}
 
 	.user-primary-names-is-authorized {
-		max-width: calc(100% - 210px);
+		max-width: calc(100% - 12px);
 	}
 
 	.user-primary-names-nickname,
 	.user-primary-names-nickname-container input {
-		font-size: 20px;
+		font-size: 18px;
 	}
 
 	.user-primary-names-username {
 		font-weight: 400;
-		font-size: 16px;
+		font-size: 14px;
 	}
 }
