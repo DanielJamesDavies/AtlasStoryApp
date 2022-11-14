@@ -32,12 +32,12 @@ export const Settings = () => {
 				<SettingsPrimaryCharacter />
 				<SettingsVersions />
 				<SettingsSubpages />
-				<SettingsDelete />
 			</div>
 			<div className='character-subpage-settings-section-2'>
 				<SettingsOverviewBackgroundImage />
 				<SettingsCardBackgroundImage />
 				{/* Face Image */}
+				<SettingsDelete />
 			</div>
 		</div>
 	);

@@ -29,6 +29,7 @@ export const EditableContainerLogic = ({
 	onSave,
 	onScroll,
 	isLight,
+	higherEditBtns,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -56,11 +57,21 @@ export const EditableContainerLogic = ({
 			if (isMediaContent) newClassName += " editable-container-media";
 			if (absolutePositionEditBtns) newClassName += " editable-container-absolute-position-edit-btns";
 			if (isLight) newClassName += " editable-container-light";
+			if (higherEditBtns) newClassName += " editable-container-higher-edit-btns";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}
 		setEditableContainerClassName(getEditableContainerClassName());
-	}, [setEditableContainerClassName, isEditing, isAuthorizedToEdit, absolutePositionEditBtns, isMediaContent, className, isLight]);
+	}, [
+		setEditableContainerClassName,
+		isEditing,
+		isAuthorizedToEdit,
+		absolutePositionEditBtns,
+		isMediaContent,
+		className,
+		isLight,
+		higherEditBtns,
+	]);
 
 	async function onEditableContainerKeyDown(e) {
 		if (e?.ctrlKey && (e?.key === "s" || e?.key === "S")) {

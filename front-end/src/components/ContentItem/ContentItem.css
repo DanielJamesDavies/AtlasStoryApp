@@ -24,3 +24,27 @@
 .content-item-w-bg.content-item-size-l {
 	padding: 12px 24px;
 }
+
+.content-item-margin-none {
+	margin: 0;
+}
+
+.content-item-w-bg.content-item-bg-grey-1 {
+	background: var(--grey1);
+}
+
+.content-item-w-bg.content-item-bg-grey-2 {
+	background: var(--grey2);
+}
+
+.content-item-w-bg.content-item-bg-grey-3 {
+	background: var(--grey3);
+}
+
+.content-item-w-bg.content-item-bg-grey-4 {
+	background: var(--grey4);
+}
+
+.content-item-w-bg.content-item-bg-grey-5 {
+	background: var(--grey5);
+}

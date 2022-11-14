@@ -2,6 +2,7 @@
 
 // Components
 import { EditableContainer } from "../../../../../../../components/EditableContainer/EditableContainer";
+import { ContentItem } from "../../../../../../../components/ContentItem/ContentItem";
 import { TextInput } from "../../../../../../../components/TextInput/TextInput";
 
 // Logic
@@ -28,16 +29,21 @@ export const BiographyClusterName = ({ biographyCluster, changeBiographyCluster 
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertBiographyClusterName}
 			onSave={saveBiographyClusterName}
+			higherEditBtns={true}
 		>
-			<div className='character-subpage-abilities-biography-cluster-name'>{biographyCluster?.name}</div>
-			<TextInput
-				className='character-subpage-abilities-biography-cluster-name'
-				label='BiographyCluster Name'
-				seamless={true}
-				autoResize={true}
-				value={biographyCluster?.name}
-				onChange={changeBiographyClusterName}
-			/>
+			<ContentItem hasBg={false} size='m' margin='none'>
+				<div className='character-subpage-abilities-biography-cluster-name'>{biographyCluster?.name}</div>
+			</ContentItem>
+			<ContentItem hasBg={false} size='m' margin='none'>
+				<TextInput
+					className='character-subpage-abilities-biography-cluster-name'
+					label='BiographyCluster Name'
+					seamless={true}
+					autoResize={true}
+					value={biographyCluster?.name}
+					onChange={changeBiographyClusterName}
+				/>
+			</ContentItem>
 		</EditableContainer>
 	);
 };

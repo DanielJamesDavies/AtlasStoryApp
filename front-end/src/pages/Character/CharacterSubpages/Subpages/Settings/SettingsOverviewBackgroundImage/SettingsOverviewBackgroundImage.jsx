@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { ImageInput } from "../../../../../../components/ImageInput/ImageInput";
@@ -23,18 +24,20 @@ export const SettingsOverviewBackgroundImage = () => {
 		SettingsOverviewBackgroundImageLogic();
 
 	return (
-		<LabelContainer className='character-subpage-settings-overview-background-container' label='Overview Background Image'>
-			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertOverviewBackground} onSave={saveOverviewBackground}>
-				<div className='character-subpage-settings-overview-background-image'>
-					{!characterOverviewBackground ? null : <img src={characterOverviewBackground} alt='' />}
-				</div>
-				<div>
+		<ContentItem hasBg={true} size='s'>
+			<LabelContainer className='character-subpage-settings-overview-background-container' label='Overview Background Image'>
+				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertOverviewBackground} onSave={saveOverviewBackground}>
 					<div className='character-subpage-settings-overview-background-image'>
-						<ImageInput value={characterOverviewBackground} onChange={changeOverviewBackground} />
+						{!characterOverviewBackground ? null : <img src={characterOverviewBackground} alt='' />}
 					</div>
-					<ErrorMessage errors={errors} />
-				</div>
-			</EditableContainer>
-		</LabelContainer>
+					<div>
+						<div className='character-subpage-settings-overview-background-image'>
+							<ImageInput value={characterOverviewBackground} onChange={changeOverviewBackground} />
+						</div>
+						<ErrorMessage errors={errors} />
+					</div>
+				</EditableContainer>
+			</LabelContainer>
+		</ContentItem>
 	);
 };

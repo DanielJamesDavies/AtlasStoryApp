@@ -1,19 +1,22 @@
-.character-subpage-abilities-ability-primary-statistic-container.editable-container-is-authorized {
+.character-subpage-abilities-ability-primary-statistic-container {
 	display: flex;
 	align-items: flex-start;
 	margin: 0;
 	margin-top: -4px;
-	margin-bottom: 8px;
 	width: fit-content;
 }
 
+.character-subpage-abilities-ability-primary-statistic-container-empty {
+	margin: 0;
+}
+
 .character-subpage-abilities-ability-primary-statistic-container-empty.editable-container-is-authorized {
-	margin-bottom: 24px;
+	margin-top: -4px;
+	margin-bottom: 32px;
 }
 
 .character-subpage-abilities-ability-primary-statistic {
 	display: flex;
-	margin-top: 8px;
 	align-items: center;
 }
 

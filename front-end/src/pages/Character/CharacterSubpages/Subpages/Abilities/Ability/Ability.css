@@ -6,6 +6,7 @@
 
 @media (max-width: 700px) {
 	.character-subpage-abilities-ability {
+		margin-top: 8px;
 		width: 100%;
 	}
 }

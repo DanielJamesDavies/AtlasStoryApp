@@ -32,6 +32,7 @@ export const EditableContainer = ({
 	onSave,
 	onScroll,
 	isLight,
+	higherEditBtns,
 }) => {
 	const {
 		isEditing,
@@ -63,6 +64,7 @@ export const EditableContainer = ({
 		onSave,
 		onScroll,
 		isLight,
+		higherEditBtns,
 	});
 
 	return (

@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { ImageInput } from "../../../../../../components/ImageInput/ImageInput";
@@ -23,18 +24,20 @@ export const SettingsCardBackgroundImage = () => {
 		SettingsCardBackgroundImageLogic();
 
 	return (
-		<LabelContainer className='character-subpage-settings-card-background-container' label='Card Background Image'>
-			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertCardBackground} onSave={saveCardBackground}>
-				<div className='character-subpage-settings-card-background-image'>
-					{!characterCardBackground ? null : <img src={characterCardBackground} alt='' />}
-				</div>
-				<div>
+		<ContentItem hasBg={true} size='s'>
+			<LabelContainer className='character-subpage-settings-card-background-container' label='Card Background Image'>
+				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertCardBackground} onSave={saveCardBackground}>
 					<div className='character-subpage-settings-card-background-image'>
-						<ImageInput value={characterCardBackground} onChange={changeCardBackground} />
+						{!characterCardBackground ? null : <img src={characterCardBackground} alt='' />}
 					</div>
-					<ErrorMessage errors={errors} />
-				</div>
-			</EditableContainer>
-		</LabelContainer>
+					<div>
+						<div className='character-subpage-settings-card-background-image'>
+							<ImageInput value={characterCardBackground} onChange={changeCardBackground} />
+						</div>
+						<ErrorMessage errors={errors} />
+					</div>
+				</EditableContainer>
+			</LabelContainer>
+		</ContentItem>
 	);
 };

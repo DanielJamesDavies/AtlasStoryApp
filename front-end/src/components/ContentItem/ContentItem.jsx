@@ -12,8 +12,8 @@ import "./ContentItem.css";
 
 // Assets
 
-export const ContentItem = ({ children, className, size, hasBg }) => {
-	const { contentItemClassName } = ContentItemLogic({ className, size, hasBg });
+export const ContentItem = ({ children, className, size, margin, hasBg, backgroundColour }) => {
+	const { contentItemClassName } = ContentItemLogic({ className, size, margin, hasBg, backgroundColour });
 
 	if (!children) return null;
 	return <div className={contentItemClassName}>{children}</div>;

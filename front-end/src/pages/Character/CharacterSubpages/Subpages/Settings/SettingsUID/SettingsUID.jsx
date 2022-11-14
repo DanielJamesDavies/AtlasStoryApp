@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { TextInput } from "../../../../../../components/TextInput/TextInput";
@@ -21,14 +22,16 @@ export const SettingsUID = () => {
 	const { isAuthorizedToEdit, uid, changeUid, revertUid, saveUid, errors } = SettingsUIDLogic();
 
 	return (
-		<LabelContainer label='Unique Identifier (UID)' isInline={true}>
-			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertUid} onSave={saveUid}>
-				<div>{uid}</div>
-				<div>
-					<TextInput seamless={true} value={uid} onChange={changeUid} autoResize={true} />
-					<ErrorMessage errors={errors} />
-				</div>
-			</EditableContainer>
-		</LabelContainer>
+		<ContentItem hasBg={true} size='s'>
+			<LabelContainer label='Unique Identifier (UID)' isInline={true}>
+				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertUid} onSave={saveUid}>
+					<div>{uid}</div>
+					<div>
+						<TextInput seamless={true} value={uid} onChange={changeUid} autoResize={true} />
+						<ErrorMessage errors={errors} />
+					</div>
+				</EditableContainer>
+			</LabelContainer>
+		</ContentItem>
 	);
 };

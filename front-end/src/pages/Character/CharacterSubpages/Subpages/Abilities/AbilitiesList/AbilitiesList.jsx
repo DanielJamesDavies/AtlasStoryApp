@@ -56,25 +56,23 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 						))}
 					</div>
 				</BtnListContainer>
-				<BtnListContainer>
-					<DragDropContainer
-						className='character-subpage-abilities-list-items'
-						enableDragDrop={isReorderingAbilities}
-						onDropItem={reorderAbilities}
-					>
-						{characterVersion?.abilities?.map((ability, index) => (
-							<DragDropItem key={index} index={index} className='character-subpage-abilities-list-item-container'>
-								<BtnListItem
-									value={ability?.name}
-									index={index}
-									isActive={ability._id === currAbility._id}
-									onClick={() => onClickAbility(ability)}
-									onRemove={(e) => removeAbility(e, index)}
-								/>
-							</DragDropItem>
-						))}
-					</DragDropContainer>
-				</BtnListContainer>
+				<DragDropContainer
+					className='character-subpage-abilities-list-items'
+					enableDragDrop={isReorderingAbilities}
+					onDropItem={reorderAbilities}
+				>
+					{characterVersion?.abilities?.map((ability, index) => (
+						<DragDropItem key={index} index={index} className='character-subpage-abilities-list-item-container'>
+							<BtnListItem
+								value={ability?.name}
+								index={index}
+								isActive={ability._id === currAbility._id}
+								onClick={() => onClickAbility(ability)}
+								onRemove={(e) => removeAbility(e, index)}
+							/>
+						</DragDropItem>
+					))}
+				</DragDropContainer>
 			</EditableContainer>
 		</div>
 	);

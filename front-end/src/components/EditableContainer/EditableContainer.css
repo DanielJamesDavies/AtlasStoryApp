@@ -39,6 +39,10 @@
 	vertical-align: top;
 }
 
+.editable-container-higher-edit-btns .editable-container-buttons-container {
+	margin-top: -4px;
+}
+
 .editable-container-media .editable-container-buttons-container {
 	position: absolute;
 	top: 4px;

@@ -1,14 +1,14 @@
 .character-subpage-settings-section-1 {
 	display: inline-block;
-	margin-right: 12px;
-	width: calc(45% - 12px);
+	margin-right: -4px;
+	width: calc(45% + 4px);
 	vertical-align: top;
 }
 
 .character-subpage-settings-section-2 {
 	display: inline-block;
-	margin-left: 12px;
-	width: calc(55% - 12px);
+	margin-left: -4px;
+	width: calc(55% + 4px);
 	vertical-align: top;
 }
 
@@ -18,5 +18,9 @@
 		margin: 0;
 		padding: 0;
 		width: 100%;
+	}
+
+	.character-subpage-settings-section-2 {
+		margin-top: -8px;
 	}
 }

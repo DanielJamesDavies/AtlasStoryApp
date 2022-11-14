@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { ContentItem } from "../../../../../../../components/ContentItem/ContentItem";
 import { EditableContainer } from "../../../../../../../components/EditableContainer/EditableContainer";
 import { TextInput } from "../../../../../../../components/TextInput/TextInput";
 
@@ -26,16 +27,21 @@ export const AbilityName = ({ ability, changeAbility }) => {
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertAbilityName}
 			onSave={saveAbilityName}
+			higherEditBtns={true}
 		>
-			<div className='character-subpage-abilities-ability-name'>{ability?.name}</div>
-			<TextInput
-				className='character-subpage-abilities-ability-name'
-				label='Ability Name'
-				seamless={true}
-				autoResize={true}
-				value={ability?.name}
-				onChange={changeAbilityName}
-			/>
+			<ContentItem hasBg={false} size='m' margin='none'>
+				<div className='character-subpage-abilities-ability-name'>{ability?.name}</div>
+			</ContentItem>
+			<ContentItem hasBg={false} size='m' margin='none'>
+				<TextInput
+					className='character-subpage-abilities-ability-name'
+					label='Ability Name'
+					seamless={true}
+					autoResize={true}
+					value={ability?.name}
+					onChange={changeAbilityName}
+				/>
+			</ContentItem>
 		</EditableContainer>
 	);
 };

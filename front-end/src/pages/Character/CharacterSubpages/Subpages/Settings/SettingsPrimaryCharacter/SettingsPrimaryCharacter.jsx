@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { ErrorMessage } from "../../../../../../components/ErrorMessage/ErrorMessage";
@@ -22,16 +23,18 @@ export const SettingsPrimaryCharacter = () => {
 		SettingsPrimaryCharacterLogic();
 
 	return (
-		<LabelContainer label='Primary Character' isInline={true}>
-			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertIsPrimaryCharacter} onSave={saveIsPrimaryCharacter}>
-				<div>
-					<ToggleInput value={character?.isPrimaryCharacter} onToggle={toggleIsPrimaryCharacter} enableEdit={false} />
-				</div>
-				<div>
-					<ToggleInput value={character?.isPrimaryCharacter} onToggle={toggleIsPrimaryCharacter} enableEdit={true} />
-					<ErrorMessage errors={errors} />
-				</div>
-			</EditableContainer>
-		</LabelContainer>
+		<ContentItem hasBg={true} size='s'>
+			<LabelContainer label='Primary Character' isInline={true}>
+				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertIsPrimaryCharacter} onSave={saveIsPrimaryCharacter}>
+					<div>
+						<ToggleInput value={character?.isPrimaryCharacter} onToggle={toggleIsPrimaryCharacter} enableEdit={false} />
+					</div>
+					<div>
+						<ToggleInput value={character?.isPrimaryCharacter} onToggle={toggleIsPrimaryCharacter} enableEdit={true} />
+						<ErrorMessage errors={errors} />
+					</div>
+				</EditableContainer>
+			</LabelContainer>
+		</ContentItem>
 	);
 };

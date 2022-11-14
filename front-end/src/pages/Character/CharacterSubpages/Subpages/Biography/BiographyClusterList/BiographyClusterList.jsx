@@ -61,26 +61,24 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 						))}
 					</div>
 				</BtnListContainer>
-				<BtnListContainer>
-					<DragDropContainer
-						className='character-subpage-biography-cluster-list-items'
-						enableDragDrop={isReorderingBiographyCluster}
-						onDropItem={reorderBiographyCluster}
-						innerRef={biographyClusterListItemsRef}
-					>
-						{characterVersion?.biography?.map((biologyCluster, index) => (
-							<DragDropItem key={index} index={index} className='character-subpage-biography-cluster-list-item-container'>
-								<BtnListItem
-									value={biologyCluster?.name}
-									index={index}
-									isActive={biologyCluster._id === currBiographyCluster._id}
-									onClick={() => onClickBiographyCluster(biologyCluster)}
-									onRemove={(e) => removeBiographyCluster(e, index)}
-								/>
-							</DragDropItem>
-						))}
-					</DragDropContainer>
-				</BtnListContainer>
+				<DragDropContainer
+					className='character-subpage-biography-cluster-list-items'
+					enableDragDrop={isReorderingBiographyCluster}
+					onDropItem={reorderBiographyCluster}
+					innerRef={biographyClusterListItemsRef}
+				>
+					{characterVersion?.biography?.map((biologyCluster, index) => (
+						<DragDropItem key={index} index={index} className='character-subpage-biography-cluster-list-item-container'>
+							<BtnListItem
+								value={biologyCluster?.name}
+								index={index}
+								isActive={biologyCluster._id === currBiographyCluster._id}
+								onClick={() => onClickBiographyCluster(biologyCluster)}
+								onRemove={(e) => removeBiographyCluster(e, index)}
+							/>
+						</DragDropItem>
+					))}
+				</DragDropContainer>
 			</EditableContainer>
 		</div>
 	);
