@@ -98,6 +98,10 @@
 }
 
 @media (max-width: 950px) {
+	.characters-groups-primary {
+		margin-bottom: 6px;
+	}
+
 	.characters-groups-container {
 		width: 100%;
 	}

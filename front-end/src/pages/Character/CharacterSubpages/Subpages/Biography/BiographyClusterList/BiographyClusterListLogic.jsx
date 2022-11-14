@@ -111,7 +111,6 @@ export const BiographyClusterListLogic = ({ currBiographyCluster, switchBiograph
 	}
 
 	const [biographyClusterListItemsRefCurrent, biographyClusterListItemsRef] = useState(undefined);
-
 	function onBiographyClusterListScroll(e) {
 		if (biographyClusterListItemsRefCurrent?.scrollTop === 0) return;
 		e.stopPropagation();

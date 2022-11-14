@@ -15,7 +15,12 @@
 @media (max-width: 950px) {
 	.characters-character-type-container {
 		margin: 0;
+		margin-top: 6px;
 		width: 100%;
 		min-height: 0;
+	}
+
+	.characters-character-type-delete-container {
+		margin: 24px 12px;
 	}
 }

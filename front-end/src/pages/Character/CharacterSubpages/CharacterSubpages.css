@@ -55,4 +55,10 @@
 		margin-top: 45vh;
 		flex-direction: column;
 	}
+
+	.character-subpage-container {
+		padding: 4px 8px;
+		width: calc(100% - 16px);
+		min-height: calc(100% - 8px - 36px);
+	}
 }

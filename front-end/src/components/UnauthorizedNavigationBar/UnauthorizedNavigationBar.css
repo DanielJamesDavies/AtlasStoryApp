@@ -3,13 +3,11 @@
 	display: flex;
 	flex-shrink: 0;
 	align-items: center;
-	margin: 4px;
 	padding: 12px;
-	border-radius: 4px;
 
-	width: calc(100% - 8px - 24px);
+	width: calc(100% - 24px);
 
-	background: var(--grey3);
+	background: var(--grey2);
 }
 
 .unauthorized-navigation-bar-landing-btn {
@@ -48,8 +46,8 @@
 
 .unauthorized-navigation-bar-btn {
 	margin: 0;
-	margin-left: 12px;
-	padding: 10px 20px;
+	margin-left: 10px;
+	padding: 8px 20px;
 	border: 0;
 	border-radius: 32px;
 

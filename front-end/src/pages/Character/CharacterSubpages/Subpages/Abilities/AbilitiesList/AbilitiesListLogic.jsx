@@ -90,6 +90,12 @@ export const AbilitiesListLogic = ({ currAbility, switchAbility }) => {
 		switchAbility(ability._id);
 	}
 
+	const [abilitiesListItemsRefCurrent, abilitiesListItemsRef] = useState(undefined);
+	function onAbilitiesListScroll(e) {
+		if (abilitiesListItemsRefCurrent?.scrollTop === 0) return;
+		e.stopPropagation();
+	}
+
 	return {
 		isAuthorizedToEdit,
 		characterVersion,
@@ -101,5 +107,7 @@ export const AbilitiesListLogic = ({ currAbility, switchAbility }) => {
 		revertAbilities,
 		saveAbilities,
 		onClickAbility,
+		abilitiesListItemsRef,
+		onAbilitiesListScroll,
 	};
 };

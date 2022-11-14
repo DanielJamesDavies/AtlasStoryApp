@@ -27,7 +27,7 @@ export const BtnListItemLogic = ({ className, size, index, isActive, onClick, on
 			if (onClick) newBtnListItemClassName += " btn-list-item-clickable";
 			if (className) newBtnListItemClassName += " " + className;
 			if (size) newBtnListItemClassName += " btn-list-item-size-" + size;
-			if (!isActive && isBtnListOpen === false) newBtnListItemClassName += " btn-list-item-list-closed";
+			if (isBtnListOpen === false) newBtnListItemClassName += " btn-list-item-list-closed";
 			setBtnListItemClassName(newBtnListItemClassName);
 		}
 		getBtnListItemClassName();

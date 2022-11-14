@@ -7,6 +7,7 @@ import { AbilityItems } from "./AbilityItems/AbilityItems";
 import { AbilityStatistics } from "./AbilityStatistics/AbilityStatistics";
 
 // Logic
+import { AbilityLogic } from "./AbilityLogic";
 
 // Context
 
@@ -18,9 +19,11 @@ import "./Ability.css";
 // Assets
 
 export const Ability = ({ ability, changeAbility }) => {
+	const { abilityRef } = AbilityLogic();
+
 	if (!ability) return null;
 	return (
-		<div className='character-subpage-abilities-ability'>
+		<div ref={abilityRef} className='character-subpage-abilities-ability'>
 			<AbilityName ability={ability} changeAbility={changeAbility} />
 			<AbilityPrimaryStatistic ability={ability} changeAbility={changeAbility} />
 			<AbilityItems ability={ability} changeAbility={changeAbility} />

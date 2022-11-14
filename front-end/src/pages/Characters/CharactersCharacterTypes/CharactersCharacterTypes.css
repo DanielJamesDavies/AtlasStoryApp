@@ -68,6 +68,11 @@
 }
 
 @media (max-width: 950px) {
+	.characters-character-types-primary {
+		margin-top: 48px;
+		margin-bottom: 6px;
+	}
+
 	.characters-character-types-container {
 		width: 100%;
 	}

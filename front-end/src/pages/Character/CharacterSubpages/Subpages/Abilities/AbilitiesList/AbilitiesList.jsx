@@ -31,6 +31,8 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 		revertAbilities,
 		saveAbilities,
 		onClickAbility,
+		abilitiesListItemsRef,
+		onAbilitiesListScroll,
 	} = AbilitiesListLogic({ currAbility, switchAbility });
 
 	return (
@@ -41,9 +43,10 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 				onReorder={toggleIsReorderingAbilities}
 				onRevert={revertAbilities}
 				onSave={saveAbilities}
+				onScroll={onAbilitiesListScroll}
 			>
 				<BtnListContainer>
-					<div className='character-subpage-abilities-list-items'>
+					<div ref={abilitiesListItemsRef} className='character-subpage-abilities-list-items'>
 						{characterVersion?.abilities?.map((ability, index) => (
 							<div key={index} className='character-subpage-abilities-list-item-container'>
 								<BtnListItem
@@ -60,6 +63,7 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 					className='character-subpage-abilities-list-items'
 					enableDragDrop={isReorderingAbilities}
 					onDropItem={reorderAbilities}
+					innerRef={abilitiesListItemsRef}
 				>
 					{characterVersion?.abilities?.map((ability, index) => (
 						<DragDropItem key={index} index={index} className='character-subpage-abilities-list-item-container'>

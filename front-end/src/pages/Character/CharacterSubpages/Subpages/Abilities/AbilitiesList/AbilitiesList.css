@@ -5,7 +5,15 @@
 	vertical-align: top;
 }
 
+.character-subpage-abilities-list-items {
+	padding-right: 8px;
+	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 24px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
 .character-subpage-abilities-list-item-container .btn-list-item-active {
+	position: relative;
 	background: var(--characterColour);
 	border-color: var(--characterColour);
 	color: #fff;
@@ -23,5 +31,9 @@
 	.character-subpage-abilities-list {
 		margin-right: 0;
 		width: 100%;
+	}
+
+	.character-subpage-abilities-list-items {
+		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--characterPaddingTop) - 36px - 24px - 38px);
 	}
 }

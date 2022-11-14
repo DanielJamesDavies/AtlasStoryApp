@@ -1,5 +1,5 @@
 // Packages
-import { FaTimes } from "react-icons/fa";
+import { FaChevronDown, FaTimes } from "react-icons/fa";
 
 // Components
 import { IconBtn } from "../IconBtn/IconBtn";
@@ -47,6 +47,9 @@ export const BtnListItem = ({ className, size, value, index, isActive, onClick, 
 						onClick={onRemoveBtnClick}
 					/>
 				)}
+			</div>
+			<div className='btn-list-item-arrow-container'>
+				<FaChevronDown />
 			</div>
 		</div>
 	);
