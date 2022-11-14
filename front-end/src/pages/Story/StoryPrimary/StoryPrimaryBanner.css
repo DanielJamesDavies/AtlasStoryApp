@@ -21,7 +21,7 @@
 
 @media (max-width: 700px) {
 	.story-primary-banner-container {
-		margin-bottom: 0;
+		margin-bottom: 4px;
 		height: 110px;
 	}
 }

@@ -32,7 +32,6 @@ export const StoryPrimary = () => {
 				<StoryPrimaryTitle />
 				<StoryPrimaryMembers />
 			</div>
-
 			<div className='story-primary-buttons-container'>
 				<IconBtn
 					className='story-primary-btn'

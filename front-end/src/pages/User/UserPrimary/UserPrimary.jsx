@@ -33,7 +33,7 @@ export const UserPrimary = () => {
 			{!isAuthorizedToEdit ? null : (
 				<div className='user-primary-buttons-container'>
 					<IconBtn className='user-primary-btn' seamless={true} size='l' icon={<FaCog />} onClick={openSettings} label='User Settings' />
-					<IconBtn className='user-primary-btn' seamless={true} size='l' icon={<FaSignOutAlt />} onClick={logOut} />
+					<IconBtn className='user-primary-btn' seamless={true} size='l' icon={<FaSignOutAlt />} onClick={logOut} label='Log Out' />
 				</div>
 			)}
 		</div>

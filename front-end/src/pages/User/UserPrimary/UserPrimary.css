@@ -2,9 +2,8 @@
 	position: relative;
 	display: flex;
 	flex-wrap: wrap;
-	align-items: center;
 	padding: 0;
-	padding-bottom: calc(14px + 2px);
+	padding-bottom: 0;
 	border-radius: 4px;
 	background: var(--grey1);
 }
@@ -41,6 +40,7 @@
 
 .user-primary-buttons-container {
 	display: inline-block;
+	margin-top: 12px;
 	margin-left: auto;
 	margin-right: 12px;
 	vertical-align: middle;
@@ -61,16 +61,19 @@
 	}
 
 	.user-primary-main-info {
-		width: calc(100% - 170px);
+		margin-left: 0;
+		width: calc(100% - 158px);
+		min-height: 0;
 	}
 
 	.user-primary-main-info-is-authorized {
-		width: calc(100% - 162px);
+		width: calc(100% - 150px);
 	}
 
 	.user-primary-buttons-container {
 		display: flex;
 		flex-direction: column;
+		margin-top: -4px;
 		margin-right: 4px;
 		vertical-align: top;
 	}

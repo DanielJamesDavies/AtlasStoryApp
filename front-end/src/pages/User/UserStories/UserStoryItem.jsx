@@ -37,11 +37,6 @@ export const UserStoryItem = ({ storyID }) => {
 				</div>
 				<div className='user-stories-story-item-private'>{story?.isPrivate ? <FaLock /> : <FaLockOpen />}</div>
 			</div>
-			<div className='user-stories-story-item-pages'>
-				<div className='user-stories-story-item-page'></div>
-				<div className='user-stories-story-item-page'></div>
-				<div className='user-stories-story-item-page'></div>
-			</div>
 		</div>
 	);
 };

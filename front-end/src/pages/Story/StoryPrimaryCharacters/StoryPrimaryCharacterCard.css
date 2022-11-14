@@ -78,7 +78,7 @@
 
 .story-primary-character-card-summary-items-container {
 	position: absolute;
-	top: 252px;
+	top: 224px;
 	left: 50%;
 	transform: translateX(-50%);
 
@@ -87,7 +87,7 @@
 	flex-wrap: wrap;
 
 	width: calc(100% - 16px);
-	max-height: calc(100% - 252px);
+	max-height: calc(100% - 224px);
 	overflow: hidden;
 }
 
@@ -148,10 +148,10 @@
 	.story-primary-character-card {
 		border-width: 5px;
 
-		width: calc(100vw - 24px - 10px - 48px);
-		max-width: min(305px, calc((var(--vh) - var(--navbarMobileHeight) - 8px - 12px - 10px - 24px - 39px - 48px) * (441 / 607)));
-		height: calc((100vw - 24px - 10px - 48px) * (607 / 441));
-		max-height: min(420px, calc(var(--vh) - var(--navbarMobileHeight) - 8px - 12px - 10px - 24px - 39px - 48px));
+		width: calc(100vw - 24px - 10px - 24px);
+		max-width: min(441px, calc((var(--vh) - var(--navbarMobileHeight) - 8px - 12px - 10px - 24px - 39px - 24px) * (441 / 607)));
+		height: calc((100vw - 24px - 10px - 24px) * (607 / 441));
+		max-height: min(607px, calc(var(--vh) - var(--navbarMobileHeight) - 8px - 12px - 10px - 24px - 39px - 24px));
 	}
 
 	.story-primary-character-card-top-container {
@@ -160,6 +160,13 @@
 
 	.story-primary-character-card-top-name {
 		font-size: 22px;
+	}
+
+	.story-primary-character-card-character-type {
+		margin-top: 2px;
+		margin-bottom: -2px;
+		padding: 6px 10px;
+		font-size: 12px;
 	}
 
 	.story-primary-character-card-summary-items-container {

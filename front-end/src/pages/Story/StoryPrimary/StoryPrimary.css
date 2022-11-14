@@ -2,7 +2,6 @@
 	position: relative;
 	display: flex;
 	flex-wrap: wrap;
-	align-items: center;
 	padding: 0;
 	padding-bottom: calc(14px + 2px);
 	border-radius: 4px;
@@ -41,6 +40,7 @@
 
 .story-primary-buttons-container {
 	display: inline-block;
+	margin-top: 20px;
 	margin-left: auto;
 	margin-right: 12px;
 	vertical-align: middle;
@@ -57,24 +57,27 @@
 @media (max-width: 700px) {
 	.story-primary {
 		padding: 0;
-		padding-bottom: 4px;
+		padding-bottom: 12px;
 	}
 
 	.story-primary-main-info {
-		width: calc(100% - 6px - 75px - 24px - 27px - 32px);
+		margin: 8px 0;
+		margin-left: 8px;
+		width: calc(100% - 6px - 75px - 24px - 27px - 32px + 10px);
 		min-height: 50px;
 	}
 
 	.story-primary-main-info-is-authorized {
-		width: calc(100% - 6px - 75px - 24px - 27px - 32px);
+		width: calc(100% - 6px - 75px - 24px - 27px - 32px + 10px);
 	}
 
 	.story-primary-buttons-container {
 		display: flex;
 		flex-direction: column;
+		margin-top: 0;
+		margin-right: 4px;
 		padding: 4px 0;
 		padding-bottom: 0;
-		margin-right: 4px;
 		vertical-align: top;
 	}
 

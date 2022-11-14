@@ -5,8 +5,7 @@
 }
 
 .user-primary-names-is-authorized {
-	margin-left: 12px;
-	max-width: calc(100% - 12px);
+	max-width: 100%;
 }
 
 .editable-container-is-editing.user-primary-names-nickname-container {
