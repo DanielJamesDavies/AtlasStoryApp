@@ -94,3 +94,9 @@
 	margin-top: -8px;
 	margin-left: auto;
 }
+
+@media (max-width: 700px) {
+	.btn-list-item-list-closed {
+		display: none;
+	}
+}

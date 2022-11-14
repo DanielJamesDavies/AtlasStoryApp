@@ -4,6 +4,7 @@ import { FaPlus, FaSort } from "react-icons/fa";
 // Components
 import { ContentItem } from "../../../components/ContentItem/ContentItem";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
+import { BtnListContainer } from "../../../components/BtnListContainer/BtnListContainer";
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { CharactersCreateCharacterType } from "./CharactersCreateCharacterType";
@@ -62,23 +63,25 @@ export const CharactersCharacterTypes = () => {
 					)}
 				</div>
 				{!story?.data?.characterTypes || !characterTypes ? null : (
-					<DragDropContainer
-						className='characters-character-types-character-type-items-container'
-						inlineItems={false}
-						enableDragDrop={isReorderingCharacterTypes}
-						onDropItem={changeCharacterTypesOrder}
-					>
-						{story.data.characterTypes.map((characterTypeID, index) => (
-							<DragDropItem key={index} index={index} className='characters-character-types-character-type-item-container'>
-								<BtnListItem
-									value={characterTypes.find((e) => e._id === characterTypeID)?.data?.name}
-									index={index}
-									isActive={characterType._id === characterTypeID}
-									onClick={() => changeCharacterType(characterTypeID)}
-								/>
-							</DragDropItem>
-						))}
-					</DragDropContainer>
+					<BtnListContainer>
+						<DragDropContainer
+							className='characters-character-types-character-type-items-container'
+							inlineItems={false}
+							enableDragDrop={isReorderingCharacterTypes}
+							onDropItem={changeCharacterTypesOrder}
+						>
+							{story.data.characterTypes.map((characterTypeID, index) => (
+								<DragDropItem key={index} index={index} className='characters-character-types-character-type-item-container'>
+									<BtnListItem
+										value={characterTypes.find((e) => e._id === characterTypeID)?.data?.name}
+										index={index}
+										isActive={characterType._id === characterTypeID}
+										onClick={() => changeCharacterType(characterTypeID)}
+									/>
+								</DragDropItem>
+							))}
+						</DragDropContainer>
+					</BtnListContainer>
 				)}
 				<CharactersCreateCharacterType />
 			</ContentItem>

@@ -2,6 +2,7 @@
 
 // Components
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
+import { BtnListContainer } from "../../../../../../components/BtnListContainer/BtnListContainer";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
 import { BtnListItem } from "../../../../../../components/BtnListItem/BtnListItem";
@@ -41,35 +42,39 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 				onRevert={revertAbilities}
 				onSave={saveAbilities}
 			>
-				<div className='character-subpage-abilities-list-items'>
-					{characterVersion?.abilities?.map((ability, index) => (
-						<div key={index} className='character-subpage-abilities-list-item-container'>
-							<BtnListItem
-								value={ability?.name}
-								index={index}
-								isActive={ability._id === currAbility._id}
-								onClick={() => onClickAbility(ability)}
-							/>
-						</div>
-					))}
-				</div>
-				<DragDropContainer
-					className='character-subpage-abilities-list-items'
-					enableDragDrop={isReorderingAbilities}
-					onDropItem={reorderAbilities}
-				>
-					{characterVersion?.abilities?.map((ability, index) => (
-						<DragDropItem key={index} index={index} className='character-subpage-abilities-list-item-container'>
-							<BtnListItem
-								value={ability?.name}
-								index={index}
-								isActive={ability._id === currAbility._id}
-								onClick={() => onClickAbility(ability)}
-								onRemove={(e) => removeAbility(e, index)}
-							/>
-						</DragDropItem>
-					))}
-				</DragDropContainer>
+				<BtnListContainer>
+					<div className='character-subpage-abilities-list-items'>
+						{characterVersion?.abilities?.map((ability, index) => (
+							<div key={index} className='character-subpage-abilities-list-item-container'>
+								<BtnListItem
+									value={ability?.name}
+									index={index}
+									isActive={ability._id === currAbility._id}
+									onClick={() => onClickAbility(ability)}
+								/>
+							</div>
+						))}
+					</div>
+				</BtnListContainer>
+				<BtnListContainer>
+					<DragDropContainer
+						className='character-subpage-abilities-list-items'
+						enableDragDrop={isReorderingAbilities}
+						onDropItem={reorderAbilities}
+					>
+						{characterVersion?.abilities?.map((ability, index) => (
+							<DragDropItem key={index} index={index} className='character-subpage-abilities-list-item-container'>
+								<BtnListItem
+									value={ability?.name}
+									index={index}
+									isActive={ability._id === currAbility._id}
+									onClick={() => onClickAbility(ability)}
+									onRemove={(e) => removeAbility(e, index)}
+								/>
+							</DragDropItem>
+						))}
+					</DragDropContainer>
+				</BtnListContainer>
 			</EditableContainer>
 		</div>
 	);

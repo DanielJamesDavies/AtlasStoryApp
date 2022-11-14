@@ -3,6 +3,7 @@ import { FaPlus, FaSort } from "react-icons/fa";
 
 // Components
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
+import { BtnListContainer } from "../../../components/BtnListContainer/BtnListContainer";
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { CharactersCreateGroup } from "./CharactersCreateGroup";
@@ -69,23 +70,25 @@ export const CharactersGroups = () => {
 						<BtnListItem />
 					</div>
 				) : (
-					<DragDropContainer
-						className='characters-groups-group-items-container'
-						inlineItems={false}
-						enableDragDrop={isReorderingGroups}
-						onDropItem={changeGroupsOrder}
-					>
-						{story.data.groups.map((groupID, index) => (
-							<DragDropItem key={index} index={index} className='characters-groups-group-item-container'>
-								<BtnListItem
-									value={groups.find((e) => e._id === groupID)?.data?.name}
-									index={index}
-									isActive={group._id === groupID}
-									onClick={() => changeGroup(groupID)}
-								/>
-							</DragDropItem>
-						))}
-					</DragDropContainer>
+					<BtnListContainer>
+						<DragDropContainer
+							className='characters-groups-group-items-container'
+							inlineItems={false}
+							enableDragDrop={isReorderingGroups}
+							onDropItem={changeGroupsOrder}
+						>
+							{story.data.groups.map((groupID, index) => (
+								<DragDropItem key={index} index={index} className='characters-groups-group-item-container'>
+									<BtnListItem
+										value={groups.find((e) => e._id === groupID)?.data?.name}
+										index={index}
+										isActive={group._id === groupID}
+										onClick={() => changeGroup(groupID)}
+									/>
+								</DragDropItem>
+							))}
+						</DragDropContainer>
+					</BtnListContainer>
 				)}
 				<CharactersCreateGroup />
 			</ContentItem>

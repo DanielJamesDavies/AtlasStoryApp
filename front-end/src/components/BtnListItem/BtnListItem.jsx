@@ -18,10 +18,17 @@ import "./BtnListItem.css";
 // Assets
 
 export const BtnListItem = ({ className, size, value, index, isActive, onClick, onChange, onRemove }) => {
-	const { btnListItemClassName, onRemoveBtnClick } = BtnListItemLogic({ className, size, index, isActive, onClick, onRemove });
+	const { btnListItemClassName, onBtnListItemClick, onRemoveBtnClick } = BtnListItemLogic({
+		className,
+		size,
+		index,
+		isActive,
+		onClick,
+		onRemove,
+	});
 
 	return (
-		<div tabIndex='1' className={btnListItemClassName} onClick={onClick} onAuxClick={onClick}>
+		<div tabIndex='1' className={btnListItemClassName} onClick={onBtnListItemClick} onAuxClick={onClick}>
 			{value === undefined ? (
 				<div className='btn-list-item-value-placeholder'></div>
 			) : onChange === undefined ? (
