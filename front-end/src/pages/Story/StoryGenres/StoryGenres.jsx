@@ -103,7 +103,13 @@ export const StoryGenres = () => {
 							))}
 						</div>
 						<div className='story-genres-search-container'>
-							<TextInput icon={FaSearch} label='Search Genre' value={genresSearchValue} onChange={changeGenresSearchValue} size='s' />
+							<TextInput
+								icon={FaSearch}
+								label='Search Genres'
+								value={genresSearchValue}
+								onChange={changeGenresSearchValue}
+								size='s'
+							/>
 						</div>
 						<div className='story-genres-list'>
 							{allGenres

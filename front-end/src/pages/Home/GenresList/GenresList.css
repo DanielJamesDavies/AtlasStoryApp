@@ -1,0 +1,56 @@
+.home-genres-list-container {
+	margin-left: 8px;
+	width: calc(240px + 8px);
+}
+
+.home-genres-list-title {
+	margin-bottom: 8px;
+	font-size: 22px;
+	font-weight: 700;
+}
+
+.home-genres-list-search-container {
+	margin-top: calc(4px + 8px);
+}
+
+.home-genres-list-search-container .text-input {
+	width: 100%;
+}
+
+.home-genres-list-loading-container {
+	position: relative;
+	width: 100%;
+	height: 80px;
+}
+
+.home-genres-list-new-genre-container {
+	display: flex;
+	align-items: center;
+}
+
+.home-genres-list-new-genre-container .icon-btn {
+	margin-left: 6px;
+}
+
+@media (max-width: 750px) {
+	.home-genres-list-container {
+		margin-left: 0;
+		width: 100%;
+	}
+
+	.home-genres-list-title {
+		margin-left: 0;
+	}
+
+	.home-genres-list {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.home-genres-list-search-container {
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 4px;
+		width: calc(100% - 8px);
+	}
+}

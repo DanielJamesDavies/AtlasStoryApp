@@ -76,6 +76,21 @@
 	color: var(--accentColour);
 }
 
+.icon-btn-container-has-hover-icon .icon-btn .icon-btn-hover-icon-container svg,
+.icon-btn-container-has-hover-icon .icon-btn .icon-btn-hover-icon-container svg {
+	display: none;
+}
+
+.icon-btn-container-has-hover-icon .icon-btn:hover .icon-btn-icon-container svg,
+.icon-btn-container-has-hover-icon .icon-btn:focus .icon-btn-icon-container svg {
+	display: none;
+}
+
+.icon-btn-container-has-hover-icon .icon-btn:hover .icon-btn-hover-icon-container svg,
+.icon-btn-container-has-hover-icon .icon-btn:focus .icon-btn-hover-icon-container svg {
+	display: block;
+}
+
 .icon-btn-container-seamless.icon-btn-container-large .icon-btn {
 	min-width: 32px;
 	width: 32px;

@@ -3,12 +3,22 @@
 	margin: 0 auto;
 	padding: 0 24px;
 	width: calc(100% - 48px);
-	max-width: 900px;
+	max-width: 1300px;
+}
+
+.home-content {
+	display: flex;
+	position: relative;
+	top: calc(12px + 42px + 12px);
 }
 
 @media (max-width: 750px) {
 	.home-container {
 		padding: 0 6px;
 		width: calc(100% - 12px);
+	}
+
+	.home-content {
+		flex-direction: column;
 	}
 }

@@ -19,6 +19,8 @@
 .text-input-container-size-s {
 	padding: 6px 12px;
 	border-radius: 12px;
+
+	width: calc(100% - 24px - 6px);
 }
 
 .text-input-container-dark {

@@ -1,0 +1,15 @@
+.home-stories-list-container {
+	width: calc(100% - 240px + 8px);
+}
+
+.home-stories-list-title {
+	margin-bottom: 8px;
+	font-size: 22px;
+	font-weight: 700;
+}
+
+@media (max-width: 750px) {
+	.home-stories-list-container {
+		width: 100%;
+	}
+}
