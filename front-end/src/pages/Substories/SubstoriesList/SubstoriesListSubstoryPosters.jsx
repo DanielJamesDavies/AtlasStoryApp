@@ -18,8 +18,16 @@ import "./SubstoriesListSubstoryPosters.css";
 // Assets
 
 export const SubstoriesListSubstoryPosters = () => {
-	const { story, substoryPosters, scrollSubstoryPosters, isReorderingSubstories, changeSubstoriesOrder, afterOnTouchMove, afterOnTouchEnd } =
-		SubstoriesListSubstoryPostersLogic();
+	const {
+		story,
+		substoriesPosterBackgrounds,
+		substoryPosters,
+		scrollSubstoryPosters,
+		isReorderingSubstories,
+		changeSubstoriesOrder,
+		afterOnTouchMove,
+		afterOnTouchEnd,
+	} = SubstoriesListSubstoryPostersLogic();
 
 	return (
 		<div
@@ -27,7 +35,15 @@ export const SubstoriesListSubstoryPosters = () => {
 			onMouseEnter={() => scrollSubstoryPosters(0)}
 			onMouseLeave={() => scrollSubstoryPosters(-1.75)}
 		>
-			{!story?.data?.substories ? null : (
+			{!story?.data?.substories ? null : !substoriesPosterBackgrounds ? (
+				<div className='substories-list-substories-posters'>
+					{story?.data?.substories.map((substoryID, index) => (
+						<DragDropItem key={index} index={index} className='substories-list-substory-poster-container'>
+							<SubstoriesListSubstoryPoster />
+						</DragDropItem>
+					))}
+				</div>
+			) : (
 				<DragDropContainer
 					innerRef={substoryPosters}
 					className='substories-list-substories-posters'

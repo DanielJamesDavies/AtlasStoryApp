@@ -11,7 +11,7 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 	const [story, setStory] = useState(false);
 	const [storyIcon, setStoryIcon] = useState(false);
 	const [substories, setSubstories] = useState([]);
-	const [substoriesPosterBackgrounds, setSubstoriesPosterBackgrounds] = useState([]);
+	const [substoriesPosterBackgrounds, setSubstoriesPosterBackgrounds] = useState(false);
 	const { APIRequest } = useContext(APIContext);
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { location } = useContext(RoutesContext);

@@ -23,8 +23,10 @@ export const StoryPrimaryCharacterCardLogic = ({ character }) => {
 	const [characterType, setCharacterType] = useState(false);
 
 	useEffect(() => {
-		const newCardBackground = primaryCharactersCardBackgrounds?.find((e) => e._id === character?.data?.cardBackground)?.image;
-		setCardBackground(newCardBackground === undefined ? false : newCardBackground);
+		if (primaryCharactersCardBackgrounds) {
+			const newCardBackground = primaryCharactersCardBackgrounds?.find((e) => e._id === character?.data?.cardBackground)?.image;
+			setCardBackground(newCardBackground === undefined ? false : newCardBackground);
+		}
 
 		const newCharacterType = characterTypes?.find((e) => e._id === character?.character_type_id);
 		setCharacterType(newCharacterType === undefined ? false : newCharacterType);

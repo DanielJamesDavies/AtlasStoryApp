@@ -24,7 +24,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 	const [characterTypes, setCharacterTypes] = useState([]);
 	const [characterType, setCharacterType] = useState(false);
 
-	const [charactersCardBackgrounds, setCharactersCardBackgrounds] = useState([]);
+	const [charactersCardBackgrounds, setCharactersCardBackgrounds] = useState(false);
 
 	useEffect(() => {
 		async function getInitial() {

@@ -16,7 +16,7 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const SubstoriesListSubstoryPostersLogic = () => {
-	const { story, setStory, isReorderingSubstories } = useContext(SubstoriesContext);
+	const { story, setStory, substoriesPosterBackgrounds, isReorderingSubstories } = useContext(SubstoriesContext);
 	const { APIRequest } = useContext(APIContext);
 
 	// Character Cards Scroll
@@ -87,5 +87,14 @@ export const SubstoriesListSubstoryPostersLogic = () => {
 		scrollSubstoryPosters(0);
 	}
 
-	return { story, substoryPosters, scrollSubstoryPosters, isReorderingSubstories, changeSubstoriesOrder, afterOnTouchMove, afterOnTouchEnd };
+	return {
+		story,
+		substoriesPosterBackgrounds,
+		substoryPosters,
+		scrollSubstoryPosters,
+		isReorderingSubstories,
+		changeSubstoriesOrder,
+		afterOnTouchMove,
+		afterOnTouchEnd,
+	};
 };

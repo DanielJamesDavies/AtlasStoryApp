@@ -16,7 +16,7 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const CharactersGroupCharacterCardsLogic = () => {
-	const { story, groups, setGroups, group, changeGroup, images, isReorderingCharacters } = useContext(CharactersContext);
+	const { story, groups, setGroups, group, changeGroup, charactersCardBackgrounds, isReorderingCharacters } = useContext(CharactersContext);
 	const { APIRequest } = useContext(APIContext);
 
 	// Character Cards Scroll
@@ -101,10 +101,9 @@ export const CharactersGroupCharacterCardsLogic = () => {
 	}
 
 	return {
-		groups,
 		group,
-		images,
 		charactersCards,
+		charactersCardBackgrounds,
 		scrollCharacterCards,
 		isReorderingCharacters,
 		changeCharactersOrder,

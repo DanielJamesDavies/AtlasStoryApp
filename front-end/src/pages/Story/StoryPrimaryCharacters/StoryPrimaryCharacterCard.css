@@ -45,6 +45,42 @@
 	animation-delay: 0.1s;
 }
 
+.story-primary-character-card-placeholder {
+	flex-shrink: 0;
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	margin: 4px;
+	border: 5px solid var(--accentColour);
+	border-color: var(--grey2);
+	border-radius: 16px;
+
+	width: 305px;
+	height: 420px;
+
+	background: var(--grey1);
+	transition: margin 0.4s;
+	cursor: pointer;
+	animation: story-primary-character-card-placeholder 1.5s infinite;
+}
+
+@keyframes story-primary-character-card-placeholder {
+	0% {
+		border-color: var(--grey2);
+		background: var(--grey2);
+	}
+	15%,
+	55% {
+		border-color: var(--grey4);
+		background: var(--grey3);
+	}
+	88%,
+	100% {
+		border-color: var(--grey2);
+		background: var(--grey2);
+	}
+}
+
 .story-primary-character-card-content {
 	position: relative;
 	z-index: 1;

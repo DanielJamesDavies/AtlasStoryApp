@@ -19,6 +19,7 @@ export const StoryPrimaryCharacterCard = ({ character }) => {
 		character,
 	});
 
+	if (!character) return <div className='story-primary-character-card-placeholder' />;
 	return (
 		<div
 			className='story-primary-character-card drag-drop-item-content'

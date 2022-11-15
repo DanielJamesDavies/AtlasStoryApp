@@ -13,7 +13,7 @@ const StoryProvider = ({ children, story_uid }) => {
 	const [icon, setIcon] = useState(false);
 	const [banner, setBanner] = useState(false);
 	const [primaryCharacters, setPrimaryCharacters] = useState([]);
-	const [primaryCharactersCardBackgrounds, setPrimaryCharactersCardBackgrounds] = useState([]);
+	const [primaryCharactersCardBackgrounds, setPrimaryCharactersCardBackgrounds] = useState(false);
 	const [characterTypes, setCharacterTypes] = useState([]);
 	const [isDisplayingSettings, setIsDisplayingSettings] = useState(false);
 	const { APIRequest } = useContext(APIContext);

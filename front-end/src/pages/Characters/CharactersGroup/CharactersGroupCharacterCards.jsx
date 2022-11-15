@@ -18,8 +18,16 @@ import "./CharactersGroupCharacterCards.css";
 // Assets
 
 export const CharactersGroupCharacterCards = () => {
-	const { group, charactersCards, scrollCharacterCards, isReorderingCharacters, changeCharactersOrder, afterOnTouchMove, afterOnTouchEnd } =
-		CharactersGroupCharacterCardsLogic();
+	const {
+		group,
+		charactersCards,
+		charactersCardBackgrounds,
+		scrollCharacterCards,
+		isReorderingCharacters,
+		changeCharactersOrder,
+		afterOnTouchMove,
+		afterOnTouchEnd,
+	} = CharactersGroupCharacterCardsLogic();
 
 	if (!group) return null;
 	return (
@@ -28,7 +36,15 @@ export const CharactersGroupCharacterCards = () => {
 			onMouseEnter={() => scrollCharacterCards(0)}
 			onMouseLeave={() => scrollCharacterCards(-1.75)}
 		>
-			{!group?.data?.characters ? null : (
+			{!group?.data?.characters ? null : !charactersCardBackgrounds ? (
+				<div className='characters-group-characters-cards'>
+					{group?.data?.characters.map((character, index) => (
+						<DragDropItem key={index} index={index} className='characters-group-character-card-container'>
+							<CharactersGroupCharacterCard />
+						</DragDropItem>
+					))}
+				</div>
+			) : (
 				<DragDropContainer
 					innerRef={charactersCards}
 					className='characters-group-characters-cards'

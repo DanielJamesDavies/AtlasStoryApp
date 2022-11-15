@@ -23,11 +23,15 @@ export const SubstoriesListSubstoryPosterLogic = ({ substoryID }) => {
 	const [posterBackground, setPosterBackground] = useState(false);
 
 	useEffect(() => {
-		const newSubstory = substories?.find((e) => e._id === substoryID);
-		setSubstory(newSubstory);
+		if (substoryID) {
+			const newSubstory = substories?.find((e) => e._id === substoryID);
+			setSubstory(newSubstory);
 
-		const newPosterBackground = substoriesPosterBackgrounds?.find((e) => e._id === newSubstory?.data?.posterBackground)?.image;
-		setPosterBackground(newPosterBackground === undefined ? false : newPosterBackground);
+			if (substoriesPosterBackgrounds) {
+				const newPosterBackground = substoriesPosterBackgrounds?.find((e) => e._id === newSubstory?.data?.posterBackground)?.image;
+				setPosterBackground(newPosterBackground === undefined ? false : newPosterBackground);
+			}
+		}
 	}, [substoryID, substories, substoriesPosterBackgrounds, setSubstory, setPosterBackground]);
 
 	function navigateToSubstory(e) {

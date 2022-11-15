@@ -16,7 +16,7 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const StoryPrimaryCharacterCardsLogic = () => {
-	const { story, primaryCharacters, setPrimaryCharacters, isReorderingCharacters } = useContext(StoryContext);
+	const { story, primaryCharacters, setPrimaryCharacters, primaryCharactersCardBackgrounds, isReorderingCharacters } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 
 	// Character Cards Scroll
@@ -94,6 +94,7 @@ export const StoryPrimaryCharacterCardsLogic = () => {
 
 	return {
 		primaryCharacters,
+		primaryCharactersCardBackgrounds,
 		isReorderingCharacters,
 		charactersCards,
 		scrollCharacterCards,

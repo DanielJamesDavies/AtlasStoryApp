@@ -61,7 +61,7 @@
 	background: var(--grey1);
 	transition: margin 0.4s;
 	cursor: pointer;
-	animation: characters-group-character-card-placeholder 1.8s infinite;
+	animation: characters-group-character-card-placeholder 2.5s infinite;
 }
 
 @keyframes characters-group-character-card-placeholder {

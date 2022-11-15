@@ -20,6 +20,7 @@ import "./StoryPrimaryCharacterCards.css";
 export const StoryPrimaryCharacterCards = () => {
 	const {
 		primaryCharacters,
+		primaryCharactersCardBackgrounds,
 		isReorderingCharacters,
 		charactersCards,
 		scrollCharacterCards,
@@ -35,21 +36,31 @@ export const StoryPrimaryCharacterCards = () => {
 			onMouseEnter={() => scrollCharacterCards(0)}
 			onMouseLeave={() => scrollCharacterCards(-0.75)}
 		>
-			<DragDropContainer
-				innerRef={charactersCards}
-				className='story-primary-characters-cards'
-				inlineItems={true}
-				enableDragDrop={isReorderingCharacters}
-				onDropItem={changePrimaryCharactersOrder}
-				afterOnTouchMove={afterOnTouchMove}
-				afterOnTouchEnd={afterOnTouchEnd}
-			>
-				{primaryCharacters.map((character, index) => (
-					<DragDropItem key={index} index={index} className='story-primary-character-card-container'>
-						<StoryPrimaryCharacterCard character={character} />
-					</DragDropItem>
-				))}
-			</DragDropContainer>
+			{!primaryCharactersCardBackgrounds ? (
+				<div className='story-primary-characters-cards'>
+					{primaryCharacters.map((character, index) => (
+						<div key={index} className='story-primary-character-card-container'>
+							<StoryPrimaryCharacterCard />
+						</div>
+					))}
+				</div>
+			) : (
+				<DragDropContainer
+					innerRef={charactersCards}
+					className='story-primary-characters-cards'
+					inlineItems={true}
+					enableDragDrop={isReorderingCharacters}
+					onDropItem={changePrimaryCharactersOrder}
+					afterOnTouchMove={afterOnTouchMove}
+					afterOnTouchEnd={afterOnTouchEnd}
+				>
+					{primaryCharacters.map((character, index) => (
+						<DragDropItem key={index} index={index} className='story-primary-character-card-container'>
+							<StoryPrimaryCharacterCard character={character} />
+						</DragDropItem>
+					))}
+				</DragDropContainer>
+			)}
 			<div
 				className={
 					charactersCards?.current?.scrollLeft === 0
