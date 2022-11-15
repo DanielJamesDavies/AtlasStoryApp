@@ -40,20 +40,16 @@
 @media (max-width: 700px) {
 	.character-subpages-container {
 		padding-top: var(--characterPaddingTop);
+		padding-left: 6px;
 		padding-right: 6px;
 
-		width: calc(100vw - 34px - 6px);
+		width: calc(100vw - 12px);
 		height: calc(100% - var(--characterPaddingTop));
 	}
 
 	.character-subpages {
 		padding-right: 0;
 		width: 100%;
-	}
-
-	.character-overview-content {
-		margin-top: 45vh;
-		flex-direction: column;
 	}
 
 	.character-subpage-container {

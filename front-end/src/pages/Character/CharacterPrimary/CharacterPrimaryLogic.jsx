@@ -16,7 +16,7 @@ import isLightBackground from "../../../services/IsLightBackground";
 // Assets
 
 export const CharacterPrimaryLogic = () => {
-	const { story, storyIcon, isOnOverviewSection, characterOverviewBackground } = useContext(CharacterContext);
+	const { story, storyIcon, isOnOverviewSection, characterOverviewBackground, setIsOnOverviewSection } = useContext(CharacterContext);
 	const [primaryStoryNameStyles, setPrimaryStoryNameStyles] = useState({});
 
 	useEffect(() => {
@@ -29,5 +29,13 @@ export const CharacterPrimaryLogic = () => {
 		getPrimaryNameStyles();
 	}, [characterOverviewBackground, isOnOverviewSection, setPrimaryStoryNameStyles]);
 
-	return { story, storyIcon, primaryStoryNameStyles };
+	function toOverviewSection() {
+		setIsOnOverviewSection(true);
+	}
+
+	function toSubpagesSection() {
+		setIsOnOverviewSection(false);
+	}
+
+	return { story, storyIcon, primaryStoryNameStyles, toOverviewSection, toSubpagesSection };
 };

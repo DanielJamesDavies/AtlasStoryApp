@@ -1,7 +1,6 @@
-.character-primary {
+.character-primary-container {
 	position: absolute;
 	z-index: 10;
-	display: flex;
 	margin: 0;
 	margin-bottom: 10px;
 	padding: 0 24px;
@@ -9,6 +8,10 @@
 	width: calc(100vw - var(--navbarWidth) - 48px);
 	height: 59px;
 	align-items: center;
+}
+
+.character-primary {
+	display: flex;
 }
 
 .character-primary-story {
@@ -41,15 +44,42 @@
 	font-weight: 700;
 }
 
+.character-primary-section-switcher-btn {
+	position: relative;
+	display: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--textColour);
+	font-size: 32px;
+	width: 17px;
+	height: 32px;
+	animation: none;
+}
+
+.character-primary-section-switcher-btn svg {
+	position: absolute;
+	top: 50%;
+	left: -8px;
+	transform: translateY(-50%);
+}
+
 @media (max-width: 700px) {
-	.character-primary {
+	.character-primary-container {
 		margin: 6px 0;
 		margin-bottom: 12px;
 		padding: 0 6px;
 		width: calc(100vw - 12px);
 		height: fit-content;
+	}
+
+	.character-primary {
+		display: inline-flex;
 		align-items: flex-start;
 		flex-direction: column;
+		width: calc(100% - 17px - 10px);
+		vertical-align: middle;
 	}
 
 	.character-primary-name-and-story-container {
@@ -58,5 +88,40 @@
 
 	.character-primary-story {
 		display: none;
+	}
+
+	.character-primary-section-switcher-btn {
+		display: inline-block;
+		width: 0;
+		opacity: 0;
+		pointer-events: none;
+		transition: 0.3s linear;
+		vertical-align: middle;
+	}
+
+	.character-container:not(.character-container-is-on-overview) .character-primary-section-switcher-btn-to-overview {
+		display: inline-block;
+		margin-right: 10px;
+		animation: character-primary-section-switcher-btn 0.3s 1;
+		animation-fill-mode: forwards;
+	}
+
+	.character-container-is-on-overview .character-primary-section-switcher-btn-to-subpages {
+		display: inline-block;
+		margin-left: 10px;
+		animation: character-primary-section-switcher-btn 0.3s 1;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes character-primary-section-switcher-btn {
+		0% {
+			width: 0;
+			opacity: 0;
+		}
+		100% {
+			width: 17px;
+			opacity: 1;
+			pointer-events: all;
+		}
 	}
 }

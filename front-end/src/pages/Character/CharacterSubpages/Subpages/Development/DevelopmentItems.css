@@ -19,7 +19,7 @@
 
 @media (max-width: 1000px) {
 	.character-subpage-development-items-character-images-open {
-		width: 100%;
+		width: calc(100% - 12px);
 	}
 }
 

@@ -5,6 +5,7 @@
 .character-subpage-development-item-container .content-item {
 	margin-left: 0;
 	margin-right: 0;
+	padding-right: 8px;
 }
 
 .character-subpage-development-item-container:last-child {
@@ -161,7 +162,7 @@
 @media (max-width: 1000px) {
 	.character-subpage-development-item-container {
 		margin: 6px 0;
-		width: calc(100% - 24px);
+		width: 100%;
 	}
 
 	.character-subpage-development-item-text-container {

@@ -12,6 +12,7 @@
 }
 
 .character-overview {
+	padding-right: 8px;
 	height: 100%;
 	overflow-y: overlay;
 	overflow-x: hidden;
@@ -96,18 +97,18 @@
 	.character-overview-container {
 		padding-top: calc(6px + 61px + 12px + 12px);
 		padding-left: 6px;
-		width: calc(100vw - 24px - 12px - 4px);
+		width: calc(100vw - 6px);
 		height: calc(100% - (6px + 61px + 12px + 12px));
 	}
 
 	.character-overview-content {
-		margin-top: 45vh;
+		margin-top: calc(var(--vh) * 0.5);
 		flex-direction: column;
 	}
 
 	.character-overview-background {
 		width: 100vw;
-		transform: translate(calc(-50% + (34px) / 2), calc(-50% + (var(--navbarMobileHeight)) / 2));
+		transform: translate(calc(-50%), calc(-50% + (var(--navbarMobileHeight)) / 2));
 		transition: opacity 0.2s;
 		transition-delay: 0.1s;
 	}

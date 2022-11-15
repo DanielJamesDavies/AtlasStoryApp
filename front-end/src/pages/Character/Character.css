@@ -105,6 +105,6 @@
 	}
 
 	.character-content-container-is-on-subpages {
-		transform: translateX(calc(-1 * (100vw - 34px)));
+		transform: translateX(calc(-1 * (100vw)));
 	}
 }

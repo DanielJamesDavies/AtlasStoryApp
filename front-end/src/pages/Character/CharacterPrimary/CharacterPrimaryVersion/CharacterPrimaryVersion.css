@@ -48,10 +48,16 @@
 		top: 6px;
 		right: 6px;
 		min-height: 39px;
+		transition: 0.3s linear;
 	}
 
 	.character-primary-version {
-		width: 80px;
+		margin: 0 2px;
+		width: 41px;
 		max-width: 80px;
+	}
+
+	.character-container-is-on-overview .character-primary-version-container {
+		right: calc(17px + 10px);
 	}
 }

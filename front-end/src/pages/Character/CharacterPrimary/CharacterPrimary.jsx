@@ -1,4 +1,5 @@
 // Packages
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Components
 import { CharacterPrimaryName } from "./CharacterPrimaryName/CharacterPrimaryName";
@@ -18,19 +19,33 @@ import "./CharacterPrimary.css";
 // Assets
 
 export const CharacterPrimary = ({ characterPrimaryRef }) => {
-	const { story, storyIcon, primaryStoryNameStyles } = CharacterPrimaryLogic({ characterPrimaryRef });
+	const { story, storyIcon, primaryStoryNameStyles, toOverviewSection, toSubpagesSection } = CharacterPrimaryLogic({ characterPrimaryRef });
 
 	return (
-		<div ref={characterPrimaryRef} className='character-primary'>
-			<div className='character-primary-story'>
-				<div className='character-primary-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
-				<div className='character-primary-story-name' style={primaryStoryNameStyles}>
-					{story?.data?.title}
+		<div ref={characterPrimaryRef} className='character-primary-container'>
+			<button
+				className='character-primary-section-switcher-btn character-primary-section-switcher-btn-to-overview'
+				onClick={toOverviewSection}
+			>
+				<FaChevronLeft />
+			</button>
+			<div className='character-primary'>
+				<div className='character-primary-story'>
+					<div className='character-primary-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
+					<div className='character-primary-story-name' style={primaryStoryNameStyles}>
+						{story?.data?.title}
+					</div>
 				</div>
+				<CharacterPrimaryName />
+				<CharacterPrimaryType />
+				<CharacterPrimaryVersion />
 			</div>
-			<CharacterPrimaryName />
-			<CharacterPrimaryType />
-			<CharacterPrimaryVersion />
+			<button
+				className='character-primary-section-switcher-btn character-primary-section-switcher-btn-to-subpages'
+				onClick={toSubpagesSection}
+			>
+				<FaChevronRight />
+			</button>
 		</div>
 	);
 };
