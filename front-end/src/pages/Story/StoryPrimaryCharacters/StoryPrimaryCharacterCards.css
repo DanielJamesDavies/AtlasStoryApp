@@ -4,7 +4,7 @@
 
 .story-primary-characters-cards {
 	display: flex;
-	padding-bottom: 8px;
+	overflow-y: hidden;
 	overflow-x: overlay;
 }
 

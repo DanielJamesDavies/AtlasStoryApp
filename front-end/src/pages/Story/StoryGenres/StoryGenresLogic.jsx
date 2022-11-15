@@ -1,5 +1,5 @@
 // Packages
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 // Components
 
@@ -8,6 +8,7 @@ import { useContext } from "react";
 // Context
 import { StoryContext } from "../StoryContext";
 import { APIContext } from "../../../context/APIContext";
+import { useEffect } from "react";
 
 // Services
 
@@ -19,13 +20,35 @@ export const StoryGenresLogic = () => {
 	const { isAuthorizedToEdit, story, setStory } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 
-	function changeStoryGenres(e) {
-		setStory((oldStory) => {
-			let newStory = JSON.parse(JSON.stringify(oldStory));
-			newStory.data.genres = e.target.value;
-			return newStory;
-		});
-	}
+	const [storyGenres, setStoryGenres] = useState([]);
+
+	useEffect(() => {
+		async function getStoryGenres() {
+			if (!story?.data?.genres) return false;
+
+			let newStoryGenres = await Promise.all(
+				story?.data?.genres.map(async (genreID) => {
+					const response = await APIRequest("/genre/" + genreID, "GET");
+					if (!response || response?.error || !response?.data?.genre) return false;
+					return response.data.genre;
+				})
+			);
+			newStoryGenres = newStoryGenres.filter((e) => e !== false);
+			setStoryGenres(newStoryGenres);
+		}
+		getStoryGenres();
+	}, [story, APIRequest]);
+
+	const [allGenres, setAllGenres] = useState([]);
+
+	useEffect(() => {
+		async function getAllGenres() {
+			const response = await APIRequest("/genre", "GET");
+			if (!response || response?.error || !response?.data?.genres) return false;
+			setAllGenres(response?.data?.genres);
+		}
+		getAllGenres();
+	}, [APIRequest]);
 
 	async function revertStoryGenres() {
 		const response = await APIRequest("/story/get-value/" + story._id, "POST", {
@@ -53,5 +76,23 @@ export const StoryGenresLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, story, changeStoryGenres, revertStoryGenres, saveStoryGenres };
+	function addGenre(genre_id) {
+		setStory((oldStory) => {
+			let newStory = JSON.parse(JSON.stringify(oldStory));
+			newStory.data.genres.push(genre_id);
+			return newStory;
+		});
+	}
+
+	function removeGenre(genre_id) {
+		setStory((oldStory) => {
+			let newStory = JSON.parse(JSON.stringify(oldStory));
+			const genreIndex = newStory.data.genres.findIndex((e) => e === genre_id);
+			if (genreIndex === -1) return newStory;
+			newStory.data.genres.splice(genreIndex, 1);
+			return newStory;
+		});
+	}
+
+	return { isAuthorizedToEdit, story, storyGenres, allGenres, revertStoryGenres, saveStoryGenres, addGenre, removeGenre };
 };

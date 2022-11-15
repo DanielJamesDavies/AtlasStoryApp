@@ -1,8 +1,80 @@
-.story-genres-value-container {
-	margin-top: -8px;
+.story-genres-list {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 3px;
+	margin-bottom: -3px;
+	margin-left: -3px;
+	width: calc(100% + 6px);
 }
 
-.story-genres-value,
-.story-genres-value-container .text-input-container {
-	margin-top: 8px;
+.story-genres-item {
+	display: flex;
+	align-items: center;
+	margin: 3px;
+	padding: 5px 10px;
+	border-radius: 18px;
+
+	min-width: min(120px, calc(50% - 6px - 20px));
+
+	background: var(--grey4);
+	transition: background 0.1s;
+}
+
+.editable-container-is-editing .story-genres-item {
+	padding: 4px 14px;
+	padding-right: 6px;
+	min-width: min(120px, calc(50% - 14px - 6px - 22px));
+}
+
+.editable-container-is-editing .story-genres-item:hover {
+	background: var(--grey5);
+}
+
+.story-genres-item-active {
+	background: var(--storyColour);
+}
+
+.editable-container-is-editing .story-genres-item-active:hover {
+	background: var(--storyHoverColour);
+}
+
+.story-genres-item-title {
+	margin-right: 8px;
+	font-size: 14px;
+	line-height: 15px;
+	text-align: left;
+}
+
+.editable-container-is-editing .story-genres-item-title {
+	margin-right: 0;
+}
+
+.story-genres-item-info {
+	display: flex;
+	align-items: center;
+}
+
+.story-genres-item-stat {
+	display: flex;
+	align-items: center;
+	margin-right: 8px;
+}
+
+.story-genres-item-stat:last-child {
+	margin-right: 0;
+}
+
+.story-genres-item-stat svg {
+	font-size: 13px;
+}
+
+.story-genres-item-stat-value {
+	margin-left: 2px;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.story-genres-item-add-btn-container {
+	margin-left: auto;
+	padding-left: 4px;
 }

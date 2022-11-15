@@ -23,7 +23,7 @@ export const StoryPrimaryCharacters = () => {
 
 	if (!primaryCharacters) return null;
 	return (
-		<ContentItem size='s'>
+		<ContentItem size='s' hasBg={true}>
 			<div className='story-primary-characters'>
 				<div className='story-primary-characters-primary'>
 					<div className='story-primary-characters-primary-title'>Primary Characters</div>

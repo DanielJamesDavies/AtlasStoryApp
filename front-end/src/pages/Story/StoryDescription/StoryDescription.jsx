@@ -23,14 +23,14 @@ export const StoryDescription = () => {
 
 	if (!story?.data?.description)
 		return (
-			<ContentItem size='s'>
+			<ContentItem size='s' hasBg={true}>
 				<div className='story-description'>
 					<div className='story-description-title'>Description</div>
 				</div>
 			</ContentItem>
 		);
 	return (
-		<ContentItem size='s'>
+		<ContentItem size='s' hasBg={true}>
 			<div className='story-description'>
 				<div className='story-description-title'>Description</div>
 				<EditableContainer
@@ -39,6 +39,7 @@ export const StoryDescription = () => {
 					isAuthorizedToEdit={isAuthorizedToEdit}
 					onRevert={revertStoryDescription}
 					onSave={saveStoryDescription}
+					higherEditBtns={true}
 				>
 					<div className='story-description-value'>{!story?.data?.description ? null : <Text value={story.data.description} />}</div>
 					<MultiLineTextInput

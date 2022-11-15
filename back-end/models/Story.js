@@ -43,7 +43,7 @@ const StorySchema = mongoose.Schema({
 			banner: mongoose.Schema.Types.ObjectId,
 			cover: mongoose.Schema.Types.ObjectId,
 			description: { type: [String], default: [""] },
-			genres: { type: String, default: "" },
+			genres: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			colours: {
 				accent: { type: String, default: "#0044ff" },
 				accentHover: { type: String, default: "#0088ff" },

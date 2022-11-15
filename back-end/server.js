@@ -26,6 +26,7 @@ app.use("/api/cookies-consent", require("./routes/CookiesConsentRoute"));
 app.use("/api/image", require("./routes/ImageRoute"));
 app.use("/api/user", require("./routes/UserRoute"));
 app.use("/api/search", require("./routes/SearchRoute"));
+app.use("/api/genre", require("./routes/GenreRoute"));
 app.use("/api/story", require("./routes/StoryRoute"));
 app.use("/api/group", require("./routes/GroupRoute"));
 app.use("/api/character", require("./routes/CharacterRoute"));

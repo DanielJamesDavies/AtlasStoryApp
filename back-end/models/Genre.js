@@ -10,13 +10,9 @@ const GenreSchema = mongoose.Schema({
 		require: true,
 		default: "",
 	},
-	storiesNum: {
-		type: String,
-		default: "0",
-	},
-	usersFavouritedNum: {
-		type: String,
-		default: "0",
+	owner: {
+		type: mongoose.Schema.Types.ObjectId,
+		require: true,
 	},
 });
 
