@@ -1,5 +1,5 @@
 // Packages
-import { FaBook, FaPlus, FaStar, FaTimes } from "react-icons/fa";
+import { FaBook, FaPlus, FaSearch, FaStar, FaTimes } from "react-icons/fa";
 
 // Components
 import { ContentItem } from "../../../components/ContentItem/ContentItem";
@@ -16,11 +16,26 @@ import { StoryGenresLogic } from "./StoryGenresLogic";
 
 // Styles
 import "./StoryGenres.css";
+import { TextInput } from "../../../components/TextInput/TextInput";
 
 // Assets
 
 export const StoryGenres = () => {
-	const { isAuthorizedToEdit, story, storyGenres, allGenres, revertStoryGenres, saveStoryGenres, addGenre, removeGenre } = StoryGenresLogic();
+	const {
+		isAuthorizedToEdit,
+		story,
+		storyGenres,
+		allGenres,
+		revertStoryGenres,
+		saveStoryGenres,
+		addGenre,
+		removeGenre,
+		genresSearchValue,
+		changeGenresSearchValue,
+		genresNewGenreName,
+		changeGenresNewGenreName,
+		createNewGenre,
+	} = StoryGenresLogic();
 
 	if (!story?.data?.genres)
 		return (
@@ -87,35 +102,58 @@ export const StoryGenres = () => {
 								</div>
 							))}
 						</div>
+						<div className='story-genres-search-container'>
+							<TextInput icon={FaSearch} label='Search Genre' value={genresSearchValue} onChange={changeGenresSearchValue} size='s' />
+						</div>
 						<div className='story-genres-list'>
 							{allGenres
-								.filter((e) => storyGenres.findIndex((e2) => e._id === e2._id) === -1)
-								.map((genre, index) => (
-									<div key={index} className='story-genres-item'>
-										<div>
-											<div className='story-genres-item-title'>{genre?.name}</div>
-											<div className='story-genres-item-info'>
-												<div className='story-genres-item-stat'>
-													<FaStar />
-													<div className='story-genres-item-stat-value'>{genre?.usersFavourited}</div>
-												</div>
-												<div className='story-genres-item-stat'>
-													<FaBook />
-													<div className='story-genres-item-stat-value'>{genre?.storiesUsing}</div>
+								.filter(
+									(e) =>
+										storyGenres.findIndex((e2) => e._id === e2._id) === -1 &&
+										new RegExp("^" + genresSearchValue, "i").test(e.name)
+								)
+								.sort((a, b) => {
+									const regex = new RegExp("^" + genresSearchValue, "i");
+									return regex.test(a.name) ? (regex.test(b.name) ? (a.storiesUsing <= b.storiesUsing ? 1 : -1) : -1) : 1;
+								})
+								.map((genre, index) =>
+									index + 1 > 10 ? null : (
+										<div key={index} className='story-genres-item'>
+											<div>
+												<div className='story-genres-item-title'>{genre?.name}</div>
+												<div className='story-genres-item-info'>
+													<div className='story-genres-item-stat'>
+														<FaStar />
+														<div className='story-genres-item-stat-value'>{genre?.usersFavourited}</div>
+													</div>
+													<div className='story-genres-item-stat'>
+														<FaBook />
+														<div className='story-genres-item-stat-value'>{genre?.storiesUsing}</div>
+													</div>
 												</div>
 											</div>
+											<div className='story-genres-item-add-btn-container'>
+												<IconBtn
+													icon={<FaPlus />}
+													iconName='plus'
+													seamless={true}
+													size='s'
+													onClick={() => addGenre(genre._id)}
+												/>
+											</div>
 										</div>
-										<div className='story-genres-item-add-btn-container'>
-											<IconBtn
-												icon={<FaPlus />}
-												iconName='plus'
-												seamless={true}
-												size='s'
-												onClick={() => addGenre(genre._id)}
-											/>
-										</div>
-									</div>
-								))}
+									)
+								)}
+						</div>
+						<div className='story-genres-new-genre-container'>
+							<TextInput
+								icon={FaPlus}
+								label='Create New Genre'
+								value={genresNewGenreName}
+								onChange={changeGenresNewGenreName}
+								size='s'
+							/>
+							<IconBtn icon={<FaPlus />} iconName='plus' seamless={true} size='m' onClick={createNewGenre} />
 						</div>
 					</div>
 				</EditableContainer>

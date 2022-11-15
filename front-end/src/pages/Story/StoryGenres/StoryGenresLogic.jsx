@@ -48,7 +48,7 @@ export const StoryGenresLogic = () => {
 			setAllGenres(response?.data?.genres);
 		}
 		getAllGenres();
-	}, [APIRequest]);
+	}, [story, APIRequest]);
 
 	async function revertStoryGenres() {
 		const response = await APIRequest("/story/get-value/" + story._id, "POST", {
@@ -94,5 +94,38 @@ export const StoryGenresLogic = () => {
 		});
 	}
 
-	return { isAuthorizedToEdit, story, storyGenres, allGenres, revertStoryGenres, saveStoryGenres, addGenre, removeGenre };
+	const [genresSearchValue, setGenresSearchValue] = useState("");
+
+	function changeGenresSearchValue(e) {
+		setGenresSearchValue(e.target.value);
+	}
+
+	const [genresNewGenreName, setGenresNewGenreName] = useState("");
+
+	function changeGenresNewGenreName(e) {
+		setGenresNewGenreName(e.target.value);
+	}
+
+	async function createNewGenre() {
+		const response = await APIRequest("/genre/", "POST", { name: genresNewGenreName });
+		if (!response || response?.errors || !response?.data?.genre) return false;
+		setAllGenres((oldAllGenres) => oldAllGenres.concat([response.data.genre]));
+		return true;
+	}
+
+	return {
+		isAuthorizedToEdit,
+		story,
+		storyGenres,
+		allGenres,
+		revertStoryGenres,
+		saveStoryGenres,
+		addGenre,
+		removeGenre,
+		genresSearchValue,
+		changeGenresSearchValue,
+		genresNewGenreName,
+		changeGenresNewGenreName,
+		createNewGenre,
+	};
 };

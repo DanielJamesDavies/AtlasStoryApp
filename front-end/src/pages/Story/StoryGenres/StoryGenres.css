@@ -78,3 +78,16 @@
 	margin-left: auto;
 	padding-left: 4px;
 }
+
+.story-genres-search-container {
+	margin-top: calc(3px + 8px);
+}
+
+.story-genres-new-genre-container {
+	display: flex;
+	align-items: center;
+}
+
+.story-genres-new-genre-container .icon-btn {
+	margin-left: 8px;
+}

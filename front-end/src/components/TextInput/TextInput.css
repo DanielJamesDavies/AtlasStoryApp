@@ -16,6 +16,11 @@
 	cursor: text;
 }
 
+.text-input-container-size-s {
+	padding: 6px 12px;
+	border-radius: 12px;
+}
+
 .text-input-container-dark {
 	background: var(--grey1);
 }
@@ -82,6 +87,11 @@
 	vertical-align: middle;
 }
 
+.text-input-container-size-s.text-input-container-empty .text-input-label {
+	padding-top: 6px;
+	font-size: 14px;
+}
+
 .text-input-container-seamless .text-input-label {
 	display: none;
 	padding-top: 3px;
@@ -103,6 +113,10 @@
 	font-size: 18px;
 }
 
+.text-input-container-empty.text-input-container-size-s .text-input-label svg {
+	margin-right: 14px;
+}
+
 .text-input input {
 	position: relative;
 	margin: 0;
@@ -119,6 +133,10 @@
 	font-size: 16px;
 	font-family: "Inter", sans-serif;
 	transition: border 0.1s;
+}
+
+.text-input-container-size-s .text-input input {
+	font-size: 14px;
 }
 
 .text-input input:-webkit-autofill,

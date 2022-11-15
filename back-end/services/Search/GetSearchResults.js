@@ -44,10 +44,10 @@ module.exports = async (req, res) => {
 	searchResults = searchResults.concat(usersOfStories.filter((e) => users.findIndex((e2) => e2._id === e._id) === -1));
 
 	searchResults = searchResults.sort((a, b) => {
-		let re = new RegExp("^" + req?.query?.value, "i");
+		let regex = new RegExp("^" + req?.query?.value, "i");
 		let aName = getNameByModel(a);
 		let bName = getNameByModel(b);
-		return re.test(aName) ? (re.test(bName) ? aName.localeCompare(bName) : -1) : 1;
+		return regex.test(aName) ? (regex.test(bName) ? aName.localeCompare(bName) : -1) : 1;
 	});
 
 	return res.status(200).send({ message: "Success", data: { searchResults } });

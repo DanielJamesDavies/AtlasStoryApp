@@ -23,5 +23,9 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Genre Could Not Be Created" }] });
 	}
 
-	return res.status(200).send({ message: "Success", data: { genre } });
+	let newGenre = JSON.parse(JSON.stringify(genre));
+	newGenre.usersFavourited = 0;
+	newGenre.storiesUsing = 0;
+
+	return res.status(200).send({ message: "Success", data: { genre: newGenre } });
 };
