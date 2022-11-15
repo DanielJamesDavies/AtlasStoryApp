@@ -2,7 +2,6 @@ const Substory = require("../../models/Substory");
 const Story = require("../../models/Story");
 
 const deleteImagesByKey = require("../Image/deleteImagesByKey");
-const addToStoryChangeLog = require("../Story/AddToStoryChangeLog");
 
 module.exports = async (req, res) => {
 	const substory = await Substory.findById(req.params.id)
@@ -24,11 +23,6 @@ module.exports = async (req, res) => {
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Substory Could Not Be Deleted" }] });
 	}
-
-	addToStoryChangeLog(req, req.body.story_id, {
-		content_type: "substory",
-		title: 'Deleted Substory "' + substory?.data?.name + '"',
-	});
 
 	return res.status(200).send({ message: "Success" });
 };

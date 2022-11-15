@@ -1,8 +1,6 @@
 const CharacterType = require("../../models/CharacterType");
 const Story = require("../../models/Story");
 
-const addToStoryChangeLog = require("../Story/AddToStoryChangeLog");
-
 module.exports = async (req, res) => {
 	const characterType = await CharacterType.findById(req.params.id)
 		.exec()
@@ -35,11 +33,6 @@ module.exports = async (req, res) => {
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Character Type Could Not Be Deleted" }] });
 	}
-
-	addToStoryChangeLog(req, req.body.story_id, {
-		content_type: "character_type",
-		title: 'Deleted Character Type "' + characterType?.data?.name + '"',
-	});
 
 	return res.status(200).send({ message: "Success" });
 };

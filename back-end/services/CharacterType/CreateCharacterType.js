@@ -4,8 +4,6 @@ const Joi = require("joi");
 const CharacterType = require("../../models/CharacterType");
 const Story = require("../../models/Story");
 
-const addToStoryChangeLog = require("../Story/AddToStoryChangeLog");
-
 module.exports = async (req, res) => {
 	let validateCharacterTypeResult = validateCharacterType(req.body);
 	if (validateCharacterTypeResult?.errors) return res.status(200).send({ errors: validateCharacterTypeResult.errors });
@@ -37,12 +35,6 @@ module.exports = async (req, res) => {
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Story Could Not Be Saved" }] });
 	}
-
-	addToStoryChangeLog(req, req.body.story_id, {
-		content_type: "character_type",
-		content_id: characterType?._id,
-		title: "New Character Type Created",
-	});
 
 	return res.status(200).send({ message: "Success", data: { characterType } });
 };

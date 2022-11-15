@@ -100,19 +100,6 @@ const StorySchema = mongoose.Schema({
 				default: {},
 			},
 			substories: { type: [mongoose.Schema.Types.ObjectId], default: [] },
-			changeLog: {
-				type: [
-					{
-						content_type: { type: String, default: "" },
-						content_id: mongoose.Schema.Types.ObjectId,
-						author_id: mongoose.Schema.Types.ObjectId,
-						title: { type: String, default: "" },
-						path: { type: [String], default: [] },
-						date_changed: { type: Date, default: Date.now },
-					},
-				],
-				default: [],
-			},
 		},
 		require: true,
 	},

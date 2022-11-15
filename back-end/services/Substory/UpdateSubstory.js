@@ -3,7 +3,6 @@ const Image = require("../../models/Image");
 
 const GetValueInNestedObject = require("../GetValueInNestedObject");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
-const addToStoryChangeLog = require("../Story/AddToStoryChangeLog");
 
 module.exports = async (req, res) => {
 	if (!req?.body?.path || req?.body?.path === ["_id"]) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
@@ -148,69 +147,5 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Substory Could Not Be Saved" }] });
 	}
 
-	if (JSON.stringify(oldValue) !== JSON.stringify(req?.body?.newValue))
-		addToStoryChangeLog(
-			req,
-			req.body.story_id,
-			generateChangeLogItem({
-				content_id: req.params.id,
-				path: req.body.path,
-				substory: newSubstory,
-			})
-		);
-
 	return res.status(200).send({ message: "Success", data: { substory: newSubstory } });
 };
-
-function generateChangeLogItem({ content_id, path, substory }) {
-	let newPath = JSON.parse(JSON.stringify(path));
-	const newChangeLogItem = { content_type: "substory", content_id, title: "", path };
-
-	const pathTitlePairs = [
-		{ path: ["uid"], title: "Unique Identifier" },
-		{ path: ["data", "title"], title: "Title" },
-		{ path: ["data", "isStoryTitleInTitle"], title: "Story Title in Substory Title Status" },
-		{ path: ["data", "isTitleOnPoster"], title: "Title on Poster Status" },
-		{ path: ["data", "colour"], title: "Colour" },
-		{ path: ["data", "number"], title: "Number" },
-		{ path: ["data", "posterBackground"], title: "Poster Background Image" },
-		{ path: ["data", "overviewBackground"], title: "Overview Background Image" },
-		{ path: ["data", "images"], title: "Images" },
-		{ path: ["data", "summaryItems"], title: "Summary Items" },
-		{ path: ["data", "description"], title: "Description" },
-		{ path: ["data", "gallery"], title: "Gallery" },
-		{ path: ["data", "plot"], title: "Plot" },
-		{ path: ["data", "plot", "items"], title: "Plot Items" },
-		{ path: ["data", "plot", "clusters"], title: "Plot Clusters" },
-		{ path: ["data", "plot", "clusters", "name"], title: "Name" },
-		{ path: ["data", "plot", "clusters", "groups"], title: "Groups" },
-		{ path: ["data", "plot", "clusters", "groups", "name"], title: "Name" },
-		{ path: ["data", "plot", "clusters", "groups", "items"], title: "Items" },
-		{ path: ["data", "soundtrack"], title: "Soundtrack" },
-		{ path: ["data", "soundtrack", "playlist_id"], title: "Soundtrack Playlist" },
-		{ path: ["data", "soundtrack", "tracks"], title: "Soundtrack Tracks" },
-		{ path: ["data", "development"], title: "Development" },
-		{ path: ["data", "development", "items"], title: "Development Items" },
-		{ path: ["data", "subpages"], title: "Subpages" },
-	];
-
-	let plotCluster = false;
-	let plotClusterGroup = false;
-	if (newPath.length > 3 && newPath[0] === "data" && newPath[1] === "plot" && newPath[2] === "clusters") {
-		const plotClusterID = newPath.splice(3, 1)[0];
-		plotCluster = substory.data.plot.clusters.find((e) => JSON.stringify(e._id) === JSON.stringify(plotClusterID));
-
-		if (newPath.length > 4 && newPath[3] === "groups") {
-			const plotClusterGroupID = newPath.splice(4, 1)[0];
-			plotClusterGroup = plotCluster?.groups.find((e) => JSON.stringify(e._id) === JSON.stringify(plotClusterGroupID));
-		}
-	}
-
-	const pathTitlePair = pathTitlePairs.find((e) => JSON.stringify(e.path) === JSON.stringify(newPath));
-	newChangeLogItem.title += pathTitlePair ? pathTitlePair?.title : "";
-
-	if (plotClusterGroup?.name) newChangeLogItem.title += ' on Group "' + plotClusterGroup.name + '"';
-	if (plotCluster?.name) newChangeLogItem.title += ' on Plot Cluster "' + plotCluster.name + '"';
-
-	return newChangeLogItem;
-}
