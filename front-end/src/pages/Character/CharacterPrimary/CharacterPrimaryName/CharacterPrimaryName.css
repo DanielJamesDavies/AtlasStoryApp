@@ -12,15 +12,11 @@
 	font-size: 40px;
 	font-weight: 700;
 	transition: 0.5s color;
+	color: var(--textColour);
 }
 
 .character-primary-name-container input {
 	margin-top: -8px;
-}
-
-.character-container-is-on-subpages .character-primary-name-container,
-.character-container-is-on-subpages .character-primary-name-container input {
-	color: #ffffff;
 }
 
 @media (max-width: 700px) {

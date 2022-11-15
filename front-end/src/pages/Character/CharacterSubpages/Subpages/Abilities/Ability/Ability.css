@@ -11,7 +11,7 @@
 
 @media (max-width: 700px) {
 	.character-subpage-abilities-ability {
-		margin-top: 8px;
+		padding-right: 8px;
 		width: calc(100% - 8px);
 		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--characterPaddingTop) - 32px - 4px - 8px - 48px - 6px);
 	}

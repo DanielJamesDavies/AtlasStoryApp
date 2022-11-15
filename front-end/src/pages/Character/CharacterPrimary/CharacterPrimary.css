@@ -42,6 +42,7 @@
 	width: max-content;
 	font-size: 14px;
 	font-weight: 700;
+	color: var(--textColour);
 }
 
 .character-primary-section-switcher-btn {

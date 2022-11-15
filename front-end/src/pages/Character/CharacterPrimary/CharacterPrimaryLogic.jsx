@@ -17,17 +17,17 @@ import isLightBackground from "../../../services/IsLightBackground";
 
 export const CharacterPrimaryLogic = () => {
 	const { story, storyIcon, isOnOverviewSection, characterOverviewBackground, setIsOnOverviewSection } = useContext(CharacterContext);
-	const [primaryStoryNameStyles, setPrimaryStoryNameStyles] = useState({});
+	const [primaryStoryStyles, setPrimaryStoryStyles] = useState({});
 
 	useEffect(() => {
-		async function getPrimaryNameStyles() {
-			if (!isOnOverviewSection) return setPrimaryStoryNameStyles({});
-			if (!characterOverviewBackground) setPrimaryStoryNameStyles({ color: "#fff" });
+		async function getPrimaryStyles() {
+			if (!isOnOverviewSection) return setPrimaryStoryStyles({ "--textColour": "#fff" });
+			if (!characterOverviewBackground) setPrimaryStoryStyles({ "--textColour": "#fff" });
 			const isDarkName = await isLightBackground(characterOverviewBackground, [0, 40], [-1, 115]);
-			setPrimaryStoryNameStyles({ color: isDarkName ? "#000" : "#fff" });
+			setPrimaryStoryStyles({ "--textColour": isDarkName ? "#000" : "#fff" });
 		}
-		getPrimaryNameStyles();
-	}, [characterOverviewBackground, isOnOverviewSection, setPrimaryStoryNameStyles]);
+		getPrimaryStyles();
+	}, [characterOverviewBackground, isOnOverviewSection, setPrimaryStoryStyles]);
 
 	function toOverviewSection() {
 		setIsOnOverviewSection(true);
@@ -37,5 +37,5 @@ export const CharacterPrimaryLogic = () => {
 		setIsOnOverviewSection(false);
 	}
 
-	return { story, storyIcon, primaryStoryNameStyles, toOverviewSection, toSubpagesSection };
+	return { story, storyIcon, primaryStoryStyles, toOverviewSection, toSubpagesSection };
 };

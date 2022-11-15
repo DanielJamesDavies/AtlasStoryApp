@@ -95,6 +95,11 @@
 		height: calc(var(--characterPaddingTop) + 12px + 8px);
 	}
 
+	.theme-light .character-container::before {
+		top: calc(-24px - 96px);
+		height: calc(var(--characterPaddingTop) + 12px + 8px + 96px);
+	}
+
 	.character-container::after {
 		top: calc(var(--characterPaddingTop) - 4px);
 		height: calc(6px + 6px + 36px);
