@@ -2,15 +2,15 @@ module.exports = (object, path, newValue) => {
 	let objectUnnested = [object];
 
 	for (let i = 0; i < path.length; i++) {
-		let nextLevel = objectUnnested[i][path[i]];
-		if (nextLevel === undefined && i !== path.length - 1) {
+		let subobject = objectUnnested[i][path[i]];
+		if (subobject === undefined && i !== path.length - 1) {
 			if (Number.isInteger(path[i + 1])) {
-				nextLevel = [];
+				subobject = [];
 			} else {
-				nextLevel = {};
+				subobject = {};
 			}
 		}
-		objectUnnested.push(nextLevel);
+		objectUnnested.push(subobject);
 	}
 
 	objectUnnested[objectUnnested.length - 1] = newValue;
