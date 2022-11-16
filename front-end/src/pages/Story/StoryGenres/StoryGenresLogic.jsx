@@ -20,7 +20,7 @@ export const StoryGenresLogic = () => {
 	const { isAuthorizedToEdit, story, setStory } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 
-	const [storyGenres, setStoryGenres] = useState([]);
+	const [storyGenres, setStoryGenres] = useState(false);
 
 	useEffect(() => {
 		async function getStoryGenres() {

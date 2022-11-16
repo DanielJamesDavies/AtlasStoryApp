@@ -37,10 +37,19 @@ export const StoryGenres = () => {
 		createNewGenre,
 	} = StoryGenresLogic();
 
-	if (!story?.data?.genres)
+	if (!story?.data?.genres || !storyGenres)
 		return (
 			<ContentItem size='s' hasBg={true}>
-				<LabelContainer label='Genres'></LabelContainer>
+				<LabelContainer label='Genres'>
+					<div className='story-genres-container'>
+						<div className='story-genres'>
+							<div className='story-genres-list'>
+								<div className='story-genres-item-placeholder'></div>
+								<div className='story-genres-item-placeholder'></div>
+							</div>
+						</div>
+					</div>
+				</LabelContainer>
 			</ContentItem>
 		);
 	return (

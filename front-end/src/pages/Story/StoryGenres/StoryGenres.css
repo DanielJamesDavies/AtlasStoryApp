@@ -1,29 +1,59 @@
+.story-genres-container {
+	width: 100%;
+}
+
 .story-genres-list {
 	display: flex;
 	flex-wrap: wrap;
-	margin-top: 3px;
-	margin-bottom: -3px;
-	margin-left: -3px;
-	width: calc(100% + 6px);
+	margin-top: 4px;
+	margin-bottom: -4px;
+	margin-left: -4px;
+	width: calc(100% + 8px);
 }
 
 .story-genres-item {
 	display: flex;
 	align-items: center;
-	margin: 3px;
+	margin: 4px;
 	padding: 5px 10px;
 	border-radius: 18px;
 
-	min-width: min(120px, calc(50% - 6px - 20px));
+	min-width: min(115px, calc(50% - 6px - 20px));
 
 	background: var(--grey4);
 	transition: background 0.1s;
 }
 
+.story-genres-item-placeholder {
+	display: flex;
+	align-items: center;
+	margin: 4px;
+	padding: 5px 10px;
+	border-radius: 18px;
+
+	min-width: min(calc(115px), calc(50% - 6px - 20px));
+	min-height: calc(15px);
+
+	background: linear-gradient(90deg, var(--grey3), var(--grey5), var(--grey3));
+	background-size: 400%;
+	animation: story-genres-item-placeholder 5s infinite linear;
+	transition: background 0.1s;
+	opacity: 0.4;
+}
+
+@keyframes story-genres-item-placeholder {
+	0% {
+		background-position: 0%;
+	}
+	100% {
+		background-position: 400%;
+	}
+}
+
 .editable-container-is-editing .story-genres-item {
-	padding: 4px 14px;
-	padding-right: 6px;
-	min-width: min(120px, calc(50% - 14px - 6px - 22px));
+	padding: 4px 10px;
+	padding-right: 4px;
+	min-width: min(calc(115px), calc(50% - 6px - 10px - 4px));
 }
 
 .editable-container-is-editing .story-genres-item:hover {
@@ -52,6 +82,8 @@
 .story-genres-item-info {
 	display: flex;
 	align-items: center;
+	margin-left: auto;
+	margin-right: 1px;
 }
 
 .story-genres-item-stat {
@@ -80,7 +112,7 @@
 }
 
 .story-genres-search-container {
-	margin-top: calc(3px + 8px);
+	margin-top: calc(4px + 8px);
 }
 
 .story-genres-new-genre-container {

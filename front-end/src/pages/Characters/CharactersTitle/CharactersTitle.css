@@ -73,7 +73,7 @@
 @media (max-width: 700px) {
 	.characters-title {
 		margin: 0;
-		margin-bottom: 24px;
+		margin-bottom: 12px;
 		padding: 14px 6px;
 		padding-bottom: calc(14px + 2px);
 		width: calc(100% - 12px);

@@ -17,7 +17,7 @@
 .home-genres-list-item {
 	padding: 4px 14px;
 	padding-right: 6px;
-	min-width: min(120px, calc(50% - 14px - 6px - 22px));
+	min-width: min(115px, calc(50% - 14px - 6px - 22px));
 }
 
 .home-genres-list-item:hover {
