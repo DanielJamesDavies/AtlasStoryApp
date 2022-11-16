@@ -4,7 +4,7 @@ import { FaSort } from "react-icons/fa";
 // Components
 import { ContentItem } from "../../../components/ContentItem/ContentItem";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
-import { StoryPrimaryCharacterCards } from "./StoryPrimaryCharacterCards";
+import { StoryPrimaryCharacterCards } from "./StoryPrimaryCharacterCards/StoryPrimaryCharacterCards";
 
 // Logic
 import { StoryPrimaryCharactersLogic } from "./StoryPrimaryCharactersLogic";

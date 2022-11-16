@@ -2,11 +2,11 @@
 import { FaPlus, FaSort } from "react-icons/fa";
 
 // Components
+import { CharactersCreateGroup } from "./CharactersCreateGroup/CharactersCreateGroup";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 import { BtnListContainer } from "../../../components/BtnListContainer/BtnListContainer";
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
-import { CharactersCreateGroup } from "./CharactersCreateGroup";
 import { ContentItem } from "../../../components/ContentItem/ContentItem";
 import { BtnListItem } from "../../../components/BtnListItem/BtnListItem";
 

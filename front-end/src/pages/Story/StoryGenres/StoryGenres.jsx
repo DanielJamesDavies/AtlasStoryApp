@@ -123,7 +123,7 @@ export const StoryGenres = () => {
 									return regex.test(a.name) ? (regex.test(b.name) ? (a.storiesUsing <= b.storiesUsing ? 1 : -1) : -1) : 1;
 								})
 								.map((genre, index) =>
-									index + 1 > 10 ? null : (
+									index + 1 > 8 ? null : (
 										<div key={index} className='story-genres-item'>
 											<div>
 												<div className='story-genres-item-title'>{genre?.name}</div>

@@ -2,8 +2,8 @@
 import { FaSort, FaUserPlus } from "react-icons/fa";
 
 // Components
-import { CharactersGroupCharacterCards } from "./CharactersGroupCharacterCards";
-import { CharactersCreateCharacter } from "./CharactersCreateCharacter";
+import { CharactersGroupCharacterCards } from "./CharactersGroupCharacterCards/CharactersGroupCharacterCards";
+import { CharactersCreateCharacter } from "./CharactersCreateCharacter/CharactersCreateCharacter";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 import { ContentItem } from "../../../components/ContentItem/ContentItem";
 

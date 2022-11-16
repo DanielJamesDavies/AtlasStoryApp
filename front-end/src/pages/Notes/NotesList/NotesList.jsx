@@ -1,7 +1,7 @@
 // Packages
 
 // Components
-import { NotesListItem } from "./NotesListItem";
+import { NotesListItem } from "../NotesListItem/NotesListItem";
 import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";

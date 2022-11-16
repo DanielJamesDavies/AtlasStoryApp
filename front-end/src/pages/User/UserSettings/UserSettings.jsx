@@ -1,14 +1,14 @@
 // Packages
 
 // Components
+import { UserSettingsUsername } from "./UserSettingsUsername/UserSettingsUsername";
+import { UserSettingsPassword } from "./UserSettingsPassword/UserSettingsPassword";
+import { UserSettingsEmail } from "./UserSettingsEmail/UserSettingsEmail";
+import { UserSettingsTheme } from "./UserSettingsTheme/UserSettingsTheme";
+import { UserSettingsConnectToSpotify } from "./UserSettingsConnectToSpotify/UserSettingsConnectToSpotify";
+import { UserSettingsCookiesConsent } from "./UserSettingsCookiesConsent/UserSettingsCookiesConsent";
+import { UserSettingsDelete } from "./UserSettingsDelete/UserSettingsDelete";
 import { PopUpContainer } from "../../../components/PopUpContainer/PopUpContainer";
-import { UserSettingsUsername } from "./UserSettingsUsername";
-import { UserSettingsPassword } from "./UserSettingsPassword";
-import { UserSettingsEmail } from "./UserSettingsEmail";
-import { UserSettingsTheme } from "./UserSettingsTheme";
-import { UserSettingsConnectToSpotify } from "./UserSettingsConnectToSpotify";
-import { UserSettingsCookiesConsent } from "./UserSettingsCookiesConsent";
-import { UserSettingsDelete } from "./UserSettingsDelete";
 
 // Logic
 import { UserSettingsLogic } from "./UserSettingsLogic";

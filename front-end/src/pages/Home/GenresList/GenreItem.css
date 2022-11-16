@@ -8,6 +8,8 @@
 	min-width: min(120px, calc(50% - 6px - 20px));
 
 	background: var(--grey4);
+	word-break: break-word;
+	overflow-wrap: anywhere;
 	transition: background 0.1s;
 	cursor: pointer;
 }
@@ -103,5 +105,6 @@
 @media (max-width: 750px) {
 	.home-genres-list-item {
 		margin: 4px;
+		max-width: 250px;
 	}
 }

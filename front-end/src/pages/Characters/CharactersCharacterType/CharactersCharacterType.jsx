@@ -1,9 +1,10 @@
 // Packages
 
 // Components
-import { CharactersCharacterTypeName } from "./CharactersCharacterTypeName";
-import { CharactersCharacterTypeDescription } from "./CharactersCharacterTypeDescription";
-import { CharactersCharacterTypeColour } from "./CharactersCharacterTypeColour";
+import { CharactersCharacterTypeName } from "./CharactersCharacterTypeName/CharactersCharacterTypeName";
+import { CharactersCharacterTypeDescription } from "./CharactersCharacterTypeDescription/CharactersCharacterTypeDescription";
+import { CharactersCharacterTypeColour } from "./CharactersCharacterTypeColour/CharactersCharacterTypeColour";
+import { ContentItem } from "../../../components/ContentItem/ContentItem";
 import { ConfirmDelete } from "../../../components/ConfirmDelete/ConfirmDelete";
 
 // Logic
@@ -15,7 +16,6 @@ import { CharactersCharacterTypeLogic } from "./CharactersCharacterTypeLogic";
 
 // Styles
 import "./CharactersCharacterType.css";
-import { ContentItem } from "../../../components/ContentItem/ContentItem";
 
 // Assets
 

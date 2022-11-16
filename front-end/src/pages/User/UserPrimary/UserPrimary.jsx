@@ -2,9 +2,9 @@
 import { FaCog, FaSignOutAlt } from "react-icons/fa";
 
 // Components
-import { UserPrimaryBanner } from "./UserPrimaryBanner";
-import { UserPrimaryProfilePicture } from "./UserPrimaryProfilePicture";
-import { UserPrimaryNames } from "./UserPrimaryNames";
+import { UserPrimaryBanner } from "./UserPrimaryBanner/UserPrimaryBanner";
+import { UserPrimaryProfilePicture } from "./UserPrimaryProfilePicture/UserPrimaryProfilePicture";
+import { UserPrimaryNames } from "./UserPrimaryNames/UserPrimaryNames";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Logic

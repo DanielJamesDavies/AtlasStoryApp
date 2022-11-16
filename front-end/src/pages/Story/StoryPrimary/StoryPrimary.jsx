@@ -2,10 +2,10 @@
 import { FaCog, FaStickyNote } from "react-icons/fa";
 
 // Components
-import { StoryPrimaryBanner } from "./StoryPrimaryBanner";
-import { StoryPrimaryIcon } from "./StoryPrimaryIcon";
-import { StoryPrimaryTitle } from "./StoryPrimaryTitle";
-import { StoryPrimaryMembers } from "./StoryPrimaryMembers";
+import { StoryPrimaryBanner } from "./StoryPrimaryBanner/StoryPrimaryBanner";
+import { StoryPrimaryIcon } from "./StoryPrimaryIcon/StoryPrimaryIcon";
+import { StoryPrimaryTitle } from "./StoryPrimaryTitle/StoryPrimaryTitle";
+import { StoryPrimaryMembers } from "./StoryPrimaryMembers/StoryPrimaryMembers";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Logic
