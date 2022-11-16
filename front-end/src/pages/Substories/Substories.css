@@ -5,7 +5,7 @@
 	max-width: 1900px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.substories {
 		padding: 0 8px;
 	}

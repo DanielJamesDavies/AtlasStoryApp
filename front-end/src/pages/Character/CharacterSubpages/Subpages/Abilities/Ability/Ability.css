@@ -9,7 +9,7 @@
 	vertical-align: top;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.character-subpage-abilities-ability {
 		padding-right: 8px;
 		width: calc(100% - 8px);

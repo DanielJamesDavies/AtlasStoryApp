@@ -93,7 +93,7 @@
 	}
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.character-overview-container {
 		padding-top: calc(6px + 61px + 12px + 12px);
 		padding-left: 6px;

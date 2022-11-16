@@ -19,7 +19,7 @@
 	object-fit: cover;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.user-primary-banner-container {
 		height: 110px;
 	}

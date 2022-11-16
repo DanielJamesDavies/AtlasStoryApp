@@ -88,7 +88,7 @@
 	margin-left: 6px;
 
 	width: calc(50% - 6px);
-	max-width: 700px;
+	max-width: 750px;
 
 	opacity: 0.75;
 	transition: opacity 0.1s;
@@ -107,7 +107,7 @@
 	width: 32px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.substory-subpage-soundtrack-track-song {
 		margin-right: 0;
 		width: 100%;

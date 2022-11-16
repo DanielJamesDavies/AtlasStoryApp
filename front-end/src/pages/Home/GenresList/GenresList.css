@@ -1,6 +1,7 @@
 .home-genres-list-container {
 	margin-left: 8px;
-	width: calc(240px + 8px);
+
+	width: calc(248px + 8px);
 }
 
 .home-genres-list-title {
@@ -9,8 +10,15 @@
 	font-weight: 700;
 }
 
+.home-genres-content {
+	padding-right: 12px;
+	width: calc(100% - 12px);
+	max-height: calc(var(--vh) - (12px + 42px + 12px) - 26px - 8px - 12px);
+	overflow-y: overlay;
+}
+
 .home-genres-list-search-container {
-	margin-top: calc(4px + 8px);
+	margin-top: calc(12px);
 }
 
 .home-genres-list-search-container .text-input {
@@ -25,17 +33,29 @@
 
 .home-genres-list-new-genre-container {
 	display: flex;
-	align-items: center;
+	padding: 8px;
 }
 
-.home-genres-list-new-genre-container .icon-btn {
-	margin-left: 6px;
+.home-genres-list-new-genre-label {
+	margin-right: 8px;
+	font-size: 14px;
+	color: var(--lightgreen);
+}
+
+.home-genres-list-new-genre-label-value {
+	font-weight: 700;
 }
 
 @media (max-width: 750px) {
 	.home-genres-list-container {
 		margin-left: 0;
 		width: 100%;
+	}
+
+	.home-genres-content {
+		padding-right: 0;
+		width: 100%;
+		max-height: unset;
 	}
 
 	.home-genres-list-title {
@@ -66,9 +86,7 @@
 	}
 
 	.home-genres-list-search-container {
-		margin-left: auto;
-		margin-right: auto;
 		margin-bottom: 4px;
-		width: calc(100% - 8px);
+		width: 100%;
 	}
 }

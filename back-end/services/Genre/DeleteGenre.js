@@ -10,6 +10,7 @@ module.exports = async (req, res) => {
 
 	try {
 		const genreDeleteResult = await Genre.deleteOne({ _id: genre._id });
+		if (genreDeleteResult?.deletedCount !== 1) console.log("Genre Could Not Be Deleted");
 		if (genreDeleteResult?.deletedCount !== 1) return res.status(200).send({ errors: [{ message: "Genre Could Not Be Deleted" }] });
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Genre Could Not Be Deleted" }] });

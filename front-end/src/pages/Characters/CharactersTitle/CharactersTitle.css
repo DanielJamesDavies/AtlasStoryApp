@@ -70,7 +70,7 @@
 	margin-left: auto;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.characters-title {
 		margin: 0;
 		margin-bottom: 12px;

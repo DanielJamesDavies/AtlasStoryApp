@@ -52,7 +52,7 @@
 	font-size: 26px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.editable-container-is-editing .character-subpage-abilities-ability-primary-statistic {
 		flex-direction: column;
 	}

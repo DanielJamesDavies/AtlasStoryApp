@@ -136,15 +136,15 @@
 	font-size: 14px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.user-stories-story-item {
 		width: 240px;
 		height: 340px;
 	}
 
 	.user-stories-story-item-title {
-		top: 28%;
-		font-size: 5vw;
+		top: 27%;
+		font-size: 24px;
 	}
 }
 
@@ -157,6 +157,11 @@
 	.user-stories-story-item {
 		width: calc((100vw - 48px) / 2);
 		height: calc(((100vw - 48px) * 210 / 148) / 2);
+	}
+
+	.user-stories-story-item-title {
+		top: 27%;
+		font-size: 5vw;
 	}
 
 	.user-stories-story-item-owner {

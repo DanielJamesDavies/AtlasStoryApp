@@ -4,7 +4,7 @@
 	max-width: 1700px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.notes {
 		padding: 12px;
 		padding-top: 0;

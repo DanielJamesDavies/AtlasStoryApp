@@ -1,5 +1,4 @@
 // Packages
-import { FaSearch } from "react-icons/fa";
 
 // Components
 import { SearchInput } from "./SearchInput/SearchInput";

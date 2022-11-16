@@ -51,7 +51,7 @@
 	display: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.substories-list-substories-posters-container {
 		margin-left: 0;
 		width: 100%;

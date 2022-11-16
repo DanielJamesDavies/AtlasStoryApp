@@ -1,11 +1,15 @@
+.story-primary-icon-container {
+	margin-top: 8px;
+}
+
 .story-primary-icon {
 	display: inline-block;
 	margin: 0 12px;
-	margin-top: -98px;
+	margin-top: -80px;
 	margin-right: 18px;
 	border-radius: 100%;
-	width: 164px;
-	height: 164px;
+	width: 128px;
+	height: 128px;
 	vertical-align: middle;
 	background: var(--grey2);
 }
@@ -28,7 +32,7 @@
 	object-fit: cover;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.story-primary-icon-container {
 		margin-top: 12px;
 	}

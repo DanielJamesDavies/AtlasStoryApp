@@ -67,7 +67,7 @@
 	margin-right: 0;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.unauthorized-navigation-bar-landing-btn-text {
 		display: none;
 	}

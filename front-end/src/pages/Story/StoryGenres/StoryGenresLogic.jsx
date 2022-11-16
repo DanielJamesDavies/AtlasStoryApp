@@ -50,6 +50,20 @@ export const StoryGenresLogic = () => {
 		getAllGenres();
 	}, [story, APIRequest]);
 
+	const [isReorderingStoryGenres, setIsReorderingStoryGenres] = useState(false);
+	function toggleIsReorderingStoryGenres() {
+		setIsReorderingStoryGenres((oldIsReorderingStoryGenres) => !oldIsReorderingStoryGenres);
+	}
+
+	function reorderStoryGenres(res) {
+		if (res.from === undefined || res.to === undefined) return false;
+
+		let newStory = JSON.parse(JSON.stringify(story));
+		const tempGenre = newStory.data.genres.splice(res.from, 1)[0];
+		newStory.data.genres.splice(res.to, 0, tempGenre);
+		setStory(newStory);
+	}
+
 	async function revertStoryGenres() {
 		const response = await APIRequest("/story/get-value/" + story._id, "POST", {
 			story_id: story._id,
@@ -118,6 +132,9 @@ export const StoryGenresLogic = () => {
 		story,
 		storyGenres,
 		allGenres,
+		isReorderingStoryGenres,
+		toggleIsReorderingStoryGenres,
+		reorderStoryGenres,
 		revertStoryGenres,
 		saveStoryGenres,
 		addGenre,

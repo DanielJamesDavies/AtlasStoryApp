@@ -6,22 +6,13 @@
 	display: flex;
 	flex-wrap: wrap;
 	margin-top: 4px;
-	margin-bottom: -4px;
-	margin-left: -4px;
-	width: calc(100% + 8px);
+	margin-left: -3px;
+	width: calc(100% + 6px);
 }
 
-.story-genres-item {
-	display: flex;
-	align-items: center;
-	margin: 4px;
-	padding: 5px 10px;
-	border-radius: 18px;
-
-	min-width: min(115px, calc(50% - 6px - 20px));
-
-	background: var(--grey4);
-	transition: background 0.1s;
+.editable-container-is-editing .story-genres-list {
+	margin-left: -4px;
+	width: calc(100% + 8px);
 }
 
 .story-genres-item-placeholder {
@@ -31,7 +22,7 @@
 	padding: 5px 10px;
 	border-radius: 18px;
 
-	min-width: min(calc(115px), calc(50% - 6px - 20px));
+	width: 70px;
 	min-height: calc(15px);
 
 	background: linear-gradient(90deg, var(--grey3), var(--grey5), var(--grey3));
@@ -50,10 +41,31 @@
 	}
 }
 
+.story-genres-item {
+	display: flex;
+	align-items: center;
+	margin: 3px;
+	padding: 5px 10px;
+	border-radius: 18px;
+
+	background: var(--grey4);
+	transition: background 0.1s;
+}
+
 .editable-container-is-editing .story-genres-item {
+	margin: 4px;
 	padding: 4px 10px;
 	padding-right: 4px;
 	min-width: min(calc(115px), calc(50% - 6px - 10px - 4px));
+}
+
+.drag-drop-item-enable-drag-drop.story-genres-item {
+	user-select: none;
+	animation: wiggle-large infinite 0.7s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).story-genres-item {
+	animation-delay: 0.2s;
 }
 
 .editable-container-is-editing .story-genres-item:hover {
@@ -69,14 +81,9 @@
 }
 
 .story-genres-item-title {
-	margin-right: 8px;
 	font-size: 14px;
 	line-height: 15px;
 	text-align: left;
-}
-
-.editable-container-is-editing .story-genres-item-title {
-	margin-right: 0;
 }
 
 .story-genres-item-info {

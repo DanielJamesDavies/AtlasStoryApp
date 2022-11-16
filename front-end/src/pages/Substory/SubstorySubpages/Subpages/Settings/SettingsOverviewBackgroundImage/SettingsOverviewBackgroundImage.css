@@ -21,7 +21,7 @@
 	}
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.substory-subpage-settings-overview-background-image {
 		height: calc(((100vw - 12px - 24px - 6px - 16px)) * (9 / 16));
 	}

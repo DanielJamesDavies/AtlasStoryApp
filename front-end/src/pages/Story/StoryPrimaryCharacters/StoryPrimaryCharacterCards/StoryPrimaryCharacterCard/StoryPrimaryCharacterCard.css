@@ -176,7 +176,7 @@
 	-webkit-touch-callout: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.story-primary-character-card-container {
 		margin-left: -130px;
 	}

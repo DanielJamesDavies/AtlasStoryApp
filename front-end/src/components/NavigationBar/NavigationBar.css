@@ -109,7 +109,7 @@
 	background: var(--grey3);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.navigation-bar {
 		order: 1;
 		height: var(--navbarMobileHeight);

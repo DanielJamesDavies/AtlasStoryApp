@@ -102,7 +102,7 @@
 	font-size: 18px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	:not(.btn-list-item-active).btn-list-item-list-closed {
 		display: none;
 	}

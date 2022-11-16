@@ -18,7 +18,7 @@ import { SpotifyContext } from "../../context/SpotifyContext";
 export const NavigationBarLogic = () => {
 	const [isOnStory, setIsOnStory] = useState(false);
 	const { setUITheme, setFontSizeMultiplier } = useContext(AppContext);
-	const { APIRequest, username, setUsername, userProfilePicture, setUserProfilePicture } = useContext(APIContext);
+	const { APIRequest, user_id, setUserID, username, setUsername, userProfilePicture, setUserProfilePicture } = useContext(APIContext);
 	const { location, changeLocation } = useContext(RoutesContext);
 	const { setConnectAllDevicesToSpotify } = useContext(SpotifyContext);
 	const [storyIcon, setStoryIcon] = useState(false);
@@ -33,6 +33,7 @@ export const NavigationBarLogic = () => {
 			if (!response || response?.errors || !response?.data?.user) return false;
 
 			const user = response.data.user;
+			if (user?._id && user._id !== user_id) setUserID(user._id);
 			if (user?.username && user.username !== username) setUsername(user.username);
 			if (user?.data?.uiTheme) setUITheme(user.data.uiTheme);
 			if (user?.data?.fontSizeMultiplier) {
@@ -55,7 +56,17 @@ export const NavigationBarLogic = () => {
 		}
 
 		getUser();
-	}, [APIRequest, username, setUsername, setUITheme, setFontSizeMultiplier, setConnectAllDevicesToSpotify, setUserProfilePicture]);
+	}, [
+		APIRequest,
+		user_id,
+		setUserID,
+		username,
+		setUsername,
+		setUITheme,
+		setFontSizeMultiplier,
+		setConnectAllDevicesToSpotify,
+		setUserProfilePicture,
+	]);
 
 	useEffect(() => {
 		async function getStory() {

@@ -19,7 +19,7 @@
 	margin-top: -8px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.character-primary-name-container {
 		margin: 4px 0;
 		max-width: calc(100% - 114px);

@@ -5,6 +5,8 @@ import { FaBook, FaPlus, FaSearch, FaStar, FaTimes } from "react-icons/fa";
 import { ContentItem } from "../../../components/ContentItem/ContentItem";
 import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../components/LabelContainer/LabelContainer";
+import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
+import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Logic
@@ -26,6 +28,9 @@ export const StoryGenres = () => {
 		story,
 		storyGenres,
 		allGenres,
+		isReorderingStoryGenres,
+		toggleIsReorderingStoryGenres,
+		reorderStoryGenres,
 		revertStoryGenres,
 		saveStoryGenres,
 		addGenre,
@@ -37,7 +42,7 @@ export const StoryGenres = () => {
 		createNewGenre,
 	} = StoryGenresLogic();
 
-	if (!story?.data?.genres || !storyGenres)
+	if (!story?.data?.genres)
 		return (
 			<ContentItem size='s' hasBg={true}>
 				<LabelContainer label='Genres'>
@@ -46,6 +51,24 @@ export const StoryGenres = () => {
 							<div className='story-genres-list'>
 								<div className='story-genres-item-placeholder'></div>
 								<div className='story-genres-item-placeholder'></div>
+								<div className='story-genres-item-placeholder'></div>
+							</div>
+						</div>
+					</div>
+				</LabelContainer>
+			</ContentItem>
+		);
+
+	if (story?.data?.genres && !storyGenres)
+		return (
+			<ContentItem size='s' hasBg={true}>
+				<LabelContainer label='Genres'>
+					<div className='story-genres-container'>
+						<div className='story-genres'>
+							<div className='story-genres-list'>
+								{story?.data?.genres.map((genre, index) => (
+									<div key={index} className='story-genres-item-placeholder'></div>
+								))}
 							</div>
 						</div>
 					</div>
@@ -59,6 +82,7 @@ export const StoryGenres = () => {
 					className='story-genres-container'
 					absolutePositionEditBtns={true}
 					isAuthorizedToEdit={isAuthorizedToEdit}
+					onReorder={toggleIsReorderingStoryGenres}
 					onRevert={revertStoryGenres}
 					onSave={saveStoryGenres}
 					higherEditBtns={true}
@@ -68,24 +92,14 @@ export const StoryGenres = () => {
 							{storyGenres.map((genre, index) => (
 								<div key={index} className='story-genres-item story-genres-item-active'>
 									<div className='story-genres-item-title'>{genre?.name}</div>
-									<div className='story-genres-item-info'>
-										<div className='story-genres-item-stat'>
-											<FaStar />
-											<div className='story-genres-item-stat-value'>{genre?.usersFavourited}</div>
-										</div>
-										<div className='story-genres-item-stat'>
-											<FaBook />
-											<div className='story-genres-item-stat-value'>{genre?.storiesUsing}</div>
-										</div>
-									</div>
 								</div>
 							))}
 						</div>
 					</div>
 					<div className='story-genres'>
-						<div className='story-genres-list'>
+						<DragDropContainer className='story-genres-list' enableDragDrop={isReorderingStoryGenres} onDropItem={reorderStoryGenres}>
 							{storyGenres.map((genre, index) => (
-								<div key={index} className='story-genres-item story-genres-item-active'>
+								<DragDropItem key={index} index={index} className='story-genres-item story-genres-item-active'>
 									<div>
 										<div className='story-genres-item-title'>{genre?.name}</div>
 										<div className='story-genres-item-info'>
@@ -108,9 +122,9 @@ export const StoryGenres = () => {
 											onClick={() => removeGenre(genre._id)}
 										/>
 									</div>
-								</div>
+								</DragDropItem>
 							))}
-						</div>
+						</DragDropContainer>
 						<div className='story-genres-search-container'>
 							<TextInput
 								icon={FaSearch}

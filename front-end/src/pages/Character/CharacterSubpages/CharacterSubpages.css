@@ -37,7 +37,7 @@
 	min-height: calc(100% - 24px - 36px);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.character-subpages-container {
 		padding-top: var(--characterPaddingTop);
 		padding-left: 6px;

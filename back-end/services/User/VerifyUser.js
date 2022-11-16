@@ -33,9 +33,9 @@ async function isValidVerificationCode(user_id, email, verificationCode) {
 	const userVerification = await UserVerification.findOne({ user_id, email })
 		.exec()
 		.catch(() => {
-			return { errors: [{ message: "Invalid Verification Code" }] };
+			return { errors: [{ message: "User Verified" }] };
 		});
-	if (!userVerification?.verification_code) return { errors: [{ message: "Invalid Verification Code" }] };
+	if (!userVerification || !userVerification?.verification_code) return { errors: [{ message: "User Verified" }] };
 
 	const result = await bcrypt.compare(verificationCode, userVerification.verification_code);
 	return result ? {} : { errors: [{ message: "Invalid Verification Code" }] };

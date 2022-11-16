@@ -66,7 +66,7 @@
 	transform: translateY(-50%);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.character-primary-container {
 		margin: 6px 0;
 		margin-bottom: 12px;

@@ -15,7 +15,7 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const GenresListLogic = () => {
-	const { APIRequest } = useContext(APIContext);
+	const { APIRequest, user_id } = useContext(APIContext);
 	const [favouritedGenres, setFavouritedGenres] = useState(false);
 
 	useEffect(() => {
@@ -71,34 +71,45 @@ export const GenresListLogic = () => {
 		return true;
 	}
 
+	async function deleteGenre(genre_id) {
+		const response = await APIRequest("/genre/" + genre_id, "DELETE", { genre_id });
+		if (!response || response?.error) return false;
+
+		let newFavouritedGenres = JSON.parse(JSON.stringify(favouritedGenres));
+		const favouritedGenreIndex = newFavouritedGenres.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(genre_id));
+		if (favouritedGenreIndex !== -1) newFavouritedGenres.splice(favouritedGenreIndex, 1);
+		setFavouritedGenres(newFavouritedGenres);
+
+		let newAllGenres = JSON.parse(JSON.stringify(allGenres));
+		const allGenreIndex = newAllGenres.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(genre_id));
+		if (allGenreIndex !== -1) newAllGenres.splice(allGenreIndex, 1);
+		setAllGenres(newAllGenres);
+
+		return true;
+	}
+
 	const [genresSearchValue, setGenresSearchValue] = useState("");
 
 	function changeGenresSearchValue(e) {
 		setGenresSearchValue(e.target.value);
 	}
 
-	const [genresNewGenreName, setGenresNewGenreName] = useState("");
-
-	function changeGenresNewGenreName(e) {
-		setGenresNewGenreName(e.target.value);
-	}
-
 	async function createNewGenre() {
-		const response = await APIRequest("/genre/", "POST", { name: genresNewGenreName });
+		const response = await APIRequest("/genre/", "POST", { name: genresSearchValue });
 		if (!response || response?.errors || !response?.data?.genre) return false;
 		setAllGenres((oldAllGenres) => oldAllGenres.concat([response.data.genre]));
 		return true;
 	}
 
 	return {
+		user_id,
 		favouritedGenres,
 		allGenres,
 		favouriteGenre,
 		unfavouriteGenre,
+		deleteGenre,
 		genresSearchValue,
 		changeGenresSearchValue,
-		genresNewGenreName,
-		changeGenresNewGenreName,
 		createNewGenre,
 	};
 };

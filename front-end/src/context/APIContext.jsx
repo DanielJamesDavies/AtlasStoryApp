@@ -3,6 +3,7 @@ import React, { createContext, useState } from "react";
 export const APIContext = createContext();
 
 const APIProvider = ({ children }) => {
+	const [user_id, setUserID] = useState(false);
 	const [username, setUsername] = useState(false);
 	const [userProfilePicture, setUserProfilePicture] = useState(false);
 	const [cookiesConsent, setCookiesConsent] = useState(false);
@@ -35,7 +36,17 @@ const APIProvider = ({ children }) => {
 
 	return (
 		<APIContext.Provider
-			value={{ APIRequest, username, setUsername, userProfilePicture, setUserProfilePicture, cookiesConsent, setCookiesConsent }}
+			value={{
+				APIRequest,
+				user_id,
+				setUserID,
+				username,
+				setUsername,
+				userProfilePicture,
+				setUserProfilePicture,
+				cookiesConsent,
+				setCookiesConsent,
+			}}
 		>
 			{children}
 		</APIContext.Provider>

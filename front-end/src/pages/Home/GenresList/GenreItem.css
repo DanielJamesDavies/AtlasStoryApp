@@ -85,6 +85,14 @@
 	padding-left: 4px;
 }
 
+.home-genres-list-item-delete-btn-container .icon-btn:hover {
+	color: var(--textSecondaryColour);
+}
+
+.home-genres-list-item-delete-btn-container svg {
+	width: 74% !important;
+}
+
 .home-genres-list-item-unfavourite-btn-container .icon-btn svg {
 	fill: #fff;
 }
@@ -106,5 +114,10 @@
 	.home-genres-list-item {
 		margin: 4px;
 		max-width: 250px;
+	}
+
+	.home-genres-list-item:nth-child(1),
+	.home-genres-list-item:nth-child(2) {
+		margin-left: 0;
 	}
 }

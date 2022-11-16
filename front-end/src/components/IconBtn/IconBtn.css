@@ -201,7 +201,7 @@
 	opacity: 1;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 	.icon-btn-container-large .icon-btn-label {
 		margin-top: 16px;
 	}
