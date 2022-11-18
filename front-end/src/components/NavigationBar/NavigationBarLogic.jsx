@@ -36,9 +36,9 @@ export const NavigationBarLogic = () => {
 		async function getStoryIcon(storyIconID) {
 			if (!storyIconID) return false;
 			const response = await APIRequest("/image/" + storyIconID, "GET");
-			if (response?.error || !response?.data?.image) return setStoryIcon(false);
-			setStoryIcon(response.data.image);
-			return response.data.image;
+			if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
+			setStoryIcon(response.data.image.image);
+			return response.data.image.image;
 		}
 
 		getStory();

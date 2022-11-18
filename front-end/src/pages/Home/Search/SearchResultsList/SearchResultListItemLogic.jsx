@@ -42,7 +42,7 @@ export const SearchResultListItemLogic = ({ searchResult }) => {
 
 			const response = await APIRequest("/image/" + icon_id, "GET");
 			if (!response?.data?.image || response?.error) return setIcon(false);
-			setIcon({ _id: icon_id, image: response.data.image });
+			setIcon({ _id: icon_id, image: response.data.image.image });
 		}
 		getIcon();
 	}, [searchResult, APIRequest, icon, setIcon]);

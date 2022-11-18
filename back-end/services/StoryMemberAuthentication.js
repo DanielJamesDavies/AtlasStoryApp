@@ -45,7 +45,7 @@ module.exports = async (req, res, next) => {
 	const memberIDs = story.data.members
 		.map((member) => {
 			if (!member?.user_id) return false;
-			return JSON.stringify(member);
+			return JSON.stringify(member.user_id);
 		})
 		.filter((e) => e !== false);
 	if (memberIDs.includes(JSON.stringify(user_id))) return next();

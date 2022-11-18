@@ -102,9 +102,9 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		async function getStoryIcon(iconID) {
 			if (!iconID) return setStoryIcon(false);
 			const response = await APIRequest("/image/" + iconID, "GET");
-			if (response?.error || !response?.data?.image) return setStoryIcon(false);
+			if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
 
-			setStoryIcon(response.data.image);
+			setStoryIcon(response.data.image.image);
 			return response.data.image;
 		}
 
@@ -143,27 +143,27 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		async function getSubstoryOverviewBackground(overviewBackgroundID) {
 			if (!overviewBackgroundID) return;
 			const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
-			if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image) return false;
+			if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) return false;
 
-			setSubstoryOverviewBackground(overview_background_image_response.data.image);
-			return overview_background_image_response.data.image;
+			setSubstoryOverviewBackground(overview_background_image_response.data.image.image);
+			return overview_background_image_response.data.image.image;
 		}
 
 		async function getSubstoryPosterBackground(posterBackgroundID) {
 			if (!posterBackgroundID) return;
 			const poster_background_image_response = await APIRequest("/image/" + posterBackgroundID, "GET");
-			if (poster_background_image_response?.errors || !poster_background_image_response?.data?.image) return false;
+			if (poster_background_image_response?.errors || !poster_background_image_response?.data?.image?.image) return false;
 
-			setSubstoryPosterBackground(poster_background_image_response.data.image);
-			return poster_background_image_response.data.image;
+			setSubstoryPosterBackground(poster_background_image_response.data.image.image);
+			return poster_background_image_response.data.image.image;
 		}
 
 		async function getSubstoryImages(imageIDs) {
 			let newSubstoryImages = await Promise.all(
 				imageIDs.map(async (imageID) => {
 					const image_response = await APIRequest("/image/" + imageID, "GET");
-					if (image_response?.errors || !image_response?.data?.image) return false;
-					return image_response.data;
+					if (image_response?.errors || !image_response?.data?.image?.image) return false;
+					return image_response.data.image;
 				})
 			);
 			newSubstoryImages = newSubstoryImages.filter((e) => e !== false);

@@ -28,8 +28,8 @@ export const SettingsPosterBackgroundImageLogic = () => {
 	async function revertPosterBackground() {
 		setErrors([]);
 		const response = await APIRequest("/image/" + substory?.data?.posterBackground, "GET");
-		if (!response || response?.errors || !response?.data?.image) return false;
-		setSubstoryPosterBackground(response.data.image);
+		if (!response || response?.errors || !response?.data?.image?.image) return false;
+		setSubstoryPosterBackground(response.data.image.image);
 		return true;
 	}
 

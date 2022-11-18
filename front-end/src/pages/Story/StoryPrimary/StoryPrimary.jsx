@@ -1,5 +1,5 @@
 // Packages
-import { FaCog, FaStickyNote } from "react-icons/fa";
+import { FaStickyNote, FaCog, FaSignOutAlt } from "react-icons/fa";
 
 // Components
 import { StoryPrimaryBanner } from "./StoryPrimaryBanner/StoryPrimaryBanner";
@@ -21,14 +21,20 @@ import "./StoryPrimary.css";
 // Assets
 
 export const StoryPrimary = () => {
-	const { isAuthorizedToEdit, goToStoryNotes, openSettings } = StoryPrimaryLogic();
+	const { isAuthorizedToEdit, user_id, story, goToStoryNotes, openSettings, leaveStory } = StoryPrimaryLogic();
 
 	return (
 		<div className='story-primary'>
 			<StoryPrimaryBanner />
 			<div className='story-primary-break'></div>
 			<StoryPrimaryIcon />
-			<div className={isAuthorizedToEdit ? "story-primary-main-info story-primary-main-info-is-authorized" : "story-primary-main-info"}>
+			<div
+				className={
+					story?.data?.members.findIndex((e) => e.user_id === user_id) !== -1
+						? "story-primary-main-info story-primary-main-info-is-member"
+						: "story-primary-main-info"
+				}
+			>
 				<StoryPrimaryTitle />
 				<StoryPrimaryMembers />
 			</div>
@@ -49,6 +55,16 @@ export const StoryPrimary = () => {
 						icon={<FaCog />}
 						onClick={openSettings}
 						label='Story Settings'
+					/>
+				)}
+				{story?.data?.members.findIndex((e) => e.user_id === user_id && e.type !== "owner") === -1 ? null : (
+					<IconBtn
+						className='story-primary-btn'
+						seamless={true}
+						size='l'
+						icon={<FaSignOutAlt />}
+						onClick={leaveStory}
+						label='Leave Story'
 					/>
 				)}
 			</div>

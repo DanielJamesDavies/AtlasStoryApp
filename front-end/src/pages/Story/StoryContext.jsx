@@ -78,15 +78,15 @@ const StoryProvider = ({ children, story_uid }) => {
 		async function getStoryIcon(iconID) {
 			if (!iconID) return;
 			const response = await APIRequest("/image/" + iconID, "GET");
-			if (response?.error || !response?.data?.image) return setIcon(false);
-			setIcon(response.data.image);
+			if (response?.error || !response?.data?.image?.image) return setIcon(false);
+			setIcon(response.data.image.image);
 		}
 
 		async function getStoryBanner(bannerID) {
 			if (!bannerID) return;
 			const response = await APIRequest("/image/" + bannerID, "GET");
-			if (response?.error || !response?.data?.image) return setBanner(false);
-			setBanner(response.data.image);
+			if (response?.error || !response?.data?.image?.image) return setBanner(false);
+			setBanner(response.data.image.image);
 		}
 
 		async function getStoryPrimaryCharacters(primaryCharactersIDs) {
@@ -106,9 +106,9 @@ const StoryProvider = ({ children, story_uid }) => {
 				newPrimaryCharacters.map(async (character) => {
 					if (!character?.data?.cardBackground) return false;
 					const card_background_response = await APIRequest("/image/" + character.data.cardBackground, "GET");
-					if (card_background_response?.errors || !card_background_response?.data?.image) return false;
+					if (card_background_response?.errors || !card_background_response?.data?.image?.image) return false;
 
-					return card_background_response.data;
+					return card_background_response.data.image;
 				})
 			);
 			newPrimaryCharactersCardBackgrounds = newPrimaryCharactersCardBackgrounds.filter((e) => e !== false);

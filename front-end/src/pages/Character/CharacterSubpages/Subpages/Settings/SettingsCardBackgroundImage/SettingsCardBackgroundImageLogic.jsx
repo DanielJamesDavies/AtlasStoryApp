@@ -28,8 +28,8 @@ export const SettingsCardBackgroundImageLogic = () => {
 	async function revertCardBackground() {
 		setErrors([]);
 		const response = await APIRequest("/image/" + character?.data?.cardBackground, "GET");
-		if (!response || response?.errors || !response?.data?.image) return false;
-		setCharacterCardBackground(response.data.image);
+		if (!response || response?.errors || !response?.data?.image?.image) return false;
+		setCharacterCardBackground(response.data.image.image);
 		return true;
 	}
 

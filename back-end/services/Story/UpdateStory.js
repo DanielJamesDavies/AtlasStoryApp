@@ -37,41 +37,32 @@ module.exports = async (req, res) => {
 			if (newMembers.length === 0 || newMembers.filter((e) => e.type === "owner").length === 0)
 				return res.status(200).send({ errors: [{ message: "Invalid New Members" }] });
 
+			const addedMembers = newMembers.filter(
+				(e) => newStory.data.members.findIndex((e2) => JSON.stringify(e2.user_id) === JSON.stringify(e.user_id)) === -1
+			);
+
+			await Promise.all(
+				addedMembers.map(async (member) => {
+					await addStoryToUserStories(member.user_id, newStory._id);
+					return true;
+				})
+			);
+
+			const removedMembers = newStory.data.members.filter(
+				(e) => newMembers.findIndex((e2) => JSON.stringify(e2.user_id) === JSON.stringify(e.user_id)) === -1
+			);
+
+			await Promise.all(
+				removedMembers.map(async (member) => {
+					await removeStoryFromUserStories(member.user_id, newStory._id);
+					return true;
+				})
+			);
+
 			const newOwnerMembers = newMembers.filter((e) => e.type === "owner" && JSON.stringify(e.user_id) !== JSON.stringify(newStory.owner));
 			if (newOwnerMembers.length > 0) {
 				const oldOwnerUserID = newStory.owner;
 				const newOwnerUserID = newOwnerMembers[0].user_id;
-
-				const newOwnerUser = await User.findById(newOwnerUserID)
-					.exec()
-					.catch(() => false);
-				if (!newOwnerUser) return res.status(200).send({ errors: [{ message: "Could Not Find New Owner" }] });
-
-				let newNewOwnerUser = JSON.parse(JSON.stringify(newOwnerUser));
-				if (newNewOwnerUser.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(newStory._id)) === -1)
-					newNewOwnerUser.data.stories.push(newStory._id);
-
-				try {
-					await User.findOneAndReplace({ _id: newOwnerUserID }, newNewOwnerUser, { upsert: true });
-				} catch (error) {
-					console.log(error);
-					return res.status(200).send({ errors: [{ message: "New Owner Could Not Be Saved" }] });
-				}
-
-				const oldOwnerUser = await User.findById(oldOwnerUserID)
-					.exec()
-					.catch(() => false);
-				if (!oldOwnerUser) return res.status(200).send({ errors: [{ message: "Could Not Find Old Owner" }] });
-
-				let newOldOwnerUser = JSON.parse(JSON.stringify(oldOwnerUser));
-				const oldOwnerUserStoryIndex = newOldOwnerUser.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(newStory._id));
-				if (oldOwnerUserStoryIndex !== -1) newOldOwnerUser.data.stories.splice(oldOwnerUserStoryIndex, 1);
-
-				try {
-					await User.findOneAndReplace({ _id: oldOwnerUserID }, newOldOwnerUser, { upsert: true });
-				} catch (error) {
-					return res.status(200).send({ errors: [{ message: "Old Owner Could Not Be Saved" }] });
-				}
 
 				newStory.owner = newOwnerUserID;
 
@@ -153,3 +144,43 @@ module.exports = async (req, res) => {
 
 	return res.status(200).send({ message: "Success", data: { story: newStory } });
 };
+
+async function addStoryToUserStories(user_id, story_id) {
+	const user = await User.findById(user_id)
+		.exec()
+		.catch(() => false);
+	if (!user) return res.status(200).send({ errors: [{ message: "Could Not Find User" }] });
+
+	let newUser = JSON.parse(JSON.stringify(user));
+
+	const storyIndex = newUser.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(story_id));
+	if (storyIndex === -1) newUser.data.stories.push(story_id);
+
+	try {
+		await User.findOneAndReplace({ _id: newUser._id }, newUser, { upsert: true });
+	} catch (error) {
+		return res.status(200).send({ errors: [{ message: "User Could Not Be Saved" }] });
+	}
+
+	return newUser;
+}
+
+async function removeStoryFromUserStories(user_id, story_id) {
+	const user = await User.findById(user_id)
+		.exec()
+		.catch(() => false);
+	if (!user) return res.status(200).send({ errors: [{ message: "Could Not Find User" }] });
+
+	let newUser = JSON.parse(JSON.stringify(user));
+
+	const storyIndex = newUser.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(story_id));
+	if (storyIndex !== -1) newUser.data.stories.splice(storyIndex, 1);
+
+	try {
+		await User.findOneAndReplace({ _id: user_id }, newUser, { upsert: true });
+	} catch (error) {
+		return res.status(200).send({ errors: [{ message: "User Could Not Be Saved" }] });
+	}
+
+	return newUser;
+}

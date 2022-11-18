@@ -1,5 +1,6 @@
 .story-settings-members-user-item-container {
 	margin: 6px 0;
+	margin-left: -6px;
 }
 
 .story-settings-members-user-item {
@@ -45,4 +46,10 @@
 .story-settings-members-user-item-btns-container .icon-btn:hover,
 .story-settings-members-user-item-btns-container .icon-btn:focus {
 	color: var(--lightgreen);
+}
+
+@media (max-width: 750px) {
+	.story-settings-members-user-item-container {
+		margin-left: 0;
+	}
 }

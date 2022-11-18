@@ -51,8 +51,8 @@ const NotesProvider = ({ children, story_uid, notes_uid }) => {
 
 		async function getStoryIcon(iconID) {
 			const response = await APIRequest("/image/" + iconID, "GET");
-			if (response?.error || !response?.data?.image) return setStoryIcon(false);
-			setStoryIcon(response.data.image);
+			if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
+			setStoryIcon(response.data.image.image);
 		}
 
 		async function getNoteImages(note) {
@@ -63,8 +63,8 @@ const NotesProvider = ({ children, story_uid, notes_uid }) => {
 					await Promise.all(
 						item?.images?.map(async (image) => {
 							const image_response = await APIRequest("/image/" + image?.image, "GET");
-							if (image_response?.errors || !image_response?.data?.image) return false;
-							newNoteImages.push(image_response.data);
+							if (image_response?.errors || !image_response?.data?.image?.image) return false;
+							newNoteImages.push(image_response.data.image);
 							return true;
 						})
 					);

@@ -52,8 +52,8 @@ const WorldProvider = ({ children, story_uid }) => {
 
 		async function getStoryIcon(iconID) {
 			const response = await APIRequest("/image/" + iconID, "GET");
-			if (response?.error || !response?.data?.image) return setStoryIcon(false);
-			setStoryIcon(response.data.image);
+			if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
+			setStoryIcon(response.data.image.image);
 		}
 
 		getStoryAndWorld();

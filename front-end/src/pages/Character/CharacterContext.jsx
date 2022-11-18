@@ -107,10 +107,10 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		async function getStoryIcon(iconID) {
 			if (!iconID) return setStoryIcon(false);
 			const response = await APIRequest("/image/" + iconID, "GET");
-			if (response?.error || !response?.data?.image) return setStoryIcon(false);
+			if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
 
-			setStoryIcon(response.data.image);
-			return response.data.image;
+			setStoryIcon(response.data.image.image);
+			return response.data.image.image;
 		}
 
 		async function getCharacter(story_id) {
@@ -178,27 +178,27 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		async function getCharacterOverviewBackground(overviewBackgroundID) {
 			if (!overviewBackgroundID) return;
 			const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
-			if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image) return false;
+			if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) return false;
 
-			setCharacterOverviewBackground(overview_background_image_response.data.image);
-			return overview_background_image_response.data.image;
+			setCharacterOverviewBackground(overview_background_image_response.data.image.image);
+			return overview_background_image_response.data.image.image;
 		}
 
 		async function getCharacterCardBackground(cardBackgroundID) {
 			if (!cardBackgroundID) return;
 			const card_background_image_response = await APIRequest("/image/" + cardBackgroundID, "GET");
-			if (card_background_image_response?.errors || !card_background_image_response?.data?.image) return false;
+			if (card_background_image_response?.errors || !card_background_image_response?.data?.image?.image) return false;
 
-			setCharacterCardBackground(card_background_image_response.data.image);
-			return card_background_image_response.data.image;
+			setCharacterCardBackground(card_background_image_response.data.image.image);
+			return card_background_image_response.data.image.image;
 		}
 
 		async function getCharacterImages(imageIDs) {
 			let newCharacterImages = await Promise.all(
 				imageIDs.map(async (imageID) => {
 					const image_response = await APIRequest("/image/" + imageID, "GET");
-					if (image_response?.errors || !image_response?.data?.image) return false;
-					return image_response.data;
+					if (image_response?.errors || !image_response?.data?.image?.image) return false;
+					return image_response.data.image;
 				})
 			);
 			newCharacterImages = newCharacterImages.filter((e) => e !== false);

@@ -8,6 +8,7 @@ import { useContext } from "react";
 // Context
 import { StoryContext } from "../StoryContext";
 import { RoutesContext } from "../../../context/RoutesContext";
+import { APIContext } from "../../../context/APIContext";
 
 // Services
 
@@ -18,6 +19,7 @@ import { RoutesContext } from "../../../context/RoutesContext";
 export const StoryPrimaryLogic = () => {
 	const { isAuthorizedToEdit, story, setIsDisplayingSettings } = useContext(StoryContext);
 	const { changeLocation } = useContext(RoutesContext);
+	const { APIRequest, user_id } = useContext(APIContext);
 
 	function goToStoryNotes(e) {
 		e.preventDefault();
@@ -28,5 +30,12 @@ export const StoryPrimaryLogic = () => {
 		setIsDisplayingSettings(true);
 	}
 
-	return { isAuthorizedToEdit, goToStoryNotes, openSettings };
+	async function leaveStory() {
+		const leave_story_response = await APIRequest("/story/leave/" + story._id, "POST", { story_id: story._id });
+		if (leave_story_response?.errors) return false;
+		changeLocation("/");
+		return true;
+	}
+
+	return { isAuthorizedToEdit, user_id, story, goToStoryNotes, openSettings, leaveStory };
 };

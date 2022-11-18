@@ -20,8 +20,8 @@ const LightboxProvider = ({ children }) => {
 					let imageID = image;
 					if (typeof image === "object" && image?.image) imageID = image.image;
 					const image_response = await APIRequest("/image/" + imageID, "GET");
-					if (image_response?.errors || !image_response?.data?.image) return false;
-					return { image: image_response.data.image, caption: image?.caption };
+					if (image_response?.errors || !image_response?.data?.image?.image) return false;
+					return { image: image_response.data.image.image, caption: image?.caption };
 				})
 			);
 			newLightboxImages = newLightboxImages.filter((e) => e !== false);

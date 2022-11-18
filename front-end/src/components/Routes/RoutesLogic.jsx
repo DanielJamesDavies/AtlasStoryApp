@@ -177,9 +177,9 @@ export const RoutesLogic = () => {
 		async function getUserProfilePicture(userProfilePictureID) {
 			if (!userProfilePictureID) return false;
 			const response = await APIRequest("/image/" + userProfilePictureID, "GET");
-			if (response?.error || !response?.data?.image) return false;
-			setUserProfilePicture(response.data.image);
-			return response.data.image;
+			if (response?.error || !response?.data?.image?.image) return false;
+			setUserProfilePicture(response.data.image.image);
+			return response.data.image.image;
 		}
 
 		getUser();

@@ -56,15 +56,15 @@ const UserProvider = ({ children, user_username }) => {
 		async function getUserProfilePicture(profilePictureID) {
 			if (!profilePictureID) return;
 			const response = await APIRequest("/image/" + profilePictureID, "GET");
-			if (response?.error || !response?.data?.image) return setProfilePicture(false);
-			setProfilePicture(response.data.image);
+			if (response?.error || !response?.data?.image?.image) return setProfilePicture(false);
+			setProfilePicture(response.data.image.image);
 		}
 
 		async function getUserBanner(bannerID) {
 			if (!bannerID) return;
 			const response = await APIRequest("/image/" + bannerID, "GET");
-			if (response?.error || !response?.data?.image) return setBanner(false);
-			setBanner(response.data.image);
+			if (response?.error || !response?.data?.image?.image) return setBanner(false);
+			setBanner(response.data.image.image);
 		}
 
 		async function getStories(storyIDs) {

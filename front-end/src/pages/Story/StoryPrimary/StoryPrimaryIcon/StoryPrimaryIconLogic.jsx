@@ -30,8 +30,8 @@ export const StoryPrimaryIconLogic = () => {
 		setErrors([]);
 		if (!story?.data?.icon) return false;
 		const response = await APIRequest("/image/" + story.data.icon, "GET");
-		if (!response || response?.errors || !response?.data?.image) return false;
-		setIcon(response.data.image);
+		if (!response || response?.errors || !response?.data?.image?.image) return false;
+		setIcon(response.data.image.image);
 		return true;
 	}
 

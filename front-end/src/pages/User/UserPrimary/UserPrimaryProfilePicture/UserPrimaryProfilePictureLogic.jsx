@@ -30,8 +30,8 @@ export const UserPrimaryProfilePictureLogic = () => {
 		setErrors([]);
 		if (!user?.data?.profilePicture) return false;
 		const response = await APIRequest("/image/" + user.data.profilePicture, "GET");
-		if (!response || response?.errors || !response?.data?.image) return false;
-		setProfilePicture(response.data.image);
+		if (!response || response?.errors || !response?.data?.image?.image) return false;
+		setProfilePicture(response.data.image.image);
 		return true;
 	}
 

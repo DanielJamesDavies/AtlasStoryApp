@@ -8,8 +8,27 @@
 }
 
 .story-settings-members-list-container {
-	padding: 0 12px;
+	padding: 0 6px;
 	max-height: 336px;
-	overflow-y: overlay;
+	overflow-y: scroll;
+	margin-left: -12px;
+	width: calc(100% + 12px);
+}
+
+.story-settings-members-users-search-container {
 	margin-left: -6px;
+	width: calc(100% + 6px);
+}
+
+@media (max-width: 750px) {
+	.story-settings-members-list-container {
+		padding: 0;
+		margin-left: 0;
+		width: calc(100% + 6px);
+	}
+
+	.story-settings-members-users-search-container {
+		margin-left: 0;
+		width: 100%;
+	}
 }

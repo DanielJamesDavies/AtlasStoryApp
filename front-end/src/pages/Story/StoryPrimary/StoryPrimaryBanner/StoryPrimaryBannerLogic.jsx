@@ -30,8 +30,8 @@ export const StoryPrimaryBannerLogic = () => {
 		setErrors([]);
 		if (!story?.data?.banner) return false;
 		const response = await APIRequest("/image/" + story.data.banner, "GET");
-		if (!response || response?.errors || !response?.data?.image) return false;
-		setBanner(response.data.image);
+		if (!response || response?.errors || !response?.data?.image?.image) return false;
+		setBanner(response.data.image.image);
 		return true;
 	}
 

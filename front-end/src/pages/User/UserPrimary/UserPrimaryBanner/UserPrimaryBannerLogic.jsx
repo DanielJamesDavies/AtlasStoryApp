@@ -30,8 +30,8 @@ export const UserPrimaryBannerLogic = () => {
 		setErrors([]);
 		if (!user?.data?.banner) return false;
 		const response = await APIRequest("/image/" + user.data.banner, "GET");
-		if (!response || response?.errors || !response?.data?.image) return false;
-		setBanner(response.data.image);
+		if (!response || response?.errors || !response?.data?.image?.image) return false;
+		setBanner(response.data.image.image);
 		return true;
 	}
 

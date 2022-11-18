@@ -28,8 +28,8 @@ export const SettingsOverviewBackgroundImageLogic = () => {
 	async function revertOverviewBackground() {
 		setErrors([]);
 		const response = await APIRequest("/image/" + character?.data?.overviewBackground, "GET");
-		if (!response || response?.errors || !response?.data?.image) return false;
-		setCharacterOverviewBackground(response.data.image);
+		if (!response || response?.errors || !response?.data?.image?.image) return false;
+		setCharacterOverviewBackground(response.data.image.image);
 		return true;
 	}
 

@@ -43,7 +43,7 @@ export const StorySettingsMembersLogic = () => {
 							_id: response?.data?.user?._id,
 							username: response?.data?.user?.username,
 							nickname: response?.data?.user?.data?.nickname,
-							profilePicture: image_response?.data?.image,
+							profilePicture: image_response?.data?.image?.image,
 						};
 					})
 				);

@@ -7,7 +7,6 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 
 app.use(express.json({ limit: "500mb" }));
-app.listen(port, () => {});
 app.use(cookieParser());
 
 // Mongoose Connection
@@ -23,7 +22,6 @@ mongoose
 // Routes
 app.use("/api/new-id", require("./routes/NewIdRoute"));
 app.use("/api/cookies-consent", require("./routes/CookiesConsentRoute"));
-app.use("/api/image", require("./routes/ImageRoute"));
 app.use("/api/user", require("./routes/UserRoute"));
 app.use("/api/search", require("./routes/SearchRoute"));
 app.use("/api/genre", require("./routes/GenreRoute"));
@@ -33,6 +31,7 @@ app.use("/api/character", require("./routes/CharacterRoute"));
 app.use("/api/character-type", require("./routes/CharacterTypeRoute"));
 app.use("/api/substory", require("./routes/SubstoryRoute"));
 app.use("/api/spotify", require("./routes/SpotifyRoute"));
+app.use("/api/image", require("./routes/ImageRoute"));
 
 // Running the Front-End
 if (process.env.NODE_ENV !== "development") {
@@ -41,3 +40,5 @@ if (process.env.NODE_ENV !== "development") {
 		res.sendFile(path.join(__dirname + "/../front-end/build/index.html"));
 	});
 }
+
+app.listen(port, () => {});

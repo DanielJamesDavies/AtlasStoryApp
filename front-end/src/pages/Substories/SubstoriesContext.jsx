@@ -54,8 +54,8 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 
 		async function getStoryIcon(iconID) {
 			const response = await APIRequest("/image/" + iconID, "GET");
-			if (response?.error || !response?.data?.image) return setStoryIcon(false);
-			setStoryIcon(response.data.image);
+			if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
+			setStoryIcon(response.data.image.image);
 		}
 
 		async function getSubstories(substoryIDs) {
@@ -80,8 +80,8 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 				newSubstories.map(async (substory) => {
 					if (!substory?.data?.posterBackground) return false;
 					const poster_background_image_response = await APIRequest("/image/" + substory.data.posterBackground, "GET");
-					if (poster_background_image_response?.errors || !poster_background_image_response?.data?.image) return false;
-					return poster_background_image_response.data;
+					if (poster_background_image_response?.errors || !poster_background_image_response?.data?.image?.image) return false;
+					return poster_background_image_response.data.image;
 				})
 			);
 			newSubstoriesPosterBackgrounds = newSubstoriesPosterBackgrounds.filter((e) => e !== false);
