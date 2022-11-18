@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 // Components
 
@@ -8,7 +8,7 @@ import { useContext, useState } from "react";
 // Context
 import { StoryContext } from "../../StoryContext";
 import { APIContext } from "../../../../context/APIContext";
-import { useEffect } from "react";
+import { RoutesContext } from "../../../../context/RoutesContext";
 
 // Services
 
@@ -19,6 +19,7 @@ import { useEffect } from "react";
 export const StorySettingsMembersLogic = () => {
 	const { isAuthorizedToEdit, story, setStory } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
+	const { location, changeLocation } = useContext(RoutesContext);
 
 	const [members, setMembers] = useState(false);
 	const [users, setUsers] = useState(false);
@@ -64,6 +65,7 @@ export const StorySettingsMembersLogic = () => {
 
 	function changeMemberType(e, index) {
 		let newStory = JSON.parse(JSON.stringify(story));
+		if (newStory.data.members.filter((e) => e.type === "owner").length >= 2) return;
 		newStory.data.members[index].type = memberTypes[e]?.id;
 		setStory(newStory);
 	}
@@ -96,6 +98,8 @@ export const StorySettingsMembersLogic = () => {
 			if (response?.errors) setErrors(response.errors);
 			return false;
 		}
+		console.log(response?.data?.story.owner !== story.owner);
+		if (response?.data?.story?.owner !== story?.owner) changeLocation(location);
 		return true;
 	}
 

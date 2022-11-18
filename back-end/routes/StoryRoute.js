@@ -16,7 +16,7 @@ const DeleteStory = require("../services/Story/DeleteStory");
 router.get("/", GetStory);
 router.get("/:id", StoryMemberAuthentication, GetStoryByID);
 router.post("/get-value/:id", StoryMemberAuthentication, GetStoryValueByID);
-router.post("/", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, CreateStory);
+router.post("/", CookieConsentAuthentication, Authenticate, CreateStory);
 router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, UpdateStory);
 router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, DeleteStory);
 

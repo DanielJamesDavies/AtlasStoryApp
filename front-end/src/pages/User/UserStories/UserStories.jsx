@@ -57,11 +57,13 @@ export const UserStories = () => {
 					enableDragDrop={isReorderingStories}
 					onDropItem={changeStoriesOrder}
 				>
-					{user.data.stories.map((storyID, index) => (
-						<DragDropItem key={index} index={index} className='user-stories-story-item-container'>
-							<UserStoryItem storyID={storyID} />
-						</DragDropItem>
-					))}
+					{user.data.stories
+						.filter((e) => !stories || stories?.findIndex((e2) => e2._id === e) !== -1)
+						.map((storyID, index) => (
+							<DragDropItem key={index} index={index} className='user-stories-story-item-container'>
+								<UserStoryItem storyID={storyID} />
+							</DragDropItem>
+						))}
 				</DragDropContainer>
 			)}
 			<UserCreateStory />

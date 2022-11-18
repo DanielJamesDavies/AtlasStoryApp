@@ -1,4 +1,5 @@
 const Story = require("../../models/Story");
+const User = require("../../models/User");
 const Image = require("../../models/Image");
 
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
@@ -20,7 +21,7 @@ module.exports = async (req, res) => {
 			const newUID = req.body.newValue.split(" ").join("-");
 
 			if (newUID.length < 1)
-				return res.status(200).send({ errors: [{ attribute: "uid", message: "This UID is too short. Please enter a different UID." }] });
+				return res.status(200).send({ errors: [{ attribute: "uid", message: "This UID is too short. Please enter a different UID" }] });
 
 			const uidUsed = await Story.findOne({ uid: newUID }).exec();
 			if (uidUsed)
@@ -29,6 +30,59 @@ module.exports = async (req, res) => {
 					.send({ errors: [{ attribute: "uid", message: "This UID is being used by another story. Please enter a different UID" }] });
 
 			newStory.uid = newUID;
+			break;
+		case JSON.stringify(["data", "members"]):
+			let newMembers = JSON.parse(JSON.stringify(req?.body?.newValue));
+
+			const newOwnerMembers = newMembers.filter((e) => e.type === "owner" && JSON.stringify(e.user_id) !== JSON.stringify(newStory.owner));
+			if (newOwnerMembers.length > 0) {
+				const oldOwnerUserID = newStory.owner;
+				const newOwnerUserID = newOwnerMembers[0].user_id;
+
+				const newOwnerUser = await User.findById(newOwnerUserID)
+					.exec()
+					.catch(() => false);
+				if (!newOwnerUser) return res.status(200).send({ errors: [{ message: "Could Not Find New Owner" }] });
+
+				let newNewOwnerUser = JSON.parse(JSON.stringify(newOwnerUser));
+				if (newNewOwnerUser.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(newStory._id)) === -1)
+					newNewOwnerUser.data.stories.push(newStory._id);
+
+				try {
+					await User.findOneAndReplace({ _id: newOwnerUserID }, newNewOwnerUser, { upsert: true });
+				} catch (error) {
+					console.log(error);
+					return res.status(200).send({ errors: [{ message: "New Owner Could Not Be Saved" }] });
+				}
+
+				const oldOwnerUser = await User.findById(oldOwnerUserID)
+					.exec()
+					.catch(() => false);
+				if (!oldOwnerUser) return res.status(200).send({ errors: [{ message: "Could Not Find Old Owner" }] });
+
+				let newOldOwnerUser = JSON.parse(JSON.stringify(oldOwnerUser));
+				const oldOwnerUserStoryIndex = newOldOwnerUser.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(newStory._id));
+				if (oldOwnerUserStoryIndex !== -1) newOldOwnerUser.data.stories.splice(oldOwnerUserStoryIndex, 1);
+
+				try {
+					await User.findOneAndReplace({ _id: oldOwnerUserID }, newOldOwnerUser, { upsert: true });
+				} catch (error) {
+					return res.status(200).send({ errors: [{ message: "Old Owner Could Not Be Saved" }] });
+				}
+
+				newStory.owner = newOwnerUserID;
+
+				const membersOldOwnerIndex = newMembers.findIndex((e) => JSON.stringify(e.user_id) === JSON.stringify(oldOwnerUserID));
+				if (membersOldOwnerIndex !== -1) newMembers[membersOldOwnerIndex].type = "viewer";
+
+				const membersNewOwnerIndex = newMembers.findIndex((e) => JSON.stringify(e.user_id) === JSON.stringify(newOwnerUserID));
+				if (membersNewOwnerIndex !== -1) {
+					const membersNewOwner = newMembers.splice(membersNewOwnerIndex, 1)[0];
+					newMembers.splice(0, 0, membersNewOwner);
+				}
+			}
+
+			newStory.data.members = newMembers;
 			break;
 		default:
 			if (req.body.path.length === 3 && req.body.path[0] === "data" && req.body.path[1] === "notes") {
