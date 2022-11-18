@@ -6,3 +6,10 @@
 	margin: 8px 0;
 	height: 50px;
 }
+
+.story-settings-members-list-container {
+	padding: 0 12px;
+	max-height: 336px;
+	overflow-y: overlay;
+	margin-left: -6px;
+}

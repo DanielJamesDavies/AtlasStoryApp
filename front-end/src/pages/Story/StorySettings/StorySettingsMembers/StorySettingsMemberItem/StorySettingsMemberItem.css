@@ -64,3 +64,32 @@
 .story-settings-member-item-btns-container .icon-btn:focus {
 	color: var(--red);
 }
+
+@media (max-width: 750px) {
+	.story-settings-members-container .content-item-w-bg {
+		padding: 6px 6px;
+	}
+
+	.story-settings-member {
+		flex-wrap: wrap;
+	}
+
+	.story-settings-member-profile-picture-container {
+		margin-right: 8px;
+		--profilePictureWidth: 40px;
+	}
+
+	.story-settings-member-names-container {
+		margin-right: 0;
+	}
+
+	.story-settings-member-type-container {
+		margin-top: 6px;
+		margin-left: 0px;
+	}
+
+	.story-settings-member-item-btns-container {
+		margin-top: 6px;
+		margin-left: auto;
+	}
+}
