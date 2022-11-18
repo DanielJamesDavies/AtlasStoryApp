@@ -44,7 +44,7 @@ export const StorySettingsMemberItem = ({ member, index, memberType, memberTypes
 						))}
 					</DropdownContainer>
 				)}
-				{!isEditing ? null : (
+				{!isEditing || isOwner ? null : (
 					<div className='story-settings-member-item-btns-container'>
 						<IconBtn icon={<FaTimes />} iconName='times' size='m' seamless={true} onClick={() => removeMember(member._id)} />
 					</div>

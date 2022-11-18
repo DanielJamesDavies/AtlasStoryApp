@@ -34,6 +34,9 @@ module.exports = async (req, res) => {
 		case JSON.stringify(["data", "members"]):
 			let newMembers = JSON.parse(JSON.stringify(req?.body?.newValue));
 
+			if (newMembers.length === 0 || newMembers.filter((e) => e.type === "owner").length === 0)
+				return res.status(200).send({ errors: [{ message: "Invalid New Members" }] });
+
 			const newOwnerMembers = newMembers.filter((e) => e.type === "owner" && JSON.stringify(e.user_id) !== JSON.stringify(newStory.owner));
 			if (newOwnerMembers.length > 0) {
 				const oldOwnerUserID = newStory.owner;
