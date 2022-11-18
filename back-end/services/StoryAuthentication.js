@@ -15,9 +15,7 @@ module.exports = async (req, res, next) => {
 
 	const story = await Story.findById(req.body.story_id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-		});
+		.catch(() => false);
 	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
 	if (story?.owner && JSON.stringify(user_id) === JSON.stringify(story?.owner)) return next();
@@ -26,10 +24,10 @@ module.exports = async (req, res, next) => {
 	const collaboratorIDs = story.data.members
 		.map((member) => {
 			if (!member?.user_id || member?.type !== "collaborator") return false;
-			return member;
+			return JSON.stringify(member?.user_id);
 		})
 		.filter((e) => e !== false);
-	if (collaboratorIDs.includes(user_id)) return next();
+	if (collaboratorIDs.includes(JSON.stringify(user_id))) return next();
 
 	return res.status(200).send({ errors: [{ message: "Access Denied" }] });
 };

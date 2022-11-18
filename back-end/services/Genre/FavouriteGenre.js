@@ -7,9 +7,7 @@ const Story = require("../../models/Story");
 module.exports = async (req, res) => {
 	const genre = await Genre.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Genre Not Found" }] });
-		});
+		.catch(() => false);
 	if (!genre || !genre?._id) return res.status(200).send({ errors: [{ message: "Genre Not Found" }] });
 
 	try {
@@ -20,9 +18,7 @@ module.exports = async (req, res) => {
 
 	const user = await User.findById(user_id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "User Not Found" }] });
-		});
+		.catch(() => false);
 	if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
 	let newUser = JSON.parse(JSON.stringify(user));
@@ -44,14 +40,10 @@ module.exports = async (req, res) => {
 async function getGenreData(oldGenre) {
 	let newGenre = JSON.parse(JSON.stringify(oldGenre));
 
-	let usersFavourited = await User.find({ "data.favouritedGenres": newGenre._id })
-		.exec()
-		.catch(() => {});
+	let usersFavourited = await User.find({ "data.favouritedGenres": newGenre._id }).catch(() => false);
 	newGenre.usersFavourited = usersFavourited?.length ? usersFavourited?.length : 0;
 
-	let storiesUsing = await Story.find({ "data.genres": newGenre._id })
-		.exec()
-		.catch(() => {});
+	let storiesUsing = await Story.find({ "data.genres": newGenre._id }).catch(() => false);
 	newGenre.storiesUsing = storiesUsing?.length ? storiesUsing?.length : 0;
 
 	return newGenre;

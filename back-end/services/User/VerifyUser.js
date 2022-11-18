@@ -9,9 +9,7 @@ module.exports = async (req, res) => {
 	// Get User
 	const user = await User.findOne({ username: req.body.username })
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "User Not Found" }] });
-		});
+		.catch(() => false);
 	if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
 	// Check If Verification Code is Valid
@@ -32,9 +30,7 @@ module.exports = async (req, res) => {
 async function isValidVerificationCode(user_id, email, verificationCode) {
 	const userVerification = await UserVerification.findOne({ user_id, email })
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "User Verified" }] };
-		});
+		.catch(() => false);
 	if (!userVerification || !userVerification?.verification_code) return { errors: [{ message: "User Verified" }] };
 
 	const result = await bcrypt.compare(verificationCode, userVerification.verification_code);

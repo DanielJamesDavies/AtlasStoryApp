@@ -1,19 +1,22 @@
 const jwt_decode = require("jwt-decode");
+
 const Story = require("../../models/Story");
+const StoryMemberAuthentication = require("../../services/StoryMemberAuthentication");
 
 module.exports = async (req, res) => {
-	if (!req.query.uid) return;
+	if (req?.query?.uid) {
+		const storyMemberAuthenticationResponse = await StoryMemberAuthentication(req, res, () => true);
+		if (storyMemberAuthenticationResponse !== true) return false;
 
-	let story = await Story.findOne({ uid: req.query.uid })
-		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-		});
-	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
+		let story = await Story.findOne({ uid: req.query.uid })
+			.exec()
+			.catch(() => false);
+		if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
-	return res
-		.status(200)
-		.send({ message: "Success", data: { story, isAuthorizedToEdit: getIsAuthorizedToModify(req?.cookies?.AtlasStoryAppToken, story) } });
+		return res
+			.status(200)
+			.send({ message: "Success", data: { story, isAuthorizedToEdit: getIsAuthorizedToModify(req?.cookies?.AtlasStoryAppToken, story) } });
+	}
 };
 
 function getIsAuthorizedToModify(AtlasStoryAppToken, story) {

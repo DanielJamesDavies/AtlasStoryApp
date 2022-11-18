@@ -2,20 +2,16 @@ const Story = require("../../models/Story");
 const Image = require("../../models/Image");
 
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
-const GetValueInNestedObject = require("../GetValueInNestedObject");
 
 module.exports = async (req, res) => {
 	if (!req?.body?.path || req?.body?.path === ["_id"]) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
 
 	const oldStory = await Story.findById(req.body.story_id)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-		});
+		.catch(() => false);
 	if (!oldStory) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
 	let newStory = JSON.parse(JSON.stringify(oldStory));
-	const oldValue = GetValueInNestedObject(newStory, req.body.path);
 
 	switch (JSON.stringify(req.body.path)) {
 		case JSON.stringify(["uid"]):

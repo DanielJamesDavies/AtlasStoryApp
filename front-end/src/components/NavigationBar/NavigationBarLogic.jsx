@@ -6,10 +6,8 @@ import { useEffect, useState, useContext } from "react";
 // Logic
 
 // Context
-import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
 import { RoutesContext } from "../../context/RoutesContext";
-import { SpotifyContext } from "../../context/SpotifyContext";
 
 // Styles
 
@@ -17,56 +15,13 @@ import { SpotifyContext } from "../../context/SpotifyContext";
 
 export const NavigationBarLogic = () => {
 	const [isOnStory, setIsOnStory] = useState(false);
-	const { setUITheme, setFontSizeMultiplier } = useContext(AppContext);
-	const { APIRequest, user_id, setUserID, username, setUsername, userProfilePicture, setUserProfilePicture } = useContext(APIContext);
+	const { APIRequest, username, userProfilePicture } = useContext(APIContext);
 	const { location, changeLocation } = useContext(RoutesContext);
-	const { setConnectAllDevicesToSpotify } = useContext(SpotifyContext);
 	const [storyIcon, setStoryIcon] = useState(false);
 
 	useEffect(() => {
 		setIsOnStory(location.split("/")[1] === "s");
 	}, [location]);
-
-	useEffect(() => {
-		async function getUser() {
-			const response = await APIRequest("/user/", "GET");
-			if (!response || response?.errors || !response?.data?.user) return false;
-
-			const user = response.data.user;
-			if (user?._id && user._id !== user_id) setUserID(user._id);
-			if (user?.username && user.username !== username) setUsername(user.username);
-			if (user?.data?.uiTheme) setUITheme(user.data.uiTheme);
-			if (user?.data?.fontSizeMultiplier) {
-				const newFontSizeMultiplier = Number(user.data.fontSizeMultiplier);
-				setFontSizeMultiplier(isNaN(newFontSizeMultiplier) ? 1 : newFontSizeMultiplier);
-			}
-			if (user?.data?.connectToSpotify) setConnectAllDevicesToSpotify(user?.data?.connectToSpotify);
-
-			getUserProfilePicture(user?.data?.profilePicture);
-
-			return response?.data?.user;
-		}
-
-		async function getUserProfilePicture(userProfilePictureID) {
-			if (!userProfilePictureID) return false;
-			const response = await APIRequest("/image/" + userProfilePictureID, "GET");
-			if (response?.error || !response?.data?.image) return false;
-			setUserProfilePicture(response.data.image);
-			return response.data.image;
-		}
-
-		getUser();
-	}, [
-		APIRequest,
-		user_id,
-		setUserID,
-		username,
-		setUsername,
-		setUITheme,
-		setFontSizeMultiplier,
-		setConnectAllDevicesToSpotify,
-		setUserProfilePicture,
-	]);
 
 	useEffect(() => {
 		async function getStory() {

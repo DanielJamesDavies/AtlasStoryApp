@@ -35,7 +35,7 @@ export const UserStoryItem = ({ storyID }) => {
 						<div className='user-stories-story-item-owner-label-username'>@{story?.data?.owner?.username}</div>
 					</div>
 				</div>
-				<div className='user-stories-story-item-private'>{story?.isPrivate ? <FaLock /> : <FaLockOpen />}</div>
+				<div className='user-stories-story-item-private'>{story?.data?.isPrivate ? <FaLock /> : <FaLockOpen />}</div>
 			</div>
 		</div>
 	);

@@ -19,38 +19,13 @@
 	margin: 0 4px;
 }
 
-.story-primary-character-card {
-	flex-shrink: 0;
-	position: relative;
-	z-index: 1;
-	display: inline-block;
-	margin: 4px;
-	border: 5px solid var(--accentColour);
-	border-color: var(--characterColour);
-	border-radius: 16px;
-
-	width: 305px;
-	height: 420px;
-
-	background: var(--grey1);
-	transition: margin 0.4s;
-	cursor: pointer;
-}
-
-.drag-drop-item-enable-drag-drop .story-primary-character-card {
-	animation: wiggle-medium infinite 0.5s linear;
-}
-
-.drag-drop-item-enable-drag-drop:nth-child(even) .story-primary-character-card {
-	animation-delay: 0.1s;
-}
-
 .story-primary-character-card-placeholder {
 	flex-shrink: 0;
 	position: relative;
 	z-index: 1;
 	display: inline-block;
 	margin: 4px;
+	margin-bottom: 0;
 	border: 5px solid var(--accentColour);
 	border-color: var(--grey2);
 	border-radius: 16px;
@@ -79,6 +54,32 @@
 		border-color: var(--grey2);
 		background: var(--grey2);
 	}
+}
+
+.story-primary-character-card {
+	flex-shrink: 0;
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	margin: 4px;
+	border: 5px solid var(--accentColour);
+	border-color: var(--characterColour);
+	border-radius: 16px;
+
+	width: 305px;
+	height: 420px;
+
+	background: var(--grey1);
+	transition: margin 0.4s;
+	cursor: pointer;
+}
+
+.drag-drop-item-enable-drag-drop .story-primary-character-card {
+	animation: wiggle-medium infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even) .story-primary-character-card {
+	animation-delay: 0.1s;
 }
 
 .story-primary-character-card-content {

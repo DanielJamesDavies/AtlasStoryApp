@@ -1,6 +1,5 @@
 const CharacterType = require("../../models/CharacterType");
 
-const GetValueInNestedObject = require("../GetValueInNestedObject");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 module.exports = async (req, res) => {
@@ -8,11 +7,8 @@ module.exports = async (req, res) => {
 
 	const oldCharacterType = await CharacterType.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Character Type Not Found" }] });
-		});
+		.catch(() => false);
 	if (!oldCharacterType) return res.status(200).send({ errors: [{ message: "Character Type Not Found" }] });
-	const oldValue = GetValueInNestedObject(oldCharacterType, req.body.path);
 
 	const newCharacterType = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldCharacterType)), req?.body?.path, req?.body?.newValue);
 

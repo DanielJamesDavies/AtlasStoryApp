@@ -32,7 +32,6 @@ app.use("/api/group", require("./routes/GroupRoute"));
 app.use("/api/character", require("./routes/CharacterRoute"));
 app.use("/api/character-type", require("./routes/CharacterTypeRoute"));
 app.use("/api/substory", require("./routes/SubstoryRoute"));
-app.use("/api/follow-relationship", require("./routes/FollowRelationshipRoute"));
 app.use("/api/spotify", require("./routes/SpotifyRoute"));
 
 // Running the Front-End

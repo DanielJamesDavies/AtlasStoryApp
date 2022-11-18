@@ -12,9 +12,7 @@ module.exports = async (req, res) => {
 
 	const oldImage = await Image.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Image Not Found" }] });
-		});
+		.catch(() => false);
 	if (!oldImage) {
 		const newImage = new Image({
 			_id: req.params.id,

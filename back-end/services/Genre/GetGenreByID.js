@@ -5,9 +5,7 @@ const Story = require("../../models/Story");
 module.exports = async (req, res) => {
 	const genre = await Genre.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Genre Not Found" }] });
-		});
+		.catch(() => false);
 	if (!genre) return res.status(200).send({ errors: [{ message: "Genre Not Found" }] });
 
 	const newGenre = await getGenreData(genre);
@@ -20,12 +18,12 @@ async function getGenreData(oldGenre) {
 
 	let usersFavourited = await User.find({ "data.favouritedGenres": newGenre._id })
 		.exec()
-		.catch(() => {});
+		.catch(() => false);
 	newGenre.usersFavourited = usersFavourited?.length ? usersFavourited?.length : 0;
 
 	let storiesUsing = await Story.find({ "data.genres": newGenre._id })
 		.exec()
-		.catch(() => {});
+		.catch(() => false);
 	newGenre.storiesUsing = storiesUsing?.length ? storiesUsing?.length : 0;
 
 	return newGenre;

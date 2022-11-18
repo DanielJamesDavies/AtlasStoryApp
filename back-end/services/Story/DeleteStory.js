@@ -17,9 +17,7 @@ module.exports = async (req, res) => {
 
 	const story = await Story.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-		});
+		.catch(() => false);
 	if (!story || !story._id) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 	if (!story?.owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 	if (JSON.stringify(user_id) !== JSON.stringify(story.owner)) return res.status(200).send({ errors: [{ message: "Unauthorized Action" }] });
@@ -93,9 +91,7 @@ async function removeStoryFromMembers(members, story_id) {
 			if (!membersMember?.user_id) return false;
 			const member = await User.findById(membersMember.user_id)
 				.exec()
-				.catch(() => {
-					return false;
-				});
+				.catch(() => false);
 			if (!member || !member?.data?.stories) return false;
 
 			const memberStoryIndex = member.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(story_id));
@@ -116,9 +112,7 @@ async function removeStoryFromMembers(members, story_id) {
 async function removeStoryFromOwner(user_id, story_id) {
 	const owner = await User.findById(user_id)
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "Owner Not Found" }] };
-		});
+		.catch(() => false);
 	if (!owner) return { errors: [{ message: "Owner Not Found" }] };
 
 	const ownerStoryIndex = owner.data.stories.findIndex((e) => JSON.stringify(e) === JSON.stringify(story_id));

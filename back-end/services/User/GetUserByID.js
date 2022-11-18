@@ -5,9 +5,7 @@ const User = require("../../models/User");
 module.exports = async (req, res) => {
 	const user = await User.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "User Not Found" }] });
-		});
+		.catch(() => false);
 	if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
 	let newUser = JSON.parse(JSON.stringify(user));

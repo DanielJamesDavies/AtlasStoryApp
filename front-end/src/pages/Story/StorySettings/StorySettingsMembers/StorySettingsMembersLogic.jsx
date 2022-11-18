@@ -20,14 +20,15 @@ export const StorySettingsMembersLogic = () => {
 	const { isAuthorizedToEdit, story, setStory } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 
-	const [members, setMembers] = useState([]);
+	const [members, setMembers] = useState(false);
+	const [users, setUsers] = useState(false);
 
-	const types = [
+	const memberTypes = [
 		{ id: "owner", name: "Owner" },
 		{ id: "viewer", name: "Viewer" },
 	];
 
-	const [oldMembers, setOldMembers] = useState([]);
+	const [oldMembers, setOldMembers] = useState(false);
 	useEffect(() => {
 		async function getMembers() {
 			if (JSON.stringify(story?.data?.members) !== JSON.stringify(oldMembers)) {
@@ -52,9 +53,18 @@ export const StorySettingsMembersLogic = () => {
 		getMembers();
 	}, [setMembers, story, oldMembers, setOldMembers, APIRequest]);
 
+	useEffect(() => {
+		async function getUsers() {
+			const response = await APIRequest("/user?profilePicture=true", "GET");
+			if (!response || response?.errors || !response?.data?.users) return false;
+			setUsers(response.data.users);
+		}
+		getUsers();
+	}, [setUsers, APIRequest]);
+
 	function changeMemberType(e, index) {
 		let newStory = JSON.parse(JSON.stringify(story));
-		newStory.data.members[index].type = e;
+		newStory.data.members[index].type = memberTypes[e]?.id;
 		setStory(newStory);
 	}
 
@@ -89,5 +99,38 @@ export const StorySettingsMembersLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, story, members, types, changeMemberType, revertMembers, saveMembers, errors };
+	const [searchUsersValue, setSearchUsersValue] = useState("");
+
+	function changeSearchUsersValue(e) {
+		setSearchUsersValue(e.target.value);
+	}
+
+	function addMember(user_id) {
+		let newStory = JSON.parse(JSON.stringify(story));
+		if (newStory.data.members.findIndex((e) => e.user_id === user_id) === -1) newStory.data.members.push({ user_id, type: "viewer" });
+		setStory(newStory);
+	}
+
+	function removeMember(user_id) {
+		let newStory = JSON.parse(JSON.stringify(story));
+		const memberIndex = newStory.data.members.findIndex((e) => e.user_id === user_id);
+		if (memberIndex !== -1) newStory.data.members.splice(memberIndex, 1);
+		setStory(newStory);
+	}
+
+	return {
+		isAuthorizedToEdit,
+		story,
+		members,
+		users,
+		memberTypes,
+		changeMemberType,
+		revertMembers,
+		saveMembers,
+		errors,
+		searchUsersValue,
+		changeSearchUsersValue,
+		addMember,
+		removeMember,
+	};
 };

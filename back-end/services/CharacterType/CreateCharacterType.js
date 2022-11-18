@@ -17,9 +17,7 @@ module.exports = async (req, res) => {
 
 	let story = await Story.findById(req.body.story_id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-		});
+		.catch(() => true);
 	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
 	if (!story.data.characterTypes.includes(characterType._id)) story.data.characterTypes.push(characterType._id);

@@ -20,7 +20,7 @@ export const GenresListLogic = () => {
 
 	useEffect(() => {
 		async function getFavouritedGenres() {
-			const user_response = await APIRequest("/user/", "GET");
+			const user_response = await APIRequest("/user/me", "GET");
 			if (!user_response || user_response?.error || !user_response?.data?.user) return false;
 
 			let newFavouritedGenres = await Promise.all(

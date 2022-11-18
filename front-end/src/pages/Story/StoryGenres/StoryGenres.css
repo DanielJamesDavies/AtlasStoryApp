@@ -1,11 +1,10 @@
-.story-genres-container {
-	width: 100%;
+.story-genres-container .label-label {
+	margin-bottom: 6px;
 }
 
 .story-genres-list {
 	display: flex;
 	flex-wrap: wrap;
-	margin-top: 4px;
 	margin-left: -3px;
 	width: calc(100% + 6px);
 }

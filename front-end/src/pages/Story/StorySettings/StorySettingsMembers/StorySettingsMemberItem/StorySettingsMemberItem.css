@@ -1,0 +1,66 @@
+.story-settings-member-item-container {
+	margin: 8px 0;
+}
+
+.story-settings-member-item-container:first-child {
+	margin-top: 8px;
+}
+
+.story-settings-member-item-container:last-child {
+	margin-bottom: 8px;
+}
+
+.story-settings-member-profile-picture-container {
+	margin-right: 16px;
+	border-radius: 100%;
+	--profilePictureWidth: 50px;
+	min-width: var(--profilePictureWidth);
+	width: var(--profilePictureWidth);
+	min-height: var(--profilePictureWidth);
+	height: var(--profilePictureWidth);
+}
+
+.story-settings-member {
+	display: flex;
+	align-items: center;
+}
+
+.story-settings-member-profile-picture-container img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.story-settings-member-names-container {
+	margin-right: 16px;
+}
+
+.story-settings-member-nickname {
+	font-weight: 700;
+}
+
+.story-settings-member-username {
+	font-weight: 400;
+	font-size: 16px;
+	color: #aaa;
+}
+
+.story-settings-member-type-container {
+	position: relative;
+	margin-left: auto;
+	margin-right: 16px;
+	width: fit-content;
+}
+
+.story-settings-member-type {
+	padding: 8px 12px;
+	border-radius: 4px;
+	background: var(--grey3);
+	font-size: 13px;
+}
+
+.story-settings-member-item-btns-container .icon-btn:hover,
+.story-settings-member-item-btns-container .icon-btn:focus {
+	color: var(--red);
+}

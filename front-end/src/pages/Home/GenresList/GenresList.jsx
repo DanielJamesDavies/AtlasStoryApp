@@ -36,11 +36,7 @@ export const GenresList = () => {
 		<div className='home-genres-list-container'>
 			<div className='home-genres-list-title'>Genres</div>
 			<div className='home-genres-content'>
-				{favouritedGenres === false ? (
-					<div className='home-genres-list-loading-container'>
-						<LoadingCircle size='s' center={true} />
-					</div>
-				) : favouritedGenres.length === 0 ? null : (
+				{favouritedGenres === false ? null : favouritedGenres.length === 0 ? null : (
 					<div className='home-genres-list'>
 						{favouritedGenres?.map((genre, index) => (
 							<GenreItem

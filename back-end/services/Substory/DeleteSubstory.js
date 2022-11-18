@@ -6,9 +6,7 @@ const deleteImagesByKey = require("../Image/deleteImagesByKey");
 module.exports = async (req, res) => {
 	const substory = await Substory.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Substory Not Found" }] });
-		});
+		.catch(() => false);
 	if (!substory) return res.status(200).send({ errors: [{ message: "Substory Not Found" }] });
 
 	const removeSubstoryFromStoryResult = await removeSubstoryFromStory(req.params.id, substory.story_id);
@@ -30,9 +28,7 @@ module.exports = async (req, res) => {
 async function removeSubstoryFromStory(substory_id, story_id) {
 	const oldStory = await Story.findById(story_id)
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "Story Not Found" }] };
-		});
+		.catch(() => false);
 	if (!oldStory) return { errors: [{ message: "Story Not Found" }] };
 
 	let newStory = JSON.parse(JSON.stringify(oldStory));

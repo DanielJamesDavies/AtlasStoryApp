@@ -109,9 +109,7 @@ async function validateCharacter(character) {
 async function addCharacterToGroup(character_id, group_id) {
 	const oldGroup = await Group.findById(group_id)
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "Group Not Found" }] };
-		});
+		.catch(() => false);
 	if (!oldGroup) return { errors: [{ message: "Group Not Found" }] };
 
 	let newGroup = JSON.parse(JSON.stringify(oldGroup));
@@ -130,9 +128,7 @@ async function addCharacterToGroup(character_id, group_id) {
 async function addCharacterToStoryPrimaryCharacters(character_id, story_id) {
 	const oldStory = await Story.findById(story_id)
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "Story Not Found" }] };
-		});
+		.catch(() => false);
 	if (!oldStory) return { errors: [{ message: "Story Not Found" }] };
 
 	let newStory = JSON.parse(JSON.stringify(oldStory));

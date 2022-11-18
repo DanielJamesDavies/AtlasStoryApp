@@ -4,9 +4,7 @@ const GetValueInNestedObject = require("../GetValueInNestedObject");
 module.exports = async (req, res) => {
 	const story = await Story.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-		});
+		.catch(() => false);
 	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
 	if (!req.body.path) return res.status(200).send({ errors: [{ message: "Path Not Provided" }] });

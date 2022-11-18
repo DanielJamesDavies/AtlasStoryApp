@@ -17,10 +17,10 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const LoginLogic = () => {
 	// Username
-	const [username, setUsername] = useState("");
+	const [username, setUsernameValue] = useState("");
 
 	function changeUsername(e) {
-		setUsername(e.target.value);
+		setUsernameValue(e.target.value);
 	}
 
 	// Password
@@ -31,7 +31,7 @@ export const LoginLogic = () => {
 	}
 
 	// Submit
-	const { APIRequest } = useContext(APIContext);
+	const { APIRequest, setUsername } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 	const [isLoggingIn, setIsLoggingIn] = useState(false);
 	const [errors, setErrors] = useState([]);
@@ -45,6 +45,7 @@ export const LoginLogic = () => {
 
 		if (!response?.data?.username) return;
 		changeLocation("/u/" + response.data.username);
+		setUsername(response.data.username);
 	};
 
 	return { username, changeUsername, password, changePassword, isLoggingIn, errors, submitLoginUser };

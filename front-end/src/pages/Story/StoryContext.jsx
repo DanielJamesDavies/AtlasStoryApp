@@ -26,7 +26,7 @@ const StoryProvider = ({ children, story_uid }) => {
 			if (story.uid === story_uid) return;
 
 			// Story Data
-			const response = await APIRequest("/story?uid=" + story_uid, "GET");
+			const response = await APIRequest("/story?uid=" + story_uid + "&story_uid=" + story_uid, "GET");
 			if (!response?.data?.story || response?.error || story_uid !== response.data.story.uid) {
 				setStory(false);
 				setIcon(false);
@@ -93,7 +93,7 @@ const StoryProvider = ({ children, story_uid }) => {
 			if (!primaryCharactersIDs) return;
 			let newPrimaryCharacters = await Promise.all(
 				primaryCharactersIDs.map(async (characterID) => {
-					const character_response = await APIRequest("/character/" + characterID, "GET");
+					const character_response = await APIRequest("/character/" + characterID + "?card=true&story_uid=" + story_uid, "GET");
 					if (character_response?.errors || !character_response?.data?.character) return false;
 
 					return character_response.data.character;

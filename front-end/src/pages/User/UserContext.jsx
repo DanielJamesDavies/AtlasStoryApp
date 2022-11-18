@@ -74,8 +74,8 @@ const UserProvider = ({ children, user_username }) => {
 			setStories(newStories);
 		}
 
-		async function getStory(storyID) {
-			let storyResponse = await APIRequest("/story/" + storyID, "GET");
+		async function getStory(story_id) {
+			let storyResponse = await APIRequest("/story/" + story_id + "?story_id=" + story_id, "GET");
 			if (storyResponse?.error || !storyResponse?.data?.story || !storyResponse?.data?.story?.data?.owner) return false;
 			return storyResponse.data.story;
 		}

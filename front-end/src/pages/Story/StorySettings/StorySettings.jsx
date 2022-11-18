@@ -3,6 +3,7 @@
 // Components
 import { PopUpContainer } from "../../../components/PopUpContainer/PopUpContainer";
 import { StorySettingsUID } from "./StorySettingsUID/StorySettingsUID";
+import { StorySettingsPrivate } from "./StorySettingsPrivate/StorySettingsPrivate";
 import { StorySettingsMembers } from "./StorySettingsMembers/StorySettingsMembers";
 import { StorySettingsColours } from "./StorySettingsColours/StorySettingsColours";
 import { StorySettingsDelete } from "./StorySettingsDelete/StorySettingsDelete";
@@ -34,9 +35,10 @@ export const StorySettings = () => {
 					<div className='story-settings-section-label'>Unique Identifier (UID)</div>
 					<StorySettingsUID />
 				</div>
-				{/* <div className='story-settings-section-container'>
+				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Private Story</div>
-				</div> */}
+					<StorySettingsPrivate />
+				</div>
 				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Members</div>
 					<StorySettingsMembers />

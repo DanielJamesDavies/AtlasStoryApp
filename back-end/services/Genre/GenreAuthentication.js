@@ -15,9 +15,7 @@ module.exports = async (req, res, next) => {
 
 	const genre = await Genre.findById(req.body.genre_id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Genre Not Found" }] });
-		});
+		.catch(() => false);
 	if (!genre) return res.status(200).send({ errors: [{ message: "Genre Not Found" }] });
 
 	if (genre?.owner && JSON.stringify(user_id) === JSON.stringify(genre?.owner)) return next();

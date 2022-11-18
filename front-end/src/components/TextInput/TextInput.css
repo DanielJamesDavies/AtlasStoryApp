@@ -27,6 +27,26 @@
 	background: var(--grey1);
 }
 
+.text-input-container-bg-grey-1 {
+	background: var(--grey1);
+}
+
+.text-input-container-bg-grey-2 {
+	background: var(--grey2);
+}
+
+.text-input-container-bg-grey-3 {
+	background: var(--grey3);
+}
+
+.text-input-container-bg-grey-4 {
+	background: var(--grey4);
+}
+
+.text-input-container-bg-grey-5 {
+	background: var(--grey5);
+}
+
 .text-input-container-empty {
 	position: relative;
 }

@@ -24,7 +24,6 @@ module.exports = async (req, res) => {
 	try {
 		await substory.save();
 	} catch (error) {
-		console.log(error);
 		return res.status(200).send({ errors: [{ message: "Substory Could Not Be Created" }] });
 	}
 
@@ -48,8 +47,6 @@ async function validateSubstory(substory) {
 			{ key: "uid", name: "UID", indefiniteArticle: "a" },
 			{ key: "title", name: "Title", indefiniteArticle: "a" },
 		];
-
-		console.log(substoryValidationError);
 
 		errors = errors.concat(
 			substoryValidationError.map((error) => {
@@ -99,9 +96,7 @@ async function validateSubstory(substory) {
 async function addSubstoryToStory(substory_id, story_id) {
 	const oldStory = await Story.findById(story_id)
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "Story Not Found" }] };
-		});
+		.catch(() => false);
 	if (!oldStory) return { errors: [{ message: "Story Not Found" }] };
 
 	let newStory = JSON.parse(JSON.stringify(oldStory));

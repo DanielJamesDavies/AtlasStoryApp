@@ -21,6 +21,7 @@ import { NotesContainer } from "../../pages/Notes/NotesContainer";
 import { RoutesContext } from "../../context/RoutesContext";
 import { APIContext } from "../../context/APIContext";
 import { AppContext } from "../../context/AppContext";
+import { SpotifyContext } from "../../context/SpotifyContext";
 
 // Services
 
@@ -30,8 +31,9 @@ import { AppContext } from "../../context/AppContext";
 
 export const RoutesLogic = () => {
 	const { location, changeLocation } = useContext(RoutesContext);
-	const { username } = useContext(APIContext);
-	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
+	const { APIRequest, user_id, setUserID, username, setUsername, setUserProfilePicture } = useContext(APIContext);
+	const { changeAccentColour, changeAccentHoverColour, setUITheme, setFontSizeMultiplier } = useContext(AppContext);
+	const { setConnectAllDevicesToSpotify } = useContext(SpotifyContext);
 	const [renderComponent, setRenderComponent] = useState(null);
 	const [showUnauthorizedNavigationBar, setShowUnauthorizedNavigationBar] = useState(false);
 
@@ -151,6 +153,47 @@ export const RoutesLogic = () => {
 			clearTimeout(reloadTimer);
 		};
 	}, [username, location, changeLocation, setRenderComponent, setShowUnauthorizedNavigationBar, changeAccentColour, changeAccentHoverColour]);
+
+	useEffect(() => {
+		async function getUser() {
+			const response = await APIRequest("/user/me", "GET");
+			if (!response || response?.errors || !response?.data?.user) return false;
+
+			const user = response.data.user;
+			if (user?._id && user._id !== user_id) setUserID(user._id);
+			if (user?.username && user.username !== username) setUsername(user.username);
+			if (user?.data?.uiTheme) setUITheme(user.data.uiTheme);
+			if (user?.data?.fontSizeMultiplier) {
+				const newFontSizeMultiplier = Number(user.data.fontSizeMultiplier);
+				setFontSizeMultiplier(isNaN(newFontSizeMultiplier) ? 1 : newFontSizeMultiplier);
+			}
+			if (user?.data?.connectToSpotify) setConnectAllDevicesToSpotify(user?.data?.connectToSpotify);
+
+			getUserProfilePicture(user?.data?.profilePicture);
+
+			return response?.data?.user;
+		}
+
+		async function getUserProfilePicture(userProfilePictureID) {
+			if (!userProfilePictureID) return false;
+			const response = await APIRequest("/image/" + userProfilePictureID, "GET");
+			if (response?.error || !response?.data?.image) return false;
+			setUserProfilePicture(response.data.image);
+			return response.data.image;
+		}
+
+		getUser();
+	}, [
+		APIRequest,
+		user_id,
+		setUserID,
+		username,
+		setUsername,
+		setUITheme,
+		setFontSizeMultiplier,
+		setConnectAllDevicesToSpotify,
+		setUserProfilePicture,
+	]);
 
 	return { renderComponent, showUnauthorizedNavigationBar };
 };

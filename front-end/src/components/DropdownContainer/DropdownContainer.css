@@ -42,7 +42,7 @@
 	top: 32px;
 	max-height: 0;
 	overflow: hidden;
-	transition: max-height 0.8s cubic-bezier(0, 1, 0, 1);
+	transition: max-height 0.2s cubic-bezier(0, 1, 0, 1);
 }
 
 .editable-container .dropdown-options-container {
@@ -51,7 +51,7 @@
 
 .dropdown-container-is-selecting .dropdown-options-container {
 	max-height: 100vh;
-	transition-timing-function: cubic-bezier(0, 0, 0.5, 0);
+	transition-timing-function: cubic-bezier(0, 0, 1, 0);
 	transition-delay: 0s;
 }
 

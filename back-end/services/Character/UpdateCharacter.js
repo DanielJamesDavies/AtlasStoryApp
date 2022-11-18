@@ -13,9 +13,7 @@ module.exports = async (req, res) => {
 
 	const oldCharacter = await Character.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Character Not Found" }] });
-		});
+		.catch(() => false);
 	if (!oldCharacter) return res.status(200).send({ errors: [{ message: "Character Not Found" }] });
 
 	let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
@@ -218,9 +216,7 @@ module.exports = async (req, res) => {
 async function addCharacterToGroup(character_id, group_id) {
 	const oldGroup = await Group.findById(group_id)
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "Group Not Found" }] };
-		});
+		.catch(() => false);
 	if (!oldGroup) return { errors: [{ message: "Group Not Found" }] };
 
 	let newGroup = JSON.parse(JSON.stringify(oldGroup));
@@ -239,9 +235,8 @@ async function addCharacterToGroup(character_id, group_id) {
 async function removeCharacterFromGroup(character_id, group_id) {
 	const oldGroup = await Group.findById(group_id)
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "Group Not Found" }] };
-		});
+		.catch(() => true);
+	if (!oldGroup) return { errors: [{ message: "Group Not Found" }] };
 
 	let newGroup = JSON.parse(JSON.stringify(oldGroup));
 	if (!newGroup?.data?.characters) newGroup.data.characters = [];
@@ -260,9 +255,7 @@ async function removeCharacterFromGroup(character_id, group_id) {
 async function addCharacterToStoryPrimaryCharacters(character_id, story_id) {
 	const oldStory = await Story.findById(story_id)
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "Story Not Found" }] };
-		});
+		.catch(() => true);
 	if (!oldStory) return { errors: [{ message: "Story Not Found" }] };
 
 	let newStory = JSON.parse(JSON.stringify(oldStory));
@@ -281,9 +274,7 @@ async function addCharacterToStoryPrimaryCharacters(character_id, story_id) {
 async function removeCharacterFromStoryPrimaryCharacters(character_id, story_id) {
 	const oldStory = await Story.findById(story_id)
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "Story Not Found" }] };
-		});
+		.catch(() => true);
 	if (!oldStory) return { errors: [{ message: "Story Not Found" }] };
 
 	let newStory = JSON.parse(JSON.stringify(oldStory));

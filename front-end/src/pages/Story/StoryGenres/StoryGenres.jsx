@@ -45,14 +45,12 @@ export const StoryGenres = () => {
 	if (!story?.data?.genres)
 		return (
 			<ContentItem size='s' hasBg={true}>
-				<LabelContainer label='Genres'>
-					<div className='story-genres-container'>
-						<div className='story-genres'>
-							<div className='story-genres-list'>
-								<div className='story-genres-item-placeholder'></div>
-								<div className='story-genres-item-placeholder'></div>
-								<div className='story-genres-item-placeholder'></div>
-							</div>
+				<LabelContainer className='story-genres-container' label='Genres'>
+					<div className='story-genres'>
+						<div className='story-genres-list'>
+							<div className='story-genres-item-placeholder'></div>
+							<div className='story-genres-item-placeholder'></div>
+							<div className='story-genres-item-placeholder'></div>
 						</div>
 					</div>
 				</LabelContainer>
@@ -62,14 +60,12 @@ export const StoryGenres = () => {
 	if (story?.data?.genres && !storyGenres)
 		return (
 			<ContentItem size='s' hasBg={true}>
-				<LabelContainer label='Genres'>
-					<div className='story-genres-container'>
-						<div className='story-genres'>
-							<div className='story-genres-list'>
-								{story?.data?.genres.map((genre, index) => (
-									<div key={index} className='story-genres-item-placeholder'></div>
-								))}
-							</div>
+				<LabelContainer className='story-genres-container' label='Genres'>
+					<div className='story-genres'>
+						<div className='story-genres-list'>
+							{story?.data?.genres.map((genre, index) => (
+								<div key={index} className='story-genres-item-placeholder'></div>
+							))}
 						</div>
 					</div>
 				</LabelContainer>
@@ -77,9 +73,8 @@ export const StoryGenres = () => {
 		);
 	return (
 		<ContentItem size='s' hasBg={true}>
-			<LabelContainer label='Genres'>
+			<LabelContainer className='story-genres-container' label='Genres'>
 				<EditableContainer
-					className='story-genres-container'
 					absolutePositionEditBtns={true}
 					isAuthorizedToEdit={isAuthorizedToEdit}
 					onReorder={toggleIsReorderingStoryGenres}

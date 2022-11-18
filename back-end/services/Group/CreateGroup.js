@@ -25,9 +25,7 @@ module.exports = async (req, res) => {
 
 	let story = await Story.findById(req.body.story_id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-		});
+		.catch(() => false);
 	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
 	if (!story.data.groups.includes(group._id)) story.data.groups.push(group._id);

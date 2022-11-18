@@ -5,9 +5,7 @@ module.exports = async (req, res) => {
 	if (req.query?.uid) {
 		let group = await Group.findOne({ uid: req.query.uid })
 			.exec()
-			.catch(() => {
-				res.status(200).send({ errors: [{ message: "Group Not Found" }] });
-			});
+			.catch(() => false);
 		if (!group) return res.status(200).send({ errors: [{ message: "Group Not Found" }] });
 
 		return res.status(200).send({ message: "Success", data: { group } });
@@ -19,15 +17,13 @@ module.exports = async (req, res) => {
 		if (req.query?.story_id) {
 			story = await Story.findOne({ _id: req.query.story_id })
 				.exec()
-				.catch(() => {
-					res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-				});
+				.catch(() => false);
+			if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 		} else {
 			story = await Story.findOne({ uid: req.query.story_uid })
 				.exec()
-				.catch(() => {
-					res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-				});
+				.catch(() => false);
+			if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 		}
 
 		if (!story || !story?._id) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
@@ -37,9 +33,7 @@ module.exports = async (req, res) => {
 			story.data.groups.map(async (groupID) => {
 				let group = await Group.findOne({ _id: groupID })
 					.exec()
-					.catch(() => {
-						return false;
-					});
+					.catch(() => false);
 				if (!group) return false;
 				return group;
 			})

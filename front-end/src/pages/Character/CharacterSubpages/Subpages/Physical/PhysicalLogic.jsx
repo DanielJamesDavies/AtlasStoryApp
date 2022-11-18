@@ -42,7 +42,6 @@ export const PhysicalLogic = () => {
 			image: image_id,
 			caption: "",
 		});
-		console.log(newCharacterVersion.physical[newCharacterImagesCurrItem?.type][newCharacterImagesCurrItem?.index].images);
 		changeCharacterVersion(newCharacterVersion);
 	}
 

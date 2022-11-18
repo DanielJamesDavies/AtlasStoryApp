@@ -28,7 +28,7 @@ export const UserSettingsEmailLogic = () => {
 	}
 
 	async function revertEmail() {
-		const response = await APIRequest("/user/", "GET");
+		const response = await APIRequest("/user/me", "GET");
 		if (!response || response?.errors || !response?.data?.user?.email) return false;
 		setUser((oldUser) => {
 			let newUser = JSON.parse(JSON.stringify(oldUser));

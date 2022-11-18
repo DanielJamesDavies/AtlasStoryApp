@@ -5,6 +5,7 @@ const Authenticate = require("../services/TokenAuthentication");
 const CookieConsentAuthentication = require("../services/CookiesConsent/CookieConsentAuthentication");
 
 const GetUser = require("../services/User/GetUser");
+const GetAuthenticatedUser = require("../services/User/GetAuthenticatedUser");
 const GetUserByID = require("../services/User/GetUserByID");
 const CreateNewUser = require("../services/User/CreateNewUser");
 const VerifyUser = require("../services/User/VerifyUser");
@@ -14,6 +15,7 @@ const UpdateUser = require("../services/User/UpdateUser");
 const DeleteUser = require("../services/User/DeleteUser");
 
 router.get("/", GetUser);
+router.get("/me", GetAuthenticatedUser);
 router.get("/:id", GetUserByID);
 router.post("/", CookieConsentAuthentication, CreateNewUser);
 router.post("/verify", VerifyUser);

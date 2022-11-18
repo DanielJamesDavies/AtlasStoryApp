@@ -1,7 +1,6 @@
 const Substory = require("../../models/Substory");
 const Image = require("../../models/Image");
 
-const GetValueInNestedObject = require("../GetValueInNestedObject");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 module.exports = async (req, res) => {
@@ -9,11 +8,8 @@ module.exports = async (req, res) => {
 
 	const oldSubstory = await Substory.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Substory Not Found" }] });
-		});
+		.catch(() => false);
 	if (!oldSubstory) return res.status(200).send({ errors: [{ message: "Substory Not Found" }] });
-	const oldValue = GetValueInNestedObject(oldSubstory, req.body.path);
 
 	let newSubstory = JSON.parse(JSON.stringify(oldSubstory));
 

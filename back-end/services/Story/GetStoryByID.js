@@ -5,9 +5,7 @@ const User = require("../../models/User");
 module.exports = async (req, res) => {
 	const story = await Story.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-		});
+		.catch(() => false);
 	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 	let newStory = JSON.parse(JSON.stringify(story));
 
@@ -15,9 +13,7 @@ module.exports = async (req, res) => {
 
 	const owner = await User.findById(story.owner)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
-		});
+		.catch(() => false);
 	if (!owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 	newStory.data.owner = { _id: owner._id, username: owner.username, nickname: owner?.data?.nickname };
 

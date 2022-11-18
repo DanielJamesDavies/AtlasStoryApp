@@ -5,9 +5,7 @@ const GetValueInNestedObject = require("../GetValueInNestedObject");
 module.exports = async (req, res) => {
 	const character = await Character.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Character Not Found" }] });
-		});
+		.catch(() => false);
 	if (!character) return res.status(200).send({ errors: [{ message: "Character Not Found" }] });
 
 	if (!req.body.path) return res.status(200).send({ errors: [{ message: "Path Not Provided" }] });
@@ -42,7 +40,7 @@ module.exports = async (req, res) => {
 			character.data.images.map(async (image_id) => {
 				const image = Image.findById(image_id)
 					.exec()
-					.catch(() => {});
+					.catch(() => false);
 				if (!image) return false;
 				return image;
 			})

@@ -3,9 +3,7 @@ const Genre = require("../../models/Genre");
 module.exports = async (req, res) => {
 	const oldGenre = await Genre.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Genre Not Found" }] });
-		});
+		.catch(() => false);
 	if (!oldGenre) return res.status(200).send({ errors: [{ message: "Genre Not Found" }] });
 
 	let newGenre = JSON.parse(JSON.stringify(oldGenre));

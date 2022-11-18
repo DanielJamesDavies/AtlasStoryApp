@@ -13,16 +13,12 @@ module.exports = async (req, res) => {
 
 	let user = await User.findById(user_id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ attribute: "deleteUser", message: "User Not Found" }] });
-		});
+		.catch(() => false);
 	if (!user) return res.status(200).send({ errors: [{ attribute: "deleteUser", message: "User Not Found" }] });
 
 	let stories = await Story.find({ owner: user._id })
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ attribute: "deleteUser", message: "User Not Found" }] });
-		});
+		.catch(() => false);
 	if (stories?.length > 0)
 		return res
 			.status(200)

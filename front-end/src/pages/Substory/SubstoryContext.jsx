@@ -89,7 +89,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		}
 
 		async function getStory() {
-			const story_response = await APIRequest("/story?uid=" + story_uid, "GET");
+			const story_response = await APIRequest("/story?uid=" + story_uid + "&story_uid=" + story_uid, "GET");
 			if (!story_response?.data?.story || story_response?.error || story_response?.data?.story?.uid !== story_uid) {
 				setStateToDefault();
 				return false;

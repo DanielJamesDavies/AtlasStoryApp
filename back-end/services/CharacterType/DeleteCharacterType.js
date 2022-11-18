@@ -4,16 +4,12 @@ const Story = require("../../models/Story");
 module.exports = async (req, res) => {
 	const characterType = await CharacterType.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Character Type Not Found" }] });
-		});
+		.catch(() => true);
 	if (!characterType?._id || !characterType?.story_id) return res.status(200).send({ errors: [{ message: "Character Type Not Found" }] });
 
 	const oldStory = await Story.findById(characterType.story_id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-		});
+		.catch(() => true);
 	if (!oldStory || !oldStory?.data?.characterTypes) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
 	let newStory = JSON.parse(JSON.stringify(oldStory));

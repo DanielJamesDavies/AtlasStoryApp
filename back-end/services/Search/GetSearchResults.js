@@ -1,6 +1,7 @@
-const jwt_decode = require("jwt-decode");
 const User = require("../../models/User");
 const Story = require("../../models/Story");
+
+const StoryMemberAuthentication = require("../StoryMemberAuthentication");
 
 module.exports = async (req, res) => {
 	if (!req?.query?.value) return;
@@ -27,13 +28,23 @@ module.exports = async (req, res) => {
 
 	let usersOfStories = await User.find({ _id: { $in: stories.map((story) => story.owner) } });
 
-	let newStories = stories.map((oldStory) => {
-		let newStory = JSON.parse(JSON.stringify(oldStory));
-		newStory.modelType = "story";
-		let newOwner = usersOfStories.find((e) => JSON.stringify(e._id) === JSON.stringify(newStory.owner));
-		if (newOwner) newStory.owner = { _id: newOwner?._id, username: newOwner?.username, nickname: newOwner?.data?.nickname };
-		return newStory;
-	});
+	let newStories = await Promise.all(
+		stories.map(async (oldStory) => {
+			const storyMemberAuthenticationResponse = await StoryMemberAuthentication(
+				req,
+				{ story_id: oldStory._id, status: () => {} },
+				() => true
+			);
+			if (storyMemberAuthenticationResponse !== true) return false;
+
+			let newStory = JSON.parse(JSON.stringify(oldStory));
+			newStory.modelType = "story";
+			let newOwner = usersOfStories.find((e) => JSON.stringify(e._id) === JSON.stringify(newStory.owner));
+			if (newOwner) newStory.owner = { _id: newOwner?._id, username: newOwner?.username, nickname: newOwner?.data?.nickname };
+			return newStory;
+		})
+	);
+	newStories = newStories.filter((e) => e !== false);
 	searchResults = searchResults.concat(newStories);
 
 	usersOfStories = usersOfStories.map((oldUser) => {

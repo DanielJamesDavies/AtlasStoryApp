@@ -1,6 +1,5 @@
 const Group = require("../../models/Group");
 
-const GetValueInNestedObject = require("../GetValueInNestedObject");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 module.exports = async (req, res) => {
@@ -8,11 +7,8 @@ module.exports = async (req, res) => {
 
 	const oldGroup = await Group.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Group Not Found" }] });
-		});
+		.catch(() => false);
 	if (!oldGroup) return res.status(200).send({ errors: [{ message: "Group Not Found" }] });
-	const oldValue = GetValueInNestedObject(oldGroup, req.body.path);
 
 	const newGroup = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldGroup)), req?.body?.path, req?.body?.newValue);
 

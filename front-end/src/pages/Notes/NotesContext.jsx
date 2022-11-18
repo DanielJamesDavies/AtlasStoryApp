@@ -24,7 +24,7 @@ const NotesProvider = ({ children, story_uid, notes_uid }) => {
 			if (story.uid === story_uid) return;
 
 			// Story Data
-			const story_response = await APIRequest("/story?uid=" + story_uid, "GET");
+			const story_response = await APIRequest("/story?uid=" + story_uid + "&story_uid=" + story_uid, "GET");
 			if (!story_response?.data?.story || story_response?.error || story_uid !== story_response.data.story.uid) {
 				setStory(false);
 				setStoryIcon(false);

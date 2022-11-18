@@ -3,6 +3,7 @@
 // Components
 import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
 import { ContentItem } from "../../../components/ContentItem/ContentItem";
+import { LabelContainer } from "../../../components/LabelContainer/LabelContainer";
 import { Text } from "../../../components/Text/Text";
 import { MultiLineTextInput } from "../../../components/MultiLineTextInput/MultiLineTextInput";
 
@@ -24,33 +25,34 @@ export const StoryDescription = () => {
 	if (!story?.data?.description)
 		return (
 			<ContentItem size='s' hasBg={true}>
-				<div className='story-description'>
-					<div className='story-description-title'>Description</div>
-				</div>
+				<LabelContainer className='story-description-container' label='Description'>
+					<div className='story-description'></div>
+				</LabelContainer>
 			</ContentItem>
 		);
 	return (
 		<ContentItem size='s' hasBg={true}>
-			<div className='story-description'>
-				<div className='story-description-title'>Description</div>
-				<EditableContainer
-					className='story-description-value-container'
-					absolutePositionEditBtns={true}
-					isAuthorizedToEdit={isAuthorizedToEdit}
-					onRevert={revertStoryDescription}
-					onSave={saveStoryDescription}
-					higherEditBtns={true}
-				>
-					<div className='story-description-value'>{!story?.data?.description ? null : <Text value={story.data.description} />}</div>
-					<MultiLineTextInput
-						className='story-description-value'
-						label='Description'
-						value={story.data.description.join("\n")}
-						onChange={changeStoryDescription}
-						seamless={true}
-					/>
-				</EditableContainer>
-			</div>
+			<LabelContainer className='story-description-container' label='Description'>
+				<div className='story-description'>
+					<EditableContainer
+						className='story-description-value-container'
+						absolutePositionEditBtns={true}
+						isAuthorizedToEdit={isAuthorizedToEdit}
+						onRevert={revertStoryDescription}
+						onSave={saveStoryDescription}
+						higherEditBtns={true}
+					>
+						<div className='story-description-value'>{!story?.data?.description ? null : <Text value={story.data.description} />}</div>
+						<MultiLineTextInput
+							className='story-description-value'
+							label='Description'
+							value={story.data.description.join("\n")}
+							onChange={changeStoryDescription}
+							seamless={true}
+						/>
+					</EditableContainer>
+				</div>
+			</LabelContainer>
 		</ContentItem>
 	);
 };

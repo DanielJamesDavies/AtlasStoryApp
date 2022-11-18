@@ -8,15 +8,13 @@ module.exports = async (req, res) => {
 		if (req.query?.story_id) {
 			story = await Story.findOne({ _id: req.query.story_id })
 				.exec()
-				.catch(() => {
-					res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-				});
+				.catch(() => false);
+			if (!story) res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 		} else {
 			story = await Story.findOne({ uid: req.query.story_uid })
 				.exec()
-				.catch(() => {
-					res.status(200).send({ errors: [{ message: "Story Not Found" }] });
-				});
+				.catch(() => false);
+			if (!story) res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 		}
 
 		if (!story || !story?._id) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
@@ -26,9 +24,7 @@ module.exports = async (req, res) => {
 			story.data.characterTypes.map(async (characterTypeID) => {
 				let characterType = await CharacterType.findOne({ _id: characterTypeID })
 					.exec()
-					.catch(() => {
-						return false;
-					});
+					.catch(() => false);
 				if (!characterType) return false;
 				return characterType;
 			})

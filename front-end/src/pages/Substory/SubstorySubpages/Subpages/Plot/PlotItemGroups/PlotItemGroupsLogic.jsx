@@ -52,7 +52,6 @@ export const PlotItemGroupsLogic = ({ cluster, changeCluster, setGroupID, setIsD
 			if (groupIndex !== -1) newGroup.items = newCluster.groups[groupIndex].items;
 			return newGroup;
 		});
-		console.log(response.data.value);
 		changeCluster(newCluster);
 
 		return true;

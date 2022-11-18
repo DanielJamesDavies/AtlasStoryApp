@@ -25,7 +25,7 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 			if (story.uid === story_uid) return;
 
 			// Story Data
-			const story_response = await APIRequest("/story?uid=" + story_uid, "GET");
+			const story_response = await APIRequest("/story?uid=" + story_uid + "&story_uid=" + story_uid, "GET");
 			if (!story_response?.data?.story || story_response?.error || story_uid !== story_response.data.story.uid) {
 				setStory(false);
 				setStoryIcon(false);
@@ -62,7 +62,7 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 			let newSubstories = await Promise.all(
 				substoryIDs.map(async (substoryID) => {
 					if (!substoryID) return false;
-					const substory_response = await APIRequest("/substory/" + substoryID, "GET");
+					const substory_response = await APIRequest("/substory/" + substoryID + "?story_uid=" + story_uid, "GET");
 					if (substory_response?.errors || !substory_response?.data?.substory) return false;
 					return substory_response.data.substory;
 				})

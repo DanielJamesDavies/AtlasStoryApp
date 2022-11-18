@@ -43,6 +43,27 @@ export const TextInputLogic = (props) => {
 						break;
 				}
 			}
+			if (props?.backgroundColour) {
+				switch (props?.backgroundColour) {
+					case "grey1":
+						className += " text-input-container-bg-grey-1";
+						break;
+					case "grey2":
+						className += " text-input-container-bg-grey-2";
+						break;
+					case "grey3":
+						className += " text-input-container-bg-grey-3";
+						break;
+					case "grey4":
+						className += " text-input-container-bg-grey-4";
+						break;
+					case "grey5":
+						className += " text-input-container-bg-grey-5";
+						break;
+					default:
+						break;
+				}
+			}
 			return className;
 		}
 		setInputClassName(getInputClassName());

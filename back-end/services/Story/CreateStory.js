@@ -46,9 +46,7 @@ module.exports = async (req, res) => {
 
 	let owner = await User.findById(user_id)
 		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
-		});
+		.catch(() => false);
 	if (!owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 
 	if (!owner.data.stories.includes(story._id)) owner.data.stories.push(story._id);

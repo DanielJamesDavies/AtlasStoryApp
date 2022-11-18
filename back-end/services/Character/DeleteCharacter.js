@@ -7,9 +7,7 @@ const deleteImagesByKey = require("../Image/deleteImagesByKey");
 module.exports = async (req, res) => {
 	const character = await Character.findById(req.params.id)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "Character Not Found" }] });
-		});
+		.catch(() => false);
 	if (!character) return res.status(200).send({ errors: [{ message: "Character Not Found" }] });
 
 	const removeCharacterFromStoryPrimaryCharactersResult = await removeCharacterFromStoryPrimaryCharacters(req.params.id, character.story_id);
@@ -35,9 +33,7 @@ module.exports = async (req, res) => {
 async function removeCharacterFromStoryPrimaryCharacters(character_id, story_id) {
 	const oldStory = await Story.findById(story_id)
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "Story Not Found" }] };
-		});
+		.catch(() => false);
 	if (!oldStory) return { errors: [{ message: "Story Not Found" }] };
 
 	let newStory = JSON.parse(JSON.stringify(oldStory));
@@ -57,9 +53,8 @@ async function removeCharacterFromStoryPrimaryCharacters(character_id, story_id)
 async function removeCharacterFromGroup(character_id, group_id) {
 	const oldGroup = await Group.findById(group_id)
 		.exec()
-		.catch(() => {
-			return { errors: [{ message: "Group Not Found" }] };
-		});
+		.catch(() => false);
+	if (!oldGroup) return { errors: [{ message: "Group Not Found" }] };
 
 	let newGroup = JSON.parse(JSON.stringify(oldGroup));
 	if (!newGroup?.data?.characters) newGroup.data.characters = [];

@@ -59,7 +59,6 @@ export const BiographyClusterListLogic = ({ currBiographyCluster, switchBiograph
 			newCharacterVersion.biography.filter((e) => !defaultBiographyClustersTitles.includes(e.name))
 		);
 		newCharacterVersion.biography = newBiographyClusters;
-		console.log(newBiographyClusters);
 		changeCharacterVersion(newCharacterVersion);
 	}
 

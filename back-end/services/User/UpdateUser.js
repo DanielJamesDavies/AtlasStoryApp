@@ -30,9 +30,7 @@ module.exports = async (req, res) => {
 
 	const oldUser = await User.findById(user_id)
 		.exec()
-		.catch(() => {
-			return res.status(200).send({ errors: [{ message: "User Not Found" }] });
-		});
+		.catch(() => false);
 	if (!oldUser) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
 	let newUser = JSON.parse(JSON.stringify(oldUser));

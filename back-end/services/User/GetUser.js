@@ -1,18 +1,16 @@
 const jwt_decode = require("jwt-decode");
 
 const User = require("../../models/User");
+const Image = require("../../models/Image");
 
 module.exports = async (req, res) => {
 	if (req.query.username) {
 		let user = await User.findOne({ username: req.query.username })
 			.exec()
-			.catch(() => {
-				res.status(200).send({ errors: [{ message: "User Not Found" }] });
-			});
+			.catch(() => false);
 		if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
 
-		let newUser = JSON.parse(JSON.stringify(user));
-		delete newUser.data.password;
+		const newUser = getUserWithoutPassword(user);
 
 		return res.status(200).send({
 			message: "Success",
@@ -20,27 +18,32 @@ module.exports = async (req, res) => {
 		});
 	}
 
-	try {
-		var { user_id } = jwt_decode(req?.cookies?.AtlasStoryAppToken);
-	} catch (error) {
-		return res.status(200).send({ errors: [{ message: "Authentication Error" }] });
+	let users = await User.find()
+		.exec()
+		.catch(() => false);
+	if (!users) return res.status(200).send({ errors: [{ message: "Users Not Found" }] });
+
+	users = users.map((user) => getUserWithoutPassword(user));
+
+	if (req.query.profilePicture === "true") {
+		users = await Promise.all(
+			users.map(async (user) => {
+				let newUser = JSON.parse(JSON.stringify(user));
+				const profilePicture = await Image.findOne({ _id: newUser?.data?.profilePicture });
+				if (profilePicture) newUser.data.profilePicture = profilePicture;
+				return newUser;
+			})
+		);
 	}
 
-	let user = await User.findById(user_id)
-		.exec()
-		.catch(() => {
-			res.status(200).send({ errors: [{ message: "User Not Found" }] });
-		});
-	if (!user) return res.status(200).send({ errors: [{ message: "User Not Found" }] });
+	res.status(200).send({ message: "Success", data: { users: users } });
+};
 
+function getUserWithoutPassword(user) {
 	let newUser = JSON.parse(JSON.stringify(user));
 	delete newUser.data.password;
-
-	res.status(200).send({
-		message: "Success",
-		data: { user: newUser, isAuthorizedToEdit: true },
-	});
-};
+	return newUser;
+}
 
 function getIsAuthorizedToModify(AtlasStoryAppToken, user_id) {
 	// Is Authorized User

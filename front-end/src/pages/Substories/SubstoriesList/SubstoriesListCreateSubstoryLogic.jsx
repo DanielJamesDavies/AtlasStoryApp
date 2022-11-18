@@ -65,7 +65,6 @@ export const SubstoriesListCreateSubstoryLogic = () => {
 			uid: JSON.parse(JSON.stringify(substoryUID)),
 		});
 		if (!response) return;
-		console.log(response);
 		if (response?.errors) return setErrors(response.errors);
 		if (currStory?.uid && response?.data?.substory_uid) changeLocation("/s/" + currStory.uid + "/s/" + response.data.substory_uid);
 	}

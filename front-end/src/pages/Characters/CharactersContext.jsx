@@ -76,7 +76,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 		}
 
 		async function getStory() {
-			const story_response = await APIRequest("/story?uid=" + story_uid, "GET");
+			const story_response = await APIRequest("/story?uid=" + story_uid + "&story_uid=" + story_uid, "GET");
 			if (!story_response?.data?.story || story_response?.error || story_response?.data?.story?.uid !== story_uid) {
 				setStateToDefault();
 				return false;
@@ -99,7 +99,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 			let newGroups = await Promise.all(
 				groupIDs.map(async (groupID) => {
 					if (!groupID) return false;
-					const group_response = await APIRequest("/group/" + groupID, "GET");
+					const group_response = await APIRequest("/group/" + groupID + "?story_uid=" + story_uid, "GET");
 					if (group_response?.errors || !group_response?.data?.group) return false;
 					return group_response.data.group;
 				})
@@ -117,7 +117,10 @@ const CharactersProvider = ({ children, story_uid }) => {
 					if (!group?.data?.characters) return false;
 					let characters = await Promise.all(
 						group.data.characters.map(async (group_character) => {
-							const character_response = await APIRequest("/character/" + group_character.character_id, "GET");
+							const character_response = await APIRequest(
+								"/character/" + group_character.character_id + "?card=true&story_uid=" + story_uid,
+								"GET"
+							);
 							if (character_response?.errors || !character_response?.data?.character) return false;
 							return character_response.data.character;
 						})
@@ -152,7 +155,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 			if (!characterTypesIDs) return;
 			let newCharacterTypes = await Promise.all(
 				characterTypesIDs.map(async (characterTypeID) => {
-					const character_type_response = await APIRequest("/character-type/" + characterTypeID, "GET");
+					const character_type_response = await APIRequest("/character-type/" + characterTypeID + "?story_uid=" + story_uid, "GET");
 					if (character_type_response?.errors || !character_type_response?.data?.characterType) return false;
 					return character_type_response.data.characterType;
 				})
