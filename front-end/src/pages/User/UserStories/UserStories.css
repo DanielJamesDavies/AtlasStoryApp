@@ -45,6 +45,16 @@
 	width: calc(100% + 20px);
 }
 
+.user-stories-story-item-container {
+	position: relative;
+	margin: 10px;
+	transition: margin 0.3s;
+}
+
+.user-stories-story-item-container:hover {
+	margin-top: 4px;
+}
+
 @media (max-width: 750px) {
 	.user-stories {
 		margin: 0;

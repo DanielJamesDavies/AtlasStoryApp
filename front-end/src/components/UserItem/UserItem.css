@@ -1,0 +1,53 @@
+.user-item-loading {
+	display: none;
+}
+
+.user-item {
+	display: flex;
+	align-items: center;
+	margin: 4px;
+	padding: 8px 16px;
+	border-radius: 18px;
+
+	background: var(--grey2);
+	width: fit-content;
+	transition: background 0.2s;
+	cursor: pointer;
+}
+
+.user-item:hover {
+	background: var(--grey3);
+}
+
+.user-item-profile-picture {
+	margin-right: 12px;
+	border-radius: 100%;
+
+	--profilePictureWidth: 50px;
+	min-width: var(--profilePictureWidth);
+	width: var(--profilePictureWidth);
+	min-height: var(--profilePictureWidth);
+	height: var(--profilePictureWidth);
+}
+
+.user-item-profile-picture img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.user-item-names-container {
+	margin-right: 6px;
+	text-align: left;
+}
+
+.user-item-nickname {
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.user-item-username {
+	font-size: 13px;
+	font-weight: 400;
+}

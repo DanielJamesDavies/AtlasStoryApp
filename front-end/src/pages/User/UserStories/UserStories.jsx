@@ -2,11 +2,11 @@
 import { FaPlus, FaSort } from "react-icons/fa";
 
 // Components
-import { UserStoryItem } from "./UserStoryItem/UserStoryItem";
 import { UserCreateStory } from "./UserCreateStory/UserCreateStory";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
+import { StoryItem } from "../../../components/StoryItem/StoryItem";
 
 // Logic
 import { UserStoriesLogic } from "./UserStoriesLogic";
@@ -50,7 +50,7 @@ export const UserStories = () => {
 					</div>
 				)}
 			</div>
-			{!user?.data?.stories ? null : (
+			{!stories || !user?.data?.stories ? null : (
 				<DragDropContainer
 					className='user-stories-story-items-container'
 					inlineItems={true}
@@ -59,9 +59,9 @@ export const UserStories = () => {
 				>
 					{user.data.stories
 						.filter((e) => !stories || stories?.findIndex((e2) => e2._id === e) !== -1)
-						.map((storyID, index) => (
+						.map((story_id, index) => (
 							<DragDropItem key={index} index={index} className='user-stories-story-item-container'>
-								<UserStoryItem storyID={storyID} />
+								<StoryItem story={stories?.find((e) => e._id === story_id)} />
 							</DragDropItem>
 						))}
 				</DragDropContainer>

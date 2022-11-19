@@ -1,5 +1,6 @@
 const User = require("../../models/User");
 const Story = require("../../models/Story");
+const Image = require("../../models/Image");
 
 const StoryMemberAuthentication = require("../StoryMemberAuthentication");
 
@@ -15,11 +16,18 @@ module.exports = async (req, res) => {
 	let users = await User.find({
 		$or: [{ username: regex }, { "data.nickname": regex }],
 	});
-	users = users.map((oldUser) => {
-		let newUser = JSON.parse(JSON.stringify(oldUser));
-		newUser.modelType = "user";
-		return newUser;
-	});
+	users = await Promise.all(
+		users.map(async (oldUser) => {
+			let newUser = JSON.parse(JSON.stringify(oldUser));
+			newUser.modelType = "user";
+
+			const profilePicture = await Image.findById(newUser.data.profilePicture)
+				.exec()
+				.catch(() => false);
+			newUser.data.profilePicture = profilePicture;
+			return newUser;
+		})
+	);
 	searchResults = searchResults.concat(users);
 
 	let stories = await Story.find({
@@ -40,18 +48,25 @@ module.exports = async (req, res) => {
 			let newStory = JSON.parse(JSON.stringify(oldStory));
 			newStory.modelType = "story";
 			let newOwner = usersOfStories.find((e) => JSON.stringify(e._id) === JSON.stringify(newStory.owner));
-			if (newOwner) newStory.owner = { _id: newOwner?._id, username: newOwner?.username, nickname: newOwner?.data?.nickname };
+			if (newOwner) newStory.data.owner = { _id: newOwner?._id, username: newOwner?.username, nickname: newOwner?.data?.nickname };
 			return newStory;
 		})
 	);
 	newStories = newStories.filter((e) => e !== false);
 	searchResults = searchResults.concat(newStories);
 
-	usersOfStories = usersOfStories.map((oldUser) => {
-		let newUser = JSON.parse(JSON.stringify(oldUser));
-		newUser.modelType = "user";
-		return newUser;
-	});
+	usersOfStories = await Promise.all(
+		usersOfStories.map(async (oldUser) => {
+			let newUser = JSON.parse(JSON.stringify(oldUser));
+			newUser.modelType = "user";
+
+			const profilePicture = await Image.findById(newUser.data.profilePicture)
+				.exec()
+				.catch(() => false);
+			newUser.data.profilePicture = profilePicture;
+			return newUser;
+		})
+	);
 	searchResults = searchResults.concat(usersOfStories.filter((e) => users.findIndex((e2) => e2._id === e._id) === -1));
 
 	searchResults = searchResults.sort((a, b) => {

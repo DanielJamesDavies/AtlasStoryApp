@@ -1,15 +1,18 @@
 .home-search-container {
-	position: absolute;
+	position: fixed;
 	z-index: 1;
 	top: 12px;
 	left: 50%;
-	transform: translateX(-50%);
-	width: 100%;
+	transform: translateX(calc(-50% + (var(--navbarWidth) / 2)));
+	width: calc(100% - var(--navbarWidth));
+	max-width: calc(1300px + var(--navbarWidth));
 	text-align: center;
 }
 
 @media (max-width: 750px) {
 	.home-search-container {
 		top: 6px;
+		transform: translateX(-50%);
+		width: 100%;
 	}
 }
