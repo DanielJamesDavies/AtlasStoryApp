@@ -1,7 +1,7 @@
 // Packages
 
 // Components
-import { Routes } from "./Routes";
+import { SpotifyContainer } from "./SpotifyContainer";
 
 // Logic
 
@@ -19,7 +19,7 @@ export const RoutesContainer = () => {
 	return (
 		<RoutesProvider>
 			<SpofityProvider>
-				<Routes />
+				<SpotifyContainer />
 			</SpofityProvider>
 		</RoutesProvider>
 	);

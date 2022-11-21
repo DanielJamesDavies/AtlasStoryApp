@@ -135,6 +135,8 @@ export const RoutesLogic = () => {
 						setRenderComponent(<StoryContainer story_uid={locationSplit[1]} />);
 					}
 					break;
+				case "authorize-spotify":
+					break;
 				case "spotify":
 					break;
 				default:

@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import querystring from "query-string";
+import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 
 import { APIContext } from "./APIContext";
 import { RoutesContext } from "./RoutesContext";
@@ -14,27 +13,56 @@ const SpofityProvider = ({ children }) => {
 	const [spotify_access_token, setSpotifyAccessToken] = useState(false);
 	const [spotify_refresh_token, setSpotifyRefreshToken] = useState(false);
 	const [connectAllDevicesToSpotify, setConnectAllDevicesToSpotify] = useState(false);
+	const [hasAttemptedAuthorization, setHasAttemptedAuthorization] = useState(false);
 
 	useEffect(() => {
 		async function authorizeSpotify() {
 			if (!connectAllDevicesToSpotify) return false;
 			if (spotify_access_token || spotify_refresh_token) return true;
 
-			const client_id_response = await APIRequest("/spotify/client-id", "GET");
-			const client_id = client_id_response?.data?.client_id;
-			if (client_id_response?.errors || !client_id) return false;
-
 			if (window.location.pathname !== "/spotify") {
-				window.location.href =
-					"https://accounts.spotify.com/authorize?" +
-					querystring.stringify({
-						response_type: "code",
-						client_id,
-						scope,
-						redirect_uri,
-						state: window.location.pathname + window.location.search,
-					});
+				if (/Mobi/i.test(window.navigator.userAgent)) {
+					const client_id_response = await APIRequest("/spotify/client-id", "GET");
+					const client_id = client_id_response?.data?.client_id;
+					if (client_id_response?.errors || !client_id) return false;
+
+					const spotifyAuthURL =
+						"https://accounts.spotify.com/authorize?response_type=code&client_id=" +
+						client_id +
+						"&scope=" +
+						scope +
+						"&redirect_uri=" +
+						redirect_uri +
+						"&state=" +
+						window.location.pathname +
+						window.location.search;
+					window.location = spotifyAuthURL;
+				} else {
+					if (window === window?.parent) return false;
+
+					const client_id_response = await APIRequest("/spotify/client-id", "GET");
+					const client_id = client_id_response?.data?.client_id;
+					if (client_id_response?.errors || !client_id) return false;
+
+					if (window.location.pathname === "/authorize-spotify") {
+						window.parent.postMessage(JSON.stringify({ message: "spotify-authorizing" }), "*");
+						const spotifyAuthURL =
+							"https://accounts.spotify.com/authorize?response_type=code&client_id=" +
+							client_id +
+							"&scope=" +
+							scope +
+							"&redirect_uri=" +
+							redirect_uri +
+							"&state=" +
+							window.location.pathname +
+							window.location.search;
+						window.location = spotifyAuthURL;
+					}
+				}
+				return true;
 			} else {
+				setHasAttemptedAuthorization(true);
+
 				let code = false;
 				let previous_location = "/";
 				window.location.search
@@ -53,13 +81,22 @@ const SpofityProvider = ({ children }) => {
 					});
 				if (!code) return false;
 
+				if (window !== window?.parent) window.parent.postMessage(JSON.stringify({ message: "spotify-code", code }), "*");
+
 				const token_response = await APIRequest("/spotify/get-tokens?code=" + code + "&redirect_uri=" + redirect_uri, "GET");
-				if (token_response?.errors || !token_response?.data?.access_token) {
-					changeLocation(previous_location);
-					return false;
-				}
-				setSpotifyAccessToken(token_response?.data?.access_token);
-				setSpotifyRefreshToken(token_response?.data?.refresh_token);
+				if (token_response?.data?.access_token) setSpotifyAccessToken(token_response.data.access_token);
+				if (token_response?.data?.refresh_token) setSpotifyRefreshToken(token_response.data.refresh_token);
+
+				if (window !== window?.parent)
+					window.parent.postMessage(
+						JSON.stringify({
+							message: "spotify-tokens",
+							code: code,
+							access_token: token_response?.data?.access_token,
+							refresh_token: token_response.data.refresh_token,
+						}),
+						"*"
+					);
 
 				changeLocation(previous_location);
 			}
@@ -76,7 +113,73 @@ const SpofityProvider = ({ children }) => {
 		spotify_refresh_token,
 		setSpotifyRefreshToken,
 		connectAllDevicesToSpotify,
+		setHasAttemptedAuthorization,
 	]);
+
+	const spotifyAuthorizationTimeout = useRef(null);
+
+	useEffect(() => {
+		async function windowMessageEventHandler(e) {
+			if (spotify_access_token || spotify_refresh_token) return false;
+			if (
+				!e?.isTrusted ||
+				!((e.origin === process.env.NODE_ENV) === "development" ? "http://localhost:3000/" : "https://www.atlas-story.app/")
+			)
+				return false;
+
+			let data = false;
+			try {
+				data = JSON.parse(e?.data);
+			} catch (e) {}
+			if (!data) return false;
+
+			switch (data.message) {
+				case "spotify-authorizing":
+					const client_id_response = await APIRequest("/spotify/client-id", "GET");
+					const client_id = client_id_response?.data?.client_id;
+					if (client_id_response?.errors || !client_id) return false;
+
+					if (spotifyAuthorizationTimeout.current === null && !hasAttemptedAuthorization)
+						spotifyAuthorizationTimeout.current = setTimeout(() => {
+							const spotifyAuthURL =
+								"https://accounts.spotify.com/authorize?response_type=code&client_id=" +
+								client_id +
+								"&scope=" +
+								scope +
+								"&redirect_uri=" +
+								redirect_uri +
+								"&state=" +
+								window.location.pathname +
+								window.location.search;
+							window.location = spotifyAuthURL;
+						}, 5000);
+					return;
+				case "spotify-code":
+					if (spotifyAuthorizationTimeout !== null) clearTimeout(spotifyAuthorizationTimeout.current);
+					spotifyAuthorizationTimeout.current = null;
+
+					const token_response = await APIRequest("/spotify/get-tokens?code=" + data?.code + "&redirect_uri=" + redirect_uri, "GET");
+					if (token_response?.data?.access_token) setSpotifyAccessToken(token_response.data.access_token);
+					if (token_response?.data?.refresh_token) setSpotifyRefreshToken(token_response.data.refresh_token);
+					return;
+				case "spotify-tokens":
+					if (spotifyAuthorizationTimeout !== null) clearTimeout(spotifyAuthorizationTimeout.current);
+					spotifyAuthorizationTimeout.current = null;
+
+					if (data?.access_token) setSpotifyAccessToken(data.access_token);
+					if (data?.refresh_token) setSpotifyRefreshToken(data.refresh_token);
+
+					return;
+				default:
+					break;
+			}
+		}
+		window.addEventListener("message", windowMessageEventHandler);
+		return () => {
+			window.removeEventListener("message", windowMessageEventHandler);
+			clearInterval(spotifyAuthorizationTimeout.current);
+		};
+	}, [spotify_access_token, spotify_refresh_token, APIRequest, spotifyAuthorizationTimeout, hasAttemptedAuthorization, redirect_uri]);
 
 	const SpotifyRequest = async (path, method, body, access_token) => {
 		if (!spotify_access_token) return false;
@@ -105,7 +208,15 @@ const SpofityProvider = ({ children }) => {
 	};
 
 	return (
-		<SpotifyContext.Provider value={{ SpotifyRequest, spotify_refresh_token, connectAllDevicesToSpotify, setConnectAllDevicesToSpotify }}>
+		<SpotifyContext.Provider
+			value={{
+				SpotifyRequest,
+				spotify_access_token,
+				spotify_refresh_token,
+				connectAllDevicesToSpotify,
+				setConnectAllDevicesToSpotify,
+			}}
+		>
 			{children}
 		</SpotifyContext.Provider>
 	);

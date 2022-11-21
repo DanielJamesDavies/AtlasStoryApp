@@ -28,7 +28,7 @@
 	display: block;
 	content: "";
 	width: 100vw;
-	height: 100vh;
+	height: var(--vh);
 	background: #00000088;
 }
 

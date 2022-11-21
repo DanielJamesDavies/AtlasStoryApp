@@ -13,9 +13,9 @@ const RoutesProvider = ({ children }) => {
 		setLocation(routerLocation.pathname + routerLocation.search);
 	}, [routerLocation, setLocation]);
 
-	async function changeLocation(newLocation, openInNewWindow) {
+	async function changeLocation(newLocation, openInNewWindow, reload) {
 		if (openInNewWindow) return window.open(domain + newLocation, "_blank");
-		if (newLocation === location) {
+		if (reload) {
 			routerNavigate("");
 			setTimeout(() => routerNavigate(newLocation), 100);
 		} else {

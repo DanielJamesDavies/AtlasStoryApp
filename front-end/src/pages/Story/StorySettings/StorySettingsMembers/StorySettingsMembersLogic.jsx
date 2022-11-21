@@ -32,6 +32,7 @@ export const StorySettingsMembersLogic = () => {
 	const [oldMembers, setOldMembers] = useState(false);
 	useEffect(() => {
 		async function getMembers() {
+			if (!story) return false;
 			if (JSON.stringify(story?.data?.members) !== JSON.stringify(oldMembers)) {
 				setOldMembers(JSON.parse(JSON.stringify(story?.data?.members)));
 				let newMembers = await Promise.all(
@@ -98,8 +99,7 @@ export const StorySettingsMembersLogic = () => {
 			if (response?.errors) setErrors(response.errors);
 			return false;
 		}
-		console.log(response?.data?.story.owner !== story.owner);
-		if (response?.data?.story?.owner !== story?.owner) changeLocation(location);
+		if (response?.data?.story?.owner !== story?.owner) changeLocation(location, false, true);
 		return true;
 	}
 

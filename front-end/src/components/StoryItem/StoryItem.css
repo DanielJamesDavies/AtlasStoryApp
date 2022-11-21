@@ -179,13 +179,16 @@
 	}
 }
 
-@media (max-width: 490px) {
+@media (max-width: 484px) {
 	.story-item {
-		--storyItemHeight: calc((100vw) / 1.65);
+		width: calc(50vw - 22px);
+		height: calc((((50vw - 22px) * 3) / 2) - 30px);
 	}
 
 	.story-item-size-s {
-		--storyItemHeight: calc((100vw) / 2.8);
+		--storyItemHeight: calc(100vw / 2.8);
+		width: calc(((var(--storyItemHeight) / 3) * 2) + 20px);
+		height: var(--storyItemHeight);
 	}
 
 	.story-item-title {

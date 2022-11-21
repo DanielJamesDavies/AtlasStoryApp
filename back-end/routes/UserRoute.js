@@ -15,7 +15,7 @@ const UpdateUser = require("../services/User/UpdateUser");
 const DeleteUser = require("../services/User/DeleteUser");
 
 router.get("/", GetUser);
-router.get("/me", GetAuthenticatedUser);
+router.get("/me", CookieConsentAuthentication, GetAuthenticatedUser);
 router.get("/:id", GetUserByID);
 router.post("/", CookieConsentAuthentication, CreateNewUser);
 router.post("/verify", VerifyUser);

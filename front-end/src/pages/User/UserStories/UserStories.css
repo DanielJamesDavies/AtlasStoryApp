@@ -77,3 +77,14 @@
 		font-size: 13px;
 	}
 }
+
+@media (max-width: 484px) {
+	.user-stories-story-item-container {
+		margin: 5px;
+	}
+
+	.user-stories-story-item-container .story-item {
+		width: calc(50vw - 10px - 4px);
+		height: calc((((50vw - 10px - 4px) * 3) / 2) - 30px);
+	}
+}

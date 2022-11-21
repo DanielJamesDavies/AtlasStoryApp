@@ -11,7 +11,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
-	const { SpotifyRequest } = useContext(SpotifyContext);
+	const { spotify_access_token, spotify_refresh_token, SpotifyRequest } = useContext(SpotifyContext);
 
 	const [failure, setFailure] = useState(false);
 
@@ -242,6 +242,77 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		setSubstorySoundtrack,
 		changeAccentColour,
 		changeAccentHoverColour,
+	]);
+
+	const [old_spotify_access_token, setOldSpotifyAccessToken] = useState(false);
+	const [old_spotify_refresh_token, setOldSpotifyRefreshToken] = useState(false);
+
+	useEffect(() => {
+		async function getSubstorySoundtrack() {
+			if (
+				JSON.stringify(spotify_access_token) === JSON.stringify(old_spotify_access_token) ||
+				JSON.stringify(spotify_refresh_token) === JSON.stringify(old_spotify_refresh_token)
+			)
+				return true;
+			setOldSpotifyAccessToken(spotify_access_token);
+			setOldSpotifyRefreshToken(spotify_refresh_token);
+
+			const newSubstory = JSON.parse(JSON.stringify(substory));
+			const playlist_id = newSubstory?.data?.soundtrack?.playlist_id;
+			const old_tracks = newSubstory?.data?.soundtrack?.tracks;
+			if (!playlist_id || !old_tracks) return false;
+
+			const response = await SpotifyRequest("/playlists/" + playlist_id, "GET");
+			if (!response || response?.errors) return false;
+
+			let tracks = await Promise.all(
+				!response?.tracks?.items
+					? null
+					: response.tracks.items.map(async (item) => {
+							let artwork = undefined;
+							if (!item?.is_local) {
+								try {
+									artwork = await new Promise(async (resolve) => {
+										const artwork_response = await fetch(item?.track?.album?.images[0]?.url);
+										const reader = new FileReader();
+										reader.onloadend = () => resolve(reader.result);
+										reader.readAsDataURL(await artwork_response.blob());
+									});
+								} catch (e) {}
+							}
+
+							return {
+								id: item?.track?.id,
+								uri: item?.track?.uri,
+								is_local: item?.is_local,
+								name: item?.track?.name,
+								album: item?.track?.album?.name,
+								artists: item?.track?.artists?.map((artist) => artist?.name).join(","),
+								artwork,
+								artwork_url: item?.track?.album?.images[0]?.url,
+								text:
+									old_tracks?.findIndex((e) => e?.uri === item?.track?.uri) === -1
+										? [""]
+										: old_tracks?.find((e) => e?.uri === item?.track?.uri)?.text,
+							};
+					  })
+			);
+
+			let newSubstorySoundtrack = { playlist_id, tracks };
+
+			setSubstorySoundtrack(newSubstorySoundtrack);
+		}
+
+		getSubstorySoundtrack();
+	}, [
+		substory,
+		spotify_access_token,
+		old_spotify_access_token,
+		setOldSpotifyAccessToken,
+		spotify_refresh_token,
+		old_spotify_refresh_token,
+		setOldSpotifyRefreshToken,
+		SpotifyRequest,
 	]);
 
 	return (
