@@ -1,16 +1,21 @@
 .story-primary-follow-btn {
 	margin-left: 24px;
-	border: 3px solid var(--storyColour);
+	border: 0;
 	border-radius: 32px;
 
 	width: 96px;
 	height: 36px;
 
-	background: var(--grey1);
-	color: var(--storyColour);
+	background: var(--grey3);
+	color: #fff;
 	text-align: center;
 	font-weight: 700;
 	cursor: pointer;
+	transition: 0.1s;
+}
+
+.story-primary-follow-btn:hover {
+	background: var(--grey4);
 }
 
 .story-primary-is-authorized .story-primary-follow-btn {
@@ -23,9 +28,8 @@
 }
 
 .story-primary-follow-btn-is-following:hover {
-	border-color: var(--red);
-	background: var(--grey1);
-	color: var(--red);
+	background: var(--red);
+	color: #fff;
 }
 
 .story-primary-follow-btn-is-following .story-primary-follow-btn-text-follow {
@@ -50,4 +54,14 @@
 
 .story-primary-follow-btn-is-following:hover .story-primary-follow-btn-text-unfollow {
 	display: block;
+}
+
+@media (max-width: 750px) {
+	.story-primary-follow-btn {
+		margin-left: 0px;
+	}
+
+	.story-primary-is-authorized .story-primary-follow-btn {
+		margin-left: 0px;
+	}
 }

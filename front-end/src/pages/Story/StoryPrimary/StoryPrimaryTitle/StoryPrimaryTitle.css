@@ -22,13 +22,12 @@
 
 @media (max-width: 750px) {
 	.story-primary-main-info-title {
-		margin: 0;
 		font-size: 24px;
 		width: 100%;
 	}
 
 	.story-primary-main-info-title,
 	.story-primary-main-info-title-container input {
-		font-size: 20px;
+		font-size: 28px;
 	}
 }

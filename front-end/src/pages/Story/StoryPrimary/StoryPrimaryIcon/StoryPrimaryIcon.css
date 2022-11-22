@@ -34,11 +34,12 @@
 
 @media (max-width: 750px) {
 	.story-primary-icon-container {
-		margin-top: 12px;
+		margin-top: 10px;
+		padding-right: 8px;
 	}
 
 	.story-primary-icon {
-		margin-top: -44px;
+		margin-top: -14px;
 		margin-left: 6px;
 		width: 60px;
 		height: 60px;
