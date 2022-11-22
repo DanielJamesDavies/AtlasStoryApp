@@ -27,7 +27,8 @@
 }
 
 .story-primary-main-info {
-	display: inline-block;
+	display: flex;
+	align-items: center;
 	margin-left: 12px;
 	width: calc(100% - 12px - 164px - 28px - 27px - 31px);
 	min-height: 73px;
@@ -62,7 +63,6 @@
 
 	.story-primary-main-info {
 		margin: 8px 0;
-		margin-left: 8px;
 		width: calc(100% - 6px - 75px - 24px - 27px - 32px + 10px);
 		min-height: 50px;
 	}

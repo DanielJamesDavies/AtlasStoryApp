@@ -8,6 +8,7 @@ export const StoryContext = createContext();
 
 const StoryProvider = ({ children, story_uid }) => {
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
+	const [isFollowingStory, setIsFollowingStory] = useState(false);
 	const [story, setStory] = useState(false);
 	const [members, setMembers] = useState([]);
 	const [icon, setIcon] = useState(false);
@@ -28,16 +29,18 @@ const StoryProvider = ({ children, story_uid }) => {
 			// Story Data
 			const response = await APIRequest("/story?uid=" + story_uid + "&story_uid=" + story_uid, "GET");
 			if (!response?.data?.story || response?.error || story_uid !== response.data.story.uid) {
+				setIsAuthorizedToEdit(false);
+				setIsFollowingStory(false);
 				setStory(false);
 				setIcon(false);
 				setBanner(false);
-				setIsAuthorizedToEdit(false);
 				return;
 			}
 
 			setStory(response.data.story);
 
 			setIsAuthorizedToEdit(response?.data?.isAuthorizedToEdit);
+			setIsFollowingStory(response?.data?.isFollowingStory);
 
 			changeAccentColour(response?.data?.story?.data?.colours?.accent);
 			changeAccentHoverColour(response?.data?.story?.data?.colours?.accentHover);
@@ -145,6 +148,7 @@ const StoryProvider = ({ children, story_uid }) => {
 		setBanner,
 		setPrimaryCharacters,
 		setIsAuthorizedToEdit,
+		setIsFollowingStory,
 		changeAccentColour,
 		changeAccentHoverColour,
 	]);
@@ -164,6 +168,8 @@ const StoryProvider = ({ children, story_uid }) => {
 			value={{
 				story_uid,
 				isAuthorizedToEdit,
+				isFollowingStory,
+				setIsFollowingStory,
 				story,
 				setStory,
 				members,

@@ -17,6 +17,7 @@ import { StoryPrimaryLogic } from "./StoryPrimaryLogic";
 
 // Styles
 import "./StoryPrimary.css";
+import { StoryPrimaryFollowBtn } from "./StoryPrimaryFollowBtn/StoryPrimaryFollowBtn";
 
 // Assets
 
@@ -24,7 +25,7 @@ export const StoryPrimary = () => {
 	const { isAuthorizedToEdit, user_id, story, goToStoryNotes, openSettings, leaveStory } = StoryPrimaryLogic();
 
 	return (
-		<div className='story-primary'>
+		<div className={isAuthorizedToEdit ? "story-primary story-primary-is-authorized" : "story-primary"}>
 			<StoryPrimaryBanner />
 			<div className='story-primary-break'></div>
 			<StoryPrimaryIcon />
@@ -35,8 +36,13 @@ export const StoryPrimary = () => {
 						: "story-primary-main-info"
 				}
 			>
-				<StoryPrimaryTitle />
-				<StoryPrimaryMembers />
+				<div>
+					<StoryPrimaryTitle />
+					<StoryPrimaryMembers />
+				</div>
+				<div>
+					<StoryPrimaryFollowBtn />
+				</div>
 			</div>
 			<div className='story-primary-buttons-container'>
 				<IconBtn

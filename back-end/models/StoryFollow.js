@@ -1,22 +1,18 @@
 const mongoose = require("mongoose");
 
-const FollowRelationshipSchema = mongoose.Schema({
+const StoryFollowSchema = mongoose.Schema({
 	_id: {
 		type: mongoose.Schema.Types.ObjectId,
 		require: true,
 	},
-	followerId: {
+	user_id: {
 		type: mongoose.Schema.Types.ObjectId,
 		require: true,
 	},
-	followingId: {
+	story_id: {
 		type: mongoose.Schema.Types.ObjectId,
 		require: true,
-	},
-	followingType: {
-		type: String,
-		required: true,
 	},
 });
 
-module.exports = mongoose.model("FollowRelationship", FollowRelationshipSchema);
+module.exports = mongoose.model("StoryFollow", StoryFollowSchema);
