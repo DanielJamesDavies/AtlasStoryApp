@@ -4,6 +4,7 @@
 	font-weight: 400;
 	font-size: 16px;
 	color: var(--textColour);
+	min-height: 24px;
 }
 
 .story-primary-main-info-member {

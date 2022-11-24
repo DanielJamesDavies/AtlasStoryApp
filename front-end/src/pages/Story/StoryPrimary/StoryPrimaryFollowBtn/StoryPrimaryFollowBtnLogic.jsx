@@ -25,14 +25,12 @@ export const StoryPrimaryFollowBtnLogic = () => {
 			const unfollow_story_response = await APIRequest("/story-follow/" + story._id, "DELETE");
 			if (unfollow_story_response?.errors) return false;
 			setIsFollowingStory(false);
-			return true;
 		} else {
 			const follow_story_response = await APIRequest("/story-follow/" + story._id, "POST");
-			console.log(follow_story_response);
 			if (follow_story_response?.errors) return false;
 			setIsFollowingStory(true);
-			return true;
 		}
+		return true;
 	}
 
 	return { isFollowingStory, story, onFollowStoryBtnClick };

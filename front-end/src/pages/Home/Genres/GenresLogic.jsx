@@ -14,7 +14,7 @@ import { APIContext } from "../../../context/APIContext";
 
 // Assets
 
-export const GenresListLogic = () => {
+export const GenresLogic = () => {
 	const { APIRequest, user_id } = useContext(APIContext);
 	const [favouritedGenres, setFavouritedGenres] = useState(false);
 

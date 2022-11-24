@@ -59,9 +59,23 @@
 @media (max-width: 750px) {
 	.story-primary-follow-btn {
 		margin-left: 0px;
+		font-size: 14px;
 	}
 
 	.story-primary-is-authorized .story-primary-follow-btn {
 		margin-left: 0px;
+	}
+
+	.story-primary-follow-btn-is-following:hover {
+		background: var(--storyColour);
+		color: #fff;
+	}
+
+	.story-primary-follow-btn-is-following:hover .story-primary-follow-btn-text-following {
+		display: block;
+	}
+
+	.story-primary-follow-btn-is-following:hover .story-primary-follow-btn-text-unfollow {
+		display: none;
 	}
 }

@@ -2,7 +2,7 @@
 import { FaStar, FaBook, FaRegStar, FaTimes } from "react-icons/fa";
 
 // Components
-import { IconBtn } from "../../../components/IconBtn/IconBtn";
+import { IconBtn } from "../../../../components/IconBtn/IconBtn";
 
 // Logic
 

@@ -70,7 +70,7 @@ export const MultiLineTextInputLogic = (props) => {
 			inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
 		}
 		resizeInput();
-		let reloadTimer = setTimeout(() => resizeInput(), 1);
+		let reloadTimer = setTimeout(() => resizeInput(), 10);
 		window.addEventListener("resize", resizeInput);
 		return () => {
 			clearTimeout(reloadTimer);

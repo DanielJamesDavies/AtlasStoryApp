@@ -2,24 +2,24 @@
 import { FaSearch, FaPlus } from "react-icons/fa";
 
 // Components
-import { GenreItem } from "./GenreItem";
+import { GenreItem } from "./GenreItem/GenreItem";
 import { TextInput } from "../../../components/TextInput/TextInput";
 import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
 // Logic
-import { GenresListLogic } from "./GenresListLogic";
+import { GenresLogic } from "./GenresLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./GenresList.css";
+import "./Genres.css";
 
 // Assets
 
-export const GenresList = () => {
+export const Genres = () => {
 	const {
 		user_id,
 		favouritedGenres,
@@ -30,7 +30,7 @@ export const GenresList = () => {
 		genresSearchValue,
 		changeGenresSearchValue,
 		createNewGenre,
-	} = GenresListLogic();
+	} = GenresLogic();
 
 	return (
 		<div className='home-genres-list-container'>

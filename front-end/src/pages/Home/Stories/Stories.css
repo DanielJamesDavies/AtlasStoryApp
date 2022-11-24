@@ -1,0 +1,9 @@
+.home-stories-container {
+	width: calc(100% - 248px + 8px);
+}
+
+@media (max-width: 750px) {
+	.home-stories-container {
+		width: 100%;
+	}
+}

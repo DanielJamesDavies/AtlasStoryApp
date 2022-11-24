@@ -61,7 +61,7 @@ export const UserStories = () => {
 						.filter((e) => !stories || stories?.findIndex((e2) => e2._id === e) !== -1)
 						.map((story_id, index) => (
 							<DragDropItem key={index} index={index} className='user-stories-story-item-container'>
-								<StoryItem story={stories?.find((e) => e._id === story_id)} />
+								<StoryItem story={stories?.find((e) => e._id === story_id)} size='l' />
 							</DragDropItem>
 						))}
 				</DragDropContainer>

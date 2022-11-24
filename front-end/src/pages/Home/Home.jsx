@@ -2,8 +2,8 @@
 
 // Components
 import { Search } from "./Search/Search";
-import { StoriesList } from "./StoriesList/StoriesList";
-import { GenresList } from "./GenresList/GenresList";
+import { Stories } from "./Stories/Stories";
+import { Genres } from "./Genres/Genres";
 
 // Logic
 
@@ -21,8 +21,8 @@ export const Home = () => {
 		<div className='home-container'>
 			<Search />
 			<div className='home-content'>
-				<StoriesList />
-				<GenresList />
+				<Stories />
+				<Genres />
 			</div>
 		</div>
 	);

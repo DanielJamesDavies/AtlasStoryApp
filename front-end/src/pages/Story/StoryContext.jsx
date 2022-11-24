@@ -37,10 +37,10 @@ const StoryProvider = ({ children, story_uid }) => {
 				return;
 			}
 
-			setStory(response.data.story);
-
 			setIsAuthorizedToEdit(response?.data?.isAuthorizedToEdit);
 			setIsFollowingStory(response?.data?.isFollowingStory);
+
+			setStory(response.data.story);
 
 			changeAccentColour(response?.data?.story?.data?.colours?.accent);
 			changeAccentHoverColour(response?.data?.story?.data?.colours?.accentHover);
