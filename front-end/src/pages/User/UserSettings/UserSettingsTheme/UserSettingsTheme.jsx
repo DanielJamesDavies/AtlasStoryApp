@@ -22,9 +22,8 @@ export const UserSettingsTheme = () => {
 		<>
 			<div className='user-settings-theme-buttons-container'>
 				{themes.map((theme, index) => (
-					<div className='user-settings-theme-btn-container'>
+					<div key={index} className='user-settings-theme-btn-container'>
 						<div
-							key={index}
 							className={
 								JSON.stringify(uiTheme) === JSON.stringify(theme?.id)
 									? "user-settings-theme-btn user-settings-theme-btn-active"

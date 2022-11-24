@@ -1,4 +1,5 @@
 // Packages
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Components
 import { SubstoryPrimaryTitle } from "./SubstoryPrimaryTitle/SubstoryPrimaryTitle";
@@ -16,11 +17,14 @@ import "./SubstoryPrimary.css";
 // Assets
 
 export const SubstoryPrimary = ({ substoryPrimaryTitleRef }) => {
-	const { story, storyIcon, primaryStoryNameStyles } = SubstoryPrimaryLogic();
+	const { story, storyIcon, primaryStoryNameStyles, toOverviewSection, toSubpagesSection } = SubstoryPrimaryLogic();
 
 	return (
-		<div className='substory-primary'>
-			<div className='substory-primary-name-and-story-container'>
+		<div className='substory-primary-container'>
+			<button className='substory-primary-section-switcher-btn substory-primary-section-switcher-btn-to-overview' onClick={toOverviewSection}>
+				<FaChevronLeft />
+			</button>
+			<div className='substory-primary'>
 				<SubstoryPrimaryTitle substoryPrimaryTitleRef={substoryPrimaryTitleRef} />
 				<div className='substory-primary-story'>
 					<div className='substory-primary-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
@@ -29,6 +33,9 @@ export const SubstoryPrimary = ({ substoryPrimaryTitleRef }) => {
 					</div>
 				</div>
 			</div>
+			<button className='substory-primary-section-switcher-btn substory-primary-section-switcher-btn-to-subpages' onClick={toSubpagesSection}>
+				<FaChevronRight />
+			</button>
 		</div>
 	);
 };

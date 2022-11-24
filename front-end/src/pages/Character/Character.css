@@ -85,11 +85,6 @@
 }
 
 @media (max-width: 750px) {
-	.character {
-		padding: 0;
-		height: 100%;
-	}
-
 	.character-container::before {
 		top: -24px;
 		height: calc(var(--characterPaddingTop) + 12px + 8px);
@@ -103,6 +98,11 @@
 	.character-container::after {
 		top: calc(var(--characterPaddingTop) - 4px);
 		height: calc(6px + 6px + 36px);
+	}
+
+	.character {
+		padding: 0;
+		height: 100%;
 	}
 
 	.character-content-container {
