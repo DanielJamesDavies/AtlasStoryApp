@@ -62,7 +62,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			changeAccentHoverColour(newStory?.data?.colours?.accentHover);
 
 			getStoryIcon(newStory?.data?.icon);
-			getCharacterTypes(newStory?.data?.characterTypes);
+			getCharacterTypes(newStory?.data?.characterTypes, newStory?._id);
 			getGroups(newStory?.data?.groups);
 
 			let newCharacter = await getCharacter(newStory._id);
@@ -125,11 +125,11 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			return character_response.data.character;
 		}
 
-		async function getCharacterTypes(characterTypesIDs) {
+		async function getCharacterTypes(characterTypesIDs, story_id) {
 			if (!characterTypesIDs) return;
 			let newCharacterTypes = await Promise.all(
 				characterTypesIDs.map(async (characterTypeID) => {
-					const character_type_response = await APIRequest("/character-type/" + characterTypeID, "GET");
+					const character_type_response = await APIRequest("/character-type/" + characterTypeID + "?story_id=" + story_id, "GET");
 					if (character_type_response?.errors || !character_type_response?.data?.characterType) return false;
 					return character_type_response.data.characterType;
 				})
