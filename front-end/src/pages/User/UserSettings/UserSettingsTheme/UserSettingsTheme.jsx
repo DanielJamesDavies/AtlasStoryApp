@@ -22,16 +22,19 @@ export const UserSettingsTheme = () => {
 		<>
 			<div className='user-settings-theme-buttons-container'>
 				{themes.map((theme, index) => (
-					<div
-						key={index}
-						className={
-							JSON.stringify(uiTheme) === JSON.stringify(theme?.id)
-								? "user-settings-theme-btn user-settings-theme-btn-active"
-								: "user-settings-theme-btn"
-						}
-						style={theme?.styles}
-						onClick={() => changeTheme(theme?.id)}
-					></div>
+					<div className='user-settings-theme-btn-container'>
+						<div
+							key={index}
+							className={
+								JSON.stringify(uiTheme) === JSON.stringify(theme?.id)
+									? "user-settings-theme-btn user-settings-theme-btn-active"
+									: "user-settings-theme-btn"
+							}
+							style={theme?.styles}
+							onClick={() => changeTheme(theme?.id)}
+						></div>
+						<div className='user-settings-theme-btn-label'>{theme?.label}</div>
+					</div>
 				))}
 			</div>
 			<ErrorMessage errors={errors} attribute='theme' />

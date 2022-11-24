@@ -6,6 +6,10 @@
 	width: calc(100% + 4px);
 }
 
+.user-settings-theme-btn-container {
+	position: relative;
+}
+
 .user-settings-theme-btn {
 	margin: 2px;
 	display: block;
@@ -24,4 +28,22 @@
 
 .user-settings-theme-btn-active {
 	border-color: var(--blue);
+}
+
+.user-settings-theme-btn-label {
+	position: absolute;
+	left: 50%;
+	bottom: -30px;
+	transform: translateX(-50%);
+	padding: 4px 8px;
+	border-radius: 3px;
+
+	background: var(--grey4);
+	opacity: 0;
+	pointer-events: none;
+	transition: 0.2s;
+}
+
+.user-settings-theme-btn-container:hover .user-settings-theme-btn-label {
+	opacity: 1;
 }
