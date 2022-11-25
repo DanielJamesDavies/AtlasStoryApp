@@ -57,7 +57,7 @@ export const DevelopmentItemsLogic = () => {
 	}
 
 	function reorderDevelopmentItems(res) {
-		if (res.from === undefined || res.to === undefined) return false;
+		if (res?.from === undefined || res?.to === undefined) return false;
 		setCharacter((oldCharacter) => {
 			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
 			const tempDevelopmentItem = newCharacter.data.development.items.splice(res.from, 1)[0];

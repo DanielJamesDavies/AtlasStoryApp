@@ -70,6 +70,7 @@ export const DevelopmentItems = () => {
 					}
 					enableDragDrop={isReorderingDevelopmentItems}
 					onDropItem={reorderDevelopmentItems}
+					includeVerticalDrag={true}
 				>
 					{character?.data?.development?.items?.map((developmentItem, index) => (
 						<DragDropItem className='character-subpage-development-item-container' key={index} index={index}>

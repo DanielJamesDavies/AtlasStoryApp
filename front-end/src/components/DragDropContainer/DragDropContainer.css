@@ -1,0 +1,20 @@
+.drag-drop-list {
+	position: relative;
+}
+
+.drag-drop-scroll-top,
+.drag-drop-scroll-bottom {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 15px;
+	pointer-events: initial !important;
+}
+
+.drag-drop-scroll-top {
+	top: 0;
+}
+
+.drag-drop-scroll-bottom {
+	bottom: 0;
+}

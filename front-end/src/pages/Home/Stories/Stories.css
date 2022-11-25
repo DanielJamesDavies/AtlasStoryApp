@@ -3,10 +3,13 @@
 	vertical-align: top;
 	margin: 0;
 	width: calc(100% - 224px - 32px);
+	max-height: calc(var(--vh) - (12px + 42px + 12px) - 12px - 12px);
+	overflow-y: overlay;
 }
 
 @media (max-width: 750px) {
 	.home-stories-container {
 		width: 100%;
+		max-height: 100%;
 	}
 }

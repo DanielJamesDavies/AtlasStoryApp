@@ -1,5 +1,5 @@
 // Packages
-import { useEffect, useState, cloneElement } from "react";
+import { useEffect, useState, cloneElement, useRef } from "react";
 
 // Components
 
@@ -84,5 +84,38 @@ export const DragDropContainerLogic = ({ children, className, inlineItems, enabl
 		setDragDropContainerClassName(getDragDropContainerClassName());
 	}, [setDragDropContainerClassName, className, inlineItems]);
 
-	return { updatedChildren, dragDropContainerClassName };
+	const dragDropContainerRef = useRef();
+	const [dropDownListScrollInterval, setDropDownListScrollInterval] = useState(false);
+
+	function scrollDragDropList(e, scrollValue) {
+		if (scrollValue !== 0 && e?.pointerType === "touch" && e?.button !== -1) {
+			return false;
+		}
+
+		const dropDownListCurrent = dragDropContainerRef.current.childNodes[0];
+
+		if (!dropDownListCurrent || scrollValue === 0) {
+			clearInterval(dropDownListScrollInterval);
+			setDropDownListScrollInterval(false);
+			return;
+		}
+
+		var interval = setInterval(() => {
+			if (
+				scrollValue !== 0 &&
+				dropDownListCurrent &&
+				(dropDownListCurrent.scrollTop !== 0 || scrollValue > 0) &&
+				(dropDownListCurrent.scrollTop !== dropDownListCurrent.scrollHeight - dropDownListCurrent.clientHeight || scrollValue < 0)
+			) {
+				dropDownListCurrent.scrollTop += scrollValue * 2;
+			} else {
+				clearInterval(interval);
+				clearInterval(dropDownListScrollInterval);
+				setDropDownListScrollInterval(false);
+			}
+		}, 2);
+		setDropDownListScrollInterval(interval);
+	}
+
+	return { updatedChildren, dragDropContainerClassName, dragDropContainerRef, scrollDragDropList };
 };
