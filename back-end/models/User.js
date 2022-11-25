@@ -30,10 +30,12 @@ const UserSchema = mongoose.Schema({
 		profilePicture: {
 			type: mongoose.Schema.Types.ObjectId,
 			require: true,
+			default: new mongoose.Types.ObjectId(),
 		},
 		banner: {
 			type: mongoose.Schema.Types.ObjectId,
 			require: true,
+			default: new mongoose.Types.ObjectId(),
 		},
 		stories: {
 			type: [

@@ -1,4 +1,5 @@
 .home-stories-recommended-container {
+	margin-bottom: 24px;
 	width: 100%;
 }
 
@@ -6,4 +7,37 @@
 	margin-bottom: 8px;
 	font-size: 22px;
 	font-weight: 700;
+}
+
+.home-stories-recommended-list {
+	display: flex;
+	margin-left: -5px;
+	width: calc(100% + 10px);
+}
+
+.home-stories-recommended-list-item-container {
+	flex-grow: 0;
+	position: relative;
+	margin: 5px;
+	transition: margin 0.3s;
+	width: fit-content;
+}
+
+.home-stories-recommended-list-item-container:hover {
+	margin-top: 1px;
+	margin-bottom: 9px;
+}
+
+.home-stories-recommended-list {
+	display: flex;
+	flex-direction: row;
+	padding-bottom: 8px;
+
+	width: 100%;
+}
+
+@media (max-width: 750px) {
+	.home-stories-recommended-list {
+		flex-wrap: nowrap;
+	}
 }

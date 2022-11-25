@@ -20,10 +20,12 @@ export const RecommendedStoriesLogic = () => {
 
 	useEffect(() => {
 		async function getRecommendedStories() {
-			setRecommendedStories([]);
+			const response = await APIRequest("/story/recommended", "GET");
+			if (!response || response?.errors || !response?.data?.stories) return false;
+			setRecommendedStories(response.data.stories);
 		}
 		getRecommendedStories();
-	}, [setRecommendedStories]);
+	}, [setRecommendedStories, APIRequest]);
 
 	return { recommendedStories };
 };

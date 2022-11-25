@@ -23,9 +23,6 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Authentication Error" }] });
 	}
 
-	const iconID = new mongoose.Types.ObjectId();
-	const bannerID = new mongoose.Types.ObjectId();
-
 	// New Story
 	const story = new Story({
 		_id: new mongoose.Types.ObjectId(),
@@ -38,8 +35,9 @@ module.exports = async (req, res) => {
 			groups: [],
 			primaryCharacters: [],
 			characterTypes: [],
-			icon: iconID,
-			banner: bannerID,
+			icon: new mongoose.Types.ObjectId(),
+			banner: new mongoose.Types.ObjectId(),
+			cover: new mongoose.Types.ObjectId(),
 			changeLog: [{ type: "Story", title: "Created Story" }],
 		},
 	});

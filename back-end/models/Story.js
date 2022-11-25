@@ -12,6 +12,10 @@ const StorySchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		require: true,
 	},
+	followerCount: {
+		type: Number,
+		require: true,
+	},
 	data: {
 		type: {
 			title: {
@@ -19,6 +23,7 @@ const StorySchema = mongoose.Schema({
 				require: true,
 				min: 1,
 				max: 64,
+				default: "",
 			},
 			isPrivate: {
 				type: Boolean,
@@ -39,9 +44,21 @@ const StorySchema = mongoose.Schema({
 				],
 				require: true,
 			},
-			icon: mongoose.Schema.Types.ObjectId,
-			banner: mongoose.Schema.Types.ObjectId,
-			cover: mongoose.Schema.Types.ObjectId,
+			icon: {
+				type: mongoose.Schema.Types.ObjectId,
+				require: true,
+				default: new mongoose.Types.ObjectId(),
+			},
+			banner: {
+				type: mongoose.Schema.Types.ObjectId,
+				require: true,
+				default: new mongoose.Types.ObjectId(),
+			},
+			cover: {
+				type: mongoose.Schema.Types.ObjectId,
+				require: true,
+				default: new mongoose.Types.ObjectId(),
+			},
 			description: { type: [String], default: [""] },
 			genres: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			colours: {
@@ -102,6 +119,7 @@ const StorySchema = mongoose.Schema({
 			substories: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 		},
 		require: true,
+		default: {},
 	},
 	date_created: { type: Date, default: Date.now },
 });

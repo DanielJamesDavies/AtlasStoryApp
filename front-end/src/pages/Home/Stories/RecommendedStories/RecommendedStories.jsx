@@ -1,6 +1,8 @@
 // Packages
 
 // Components
+import { StoryItem } from "../../../../components/StoryItem/StoryItem";
+import { CarouselContainer } from "../../../../components/CarouselContainer/CarouselContainer";
 
 // Logic
 import { RecommendedStoriesLogic } from "./RecommendedStoriesLogic";
@@ -21,6 +23,19 @@ export const RecommendedStories = () => {
 	return (
 		<div className='home-stories-recommended-container'>
 			<div className='home-stories-recommended-title'>Recommended Stories</div>
+			{!recommendedStories ? (
+				<div></div>
+			) : (
+				<CarouselContainer speed={1}>
+					<div className='home-stories-recommended-list'>
+						{recommendedStories.map((story, index) => (
+							<div key={index} className='home-stories-recommended-list-item-container'>
+								<StoryItem story={story} size='m' />
+							</div>
+						))}
+					</div>
+				</CarouselContainer>
+			)}
 		</div>
 	);
 };

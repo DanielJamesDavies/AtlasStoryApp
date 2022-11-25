@@ -35,8 +35,16 @@ const CharacterSchema = mongoose.Schema({
 				default: [],
 			},
 			colour: { type: String, default: "#0044ff" },
-			cardBackground: mongoose.Schema.Types.ObjectId,
-			overviewBackground: mongoose.Schema.Types.ObjectId,
+			cardBackground: {
+				type: mongoose.Schema.Types.ObjectId,
+				require: true,
+				default: new mongoose.Types.ObjectId(),
+			},
+			overviewBackground: {
+				type: mongoose.Schema.Types.ObjectId,
+				require: true,
+				default: new mongoose.Types.ObjectId(),
+			},
 			images: { type: [mongoose.Schema.Types.ObjectId], require: true, default: [] },
 			versions: {
 				type: [

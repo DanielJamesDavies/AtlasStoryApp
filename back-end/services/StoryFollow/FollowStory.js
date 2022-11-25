@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const jwt_decode = require("jwt-decode");
 
 const StoryFollow = require("../../models/StoryFollow");
+const Story = require("../../models/Story");
 
 module.exports = async (req, res) => {
 	const story_id = req?.params?.id;
@@ -30,5 +31,32 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Failed To Follow Story" }] });
 	}
 
-	return res.status(200).send({ message: "Success", data: { storyFollow } });
+	res.status(200).send({ message: "Success", data: { storyFollow } });
+
+	await updateStoryFollowerCount(story_id);
 };
+
+async function updateStoryFollowerCount(story_id) {
+	const story = await Story.findById(story_id)
+		.exec()
+		.catch(() => false);
+	if (!story) return false;
+
+	let newStory = JSON.parse(JSON.stringify(story));
+
+	const storyFollows = (
+		await StoryFollow.find({ story_id })
+			.exec()
+			.catch(() => [])
+	)?.length;
+	let storyFollowersCount = storyFollows ? storyFollows : 0;
+
+	newStory.followerCount = storyFollowersCount;
+
+	try {
+		await Story.findOneAndReplace({ _id: story_id }, newStory, { upsert: true });
+	} catch (error) {
+		return false;
+	}
+	return true;
+}
