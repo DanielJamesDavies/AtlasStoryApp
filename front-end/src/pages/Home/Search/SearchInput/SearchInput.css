@@ -8,10 +8,12 @@
 	border: 3px solid var(--grey4);
 	border-radius: 30px;
 	outline: 0;
+
+	width: 100%;
+	box-sizing: border-box;
+
 	background: var(--grey4);
 	color: #fff;
-	box-sizing: border-box;
-	width: calc(100% - 12px);
 	font-size: 13px;
 	font-weight: 500;
 	transition: 0.1s;
@@ -24,12 +26,13 @@
 }
 
 .search-input-placeholder-container {
-	display: flex;
-	align-items: center;
 	position: absolute;
 	top: 50%;
 	left: 32px;
 	transform: translateY(-50%);
+	display: flex;
+	align-items: center;
+
 	transition: 0.1s;
 	pointer-events: none;
 }

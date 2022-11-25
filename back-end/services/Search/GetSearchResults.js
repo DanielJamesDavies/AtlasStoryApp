@@ -6,6 +6,7 @@ const StoryMemberAuthentication = require("../StoryMemberAuthentication");
 
 module.exports = async (req, res) => {
 	if (!req?.query?.value) return;
+	let lastDate = new Date();
 
 	let searchResults = [];
 
@@ -13,9 +14,15 @@ module.exports = async (req, res) => {
 		$regex: RegExp(req?.query?.value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "i"),
 	};
 
-	let users = await User.find({
-		$or: [{ username: regex }, { "data.nickname": regex }],
-	});
+	const userFilter = { _id: 1, username: 1, "data.nickname": 1, "data.profilePicture": 1 };
+	const storyFilter = { _id: 1, uid: 1, owner: 1, "data.title": 1 };
+
+	let users = await User.find(
+		{
+			$or: [{ username: regex }, { "data.nickname": regex }],
+		},
+		userFilter
+	);
 	users = await Promise.all(
 		users.map(async (oldUser) => {
 			let newUser = JSON.parse(JSON.stringify(oldUser));
@@ -30,11 +37,14 @@ module.exports = async (req, res) => {
 	);
 	searchResults = searchResults.concat(users);
 
-	let stories = await Story.find({
-		$or: [{ uid: regex }, { "data.title": regex }, { owner: { $in: users.map((user) => user._id) } }],
-	});
+	let stories = await Story.find(
+		{
+			$or: [{ uid: regex }, { "data.title": regex }, { owner: { $in: users.map((user) => user._id) } }],
+		},
+		storyFilter
+	);
 
-	let usersOfStories = await User.find({ _id: { $in: stories.map((story) => story.owner) } });
+	let ownersOfStories = await User.find({ _id: { $in: stories.map((story) => story.owner) } }, userFilter);
 
 	let newStories = await Promise.all(
 		stories.map(async (oldStory) => {
@@ -47,7 +57,7 @@ module.exports = async (req, res) => {
 
 			let newStory = JSON.parse(JSON.stringify(oldStory));
 			newStory.modelType = "story";
-			let newOwner = usersOfStories.find((e) => JSON.stringify(e._id) === JSON.stringify(newStory.owner));
+			let newOwner = ownersOfStories.find((e) => JSON.stringify(e._id) === JSON.stringify(newStory.owner));
 			if (newOwner) newStory.data.owner = { _id: newOwner?._id, username: newOwner?.username, nickname: newOwner?.data?.nickname };
 			return newStory;
 		})
@@ -55,8 +65,8 @@ module.exports = async (req, res) => {
 	newStories = newStories.filter((e) => e !== false);
 	searchResults = searchResults.concat(newStories);
 
-	usersOfStories = await Promise.all(
-		usersOfStories.map(async (oldUser) => {
+	ownersOfStories = await Promise.all(
+		ownersOfStories.map(async (oldUser) => {
 			let newUser = JSON.parse(JSON.stringify(oldUser));
 			newUser.modelType = "user";
 
@@ -67,7 +77,7 @@ module.exports = async (req, res) => {
 			return newUser;
 		})
 	);
-	searchResults = searchResults.concat(usersOfStories.filter((e) => users.findIndex((e2) => e2._id === e._id) === -1));
+	searchResults = searchResults.concat(ownersOfStories.filter((e) => users.findIndex((e2) => e2._id === e._id) === -1));
 
 	searchResults = searchResults.sort((a, b) => {
 		let regex = new RegExp("^" + req?.query?.value, "i");

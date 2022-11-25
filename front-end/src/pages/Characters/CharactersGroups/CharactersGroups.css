@@ -113,4 +113,12 @@
 	.characters-groups-primary-modify-btn {
 		margin: 0 12px;
 	}
+
+	.characters-groups-group-items-container-placeholder .btn-list-item {
+		display: none;
+	}
+
+	.characters-groups-group-items-container-placeholder .btn-list-item:first-child {
+		display: block;
+	}
 }

@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Components
 
@@ -19,38 +19,10 @@ export const CharactersGroupCharacterCardsLogic = () => {
 	const { story, groups, setGroups, group, changeGroup, charactersCardBackgrounds, isReorderingCharacters } = useContext(CharactersContext);
 	const { APIRequest } = useContext(APIContext);
 
-	// Character Cards Scroll
-	const charactersCards = useRef();
-	const [characterCardsScrollInterval, setCharacterCardsScrollInterval] = useState(false);
-
-	function scrollCharacterCards(characterCardsScrollValue) {
-		if (!charactersCards?.current || characterCardsScrollValue === 0) {
-			clearInterval(characterCardsScrollInterval);
-			setCharacterCardsScrollInterval(false);
-			return;
-		}
-		var interval = setInterval(() => {
-			if (
-				characterCardsScrollValue !== 0 &&
-				charactersCards?.current &&
-				(charactersCards.current.scrollLeft !== 0 || characterCardsScrollValue > 0) &&
-				(charactersCards.current.scrollLeft !== charactersCards.current.scrollWidth - charactersCards.current.clientWidth ||
-					characterCardsScrollValue < 0)
-			) {
-				charactersCards.current.scrollLeft += characterCardsScrollValue * 2;
-			} else {
-				clearInterval(interval);
-				setCharacterCardsScrollInterval(false);
-			}
-		}, 2);
-		setCharacterCardsScrollInterval(interval);
-	}
-
 	const [prevGroupID, setPrevGroupID] = useState("");
 	useEffect(() => {
 		if (group._id !== prevGroupID) {
 			setPrevGroupID(group._id);
-			if (charactersCards?.current) charactersCards.current.scrollLeft = 0;
 		}
 	}, [group, prevGroupID, setPrevGroupID]);
 
@@ -77,37 +49,5 @@ export const CharactersGroupCharacterCardsLogic = () => {
 		});
 	}
 
-	function afterOnTouchMove(e) {
-		if (e?.touches[0]?.clientX === undefined || e?.touches[0]?.clientY === undefined) return;
-		const elementsOver = document.elementsFromPoint(e.touches[0].clientX, e.touches[0].clientY);
-
-		clearInterval(characterCardsScrollInterval);
-		setCharacterCardsScrollInterval(false);
-		scrollCharacterCards(0);
-
-		elementsOver.forEach((element) => {
-			if (!element.classList || !Array.from(element.classList)) return;
-			if (
-				Array.from(element.classList).includes("characters-group-characters-cards-scroll-left") ||
-				Array.from(element.classList).includes("characters-group-characters-cards-scroll-right")
-			) {
-				scrollCharacterCards(Array.from(element.classList).includes("characters-group-characters-cards-scroll-left") ? -1.5 : 1.5);
-			}
-		});
-	}
-
-	function afterOnTouchEnd() {
-		scrollCharacterCards(0);
-	}
-
-	return {
-		group,
-		charactersCards,
-		charactersCardBackgrounds,
-		scrollCharacterCards,
-		isReorderingCharacters,
-		changeCharactersOrder,
-		afterOnTouchMove,
-		afterOnTouchEnd,
-	};
+	return { group, charactersCardBackgrounds, isReorderingCharacters, changeCharactersOrder };
 };

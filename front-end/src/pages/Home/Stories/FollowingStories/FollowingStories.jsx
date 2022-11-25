@@ -2,6 +2,7 @@
 
 // Components
 import { StoryItem } from "../../../../components/StoryItem/StoryItem";
+import { CarouselContainer } from "../../../../components/CarouselContainer/CarouselContainer";
 
 // Logic
 import { FollowingStoriesLogic } from "./FollowingStoriesLogic";
@@ -25,13 +26,25 @@ export const FollowingStories = () => {
 			{!followingStories ? (
 				<div></div>
 			) : (
-				<div className='home-stories-following-list'>
-					{followingStories.map((story, index) => (
-						<div key={index} className='home-stories-following-list-item-container'>
-							<StoryItem story={story} size='m' />
-						</div>
-					))}
-				</div>
+				<CarouselContainer speed={1}>
+					<div className='home-stories-following-list'>
+						{followingStories.map((story, index) => (
+							<div key={index} className='home-stories-following-list-item-container'>
+								<StoryItem story={story} size='m' />
+							</div>
+						))}
+						{followingStories.map((story, index) => (
+							<div key={index} className='home-stories-following-list-item-container'>
+								<StoryItem story={story} size='m' />
+							</div>
+						))}
+						{followingStories.map((story, index) => (
+							<div key={index} className='home-stories-following-list-item-container'>
+								<StoryItem story={story} size='m' />
+							</div>
+						))}
+					</div>
+				</CarouselContainer>
 			)}
 		</div>
 	);

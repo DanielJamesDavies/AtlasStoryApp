@@ -63,9 +63,7 @@
 	.home-search-results-list-container {
 		margin-left: 0;
 		margin-right: 0;
-		padding-right: 6px;
 		max-height: calc(var(--vh) - var(--navbarMobileHeight) - 6px - 50px - 4px - 12px);
-		width: calc(100% - 6px);
 		overflow-y: overlay;
 	}
 

@@ -33,21 +33,7 @@
 	flex-direction: row;
 	padding-bottom: 8px;
 
-	max-width: 100%;
-	overflow-y: hidden;
-	overflow-x: overlay;
-}
-
-.home-stories-following-list::-webkit-scrollbar {
-	border-radius: 4px;
-	height: 6px;
-	background: transparent;
-	background: var(--grey1);
-}
-
-.home-stories-following-list::-webkit-scrollbar-thumb:horizontal {
-	border-radius: 4px;
-	background: var(--blue);
+	width: 100%;
 }
 
 @media (max-width: 750px) {

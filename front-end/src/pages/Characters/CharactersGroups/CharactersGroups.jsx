@@ -62,7 +62,7 @@ export const CharactersGroups = () => {
 					)}
 				</div>
 				{!story?.data?.groups || !groups ? (
-					<div className='characters-groups-group-items-container'>
+					<div className='characters-groups-group-items-container characters-groups-group-items-container-placeholder'>
 						<BtnListItem />
 						<BtnListItem />
 						<BtnListItem />

@@ -161,7 +161,7 @@
 @media (max-width: 1000px) {
 	.substory-subpage-development-item-container {
 		margin: 6px 0;
-		width: calc(100% - 24px);
+		width: 100%;
 	}
 
 	.substory-subpage-development-item-text-container {

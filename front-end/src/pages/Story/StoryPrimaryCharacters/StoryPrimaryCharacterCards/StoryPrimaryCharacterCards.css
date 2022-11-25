@@ -4,66 +4,11 @@
 
 .story-primary-characters-cards {
 	display: flex;
-	padding-bottom: 8px;
-	overflow-y: hidden;
-	overflow-x: overlay;
-}
-
-.story-primary-characters-cards::-webkit-scrollbar {
-	border-radius: 4px;
-	height: 6px;
-	background: transparent;
-	background: var(--grey2);
-}
-
-.story-primary-characters-cards::-webkit-scrollbar-thumb:horizontal {
-	border-radius: 4px;
-	background: var(--blue);
-}
-
-.story-primary-characters-cards-scroll-left,
-.story-primary-characters-cards-scroll-right {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	display: block;
-	z-index: 3;
-
-	width: 48px;
-	height: 100%;
-
-	background: rgba(0, 0, 0, 0);
-}
-
-.story-primary-characters-cards-scroll-left {
-	left: 0px;
-}
-
-.story-primary-characters-cards-scroll-right {
-	right: 0px;
-}
-
-.story-primary-characters-cards-scroll-hidden {
-	display: none;
+	width: 100%;
 }
 
 @media (max-width: 950px) {
 	.story-primary-characters-cards-container {
 		margin-top: 12px;
-	}
-
-	.story-primary-characters-cards {
-		padding-bottom: 12px;
-	}
-
-	.story-primary-characters-cards::-webkit-scrollbar {
-		height: 14px;
-	}
-
-	.story-primary-characters-cards::-webkit-scrollbar-thumb:horizontal {
-		border: 4px solid var(--grey2);
-		border-radius: 6px;
-		border-left: 0;
-		border-right: 0;
 	}
 }

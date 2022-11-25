@@ -14,28 +14,16 @@ import { CharactersGroupCharacterCardsLogic } from "./CharactersGroupCharacterCa
 
 // Styles
 import "./CharactersGroupCharacterCards.css";
+import { CarouselContainer } from "../../../../components/CarouselContainer/CarouselContainer";
 
 // Assets
 
 export const CharactersGroupCharacterCards = () => {
-	const {
-		group,
-		charactersCards,
-		charactersCardBackgrounds,
-		scrollCharacterCards,
-		isReorderingCharacters,
-		changeCharactersOrder,
-		afterOnTouchMove,
-		afterOnTouchEnd,
-	} = CharactersGroupCharacterCardsLogic();
+	const { group, charactersCardBackgrounds, isReorderingCharacters, changeCharactersOrder } = CharactersGroupCharacterCardsLogic();
 
 	if (!group) return null;
 	return (
-		<div
-			className='characters-group-characters-cards-container'
-			onMouseEnter={() => scrollCharacterCards(0)}
-			onMouseLeave={() => scrollCharacterCards(-1.75)}
-		>
+		<div className='characters-group-characters-cards-container'>
 			{!group?.data?.characters ? null : !charactersCardBackgrounds ? (
 				<div className='characters-group-characters-cards'>
 					{group?.data?.characters.map((character, index) => (
@@ -45,40 +33,21 @@ export const CharactersGroupCharacterCards = () => {
 					))}
 				</div>
 			) : (
-				<DragDropContainer
-					innerRef={charactersCards}
-					className='characters-group-characters-cards'
-					inlineItems={true}
-					enableDragDrop={isReorderingCharacters}
-					onDropItem={changeCharactersOrder}
-					afterOnTouchMove={afterOnTouchMove}
-					afterOnTouchEnd={afterOnTouchEnd}
-				>
-					{group?.data?.characters.map((character, index) => (
-						<DragDropItem key={index} index={index} className='characters-group-character-card-container'>
-							<CharactersGroupCharacterCard characterID={character.character_id} />
-						</DragDropItem>
-					))}
-				</DragDropContainer>
+				<CarouselContainer speed={1.25} fallback={true} scrollStartOnDataChange={group?._id}>
+					<DragDropContainer
+						className='characters-group-characters-cards'
+						inlineItems={true}
+						enableDragDrop={isReorderingCharacters}
+						onDropItem={changeCharactersOrder}
+					>
+						{group?.data?.characters.map((character, index) => (
+							<DragDropItem key={index} index={index} className='characters-group-character-card-container'>
+								<CharactersGroupCharacterCard characterID={character.character_id} />
+							</DragDropItem>
+						))}
+					</DragDropContainer>
+				</CarouselContainer>
 			)}
-			<div
-				className={
-					charactersCards?.current?.scrollLeft === 0
-						? "characters-group-characters-cards-scroll-left characters-group-characters-cards-scroll-hidden"
-						: "characters-group-characters-cards-scroll-left"
-				}
-				onMouseEnter={() => scrollCharacterCards(-2)}
-				onMouseLeave={() => scrollCharacterCards(0)}
-				onDragEnter={() => scrollCharacterCards(-2)}
-				onDragLeave={() => scrollCharacterCards(0)}
-			></div>
-			<div
-				className='characters-group-characters-cards-scroll-right'
-				onMouseEnter={() => scrollCharacterCards(2)}
-				onMouseLeave={() => scrollCharacterCards(0)}
-				onDragEnter={() => scrollCharacterCards(2)}
-				onDragLeave={() => scrollCharacterCards(0)}
-			></div>
 		</div>
 	);
 };

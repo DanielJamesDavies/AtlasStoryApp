@@ -1,7 +1,9 @@
 .home-genres-list-container {
-	margin-left: 8px;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 32px;
 
-	width: calc(248px + 8px);
+	width: 224px;
 }
 
 .home-genres-list-title {

@@ -3,13 +3,14 @@
 	margin: 0 auto;
 	padding: 0 24px;
 	width: calc(100% - 48px);
-	max-width: 1300px;
+	max-width: 1500px;
 }
 
 .home-content {
-	display: flex;
 	position: relative;
-	top: calc(12px + 42px + 12px);
+	top: calc(12px + 42px + 24px);
+	left: 8px;
+	width: calc(100% - 16px);
 }
 
 @media (max-width: 750px) {
@@ -19,6 +20,8 @@
 	}
 
 	.home-content {
-		flex-direction: column;
+		top: calc(12px + 42px + 12px);
+		left: 0;
+		width: 100%;
 	}
 }

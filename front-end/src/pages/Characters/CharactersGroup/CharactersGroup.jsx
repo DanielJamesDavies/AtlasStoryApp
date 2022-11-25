@@ -34,14 +34,16 @@ export const CharactersGroup = () => {
 								: "characters-group-primary-buttons-container"
 						}
 					>
-						<button
-							className='characters-group-primary-open-group-btn'
-							onClick={navigateToGroup}
-							onAuxClick={navigateToGroup}
-							onMouseDown={(e) => e.preventDefault()}
-						>
-							Open Group
-						</button>
+						{!group?.uid ? null : (
+							<button
+								className='characters-group-primary-open-group-btn'
+								onClick={navigateToGroup}
+								onAuxClick={navigateToGroup}
+								onMouseDown={(e) => e.preventDefault()}
+							>
+								Open Group
+							</button>
+						)}
 						{!isAuthorizedToEdit ? null : (
 							<div className='characters-group-primary-modify-btns-container'>
 								<IconBtn

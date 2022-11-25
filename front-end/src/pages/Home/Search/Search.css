@@ -5,7 +5,7 @@
 	left: 50%;
 	transform: translateX(calc(-50% + (var(--navbarWidth) / 2)));
 	width: calc(100% - var(--navbarWidth));
-	max-width: calc(1300px + var(--navbarWidth));
+	max-width: 1500px;
 	text-align: center;
 }
 
@@ -13,6 +13,7 @@
 	.home-search-container {
 		top: 6px;
 		transform: translateX(-50%);
-		width: 100%;
+		padding-right: 6px;
+		width: calc(100vw - 6px);
 	}
 }

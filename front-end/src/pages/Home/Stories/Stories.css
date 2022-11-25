@@ -1,5 +1,8 @@
 .home-stories-container {
-	width: calc(100% - 248px + 8px);
+	display: inline-block;
+	vertical-align: top;
+	margin: 0;
+	width: calc(100% - 224px - 32px);
 }
 
 @media (max-width: 750px) {
