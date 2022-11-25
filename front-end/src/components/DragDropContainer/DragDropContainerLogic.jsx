@@ -88,9 +88,8 @@ export const DragDropContainerLogic = ({ children, className, inlineItems, enabl
 	const [dropDownListScrollInterval, setDropDownListScrollInterval] = useState(false);
 
 	function scrollDragDropList(e, scrollValue) {
-		if (scrollValue !== 0 && e?.pointerType === "touch" && e?.button !== -1) {
-			return false;
-		}
+		if (e?.type === "pointerenter" && e?.pointerType !== "touch") return false;
+		if (scrollValue !== 0 && e?.pointerType === "touch" && e?.button !== -1) return false;
 
 		const dropDownListCurrent = dragDropContainerRef.current.childNodes[0];
 
