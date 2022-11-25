@@ -33,16 +33,6 @@ export const FollowingStories = () => {
 								<StoryItem story={story} size='m' />
 							</div>
 						))}
-						{followingStories.map((story, index) => (
-							<div key={index} className='home-stories-following-list-item-container'>
-								<StoryItem story={story} size='m' />
-							</div>
-						))}
-						{followingStories.map((story, index) => (
-							<div key={index} className='home-stories-following-list-item-container'>
-								<StoryItem story={story} size='m' />
-							</div>
-						))}
 					</div>
 				</CarouselContainer>
 			)}
