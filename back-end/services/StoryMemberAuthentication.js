@@ -13,25 +13,26 @@ module.exports = async (req, res, next) => {
 	}
 	if (!user_id) return res?.status(200)?.send({ errors: [{ message: "Access Denied" }] });
 
+	const storyFilter = { _id: 1, owner: 1, "data.members": 1 };
 	let story = false;
 	if (req?.query?.story_id) {
-		story = await Story.findById(req.query.story_id)
+		story = await Story.findById(req.query.story_id, storyFilter)
 			.exec()
 			.catch(() => false);
 	} else if (req?.query?.story_uid) {
-		story = await Story.findOne({ uid: req.query.story_uid })
+		story = await Story.findOne({ uid: req.query.story_uid }, storyFilter)
 			.exec()
 			.catch(() => false);
 	} else if (req?.body?.story_id) {
-		story = await Story.findById(req.body.story_id)
+		story = await Story.findById(req.body.story_id, storyFilter)
 			.exec()
 			.catch(() => false);
 	} else if (req?.body?.story_uid) {
-		story = await Story.findOne({ uid: req.body.story_uid })
+		story = await Story.findOne({ uid: req.body.story_uid }, storyFilter)
 			.exec()
 			.catch(() => false);
 	} else if (res.story_id) {
-		story = await Story.findById(res.story_id)
+		story = await Story.findById(res.story_id, storyFilter)
 			.exec()
 			.catch(() => false);
 	}

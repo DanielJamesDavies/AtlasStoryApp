@@ -13,7 +13,8 @@ module.exports = async (req, res, next) => {
 	}
 	if (!user_id) return res.status(200).send({ errors: [{ message: "Access Denied" }] });
 
-	const story = await Story.findById(req.body.story_id)
+	const storyFilter = { _id: 1, owner: 1, "data.members": 1 };
+	const story = await Story.findById(req.body.story_id, storyFilter)
 		.exec()
 		.catch(() => false);
 	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });

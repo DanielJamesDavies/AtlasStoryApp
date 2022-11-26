@@ -18,8 +18,8 @@ router.get("/", StoryMemberAuthentication, GetCharacter);
 router.get("/primary-character", StoryMemberAuthentication, GetPrimaryCharacter);
 router.get("/:id", StoryMemberAuthentication, GetCharacterByID);
 router.post("/get-value/:id", StoryMemberAuthentication, GetCharacterValueByID);
-router.post("/", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, CreateCharacter);
-router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, UpdateCharacter);
-router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, DeleteCharacter);
+router.post("/", CookieConsentAuthentication, Authenticate, StoryAuthentication, CreateCharacter);
+router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, UpdateCharacter);
+router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, DeleteCharacter);
 
 module.exports = router;

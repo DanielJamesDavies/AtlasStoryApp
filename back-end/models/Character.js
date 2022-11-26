@@ -209,6 +209,29 @@ const CharacterSchema = mongoose.Schema({
 				],
 				default: [{ title: "Ver. 1" }],
 			},
+			miscellaneous: {
+				type: {
+					items: {
+						type: [
+							{
+								title: { type: String, default: "" },
+								text: { type: [String], default: [""] },
+								images: {
+									type: [
+										{
+											image: mongoose.Schema.Types.ObjectId,
+											caption: { type: String, default: "" },
+										},
+									],
+									default: [],
+								},
+							},
+						],
+						default: [],
+					},
+				},
+				default: {},
+			},
 			development: {
 				type: {
 					items: {

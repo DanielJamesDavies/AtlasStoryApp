@@ -11,7 +11,16 @@ import { useEffect, useState, cloneElement, useRef } from "react";
 
 // Assets
 
-export const DragDropContainerLogic = ({ children, className, inlineItems, enableDragDrop, onDropItem, afterOnTouchMove, afterOnTouchEnd }) => {
+export const DragDropContainerLogic = ({
+	children,
+	innerRef,
+	className,
+	inlineItems,
+	enableDragDrop,
+	onDropItem,
+	afterOnTouchMove,
+	afterOnTouchEnd,
+}) => {
 	const [updatedChildren, setUpdatedChildren] = useState(null);
 	const [currentDraggingItem, setCurrentDraggingItem] = useState(null);
 	const [changedOrder, setChangedOrder] = useState(null);
@@ -91,7 +100,7 @@ export const DragDropContainerLogic = ({ children, className, inlineItems, enabl
 		if (e?.type === "pointerenter" && e?.pointerType !== "touch") return false;
 		if (scrollValue !== 0 && e?.pointerType === "touch" && e?.button !== -1) return false;
 
-		const dropDownListCurrent = dragDropContainerRef.current.childNodes[0];
+		const dropDownListCurrent = innerRef ? innerRef.current : dragDropContainerRef.current;
 
 		if (!dropDownListCurrent || scrollValue === 0) {
 			clearInterval(dropDownListScrollInterval);

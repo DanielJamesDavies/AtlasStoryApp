@@ -26,6 +26,7 @@ export const DragDropContainer = ({
 }) => {
 	const { updatedChildren, dragDropContainerClassName, dragDropContainerRef, scrollDragDropList } = DragDropContainerLogic({
 		children,
+		innerRef,
 		className,
 		inlineItems,
 		enableDragDrop,
@@ -36,10 +37,12 @@ export const DragDropContainer = ({
 	});
 
 	return (
-		<div ref={dragDropContainerRef} className='drag-drop-container'>
-			<div ref={innerRef} draggable='false' className={dragDropContainerClassName} style={style === undefined ? {} : style}>
-				{enableDragDrop ? updatedChildren : children}
-			</div>
+		<div
+			ref={innerRef ? innerRef : dragDropContainerRef}
+			draggable='false'
+			className={dragDropContainerClassName}
+			style={style === undefined ? {} : style}
+		>
 			{!includeVerticalDrag ? null : (
 				<>
 					<div
@@ -50,6 +53,11 @@ export const DragDropContainer = ({
 						onDragEnter={(e) => scrollDragDropList(e, -1)}
 						onDragLeave={(e) => scrollDragDropList(e, 0)}
 					/>
+				</>
+			)}
+			{enableDragDrop ? updatedChildren : children}
+			{!includeVerticalDrag ? null : (
+				<>
 					<div
 						className='drag-drop-scroll-bottom'
 						onPointerEnter={(e) => scrollDragDropList(e, 1)}

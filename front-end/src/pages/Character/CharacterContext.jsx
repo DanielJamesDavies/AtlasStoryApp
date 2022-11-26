@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect, useMemo } from "react";
+import React, { createContext, useState, useContext, useEffect, useMemo, useRef } from "react";
 
 import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
@@ -31,7 +31,6 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	// 	{ id: "relationships", name: "Relationships", isEnabled: true },
-	// 	{ id: "miscellaneous", name: "Miscellaneous", isEnabled: true },
 	const allSubpages = useMemo(
 		() => [
 			{ id: "gallery", name: "Gallery", isEnabled: true },
@@ -39,6 +38,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			{ id: "biography", name: "Biography", isEnabled: true },
 			{ id: "abilities", name: "Abilities & Equipment", isEnabled: true },
 			{ id: "physical", name: "Physical", isEnabled: true },
+			{ id: "miscellaneous", name: "Miscellaneous", isEnabled: true },
 			{ id: "development", name: "Development", isEnabled: true },
 			{ id: "settings", name: "Settings", isEnabled: true },
 		],
@@ -47,6 +47,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const [subpages, setSubpages] = useState([]);
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 
+	var hasGotCharacterImages = useRef({ current: false });
 	useEffect(() => {
 		async function getInitial() {
 			if (failure || !story_uid || !character_uid) {
@@ -121,7 +122,10 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				setFailure(true);
 				return false;
 			}
-			setCharacter(character_response.data.character);
+			setCharacter((oldCharacter) => {
+				if (oldCharacter._id === character_response.data.character._id) return oldCharacter;
+				return character_response.data.character;
+			});
 			return character_response.data.character;
 		}
 
@@ -194,6 +198,8 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		async function getCharacterImages(imageIDs) {
+			if (hasGotCharacterImages?.current === true) return true;
+
 			let newCharacterImages = await Promise.all(
 				imageIDs.map(async (imageID) => {
 					const image_response = await APIRequest("/image/" + imageID, "GET");
@@ -204,6 +210,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			newCharacterImages = newCharacterImages.filter((e) => e !== false);
 
 			setCharacterImages(newCharacterImages);
+			hasGotCharacterImages.current = true;
 		}
 
 		getInitial();
