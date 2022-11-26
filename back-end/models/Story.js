@@ -12,10 +12,6 @@ const StorySchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		require: true,
 	},
-	followerCount: {
-		type: Number,
-		require: true,
-	},
 	data: {
 		type: {
 			title: {

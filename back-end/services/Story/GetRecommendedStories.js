@@ -7,9 +7,8 @@ const StoryFollow = require("../../models/StoryFollow");
 const StoryMemberAuthentication = require("../../services/StoryMemberAuthentication");
 
 module.exports = async (req, res) => {
-	let stories = await Story.find({}, { _id: 1, uid: 1, owner: 1, followerCount: 1, "data.title": 1, "data.isPrivate": 1 })
-		.sort({ followerCount: -1 })
-		.limit(12)
+	let stories = await Story.find({}, { _id: 1, uid: 1, owner: 1, "data.title": 1, "data.isPrivate": 1, "data.genres": 1 })
+		.limit(24)
 		.exec()
 		.catch(() => []);
 
@@ -40,8 +39,50 @@ module.exports = async (req, res) => {
 		)
 	).filter((e) => e !== false);
 
+	let sortedStories = await getSortedStories(req?.cookies?.AtlasStoryAppToken, stories);
+	if (sortedStories !== false) stories = sortedStories;
+
 	return res.status(200).send({ message: "Success", data: { stories } });
 };
+
+async function getSortedStories(AtlasStoryAppToken, stories) {
+	let user_id = false;
+	try {
+		user_id = jwt_decode(AtlasStoryAppToken)?.user_id;
+	} catch (error) {}
+	if (!user_id) return false;
+
+	const user = await User.findById(user_id, { _id: 1, "data.favouritedGenres": 1 })
+		.exec()
+		.catch(() => false);
+	if (!user) return false;
+
+	return stories.sort((story1, story2) => {
+		const intersection1 = user?.data?.favouritedGenres.filter(
+			(e) => story1?.data?.genres.findIndex((e2) => JSON.stringify(e) === JSON.stringify(e2)) !== -1
+		);
+		const intersection2 = user?.data?.favouritedGenres.filter(
+			(e) => story2?.data?.genres.findIndex((e2) => JSON.stringify(e) === JSON.stringify(e2)) !== -1
+		);
+		return intersection1?.length < intersection2?.length ? 1 : -1;
+	});
+}
+
+async function getGenreIntersection(userGenres, storyGenres) {
+	let user_id = false;
+	try {
+		user_id = jwt_decode(AtlasStoryAppToken)?.user_id;
+	} catch (error) {}
+	if (!user_id) return 0;
+
+	const user = await User.findById(user_id, { _id: 1, "data.favouritedGenres": 1 })
+		.exec()
+		.catch(() => false);
+	if (!user) return 0;
+
+	const intersection = user?.data?.favouritedGenres.filter((e) => storyGenres.findIndex((e2) => JSON.stringify(e) === JSON.stringify(e2)) !== -1);
+	return intersection?.length ? intersection.length : 0;
+}
 
 async function getIsFollowingStory(AtlasStoryAppToken, story_id) {
 	let user_id = false;

@@ -9,6 +9,11 @@
 	font-weight: 700;
 }
 
+.home-stories-recommended-loading-circle-container {
+	position: relative;
+	height: 80px;
+}
+
 .home-stories-recommended-list {
 	display: flex;
 	margin-left: -5px;

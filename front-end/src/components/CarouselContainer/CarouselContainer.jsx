@@ -25,7 +25,7 @@ export const CarouselContainer = ({ children, className, speed, fallback, scroll
 		<div
 			className={carouselClassName}
 			onMouseEnter={fallback ? () => scrollCarousel(0) : null}
-			onMouseLeave={fallback ? () => scrollCarousel(speed ? -0.8 * speed : -0.8) : null}
+			onMouseLeave={fallback ? () => scrollCarousel(speed ? -0.85 * speed : -0.85) : null}
 		>
 			<div ref={carouselContentRef} className='carousel-content'>
 				{children}
