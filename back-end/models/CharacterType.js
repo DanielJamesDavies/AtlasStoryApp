@@ -3,25 +3,22 @@ const mongoose = require("mongoose");
 const CharacterTypeSchema = mongoose.Schema({
 	_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
+		default: new mongoose.Types.ObjectId(),
 	},
 	story_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
+		required: true,
 	},
 	data: {
 		type: {
 			name: {
 				type: String,
-				require: true,
 			},
 			colour: {
 				type: String,
-				require: true,
 			},
 			description: { type: [String], default: [""] },
 		},
-		require: true,
 	},
 });
 

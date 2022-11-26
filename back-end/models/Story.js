@@ -1,58 +1,41 @@
 const mongoose = require("mongoose");
 
 const StorySchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+	_id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
 	uid: {
 		type: String,
-		require: true,
+		required: true,
 		min: 1,
 		max: 64,
 	},
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
 	},
 	data: {
 		type: {
 			title: {
 				type: String,
-				require: true,
 				min: 1,
 				max: 64,
 				default: "",
 			},
 			isPrivate: {
 				type: Boolean,
-				require: true,
+				default: false,
 			},
 			members: {
-				type: [
-					{
-						user_id: {
-							type: mongoose.Schema.Types.ObjectId,
-							require: true,
-						},
-						type: {
-							type: String,
-							require: true,
-						},
-					},
-				],
-				require: true,
+				type: [{ user_id: { type: mongoose.Schema.Types.ObjectId }, type: { type: String } }],
 			},
 			icon: {
 				type: mongoose.Schema.Types.ObjectId,
-				require: true,
 				default: new mongoose.Types.ObjectId(),
 			},
 			banner: {
 				type: mongoose.Schema.Types.ObjectId,
-				require: true,
 				default: new mongoose.Types.ObjectId(),
 			},
 			cover: {
 				type: mongoose.Schema.Types.ObjectId,
-				require: true,
 				default: new mongoose.Types.ObjectId(),
 			},
 			description: { type: [String], default: [""] },
@@ -74,10 +57,10 @@ const StorySchema = mongoose.Schema({
 										type: [
 											{
 												image: mongoose.Schema.Types.ObjectId,
-												caption: { type: String, require: true, default: "" },
+												caption: { type: String, default: "" },
 											},
 										],
-										require: true,
+
 										default: [],
 									},
 								},
@@ -97,13 +80,11 @@ const StorySchema = mongoose.Schema({
 							defaultStatistics: {
 								type: {
 									labels: {
-										type: [{ type: String, require: true, default: "" }],
-										require: true,
+										type: [{ type: String, default: "" }],
 										default: [],
 									},
-									maxValue: { type: Number, require: true, default: 12 },
+									maxValue: { type: Number, default: 12 },
 								},
-								require: true,
 								default: {},
 							},
 						},
@@ -114,7 +95,6 @@ const StorySchema = mongoose.Schema({
 			},
 			substories: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 		},
-		require: true,
 		default: {},
 	},
 	date_created: { type: Date, default: Date.now },

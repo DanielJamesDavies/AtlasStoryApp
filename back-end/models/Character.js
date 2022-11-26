@@ -3,90 +3,82 @@ const mongoose = require("mongoose");
 const CharacterSchema = mongoose.Schema({
 	_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
+		default: new mongoose.Types.ObjectId(),
 	},
 	story_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
+		required: true,
 	},
 	group_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
+		required: true,
 	},
 	uid: {
 		type: String,
-		require: true,
+		required: true,
 	},
-	isPrimaryCharacter: {
-		type: Boolean,
-		require: true,
-	},
-	character_type_id: mongoose.Schema.Types.ObjectId,
+	isPrimaryCharacter: { type: Boolean, default: false },
+	character_type_id: { type: mongoose.Schema.Types.ObjectId },
 	data: {
 		type: {
 			name: {
 				type: String,
-				require: true,
 				default: "",
 			},
 			summaryItems: {
-				type: [{ label: { type: String, require: true, default: "" }, text: { type: String, require: true, default: "" } }],
-				require: true,
+				type: [{ label: { type: String, default: "" }, text: { type: String, default: "" } }],
 				default: [],
 			},
 			colour: { type: String, default: "#0044ff" },
 			cardBackground: {
 				type: mongoose.Schema.Types.ObjectId,
-				require: true,
 				default: new mongoose.Types.ObjectId(),
 			},
 			overviewBackground: {
 				type: mongoose.Schema.Types.ObjectId,
-				require: true,
 				default: new mongoose.Types.ObjectId(),
 			},
-			images: { type: [mongoose.Schema.Types.ObjectId], require: true, default: [] },
+			images: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			versions: {
 				type: [
 					{
 						_id: {
 							type: mongoose.Schema.Types.ObjectId,
-							require: true,
+
 							default: new mongoose.Types.ObjectId(),
 						},
-						title: { type: String, require: true, default: "" },
+						title: { type: String, default: "" },
 						description: { type: [String], default: [""] },
-						gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], require: true, default: [] },
+						gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], default: [] },
 						psychology: {
 							type: {
 								items: {
 									type: [
 										{
-											title: { type: String, require: true, default: "" },
-											text: { type: [String], require: true, default: [""] },
+											title: { type: String, default: "" },
+											text: { type: [String], default: [""] },
 										},
 									],
-									require: true,
+
 									default: [],
 								},
 								bigFive: {
 									type: {
-										intellect: { type: Number, require: true, default: 50 },
-										openness: { type: Number, require: true, default: 50 },
-										industriousness: { type: Number, require: true, default: 50 },
-										orderliness: { type: Number, require: true, default: 50 },
-										compassion: { type: Number, require: true, default: 50 },
-										politeness: { type: Number, require: true, default: 50 },
-										enthusiasm: { type: Number, require: true, default: 50 },
-										assertiveness: { type: Number, require: true, default: 50 },
-										withdrawal: { type: Number, require: true, default: 50 },
-										volatility: { type: Number, require: true, default: 50 },
+										intellect: { type: Number, default: 50 },
+										openness: { type: Number, default: 50 },
+										industriousness: { type: Number, default: 50 },
+										orderliness: { type: Number, default: 50 },
+										compassion: { type: Number, default: 50 },
+										politeness: { type: Number, default: 50 },
+										enthusiasm: { type: Number, default: 50 },
+										assertiveness: { type: Number, default: 50 },
+										withdrawal: { type: Number, default: 50 },
+										volatility: { type: Number, default: 50 },
 									},
-									require: true,
+
 									default: {},
 								},
 							},
-							require: true,
 							default: {},
 						},
 						biography: {
@@ -95,35 +87,31 @@ const CharacterSchema = mongoose.Schema({
 									type: {
 										_id: {
 											type: mongoose.Schema.Types.ObjectId,
-											require: true,
 											default: new mongoose.Types.ObjectId(),
 										},
-										name: { type: String, require: true, default: "" },
+										name: { type: String, default: "" },
 										items: {
 											type: [
 												{
-													title: { type: String, require: true },
-													text: { type: [String], require: true, default: [""] },
+													title: { type: String },
+													text: { type: [String], default: [""] },
 													images: {
 														type: [
 															{
 																image: mongoose.Schema.Types.ObjectId,
-																caption: { type: String, require: true, default: "" },
+																caption: { type: String, default: "" },
 															},
 														],
-														require: true,
+
 														default: [],
 													},
 												},
 											],
-											require: true,
 										},
 									},
-									require: true,
 									default: {},
 								},
 							],
-							require: true,
 							default: [],
 						},
 						abilities: {
@@ -131,57 +119,51 @@ const CharacterSchema = mongoose.Schema({
 								{
 									_id: {
 										type: mongoose.Schema.Types.ObjectId,
-										require: true,
 										default: new mongoose.Types.ObjectId(),
 									},
-									name: { type: String, require: true, default: "New Ability" },
+									name: { type: String, default: "New Ability" },
 									primaryStatistic: {
 										type: {
-											label: { type: String, require: true, default: "" },
-											value: { type: String, require: true, default: "" },
+											label: { type: String, default: "" },
+											value: { type: String, default: "" },
 										},
-										require: true,
 										default: {},
 									},
 									items: {
 										type: [
 											{
-												title: { type: String, require: true },
-												text: { type: [String], require: true, default: [""] },
+												title: { type: String },
+												text: { type: [String], default: [""] },
 												images: {
 													type: [
 														{
 															image: mongoose.Schema.Types.ObjectId,
-															caption: { type: String, require: true, default: "" },
+															caption: { type: String, default: "" },
 														},
 													],
-													require: true,
+
 													default: [],
 												},
 											},
 										],
-										require: true,
 									},
 									statistics: {
 										type: {
 											values: {
 												type: [
 													{
-														label: { type: String, require: true, default: "" },
-														value: { type: Number, require: true, default: 0 },
+														label: { type: String, default: "" },
+														value: { type: Number, default: 0 },
 													},
 												],
-												require: true,
 												default: [],
 											},
-											maxValue: { type: Number, require: true, default: 12 },
+											maxValue: { type: Number, default: 12 },
 										},
-										require: true,
 										default: {},
 									},
 								},
 							],
-							require: true,
 							default: [],
 						},
 						physical: {
@@ -189,48 +171,42 @@ const CharacterSchema = mongoose.Schema({
 								attributes: {
 									type: [
 										{
-											title: { type: String, require: true, default: "" },
-											text: { type: [String], require: true, default: [""] },
+											title: { type: String, default: "" },
+											text: { type: [String], default: [""] },
 											images: {
 												type: [
 													{
 														image: mongoose.Schema.Types.ObjectId,
-														caption: { type: String, require: true, default: "" },
+														caption: { type: String, default: "" },
 													},
 												],
-												require: true,
 												default: [],
 											},
 										},
 									],
-									require: true,
 								},
 								outfits: {
 									type: [
 										{
-											title: { type: String, require: true, default: "" },
-											text: { type: [String], require: true, default: [""] },
+											title: { type: String, default: "" },
+											text: { type: [String], default: [""] },
 											images: {
 												type: [
 													{
 														image: mongoose.Schema.Types.ObjectId,
-														caption: { type: String, require: true, default: "" },
+														caption: { type: String, default: "" },
 													},
 												],
-												require: true,
 												default: [],
 											},
 										},
 									],
-									require: true,
 								},
 							},
-							require: true,
 							default: {},
 						},
 					},
 				],
-				require: true,
 				default: [{ title: "Ver. 1" }],
 			},
 			development: {
@@ -238,34 +214,29 @@ const CharacterSchema = mongoose.Schema({
 					items: {
 						type: [
 							{
-								title: { type: String, require: true, default: "" },
-								text: { type: [String], require: true, default: [""] },
+								title: { type: String, default: "" },
+								text: { type: [String], default: [""] },
 								images: {
 									type: [
 										{
 											image: mongoose.Schema.Types.ObjectId,
-											caption: { type: String, require: true, default: "" },
+											caption: { type: String, default: "" },
 										},
 									],
-									require: true,
 									default: [],
 								},
 							},
 						],
-						require: true,
 						default: [],
 					},
 				},
-				require: true,
 				default: {},
 			},
 			subpages: {
-				type: [{ id: { type: String, require: true }, isEnabled: { type: Boolean, require: true } }],
-				require: true,
+				type: [{ id: { type: String }, isEnabled: { type: Boolean } }],
 				default: [],
 			},
 		},
-		require: true,
 	},
 });
 

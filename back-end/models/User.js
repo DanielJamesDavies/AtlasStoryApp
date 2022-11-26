@@ -1,50 +1,42 @@
 const mongoose = require("mongoose");
 
 const UserSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+	_id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
 	username: {
 		type: String,
-		require: true,
+		required: true,
 		min: 1,
 		max: 32,
 	},
 	email: {
 		type: String,
-		require: true,
+		required: true,
 		min: 1,
 		max: 255,
 	},
 	data: {
 		nickname: {
 			type: String,
-			require: true,
 			min: 1,
 			max: 32,
 		},
 		password: {
 			type: String,
-			require: true,
+			required: true,
 			min: 6,
 			max: 255,
 		},
 		profilePicture: {
 			type: mongoose.Schema.Types.ObjectId,
-			require: true,
 			default: new mongoose.Types.ObjectId(),
 		},
 		banner: {
 			type: mongoose.Schema.Types.ObjectId,
-			require: true,
 			default: new mongoose.Types.ObjectId(),
 		},
 		stories: {
-			type: [
-				{
-					type: mongoose.Schema.Types.ObjectId,
-					require: true,
-				},
-			],
-			require: true,
+			type: [{ type: mongoose.Schema.Types.ObjectId }],
+			default: [],
 		},
 		favouritedGenres: {
 			type: [mongoose.Schema.Types.ObjectId],
@@ -52,12 +44,10 @@ const UserSchema = mongoose.Schema({
 		},
 		uiTheme: {
 			type: String,
-			require: true,
 			default: "dark",
 		},
 		fontSizeMultiplier: {
 			type: String,
-			require: true,
 			default: "1",
 		},
 		connectToSpotify: { type: Boolean, default: false },

@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 const StoryFollowSchema = mongoose.Schema({
 	_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
+		default: new mongoose.Types.ObjectId(),
 	},
 	user_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
+		required: true,
 	},
 	story_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
+		required: true,
 	},
 });
 

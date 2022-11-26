@@ -5,6 +5,7 @@ const User = require("../../models/User");
 const Character = require("../../models/Character");
 const CharacterType = require("../../models/CharacterType");
 const Group = require("../../models/Group");
+const StoryFollow = require("../../models/StoryFollow");
 
 const deleteImagesByKey = require("../Image/deleteImagesByKey");
 
@@ -21,6 +22,10 @@ module.exports = async (req, res) => {
 	if (!story || !story._id) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 	if (!story?.owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 	if (JSON.stringify(user_id) !== JSON.stringify(story.owner)) return res.status(200).send({ errors: [{ message: "Unauthorized Action" }] });
+
+	// Remove Story Follows
+	const removeStoryFollowsResult = await removeStoryFollows(story._id);
+	if (removeStoryFollowsResult?.errors) return res.status(200).send({ errors: removeStoryFollowsResult.errors });
 
 	// Remove Story from Members
 	const removeStoryFromMembersResult = await removeStoryFromMembers(story?.data?.members, story._id);
@@ -123,6 +128,16 @@ async function removeStoryFromOwner(user_id, story_id) {
 		} catch (error) {
 			return { errors: [{ message: "Owner Could Not Be Saved" }] };
 		}
+	}
+
+	return {};
+}
+
+async function removeStoryFollows(story_id) {
+	try {
+		await StoryFollow.deleteMany({ story_id });
+	} catch (error) {
+		return { errors: [{ message: "Story Follow Relationships Could Not Be Deleted" }] };
 	}
 
 	return {};

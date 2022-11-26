@@ -3,16 +3,14 @@ const mongoose = require("mongoose");
 const GenreSchema = mongoose.Schema({
 	_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
+		default: new mongoose.Types.ObjectId(),
 	},
 	name: {
 		type: String,
-		require: true,
 		default: "",
 	},
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
 	},
 });
 

@@ -3,41 +3,38 @@ const mongoose = require("mongoose");
 const SubstorySchema = mongoose.Schema({
 	_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
+		default: new mongoose.Types.ObjectId(),
 	},
 	story_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		require: true,
+		required: true,
 	},
 	uid: {
 		type: String,
-		require: true,
+		required: true,
 	},
 	data: {
 		type: {
 			title: { type: String, require: true },
-			isStoryTitleInTitle: { type: Boolean, require: true, default: true },
-			isTitleOnPoster: { type: Boolean, require: true, default: true },
+			isStoryTitleInTitle: { type: Boolean, default: true },
+			isTitleOnPoster: { type: Boolean, default: true },
 			colour: { type: String, default: "#0044ff" },
-			number: { type: String, require: true, default: "" },
+			number: { type: String, default: "" },
 			posterBackground: {
 				type: mongoose.Schema.Types.ObjectId,
-				require: true,
 				default: new mongoose.Types.ObjectId(),
 			},
 			overviewBackground: {
 				type: mongoose.Schema.Types.ObjectId,
-				require: true,
 				default: new mongoose.Types.ObjectId(),
 			},
-			images: { type: [mongoose.Schema.Types.ObjectId], require: true, default: [] },
+			images: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			summaryItems: {
-				type: [{ label: { type: String, require: true, default: "" }, text: { type: String, require: true, default: "" } }],
-				require: true,
+				type: [{ label: { type: String, default: "" }, text: { type: String, default: "" } }],
 				default: [{ label: "Genres", text: "" }],
 			},
-			description: { type: [String], require: true, default: [""] },
-			gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], require: true, default: [] },
+			description: { type: [String], default: [""] },
+			gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], default: [] },
 			plot: {
 				type: {
 					items: {
@@ -45,15 +42,13 @@ const SubstorySchema = mongoose.Schema({
 							{
 								_id: {
 									type: mongoose.Schema.Types.ObjectId,
-									require: true,
 									default: new mongoose.Types.ObjectId(),
 								},
-								label: { type: String, require: true, default: "" },
-								text: { type: [String], require: true, default: [""] },
-								images: { type: [mongoose.Schema.Types.ObjectId], require: true, default: [] },
+								label: { type: String, default: "" },
+								text: { type: [String], default: [""] },
+								images: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 							},
 						],
-						require: true,
 						default: [],
 					},
 					clusters: {
@@ -61,33 +56,28 @@ const SubstorySchema = mongoose.Schema({
 							{
 								_id: {
 									type: mongoose.Schema.Types.ObjectId,
-									require: true,
 									default: new mongoose.Types.ObjectId(),
 								},
-								isAll: { type: Boolean, require: true, default: false },
-								name: { type: String, require: true, default: "" },
+								isAll: { type: Boolean, default: false },
+								name: { type: String, default: "" },
 								groups: {
 									type: [
 										{
 											_id: {
 												type: mongoose.Schema.Types.ObjectId,
-												require: true,
 												default: new mongoose.Types.ObjectId(),
 											},
-											name: { type: String, require: true, default: "" },
-											items: { type: [mongoose.Schema.Types.ObjectId], require: true, default: [] },
+											name: { type: String, default: "" },
+											items: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 										},
 									],
-									require: true,
 									default: [],
 								},
 							},
 						],
-						require: true,
 						default: [{ isAll: true, name: "All Plot Items" }],
 					},
 				},
-				require: true,
 				default: {},
 			},
 			soundtrack: {
@@ -114,34 +104,29 @@ const SubstorySchema = mongoose.Schema({
 					items: {
 						type: [
 							{
-								title: { type: String, require: true, default: "" },
-								text: { type: [String], require: true, default: [""] },
+								title: { type: String, default: "" },
+								text: { type: [String], default: [""] },
 								images: {
 									type: [
 										{
 											image: mongoose.Schema.Types.ObjectId,
-											caption: { type: String, require: true, default: "" },
+											caption: { type: String, default: "" },
 										},
 									],
-									require: true,
 									default: [],
 								},
 							},
 						],
-						require: true,
 						default: [],
 					},
 				},
-				require: true,
 				default: {},
 			},
 			subpages: {
 				type: [{ id: { type: String, require: true }, isEnabled: { type: Boolean, require: true } }],
-				require: true,
 				default: [],
 			},
 		},
-		require: true,
 	},
 });
 
