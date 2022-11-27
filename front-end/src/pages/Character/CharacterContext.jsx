@@ -47,7 +47,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const [subpages, setSubpages] = useState([]);
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 
-	var hasGotCharacterImages = useRef({ current: false });
+	const hasGotData = useRef({ characterOverviewBackground: false, characterCardBackground: false, characterImages: false });
 	useEffect(() => {
 		async function getInitial() {
 			if (failure || !story_uid || !character_uid) {
@@ -180,25 +180,32 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		async function getCharacterOverviewBackground(overviewBackgroundID) {
+			if (hasGotData?.characterOverviewBackground === true) return true;
 			if (!overviewBackgroundID) return;
+
 			const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
 			if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) return false;
 
 			setCharacterOverviewBackground(overview_background_image_response.data.image.image);
+			hasGotData.characterOverviewBackground = true;
 			return overview_background_image_response.data.image.image;
 		}
 
 		async function getCharacterCardBackground(cardBackgroundID) {
-			if (!cardBackgroundID) return;
+			if (hasGotData?.characterCardBackground === true) return true;
+			if (!cardBackgroundID) return false;
+
 			const card_background_image_response = await APIRequest("/image/" + cardBackgroundID, "GET");
 			if (card_background_image_response?.errors || !card_background_image_response?.data?.image?.image) return false;
 
 			setCharacterCardBackground(card_background_image_response.data.image.image);
+			hasGotData.characterCardBackground = true;
 			return card_background_image_response.data.image.image;
 		}
 
 		async function getCharacterImages(imageIDs) {
-			if (hasGotCharacterImages?.current === true) return true;
+			if (hasGotData?.characterImages === true) return true;
+			if (!imageIDs) return false;
 
 			let newCharacterImages = await Promise.all(
 				imageIDs.map(async (imageID) => {
@@ -210,7 +217,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			newCharacterImages = newCharacterImages.filter((e) => e !== false);
 
 			setCharacterImages(newCharacterImages);
-			hasGotCharacterImages.current = true;
+			hasGotData.characterImages = true;
 		}
 
 		getInitial();

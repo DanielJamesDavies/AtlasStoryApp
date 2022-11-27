@@ -5,6 +5,7 @@ import { useState, useContext, useEffect, useLayoutEffect } from "react";
 import { Gallery } from "./Subpages/Gallery/Gallery";
 import { Plot } from "./Subpages/Plot/Plot";
 import { Soundtrack } from "./Subpages/Soundtrack/Soundtrack";
+import { Miscellaneous } from "./Subpages/Miscellaneous/Miscellaneous";
 import { Development } from "./Subpages/Development/Development";
 import { Settings } from "./Subpages/Settings/Settings";
 
@@ -69,7 +70,7 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef, setSubstoryPrim
 				case "soundtrack":
 					return <Soundtrack />;
 				case "miscellaneous":
-					return null;
+					return <Miscellaneous />;
 				case "development":
 					return <Development />;
 				case "settings":

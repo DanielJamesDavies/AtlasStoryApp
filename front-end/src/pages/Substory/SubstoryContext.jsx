@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect, useMemo } from "react";
+import React, { createContext, useState, useContext, useEffect, useMemo, useRef } from "react";
 
 import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
@@ -31,13 +31,13 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	// const subpages = [
 	// 	{ id: "characters", name: "Characters", isEnabled: true },
 	// 	{ id: "locations", name: "Locations", isEnabled: true },
-	// 	{ id: "miscellaneous", name: "Miscellaneous", isEnabled: true },
 	// ];
 	const allSubpages = useMemo(
 		() => [
 			{ id: "gallery", name: "Gallery", isEnabled: true },
 			{ id: "plot", name: "Plot", isEnabled: true },
 			{ id: "soundtrack", name: "Soundtrack", isEnabled: true },
+			{ id: "miscellaneous", name: "Miscellaneous", isEnabled: true },
 			{ id: "development", name: "Development", isEnabled: true },
 			{ id: "settings", name: "Settings", isEnabled: true },
 		],
@@ -46,6 +46,12 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const [subpages, setSubpages] = useState([]);
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 
+	const hasGotData = useRef({
+		substoryOverviewBackground: false,
+		substoryPosterBackground: false,
+		substoryImages: false,
+		substorySoundtrack: false,
+	});
 	useEffect(() => {
 		async function getInitial() {
 			if (failure || !story_uid || !substory_uid) {
@@ -141,24 +147,29 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		}
 
 		async function getSubstoryOverviewBackground(overviewBackgroundID) {
+			if (hasGotData.substoryOverviewBackground === true) return true;
 			if (!overviewBackgroundID) return;
 			const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
 			if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) return false;
 
 			setSubstoryOverviewBackground(overview_background_image_response.data.image.image);
+			hasGotData.substoryOverviewBackground = true;
 			return overview_background_image_response.data.image.image;
 		}
 
 		async function getSubstoryPosterBackground(posterBackgroundID) {
+			if (hasGotData.substoryPosterBackground === true) return true;
 			if (!posterBackgroundID) return;
 			const poster_background_image_response = await APIRequest("/image/" + posterBackgroundID, "GET");
 			if (poster_background_image_response?.errors || !poster_background_image_response?.data?.image?.image) return false;
 
 			setSubstoryPosterBackground(poster_background_image_response.data.image.image);
+			hasGotData.substoryPosterBackground = true;
 			return poster_background_image_response.data.image.image;
 		}
 
 		async function getSubstoryImages(imageIDs) {
+			if (hasGotData.substoryImages === true) return true;
 			let newSubstoryImages = await Promise.all(
 				imageIDs.map(async (imageID) => {
 					const image_response = await APIRequest("/image/" + imageID, "GET");
@@ -169,9 +180,12 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			newSubstoryImages = newSubstoryImages.filter((e) => e !== false);
 
 			setSubstoryImages(newSubstoryImages);
+			hasGotData.substoryImages = true;
+			return newSubstoryImages;
 		}
 
 		async function getSubstorySoundtrack(playlist_id, old_tracks) {
+			if (hasGotData.substorySoundtrack === true) return true;
 			if (!playlist_id) return false;
 
 			const response = await SpotifyRequest("/playlists/" + playlist_id, "GET");
@@ -211,7 +225,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			);
 
 			let newSubstorySoundtrack = { playlist_id, tracks };
-
+			hasGotData.substorySoundtrack = true;
 			setSubstorySoundtrack(newSubstorySoundtrack);
 		}
 

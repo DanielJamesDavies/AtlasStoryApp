@@ -1,0 +1,185 @@
+.substory-subpage-miscellaneous-item-container {
+	margin: 12px 0;
+}
+
+.substory-subpage-miscellaneous-item-container .content-item {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.substory-subpage-miscellaneous-item-container:last-child {
+	padding-bottom: 8px;
+}
+
+.drag-drop-item-enable-drag-drop.substory-subpage-miscellaneous-item-container {
+	animation: wiggle-very-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).substory-subpage-miscellaneous-item-container {
+	animation-delay: 0.1s;
+}
+
+.substory-subpage-miscellaneous-item-content {
+	display: inline-block;
+	width: calc(100% - 32px);
+	vertical-align: top;
+}
+
+.substory-subpage-miscellaneous-item-text-container {
+	display: inline-block;
+	margin-right: 12px;
+	width: calc(55% - 12px);
+	vertical-align: top;
+}
+
+.substory-subpage-miscellaneous-item-text-container-full-width {
+	margin-right: 0;
+	width: 100%;
+}
+
+.substory-subpage-miscellaneous-item-text-container-no-width {
+	display: none !important;
+}
+
+.substory-subpage-miscellaneous-item-images-container {
+	display: inline-block;
+	padding: 2px;
+	border-radius: 2px;
+	width: calc(45% - 4px);
+	vertical-align: top;
+}
+
+.substory-subpage-miscellaneous-item-images-container-full-width {
+	width: calc(100% - 4px);
+}
+
+.substory-subpage-miscellaneous-item-images-container-no-width {
+	display: none !important;
+}
+
+.substory-subpage-miscellaneous-item-images-container-is-current {
+	animation: substory-subpage-miscellaneous-item-images-container-is-current 1.5s infinite linear;
+}
+
+@keyframes substory-subpage-miscellaneous-item-images-container-is-current {
+	0%,
+	100% {
+		background: var(--grey1);
+	}
+	35%,
+	65% {
+		background: var(--grey3);
+	}
+}
+
+.substory-subpage-miscellaneous-item-images {
+	display: inline-flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.substory-subpage-miscellaneous-item-images-add-container {
+	width: 100%;
+	text-align: center;
+}
+
+.substory-subpage-miscellaneous-item-image-item {
+	position: relative;
+	margin: 4px;
+	width: calc((100% / 3) - 8px);
+}
+
+.drag-drop-item-enable-drag-drop .substory-subpage-miscellaneous-item-image-item {
+	-webkit-user-drag: element;
+}
+
+.substory-subpage-miscellaneous-item-image-item img {
+	width: 100%;
+	max-height: max(18vw, 250px);
+	object-fit: contain;
+}
+
+.substory-subpage-miscellaneous-item-image-item-placeholder {
+	position: relative;
+	min-height: 200px;
+}
+
+.substory-subpage-miscellaneous-item .multi-line-text-input {
+	margin-bottom: -4px;
+}
+
+.substory-subpage-miscellaneous-item-title {
+	margin-bottom: 3px;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+.substory-subpage-miscellaneous-item-title .text-input {
+	margin-top: -4px;
+}
+
+.substory-subpage-miscellaneous-item-title,
+.substory-subpage-miscellaneous-item-title input {
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.substory-subpage-miscellaneous-item .text-input-container-empty {
+	height: 20px;
+}
+
+.substory-subpage-miscellaneous-item .text-input-container-empty .text-input-label {
+	padding-top: 1px;
+}
+
+.substory-subpage-miscellaneous-item-text {
+	min-height: 23px;
+}
+
+.substory-subpage-miscellaneous-item-image-item-caption {
+	padding: 3px 8px;
+	border-radius: 4px;
+	width: fit-content;
+	max-width: calc(100% - 16px);
+	word-break: break-word;
+	overflow-wrap: anywhere;
+	background: var(--grey3);
+}
+
+.substory-subpage-miscellaneous-item-image-item-caption,
+.substory-subpage-miscellaneous-item-image-item-caption input {
+	font-size: 14px;
+	min-height: 20px;
+}
+
+.substory-subpage-miscellaneous-item-image-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}
+
+@media (max-width: 1000px) {
+	.substory-subpage-miscellaneous-item-container {
+		margin: 6px 0;
+		width: 100%;
+	}
+
+	.substory-subpage-miscellaneous-item-text-container {
+		display: inline-block;
+		margin-right: 0;
+		width: 100%;
+	}
+
+	.substory-subpage-miscellaneous-item-images-container {
+		display: inline-block;
+		margin-top: 12px;
+		padding: 2px;
+		border-radius: 2px;
+		width: calc(100% - 4px);
+		vertical-align: top;
+	}
+
+	.substory-subpage-miscellaneous-item-image-item {
+		width: calc((100% / 2) - 8px);
+	}
+}
