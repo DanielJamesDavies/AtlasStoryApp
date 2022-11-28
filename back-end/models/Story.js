@@ -73,6 +73,18 @@ const StorySchema = mongoose.Schema({
 			groups: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			primaryCharacters: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			characterTypes: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+			characterRelationshipTypes: {
+				type: [
+					{
+						_id: {
+							type: mongoose.Schema.Types.ObjectId,
+							default: new mongoose.Types.ObjectId(),
+						},
+						name: { type: String, default: "Relationship Type" },
+						colour: { type: String, default: "#0044ff" },
+					},
+				],
+			},
 			characterPreferences: {
 				type: {
 					abilities: {

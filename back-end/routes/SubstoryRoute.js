@@ -16,8 +16,8 @@ const DeleteSubstory = require("../services/Substory/DeleteSubstory");
 router.get("/", StoryMemberAuthentication, GetSubstory);
 router.get("/:id", StoryMemberAuthentication, GetSubstoryByID);
 router.post("/get-value/:id", StoryMemberAuthentication, GetSubstoryValueByID);
-router.post("/", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, CreateSubstory);
-router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, UpdateSubstory);
-router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, DeleteSubstory);
+router.post("/", CookieConsentAuthentication, Authenticate, StoryAuthentication, CreateSubstory);
+router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, UpdateSubstory);
+router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, DeleteSubstory);
 
 module.exports = router;

@@ -1,10 +1,10 @@
 async function isLightBackground(base64, coords1, coords2) {
 	var image = new Image();
 	image.src = base64;
-	return await new Promise((resolve, reject) => {
+	return await new Promise((resolve) => {
 		image.onload = function () {
 			if (coords1.length !== 2 || coords2.length !== 2) return resolve(false);
-			const canvas = document.querySelector("canvas");
+			const canvas = document.getElementById("isLightBackgroundCanvas");
 			const ctx = canvas.getContext("2d");
 			canvas.width = image.width;
 			canvas.height = image.height;

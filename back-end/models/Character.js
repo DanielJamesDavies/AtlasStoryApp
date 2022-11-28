@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const CharacterSchema = mongoose.Schema({
 	_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		default: new mongoose.Types.ObjectId(),
+		required: true,
+		auto: true,
 	},
 	story_id: {
 		type: mongoose.Schema.Types.ObjectId,
@@ -32,21 +33,24 @@ const CharacterSchema = mongoose.Schema({
 			colour: { type: String, default: "#0044ff" },
 			cardBackground: {
 				type: mongoose.Schema.Types.ObjectId,
-				default: new mongoose.Types.ObjectId(),
+				required: true,
+				auto: true,
+			},
+			faceImage: {
+				type: mongoose.Schema.Types.ObjectId,
+				required: true,
+				auto: true,
 			},
 			overviewBackground: {
 				type: mongoose.Schema.Types.ObjectId,
-				default: new mongoose.Types.ObjectId(),
+				required: true,
+				auto: true,
 			},
 			images: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			versions: {
 				type: [
 					{
-						_id: {
-							type: mongoose.Schema.Types.ObjectId,
-
-							default: new mongoose.Types.ObjectId(),
-						},
+						_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 						title: { type: String, default: "" },
 						description: { type: [String], default: [""] },
 						gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], default: [] },
@@ -87,7 +91,8 @@ const CharacterSchema = mongoose.Schema({
 									type: {
 										_id: {
 											type: mongoose.Schema.Types.ObjectId,
-											default: new mongoose.Types.ObjectId(),
+											required: true,
+											auto: true,
 										},
 										name: { type: String, default: "" },
 										items: {
@@ -119,7 +124,8 @@ const CharacterSchema = mongoose.Schema({
 								{
 									_id: {
 										type: mongoose.Schema.Types.ObjectId,
-										default: new mongoose.Types.ObjectId(),
+										required: true,
+										auto: true,
 									},
 									name: { type: String, default: "New Ability" },
 									primaryStatistic: {

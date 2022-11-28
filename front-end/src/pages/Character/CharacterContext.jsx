@@ -25,6 +25,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 
 	const [characterOverviewBackground, setCharacterOverviewBackground] = useState(false);
 	const [characterCardBackground, setCharacterCardBackground] = useState(false);
+	const [characterFaceImage, setCharacterFaceImage] = useState(false);
 	const [characterImages, setCharacterImages] = useState([]);
 
 	const [characterVersion, setCharacterVersion] = useState(false);
@@ -47,7 +48,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const [subpages, setSubpages] = useState([]);
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 
-	const hasGotData = useRef({ characterOverviewBackground: false, characterCardBackground: false, characterImages: false });
+	const hasGotData = useRef({ characterOverviewBackground: false, characterCardBackground: false, faceImage: false, characterImages: false });
 	useEffect(() => {
 		async function getInitial() {
 			if (failure || !story_uid || !character_uid) {
@@ -79,6 +80,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			getCharacterSubpages(newCharacter?.data?.subpages, newIsAuthorizedToEdit);
 			getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
 			getCharacterCardBackground(newCharacter?.data?.cardBackground);
+			getCharacterFaceImage(newCharacter?.data?.faceImage);
 			getCharacterImages(newCharacter?.data?.images);
 
 			if (newCharacter?.data?.versions[0]) setCharacterVersion(newCharacter.data.versions[0]);
@@ -92,6 +94,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			setCharacterTypes([]);
 			setCharacterOverviewBackground(false);
 			setCharacterCardBackground(false);
+			setCharacterFaceImage(false);
 		}
 
 		async function getStory() {
@@ -169,7 +172,6 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 					newSubpages.push(newSubpage);
 				}
 			}
-
 			newSubpages = newSubpages.concat(allSubpages.filter((e) => newSubpages.findIndex((e2) => e2.id === e.id) === -1));
 
 			setSubpages(newSubpages);
@@ -201,6 +203,18 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			setCharacterCardBackground(card_background_image_response.data.image.image);
 			hasGotData.characterCardBackground = true;
 			return card_background_image_response.data.image.image;
+		}
+
+		async function getCharacterFaceImage(faceImageID) {
+			if (hasGotData?.faceImage === true) return true;
+			if (!faceImageID) return false;
+
+			const face_image_response = await APIRequest("/image/" + faceImageID, "GET");
+			if (face_image_response?.errors || !face_image_response?.data?.image?.image) return false;
+
+			setCharacterFaceImage(face_image_response.data.image.image);
+			hasGotData.faceImage = true;
+			return face_image_response.data.image.image;
 		}
 
 		async function getCharacterImages(imageIDs) {
@@ -244,6 +258,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		setOpenSubpageID,
 		setCharacterOverviewBackground,
 		setCharacterCardBackground,
+		setCharacterFaceImage,
 		setCharacterImages,
 		changeAccentColour,
 		changeAccentHoverColour,
@@ -292,6 +307,8 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				setCharacterOverviewBackground,
 				characterCardBackground,
 				setCharacterCardBackground,
+				characterFaceImage,
+				setCharacterFaceImage,
 				characterImages,
 				setCharacterImages,
 				characterVersion,

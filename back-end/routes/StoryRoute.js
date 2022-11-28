@@ -21,7 +21,7 @@ router.get("/:id", StoryMemberAuthentication, GetStoryByID);
 router.post("/get-value/:id", StoryMemberAuthentication, GetStoryValueByID);
 router.post("/leave/:id", StoryMemberAuthentication, LeaveStory);
 router.post("/", CookieConsentAuthentication, Authenticate, CreateStory);
-router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, UpdateStory);
-router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, DeleteStory);
+router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, UpdateStory);
+router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, DeleteStory);
 
 module.exports = router;

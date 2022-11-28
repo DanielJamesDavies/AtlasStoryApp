@@ -10,9 +10,21 @@
 	flex-wrap: wrap;
 }
 
+.characters-groups-content-container {
+	width: 100%;
+	max-width: 100%;
+}
+
+.characters-relationship-chart-content-container {
+	width: 100%;
+	max-width: 100%;
+}
+
 .characters-character-types-content-container {
 	margin-top: 12px;
 	min-width: 100%;
+	width: 100%;
+	max-width: 100%;
 	min-height: calc(200px + (var(--vh) / 2));
 }
 

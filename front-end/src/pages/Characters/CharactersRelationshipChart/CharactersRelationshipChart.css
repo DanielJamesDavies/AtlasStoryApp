@@ -1,0 +1,29 @@
+.characters-relationship-chart-container {
+	position: relative;
+	margin: 24px auto;
+	width: 850px;
+	height: 850px;
+}
+
+.characters-relationship-chart {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.characters-relationship-chart-canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+@media (max-width: 850px) {
+	.characters-relationship-chart-container {
+		display: none;
+	}
+}

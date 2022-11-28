@@ -13,7 +13,7 @@ const UpdateGroup = require("../services/Group/UpdateGroup");
 
 router.get("/", StoryMemberAuthentication, GetGroup);
 router.get("/:id", StoryMemberAuthentication, GetGroupByID);
-router.post("/", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, CreateGroup);
-router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, UpdateGroup);
+router.post("/", CookieConsentAuthentication, Authenticate, StoryAuthentication, CreateGroup);
+router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, UpdateGroup);
 
 module.exports = router;

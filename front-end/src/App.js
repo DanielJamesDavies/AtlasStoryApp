@@ -18,7 +18,7 @@ function App() {
 	return (
 		<div className='App'>
 			<Page />
-			<canvas></canvas>
+			<canvas id='isLightBackgroundCanvas'></canvas>
 		</div>
 	);
 }

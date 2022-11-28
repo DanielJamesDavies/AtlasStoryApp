@@ -30,6 +30,7 @@ app.use("/api/genre", require("./routes/GenreRoute"));
 app.use("/api/group", require("./routes/GroupRoute"));
 app.use("/api/character", require("./routes/CharacterRoute"));
 app.use("/api/character-type", require("./routes/CharacterTypeRoute"));
+app.use("/api/character-relationship", require("./routes/CharacterRelationshipRoute"));
 app.use("/api/substory", require("./routes/SubstoryRoute"));
 app.use("/api/spotify", require("./routes/SpotifyRoute"));
 app.use("/api/image", require("./routes/ImageRoute"));

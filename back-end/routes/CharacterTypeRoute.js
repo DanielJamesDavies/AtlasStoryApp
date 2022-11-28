@@ -16,8 +16,8 @@ const DeleteCharacterType = require("../services/CharacterType/DeleteCharacterTy
 router.get("/", StoryMemberAuthentication, GetCharacterType);
 router.get("/:id", StoryMemberAuthentication, GetCharacterTypeByID);
 router.post("/get-value/:id", StoryMemberAuthentication, GetCharacterTypeValueByID);
-router.post("/", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, CreateCharacterType);
-router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, UpdateCharacterType);
-router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryMemberAuthentication, StoryAuthentication, DeleteCharacterType);
+router.post("/", CookieConsentAuthentication, Authenticate, StoryAuthentication, CreateCharacterType);
+router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, UpdateCharacterType);
+router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, DeleteCharacterType);
 
 module.exports = router;

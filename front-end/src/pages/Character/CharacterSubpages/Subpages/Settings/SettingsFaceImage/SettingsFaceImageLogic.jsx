@@ -15,35 +15,35 @@ import { APIContext } from "../../../../../../context/APIContext";
 
 // Assets
 
-export const SettingsCardBackgroundImageLogic = () => {
-	const { isAuthorizedToEdit, story, character, characterCardBackground, setCharacterCardBackground } = useContext(CharacterContext);
+export const SettingsFaceImageLogic = () => {
+	const { isAuthorizedToEdit, story, character, characterFaceImage, setCharacterFaceImage } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 
 	const [errors, setErrors] = useState([]);
 
-	function changeCardBackground(image) {
-		setCharacterCardBackground(image);
+	function changeFaceImage(image) {
+		setCharacterFaceImage(image);
 	}
 
-	async function revertCardBackground() {
+	async function revertFaceImage() {
 		setErrors([]);
-		const response = await APIRequest("/image/" + character?.data?.cardBackground, "GET");
+		const response = await APIRequest("/image/" + character?.data?.faceImage, "GET");
 		if (!response || response?.errors || !response?.data?.image?.image) return false;
-		setCharacterCardBackground(response.data.image.image);
+		setCharacterFaceImage(response.data.image.image);
 		return true;
 	}
 
-	async function saveCardBackground() {
+	async function saveFaceImage() {
 		setErrors([]);
 		if (!character?._id) return;
 		await APIRequest("/character/" + character?._id, "PATCH", {
-			path: ["data", "cardBackground"],
-			newValue: character?.data?.cardBackground,
+			path: ["data", "faceImage"],
+			newValue: character?.data?.faceImage,
 			story_id: story._id,
 			character_id: character._id,
 		});
-		const response = await APIRequest("/image/" + character?.data?.cardBackground, "PATCH", {
-			newValue: characterCardBackground,
+		const response = await APIRequest("/image/" + character?.data?.faceImage, "PATCH", {
+			newValue: characterFaceImage,
 			story_id: story._id,
 			character_id: character._id,
 		});
@@ -54,5 +54,5 @@ export const SettingsCardBackgroundImageLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, characterCardBackground, changeCardBackground, revertCardBackground, saveCardBackground, errors };
+	return { isAuthorizedToEdit, characterFaceImage, changeFaceImage, revertFaceImage, saveFaceImage, errors };
 };

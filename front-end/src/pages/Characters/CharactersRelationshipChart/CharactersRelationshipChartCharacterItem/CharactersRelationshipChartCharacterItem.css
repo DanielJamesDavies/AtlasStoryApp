@@ -1,0 +1,40 @@
+.characters-relationship-chart-character-item {
+	position: absolute;
+	transform: translate(-450px, -350px);
+	width: calc(72px + 6px);
+	height: calc(72px + 6px + 18px);
+}
+
+.characters-relationship-chart-character-item:hover {
+	z-index: 2;
+}
+
+.characters-relationship-chart-character-item-face-image {
+	margin: 0 auto;
+	border: 3px solid var(--grey1);
+	border-radius: 100%;
+
+	width: 72px;
+	height: 72px;
+
+	background: var(--grey3);
+}
+
+.characters-relationship-chart-character-item-active .characters-relationship-chart-character-item-face-image {
+	border-color: var(--characterColour);
+}
+
+.characters-relationship-chart-character-item-face-image img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.characters-relationship-chart-character-item-name {
+	margin-top: 2px;
+	text-align: center;
+	font-size: 13px;
+	font-weight: 700;
+	white-space: nowrap;
+}

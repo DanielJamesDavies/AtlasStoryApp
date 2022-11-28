@@ -36,6 +36,12 @@ export const SettingsOverviewBackgroundImageLogic = () => {
 	async function saveOverviewBackground() {
 		setErrors([]);
 		if (!character?._id) return;
+		await APIRequest("/character/" + character?._id, "PATCH", {
+			path: ["data", "overviewBackground"],
+			newValue: character?.data?.overviewBackground,
+			story_id: story._id,
+			character_id: character._id,
+		});
 		const response = await APIRequest("/image/" + character?.data?.overviewBackground, "PATCH", {
 			newValue: characterOverviewBackground,
 			story_id: story._id,
