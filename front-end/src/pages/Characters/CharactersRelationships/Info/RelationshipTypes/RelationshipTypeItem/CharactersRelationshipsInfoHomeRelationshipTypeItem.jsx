@@ -40,6 +40,7 @@ export const CharactersRelationshipsInfoHomeRelationshipTypeItem = ({ relationsh
 						enableEdit={isEditing}
 						size='s'
 						pickerVerticalPlacement='bottom'
+						noBackground={true}
 					/>
 				</div>
 				<div className='characters-relationship-info-home-relationship-type-item-name-container'>

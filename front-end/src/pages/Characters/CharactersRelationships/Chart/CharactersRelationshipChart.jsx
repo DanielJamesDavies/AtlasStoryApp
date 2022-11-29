@@ -15,8 +15,15 @@ import "./CharactersRelationshipChart.css";
 
 // Assets
 
-export const CharactersRelationshipChart = ({ charactersRelationshipChartRef, charactersRelationshipChartWidth }) => {
-	const { characterRelationshipsCharacters, onClickChart } = CharactersRelationshipChartLogic({ charactersRelationshipChartWidth });
+export const CharactersRelationshipChart = ({
+	charactersRelationshipChartRef,
+	charactersRelationshipChartWidth,
+	charactersRelationshipChartItemWidth,
+}) => {
+	const { characterRelationshipsCharacters, onClickChart } = CharactersRelationshipChartLogic({
+		charactersRelationshipChartWidth,
+		charactersRelationshipChartItemWidth,
+	});
 
 	return (
 		<div className='characters-relationship-chart-container' onClick={onClickChart}>
@@ -28,6 +35,7 @@ export const CharactersRelationshipChart = ({ charactersRelationshipChartRef, ch
 							character={character}
 							index={index}
 							charactersRelationshipChartWidth={charactersRelationshipChartWidth}
+							charactersRelationshipChartItemWidth={charactersRelationshipChartItemWidth}
 						/>
 					))}
 				</div>

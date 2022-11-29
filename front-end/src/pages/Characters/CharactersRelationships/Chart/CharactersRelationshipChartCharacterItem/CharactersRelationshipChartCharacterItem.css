@@ -1,8 +1,7 @@
 .characters-relationship-chart-character-item {
 	position: absolute;
-	transform: translate(-450px, -350px);
-	width: calc(72px + 6px);
-	height: calc(72px + 6px + 18px);
+	width: var(--charactersRelationshipChartItemWidth);
+	height: calc(var(--charactersRelationshipChartItemWidth) + 18px);
 }
 
 .characters-relationship-chart-character-item:hover,
@@ -15,8 +14,8 @@
 	border: 3px solid var(--grey1);
 	border-radius: 100%;
 
-	width: 72px;
-	height: 72px;
+	width: calc(var(--charactersRelationshipChartItemWidth) - 6px);
+	height: calc(var(--charactersRelationshipChartItemWidth) - 6px);
 
 	background: var(--grey3);
 }
@@ -38,4 +37,14 @@
 	font-size: 13px;
 	font-weight: 700;
 	white-space: nowrap;
+}
+
+@media (max-width: 750px) {
+	.characters-relationship-chart-character-item-name {
+		display: none;
+	}
+
+	.characters-relationship-chart-character-item-active .characters-relationship-chart-character-item-name {
+		display: block;
+	}
 }

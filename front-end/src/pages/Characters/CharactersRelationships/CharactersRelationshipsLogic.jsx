@@ -15,33 +15,63 @@ import { CharactersContext } from "../CharactersContext";
 // Assets
 
 export const CharactersRelationshipsLogic = () => {
-	const { groups, characters, charactersFaceImages, characterRelationships, setCharacterRelationshipsCharacters, relationshipsFilters } =
-		useContext(CharactersContext);
+	const {
+		groups,
+		characters,
+		charactersFaceImages,
+		characterRelationships,
+		characterRelationshipsCharacters,
+		setCharacterRelationshipsCharacters,
+		relationshipsFilters,
+	} = useContext(CharactersContext);
 
 	const charactersRelationshipChartRef = useRef();
-	const [charactersRelationshipChartWidth, setCharactersRelationshipChartWidth] = useState("800px");
+	const [charactersRelationshipChartWidth, setCharactersRelationshipChartWidth] = useState(800);
+	const [charactersRelationshipChartItemWidth, setCharactersRelationshipChartItemWidth] = useState(78);
 
 	useLayoutEffect(() => {
-		function getCharactersRelationshipChartWidth() {
+		function getCharacterItemTransform(index, newCharactersRelationshipChartWidth) {
+			let modifier = 8;
+			if (window.innerWidth <= 1200) modifier = 6;
+			if (window.innerWidth <= 1000) modifier = 4;
+			if (window.innerWidth <= 750) modifier = 40 / characterRelationshipsCharacters.length;
+			const angle = (index / (characterRelationshipsCharacters.length + modifier)) * Math.PI * 2;
+			const x = (newCharactersRelationshipChartWidth / 2) * Math.sin(angle);
+			const y = -1 * (newCharactersRelationshipChartWidth / 2) * Math.cos(angle);
+			return [x, y];
+		}
+
+		function updateChartStyles() {
 			const navbarWidth = 68;
 			const navbarMobileHeight = 58;
 
 			let chartWidth = 0;
 			let chartHeight = 0;
-			if (window.innerWidth > 750) {
+			if (window.innerWidth > 1000) {
 				chartWidth = window.innerWidth - navbarWidth - 48 - 400 - 12;
+				chartHeight = window.innerHeight - 48 - 26 - 48 - 24;
+			} else if (window.innerWidth > 750) {
+				chartWidth = window.innerWidth - navbarWidth - 48;
 				chartHeight = window.innerHeight - 48 - 26 - 48 - 24;
 			} else {
 				chartWidth = window.innerWidth - 48;
 				chartHeight = window.innerHeight - navbarMobileHeight - 48 - 26 - 48;
 			}
 
-			setCharactersRelationshipChartWidth(Math.min(chartWidth, Math.max(chartHeight, 700)));
+			const newCharactersRelationshipChartWidth = Math.min(chartWidth, Math.max(chartHeight, 700));
+			setCharactersRelationshipChartWidth(newCharactersRelationshipChartWidth);
+
+			const [x1, y1] = getCharacterItemTransform(0, newCharactersRelationshipChartWidth);
+			const [x2, y2] = getCharacterItemTransform(1, newCharactersRelationshipChartWidth);
+			const a = Math.abs(y2 - y1);
+			const b = Math.abs(x2 - x1);
+			const c = Math.sqrt(a * a + b * b);
+			setCharactersRelationshipChartItemWidth(Math.min(c, 100));
 		}
-		getCharactersRelationshipChartWidth();
-		window.addEventListener("resize", getCharactersRelationshipChartWidth);
-		return () => window.removeEventListener("resize", getCharactersRelationshipChartWidth);
-	}, [setCharactersRelationshipChartWidth, charactersRelationshipChartRef]);
+		updateChartStyles();
+		window.addEventListener("resize", updateChartStyles);
+		return () => window.removeEventListener("resize", updateChartStyles);
+	}, [setCharactersRelationshipChartWidth, charactersRelationshipChartRef, characterRelationshipsCharacters]);
 
 	useEffect(() => {
 		function getCharacterRelationshipsCharacters() {
@@ -77,5 +107,20 @@ export const CharactersRelationshipsLogic = () => {
 		getCharacterRelationshipsCharacters();
 	}, [setCharacterRelationshipsCharacters, characterRelationships, relationshipsFilters, groups, characters, charactersFaceImages]);
 
-	return { groups, characters, charactersFaceImages, charactersRelationshipChartRef, charactersRelationshipChartWidth };
+	const [isDisplayingInfo, setIsDisplayingInfo] = useState(false);
+
+	function toggleIsDisplayingInfo() {
+		setIsDisplayingInfo((oldIsDisplayingInfo) => !oldIsDisplayingInfo);
+	}
+
+	return {
+		groups,
+		characters,
+		charactersFaceImages,
+		charactersRelationshipChartRef,
+		charactersRelationshipChartWidth,
+		charactersRelationshipChartItemWidth,
+		isDisplayingInfo,
+		toggleIsDisplayingInfo,
+	};
 };

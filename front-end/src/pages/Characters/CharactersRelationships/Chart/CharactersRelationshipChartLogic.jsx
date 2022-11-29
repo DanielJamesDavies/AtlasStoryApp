@@ -14,7 +14,7 @@ import { CharactersContext } from "../../CharactersContext";
 
 // Assets
 
-export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWidth }) => {
+export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWidth, charactersRelationshipChartItemWidth }) => {
 	const {
 		story,
 		groups,
@@ -108,16 +108,20 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 				ctx.strokeStyle = "#0044ff";
 			}
 			if (!isCurrent) ctx.strokeStyle += "22";
-			const character_1_index = charactersOrder.findIndex((e) => e === relationship.character_ids[0]);
-			const character_2_index = charactersOrder.findIndex((e) => e === relationship.character_ids[1]);
+			const character_indexs = [
+				charactersOrder.findIndex((e) => e === relationship.character_ids[0]),
+				charactersOrder.findIndex((e) => e === relationship.character_ids[1]),
+			].sort((a, b) => a - b);
+			const character_1_index = character_indexs[0];
+			const character_2_index = character_indexs[1];
 
 			const angle1 = (character_1_index / charactersOrder.length) * Math.PI * 2;
-			const adjacent1 = -1 * (charactersRelationshipChartWidth / 2 - (72 + 6) / 2) * Math.sin(angle1);
-			const opposite1 = -1 * (charactersRelationshipChartWidth / 2 - (72 + 6 + 18) / 2) * Math.cos(angle1);
+			const adjacent1 = -1 * (charactersRelationshipChartWidth / 2 - charactersRelationshipChartItemWidth / 2) * Math.sin(angle1);
+			const opposite1 = -1 * (charactersRelationshipChartWidth / 2 - (charactersRelationshipChartItemWidth + 18) / 2) * Math.cos(angle1);
 
 			const angle2 = (character_2_index / charactersOrder.length) * Math.PI * 2;
-			const adjacent2 = -1 * (charactersRelationshipChartWidth / 2 - (72 + 6) / 2) * Math.sin(angle2);
-			const opposite2 = -1 * (charactersRelationshipChartWidth / 2 - (72 + 6 + 18) / 2) * Math.cos(angle2);
+			const adjacent2 = -1 * (charactersRelationshipChartWidth / 2 - charactersRelationshipChartItemWidth / 2) * Math.sin(angle2);
+			const opposite2 = -1 * (charactersRelationshipChartWidth / 2 - (charactersRelationshipChartItemWidth + 18) / 2) * Math.cos(angle2);
 
 			const x1 = canvas.width / 2 - adjacent1;
 			const y1 = canvas.height / 2 - opposite1 * -1;
@@ -126,15 +130,7 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 
 			ctx.moveTo(x1, y1);
 
-			const mathSign = Math.sign((character_2_index / charactersOrder.length - 0.5) * -1);
-			ctx.bezierCurveTo(
-				canvas.width / 2 + -50 * mathSign,
-				canvas.height / 2 + -50 * mathSign,
-				canvas.width / 2 + 50 * mathSign,
-				canvas.height / 2 + 50 * mathSign,
-				x2,
-				y2
-			);
+			ctx.bezierCurveTo(canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2, x2, y2);
 			ctx.stroke();
 		}
 
@@ -149,6 +145,7 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 		selectedCharacterRelationshipsCharacterId,
 		relationshipsFilters,
 		charactersRelationshipChartWidth,
+		charactersRelationshipChartItemWidth,
 	]);
 
 	return { characterRelationshipsCharacters, onClickChart };

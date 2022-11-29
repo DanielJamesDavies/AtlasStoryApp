@@ -1,4 +1,6 @@
 .characters-relationship-info-container {
+	position: relative;
+	z-index: 1;
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 12px;
@@ -6,4 +8,31 @@
 	max-height: calc(var(--charactersRelationshipChartWidth));
 	overflow-y: scroll;
 	overflow-x: hidden;
+}
+
+@media (max-width: 1000px) {
+	.characters-relationship-info-container {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin-left: auto;
+		max-height: 100%;
+		width: calc(100%);
+		display: none;
+	}
+
+	.characters-relationship-info-container-is-displaying {
+		display: block;
+	}
+
+	.characters-relationship-info-container .characters-relationship-info {
+		margin: 0;
+		padding: 12px;
+	}
+}
+
+@media (max-width: 750px) {
+	.characters-relationship-info-container {
+		width: calc(100vw - 8px - 6px);
+	}
 }

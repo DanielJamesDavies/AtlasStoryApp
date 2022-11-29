@@ -17,10 +17,16 @@ import "./CharactersRelationshipsInfo.css";
 
 // Assets
 
-export const CharactersRelationshipsInfo = () => {
+export const CharactersRelationshipsInfo = ({ isDisplayingInfo }) => {
 	return (
-		<div className='characters-relationship-info-container'>
-			<ContentItem hasBg={true}>
+		<div
+			className={
+				isDisplayingInfo
+					? "characters-relationship-info-container characters-relationship-info-container-is-displaying"
+					: "characters-relationship-info-container"
+			}
+		>
+			<ContentItem className='characters-relationship-info' hasBg={true}>
 				<CharactersRelationshipsInfoSelectedCharacter />
 				<CharactersRelationshipsInfoFilters />
 				<CharactersRelationshipsInfoRelationshipTypes />

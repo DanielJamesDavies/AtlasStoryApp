@@ -14,9 +14,14 @@ import "./CharactersRelationshipChartCharacterItem.css";
 
 // Assets
 
-export const CharactersRelationshipChartCharacterItem = ({ character, index, charactersRelationshipChartWidth }) => {
+export const CharactersRelationshipChartCharacterItem = ({
+	character,
+	index,
+	charactersRelationshipChartWidth,
+	charactersRelationshipChartItemWidth,
+}) => {
 	const { charactersRelationshipChartCharacterItemStyles, selectedCharacterRelationshipsCharacterId, onClick } =
-		CharactersRelationshipChartCharacterItemLogic({ character, index, charactersRelationshipChartWidth });
+		CharactersRelationshipChartCharacterItemLogic({ character, index, charactersRelationshipChartWidth, charactersRelationshipChartItemWidth });
 
 	return (
 		<div

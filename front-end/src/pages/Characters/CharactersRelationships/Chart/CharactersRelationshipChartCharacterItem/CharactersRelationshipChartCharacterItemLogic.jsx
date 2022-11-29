@@ -14,7 +14,12 @@ import { CharactersContext } from "../../../CharactersContext";
 
 // Assets
 
-export const CharactersRelationshipChartCharacterItemLogic = ({ character, index, charactersRelationshipChartWidth }) => {
+export const CharactersRelationshipChartCharacterItemLogic = ({
+	character,
+	index,
+	charactersRelationshipChartWidth,
+	charactersRelationshipChartItemWidth,
+}) => {
 	const { characterRelationshipsCharacters, selectedCharacterRelationshipsCharacterId, setSelectedCharacterRelationshipsCharacterId } =
 		useContext(CharactersContext);
 
@@ -23,15 +28,22 @@ export const CharactersRelationshipChartCharacterItemLogic = ({ character, index
 		function getCharactersRelationshipChartCharacterItemStyles() {
 			let newCharactersRelationshipChartCharacterItemStyles = {};
 			const angle = (index / characterRelationshipsCharacters.length) * Math.PI * 2;
-			const adjacent = (charactersRelationshipChartWidth / 2 - (72 + 6) / 2) * Math.sin(angle);
-			const opposite = -1 * (charactersRelationshipChartWidth / 2 - (72 + 6 + 18) / 2) * Math.cos(angle);
+			const adjacent = (charactersRelationshipChartWidth / 2 - charactersRelationshipChartItemWidth / 2) * Math.sin(angle);
+			const opposite = -1 * (charactersRelationshipChartWidth / 2 - (charactersRelationshipChartItemWidth + 18) / 2) * Math.cos(angle);
 			newCharactersRelationshipChartCharacterItemStyles.transform = "translate(" + adjacent + "px, " + opposite + "px)";
 
 			if (character?.data?.colour) newCharactersRelationshipChartCharacterItemStyles["--characterColour"] = character?.data?.colour;
 			setCharactersRelationshipChartCharacterItemStyles(newCharactersRelationshipChartCharacterItemStyles);
 		}
 		getCharactersRelationshipChartCharacterItemStyles();
-	}, [setCharactersRelationshipChartCharacterItemStyles, characterRelationshipsCharacters, character, index, charactersRelationshipChartWidth]);
+	}, [
+		setCharactersRelationshipChartCharacterItemStyles,
+		characterRelationshipsCharacters,
+		character,
+		index,
+		charactersRelationshipChartWidth,
+		charactersRelationshipChartItemWidth,
+	]);
 
 	function onClick(e) {
 		e.stopPropagation();
