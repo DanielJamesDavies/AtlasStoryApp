@@ -1,0 +1,10 @@
+.characters-relationship-info-home-relationship-types-title {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.characters-relationship-info-home-relationship-types {
+	padding-right: 12px;
+	max-height: 350px;
+	overflow-y: overlay;
+}

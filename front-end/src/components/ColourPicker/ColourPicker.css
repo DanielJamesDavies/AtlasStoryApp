@@ -3,6 +3,11 @@
 	z-index: 300;
 	display: flex;
 	align-items: center;
+	--colourBlockWidth: 32px;
+}
+
+.colour-picker-size-s {
+	--colourBlockWidth: 24px;
 }
 
 .colour-picker-is-showing-picker {
@@ -19,10 +24,14 @@
 	margin-right: 12px;
 	border-radius: 4px;
 
-	min-width: 32px;
-	width: 32px;
-	min-height: 32px;
-	height: 32px;
+	min-width: var(--colourBlockWidth);
+	width: var(--colourBlockWidth);
+	min-height: var(--colourBlockWidth);
+	height: var(--colourBlockWidth);
+}
+
+.colour-picker-size-s .colour-picker-colour-block {
+	margin-right: 8px;
 }
 
 .colour-picker-is-editing .colour-picker-colour-block {
@@ -33,7 +42,7 @@
 	position: absolute;
 	z-index: 3;
 	left: -6px;
-	bottom: calc(32px + 6px);
+	bottom: calc(var(--colourBlockWidth) + 6px);
 	height: fit-content;
 	background: var(--grey4) !important;
 }
@@ -44,7 +53,7 @@
 }
 
 .colour-picker-placement-bottom .colour-picker-sketch-picker {
-	top: calc(32px + 6px);
+	top: calc(var(--colourBlockWidth) + 6px);
 }
 
 .colour-picker-sketch-picker,
@@ -69,4 +78,8 @@
 	width: 400vw;
 	height: 400vh;
 	background: transparent;
+}
+
+.colour-picker-size-s .colour-picker-colour-text {
+	font-size: 14px;
 }

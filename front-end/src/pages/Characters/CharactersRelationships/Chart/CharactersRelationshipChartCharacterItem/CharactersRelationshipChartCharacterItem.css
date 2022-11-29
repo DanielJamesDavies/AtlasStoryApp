@@ -5,7 +5,8 @@
 	height: calc(72px + 6px + 18px);
 }
 
-.characters-relationship-chart-character-item:hover {
+.characters-relationship-chart-character-item:hover,
+.characters-relationship-chart-character-item-active {
 	z-index: 2;
 }
 

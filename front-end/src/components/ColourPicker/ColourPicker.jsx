@@ -15,9 +15,9 @@ import "./ColourPicker.css";
 
 // Assets
 
-export const ColourPicker = ({ value, onChange, enableEdit, pickerVerticalPlacement, horizontalAlignment }) => {
+export const ColourPicker = ({ value, onChange, size, displayText, enableEdit, pickerVerticalPlacement, horizontalAlignment }) => {
 	const { colourPickerClassName, isShowingPicker, setIsShowingPicker, colourBlockStyle, presetColours, onSketchPickerChange } = ColourPickerLogic(
-		{ value, onChange, enableEdit, pickerVerticalPlacement, horizontalAlignment }
+		{ value, onChange, size, enableEdit, pickerVerticalPlacement, horizontalAlignment }
 	);
 
 	return (
@@ -27,7 +27,7 @@ export const ColourPicker = ({ value, onChange, enableEdit, pickerVerticalPlacem
 			onClick={() => setIsShowingPicker((oldIsShowingPicker) => !oldIsShowingPicker)}
 		>
 			<div className='colour-picker-colour-block' style={colourBlockStyle} />
-			<div className='colour-picker-colour-text'>{value}</div>
+			{displayText === false ? null : <div className='colour-picker-colour-text'>{value}</div>}
 			<div onClick={(e) => e.stopPropagation()}>
 				{!enableEdit || (enableEdit && !isShowingPicker) ? null : (
 					<SketchPicker

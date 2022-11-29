@@ -14,7 +14,15 @@ module.exports = async (req, res, next) => {
 	if (!user_id) return res.status(200).send({ errors: [{ message: "Access Denied" }] });
 
 	const storyFilter = { _id: 1, owner: 1, "data.members": 1 };
-	const story = await Story.findById(req.body.story_id, storyFilter)
+	let story_id = false;
+	if (req?.body?.story_id) {
+		story_id = req.body.story_id;
+	} else if (req?.query?.story_id) {
+		story_id = req.query.story_id;
+	}
+	if (!story_id) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
+
+	const story = await Story.findById(story_id, storyFilter)
 		.exec()
 		.catch(() => false);
 	if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });

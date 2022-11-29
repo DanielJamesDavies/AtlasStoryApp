@@ -14,9 +14,9 @@ import "./CharactersRelationshipChartCharacterItem.css";
 
 // Assets
 
-export const CharactersRelationshipChartCharacterItem = ({ character, index }) => {
+export const CharactersRelationshipChartCharacterItem = ({ character, index, charactersRelationshipChartWidth }) => {
 	const { charactersRelationshipChartCharacterItemStyles, selectedCharacterRelationshipsCharacterId, onClick } =
-		CharactersRelationshipChartCharacterItemLogic({ character, index });
+		CharactersRelationshipChartCharacterItemLogic({ character, index, charactersRelationshipChartWidth });
 
 	return (
 		<div
@@ -29,7 +29,7 @@ export const CharactersRelationshipChartCharacterItem = ({ character, index }) =
 			onClick={onClick}
 		>
 			<div className='characters-relationship-chart-character-item-face-image'>
-				{!character?.data?.faceImage?.image ? null : <img src={character?.data?.faceImage?.image} alt='' />}
+				{!character?.data?.faceImage?.image ? null : <img draggable={false} src={character?.data?.faceImage?.image} alt='' />}
 			</div>
 			<div className='characters-relationship-chart-character-item-name'>{character?.data?.name}</div>
 		</div>

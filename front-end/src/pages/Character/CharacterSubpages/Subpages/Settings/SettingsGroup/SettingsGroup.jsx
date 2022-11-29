@@ -24,7 +24,7 @@ export const SettingsGroup = () => {
 	return (
 		<ContentItem hasBg={true} size='s'>
 			<LabelContainer label='Group' isInline={true}>
-				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertGroup} onSave={saveGroup}>
+				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertGroup} onSave={saveGroup} higherEditBtns={true}>
 					<div>
 						<div>{group?.data?.name}</div>
 					</div>

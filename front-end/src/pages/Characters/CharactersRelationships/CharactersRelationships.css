@@ -1,0 +1,20 @@
+.characters-relationship-container {
+	position: relative;
+	margin: 24px auto;
+	width: 100%;
+}
+
+.characters-relationship-title {
+	margin-top: -1px;
+	margin-bottom: 1px;
+	margin-left: 6px;
+	font-size: calc(22px * var(--fontSizeMultiplier));
+	font-weight: 700;
+	max-width: calc(100% - 115px);
+}
+
+@media (max-width: 1150px) {
+	.characters-relationship-container {
+		display: none;
+	}
+}

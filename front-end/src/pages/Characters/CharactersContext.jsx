@@ -25,7 +25,11 @@ const CharactersProvider = ({ children, story_uid }) => {
 	const [characterType, setCharacterType] = useState(false);
 
 	const [characterRelationships, setCharacterRelationships] = useState([]);
+	const [characterRelationshipsAddedIds, setCharacterRelationshipsAddedIds] = useState([]);
+	const [characterRelationshipsRemovedIds, setCharacterRelationshipsRemovedIds] = useState([]);
+	const [characterRelationshipsCharacters, setCharacterRelationshipsCharacters] = useState([]);
 	const [selectedCharacterRelationshipsCharacterId, setSelectedCharacterRelationshipsCharacterId] = useState(false);
+	const [relationshipsFilters, setRelationshipsFilters] = useState(false);
 
 	const [charactersCardBackgrounds, setCharactersCardBackgrounds] = useState(false);
 	const [charactersFaceImages, setCharactersFaceImages] = useState(false);
@@ -284,8 +288,16 @@ const CharactersProvider = ({ children, story_uid }) => {
 				changeCharacterType,
 				characterRelationships,
 				setCharacterRelationships,
+				characterRelationshipsAddedIds,
+				setCharacterRelationshipsAddedIds,
+				characterRelationshipsRemovedIds,
+				setCharacterRelationshipsRemovedIds,
+				characterRelationshipsCharacters,
+				setCharacterRelationshipsCharacters,
 				selectedCharacterRelationshipsCharacterId,
 				setSelectedCharacterRelationshipsCharacterId,
+				relationshipsFilters,
+				setRelationshipsFilters,
 				charactersCardBackgrounds,
 				charactersFaceImages,
 				isDisplayingCreateGroupForm,

@@ -32,6 +32,7 @@ export const DropdownContainerLogic = ({ className, seamless, onChange }) => {
 	function selectChild(e, index) {
 		e.preventDefault();
 		e.stopPropagation();
+		setIsSelecting(false);
 		if (onChange) onChange(index);
 	}
 

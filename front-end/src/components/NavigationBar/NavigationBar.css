@@ -115,23 +115,25 @@
 
 .navigation-bar-story-btn-label {
 	position: absolute;
+	z-index: 100;
 	top: 50%;
 	left: calc(51px + 8px);
 	transform: translateY(-50%);
-	padding: 6px 12px;
-	border-radius: 3px;
+	padding: 8px;
+	padding-right: 16px;
+	border-radius: 5px;
 
-	background: var(--grey3);
 	width: max-content;
 	max-width: 120px;
 	overflow-y: visible;
-	z-index: 100;
-	opacity: 0;
-	transition: 0.2s;
-	transition-delay: 0s;
-	pointer-events: none;
+
+	background: var(--grey3);
 	font-size: 14px;
 	font-weight: 700;
+	pointer-events: none;
+	transition: 0.2s;
+	transition-delay: 0s;
+	opacity: 0;
 }
 
 .navigation-bar-story-btn-container:hover .navigation-bar-story-btn-label {

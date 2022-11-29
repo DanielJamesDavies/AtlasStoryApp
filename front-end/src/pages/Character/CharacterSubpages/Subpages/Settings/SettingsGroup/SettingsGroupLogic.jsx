@@ -19,14 +19,14 @@ export const SettingsGroupLogic = () => {
 	const { story_uid, character_uid, isAuthorizedToEdit, story, character, groups } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 
-	const [group, setGroup] = useState(character.group);
+	const [group, setGroup] = useState(false);
 	useEffect(() => {
 		function getGroup() {
 			const newGroup = groups.find((e) => e._id === character.group_id);
-			if (newGroup) return newGroup;
-			return {};
+			if (!newGroup) setGroup(false);
+			setGroup(newGroup);
 		}
-		setGroup(getGroup());
+		getGroup();
 	}, [story_uid, character_uid, groups, character]);
 
 	function changeGroup(e) {
@@ -35,6 +35,8 @@ export const SettingsGroupLogic = () => {
 	}
 
 	async function revertGroup() {
+		if (!group) return false;
+
 		const response = await APIRequest("/character/get-value/" + character._id, "POST", {
 			story_id: story._id,
 			path: ["group_id"],
@@ -50,6 +52,8 @@ export const SettingsGroupLogic = () => {
 	const [errors, setErrors] = useState([]);
 
 	async function saveGroup() {
+		if (!group) return false;
+
 		setErrors([]);
 		if (!character?._id) return;
 		const response = await APIRequest("/character/" + character._id, "PATCH", {

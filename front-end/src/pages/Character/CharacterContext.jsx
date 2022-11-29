@@ -65,7 +65,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 
 			getStoryIcon(newStory?.data?.icon);
 			getCharacterTypes(newStory?.data?.characterTypes, newStory?._id);
-			getGroups(newStory?.data?.groups);
+			getGroups(newStory?.data?.groups, newStory?._id);
 
 			let newCharacter = await getCharacter(newStory._id);
 			if (!newCharacter) return;
@@ -147,11 +147,11 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			return newCharacterTypes;
 		}
 
-		async function getGroups(groupIDs) {
+		async function getGroups(groupIDs, story_id) {
 			if (!groupIDs) return;
 			let newGroups = await Promise.all(
 				groupIDs.map(async (groupID) => {
-					const group_response = await APIRequest("/group/" + groupID, "GET");
+					const group_response = await APIRequest("/group/" + groupID + "?story_id=" + story_id, "GET");
 					if (group_response?.errors || !group_response?.data?.group) return false;
 					return { _id: group_response.data.group._id, data: { name: group_response.data.group.data.name } };
 				})

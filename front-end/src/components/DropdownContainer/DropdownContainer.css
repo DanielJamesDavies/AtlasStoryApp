@@ -28,6 +28,7 @@
 }
 
 .dropdown-value-arrow {
+	flex-shrink: 0;
 	margin-left: auto;
 	transition: transform 0.3s;
 }
@@ -38,7 +39,7 @@
 
 .dropdown-options-container {
 	position: absolute;
-	z-index: 120;
+	z-index: 400;
 	top: 32px;
 	max-height: 0;
 	overflow: hidden;
@@ -46,7 +47,7 @@
 }
 
 .editable-container .dropdown-options-container {
-	width: calc(100% - 18px);
+	width: 100%;
 }
 
 .dropdown-container-is-selecting .dropdown-options-container {
@@ -73,8 +74,9 @@
 	color: var(--textColour);
 	font-size: 13px;
 	text-align: left;
-	word-wrap: break-word;
-	word-break: break-all;
+	white-space: pre-wrap;
+	word-break: break-word;
+	overflow-wrap: anywhere;
 	cursor: pointer;
 	transition: background 0.2s;
 }

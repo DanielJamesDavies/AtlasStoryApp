@@ -1,0 +1,9 @@
+.characters-relationship-info-container {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 12px;
+	width: 400px;
+	max-height: calc(var(--charactersRelationshipChartWidth));
+	overflow-y: scroll;
+	overflow-x: hidden;
+}

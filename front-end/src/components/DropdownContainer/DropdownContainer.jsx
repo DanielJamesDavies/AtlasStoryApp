@@ -15,8 +15,12 @@ import "./DropdownContainer.css";
 
 // Assets
 
-export const DropdownContainer = ({ children, className, style, seamless, value, onChange, includeUnselectedOption }) => {
-	const { isSelecting, setIsSelecting, dropdownContainerClassName, selectChild } = DropdownContainerLogic({ className, seamless, onChange });
+export const DropdownContainer = ({ children, className, style, seamless, value, onChange, includeUnselectedOption, noBackground }) => {
+	const { isSelecting, setIsSelecting, dropdownContainerClassName, selectChild } = DropdownContainerLogic({
+		className,
+		seamless,
+		onChange,
+	});
 
 	return (
 		<div className={dropdownContainerClassName}>
@@ -38,7 +42,7 @@ export const DropdownContainer = ({ children, className, style, seamless, value,
 					))}
 				</div>
 			</div>
-			{!isSelecting ? null : <div className='dropdown-background' onClick={() => setIsSelecting(false)} />}
+			{!isSelecting || noBackground ? null : <div className='dropdown-background' onClick={() => setIsSelecting(false)} />}
 		</div>
 	);
 };

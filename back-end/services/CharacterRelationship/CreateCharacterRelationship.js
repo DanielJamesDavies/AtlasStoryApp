@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
 	if (validateCharacterRelationshipResult?.errors) return res.status(200).send({ errors: validateCharacterRelationshipResult.errors });
 
 	const characterRelationship = new CharacterRelationship({
-		_id: new mongoose.Types.ObjectId(),
+		_id: req?.body?._id ? req.body._id : new mongoose.Types.ObjectId(),
 		story_id: req.body.story_id,
 		character_ids: req.body.character_ids,
 		relationship_type: req.body.relationship_type,
@@ -31,7 +31,7 @@ function validateCharacterRelationship(characterRelationship) {
 	if (!characterRelationship?.character_ids || characterRelationship?.character_ids?.length !== 2)
 		errors.push({ attribute: "character_ids", message: "Please Enter Two Character IDs" });
 
-	if (!characterRelationship?.relationship_type) errors.push({ attribute: "character_ids", message: "Please Enter Two Character IDs" });
+	if (!characterRelationship?.relationship_type) errors.push({ attribute: "relationship_type", message: "Please Enter a Relationship Type" });
 
 	if (errors.length !== 0) return { errors };
 

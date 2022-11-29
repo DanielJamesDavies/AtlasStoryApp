@@ -1,0 +1,21 @@
+.characters-relationship-info-home-selected-character-title {
+	margin-bottom: 6px;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.characters-relationship-info-home-selected-character-relationships {
+	padding-right: 12px;
+	max-height: 400px;
+	overflow-y: overlay;
+}
+
+.characters-relationship-info-home-selected-character-divider {
+	display: block;
+	content: "";
+	margin: 6px 0;
+	margin-top: calc(6px + 6px);
+	width: 100%;
+	height: 1px;
+	background: var(--textTertiaryColour);
+}

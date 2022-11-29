@@ -4,7 +4,7 @@
 import { CharactersTitle } from "./CharactersTitle/CharactersTitle";
 import { CharactersGroups } from "./CharactersGroups/CharactersGroups";
 import { CharactersGroup } from "./CharactersGroup/CharactersGroup";
-import { CharactersRelationshipChart } from "./CharactersRelationshipChart/CharactersRelationshipChart";
+import { CharactersRelationships } from "./CharactersRelationships/CharactersRelationships";
 import { CharactersCharacterTypes } from "./CharactersCharacterTypes/CharactersCharacterTypes";
 import { CharactersCharacterType } from "./CharactersCharacterType/CharactersCharacterType";
 
@@ -29,7 +29,7 @@ export const Characters = () => {
 					<CharactersGroup />
 				</div>
 				<div className='characters-relationship-chart-content-container'>
-					<CharactersRelationshipChart />
+					<CharactersRelationships />
 				</div>
 				<div className='characters-character-types-content-container'>
 					<CharactersCharacterTypes />

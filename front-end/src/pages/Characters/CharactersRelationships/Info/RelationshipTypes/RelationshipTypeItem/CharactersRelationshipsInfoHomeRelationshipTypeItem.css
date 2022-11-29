@@ -1,0 +1,45 @@
+.characters-relationship-info-home-relationship-type-item-container {
+	margin: 6px 0;
+}
+
+.drag-drop-item-enable-drag-drop.characters-relationship-info-home-relationship-type-item-container {
+	animation: wiggle-medium infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).characters-relationship-info-home-relationship-type-item-container {
+	animation-delay: 0.1s;
+}
+
+.characters-relationship-info-home-relationship-type-item {
+	display: flex;
+	align-items: center;
+}
+
+.characters-relationship-info-home-relationship-type-item-content {
+	display: flex;
+	align-items: center;
+}
+
+.editable-container-is-editing .characters-relationship-info-home-relationship-type-item-content {
+	flex-direction: column-reverse;
+	align-items: flex-start;
+}
+
+.characters-relationship-info-home-relationship-type-item-name-container {
+	margin-left: 4px;
+}
+
+.editable-container-is-editing .characters-relationship-info-home-relationship-type-item-name-container {
+	margin-bottom: 4px;
+	margin-left: 0;
+}
+
+.characters-relationship-info-home-relationship-type-item-name-container,
+.characters-relationship-info-home-relationship-type-item-name-container input {
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.characters-relationship-info-home-relationship-type-item-buttons-container {
+	margin-left: auto;
+}
