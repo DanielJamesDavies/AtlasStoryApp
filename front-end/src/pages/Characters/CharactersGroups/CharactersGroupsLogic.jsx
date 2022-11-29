@@ -21,6 +21,7 @@ export const CharactersGroupsLogic = () => {
 		story,
 		setStory,
 		groups,
+		setGroups,
 		group,
 		changeGroup,
 		setIsDisplayingCreateGroupForm,
@@ -34,14 +35,17 @@ export const CharactersGroupsLogic = () => {
 	}
 
 	async function changeGroupsOrder(res) {
-		let newStory = JSON.parse(JSON.stringify(story));
-
 		if (res.from === undefined || res.to === undefined) return;
 
-		const tempGroup = newStory.data.groups.splice(res.from, 1)[0];
-		newStory.data.groups.splice(res.to, 0, tempGroup);
-
+		let newStory = JSON.parse(JSON.stringify(story));
+		const tempStoryGroup = newStory.data.groups.splice(res.from, 1)[0];
+		newStory.data.groups.splice(res.to, 0, tempStoryGroup);
 		setStory(newStory);
+
+		let newGroups = JSON.parse(JSON.stringify(groups));
+		const tempGroup = newGroups.splice(res.from, 1)[0];
+		newGroups.splice(res.to, 0, tempGroup);
+		setGroups(newGroups);
 
 		await APIRequest("/story/" + newStory._id, "PATCH", {
 			story_id: newStory._id,

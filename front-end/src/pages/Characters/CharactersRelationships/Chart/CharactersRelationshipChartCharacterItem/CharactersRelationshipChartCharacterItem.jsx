@@ -31,9 +31,8 @@ export const CharactersRelationshipChartCharacterItem = ({
 					: "characters-relationship-chart-character-item"
 			}
 			style={charactersRelationshipChartCharacterItemStyles}
-			onClick={onClick}
 		>
-			<div className='characters-relationship-chart-character-item-face-image'>
+			<div className='characters-relationship-chart-character-item-face-image' onClick={onClick}>
 				{!character?.data?.faceImage?.image ? null : <img draggable={false} src={character?.data?.faceImage?.image} alt='' />}
 			</div>
 			<div className='characters-relationship-chart-character-item-name'>{character?.data?.name}</div>
