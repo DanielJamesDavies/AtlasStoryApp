@@ -54,7 +54,7 @@ export const CharactersRelationshipsLogic = () => {
 				chartWidth = window.innerWidth - navbarWidth - 48;
 				chartHeight = window.innerHeight - 48 - 26 - 48 - 24;
 			} else {
-				chartWidth = window.innerWidth - 48;
+				chartWidth = window.innerWidth - 16;
 				chartHeight = window.innerHeight - navbarMobileHeight - 48 - 26 - 48;
 			}
 
