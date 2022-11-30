@@ -20,6 +20,7 @@
 
 	background: var(--grey3);
 	pointer-events: all;
+	cursor: pointer;
 }
 
 .characters-relationship-chart-character-item-active .characters-relationship-chart-character-item-face-image {

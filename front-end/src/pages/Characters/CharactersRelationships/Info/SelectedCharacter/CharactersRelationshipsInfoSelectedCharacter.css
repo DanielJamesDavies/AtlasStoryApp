@@ -6,7 +6,7 @@
 
 .characters-relationship-info-home-selected-character-relationships {
 	padding-right: 12px;
-	max-height: 400px;
+	height: 300px;
 	overflow-y: overlay;
 }
 
@@ -18,4 +18,10 @@
 	width: 100%;
 	height: 1px;
 	background: var(--textTertiaryColour);
+}
+
+@media (max-height: 750px) {
+	.characters-relationship-info-home-selected-character-relationships {
+		height: 250px;
+	}
 }

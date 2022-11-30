@@ -41,7 +41,7 @@
 	position: absolute;
 	z-index: 400;
 	top: 32px;
-	max-height: 0;
+	max-height: 0 !important;
 	overflow: hidden;
 	transition: max-height 0.2s cubic-bezier(0, 1, 0, 1);
 }
@@ -51,7 +51,8 @@
 }
 
 .dropdown-container-is-selecting .dropdown-options-container {
-	max-height: 100vh;
+	overflow-y: overlay;
+	max-height: 250px !important;
 	transition-timing-function: cubic-bezier(0, 0, 1, 0);
 	transition-delay: 0s;
 }

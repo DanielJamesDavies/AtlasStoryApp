@@ -8,3 +8,9 @@
 	max-height: 350px;
 	overflow-y: overlay;
 }
+
+@media (max-height: 750px) {
+	.characters-relationship-info-home-relationship-types {
+		max-height: 250px;
+	}
+}

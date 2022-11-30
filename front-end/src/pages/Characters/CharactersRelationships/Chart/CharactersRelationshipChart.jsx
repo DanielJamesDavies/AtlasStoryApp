@@ -20,14 +20,35 @@ export const CharactersRelationshipChart = ({
 	charactersRelationshipChartWidth,
 	charactersRelationshipChartItemWidth,
 }) => {
-	const { characterRelationshipsCharacters, onClickChart } = CharactersRelationshipChartLogic({
-		charactersRelationshipChartWidth,
-		charactersRelationshipChartItemWidth,
-	});
+	const { characters, charactersFaceImages, selectedCharacterRelationshipsCharacterId, characterRelationshipsCharacters, onClickChart } =
+		CharactersRelationshipChartLogic({
+			charactersRelationshipChartWidth,
+			charactersRelationshipChartItemWidth,
+		});
 
 	return (
 		<div className='characters-relationship-chart-container' onClick={onClickChart}>
 			<div ref={charactersRelationshipChartRef} className='characters-relationship-chart'>
+				{!selectedCharacterRelationshipsCharacterId ? null : (
+					<div
+						key={selectedCharacterRelationshipsCharacterId}
+						className='characters-relationship-chart-selected-character-item'
+						style={{ "--characterColour": characters.find((e) => e._id === selectedCharacterRelationshipsCharacterId)?.data?.colour }}
+					>
+						<div className='characters-relationship-chart-selected-character-item-face-image'>
+							{!charactersFaceImages.find((e) => e.character_id === selectedCharacterRelationshipsCharacterId)?.image ? null : (
+								<img
+									src={charactersFaceImages.find((e) => e.character_id === selectedCharacterRelationshipsCharacterId)?.image}
+									alt=''
+									draggable={false}
+								/>
+							)}
+						</div>
+						<div className='characters-relationship-chart-selected-character-item-name'>
+							{characters.find((e) => e._id === selectedCharacterRelationshipsCharacterId)?.data?.name}
+						</div>
+					</div>
+				)}
 				<div className='characters-relationship-chart-characters-container'>
 					{characterRelationshipsCharacters.map((character, index) => (
 						<CharactersRelationshipChartCharacterItem

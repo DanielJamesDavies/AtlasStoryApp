@@ -44,7 +44,7 @@ export const CharactersRelationshipsInfoSelectedCharacterLogic = () => {
 			const newSelectedCharacterRelationships = characterRelationships
 				.filter((e) => e.character_ids.includes(selectedCharacterRelationshipsCharacterId))
 				.sort((a, b) =>
-					story?.data?.characterRelationshipTypes.findIndex((e) => e?._id === a?.relationship_type) >
+					story?.data?.characterRelationshipTypes.findIndex((e) => e?._id === a?.relationship_type) >=
 					story?.data?.characterRelationshipTypes.findIndex((e) => e?._id === b?.relationship_type)
 						? 1
 						: -1
