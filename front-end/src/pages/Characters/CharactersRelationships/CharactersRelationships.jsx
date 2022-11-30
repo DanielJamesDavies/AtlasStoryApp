@@ -5,6 +5,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { CharactersRelationshipChart } from "./Chart/CharactersRelationshipChart";
 import { CharactersRelationshipsInfo } from "./Info/CharactersRelationshipsInfo";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
+import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
 
 // Logic
 import { CharactersRelationshipsLogic } from "./CharactersRelationshipsLogic";
@@ -52,7 +53,11 @@ export const CharactersRelationships = () => {
 					</div>
 				)}
 			</div>
-			{!groups || !characters || !charactersFaceImages ? null : (
+			{!groups || !characters || !charactersFaceImages ? (
+				<div className='characters-relationship-content'>
+					<LoadingCircle center={true} />
+				</div>
+			) : (
 				<div className='characters-relationship-content'>
 					<CharactersRelationshipChart
 						charactersRelationshipChartRef={charactersRelationshipChartRef}

@@ -50,15 +50,17 @@ export const CharactersRelationshipChart = ({
 					</div>
 				)}
 				<div className='characters-relationship-chart-characters-container'>
-					{characterRelationshipsCharacters.map((character, index) => (
-						<CharactersRelationshipChartCharacterItem
-							key={index}
-							character={character}
-							index={index}
-							charactersRelationshipChartWidth={charactersRelationshipChartWidth}
-							charactersRelationshipChartItemWidth={charactersRelationshipChartItemWidth}
-						/>
-					))}
+					{!characterRelationshipsCharacters
+						? null
+						: characterRelationshipsCharacters.map((character, index) => (
+								<CharactersRelationshipChartCharacterItem
+									key={index}
+									character={character}
+									index={index}
+									charactersRelationshipChartWidth={charactersRelationshipChartWidth}
+									charactersRelationshipChartItemWidth={charactersRelationshipChartItemWidth}
+								/>
+						  ))}
 				</div>
 				<canvas id='characters-relationship-chart-canvas' className='characters-relationship-chart-canvas' />
 			</div>

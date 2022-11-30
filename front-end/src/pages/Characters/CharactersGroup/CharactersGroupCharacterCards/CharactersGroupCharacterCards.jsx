@@ -21,10 +21,21 @@ import { CarouselContainer } from "../../../../components/CarouselContainer/Caro
 export const CharactersGroupCharacterCards = () => {
 	const { group, charactersCardBackgrounds, isReorderingCharacters, changeCharactersOrder } = CharactersGroupCharacterCardsLogic();
 
-	if (!group) return null;
 	return (
 		<div className='characters-group-characters-cards-container'>
-			{!group?.data?.characters ? null : !charactersCardBackgrounds ? (
+			{!group?.data?.characters ? (
+				<div className='characters-group-characters-cards'>
+					<div className='characters-group-character-card-container'>
+						<CharactersGroupCharacterCard />
+					</div>
+					<div className='characters-group-character-card-container'>
+						<CharactersGroupCharacterCard />
+					</div>
+					<div className='characters-group-character-card-container'>
+						<CharactersGroupCharacterCard />
+					</div>
+				</div>
+			) : !charactersCardBackgrounds ? (
 				<div className='characters-group-characters-cards'>
 					{group?.data?.characters.map((character, index) => (
 						<DragDropItem key={index} index={index} className='characters-group-character-card-container'>

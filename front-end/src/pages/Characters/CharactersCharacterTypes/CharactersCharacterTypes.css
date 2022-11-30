@@ -3,6 +3,7 @@
 	flex-shrink: 0;
 	border-radius: 4px;
 	width: calc(275px + 12px);
+	min-height: calc(200px + (var(--vh) / 2));
 	vertical-align: top;
 }
 

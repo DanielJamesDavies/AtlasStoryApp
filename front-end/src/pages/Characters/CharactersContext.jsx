@@ -27,7 +27,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 	const [characterRelationships, setCharacterRelationships] = useState([]);
 	const [characterRelationshipsAddedIds, setCharacterRelationshipsAddedIds] = useState([]);
 	const [characterRelationshipsRemovedIds, setCharacterRelationshipsRemovedIds] = useState([]);
-	const [characterRelationshipsCharacters, setCharacterRelationshipsCharacters] = useState([]);
+	const [characterRelationshipsCharacters, setCharacterRelationshipsCharacters] = useState(false);
 	const [selectedCharacterRelationshipsCharacterId, setSelectedCharacterRelationshipsCharacterId] = useState(false);
 	const [relationshipsFilters, setRelationshipsFilters] = useState(false);
 

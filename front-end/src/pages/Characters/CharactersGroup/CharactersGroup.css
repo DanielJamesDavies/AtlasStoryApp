@@ -75,6 +75,10 @@
 		min-height: 0;
 	}
 
+	.characters-group-primary {
+		min-height: 96px;
+	}
+
 	.characters-group-primary-title {
 		font-size: calc(24px * var(--fontSizeMultiplier));
 	}

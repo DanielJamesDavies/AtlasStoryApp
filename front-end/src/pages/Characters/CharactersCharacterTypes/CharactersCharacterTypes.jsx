@@ -62,7 +62,13 @@ export const CharactersCharacterTypes = () => {
 						</div>
 					)}
 				</div>
-				{!story?.data?.characterTypes || !characterTypes ? null : (
+				{!story?.data?.characterTypes || !characterTypes ? (
+					<div className='characters-character-types-character-type-items-container'>
+						<BtnListItem />
+						<BtnListItem />
+						<BtnListItem />
+					</div>
+				) : (
 					<BtnListContainer>
 						<DragDropContainer
 							className='characters-character-types-character-type-items-container'

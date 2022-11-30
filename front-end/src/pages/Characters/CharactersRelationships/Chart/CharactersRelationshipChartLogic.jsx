@@ -54,6 +54,8 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 			ctx.lineCap = "round";
 			ctx.lineWidth = 4;
 
+			if (!characterRelationshipsCharacters) return null;
+
 			const charactersOrder = characterRelationshipsCharacters.map((character) => character._id);
 
 			const newCharacterRelationships = JSON.parse(JSON.stringify(characterRelationships))
@@ -137,7 +139,6 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 		drawChartCanvas();
 	}, [
 		story,
-		groups,
 		characters,
 		characterRelationships,
 		characterRelationshipsCharacters,

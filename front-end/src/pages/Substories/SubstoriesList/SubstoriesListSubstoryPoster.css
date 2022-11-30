@@ -214,14 +214,17 @@
 		margin-right: 4px;
 	}
 
-	.substories-list-substories-poster-placeholder {
+	.substories-list-substories-poster-placeholder,
+	.substories-list-substories-poster {
+		border-width: 4px;
 		width: 226px;
 		height: 340px;
 	}
 
-	.substories-list-substories-poster {
-		width: 226px;
-		height: 340px;
+	.substories-list-substories-poster-placeholder {
+		margin: 8px 4px;
+		margin-top: calc(24px + 4px);
+		margin-bottom: calc(12px - 4px + 46px + 12px + 19px + 12px);
 	}
 
 	.substories-list-substories-poster-content-title-container {
