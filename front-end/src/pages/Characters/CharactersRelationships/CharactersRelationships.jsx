@@ -30,7 +30,6 @@ export const CharactersRelationships = () => {
 		toggleIsDisplayingInfo,
 	} = CharactersRelationshipsLogic();
 
-	if (!groups || !characters || !charactersFaceImages) return null;
 	return (
 		<div
 			className='characters-relationship-container'
@@ -41,24 +40,28 @@ export const CharactersRelationships = () => {
 		>
 			<div className='characters-relationship-primary'>
 				<div className='characters-relationship-primary-title'>Character Relationships</div>
-				<div className='characters-relationship-primary-buttons-container'>
-					<IconBtn
-						icon={<FaBars />}
-						iconName='bars'
-						iconSmall={!isDisplayingInfo ? undefined : <FaTimes />}
-						onClick={toggleIsDisplayingInfo}
-						seamless={true}
+				{!groups || !characters || !charactersFaceImages ? null : (
+					<div className='characters-relationship-primary-buttons-container'>
+						<IconBtn
+							icon={<FaBars />}
+							iconName='bars'
+							iconSmall={!isDisplayingInfo ? undefined : <FaTimes />}
+							onClick={toggleIsDisplayingInfo}
+							seamless={true}
+						/>
+					</div>
+				)}
+			</div>
+			{!groups || !characters || !charactersFaceImages ? null : (
+				<div className='characters-relationship-content'>
+					<CharactersRelationshipChart
+						charactersRelationshipChartRef={charactersRelationshipChartRef}
+						charactersRelationshipChartWidth={charactersRelationshipChartWidth}
+						charactersRelationshipChartItemWidth={charactersRelationshipChartItemWidth}
 					/>
+					<CharactersRelationshipsInfo isDisplayingInfo={isDisplayingInfo} />
 				</div>
-			</div>
-			<div className='characters-relationship-content'>
-				<CharactersRelationshipChart
-					charactersRelationshipChartRef={charactersRelationshipChartRef}
-					charactersRelationshipChartWidth={charactersRelationshipChartWidth}
-					charactersRelationshipChartItemWidth={charactersRelationshipChartItemWidth}
-				/>
-				<CharactersRelationshipsInfo isDisplayingInfo={isDisplayingInfo} />
-			</div>
+			)}
 		</div>
 	);
 };

@@ -2,17 +2,6 @@ const jwt = require("jsonwebtoken");
 const Story = require("../models/Story");
 
 module.exports = async (req, res, next) => {
-	const token = req?.cookies?.AtlasStoryAppToken;
-	if (!token) return res?.status(200)?.send({ errors: [{ message: "Access Denied" }] });
-
-	let user_id = false;
-	try {
-		user_id = jwt.verify(token, process.env.TOKEN_SECRET)?.user_id;
-	} catch (error) {
-		return res?.status(200)?.send({ errors: [{ message: "Access Denied" }] });
-	}
-	if (!user_id) return res?.status(200)?.send({ errors: [{ message: "Access Denied" }] });
-
 	const storyFilter = { _id: 1, owner: 1, "data.members": 1 };
 	let story = false;
 	if (req?.query?.story_id) {
@@ -39,6 +28,17 @@ module.exports = async (req, res, next) => {
 	if (!story) return res?.status(200)?.send({ errors: [{ message: "Story Not Found" }] });
 
 	if (!story?.data?.isPrivate) return next();
+
+	const token = req?.cookies?.AtlasStoryAppToken;
+	if (!token) return res?.status(200)?.send({ errors: [{ message: "Access Denied" }] });
+
+	let user_id = false;
+	try {
+		user_id = jwt.verify(token, process.env.TOKEN_SECRET)?.user_id;
+	} catch (error) {
+		return res?.status(200)?.send({ errors: [{ message: "Access Denied" }] });
+	}
+	if (!user_id) return res?.status(200)?.send({ errors: [{ message: "Access Denied" }] });
 
 	if (story?.owner && JSON.stringify(user_id) === JSON.stringify(story?.owner)) return next();
 

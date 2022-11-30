@@ -75,19 +75,10 @@ export const CharactersRelationshipsLogic = () => {
 
 	useEffect(() => {
 		function getCharacterRelationshipsCharacters() {
-			if (
-				!characters ||
-				characters.length === 0 ||
-				!characterRelationships ||
-				characterRelationships.length === 0 ||
-				relationshipsFilters === false ||
-				!charactersFaceImages
-			)
+			if (!characters || characters.length === 0 || !characterRelationships || relationshipsFilters === false || !charactersFaceImages)
 				return false;
 
-			let newCharacterRelationshipsCharacters = JSON.parse(JSON.stringify(characterRelationships));
-
-			newCharacterRelationshipsCharacters = groups
+			let newCharacterRelationshipsCharacters = groups
 				.map((group) =>
 					group?.data?.characters.map((character) => {
 						let oldCharacter = characters.find((e) => e?._id === character?.character_id);
