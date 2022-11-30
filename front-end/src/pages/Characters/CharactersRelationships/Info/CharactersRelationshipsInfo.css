@@ -10,7 +10,7 @@
 	overflow-x: hidden;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
 	.characters-relationship-info-container {
 		position: absolute;
 		top: 0;

@@ -139,6 +139,7 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 		drawChartCanvas();
 	}, [
 		story,
+		groups,
 		characters,
 		characterRelationships,
 		characterRelationshipsCharacters,

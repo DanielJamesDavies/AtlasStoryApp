@@ -33,21 +33,3 @@
 	height: 100%;
 	object-fit: cover;
 }
-
-.characters-relationship-chart-character-item-name {
-	margin-top: 2px;
-	text-align: center;
-	font-size: 13px;
-	font-weight: 700;
-	white-space: nowrap;
-}
-
-@media (max-width: 750px) {
-	.characters-relationship-chart-character-item-name {
-		display: none;
-	}
-
-	.characters-relationship-chart-character-item-active .characters-relationship-chart-character-item-name {
-		display: block;
-	}
-}

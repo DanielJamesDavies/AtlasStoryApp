@@ -31,10 +31,12 @@ export const CharactersRelationshipsLogic = () => {
 
 	useLayoutEffect(() => {
 		function getCharacterItemTransform(index, newCharactersRelationshipChartWidth) {
-			let modifier = 8;
+			let modifier = 7;
 			if (window.innerWidth <= 1200) modifier = 6;
-			if (window.innerWidth <= 1000) modifier = 4;
-			if (window.innerWidth <= 750) modifier = 40 / characterRelationshipsCharacters.length;
+			if (window.innerWidth <= 1100) modifier = 4;
+			if (window.innerWidth <= 750) modifier = 75 / characterRelationshipsCharacters.length;
+			if (window.innerWidth <= 375) modifier = 42 / characterRelationshipsCharacters.length;
+			if (window.innerWidth <= 300) modifier = 0;
 			const angle = (index / (characterRelationshipsCharacters.length + modifier)) * Math.PI * 2;
 			const x = (newCharactersRelationshipChartWidth / 2) * Math.sin(angle);
 			const y = -1 * (newCharactersRelationshipChartWidth / 2) * Math.cos(angle);
@@ -47,9 +49,9 @@ export const CharactersRelationshipsLogic = () => {
 
 			let chartWidth = 0;
 			let chartHeight = 0;
-			if (window.innerWidth > 1000) {
-				chartWidth = window.innerWidth - navbarWidth - 48 - 400 - 12;
-				chartHeight = window.innerHeight - 48 - 26 - 48 - 24;
+			if (window.innerWidth > 1100) {
+				chartWidth = window.innerWidth - navbarWidth - 48 - 400 - 12 - 200;
+				chartHeight = window.innerHeight - 48 - 26 - 48 - 24 - 48;
 			} else if (window.innerWidth > 750) {
 				chartWidth = window.innerWidth - navbarWidth - 48;
 				chartHeight = window.innerHeight - 48 - 26 - 48 - 24;

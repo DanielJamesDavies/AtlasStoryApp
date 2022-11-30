@@ -1,0 +1,27 @@
+.characters-relationship-chart-character-item-name-container {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 2;
+	width: 100px;
+	font-size: 12px;
+}
+
+.characters-relationship-chart-character-item-name {
+	width: 100%;
+
+	white-space: pre-wrap;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+@media (max-width: 1100px) {
+	.characters-relationship-chart-character-item-name {
+		display: none;
+	}
+
+	.characters-relationship-chart-character-item-active .characters-relationship-chart-character-item-name {
+		display: block;
+	}
+}

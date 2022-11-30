@@ -1,7 +1,9 @@
 .characters-relationship-chart-container {
 	display: inline-block;
+	margin-top: 30px;
 	vertical-align: top;
 	width: calc(100% - 400px - 12px);
+	height: calc(var(--charactersRelationshipChartWidth) + 18px);
 }
 
 .characters-relationship-chart {
@@ -62,13 +64,29 @@
 	text-align: center;
 }
 
-.characters-relationship-chart-characters-container {
+.characters-relationship-chart-characters-container,
+.characters-relationship-chart-characters-names-container {
 	position: relative;
 	z-index: 1;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100%;
+}
+
+.characters-relationship-chart-characters-names-container {
+	position: absolute;
+	z-index: 2;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin-top: -8px;
+
+	width: 100%;
+	height: 100%;
+
+	pointer-events: none;
+	user-select: none;
 }
 
 .characters-relationship-chart-canvas {
@@ -80,7 +98,7 @@
 	height: 100%;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
 	.characters-relationship-chart-container {
 		width: 100%;
 	}

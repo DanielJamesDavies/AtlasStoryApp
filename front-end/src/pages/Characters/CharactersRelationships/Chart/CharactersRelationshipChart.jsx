@@ -2,6 +2,7 @@
 
 // Components
 import { CharactersRelationshipChartCharacterItem } from "./CharactersRelationshipChartCharacterItem/CharactersRelationshipChartCharacterItem";
+import { CharactersRelationshipChartCharacterItemName } from "./CharactersRelationshipChartCharacterItemName/CharactersRelationshipChartCharacterItemName";
 
 // Logic
 import { CharactersRelationshipChartLogic } from "./CharactersRelationshipChartLogic";
@@ -49,6 +50,19 @@ export const CharactersRelationshipChart = ({
 						</div>
 					</div>
 				)}
+				<div className='characters-relationship-chart-characters-names-container'>
+					{!characterRelationshipsCharacters
+						? null
+						: characterRelationshipsCharacters.map((character, index) => (
+								<CharactersRelationshipChartCharacterItemName
+									key={index}
+									character={character}
+									index={index}
+									charactersRelationshipChartWidth={charactersRelationshipChartWidth}
+									charactersRelationshipChartItemWidth={charactersRelationshipChartItemWidth}
+								/>
+						  ))}
+				</div>
 				<div className='characters-relationship-chart-characters-container'>
 					{!characterRelationshipsCharacters
 						? null
