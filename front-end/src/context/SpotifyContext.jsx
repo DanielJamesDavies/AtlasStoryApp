@@ -104,7 +104,7 @@ const SpofityProvider = ({ children }) => {
 						"*"
 					);
 
-				setTimeout(() => changeLocation(previous_location), 10);
+				setTimeout(() => changeLocation(previous_location), 50);
 			}
 		}
 

@@ -1,5 +1,5 @@
 .substory-subpage-soundtrack-playlist-selector-container.pop-up-container {
-	transform: translate(calc(-50% + ((100vw - 74px - 24px - 12px - 12px))), -50%);
+	transform: translateX(calc(100vw - 74px - 24px - 12px - 12px));
 }
 
 .substory-content-container-is-on-overview .substory-subpage-soundtrack-playlist-selector-container {
@@ -23,18 +23,31 @@
 	margin-left: -16px;
 	padding-right: 12px;
 	width: calc(100% + 16px);
-	max-height: calc(min(600px, calc(var(--vh) - 48px)) - 24px - 24px - 24px - 12px);
+	max-height: min(600px, calc(680px - 48px - 32px - 24px - 17px - 12px));
 	overflow-y: overlay;
 }
 
 @media (max-width: 750px) {
 	.substory-subpage-soundtrack-playlist-selector-container.pop-up-container {
 		top: var(--substoryPrimaryPaddingTop);
-		transform: translate(calc(-50% + 100vw - 24px - 4px - 6px), 0%);
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--substoryPrimaryPaddingTop) - 12px);
+		transform: translateX(100vw);
+		max-height: calc(var(--vh) - var(--navbarMobileHeight) - (var(--substoryPrimaryPaddingTop)) - 12px);
 	}
 
 	.substory-subpage-soundtrack-playlist-selector-container.pop-up-container .pop-up-content-container {
 		max-height: 100%;
+	}
+
+	.substory-subpage-soundtrack-playlist-selector-container.pop-up-container .pop-up-content-primary-container {
+		margin-bottom: 12px;
+	}
+
+	.substory-subpage-soundtrack-playlist-selector-playlist-items {
+		margin-top: 6px;
+		max-height: min(
+			600px,
+			calc(600px - 24px - 32px - 24px - 17px - 12px - 30px),
+			calc(var(--vh) - var(--navbarMobileHeight) - (var(--substoryPrimaryPaddingTop)) - 12px - 24px - 32px - 24px - 17px - 12px - 43px)
+		);
 	}
 }

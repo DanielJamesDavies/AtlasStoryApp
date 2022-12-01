@@ -27,6 +27,7 @@ export const SoundtrackPlaylistSelectorLogic = ({ isDisplayingPlaylistSelector }
 	useEffect(() => {
 		async function getPlaylists() {
 			if (!isDisplayingPlaylistSelector) return setPlaylists(false);
+			if (playlists !== false) return true;
 
 			let newPlaylists = [];
 			const response = await SpotifyRequest("/me/playlists?limit=50", "GET");
