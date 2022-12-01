@@ -55,16 +55,16 @@ export const DevelopmentItemLogic = ({ developmentItem, index, substoryImagesCur
 	useEffect(() => {
 		function getDevItemTextContainerClassName() {
 			let newClassName = "substory-subpage-development-item-text-container";
-			if (!isEditing && developmentItem?.images?.length === 0) newClassName += " substory-subpage-development-item-text-container-full-width";
-			if (!isEditing && developmentItem?.value?.join("").split(" ").join("").length === 0)
+			if (developmentItem?.images?.length === 0) newClassName += " substory-subpage-development-item-text-container-full-width";
+			if (developmentItem?.value?.join("").split(" ").join("").length === 0)
 				newClassName += " substory-subpage-development-item-text-container-no-width";
 			return newClassName;
 		}
 		function getDevItemImagesContainerClassName() {
 			let newClassName = "substory-subpage-development-item-images-container";
 			if (substoryImagesCurrDevItemIndex === index) newClassName += " substory-subpage-development-item-images-container-is-current";
-			if (!isEditing && developmentItem?.images?.length === 0) newClassName += " substory-subpage-development-item-images-container-no-width";
-			if (!isEditing && developmentItem?.value?.join("").split(" ").join("").length === 0)
+			if (developmentItem?.images?.length === 0) newClassName += " substory-subpage-development-item-images-container-no-width";
+			if (developmentItem?.value?.join("").split(" ").join("").length === 0)
 				newClassName += " substory-subpage-development-item-images-container-full-width";
 			return newClassName;
 		}

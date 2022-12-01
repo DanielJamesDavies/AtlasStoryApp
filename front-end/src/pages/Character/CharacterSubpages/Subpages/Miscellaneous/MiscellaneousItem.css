@@ -79,11 +79,6 @@
 	width: 100%;
 }
 
-.character-subpage-miscellaneous-item-images-add-container {
-	width: 100%;
-	text-align: center;
-}
-
 .character-subpage-miscellaneous-item-image-item {
 	position: relative;
 	margin: 4px;
@@ -157,6 +152,13 @@
 	position: absolute;
 	top: 2px;
 	right: 2px;
+}
+
+.character-subpage-miscellaneous-item-buttons-container {
+	display: inline-flex;
+	flex-direction: column;
+	width: 32px;
+	gap: 8px 0;
 }
 
 @media (max-width: 1000px) {

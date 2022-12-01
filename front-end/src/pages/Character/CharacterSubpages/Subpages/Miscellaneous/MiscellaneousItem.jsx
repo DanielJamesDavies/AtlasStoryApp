@@ -110,54 +110,50 @@ export const MiscellaneousItem = ({
 						/>
 					</div>
 					<div className={devItemImagesContainerClassName}>
-						<DragDropContainer
-							className='character-subpage-miscellaneous-item-images'
-							enableDragDrop={isReorderingMiscellaneousItems}
-							onDropItem={reorderMiscellaneousItemImages}
-						>
-							{!miscellaneousItem?.images
-								? null
-								: miscellaneousItem.images.map((image, imageIndex) => (
-										<DragDropItem
-											key={imageIndex}
-											index={imageIndex}
-											className='character-subpage-miscellaneous-item-image-item'
-										>
-											{!characterImages.find((e) => e._id === image.image)?.image ? null : (
-												<img src={characterImages.find((e) => e._id === image.image).image} alt='' />
-											)}
-											<TextInput
-												className='character-subpage-miscellaneous-item-image-item-caption'
+						{!miscellaneousItem?.images || miscellaneousItem?.images?.length === 0 ? null : (
+							<DragDropContainer
+								className='character-subpage-miscellaneous-item-images'
+								enableDragDrop={isReorderingMiscellaneousItems}
+								onDropItem={reorderMiscellaneousItemImages}
+							>
+								{miscellaneousItem.images.map((image, imageIndex) => (
+									<DragDropItem key={imageIndex} index={imageIndex} className='character-subpage-miscellaneous-item-image-item'>
+										{!characterImages.find((e) => e._id === image.image)?.image ? null : (
+											<img src={characterImages.find((e) => e._id === image.image).image} alt='' />
+										)}
+										<TextInput
+											className='character-subpage-miscellaneous-item-image-item-caption'
+											seamless={true}
+											autoResize={true}
+											label='Caption'
+											value={image.caption}
+											onChange={(e) => changeMiscellaneousItemImageCaption(e, imageIndex)}
+										/>
+										<div className='character-subpage-miscellaneous-item-image-item-btns-container'>
+											<IconBtn
+												icon={<FaTimes />}
+												iconName='remove'
 												seamless={true}
-												autoResize={true}
-												label='Caption'
-												value={image.caption}
-												onChange={(e) => changeMiscellaneousItemImageCaption(e, imageIndex)}
+												size='s'
+												onClick={() => removeDevItemImage(imageIndex)}
 											/>
-											<div className='character-subpage-miscellaneous-item-image-item-btns-container'>
-												<IconBtn
-													icon={<FaTimes />}
-													iconName='remove'
-													seamless={true}
-													size='s'
-													onClick={() => removeDevItemImage(imageIndex)}
-												/>
-											</div>
-										</DragDropItem>
-								  ))}
-						</DragDropContainer>
-						<div className='character-subpage-miscellaneous-item-images-add-container'>
-							<IconBtn
-								icon={<FaImage />}
-								iconName='image'
-								iconSmall={<FaPlus />}
-								seamless={true}
-								onClick={() => openCharacterImages(index)}
-							/>
-						</div>
+										</div>
+									</DragDropItem>
+								))}
+							</DragDropContainer>
+						)}
 					</div>
 				</div>
-				<IconBtn icon={<FaTimes />} iconName='times' seamless={true} onClick={() => removeMiscellaneousItem(index)} />
+				<div className='character-subpage-miscellaneous-item-buttons-container'>
+					<IconBtn icon={<FaTimes />} iconName='times' seamless={true} onClick={() => removeMiscellaneousItem(index)} />
+					<IconBtn
+						icon={<FaImage />}
+						iconName='image'
+						iconSmall={<FaPlus />}
+						seamless={true}
+						onClick={() => openCharacterImages(index)}
+					/>
+				</div>
 			</ContentItem>
 		</div>
 	);

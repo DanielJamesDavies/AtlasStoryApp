@@ -55,18 +55,16 @@ export const MiscellaneousItemLogic = ({ miscellaneousItem, index, characterImag
 	useEffect(() => {
 		function getDevItemTextContainerClassName() {
 			let newClassName = "character-subpage-miscellaneous-item-text-container";
-			if (!isEditing && miscellaneousItem?.images?.length === 0)
-				newClassName += " character-subpage-miscellaneous-item-text-container-full-width";
-			if (!isEditing && miscellaneousItem?.value?.join("").split(" ").join("").length === 0)
+			if (miscellaneousItem?.images?.length === 0) newClassName += " character-subpage-miscellaneous-item-text-container-full-width";
+			if (miscellaneousItem?.value?.join("").split(" ").join("").length === 0)
 				newClassName += " character-subpage-miscellaneous-item-text-container-no-width";
 			return newClassName;
 		}
 		function getDevItemImagesContainerClassName() {
 			let newClassName = "character-subpage-miscellaneous-item-images-container";
 			if (characterImagesCurrDevItemIndex === index) newClassName += " character-subpage-miscellaneous-item-images-container-is-current";
-			if (!isEditing && miscellaneousItem?.images?.length === 0)
-				newClassName += " character-subpage-miscellaneous-item-images-container-no-width";
-			if (!isEditing && miscellaneousItem?.value?.join("").split(" ").join("").length === 0)
+			if (miscellaneousItem?.images?.length === 0) newClassName += " character-subpage-miscellaneous-item-images-container-no-width";
+			if (miscellaneousItem?.value?.join("").split(" ").join("").length === 0)
 				newClassName += " character-subpage-miscellaneous-item-images-container-full-width";
 			return newClassName;
 		}

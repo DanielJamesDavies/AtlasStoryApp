@@ -110,50 +110,44 @@ export const DevelopmentItem = ({
 						/>
 					</div>
 					<div className={devItemImagesContainerClassName}>
-						<DragDropContainer
-							className='substory-subpage-development-item-images'
-							enableDragDrop={isReorderingDevelopmentItems}
-							onDropItem={reorderDevelopmentItemImages}
-						>
-							{!developmentItem?.images
-								? null
-								: developmentItem.images.map((image, imageIndex) => (
-										<DragDropItem key={imageIndex} index={imageIndex} className='substory-subpage-development-item-image-item'>
-											{!substoryImages.find((e) => e._id === image.image)?.image ? null : (
-												<img src={substoryImages.find((e) => e._id === image.image).image} alt='' />
-											)}
-											<TextInput
-												className='substory-subpage-development-item-image-item-caption'
+						{!developmentItem?.images || developmentItem?.images?.length === 0 ? null : (
+							<DragDropContainer
+								className='substory-subpage-development-item-images'
+								enableDragDrop={isReorderingDevelopmentItems}
+								onDropItem={reorderDevelopmentItemImages}
+							>
+								{developmentItem.images.map((image, imageIndex) => (
+									<DragDropItem key={imageIndex} index={imageIndex} className='substory-subpage-development-item-image-item'>
+										{!substoryImages.find((e) => e._id === image.image)?.image ? null : (
+											<img src={substoryImages.find((e) => e._id === image.image).image} alt='' />
+										)}
+										<TextInput
+											className='substory-subpage-development-item-image-item-caption'
+											seamless={true}
+											autoResize={true}
+											label='Caption'
+											value={image.caption}
+											onChange={(e) => changeDevelopmentItemImageCaption(e, imageIndex)}
+										/>
+										<div className='substory-subpage-development-item-image-item-btns-container'>
+											<IconBtn
+												icon={<FaTimes />}
+												iconName='remove'
 												seamless={true}
-												autoResize={true}
-												label='Caption'
-												value={image.caption}
-												onChange={(e) => changeDevelopmentItemImageCaption(e, imageIndex)}
+												size='s'
+												onClick={() => removeDevItemImage(imageIndex)}
 											/>
-											<div className='substory-subpage-development-item-image-item-btns-container'>
-												<IconBtn
-													icon={<FaTimes />}
-													iconName='remove'
-													seamless={true}
-													size='s'
-													onClick={() => removeDevItemImage(imageIndex)}
-												/>
-											</div>
-										</DragDropItem>
-								  ))}
-						</DragDropContainer>
-						<div className='substory-subpage-development-item-images-add-container'>
-							<IconBtn
-								icon={<FaImage />}
-								iconName='image'
-								iconSmall={<FaPlus />}
-								seamless={true}
-								onClick={() => openSubstoryImages(index)}
-							/>
-						</div>
+										</div>
+									</DragDropItem>
+								))}
+							</DragDropContainer>
+						)}
 					</div>
 				</div>
-				<IconBtn icon={<FaTimes />} iconName='times' seamless={true} onClick={() => removeDevelopmentItem(index)} />
+				<div className='substory-subpage-development-item-buttons-container'>
+					<IconBtn icon={<FaTimes />} iconName='times' seamless={true} onClick={() => removeDevelopmentItem(index)} />
+					<IconBtn icon={<FaImage />} iconName='image' iconSmall={<FaPlus />} seamless={true} onClick={() => openSubstoryImages(index)} />
+				</div>
 			</ContentItem>
 		</div>
 	);
