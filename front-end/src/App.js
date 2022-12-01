@@ -4,6 +4,7 @@
 import { Page } from "./components/Page/Page";
 
 // Logic
+import { AppLogic } from "./AppLogic";
 
 // Context
 
@@ -15,6 +16,8 @@ import "./styles.css";
 // Assets
 
 function App() {
+	AppLogic();
+
 	return (
 		<div className='App'>
 			<Page />
