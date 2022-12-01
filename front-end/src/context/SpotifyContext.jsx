@@ -12,13 +12,19 @@ const SpofityProvider = ({ children }) => {
 	const scope = "user-read-private user-read-playback-state user-modify-playback-state playlist-read-private";
 	const [spotify_access_token, setSpotifyAccessToken] = useState(false);
 	const [spotify_refresh_token, setSpotifyRefreshToken] = useState(false);
-	const [connectAllDevicesToSpotify, setConnectAllDevicesToSpotify] = useState(false);
+	const [connectDeviceToSpotify, setConnectDeviceToSpotify] = useState(false);
 	const [hasAttemptedAuthorization, setHasAttemptedAuthorization] = useState(false);
 
 	useEffect(() => {
 		async function authorizeSpotify() {
-			if (!connectAllDevicesToSpotify) return false;
 			if (spotify_access_token || spotify_refresh_token) return true;
+
+			if (window === window?.parent) {
+				const should_connect_device_response = await APIRequest("/spotify/should-connect-device", "GET");
+				const shouldConnectDevice = should_connect_device_response?.shouldConnectDevice;
+				setConnectDeviceToSpotify(shouldConnectDevice);
+				if (!shouldConnectDevice) return false;
+			}
 
 			if (window.location.pathname !== "/spotify") {
 				if (/Mobi/i.test(window.navigator.userAgent)) {
@@ -98,7 +104,7 @@ const SpofityProvider = ({ children }) => {
 						"*"
 					);
 
-				changeLocation(previous_location);
+				setTimeout(() => changeLocation(previous_location), 10);
 			}
 		}
 
@@ -112,7 +118,8 @@ const SpofityProvider = ({ children }) => {
 		setSpotifyAccessToken,
 		spotify_refresh_token,
 		setSpotifyRefreshToken,
-		connectAllDevicesToSpotify,
+		connectDeviceToSpotify,
+		setConnectDeviceToSpotify,
 		setHasAttemptedAuthorization,
 	]);
 
@@ -182,7 +189,7 @@ const SpofityProvider = ({ children }) => {
 	}, [spotify_access_token, spotify_refresh_token, APIRequest, spotifyAuthorizationTimeout, hasAttemptedAuthorization, redirect_uri]);
 
 	const SpotifyRequest = async (path, method, body, access_token) => {
-		if (!spotify_access_token) return false;
+		if (!spotify_access_token || !connectDeviceToSpotify) return false;
 
 		let data = { method, headers: { Authorization: "Bearer " + spotify_access_token } };
 		if (body) data.body = JSON.stringify(body);
@@ -213,8 +220,8 @@ const SpofityProvider = ({ children }) => {
 				SpotifyRequest,
 				spotify_access_token,
 				spotify_refresh_token,
-				connectAllDevicesToSpotify,
-				setConnectAllDevicesToSpotify,
+				connectDeviceToSpotify,
+				setConnectDeviceToSpotify,
 			}}
 		>
 			{children}

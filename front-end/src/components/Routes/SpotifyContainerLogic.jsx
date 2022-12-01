@@ -15,7 +15,7 @@ import { SpotifyContext } from "../../context/SpotifyContext";
 // Assets
 
 export const SpotifyContainerLogic = () => {
-	const { spotify_access_token, spotify_refresh_token, connectAllDevicesToSpotify } = useContext(SpotifyContext);
+	const { spotify_access_token, spotify_refresh_token, connectDeviceToSpotify } = useContext(SpotifyContext);
 
-	return { spotify_access_token, spotify_refresh_token, connectAllDevicesToSpotify };
+	return { spotify_access_token, spotify_refresh_token, connectDeviceToSpotify };
 };

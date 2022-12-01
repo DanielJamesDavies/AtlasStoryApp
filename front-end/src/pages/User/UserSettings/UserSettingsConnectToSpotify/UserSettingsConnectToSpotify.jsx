@@ -17,15 +17,15 @@ import "./UserSettingsConnectToSpotify.css";
 // Assets
 
 export const UserSettingsConnectToSpotify = () => {
-	const { errors, connectAllDevicesToSpotify, toggleConnectAllDevicesToSpotify } = UserSettingsConnectToSpotifyLogic();
+	const { errors, connectDeviceToSpotify, toggleConnectDeviceToSpotify } = UserSettingsConnectToSpotifyLogic();
 
 	return (
 		<>
 			<ToggleInput
 				className='user-settings-connect-to-spotify-input'
-				label='Connect All Devices to Spotify'
-				value={connectAllDevicesToSpotify}
-				onToggle={toggleConnectAllDevicesToSpotify}
+				label='Connect This Device to Spotify'
+				value={connectDeviceToSpotify}
+				onToggle={toggleConnectDeviceToSpotify}
 				enableEdit={true}
 			/>
 			<ErrorMessage errors={errors} />

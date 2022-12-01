@@ -45,7 +45,7 @@ export const UserSettings = () => {
 					<UserSettingsTheme />
 				</div>
 				<div className='user-settings-section-container'>
-					<div className='user-settings-section-label'>Connect All Devices to Spotfiy</div>
+					<div className='user-settings-section-label'>Connect This Device to Spotfiy</div>
 					<UserSettingsConnectToSpotify />
 				</div>
 				<div className='user-settings-section-container'>

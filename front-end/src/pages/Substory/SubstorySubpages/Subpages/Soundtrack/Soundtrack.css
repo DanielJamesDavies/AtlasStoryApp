@@ -22,7 +22,7 @@
 		padding-right: 12px;
 
 		width: calc(100% - 12px);
-		max-height: calc(var(--vh) - 5px - 58px - 6px - var(--substoryPrimaryPaddingTop) - 36px - 24px - 1px);
+		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--substoryPrimaryPaddingTop) - 36px - 8px);
 		overflow-y: overlay;
 		overflow-x: hidden;
 	}

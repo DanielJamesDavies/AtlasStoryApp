@@ -6,7 +6,6 @@ import { useContext, useState } from "react";
 // Logic
 
 // Context
-import { UserContext } from "../../UserContext";
 import { APIContext } from "../../../../context/APIContext";
 import { SpotifyContext } from "../../../../context/SpotifyContext";
 
@@ -17,25 +16,24 @@ import { SpotifyContext } from "../../../../context/SpotifyContext";
 // Assets
 
 export const UserSettingsConnectToSpotifyLogic = () => {
-	const { user } = useContext(UserContext);
 	const { APIRequest } = useContext(APIContext);
-	const { connectAllDevicesToSpotify, setConnectAllDevicesToSpotify } = useContext(SpotifyContext);
+	const { connectDeviceToSpotify, setConnectDeviceToSpotify } = useContext(SpotifyContext);
 
 	const [errors, setErrors] = useState([]);
 
-	async function toggleConnectAllDevicesToSpotify() {
+	async function toggleConnectDeviceToSpotify() {
 		setErrors([]);
 
-		const newConnectAllDevicesToSpotify = user?.data?.connectToSpotify ? false : true;
+		const newConnectDeviceToSpotify = connectDeviceToSpotify ? false : true;
 
-		const response = await APIRequest("/user/", "PATCH", { path: ["data", "connectToSpotify"], newValue: newConnectAllDevicesToSpotify });
+		const response = await APIRequest("/spotify/should-connect-device", "PATCH", { shouldConnectDevice: newConnectDeviceToSpotify });
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);
 			return false;
 		}
-		setConnectAllDevicesToSpotify(newConnectAllDevicesToSpotify);
+		setConnectDeviceToSpotify(response?.shouldConnectDevice);
 		return true;
 	}
 
-	return { errors, connectAllDevicesToSpotify, toggleConnectAllDevicesToSpotify };
+	return { errors, connectDeviceToSpotify, toggleConnectDeviceToSpotify };
 };

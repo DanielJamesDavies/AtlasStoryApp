@@ -21,7 +21,6 @@ import { NotesContainer } from "../../pages/Notes/NotesContainer";
 import { RoutesContext } from "../../context/RoutesContext";
 import { APIContext } from "../../context/APIContext";
 import { AppContext } from "../../context/AppContext";
-import { SpotifyContext } from "../../context/SpotifyContext";
 
 // Services
 
@@ -33,7 +32,6 @@ export const RoutesLogic = () => {
 	const { location, changeLocation } = useContext(RoutesContext);
 	const { APIRequest, user_id, setUserID, username, setUsername, setUserProfilePicture } = useContext(APIContext);
 	const { changeAccentColour, changeAccentHoverColour, setUITheme, setFontSizeMultiplier } = useContext(AppContext);
-	const { setConnectAllDevicesToSpotify } = useContext(SpotifyContext);
 	const [renderComponent, setRenderComponent] = useState(null);
 	const [showUnauthorizedNavigationBar, setShowUnauthorizedNavigationBar] = useState(false);
 
@@ -42,8 +40,6 @@ export const RoutesLogic = () => {
 			const locationSplit = location.split("?")[0].split("/");
 			locationSplit.splice(0, 1);
 			if (locationSplit.length === 0) return null;
-
-			// const parametersSplit = location.split("?").length < 2 ? [] : location.split("?")[1].split("&");
 
 			setRenderComponent(null);
 			setShowUnauthorizedNavigationBar(false);
@@ -169,7 +165,6 @@ export const RoutesLogic = () => {
 				const newFontSizeMultiplier = Number(user.data.fontSizeMultiplier);
 				setFontSizeMultiplier(isNaN(newFontSizeMultiplier) ? 1 : newFontSizeMultiplier);
 			}
-			if (user?.data?.connectToSpotify) setConnectAllDevicesToSpotify(user?.data?.connectToSpotify);
 
 			getUserProfilePicture(user?.data?.profilePicture);
 
@@ -185,17 +180,7 @@ export const RoutesLogic = () => {
 		}
 
 		getUser();
-	}, [
-		APIRequest,
-		user_id,
-		setUserID,
-		username,
-		setUsername,
-		setUITheme,
-		setFontSizeMultiplier,
-		setConnectAllDevicesToSpotify,
-		setUserProfilePicture,
-	]);
+	}, [APIRequest, user_id, setUserID, username, setUsername, setUITheme, setFontSizeMultiplier, setUserProfilePicture]);
 
 	return { renderComponent, showUnauthorizedNavigationBar };
 };

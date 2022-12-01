@@ -50,7 +50,6 @@ const UserSchema = mongoose.Schema({
 			type: String,
 			default: "1",
 		},
-		connectToSpotify: { type: Boolean, default: false },
 	},
 	verified: { type: Boolean, require: true },
 	date_created: { type: Date, default: Date.now },
