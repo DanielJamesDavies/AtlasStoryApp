@@ -37,7 +37,12 @@ export const StoryPrimaryBannerLogic = () => {
 
 	async function saveStoryBanner() {
 		setErrors([]);
-		if (!story?.data?.banner) return false;
+		if (!story?._id || !story?.data?.banner) return;
+		await APIRequest("/story/" + story?._id, "PATCH", {
+			path: ["data", "banner"],
+			newValue: story?.data?.banner,
+			story_id: story._id,
+		});
 		const response = await APIRequest("/image/" + story.data.banner, "PATCH", { newValue: banner, story_id: story._id });
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);

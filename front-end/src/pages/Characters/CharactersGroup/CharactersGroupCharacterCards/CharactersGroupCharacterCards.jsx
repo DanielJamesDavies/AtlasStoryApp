@@ -4,6 +4,7 @@
 import { CharactersGroupCharacterCard } from "./CharactersGroupCharacterCard/CharactersGroupCharacterCard";
 import { DragDropContainer } from "../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../components/DragDropItem/DragDropItem";
+import { CarouselContainer } from "../../../../components/CarouselContainer/CarouselContainer";
 
 // Logic
 import { CharactersGroupCharacterCardsLogic } from "./CharactersGroupCharacterCardsLogic";
@@ -14,7 +15,6 @@ import { CharactersGroupCharacterCardsLogic } from "./CharactersGroupCharacterCa
 
 // Styles
 import "./CharactersGroupCharacterCards.css";
-import { CarouselContainer } from "../../../../components/CarouselContainer/CarouselContainer";
 
 // Assets
 

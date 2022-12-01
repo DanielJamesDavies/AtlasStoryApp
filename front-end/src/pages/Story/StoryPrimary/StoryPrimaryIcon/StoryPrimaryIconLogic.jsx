@@ -37,7 +37,12 @@ export const StoryPrimaryIconLogic = () => {
 
 	async function saveStoryIcon() {
 		setErrors([]);
-		if (!story?.data?.icon) return false;
+		if (!story?._id || !story?.data?.icon) return;
+		await APIRequest("/story/" + story?._id, "PATCH", {
+			path: ["data", "icon"],
+			newValue: story?.data?.icon,
+			story_id: story._id,
+		});
 		const response = await APIRequest("/image/" + story.data.icon, "PATCH", { newValue: icon, story_id: story._id });
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);

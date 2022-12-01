@@ -63,7 +63,6 @@ export const CharactersRelationshipsInfoRelationshipTypesLogic = () => {
 	async function addRelationshipType() {
 		let newStory = JSON.parse(JSON.stringify(story));
 		const new_id_response = await APIRequest("/new-id/", "GET");
-		console.log(new_id_response);
 		if (!new_id_response?.data?._id) return false;
 		newStory.data.characterRelationshipTypes.push({ _id: new_id_response.data._id, name: "New Relationship Type", colour: "#0044ff" });
 		setStory(newStory);

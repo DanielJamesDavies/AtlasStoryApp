@@ -1,6 +1,8 @@
 .substories-list-substories-posters-container {
 	position: relative;
+	margin-top: -24px;
 	margin-left: -12px;
+	margin-bottom: 8px;
 	width: calc(100% + 24px);
 	overflow-y: visible;
 }
@@ -8,47 +10,7 @@
 .substories-list-substories-posters {
 	display: flex;
 	margin-top: -24px;
-	padding-bottom: 8px;
-	overflow-x: overlay;
-	overflow-y: visible;
-}
-
-.substories-list-substories-posters::-webkit-scrollbar {
-	border-radius: 4px;
-	height: 6px;
-	background: transparent;
-	background: var(--grey1);
-}
-
-.substories-list-substories-posters::-webkit-scrollbar-thumb:horizontal {
-	border-radius: 4px;
-	background: var(--blue);
-}
-
-.substories-list-substories-posters-scroll-left,
-.substories-list-substories-posters-scroll-right {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	display: block;
-	z-index: 3;
-
-	width: 48px;
-	height: 100%;
-
-	background: rgba(0, 0, 0, 0);
-}
-
-.substories-list-substories-posters-scroll-left {
-	left: 0px;
-}
-
-.substories-list-substories-posters-scroll-right {
-	right: 0px;
-}
-
-.substories-list-substories-posters-scroll-hidden {
-	display: none;
+	padding-top: 24px;
 }
 
 @media (max-width: 750px) {

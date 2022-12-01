@@ -35,7 +35,13 @@ export const SettingsPosterBackgroundImageLogic = () => {
 
 	async function savePosterBackground() {
 		setErrors([]);
-		if (!substory?._id) return;
+		if (!substory?._id || !substory?.data?.posterBackground) return;
+		await APIRequest("/substory/" + substory?._id, "PATCH", {
+			path: ["data", "posterBackground"],
+			newValue: substory?.data?.posterBackground,
+			story_id: story._id,
+			substory_id: substory._id,
+		});
 		const response = await APIRequest("/image/" + substory?.data?.posterBackground, "PATCH", {
 			newValue: substoryPosterBackground,
 			story_id: story._id,

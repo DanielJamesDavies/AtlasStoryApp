@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const CharacterRelationshipSchema = mongoose.Schema({
 	_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		default: new mongoose.Types.ObjectId(),
+		required: true,
+		auto: true,
 	},
 	story_id: { type: mongoose.Schema.Types.ObjectId, required: true },
 	character_ids: [mongoose.Schema.Types.ObjectId],

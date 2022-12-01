@@ -28,11 +28,13 @@ const UserSchema = mongoose.Schema({
 		},
 		profilePicture: {
 			type: mongoose.Schema.Types.ObjectId,
-			default: new mongoose.Types.ObjectId(),
+			required: true,
+			auto: true,
 		},
 		banner: {
 			type: mongoose.Schema.Types.ObjectId,
-			default: new mongoose.Types.ObjectId(),
+			required: true,
+			auto: true,
 		},
 		stories: {
 			type: [{ type: mongoose.Schema.Types.ObjectId }],

@@ -84,7 +84,7 @@ export const SoundtrackPlaylistSelectorLogic = ({ isDisplayingPlaylistSelector }
 			setPlaylists(newPlaylists);
 		}
 		getPlaylists();
-	}, [setPlaylists, isDisplayingPlaylistSelector, SpotifyRequest]);
+	}, [playlists, setPlaylists, isDisplayingPlaylistSelector, SpotifyRequest]);
 
 	async function selectPlaylist(playlist_id) {
 		const response = await APIRequest("/substory/" + substory._id, "PATCH", {

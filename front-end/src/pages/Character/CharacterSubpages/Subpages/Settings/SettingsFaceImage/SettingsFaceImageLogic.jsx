@@ -35,7 +35,7 @@ export const SettingsFaceImageLogic = () => {
 
 	async function saveFaceImage() {
 		setErrors([]);
-		if (!character?._id) return;
+		if (!character?._id || !character?.data?.faceImage) return;
 		await APIRequest("/character/" + character?._id, "PATCH", {
 			path: ["data", "faceImage"],
 			newValue: character?.data?.faceImage,

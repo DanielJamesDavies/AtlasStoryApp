@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const StorySchema = mongoose.Schema({
-	_id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
+	_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 	uid: {
 		type: String,
 		required: true,
@@ -10,6 +10,7 @@ const StorySchema = mongoose.Schema({
 	},
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
+		required: true,
 	},
 	data: {
 		type: {
@@ -24,19 +25,22 @@ const StorySchema = mongoose.Schema({
 				default: false,
 			},
 			members: {
-				type: [{ user_id: { type: mongoose.Schema.Types.ObjectId }, type: { type: String } }],
+				type: [{ user_id: { type: mongoose.Schema.Types.ObjectId, required: true }, type: { type: String } }],
 			},
 			icon: {
 				type: mongoose.Schema.Types.ObjectId,
-				default: new mongoose.Types.ObjectId(),
+				required: true,
+				auto: true,
 			},
 			banner: {
 				type: mongoose.Schema.Types.ObjectId,
-				default: new mongoose.Types.ObjectId(),
+				required: true,
+				auto: true,
 			},
 			cover: {
 				type: mongoose.Schema.Types.ObjectId,
-				default: new mongoose.Types.ObjectId(),
+				required: true,
+				auto: true,
 			},
 			description: { type: [String], default: [""] },
 			genres: { type: [mongoose.Schema.Types.ObjectId], default: [] },
@@ -78,7 +82,8 @@ const StorySchema = mongoose.Schema({
 					{
 						_id: {
 							type: mongoose.Schema.Types.ObjectId,
-							default: new mongoose.Types.ObjectId(),
+							required: true,
+							auto: true,
 						},
 						name: { type: String, default: "Relationship Type" },
 						colour: { type: String, default: "#0044ff" },

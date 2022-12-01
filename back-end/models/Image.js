@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const ImageSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+	_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 	image: String,
 	user_id: mongoose.Schema.Types.ObjectId,
 	story_id: mongoose.Schema.Types.ObjectId,

@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const GenreSchema = mongoose.Schema({
 	_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		default: new mongoose.Types.ObjectId(),
+		required: true,
+		auto: true,
 	},
 	name: {
 		type: String,

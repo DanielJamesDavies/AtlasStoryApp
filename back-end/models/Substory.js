@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 
 const SubstorySchema = mongoose.Schema({
-	_id: {
-		type: mongoose.Schema.Types.ObjectId,
-		default: new mongoose.Types.ObjectId(),
-	},
+	_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 	story_id: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
@@ -20,14 +17,8 @@ const SubstorySchema = mongoose.Schema({
 			isTitleOnPoster: { type: Boolean, default: true },
 			colour: { type: String, default: "#0044ff" },
 			number: { type: String, default: "" },
-			posterBackground: {
-				type: mongoose.Schema.Types.ObjectId,
-				default: new mongoose.Types.ObjectId(),
-			},
-			overviewBackground: {
-				type: mongoose.Schema.Types.ObjectId,
-				default: new mongoose.Types.ObjectId(),
-			},
+			posterBackground: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
+			overviewBackground: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 			images: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			summaryItems: {
 				type: [{ label: { type: String, default: "" }, text: { type: String, default: "" } }],
@@ -40,10 +31,7 @@ const SubstorySchema = mongoose.Schema({
 					items: {
 						type: [
 							{
-								_id: {
-									type: mongoose.Schema.Types.ObjectId,
-									default: new mongoose.Types.ObjectId(),
-								},
+								_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 								label: { type: String, default: "" },
 								text: { type: [String], default: [""] },
 								images: { type: [mongoose.Schema.Types.ObjectId], default: [] },
@@ -54,19 +42,13 @@ const SubstorySchema = mongoose.Schema({
 					clusters: {
 						type: [
 							{
-								_id: {
-									type: mongoose.Schema.Types.ObjectId,
-									default: new mongoose.Types.ObjectId(),
-								},
+								_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 								isAll: { type: Boolean, default: false },
 								name: { type: String, default: "" },
 								groups: {
 									type: [
 										{
-											_id: {
-												type: mongoose.Schema.Types.ObjectId,
-												default: new mongoose.Types.ObjectId(),
-											},
+											_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 											name: { type: String, default: "" },
 											items: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 										},
