@@ -114,6 +114,11 @@
 	object-fit: contain;
 }
 
+.notes-list-item-image-item-loading-circle-container {
+	position: relative;
+	min-height: 80px;
+}
+
 .notes-list-item-buttons-container {
 	display: inline-flex;
 	flex-direction: column;

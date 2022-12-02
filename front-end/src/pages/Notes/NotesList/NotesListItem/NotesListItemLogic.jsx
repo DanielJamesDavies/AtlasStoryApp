@@ -6,12 +6,12 @@ import { useContext, useRef } from "react";
 // Logic
 
 // Context
-import { NotesContext } from "../NotesContext";
-import { APIContext } from "../../../context/APIContext";
-import { LightboxContext } from "../../../context/LightboxContext";
+import { NotesContext } from "../../NotesContext";
+import { APIContext } from "../../../../context/APIContext";
+import { LightboxContext } from "../../../../context/LightboxContext";
 
 // Services
-import getImageFromFile from "../../../services/GetImageFromFile";
+import getImageFromFile from "../../../../services/GetImageFromFile";
 
 // Styles
 

@@ -122,7 +122,9 @@ module.exports = async (req, res) => {
 
 							try {
 								await image.save();
-							} catch (error) {}
+							} catch (error) {
+								console.log(error);
+							}
 							return true;
 						}
 					})

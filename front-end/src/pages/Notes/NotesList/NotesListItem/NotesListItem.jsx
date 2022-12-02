@@ -2,12 +2,12 @@
 import { FaImage, FaPlus, FaTimes } from "react-icons/fa";
 
 // Components
-import { Text } from "../../../components/Text/Text";
-import { TextInput } from "../../../components/TextInput/TextInput";
-import { MultiLineTextInput } from "../../../components/MultiLineTextInput/MultiLineTextInput";
-import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
-import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
-import { IconBtn } from "../../../components/IconBtn/IconBtn";
+import { Text } from "../../../../components/Text/Text";
+import { TextInput } from "../../../../components/TextInput/TextInput";
+import { MultiLineTextInput } from "../../../../components/MultiLineTextInput/MultiLineTextInput";
+import { DragDropContainer } from "../../../../components/DragDropContainer/DragDropContainer";
+import { DragDropItem } from "../../../../components/DragDropItem/DragDropItem";
+import { IconBtn } from "../../../../components/IconBtn/IconBtn";
 
 // Logic
 import { NotesListItemLogic } from "./NotesListItemLogic";
@@ -18,6 +18,7 @@ import { NotesListItemLogic } from "./NotesListItemLogic";
 
 // Styles
 import "./NotesListItem.css";
+import { LoadingCircle } from "../../../../components/LoadingCircle/LoadingCircle";
 
 // Assets
 
@@ -46,13 +47,19 @@ export const NotesListItem = ({ item, index, isEditing, isReorderingNotes }) => 
 				<div className='notes-list-item-images-container'>
 					{item?.images?.map((image, imageIndex) => (
 						<div key={imageIndex} className='notes-list-item-image-item'>
-							{!noteImages.find((e) => e._id === image?.image)?.image ? null : (
-								<img
-									src={noteImages.find((e) => e._id === image.image).image}
-									alt=''
-									onClick={() => onItemImageClick(imageIndex)}
-								/>
-							)}
+							<div className='notes-list-item-image-item-image'>
+								{!noteImages.find((e) => e._id === image?.image)?.image ? (
+									<div className='notes-list-item-image-item-image-item-loading-circle-container'>
+										<LoadingCircle size='s' center={true} />
+									</div>
+								) : (
+									<img
+										src={noteImages.find((e) => e._id === image.image).image}
+										alt=''
+										onClick={() => onItemImageClick(imageIndex)}
+									/>
+								)}
+							</div>
 							{!image?.caption || image.caption.split(" ").join("").length === 0 ? null : (
 								<div className='notes-list-item-image-item-caption'>{image.caption}</div>
 							)}
@@ -73,18 +80,20 @@ export const NotesListItem = ({ item, index, isEditing, isReorderingNotes }) => 
 					value={item?.text?.join("\n")}
 					onChange={changeItemText}
 				/>
-				<DragDropContainer
-					className='character-subpage-development-item-images'
-					enableDragDrop={isReorderingNotes}
-					onDropItem={reorderItemImages}
-				>
+				<DragDropContainer className='notes-list-item-image-item-images' enableDragDrop={isReorderingNotes} onDropItem={reorderItemImages}>
 					{!item?.images
 						? null
 						: item.images.map((image, imageIndex) => (
-								<DragDropItem key={imageIndex} index={imageIndex} className='character-subpage-development-item-image-item'>
-									{!noteImages.find((e) => e._id === image?.image)?.image ? null : (
-										<img src={noteImages.find((e) => e._id === image.image).image} alt='' />
-									)}
+								<DragDropItem key={imageIndex} index={imageIndex} className='notes-list-item-image-item'>
+									<div className='notes-list-item-image-item-image'>
+										{!noteImages.find((e) => e._id === image?.image)?.image ? (
+											<div className='notes-list-item-image-item-loading-circle-container'>
+												<LoadingCircle size='s' center={true} />
+											</div>
+										) : (
+											<img src={noteImages.find((e) => e._id === image.image).image} alt='' />
+										)}
+									</div>
 									<TextInput
 										className='notes-list-item-image-item-caption'
 										seamless={true}

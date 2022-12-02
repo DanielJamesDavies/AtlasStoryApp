@@ -1,12 +1,15 @@
-const port = process.env.PORT || 3001;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config();
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const nodemailer = require("nodemailer");
 
+const port = process.env.PORT || 3001;
+
+app.use(cors());
 app.use(express.json({ limit: "500mb" }));
 app.use(cookieParser());
 
@@ -55,11 +58,9 @@ app.use("/api/spotify", require("./routes/SpotifyRoute"));
 app.use("/api/image", require("./routes/ImageRoute"));
 
 // Running the Front-End
-if (process.env.NODE_ENV !== "development") {
-	app.use(express.static(path.join(__dirname, "../front-end/build")));
-	app.get("*", (req, res) => {
-		res.setHeader("Cache-Control", "no-cache").sendFile(path.join(__dirname + "/../front-end/build/index.html"));
-	});
-}
+app.use(express.static(path.join(__dirname, "../front-end/build")));
+app.get("*", (req, res) => {
+	res.setHeader("Cache-Control", "no-cache").sendFile(path.join(__dirname + "/../front-end/build/index.html"));
+});
 
 app.listen(port, () => {});

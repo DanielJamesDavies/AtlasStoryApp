@@ -15,9 +15,18 @@ import { APIContext } from "../../context/APIContext";
 // Assets
 
 export const CookiesConsentPopUpLogic = () => {
-	const [showPopUp, setShowPopUp] = useState(true);
+	const [showPopUp, setShowPopUp] = useState(false);
 
-	const { APIRequest, cookiesConsent } = useContext(APIContext);
+	const { APIRequest, cookiesConsent, setCookiesConsent } = useContext(APIContext);
+
+	useEffect(() => {
+		async function getCookiesConsent() {
+			const response = await APIRequest("/cookies-consent", "GET");
+			if (!response || response?.errors || response?.data?.cookiesConsent === undefined) return false;
+			setCookiesConsent(response?.data?.cookiesConsent);
+		}
+		getCookiesConsent();
+	}, [setCookiesConsent, APIRequest]);
 
 	useEffect(() => {
 		setShowPopUp(!cookiesConsent);

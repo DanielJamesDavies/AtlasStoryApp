@@ -12,6 +12,12 @@
 	height: 100%;
 }
 
+.lightbox-container-hidden {
+	display: none;
+	pointer-events: none;
+	opacity: 0;
+}
+
 .lightbox-loading-circle-container {
 	position: absolute;
 	top: 50%;
@@ -30,7 +36,7 @@
 	height: 100%;
 
 	transform-origin: 0px 0px;
-	transform: scale(1) translate(0px, 0px);
+	transform: scale(3) translate(0px, 0px);
 	object-fit: contain;
 	user-select: none;
 }

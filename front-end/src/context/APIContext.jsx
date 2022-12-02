@@ -7,7 +7,7 @@ const APIProvider = ({ children }) => {
 	const [username, setUsername] = useState(false);
 	const [userProfilePicture, setUserProfilePicture] = useState(false);
 	const [cookiesConsent, setCookiesConsent] = useState(false);
-	const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api" : "https://www.atlas-story.app/api";
+	const API_URL = process.env.NODE_ENV === "development" ? "http://192.168.1.65:3001/api" : "https://www.atlas-story.app/api";
 
 	const APIRequest = async (path, method, body) => {
 		let data = {
@@ -21,17 +21,17 @@ const APIProvider = ({ children }) => {
 		};
 		if (body) data.body = JSON.stringify(body);
 
-		const response = await fetch(API_URL + path, data);
+		try {
+			const response = await fetch(API_URL + path, data);
 
-		const responseData = await response.json();
+			const responseData = await response.json();
 
-		if (responseData?.cookiesConsent !== undefined) {
-			setCookiesConsent(responseData?.cookiesConsent);
-		} else {
-			setCookiesConsent(true);
+			if (responseData?.cookiesConsent !== undefined) setCookiesConsent(responseData?.cookiesConsent);
+
+			return responseData;
+		} catch (e) {
+			return { errors: [{ message: "Failed to Send Request to Server" }] };
 		}
-
-		return responseData;
 	};
 
 	return (

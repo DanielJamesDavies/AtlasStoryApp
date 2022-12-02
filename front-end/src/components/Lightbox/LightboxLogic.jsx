@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef, useEffect, useState } from "react";
 
 // Components
 
@@ -42,6 +42,8 @@ export const LightboxLogic = () => {
 	var pointX = useRef(0);
 	var pointY = useRef(0);
 	var startPos = useRef({ x: 0, y: 0 });
+
+	const [log, setLog] = useState(0);
 
 	useEffect(() => {
 		zoom.current = 1;
@@ -122,6 +124,94 @@ export const LightboxLogic = () => {
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
 	}
 
+	const lightboxContainerRef = useRef();
+
+	useEffect(() => {
+		function onGesture(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			document.body.style.zoom = 0.99;
+		}
+
+		const lightboxContainerRefCurrent = lightboxContainerRef?.current;
+		if (lightboxContainerRefCurrent) {
+			lightboxContainerRefCurrent.addEventListener("gesturestart", onGesture);
+			lightboxContainerRefCurrent.addEventListener("gesturechange", onGesture);
+			lightboxContainerRefCurrent.addEventListener("gestureend", onGesture);
+		}
+
+		return () => {
+			if (lightboxContainerRefCurrent) {
+				lightboxContainerRefCurrent.removeEventListener("gesturestart", onGesture);
+				lightboxContainerRefCurrent.removeEventListener("gesturechange", onGesture);
+				lightboxContainerRefCurrent.removeEventListener("gestureend", onGesture);
+			}
+		};
+	}, [lightboxContainerRef, lightBoxImageContainerRef]);
+
+	let prevDist = useRef({ current: false });
+
+	function onTouchStart(e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		if (e.touches.length === 1) {
+			startPos = { x: e.touches[0].pageX - pointX.current, y: e.touches[0].pageY - pointY.current };
+		} else if (e.touches.length === 2) {
+			startPos = { x: e.touches[0].pageX - pointX.current, y: e.touches[0].pageY - pointY.current };
+			prevDist.current = false;
+		} else {
+			startPos = { x: e.touches[0].pageX - pointX.current, y: e.touches[0].pageY - pointY.current };
+		}
+	}
+
+	function onTouchMove(e) {
+		e.preventDefault();
+
+		if (e.touches.length === 1) {
+			// On Pan
+			const newPointX = e.touches[0].pageX - startPos.x;
+			const newPointY = e.touches[0].pageY - startPos.y;
+			if (!Number.isNaN(newPointX)) pointX.current = newPointX;
+			if (!Number.isNaN(newPointY)) pointY.current = newPointY;
+		} else if (e.touches.length === 2) {
+			// // On Zoom & Pan
+			let centerX = Math.min(e.touches[0].pageX, e.touches[1].pageX) + Math.abs(e.touches[0].pageX - e.touches[1].pageX) / 2;
+			let centerY = Math.min(e.touches[0].pageY, e.touches[1].pageY) + Math.abs(e.touches[0].pageY - e.touches[1].pageY) / 2;
+
+			let xs = (centerX - pointX.current) / zoom.current;
+			let ys = (centerY - pointY.current) / zoom.current;
+
+			if (prevDist.current === false)
+				prevDist.current = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+
+			let dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+
+			let diffDist = prevDist.current - dist;
+			setLog(diffDist);
+
+			zoom.current -= diffDist * zoom.current * 0.01;
+
+			if (zoom.current <= 1) {
+				zoom.current = 1;
+				pointX.current = 0;
+				pointY.current = 0;
+			} else if (zoom.current >= 40) {
+				zoom.current = 40;
+				pointX.current = centerX - xs * zoom.current;
+				pointY.current = centerY - ys * zoom.current;
+			} else {
+				pointX.current = centerX - xs * zoom.current;
+				pointY.current = centerY - ys * zoom.current;
+			}
+
+			prevDist.current = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+		}
+
+		lightBoxImageContainerRef.current.style.transform =
+			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
+	}
+
 	return {
 		lightboxImageIDs,
 		lightboxImages,
@@ -130,5 +220,9 @@ export const LightboxLogic = () => {
 		decrementLightboxIndex,
 		closeLightbox,
 		lightBoxImageContainerRef,
+		lightboxContainerRef,
+		onTouchStart,
+		onTouchMove,
+		log,
 	};
 };
