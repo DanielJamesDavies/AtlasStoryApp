@@ -90,6 +90,7 @@ const UserProvider = ({ children, user_username }) => {
 	return (
 		<UserContext.Provider
 			value={{
+				user_username,
 				isAuthorizedToEdit,
 				setIsAuthorizedToEdit,
 				user,

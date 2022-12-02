@@ -2,9 +2,10 @@
 import { useContext, useEffect, useState } from "react";
 
 // Components
-import { Login } from "../../pages/Login/Login";
 import { Register } from "../../pages/Register/Register";
 import { Verify } from "../../pages/Verify/Verify";
+import { Login } from "../../pages/Login/Login";
+import { ForgotPassword } from "../../pages/ForgotPassword/ForgotPassword";
 import { ChangeForgottenPassword } from "../../pages/ChangeForgottenPassword/ChangeForgottenPassword";
 import { UserContainer } from "../../pages/User/UserContainer";
 import { Home } from "../../pages/Home/Home";
@@ -45,17 +46,6 @@ export const RoutesLogic = () => {
 			setRenderComponent(null);
 			setShowUnauthorizedNavigationBar(false);
 			switch (locationSplit[0]) {
-				case "login":
-					if (!username) {
-						changeAccentColour("default");
-						changeAccentHoverColour("default");
-						setShowUnauthorizedNavigationBar(true);
-						setRenderComponent(<Login />);
-						document.title = "Login | Atlas Story App";
-					} else {
-						changeLocation("/u/" + username);
-					}
-					break;
 				case "register":
 					if (!username) {
 						changeAccentColour("default");
@@ -74,6 +64,23 @@ export const RoutesLogic = () => {
 						setShowUnauthorizedNavigationBar(true);
 						setRenderComponent(<Verify username={locationSplit[1]} email={locationSplit[2]} verificationCode={locationSplit[3]} />);
 					}
+					break;
+				case "login":
+					if (!username) {
+						changeAccentColour("default");
+						changeAccentHoverColour("default");
+						setShowUnauthorizedNavigationBar(true);
+						setRenderComponent(<Login />);
+						document.title = "Login | Atlas Story App";
+					} else {
+						changeLocation("/u/" + username);
+					}
+					break;
+				case "forgot-password":
+					changeAccentColour("default");
+					changeAccentHoverColour("default");
+					setShowUnauthorizedNavigationBar(true);
+					setRenderComponent(<ForgotPassword />);
 					break;
 				case "change-forgotten-password":
 					if (locationSplit.length >= 4) {

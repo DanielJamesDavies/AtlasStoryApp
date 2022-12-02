@@ -54,14 +54,3 @@
 .login-form-forgot-password:hover {
 	color: var(--blue2);
 }
-
-.login-form-forgot-password-success-icon {
-	margin-bottom: 10px;
-	font-size: 48px;
-	color: var(--green);
-}
-
-.login-form-forgot-password-success-text {
-	font-size: 16px;
-	font-weight: 700;
-}

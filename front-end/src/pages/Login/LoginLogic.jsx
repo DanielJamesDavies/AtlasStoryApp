@@ -16,6 +16,9 @@ import { RoutesContext } from "../../context/RoutesContext";
 // Assets
 
 export const LoginLogic = () => {
+	const { APIRequest, setUsername } = useContext(APIContext);
+	const { changeLocation } = useContext(RoutesContext);
+
 	// Username
 	const [username, setUsernameValue] = useState("");
 
@@ -30,9 +33,12 @@ export const LoginLogic = () => {
 		setPassword(e.target.value);
 	}
 
+	// Forgot Password
+	function forgotPassword() {
+		changeLocation("/forgot-password");
+	}
+
 	// Submit
-	const { APIRequest, setUsername } = useContext(APIContext);
-	const { changeLocation } = useContext(RoutesContext);
 	const [isLoggingIn, setIsLoggingIn] = useState(false);
 	const [errors, setErrors] = useState([]);
 
@@ -48,38 +54,5 @@ export const LoginLogic = () => {
 		setUsername(response.data.username);
 	}
 
-	// Forgot Password
-	const [hasForgotPassword, setHasForgotPassword] = useState(false);
-	function forgotPassword() {
-		setHasForgotPassword(true);
-	}
-
-	const [hasForgotPasswordEmailSent, setHasForgotPasswordEmailSent] = useState(false);
-
-	const [email, setEmail] = useState("");
-	function changeEmail(e) {
-		setEmail(e.target.value);
-	}
-
-	async function submitForgotPasswordRequest() {
-		const response = await APIRequest("/user/forgot-password", "POST", { email });
-		if (!response || response?.errors) return setErrors(response.errors);
-		setHasForgotPasswordEmailSent(true);
-	}
-
-	return {
-		username,
-		changeUsername,
-		password,
-		changePassword,
-		isLoggingIn,
-		errors,
-		submitLoginUser,
-		hasForgotPassword,
-		forgotPassword,
-		hasForgotPasswordEmailSent,
-		email,
-		changeEmail,
-		submitForgotPasswordRequest,
-	};
+	return { username, changeUsername, password, changePassword, forgotPassword, isLoggingIn, errors, submitLoginUser };
 };
