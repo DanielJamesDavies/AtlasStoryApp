@@ -37,3 +37,31 @@
 .login-form-submit-loading-circle-container {
 	margin-right: 24px;
 }
+
+.login-form-forgot-password-container {
+	margin: 24px 0;
+}
+
+.login-form-forgot-password {
+	margin-left: auto;
+	width: fit-content;
+	font-size: 15px;
+	color: var(--textSecondaryColour);
+	transition: colour 0.1s;
+	cursor: pointer;
+}
+
+.login-form-forgot-password:hover {
+	color: var(--blue2);
+}
+
+.login-form-forgot-password-success-icon {
+	margin-bottom: 10px;
+	font-size: 48px;
+	color: var(--green);
+}
+
+.login-form-forgot-password-success-text {
+	font-size: 16px;
+	font-weight: 700;
+}

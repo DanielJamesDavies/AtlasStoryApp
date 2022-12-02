@@ -26,7 +26,9 @@ async function createUserVerification(user_id, email) {
 	return { verificationCode };
 }
 
-async function sendVerificaionEmail(username, email, verificationCode, emailTransporter) {
+async function sendVerificaionEmail(req, username, email, verificationCode) {
+	if (!req?.isEmailTransporterVerified || !req?.emailTransporter) return { errors: [{ message: "Error. Please try again later." }] };
+
 	const verificationLink = "https://www.atlas-story.app/verify/" + username + "/" + email + "/" + verificationCode;
 
 	const message =
@@ -37,7 +39,7 @@ async function sendVerificaionEmail(username, email, verificationCode, emailTran
 		"'>click here</a> to verify your email address.</p>";
 
 	const res = await new Promise((resolve, reject) => {
-		emailTransporter
+		req.emailTransporter
 			.sendMail({
 				from: process.env.EMAIL_ADDRESS,
 				to: email,
@@ -49,7 +51,7 @@ async function sendVerificaionEmail(username, email, verificationCode, emailTran
 				resolve({ message });
 			})
 			.catch((error) => {
-				reject({ error });
+				reject({ errors: [{ message: error }] });
 			});
 	});
 	return res;

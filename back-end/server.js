@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const nodemailer = require("nodemailer");
 
 app.use(express.json({ limit: "500mb" }));
 app.use(cookieParser());
@@ -18,6 +19,24 @@ mongoose
 	.then(() => {
 		console.log("Connected to MongoDB");
 	});
+
+// Email Transporter
+const emailTransporter = nodemailer.createTransport({
+	service: "gmail",
+	auth: { user: process.env.EMAIL_ADDRESS, pass: process.env.EMAIL_PASSWORD },
+});
+
+var isEmailTransporterVerified = false;
+emailTransporter.verify((error, success) => {
+	if (error) console.log("emailTransporterError", error);
+	if (!error && success) isEmailTransporterVerified = true;
+});
+
+app.use("*", (req, res, next) => {
+	if (emailTransporter) req.emailTransporter = emailTransporter;
+	if (isEmailTransporterVerified) req.isEmailTransporterVerified = isEmailTransporterVerified;
+	next();
+});
 
 // Routes
 app.use("/api/new-id", require("./routes/NewIdRoute"));

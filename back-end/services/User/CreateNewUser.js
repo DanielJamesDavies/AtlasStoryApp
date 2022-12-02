@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 const bcrypt = require("bcryptjs");
-const nodemailer = require("nodemailer");
 
 const User = require("../../models/User");
 const Image = require("../../models/Image");
@@ -9,18 +8,9 @@ const Image = require("../../models/Image");
 const { createUserVerification, sendVerificaionEmail } = require("./UserVerification");
 const validateImage = require("../Image/validateImage");
 
-const emailTransporter = nodemailer.createTransport({
-	service: "gmail",
-	auth: { user: process.env.EMAIL_ADDRESS, pass: process.env.EMAIL_PASSWORD },
-});
-
-var isEmailTransporterVerified = false;
-emailTransporter.verify((error, success) => {
-	if (!error && success) isEmailTransporterVerified = true;
-});
-
 module.exports = async (req, res) => {
-	if (!isEmailTransporterVerified) return res.status(200).send({ errors: [{ message: "New users cannot be created at this current time." }] });
+	if (!req?.isEmailTransporterVerified)
+		return res.status(200).send({ errors: [{ message: "New users cannot be created at this current time." }] });
 
 	// Validate Data
 	let validateUserResult = await validateUser(req.body);
@@ -60,12 +50,7 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "User Verification Could Not Be Generated" }] });
 	}
 
-	const verificationEmailResponse = await sendVerificaionEmail(
-		req.body.username,
-		req.body.email,
-		userVerificationResponse.verificationCode,
-		emailTransporter
-	);
+	const verificationEmailResponse = await sendVerificaionEmail(req, req.body.username, req.body.email, userVerificationResponse.verificationCode);
 	if (verificationEmailResponse?.error) {
 		return res.status(200).send({ errors: [{ message: "User Verification Email Could Not Be Sent" }] });
 	}

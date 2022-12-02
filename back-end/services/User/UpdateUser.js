@@ -1,5 +1,4 @@
 const jwt_decode = require("jwt-decode");
-const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const Joi = require("joi");
 
@@ -7,16 +6,6 @@ const User = require("../../models/User");
 
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 const { createUserVerification, sendVerificaionEmail } = require("./UserVerification");
-
-const emailTransporter = nodemailer.createTransport({
-	service: "gmail",
-	auth: { user: process.env.EMAIL_ADDRESS, pass: process.env.EMAIL_PASSWORD },
-});
-
-var isEmailTransporterVerified = false;
-emailTransporter.verify((error, success) => {
-	if (!error && success) isEmailTransporterVerified = true;
-});
 
 module.exports = async (req, res) => {
 	if (!req?.body?.path || req?.body?.path === ["_id"] || req?.body?.path === ["verified"])
@@ -62,10 +51,10 @@ module.exports = async (req, res) => {
 			}
 
 			const verificationEmailResponse = await sendVerificaionEmail(
+				req,
 				newUser.username,
 				req.body.newValue,
-				userVerificationResponse.verificationCode,
-				emailTransporter
+				userVerificationResponse.verificationCode
 			);
 			if (verificationEmailResponse?.error) {
 				return res.status(200).send({ errors: [{ message: "User Verification Email Could Not Be Sent" }] });

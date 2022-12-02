@@ -36,7 +36,7 @@ export const LoginLogic = () => {
 	const [isLoggingIn, setIsLoggingIn] = useState(false);
 	const [errors, setErrors] = useState([]);
 
-	const submitLoginUser = async () => {
+	async function submitLoginUser() {
 		setIsLoggingIn(true);
 		setErrors([]);
 		const response = await APIRequest("/user/login", "POST", { username, password });
@@ -46,7 +46,40 @@ export const LoginLogic = () => {
 		if (!response?.data?.username) return;
 		changeLocation("/u/" + response.data.username);
 		setUsername(response.data.username);
-	};
+	}
 
-	return { username, changeUsername, password, changePassword, isLoggingIn, errors, submitLoginUser };
+	// Forgot Password
+	const [hasForgotPassword, setHasForgotPassword] = useState(false);
+	function forgotPassword() {
+		setHasForgotPassword(true);
+	}
+
+	const [hasForgotPasswordEmailSent, setHasForgotPasswordEmailSent] = useState(false);
+
+	const [email, setEmail] = useState("");
+	function changeEmail(e) {
+		setEmail(e.target.value);
+	}
+
+	async function submitForgotPasswordRequest() {
+		const response = await APIRequest("/user/forgot-password", "POST", { email });
+		if (!response || response?.errors) return setErrors(response.errors);
+		setHasForgotPasswordEmailSent(true);
+	}
+
+	return {
+		username,
+		changeUsername,
+		password,
+		changePassword,
+		isLoggingIn,
+		errors,
+		submitLoginUser,
+		hasForgotPassword,
+		forgotPassword,
+		hasForgotPasswordEmailSent,
+		email,
+		changeEmail,
+		submitForgotPasswordRequest,
+	};
 };

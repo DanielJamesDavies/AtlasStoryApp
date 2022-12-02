@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { Login } from "../../pages/Login/Login";
 import { Register } from "../../pages/Register/Register";
 import { Verify } from "../../pages/Verify/Verify";
+import { ChangeForgottenPassword } from "../../pages/ChangeForgottenPassword/ChangeForgottenPassword";
 import { UserContainer } from "../../pages/User/UserContainer";
 import { Home } from "../../pages/Home/Home";
 import { StoryContainer } from "../../pages/Story/StoryContainer";
@@ -72,6 +73,16 @@ export const RoutesLogic = () => {
 						changeAccentHoverColour("default");
 						setShowUnauthorizedNavigationBar(true);
 						setRenderComponent(<Verify username={locationSplit[1]} email={locationSplit[2]} verificationCode={locationSplit[3]} />);
+					}
+					break;
+				case "change-forgotten-password":
+					if (locationSplit.length >= 4) {
+						changeAccentColour("default");
+						changeAccentHoverColour("default");
+						setShowUnauthorizedNavigationBar(true);
+						setRenderComponent(
+							<ChangeForgottenPassword username={locationSplit[1]} email={locationSplit[2]} verificationCode={locationSplit[3]} />
+						);
 					}
 					break;
 				case "u":
