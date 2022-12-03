@@ -34,7 +34,7 @@ export const CharacterImages = ({ onAddImage, onClose }) => {
 		saveCharacterImages,
 	} = CharacterImagesLogic();
 
-	if (document.body.clientWidth > 750)
+	if (document.body.clientWidth > 1000)
 		return (
 			<EditableContainer
 				innerRef={characterImagesContainerRef}

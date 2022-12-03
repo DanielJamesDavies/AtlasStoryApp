@@ -12,6 +12,16 @@
 	width: calc(40% - 8px);
 }
 
+@media (max-width: 1400px) {
+	.character-subpage-physical-outfit-character-images-open .character-subpage-physical-outfit-items-container {
+		width: calc(100% - 8px);
+	}
+
+	.character-subpage-physical-attribute-character-images-open .character-subpage-physical-outfit-items-container {
+		display: none;
+	}
+}
+
 .character-subpage-physical-outfit-items-title {
 	font-size: 20px;
 	font-weight: 700;
