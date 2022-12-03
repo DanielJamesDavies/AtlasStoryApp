@@ -62,3 +62,9 @@
 	font-weight: 700;
 	text-align: center;
 }
+
+@media (max-width: 750px) {
+	.register-form {
+		margin-top: 24px;
+	}
+}

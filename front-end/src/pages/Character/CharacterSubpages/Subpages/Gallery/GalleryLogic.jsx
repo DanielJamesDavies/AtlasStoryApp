@@ -90,6 +90,12 @@ export const GalleryLogic = () => {
 		setLightboxIndex(index);
 	}
 
+	const [isDisplayingCharactersImages, setIsDisplayingCharactersImages] = useState(false);
+
+	function toggleIsDisplayingCharactersImages() {
+		setIsDisplayingCharactersImages((oldIsDisplayingCharactersImages) => !oldIsDisplayingCharactersImages);
+	}
+
 	return {
 		isAuthorizedToEdit,
 		characterVersion,
@@ -104,5 +110,7 @@ export const GalleryLogic = () => {
 		galleryRef,
 		onGalleryScroll,
 		onGalleryItemClick,
+		isDisplayingCharactersImages,
+		toggleIsDisplayingCharactersImages,
 	};
 };

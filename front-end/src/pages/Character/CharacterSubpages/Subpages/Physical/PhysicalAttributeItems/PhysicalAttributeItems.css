@@ -42,14 +42,16 @@
 	width: calc(73% - 12px);
 }
 
-.character-subpage-physical-attribute-character-images-open .character-images-container {
-	display: inline-block;
-	width: calc(27% - 24px);
-}
+@media (min-width: 751px) {
+	.character-subpage-physical-attribute-character-images-open .character-images-container {
+		display: inline-block;
+		width: calc(27% - 24px);
+	}
 
-.character-subpage-physical-attribute-character-images-open .character-images {
-	display: inline-block;
-	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 56px);
+	.character-subpage-physical-attribute-character-images-open .character-images {
+		display: inline-block;
+		max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 56px);
+	}
 }
 
 @media (max-width: 750px) {

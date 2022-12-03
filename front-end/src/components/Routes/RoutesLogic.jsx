@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 // Components
 import { Register } from "../../pages/Register/Register";
@@ -34,6 +34,8 @@ export const RoutesLogic = () => {
 	const { location, changeLocation } = useContext(RoutesContext);
 	const { APIRequest, user_id, setUserID, username, setUsername, setUserProfilePicture } = useContext(APIContext);
 	const { changeAccentColour, changeAccentHoverColour, setUITheme, setFontSizeMultiplier } = useContext(AppContext);
+
+	const contentContainerRef = useRef();
 	const [renderComponent, setRenderComponent] = useState(null);
 	const [showUnauthorizedNavigationBar, setShowUnauthorizedNavigationBar] = useState(false);
 
@@ -200,5 +202,9 @@ export const RoutesLogic = () => {
 		getUser();
 	}, [APIRequest, user_id, setUserID, username, setUsername, setUITheme, setFontSizeMultiplier, setUserProfilePicture]);
 
-	return { renderComponent, showUnauthorizedNavigationBar };
+	useEffect(() => {
+		contentContainerRef.current.scrollTop = 0;
+	}, [contentContainerRef, location]);
+
+	return { contentContainerRef, renderComponent, showUnauthorizedNavigationBar };
 };

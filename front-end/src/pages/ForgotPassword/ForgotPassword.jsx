@@ -35,7 +35,7 @@ export const ForgotPassword = () => {
 						<ErrorMessage errors={errors} />
 
 						<div className='forgot-password-form-submit-container'>
-							<SubmitBtn label='Send Link to Change Password to Email' onSubmit={submitForgotPasswordRequest} />
+							<SubmitBtn label='Continue' onSubmit={submitForgotPasswordRequest} />
 						</div>
 					</>
 				) : (

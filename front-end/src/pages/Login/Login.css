@@ -54,3 +54,9 @@
 .login-form-forgot-password:hover {
 	color: var(--blue2);
 }
+
+@media (max-width: 750px) {
+	.login-form {
+		margin-top: 24px;
+	}
+}

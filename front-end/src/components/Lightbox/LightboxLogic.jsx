@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useRef, useEffect, useState } from "react";
+import { useContext, useRef, useEffect } from "react";
 
 // Components
 
@@ -42,8 +42,6 @@ export const LightboxLogic = () => {
 	var pointX = useRef(0);
 	var pointY = useRef(0);
 	var startPos = useRef({ x: 0, y: 0 });
-
-	const [log, setLog] = useState(0);
 
 	useEffect(() => {
 		zoom.current = 1;
@@ -169,13 +167,11 @@ export const LightboxLogic = () => {
 		e.preventDefault();
 
 		if (e.touches.length === 1) {
-			// On Pan
 			const newPointX = e.touches[0].pageX - startPos.x;
 			const newPointY = e.touches[0].pageY - startPos.y;
 			if (!Number.isNaN(newPointX)) pointX.current = newPointX;
 			if (!Number.isNaN(newPointY)) pointY.current = newPointY;
 		} else if (e.touches.length === 2) {
-			// // On Zoom & Pan
 			let centerX = Math.min(e.touches[0].pageX, e.touches[1].pageX) + Math.abs(e.touches[0].pageX - e.touches[1].pageX) / 2;
 			let centerY = Math.min(e.touches[0].pageY, e.touches[1].pageY) + Math.abs(e.touches[0].pageY - e.touches[1].pageY) / 2;
 
@@ -188,7 +184,6 @@ export const LightboxLogic = () => {
 			let dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
 
 			let diffDist = prevDist.current - dist;
-			setLog(diffDist);
 
 			zoom.current -= diffDist * zoom.current * 0.01;
 
@@ -196,8 +191,8 @@ export const LightboxLogic = () => {
 				zoom.current = 1;
 				pointX.current = 0;
 				pointY.current = 0;
-			} else if (zoom.current >= 40) {
-				zoom.current = 40;
+			} else if (zoom.current >= 50) {
+				zoom.current = 50;
 				pointX.current = centerX - xs * zoom.current;
 				pointY.current = centerY - ys * zoom.current;
 			} else {
@@ -223,6 +218,5 @@ export const LightboxLogic = () => {
 		lightboxContainerRef,
 		onTouchStart,
 		onTouchMove,
-		log,
 	};
 };

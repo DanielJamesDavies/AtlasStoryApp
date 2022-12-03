@@ -18,12 +18,15 @@ import "./Routes.css";
 // Assets
 
 export const Routes = () => {
-	const { renderComponent, showUnauthorizedNavigationBar } = RoutesLogic();
+	const { contentContainerRef, renderComponent, showUnauthorizedNavigationBar } = RoutesLogic();
 
 	return (
 		<div className='routes'>
 			{showUnauthorizedNavigationBar ? <UnauthorizedNavigationBar /> : <NavigationBar />}
-			<div className={showUnauthorizedNavigationBar ? "content-container content-container-unauthorized" : "content-container"}>
+			<div
+				ref={contentContainerRef}
+				className={showUnauthorizedNavigationBar ? "content-container content-container-unauthorized" : "content-container"}
+			>
 				<RenderComponent renderComponent={renderComponent} />
 			</div>
 			<CookiesConsentPopUp />

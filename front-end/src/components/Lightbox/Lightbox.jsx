@@ -28,7 +28,6 @@ export const Lightbox = () => {
 		lightboxContainerRef,
 		onTouchStart,
 		onTouchMove,
-		log,
 	} = LightboxLogic();
 
 	return (
@@ -58,9 +57,7 @@ export const Lightbox = () => {
 					{lightboxImages[lightboxIndex]?.caption === undefined ||
 					lightboxImages[lightboxIndex]?.caption.split(" ").join("").length === 0 ? null : (
 						<div className='lightbox-caption-container'>
-							<div className='lightbox-caption'>
-								{log} {lightboxImages[lightboxIndex]?.caption}
-							</div>
+							<div className='lightbox-caption'>{lightboxImages[lightboxIndex]?.caption}</div>
 						</div>
 					)}
 					<button className='lightbox-switch-btn lightbox-switch-btn-increment' onClick={decrementLightboxIndex}>

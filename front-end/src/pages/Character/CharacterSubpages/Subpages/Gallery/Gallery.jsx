@@ -35,6 +35,8 @@ export const Gallery = () => {
 		galleryRef,
 		onGalleryScroll,
 		onGalleryItemClick,
+		isDisplayingCharactersImages,
+		toggleIsDisplayingCharactersImages,
 	} = GalleryLogic();
 
 	return (
@@ -46,6 +48,7 @@ export const Gallery = () => {
 				onReorder={toggleIsReorderingGalleryItems}
 				onRevert={revertGalleryItems}
 				onSave={saveGalleryItems}
+				onAdd={toggleIsDisplayingCharactersImages}
 				onScroll={onGalleryScroll}
 			>
 				<div className='character-subpage-gallery-items-container'>
@@ -74,9 +77,11 @@ export const Gallery = () => {
 						</DragDropContainer>
 						<ErrorMessage errors={errors} />
 					</div>
+					{!isDisplayingCharactersImages ? null : (
+						<CharacterImages onAddImage={addImageToVersionGallery} onClose={toggleIsDisplayingCharactersImages} />
+					)}
 				</div>
 			</EditableContainer>
-			<CharacterImages onAddImage={addImageToVersionGallery} />
 		</div>
 	);
 };
