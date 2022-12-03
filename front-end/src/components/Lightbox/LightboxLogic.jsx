@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef, useEffect, useState } from "react";
 
 // Components
 
@@ -148,6 +148,9 @@ export const LightboxLogic = () => {
 	}, [lightboxContainerRef, lightBoxImageContainerRef]);
 
 	let prevDist = useRef({ current: false });
+	// eslint-disable-next-line
+	const [points, setPoints] = useState(false);
+	let startCoords = useRef({ centerX: false, centerY: false });
 
 	function onTouchStart(e) {
 		e.preventDefault();
@@ -158,6 +161,8 @@ export const LightboxLogic = () => {
 		} else if (e.touches.length === 2) {
 			startPos = { x: e.touches[0].pageX - pointX.current, y: e.touches[0].pageY - pointY.current };
 			prevDist.current = false;
+			startCoords.centerX = Math.min(e.touches[0].pageX, e.touches[1].pageX) + Math.abs(e.touches[0].pageX - e.touches[1].pageX) / 2;
+			startCoords.centerY = Math.min(e.touches[0].pageY, e.touches[1].pageY) + Math.abs(e.touches[0].pageY - e.touches[1].pageY) / 2;
 		} else {
 			startPos = { x: e.touches[0].pageX - pointX.current, y: e.touches[0].pageY - pointY.current };
 		}
@@ -169,14 +174,12 @@ export const LightboxLogic = () => {
 		if (e.touches.length === 1) {
 			const newPointX = e.touches[0].pageX - startPos.x;
 			const newPointY = e.touches[0].pageY - startPos.y;
-			if (!Number.isNaN(newPointX)) pointX.current = newPointX;
-			if (!Number.isNaN(newPointY)) pointY.current = newPointY;
+			if (Number.isNaN(newPointX) || Number.isNaN(newPointY)) return;
+			pointX.current = newPointX;
+			pointY.current = newPointY;
 		} else if (e.touches.length === 2) {
-			let centerX = Math.min(e.touches[0].pageX, e.touches[1].pageX) + Math.abs(e.touches[0].pageX - e.touches[1].pageX) / 2;
-			let centerY = Math.min(e.touches[0].pageY, e.touches[1].pageY) + Math.abs(e.touches[0].pageY - e.touches[1].pageY) / 2;
-
-			let xs = (centerX - pointX.current) / zoom.current;
-			let ys = (centerY - pointY.current) / zoom.current;
+			let xs = (startCoords.centerX - pointX.current) / zoom.current;
+			let ys = (startCoords.centerY - pointY.current) / zoom.current;
 
 			if (prevDist.current === false)
 				prevDist.current = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
@@ -193,12 +196,14 @@ export const LightboxLogic = () => {
 				pointY.current = 0;
 			} else if (zoom.current >= 50) {
 				zoom.current = 50;
-				pointX.current = centerX - xs * zoom.current;
-				pointY.current = centerY - ys * zoom.current;
+				pointX.current = startCoords.centerX - xs * zoom.current;
+				pointY.current = startCoords.centerY - ys * zoom.current;
 			} else {
-				pointX.current = centerX - xs * zoom.current;
-				pointY.current = centerY - ys * zoom.current;
+				pointX.current = startCoords.centerX - xs * zoom.current;
+				pointY.current = startCoords.centerY - ys * zoom.current;
 			}
+
+			setPoints({ pointX: pointX.current, pointY: pointY.current });
 
 			prevDist.current = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
 		}
