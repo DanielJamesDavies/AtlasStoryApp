@@ -12,17 +12,17 @@
 }
 
 .character-subpage-psychology-big-five-aspect-name {
-	font-size: 15px;
+	font-size: var(--fontSizePM);
 }
 
 .character-subpage-psychology-big-five-aspect-value-percentile {
 	margin-left: auto;
-	font-size: 14px;
+	font-size: var(--fontSizePS);
 	font-weight: 700;
 }
 
 .character-subpage-psychology-big-five-aspect-value-text {
 	text-align: right;
-	font-size: 14px;
+	font-size: var(--fontSizePS);
 	font-weight: 500;
 }

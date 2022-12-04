@@ -53,19 +53,19 @@
 
 .multi-line-text-input {
 	position: relative;
-	min-height: 32px;
+	min-height: var(--fontSizePMHeight);
 }
 
 .multi-line-text-input-container-empty .multi-line-text-input {
-	height: 32px;
+	height: var(--fontSizePMHeight);
 }
 
 .multi-line-text-input-container-seamless.multi-line-text-input-container-empty .multi-line-text-input {
-	height: 23px;
+	height: var(--fontSizePMHeight);
 }
 
 .multi-line-text-input-container-seamless .multi-line-text-input {
-	min-height: 19px;
+	min-height: var(--fontSizePMHeight);
 	margin-bottom: -4px;
 }
 
@@ -84,9 +84,8 @@
 
 .multi-line-text-input-container-empty .multi-line-text-input-label {
 	padding-top: 5px;
-	height: 18px;
-
-	font-size: 16px;
+	min-height: var(--fontSizePMHeight);
+	font-size: var(--fontSizePM);
 	vertical-align: middle;
 }
 
@@ -142,7 +141,7 @@
 
 .multi-line-text-input-container-empty textarea {
 	position: relative;
-	top: -19px;
+	top: calc((-1 * var(--fontSizePMHeight)) - 1px);
 	font-size: 18px;
 }
 

@@ -34,33 +34,26 @@
 }
 
 .character-subpage-physical-attribute-item-title .text-input-label ~ input {
-	margin-top: 2px;
-	height: 17px;
+	height: var(--fontSizePMHeight);
 }
 
 .character-subpage-physical-attribute-item-title .text-input-label {
-	margin-top: -5px;
-	font-size: 15px;
+	font-size: var(--fontSizePM);
 }
 
 .character-subpage-physical-attribute-item-title,
 .character-subpage-physical-attribute-item-title input {
-	font-size: 14px;
+	font-size: var(--fontSizePM);
 	font-weight: 700;
 }
 
 .character-subpage-physical-attribute-item .text-input-container-empty {
-	margin-top: 3px;
-	margin-bottom: 4px;
-	height: 17px;
+	margin-bottom: 5px;
+	height: var(--fontSizePMHeight);
 }
 
 .character-subpage-physical-attribute-item-text {
-	min-height: 23px;
-}
-
-.character-subpage-physical-attribute-item-text .multi-line-text-input-label {
-	font-size: 15px;
+	min-height: var(--fontSizePMHeight);
 }
 
 .character-subpage-physical-attribute-item-btns-container {
@@ -106,7 +99,7 @@
 
 .character-subpage-physical-attribute-item-image-item-caption,
 .character-subpage-physical-attribute-item-image-item-caption input {
-	font-size: 14px;
+	font-size: var(--fontSizePM);
 	min-height: 20px;
 }
 

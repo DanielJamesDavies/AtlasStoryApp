@@ -5,6 +5,7 @@
 .substory-subpage-miscellaneous-item-container .content-item {
 	margin-left: 0;
 	margin-right: 0;
+	padding-right: 8px;
 }
 
 .substory-subpage-miscellaneous-item-container:last-child {
@@ -104,7 +105,6 @@
 }
 
 .substory-subpage-miscellaneous-item-title {
-	margin-bottom: 3px;
 	word-break: break-word;
 	overflow-wrap: anywhere;
 }
@@ -115,20 +115,16 @@
 
 .substory-subpage-miscellaneous-item-title,
 .substory-subpage-miscellaneous-item-title input {
-	font-size: 14px;
+	font-size: var(--fontSizePM);
 	font-weight: 700;
 }
 
 .substory-subpage-miscellaneous-item .text-input-container-empty {
-	height: 20px;
-}
-
-.substory-subpage-miscellaneous-item .text-input-container-empty .text-input-label {
-	padding-top: 1px;
+	height: var(--fontSizePMHeight);
 }
 
 .substory-subpage-miscellaneous-item-text {
-	min-height: 23px;
+	min-height: var(--fontSizePMHeight);
 }
 
 .substory-subpage-miscellaneous-item-image-item-caption {

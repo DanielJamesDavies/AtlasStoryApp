@@ -31,31 +31,24 @@
 
 .character-subpage-biography-cluster-item-title,
 .character-subpage-biography-cluster-item-title input {
-	font-size: 14px;
+	font-size: var(--fontSizePM);
 	font-weight: 700;
 }
 
 .character-subpage-biography-cluster-item-title {
-	margin-bottom: 3px;
+	margin-bottom: 0;
 }
 
-.character-subpage-biography-cluster-item-title .text-input {
-	margin-top: 2px;
+.editable-container-is-editing .character-subpage-biography-cluster-item-text {
+	margin-top: -4px;
 }
 
 .character-subpage-biography-cluster-item-title .text-input-label ~ input {
-	margin-top: 2px;
 	height: 17px;
 }
 
 .character-subpage-biography-cluster-item-title .text-input-label {
 	margin-top: -5px;
-}
-
-.character-subpage-biography-cluster-item-title,
-.character-subpage-biography-cluster-item-title input {
-	font-size: 14px;
-	font-weight: 700;
 }
 
 .character-subpage-biography-cluster-item .text-input-container-empty {

@@ -19,6 +19,7 @@ export const SliderInput = ({ value, min, max, step, onChange, enableSlider, has
 		value,
 		min,
 		max,
+		enableSlider,
 		hasPercentageColours,
 		flipPercentageColours,
 		hasThumb,

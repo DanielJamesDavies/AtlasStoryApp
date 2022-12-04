@@ -38,23 +38,13 @@
 }
 
 .substory-subpage-plot-item-label,
+.substory-subpage-plot-item-label .text-input-label,
 .substory-subpage-plot-item-label input {
-	font-size: 14px;
+	font-size: var(--fontSizeH2);
 	font-weight: 700;
 }
 
-.substory-subpage-plot-item-label .text-input {
-	height: 17px;
-}
-
-.substory-subpage-plot-item-label .text-input .text-input-label {
-	padding-top: 0px !important;
-}
-
-.substory-subpage-plot-item-label.text-input-container input {
-	padding-top: 2px;
-}
-
-.substory-subpage-plot-item-label.text-input-container-empty input {
-	padding-top: 4px;
+.substory-subpage-plot-item-label.text-input-container-empty {
+	margin-top: -1px;
+	margin-bottom: 4px;
 }

@@ -13,12 +13,13 @@ import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react
 
 // Assets
 
-export const SliderInputLogic = ({ value, min, max, hasPercentageColours, flipPercentageColours, hasThumb, label }) => {
+export const SliderInputLogic = ({ value, min, max, enableSlider, hasPercentageColours, flipPercentageColours, hasThumb, label }) => {
 	const [sliderInputContainerClassName, setSliderInputContainerClassName] = useState({});
 
 	useEffect(() => {
 		function getSliderInputContainerClassName() {
 			let newSliderInputContainerClassName = "slider-input-container";
+			if (enableSlider) newSliderInputContainerClassName += " slider-input-container-enabled";
 			if (hasThumb) newSliderInputContainerClassName += " slider-input-container-has-thumb";
 			if (label !== undefined) newSliderInputContainerClassName += " slider-input-container-has-label";
 			if (hasPercentageColours) {
@@ -46,7 +47,7 @@ export const SliderInputLogic = ({ value, min, max, hasPercentageColours, flipPe
 			setSliderInputContainerClassName(newSliderInputContainerClassName);
 		}
 		getSliderInputContainerClassName();
-	}, [setSliderInputContainerClassName, value, max, hasPercentageColours, flipPercentageColours, hasThumb, label]);
+	}, [setSliderInputContainerClassName, value, max, enableSlider, hasPercentageColours, flipPercentageColours, hasThumb, label]);
 
 	const [sliderThumbStyles, setSliderThumbStyles] = useState({});
 

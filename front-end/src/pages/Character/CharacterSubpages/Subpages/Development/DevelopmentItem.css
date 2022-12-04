@@ -105,7 +105,6 @@
 }
 
 .character-subpage-development-item-title {
-	margin-bottom: 3px;
 	word-break: break-word;
 	overflow-wrap: anywhere;
 }
@@ -116,20 +115,16 @@
 
 .character-subpage-development-item-title,
 .character-subpage-development-item-title input {
-	font-size: 14px;
+	font-size: var(--fontSizePM);
 	font-weight: 700;
 }
 
 .character-subpage-development-item .text-input-container-empty {
-	height: 20px;
-}
-
-.character-subpage-development-item .text-input-container-empty .text-input-label {
-	padding-top: 1px;
+	height: var(--fontSizePMHeight);
 }
 
 .character-subpage-development-item-text {
-	min-height: 23px;
+	min-height: var(--fontSizePMHeight);
 }
 
 .character-subpage-development-item-image-item-caption {
