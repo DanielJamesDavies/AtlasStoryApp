@@ -48,9 +48,9 @@ const UserSchema = mongoose.Schema({
 			type: String,
 			default: "dark",
 		},
-		fontSizeMultiplier: {
+		fontSize: {
 			type: String,
-			default: "1",
+			default: "m",
 		},
 	},
 	verified: { type: Boolean, require: true },

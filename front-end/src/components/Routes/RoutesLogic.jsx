@@ -33,7 +33,7 @@ import { AppContext } from "../../context/AppContext";
 export const RoutesLogic = () => {
 	const { location, changeLocation } = useContext(RoutesContext);
 	const { APIRequest, user_id, setUserID, username, setUsername, setUserProfilePicture } = useContext(APIContext);
-	const { changeAccentColour, changeAccentHoverColour, setUITheme, setFontSizeMultiplier } = useContext(AppContext);
+	const { changeAccentColour, changeAccentHoverColour, setUITheme, setFontSize } = useContext(AppContext);
 
 	const contentContainerRef = useRef();
 	const [renderComponent, setRenderComponent] = useState(null);
@@ -181,10 +181,7 @@ export const RoutesLogic = () => {
 			if (user?._id && user._id !== user_id) setUserID(user._id);
 			if (user?.username && user.username !== username) setUsername(user.username);
 			if (user?.data?.uiTheme) setUITheme(user.data.uiTheme);
-			if (user?.data?.fontSizeMultiplier) {
-				const newFontSizeMultiplier = Number(user.data.fontSizeMultiplier);
-				setFontSizeMultiplier(isNaN(newFontSizeMultiplier) ? 1 : newFontSizeMultiplier);
-			}
+			if (user?.data?.fontSize) setFontSize(user.data.fontSize);
 
 			getUserProfilePicture(user?.data?.profilePicture);
 
@@ -200,7 +197,7 @@ export const RoutesLogic = () => {
 		}
 
 		getUser();
-	}, [APIRequest, user_id, setUserID, username, setUsername, setUITheme, setFontSizeMultiplier, setUserProfilePicture]);
+	}, [APIRequest, user_id, setUserID, username, setUsername, setUITheme, setFontSize, setUserProfilePicture]);
 
 	useEffect(() => {
 		contentContainerRef.current.scrollTop = 0;

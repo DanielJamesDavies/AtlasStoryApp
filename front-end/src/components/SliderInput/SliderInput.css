@@ -2,18 +2,27 @@
 	position: relative;
 	margin: 0;
 	width: 100%;
-	height: 22px;
+}
+
+.slider {
+	position: relative;
 }
 
 .slider-input {
 	position: relative;
-	z-index: 2;
+	z-index: 10;
 	-webkit-appearance: none;
 	margin: 0;
 	width: 100%;
 	height: 100%;
 	background: transparent;
 	cursor: pointer;
+}
+
+.slider-input-container-has-thumb .slider-input {
+	position: relative;
+	top: 2px;
+	height: 24px;
 }
 
 .slider-input::-webkit-slider-thumb {
@@ -42,6 +51,46 @@
 	background: var(--grey5);
 	background: transparent;
 	cursor: pointer;
+}
+
+.slider-input-container-has-thumb .slider-input-thumb {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 2;
+	display: block;
+	content: "";
+	border-radius: 4px;
+
+	width: 4px;
+	height: 24px;
+
+	background: #fff;
+	pointer-events: none;
+	user-select: none;
+	cursor: pointer;
+}
+
+.slider-input-label-container {
+	position: relative;
+	width: 100%;
+	pointer-events: none;
+	user-select: none;
+}
+
+.slider-input-label-container-empty {
+	opacity: 0;
+}
+
+.slider-input-label {
+	position: relative;
+	padding: 4px 8px;
+	border-radius: 4px;
+	background: var(--grey3);
+	width: fit-content;
+	pointer-events: none;
+	user-select: none;
+	font-size: var(--fontSizePM);
 }
 
 .slider-input-progress {
@@ -118,11 +167,14 @@
 		position: relative;
 		margin: 0;
 		width: 100%;
-		height: 28px;
 	}
 
 	.slider-input-progress,
 	.slider-input-background {
 		height: 9px;
+	}
+
+	.slider-input-container-has-thumb .slider-input-thumb {
+		width: 6px;
 	}
 }

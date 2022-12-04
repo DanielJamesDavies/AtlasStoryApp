@@ -17,7 +17,7 @@
 
 .characters-character-types-primary-title {
 	margin-top: -1px;
-	font-size: calc(22px * var(--fontSizeMultiplier));
+	font-size: 22px;
 	font-weight: 700;
 	vertical-align: middle;
 }
@@ -80,7 +80,7 @@
 	}
 
 	.characters-character-types-primary-title {
-		font-size: calc(22px * var(--fontSizeMultiplier));
+		font-size: 22px;
 	}
 
 	.characters-character-types-primary-modify-btn {

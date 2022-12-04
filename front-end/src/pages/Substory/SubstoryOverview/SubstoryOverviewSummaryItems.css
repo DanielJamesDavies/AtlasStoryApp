@@ -34,14 +34,14 @@
 
 .substory-overview-summary-item-label,
 .substory-overview-summary-item-label input {
-	font-size: calc(14px * var(--fontSizeMultiplier));
+	font-size: 14px;
 	font-weight: 400;
 	min-height: 16px;
 }
 
 .substory-overview-summary-item-text,
 .substory-overview-summary-item-text input {
-	font-size: calc(14px * var(--fontSizeMultiplier));
+	font-size: 14px;
 	font-weight: 700;
 	min-height: 17px;
 }

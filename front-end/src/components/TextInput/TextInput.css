@@ -11,6 +11,7 @@
 	background: var(--grey3);
 	color: #777;
 	font-family: "Inter", sans-serif;
+	font-size: var(--fontSizePM);
 	transition: border-color 0.1s;
 	vertical-align: middle;
 	cursor: text;
@@ -81,7 +82,7 @@
 
 .text-input {
 	position: relative;
-	height: 32px;
+	height: var(--fontSizePMHeight);
 }
 
 .text-input-container-seamless .text-input {
@@ -91,7 +92,7 @@
 .text-input-label {
 	margin: 0;
 	text-align: left;
-	font-size: 12px;
+	font-size: var(--fontSizePS);
 	font-weight: 500;
 	transition: 0.1s;
 	color: #bbbbbb;
@@ -103,15 +104,15 @@
 
 .text-input-container-empty .text-input-label {
 	padding-top: 5px;
-	height: 18px;
+	height: var(--fontSizePMHeight);
 
-	font-size: 16px;
+	font-size: var(--fontSizePM);
 	vertical-align: middle;
 }
 
 .text-input-container-size-s.text-input-container-empty .text-input-label {
 	padding-top: 6px;
-	font-size: 14px;
+	font-size: var(--fontSizePM);
 }
 
 .text-input-container-seamless .text-input-label {
@@ -122,6 +123,13 @@
 
 .text-input-container-seamless.text-input-container-empty .text-input-label {
 	display: block;
+	margin-top: -1px;
+	margin-bottom: -1px;
+}
+
+.font-size-xs .text-input-container-seamless.text-input-container-empty .text-input-label {
+	display: block;
+	margin-bottom: 2px;
 }
 
 .text-input-label svg {
@@ -152,13 +160,13 @@
 	background: rgba(0, 0, 0, 0);
 	color: var(--textColour);
 	caret-color: var(--textColour);
-	font-size: 16px;
+	font-size: var(--fontSizePM);
 	font-family: "Inter", sans-serif;
 	transition: border 0.1s;
 }
 
 .text-input-container-size-s .text-input input {
-	font-size: 14px;
+	font-size: var(--fontSizePM);
 }
 
 .text-input input:-webkit-autofill,
@@ -174,9 +182,9 @@
 }
 
 .text-input-container-empty input {
-	position: relative;
-	top: -19px;
-	font-size: 18px;
+	position: absolute;
+	top: 3px;
+	font-size: var(--fontSizePM);
 }
 
 .text-input-container-light-text input {

@@ -5,6 +5,7 @@ import { UserSettingsUsername } from "./UserSettingsUsername/UserSettingsUsernam
 import { UserSettingsPassword } from "./UserSettingsPassword/UserSettingsPassword";
 import { UserSettingsEmail } from "./UserSettingsEmail/UserSettingsEmail";
 import { UserSettingsTheme } from "./UserSettingsTheme/UserSettingsTheme";
+import { UserSettingsFontSize } from "./UserSettingsFontSize/UserSettingsFontSize";
 import { UserSettingsConnectToSpotify } from "./UserSettingsConnectToSpotify/UserSettingsConnectToSpotify";
 import { UserSettingsCookiesConsent } from "./UserSettingsCookiesConsent/UserSettingsCookiesConsent";
 import { UserSettingsDelete } from "./UserSettingsDelete/UserSettingsDelete";
@@ -26,7 +27,13 @@ export const UserSettings = () => {
 	const { isDisplayingSettings, closeSettings } = UserSettingsLogic();
 
 	return (
-		<PopUpContainer className='user-settings-container' title='User Settings' isDisplaying={isDisplayingSettings} onClosePopUp={closeSettings}>
+		<PopUpContainer
+			className='user-settings-container'
+			title='User Settings'
+			isDisplaying={isDisplayingSettings}
+			onClosePopUp={closeSettings}
+			nullOnHidden={true}
+		>
 			<div className='user-settings-form'>
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Username</div>
@@ -43,6 +50,10 @@ export const UserSettings = () => {
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Theme</div>
 					<UserSettingsTheme />
+				</div>
+				<div className='user-settings-section-container'>
+					<div className='user-settings-section-label'>Font Size</div>
+					<UserSettingsFontSize />
 				</div>
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Connect This Device to Spotfiy</div>

@@ -123,7 +123,7 @@
 
 	background: rgba(0, 0, 0, 0);
 	color: var(--textColour);
-	font-size: calc(15px * var(--fontSizeMultiplier));
+	font-size: var(--fontSizePM);
 	font-family: "Inter", sans-serif;
 	transition: border 0.1s;
 }
@@ -156,7 +156,7 @@
 }
 
 .multi-line-text-input-container-seamless textarea {
-	font-size: calc(15px * var(--fontSizeMultiplier));
+	font-size: var(--fontSizePM);
 	white-space: pre-wrap;
 }
 
@@ -179,7 +179,7 @@
 
 .multi-line-text-input-height-element p {
 	margin: 0;
-	min-height: calc(18px * var(--fontSizeMultiplier));
+	min-height: 18px;
 	word-wrap: break-word;
 }
 
@@ -188,13 +188,13 @@
 }
 
 .multi-line-text-input-container-seamless.multi-line-text-input-container-empty .multi-line-text-input-height-element {
-	height: calc(18px * var(--fontSizeMultiplier));
+	height: 18px;
 }
 
 .multi-line-text-input-container-seamless .multi-line-text-input-height-element {
-	font-size: calc(15px * var(--fontSizeMultiplier));
+	font-size: var(--fontSizePM);
 }
 
 .multi-line-text-input-container-seamless .multi-line-text-input-height-element p {
-	min-height: calc(19px * var(--fontSizeMultiplier));
+	min-height: var(--fontSizePMHeight);
 }

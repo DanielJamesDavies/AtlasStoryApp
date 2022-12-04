@@ -19,7 +19,7 @@
 	margin-top: -1px;
 	margin-bottom: 1px;
 	margin-left: 6px;
-	font-size: calc(22px * var(--fontSizeMultiplier));
+	font-size: 22px;
 	font-weight: 700;
 	max-width: calc(100% - 115px);
 }
@@ -80,7 +80,7 @@
 	}
 
 	.characters-group-primary-title {
-		font-size: calc(24px * var(--fontSizeMultiplier));
+		font-size: 24px;
 	}
 
 	.characters-group-primary-buttons-container {

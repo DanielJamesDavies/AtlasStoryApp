@@ -3,13 +3,19 @@
 }
 
 .substory-primary-title-container,
-.substory-primary-title-container input {
+.substory-primary-title,
+.substory-primary-title input {
 	width: fit-content;
 	font-size: 40px;
 	font-weight: 700;
 	transition: 0.5s color;
 	word-break: break-word;
 	overflow-wrap: anywhere;
+}
+
+.editable-container-is-editing.substory-primary-title-container {
+	margin-top: -4px;
+	margin-bottom: 1px;
 }
 
 @media (max-width: 750px) {
@@ -20,5 +26,10 @@
 	.substory-primary-title-container,
 	.substory-primary-title-container input {
 		font-size: 26px;
+	}
+
+	.editable-container-is-editing.substory-primary-title-container {
+		margin-top: -2px;
+		margin-bottom: 4px;
 	}
 }

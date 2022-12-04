@@ -16,7 +16,7 @@
 
 .characters-groups-primary-title {
 	margin-top: -1px;
-	font-size: calc(22px * var(--fontSizeMultiplier));
+	font-size: 22px;
 	font-weight: 700;
 	vertical-align: middle;
 }
@@ -79,7 +79,7 @@
 
 	background: var(--grey3);
 	color: var(--textColour);
-	font-size: calc(15px * var(--fontSizeMultiplier));
+	font-size: 15px;
 	text-align: left;
 	transition: 0.2s;
 	cursor: pointer;
@@ -108,7 +108,7 @@
 	}
 
 	.characters-groups-primary-title {
-		font-size: calc(24px * var(--fontSizeMultiplier));
+		font-size: 24px;
 	}
 
 	.characters-groups-primary-modify-btn {

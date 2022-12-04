@@ -22,7 +22,7 @@
 	border-radius: 18px;
 
 	width: 70px;
-	min-height: calc(15px);
+	min-height: 15px;
 
 	background: linear-gradient(90deg, var(--grey3), var(--grey5), var(--grey3));
 	background-size: 400%;

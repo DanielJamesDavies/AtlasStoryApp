@@ -54,7 +54,7 @@
 
 .character-subpage-biography-cluster-item-title,
 .character-subpage-biography-cluster-item-title input {
-	font-size: calc(14px * var(--fontSizeMultiplier));
+	font-size: 14px;
 	font-weight: 700;
 }
 

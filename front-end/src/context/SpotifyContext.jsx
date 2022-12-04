@@ -189,6 +189,7 @@ const SpofityProvider = ({ children }) => {
 	}, [spotify_access_token, spotify_refresh_token, APIRequest, spotifyAuthorizationTimeout, hasAttemptedAuthorization, redirect_uri]);
 
 	const SpotifyRequest = async (path, method, body, access_token) => {
+		if (window !== window.parent) return false;
 		if (!spotify_access_token || !connectDeviceToSpotify) return false;
 
 		let data = { method, headers: { Authorization: "Bearer " + spotify_access_token } };

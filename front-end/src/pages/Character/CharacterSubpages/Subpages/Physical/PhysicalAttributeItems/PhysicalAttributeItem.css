@@ -40,12 +40,12 @@
 
 .character-subpage-physical-attribute-item-title .text-input-label {
 	margin-top: -5px;
-	font-size: calc(15px * var(--fontSizeMultiplier));
+	font-size: 15px;
 }
 
 .character-subpage-physical-attribute-item-title,
 .character-subpage-physical-attribute-item-title input {
-	font-size: calc(14px * var(--fontSizeMultiplier));
+	font-size: 14px;
 	font-weight: 700;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .character-subpage-physical-attribute-item-text .multi-line-text-input-label {
-	font-size: calc(15px * var(--fontSizeMultiplier));
+	font-size: 15px;
 }
 
 .character-subpage-physical-attribute-item-btns-container {

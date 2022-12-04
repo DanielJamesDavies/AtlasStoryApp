@@ -34,18 +34,27 @@
 
 .character-overview-summary-item-label,
 .character-overview-summary-item-label input {
-	font-size: calc(13px * var(--fontSizeMultiplier));
-	min-height: 16px;
+	font-size: var(--fontSizePS);
+	min-height: var(--fontSizePSHeight);
 }
 
 .character-overview-summary-item-text,
 .character-overview-summary-item-text input {
-	font-size: calc(14px * var(--fontSizeMultiplier));
-	min-height: 17px;
+	font-size: var(--fontSizePM);
+	min-height: var(--fontSizePMHeight);
 }
 
 .character-overview-summary-item-text.text-input-container {
-	margin-top: -6px;
+	margin-top: -4px;
+}
+
+.character-overview-summary-item-label.text-input-container {
+	margin-top: 1px;
+}
+
+.character-overview-summary-item-value.text-input-container {
+	margin-top: -1px;
+	margin-bottom: 3px;
 }
 
 .character-overview-summary-item-label.text-input-container-empty .text-input {
@@ -54,7 +63,7 @@
 
 .character-overview-summary-item-label .text-input-label {
 	margin-top: -4px;
-	font-size: 13px;
+	font-size: var(--fontSizePS);
 	font-weight: 400;
 }
 
@@ -64,7 +73,7 @@
 
 .character-overview-summary-item-text .text-input-label {
 	margin-top: -4px;
-	font-size: 14px;
+	font-size: var(--fontSizePM);
 	font-weight: 700;
 }
 

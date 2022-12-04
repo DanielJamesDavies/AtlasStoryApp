@@ -10,7 +10,6 @@
 	--red2: #ee4400;
 	--green: #00ff44;
 	--lightgreen: #00ffaa;
-	--fontSizeMultiplier: 1;
 	--navbarWidth: 68px;
 	--navbarMobileHeight: 58px;
 }
@@ -46,6 +45,59 @@
 	--textColour: #000000;
 	--textSecondaryColour: #888888;
 	--textTertiaryColour: #aaaaaa;
+}
+
+.font-size-xs {
+	--fontSizePS: 11px;
+	--fontSizePSHeight: 14px;
+	--fontSizePM: 12px;
+	--fontSizePMHeight: 15px;
+	--fontSizeH1: 17px;
+	--fontSizeH2: 15px;
+	--fontSizeH3: 14px;
+	--fontSizeH4: 13px;
+	--fontSizeH5: 12px;
+	--fontSizeH6: 12px;
+}
+
+.font-size-s {
+	--fontSizePS: 13px;
+	--fontSizePSHeight: 16px;
+	--fontSizePM: 14px;
+	--fontSizePMHeight: 17px;
+	--fontSizeH1: 18px;
+	--fontSizeH2: 15px;
+	--fontSizeH3: 14px;
+	--fontSizeH4: 13px;
+	--fontSizeH5: 12px;
+	--fontSizeH6: 12px;
+}
+
+.App,
+.font-size-m {
+	--fontSizePS: 14px;
+	--fontSizePSHeight: 17px;
+	--fontSizePM: 15px;
+	--fontSizePMHeight: 19px;
+	--fontSizeH1: 19px;
+	--fontSizeH2: 16px;
+	--fontSizeH3: 15px;
+	--fontSizeH4: 14px;
+	--fontSizeH5: 13px;
+	--fontSizeH6: 13px;
+}
+
+.font-size-l {
+	--fontSizePS: 15px;
+	--fontSizePSHeight: 19px;
+	--fontSizePM: 16px;
+	--fontSizePMHeight: 20px;
+	--fontSizeH1: 21px;
+	--fontSizeH2: 17px;
+	--fontSizeH3: 16px;
+	--fontSizeH4: 15px;
+	--fontSizeH5: 14px;
+	--fontSizeH6: 14px;
 }
 
 html,

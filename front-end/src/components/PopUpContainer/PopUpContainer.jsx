@@ -15,7 +15,8 @@ import "./PopUpContainer.css";
 
 // Assets
 
-export const PopUpContainer = ({ children, className, title, isDisplaying, onClosePopUp }) => {
+export const PopUpContainer = ({ children, className, title, isDisplaying, onClosePopUp, nullOnHidden }) => {
+	if (!isDisplaying && nullOnHidden) return null;
 	return (
 		<div
 			className={isDisplaying ? (className === undefined ? "pop-up-container" : "pop-up-container " + className) : "pop-up-container-hidden"}

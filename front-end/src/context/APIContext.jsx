@@ -7,7 +7,7 @@ const APIProvider = ({ children }) => {
 	const [username, setUsername] = useState(false);
 	const [userProfilePicture, setUserProfilePicture] = useState(false);
 	const [cookiesConsent, setCookiesConsent] = useState(false);
-	const API_URL = process.env.NODE_ENV === "development" ? "http://192.168.1.100:3001/api" : "https://www.atlas-story.app/api";
+	const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api" : "https://www.atlas-story.app/api";
 
 	const APIRequest = async (path, method, body) => {
 		let data = {

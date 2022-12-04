@@ -1,5 +1,6 @@
 .character-primary-type-container {
-	margin-top: 3px;
+	margin-top: 12px;
+	margin-bottom: -12px;
 	margin-left: 48px;
 	width: fit-content;
 }
@@ -31,6 +32,8 @@
 
 @media (max-width: 750px) {
 	.character-primary-type-container {
+		margin-top: 0;
+		margin-bottom: 0;
 		margin-left: 0;
 		width: fit-content;
 	}

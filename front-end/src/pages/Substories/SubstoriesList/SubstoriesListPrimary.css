@@ -11,7 +11,7 @@
 .substories-list-primary-title {
 	margin-top: -1px;
 	margin-bottom: 1px;
-	font-size: calc(26px * var(--fontSizeMultiplier));
+	font-size: 26px;
 	font-weight: 700;
 	max-width: calc(100% - 115px);
 }
@@ -49,7 +49,7 @@
 	}
 
 	.substories-list-primary-title {
-		font-size: calc(24px * var(--fontSizeMultiplier));
+		font-size: 24px;
 	}
 
 	.substories-list-primary-buttons-container {

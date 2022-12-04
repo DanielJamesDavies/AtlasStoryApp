@@ -1,5 +1,5 @@
 // Packages
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
 
 // Components
 
@@ -13,13 +13,14 @@ import { useState, useEffect } from "react";
 
 // Assets
 
-export const SliderInputLogic = ({ value, max, hasPercentageColours, flipPercentageColours }) => {
+export const SliderInputLogic = ({ value, min, max, hasPercentageColours, flipPercentageColours, hasThumb, label }) => {
 	const [sliderInputContainerClassName, setSliderInputContainerClassName] = useState({});
-	const [sliderProgressStyles, setSliderProgressStyles] = useState({});
 
 	useEffect(() => {
 		function getSliderInputContainerClassName() {
 			let newSliderInputContainerClassName = "slider-input-container";
+			if (hasThumb) newSliderInputContainerClassName += " slider-input-container-has-thumb";
+			if (label !== undefined) newSliderInputContainerClassName += " slider-input-container-has-label";
 			if (hasPercentageColours) {
 				const valuePercentage = !flipPercentageColours ? (value / max) * 100 : 100 - (value / max) * 100;
 				if (valuePercentage <= 4) {
@@ -45,17 +46,46 @@ export const SliderInputLogic = ({ value, max, hasPercentageColours, flipPercent
 			setSliderInputContainerClassName(newSliderInputContainerClassName);
 		}
 		getSliderInputContainerClassName();
-	}, [setSliderInputContainerClassName, value, max, hasPercentageColours, flipPercentageColours]);
+	}, [setSliderInputContainerClassName, value, max, hasPercentageColours, flipPercentageColours, hasThumb, label]);
+
+	const [sliderThumbStyles, setSliderThumbStyles] = useState({});
+
+	useEffect(() => {
+		function getSliderThumbStyles() {
+			var newSliderThumbStyles = {};
+			newSliderThumbStyles.left = "calc(" + (value / max) * 100 + "% - (" + value / max + " * " + (window.innerWidth > 750 ? 4 : 6) + "px))";
+			setSliderThumbStyles(newSliderThumbStyles);
+		}
+		getSliderThumbStyles();
+	}, [setSliderThumbStyles, value, min, max]);
+
+	const [sliderLabelStyles, setSliderLabelStyles] = useState({ opacity: 0 });
+	const labelRef = useRef();
+
+	const getSliderLabelStyles = useCallback(() => {
+		if (!labelRef?.current?.clientWidth || labelRef?.current?.clientWidth === 0) return;
+		var newSliderThumbStyles = {};
+		newSliderThumbStyles.left = "calc(" + (value / max) * 100 + "% - ((" + labelRef?.current?.clientWidth + "px + 8px) / 2) + 5px)";
+		if (parseInt(value) === parseInt(min)) newSliderThumbStyles.left = "0px";
+		if (parseInt(value) === parseInt(max)) newSliderThumbStyles.left = "calc(100% - " + labelRef?.current?.clientWidth + "px)";
+		setSliderLabelStyles(newSliderThumbStyles);
+	}, [setSliderLabelStyles, labelRef, value, min, max]);
+
+	useLayoutEffect(() => {
+		getSliderLabelStyles();
+	}, [setSliderLabelStyles, getSliderLabelStyles, label, labelRef, value, min, max]);
+
+	const [sliderProgressStyles, setSliderProgressStyles] = useState({});
 
 	useEffect(() => {
 		function getSliderProgressStyles() {
 			var newSliderProgressStyles = {};
-			newSliderProgressStyles.width = "calc(" + (value / max) * 100 + "% + 5px)";
+			newSliderProgressStyles.width = "calc(" + (value / max) * 100 + "%" + (hasThumb ? "" : " + 5px") + ")";
 			if (value / max === 1) newSliderProgressStyles.width = "calc(" + (value / max) * 100 + "%)";
 			setSliderProgressStyles(newSliderProgressStyles);
 		}
 		getSliderProgressStyles();
-	}, [value, max, setSliderProgressStyles]);
+	}, [setSliderProgressStyles, value, max, hasThumb]);
 
-	return { sliderInputContainerClassName, sliderProgressStyles };
+	return { sliderInputContainerClassName, sliderThumbStyles, sliderLabelStyles, labelRef, sliderProgressStyles };
 };

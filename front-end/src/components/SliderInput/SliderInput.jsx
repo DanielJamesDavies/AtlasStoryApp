@@ -14,27 +14,40 @@ import "./SliderInput.css";
 
 // Assets
 
-export const SliderInput = ({ value, min, max, step, onChange, enableSlider, hasPercentageColours, flipPercentageColours }) => {
-	const { sliderInputContainerClassName, sliderProgressStyles } = SliderInputLogic({
+export const SliderInput = ({ value, min, max, step, onChange, enableSlider, hasPercentageColours, flipPercentageColours, hasThumb, label }) => {
+	const { sliderInputContainerClassName, sliderThumbStyles, sliderLabelStyles, labelRef, sliderProgressStyles } = SliderInputLogic({
 		value,
+		min,
 		max,
 		hasPercentageColours,
 		flipPercentageColours,
+		hasThumb,
+		label,
 	});
 
 	return (
 		<div className={sliderInputContainerClassName}>
-			<input
-				className='slider-input'
-				type='range'
-				value={value}
-				onChange={!enableSlider ? () => {} : (e) => onChange(e)}
-				min={min}
-				max={max}
-				step={step}
-			/>
-			<div className='slider-input-progress' style={sliderProgressStyles} />
-			<div className='slider-input-background' />
+			<div className='slider'>
+				<input
+					className='slider-input'
+					type='range'
+					value={value}
+					onChange={!enableSlider ? () => {} : (e) => onChange(e)}
+					min={min}
+					max={max}
+					step={step}
+				/>
+				<div className='slider-input-thumb' style={sliderThumbStyles} />
+				<div className='slider-input-progress' style={sliderProgressStyles} />
+				<div className='slider-input-background' />
+			</div>
+			<div
+				className={label === undefined ? "slider-input-label-container slider-input-label-container-empty" : "slider-input-label-container"}
+			>
+				<div ref={labelRef} className='slider-input-label' style={sliderLabelStyles}>
+					{label}
+				</div>
+			</div>
 		</div>
 	);
 };

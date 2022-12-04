@@ -3,8 +3,8 @@
 	white-space: pre-wrap;
 	word-break: break-word;
 	overflow-wrap: anywhere;
-	font-size: calc(15px * var(--fontSizeMultiplier));
-	line-height: calc(19px * var(--fontSizeMultiplier));
+	font-size: var(--fontSizePM);
+	line-height: var(--fontSizePMHeight);
 	display: grid;
 	gap: 0;
 }
@@ -16,37 +16,37 @@
 .text-container h1 {
 	margin: 4px 0;
 	margin-top: calc(4px + 12px);
-	font-size: calc(19px * var(--fontSizeMultiplier));
+	font-size: var(--fontSizeH1);
 }
 
 .text-container h2 {
 	margin: 4px 0;
 	margin-top: calc(4px + 12px);
-	font-size: calc(16px * var(--fontSizeMultiplier));
+	font-size: var(--fontSizeH2);
 }
 
 .text-container h3 {
 	margin: 4px 0;
 	margin-top: calc(4px + 12px);
-	font-size: calc(15px * var(--fontSizeMultiplier));
+	font-size: var(--fontSizeH3);
 }
 
 .text-container h4 {
 	margin: 4px 0;
 	margin-top: calc(4px + 12px);
-	font-size: calc(14px * var(--fontSizeMultiplier));
+	font-size: var(--fontSizeH4);
 }
 
 .text-container h5 {
 	margin: 4px 0;
 	margin-top: calc(4px + 12px);
-	font-size: calc(13px * var(--fontSizeMultiplier));
+	font-size: var(--fontSizeH5);
 }
 
 .text-container h6 {
 	margin: 4px 0;
 	margin-top: calc(4px + 12px);
-	font-size: calc(13px * var(--fontSizeMultiplier));
+	font-size: var(--fontSizeH6);
 	font-weight: 400;
 	text-decoration: underline;
 }

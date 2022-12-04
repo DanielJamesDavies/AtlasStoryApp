@@ -13,7 +13,7 @@
 }
 
 .story-primary-characters-primary-title {
-	font-size: calc(20px * var(--fontSizeMultiplier));
+	font-size: 20px;
 	font-weight: 700;
 	color: var(--textColour);
 }
@@ -38,6 +38,6 @@
 	}
 
 	.story-primary-characters-primary-title {
-		font-size: calc(17px * var(--fontSizeMultiplier));
+		font-size: 17px;
 	}
 }

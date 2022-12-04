@@ -15,23 +15,23 @@ import { AppContext } from "../../context/AppContext";
 // Assets
 
 export const PageLogic = () => {
-	const { uiTheme, fontSizeMultiplier, accentColour, accentHoverColour } = useContext(AppContext);
+	const { uiTheme, fontSize, accentColour, accentHoverColour } = useContext(AppContext);
 	const [pageClassName, setPageClassName] = useState("page theme-dark");
 
 	useEffect(() => {
 		function getPageClassName() {
 			let newPageClassName = "page";
 			newPageClassName += " theme-" + uiTheme;
+			newPageClassName += " font-size-" + fontSize;
 			setPageClassName(newPageClassName);
 		}
 		getPageClassName();
-	}, [setPageClassName, uiTheme]);
+	}, [setPageClassName, uiTheme, fontSize]);
 
 	const [pageStyles, setPageStyles] = useState({
 		"--vh": window.innerHeight + "px",
 		"--accentColour": accentColour,
 		"--accentHoverColour": accentHoverColour,
-		"--fontSizeMultiplier": fontSizeMultiplier,
 	});
 
 	useEffect(() => {
@@ -40,13 +40,12 @@ export const PageLogic = () => {
 				"--vh": window.innerHeight + "px",
 				"--accentColour": accentColour,
 				"--accentHoverColour": accentHoverColour,
-				"--fontSizeMultiplier": fontSizeMultiplier,
 			});
 		}
 		getPageStyles();
 		window.addEventListener("resize", getPageStyles);
 		return () => window.removeEventListener("resize", getPageStyles);
-	}, [setPageStyles, fontSizeMultiplier, accentColour, accentHoverColour]);
+	}, [setPageStyles, accentColour, accentHoverColour]);
 
 	return { pageClassName, pageStyles };
 };

@@ -7,7 +7,8 @@
 }
 
 .character-primary-name-container,
-.character-primary-name-container input {
+.character-primary-name,
+.character-primary-name input {
 	width: fit-content;
 	font-size: 40px;
 	font-weight: 700;
@@ -15,8 +16,9 @@
 	color: var(--textColour);
 }
 
-.character-primary-name-container input {
-	margin-top: -8px;
+.editable-container-is-editing.character-primary-name-container {
+	margin-top: -4px;
+	margin-bottom: 1px;
 }
 
 @media (max-width: 750px) {
@@ -36,7 +38,7 @@
 	}
 
 	.editable-container-is-editing.character-primary-name-container {
-		margin-top: 3px;
-		margin-bottom: 5px;
+		margin-top: 2px;
+		margin-bottom: 4px;
 	}
 }

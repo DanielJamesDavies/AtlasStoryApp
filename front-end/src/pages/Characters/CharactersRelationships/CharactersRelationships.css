@@ -12,7 +12,7 @@
 
 .characters-relationship-primary-title {
 	margin-right: 12px;
-	font-size: calc(22px * var(--fontSizeMultiplier));
+	font-size: 22px;
 	font-weight: 700;
 	max-width: calc(100% - 115px);
 }
