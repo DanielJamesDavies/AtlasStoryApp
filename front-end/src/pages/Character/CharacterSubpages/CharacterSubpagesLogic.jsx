@@ -7,6 +7,7 @@ import { Psychology } from "./Subpages/Psychology/Psychology";
 import { Biography } from "./Subpages/Biography/Biography";
 import { Abilities } from "./Subpages/Abilities/Abilities";
 import { Physical } from "./Subpages/Physical/Physical";
+import { Relationships } from "./Subpages/Relationships/Relationships";
 import { Miscellaneous } from "./Subpages/Miscellaneous/Miscellaneous";
 import { Development } from "./Subpages/Development/Development";
 import { Settings } from "./Subpages/Settings/Settings";
@@ -40,7 +41,7 @@ export const CharacterSubpagesLogic = () => {
 				case "physical":
 					return <Physical />;
 				case "relationships":
-					return null;
+					return <Relationships />;
 				case "miscellaneous":
 					return <Miscellaneous />;
 				case "development":
