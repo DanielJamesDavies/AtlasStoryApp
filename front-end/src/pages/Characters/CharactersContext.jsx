@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, useEffect, useRef } from "r
 
 import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
+import { RecentDataContext } from "../../context/RecentDataContext";
 import { RoutesContext } from "../../context/RoutesContext";
 
 export const CharactersContext = createContext();
@@ -9,6 +10,7 @@ export const CharactersContext = createContext();
 const CharactersProvider = ({ children, story_uid }) => {
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { APIRequest } = useContext(APIContext);
+	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location } = useContext(RoutesContext);
 
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
@@ -34,16 +36,11 @@ const CharactersProvider = ({ children, story_uid }) => {
 	const [charactersCardBackgrounds, setCharactersCardBackgrounds] = useState(false);
 	const [charactersFaceImages, setCharactersFaceImages] = useState(false);
 
-	const curr_story_uid = useRef({ current: false });
-	const isGetting = useRef({ characterRelationships: false, charactersCardBackgrounds: false, charactersFaceImages: false });
-
+	const curr_story_uid = useRef(false);
+	const isGetting = useRef({ storyIcon: false, characterRelationships: false, charactersCardBackgrounds: false, charactersFaceImages: false });
 	useEffect(() => {
 		async function getInitial() {
-			if (!story_uid) {
-				setStory(false);
-				setGroups(false);
-				return;
-			}
+			if (!story_uid) return setStateToDefault();
 			if (curr_story_uid.current === story_uid) return;
 
 			let newStory = await getStory();
@@ -95,18 +92,32 @@ const CharactersProvider = ({ children, story_uid }) => {
 				setStateToDefault();
 				return false;
 			}
-			setStory(story_response.data.story);
 			curr_story_uid.current = story_response?.data?.story?.uid;
+			setStory(story_response.data.story);
 			setIsAuthorizedToEdit(story_response?.data?.isAuthorizedToEdit);
 			return story_response.data.story;
 		}
 
 		async function getStoryIcon(iconID) {
 			if (!iconID) return setStoryIcon(false);
-			const response = await APIRequest("/image/" + iconID, "GET");
-			if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
-			setStoryIcon(response.data.image.image);
-			return response.data.image;
+			if (isGetting.storyIcon) return;
+			isGetting.storyIcon = true;
+
+			let icon = false;
+			const recentImage = recentImages.current.find((e) => e?._id === iconID);
+			if (recentImage) {
+				icon = recentImage;
+			} else {
+				const response = await APIRequest("/image/" + iconID, "GET");
+				if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
+				icon = response?.data?.image;
+			}
+
+			addImagesToRecentImages([icon]);
+
+			setStoryIcon(icon.image);
+
+			return icon;
 		}
 
 		async function getGroups(groupIDs) {
@@ -172,12 +183,18 @@ const CharactersProvider = ({ children, story_uid }) => {
 			let newCharactersCardBackgrounds = await Promise.all(
 				newCharacters.map(async (character) => {
 					if (!character?.data?.cardBackground) return false;
+
+					const recentImage = recentImages.current.find((e) => e?._id === character?.data?.cardBackground);
+					if (recentImage) return recentImage;
+
 					const card_background_image_response = await APIRequest("/image/" + character.data.cardBackground, "GET");
 					if (card_background_image_response?.errors || !card_background_image_response?.data?.image?.image) return false;
 					return card_background_image_response.data.image;
 				})
 			);
 			newCharactersCardBackgrounds = newCharactersCardBackgrounds.filter((e) => e !== false);
+
+			addImagesToRecentImages(newCharactersCardBackgrounds);
 
 			setCharactersCardBackgrounds(newCharactersCardBackgrounds);
 			return newCharactersCardBackgrounds;
@@ -190,12 +207,18 @@ const CharactersProvider = ({ children, story_uid }) => {
 			let newCharactersFaceImages = await Promise.all(
 				newCharacters.map(async (character) => {
 					if (!character?.data?.faceImage) return false;
+
+					const recentImage = recentImages.current.find((e) => e?._id === character?.data?.faceImage);
+					if (recentImage) return recentImage;
+
 					const face_image_response = await APIRequest("/image/" + character.data.faceImage, "GET");
 					if (face_image_response?.errors || !face_image_response?.data?.image?.image) return false;
 					return face_image_response.data.image;
 				})
 			);
 			newCharactersFaceImages = newCharactersFaceImages.filter((e) => e !== false);
+
+			addImagesToRecentImages(newCharactersFaceImages);
 
 			setCharactersFaceImages(newCharactersFaceImages);
 			return newCharactersFaceImages;
@@ -226,6 +249,8 @@ const CharactersProvider = ({ children, story_uid }) => {
 		APIRequest,
 		setIsAuthorizedToEdit,
 		curr_story_uid,
+		recentImages,
+		addImagesToRecentImages,
 		setStory,
 		setStoryIcon,
 		setGroups,

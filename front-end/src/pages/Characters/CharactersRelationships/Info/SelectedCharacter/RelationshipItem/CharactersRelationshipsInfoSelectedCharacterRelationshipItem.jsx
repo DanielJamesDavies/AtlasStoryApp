@@ -18,17 +18,9 @@ import { FaTimes } from "react-icons/fa";
 
 // Assets
 
-export const CharactersRelationshipsInfoSelectedCharacterRelationshipItem = ({ relationship, isEditing }) => {
-	const {
-		story,
-		groups,
-		characters,
-		selectedCharacterRelationshipsCharacterId,
-		secondCharacter,
-		changeRelationshipSecondCharacter,
-		changeRelationshipType,
-		removeRelationship,
-	} = CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic({ relationship });
+export const CharactersRelationshipsInfoSelectedCharacterRelationshipItem = ({ relationship, isEditing, selectedCharacterRelationships }) => {
+	const { story, groups, characters, secondCharacter, changeRelationshipSecondCharacter, changeRelationshipType, removeRelationship } =
+		CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic({ relationship, selectedCharacterRelationships });
 
 	return (
 		<ContentItem
@@ -51,7 +43,13 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItem = ({ r
 							{groups
 								.map((group) =>
 									group?.data?.characters
-										.filter((character) => character.character_id !== selectedCharacterRelationshipsCharacterId)
+										.filter(
+											(character) =>
+												selectedCharacterRelationships
+													.filter((e) => !e?.isRemoved)
+													.findIndex((relationship) => relationship.character_ids.includes(character?.character_id)) ===
+												-1
+										)
 										.map((character) => characters.find((e) => e._id === character?.character_id))
 								)
 								.flat(1)

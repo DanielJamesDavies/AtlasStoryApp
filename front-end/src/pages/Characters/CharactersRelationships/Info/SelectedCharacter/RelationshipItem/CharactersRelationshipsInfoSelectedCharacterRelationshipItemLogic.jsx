@@ -14,7 +14,7 @@ import { CharactersContext } from "../../../../CharactersContext";
 
 // Assets
 
-export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic = ({ relationship }) => {
+export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic = ({ relationship, selectedCharacterRelationships }) => {
 	const {
 		story,
 		groups,
@@ -42,7 +42,12 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic =
 		const options = groups
 			.map((group) =>
 				group?.data?.characters
-					.filter((character) => character.character_id !== selectedCharacterRelationshipsCharacterId)
+					.filter(
+						(character) =>
+							selectedCharacterRelationships
+								.filter((e) => !e?.isRemoved)
+								.findIndex((relationship) => relationship.character_ids.includes(character?.character_id)) === -1
+					)
 					.map((character) => characters.find((e) => e._id === character?.character_id)?._id)
 			)
 			.flat(1)

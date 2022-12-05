@@ -13,6 +13,10 @@
 	padding-top: 24px;
 }
 
+.substories-list-substories-posters-placeholders-container {
+	margin-top: -48px;
+}
+
 @media (max-width: 750px) {
 	.substories-list-substories-posters-container {
 		margin-left: 0;

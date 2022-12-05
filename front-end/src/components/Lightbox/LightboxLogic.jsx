@@ -147,7 +147,7 @@ export const LightboxLogic = () => {
 		};
 	}, [lightboxContainerRef, lightBoxImageContainerRef]);
 
-	let prevDist = useRef({ current: false });
+	let prevDist = useRef(false);
 	// eslint-disable-next-line
 	const [points, setPoints] = useState(false);
 	let startCoords = useRef({ centerX: false, centerY: false });

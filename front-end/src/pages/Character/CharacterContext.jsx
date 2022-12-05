@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, useEffect, useMemo, useRef 
 
 import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
+import { RecentDataContext } from "../../context/RecentDataContext";
 import { RoutesContext } from "../../context/RoutesContext";
 
 export const CharacterContext = createContext();
@@ -9,6 +10,7 @@ export const CharacterContext = createContext();
 const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { APIRequest } = useContext(APIContext);
+	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location } = useContext(RoutesContext);
 
 	const [failure, setFailure] = useState(false);
@@ -48,14 +50,22 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const [subpages, setSubpages] = useState([]);
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 
-	const hasGotData = useRef({ characterOverviewBackground: false, characterCardBackground: false, faceImage: false, characterImages: false });
+	const curr_story_uid = useRef(false);
+	const curr_character_uid = useRef(false);
+	const isGetting = useRef({
+		storyIcon: false,
+		characterOverviewBackground: false,
+		characterCardBackground: false,
+		faceImage: false,
+		characterImages: false,
+	});
 	useEffect(() => {
 		async function getInitial() {
 			if (failure || !story_uid || !character_uid) {
 				setStateToDefault();
 				return;
 			}
-			if (story.uid === story_uid && character.uid === character_uid) return;
+			if (curr_story_uid.current === story_uid && curr_character_uid.current === character_uid) return;
 
 			let { newStory, newIsAuthorizedToEdit } = await getStory();
 			if (!newStory) return;
@@ -104,17 +114,29 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				return false;
 			}
 			setStory(story_response.data.story);
+			curr_story_uid.current = story_response?.data?.story?.uid;
 			setIsAuthorizedToEdit(story_response?.data?.isAuthorizedToEdit);
 			return { newStory: story_response.data.story, newIsAuthorizedToEdit: story_response?.data?.isAuthorizedToEdit };
 		}
 
 		async function getStoryIcon(iconID) {
 			if (!iconID) return setStoryIcon(false);
-			const response = await APIRequest("/image/" + iconID, "GET");
-			if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
+			if (isGetting.storyIcon) return;
+			isGetting.storyIcon = true;
 
-			setStoryIcon(response.data.image.image);
-			return response.data.image.image;
+			let icon = false;
+			const recentImage = recentImages.current.find((e) => e?._id === iconID);
+			if (recentImage) {
+				icon = recentImage;
+			} else {
+				const response = await APIRequest("/image/" + iconID, "GET");
+				if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
+				icon = response?.data?.image;
+			}
+
+			addImagesToRecentImages([icon]);
+
+			setStoryIcon(icon.image);
 		}
 
 		async function getCharacter(story_id) {
@@ -182,47 +204,79 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		async function getCharacterOverviewBackground(overviewBackgroundID) {
-			if (hasGotData?.characterOverviewBackground === true) return true;
-			if (!overviewBackgroundID) return;
+			if (!overviewBackgroundID || isGetting.characterOverviewBackground) return;
+			isGetting.characterOverviewBackground = true;
 
-			const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
-			if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) return false;
+			let overviewBackground = false;
 
-			setCharacterOverviewBackground(overview_background_image_response.data.image.image);
-			hasGotData.characterOverviewBackground = true;
-			return overview_background_image_response.data.image.image;
+			const recentImage = recentImages.current.find((e) => e?._id === overviewBackgroundID);
+			if (recentImage?.image) {
+				overviewBackground = recentImage;
+			} else {
+				const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
+				if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) return false;
+				overviewBackground = overview_background_image_response?.data?.image;
+			}
+
+			addImagesToRecentImages([overviewBackground]);
+
+			setCharacterOverviewBackground(overviewBackground.image);
+			return overviewBackground.image;
 		}
 
 		async function getCharacterCardBackground(cardBackgroundID) {
-			if (hasGotData?.characterCardBackground === true) return true;
-			if (!cardBackgroundID) return false;
+			if (!cardBackgroundID || isGetting.characterCardBackground) return;
+			isGetting.characterCardBackground = true;
 
-			const card_background_image_response = await APIRequest("/image/" + cardBackgroundID, "GET");
-			if (card_background_image_response?.errors || !card_background_image_response?.data?.image?.image) return false;
+			let cardBackground = false;
 
-			setCharacterCardBackground(card_background_image_response.data.image.image);
-			hasGotData.characterCardBackground = true;
-			return card_background_image_response.data.image.image;
+			const recentImage = recentImages.current.find((e) => e?._id === cardBackgroundID);
+			if (recentImage?.image) {
+				cardBackground = recentImage;
+			} else {
+				const card_background_image_response = await APIRequest("/image/" + cardBackgroundID, "GET");
+				if (card_background_image_response?.errors || !card_background_image_response?.data?.image?.image) return false;
+				cardBackground = card_background_image_response?.data?.image;
+			}
+
+			addImagesToRecentImages([cardBackground]);
+
+			setCharacterCardBackground(cardBackground.image);
+			return cardBackground.image;
 		}
 
 		async function getCharacterFaceImage(faceImageID) {
-			if (hasGotData?.faceImage === true) return true;
-			if (!faceImageID) return false;
+			if (!faceImageID || isGetting.faceImage) return;
+			isGetting.faceImage = true;
 
-			const face_image_response = await APIRequest("/image/" + faceImageID, "GET");
-			if (face_image_response?.errors || !face_image_response?.data?.image?.image) return false;
+			let faceImage = false;
 
-			setCharacterFaceImage(face_image_response.data.image.image);
-			hasGotData.faceImage = true;
-			return face_image_response.data.image.image;
+			const recentImage = recentImages.current.find((e) => e?._id === faceImageID);
+			if (recentImage?.image) {
+				faceImage = recentImage;
+			} else {
+				const face_image_response = await APIRequest("/image/" + faceImageID, "GET");
+				if (face_image_response?.errors || !face_image_response?.data?.image?.image) return false;
+				faceImage = face_image_response?.data?.image;
+			}
+
+			addImagesToRecentImages([faceImage]);
+
+			setCharacterFaceImage(faceImage.image);
+			return faceImage.image;
 		}
 
 		async function getCharacterImages(imageIDs) {
-			if (hasGotData?.characterImages === true) return true;
-			if (!imageIDs) return false;
+			if (!imageIDs || isGetting.characterImages) return;
+			isGetting.characterImages = true;
 
 			let newCharacterImages = await Promise.all(
 				imageIDs.map(async (imageID) => {
+					if (!imageID) return false;
+
+					const recentImage = recentImages.current.find((e) => e?._id === imageID);
+					if (recentImage) return recentImage;
+
 					const image_response = await APIRequest("/image/" + imageID, "GET");
 					if (image_response?.errors || !image_response?.data?.image?.image) return false;
 					return image_response.data.image;
@@ -230,8 +284,9 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			);
 			newCharacterImages = newCharacterImages.filter((e) => e !== false);
 
+			addImagesToRecentImages(newCharacterImages);
+
 			setCharacterImages(newCharacterImages);
-			hasGotData.characterImages = true;
 		}
 
 		getInitial();
@@ -242,14 +297,17 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		location,
 		story_uid,
 		character_uid,
+		curr_story_uid,
+		curr_character_uid,
+		isGetting,
 		APIRequest,
+		recentImages,
+		addImagesToRecentImages,
 		failure,
 		setFailure,
 		setIsAuthorizedToEdit,
-		story,
 		setStory,
 		setStoryIcon,
-		character,
 		setCharacter,
 		setCharacterTypes,
 		setGroups,

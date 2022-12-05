@@ -112,8 +112,7 @@ export const CharactersRelationshipsInfoSelectedCharacterLogic = () => {
 
 				const response = await APIRequest("/character-relationship/" + relationship._id, "PATCH", {
 					story_id: story._id,
-					path: ["relationship_type"],
-					newValue: relationship.relationship_type,
+					newValue: relationship,
 				});
 				if (!response || response?.errors) return { _id: relationship._id, message: "failure" };
 

@@ -47,6 +47,8 @@ export const RoutesLogic = () => {
 
 			setRenderComponent(null);
 			setShowUnauthorizedNavigationBar(false);
+			if (window !== window.parent || ["authorize-spotify", "spotify"].includes(locationSplit[0])) return null;
+
 			switch (locationSplit[0]) {
 				case "register":
 					if (!username) {
@@ -150,10 +152,6 @@ export const RoutesLogic = () => {
 					} else {
 						setRenderComponent(<StoryContainer story_uid={locationSplit[1]} />);
 					}
-					break;
-				case "authorize-spotify":
-					break;
-				case "spotify":
 					break;
 				default:
 					if (username) changeLocation("/home");

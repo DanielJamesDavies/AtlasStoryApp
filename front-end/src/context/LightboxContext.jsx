@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { APIContext } from "./APIContext";
+import { RecentDataContext } from "./RecentDataContext";
 
 export const LightboxContext = createContext();
 
@@ -8,6 +9,7 @@ const LightboxProvider = ({ children }) => {
 	const [lightboxImages, setLightboxImages] = useState([]);
 	const [lightboxIndex, setLightboxIndex] = useState(0);
 	const { APIRequest } = useContext(APIContext);
+	const { recentImages } = useContext(RecentDataContext);
 
 	useEffect(() => {
 		async function getLightboxImages() {
@@ -19,9 +21,18 @@ const LightboxProvider = ({ children }) => {
 				newLightboxImageIDs.map(async (image) => {
 					let imageID = image;
 					if (typeof image === "object" && image?.image) imageID = image.image;
-					const image_response = await APIRequest("/image/" + imageID, "GET");
-					if (image_response?.errors || !image_response?.data?.image?.image) return false;
-					return { image: image_response.data.image.image, caption: image?.caption };
+
+					let newImage = false;
+					const recentImage = recentImages.current.find((e) => e?._id === imageID);
+					if (recentImage) {
+						newImage = recentImage;
+					} else {
+						const image_response = await APIRequest("/image/" + imageID, "GET");
+						if (image_response?.errors || !image_response?.data?.image?.image) return false;
+						newImage = image_response.data.image;
+					}
+					newImage.caption = image?.caption;
+					return newImage;
 				})
 			);
 			newLightboxImages = newLightboxImages.filter((e) => e !== false);
@@ -29,7 +40,7 @@ const LightboxProvider = ({ children }) => {
 			setLightboxImages(newLightboxImages);
 		}
 		getLightboxImages();
-	}, [lightboxImageIDs, setLightboxImages, APIRequest]);
+	}, [lightboxImageIDs, setLightboxImages, APIRequest, recentImages]);
 
 	return (
 		<LightboxContext.Provider

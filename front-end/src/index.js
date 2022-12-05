@@ -12,21 +12,22 @@ import reportWebVitals from "./reportWebVitals";
 import AppProvider from "./context/AppContext";
 import APIProvider from "./context/APIContext";
 import LightboxProvider from "./context/LightboxContext";
-
+import RecentDataProvider from "./context/RecentDataContext";
 // Services
 
 // Styles
 
 // Assets
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+ReactDOM.createRoot(document.getElementById("root")).render(
 	<BrowserRouter>
 		<AppProvider>
 			<APIProvider>
-				<LightboxProvider>
-					<App />
-				</LightboxProvider>
+				<RecentDataProvider>
+					<LightboxProvider>
+						<App />
+					</LightboxProvider>
+				</RecentDataProvider>
 			</APIProvider>
 		</AppProvider>
 	</BrowserRouter>

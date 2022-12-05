@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, useEffect, useMemo, useRef 
 
 import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
+import { RecentDataContext } from "../../context/RecentDataContext";
 import { RoutesContext } from "../../context/RoutesContext";
 import { SpotifyContext } from "../../context/SpotifyContext";
 
@@ -10,6 +11,7 @@ export const SubstoryContext = createContext();
 const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { APIRequest } = useContext(APIContext);
+	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location } = useContext(RoutesContext);
 	const { spotify_access_token, spotify_refresh_token, SpotifyRequest } = useContext(SpotifyContext);
 
@@ -46,7 +48,10 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const [subpages, setSubpages] = useState([]);
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 
-	const hasGotData = useRef({
+	const curr_story_uid = useRef(false);
+	const curr_substory_uid = useRef(false);
+	const isGetting = useRef({
+		storyIcon: false,
 		substoryOverviewBackground: false,
 		substoryPosterBackground: false,
 		substoryImages: false,
@@ -58,7 +63,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				setStateToDefault();
 				return;
 			}
-			if (story.uid === story_uid && substory.uid === substory_uid) return;
+			if (curr_story_uid.current === story_uid && curr_substory_uid.current === substory_uid) return;
 
 			let { newStory, newIsAuthorizedToEdit } = await getStory();
 			if (!newStory) return;
@@ -100,6 +105,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				setStateToDefault();
 				return false;
 			}
+			curr_story_uid.current = story_response?.data?.story?.uid;
 			setStory(story_response.data.story);
 			setIsAuthorizedToEdit(story_response?.data?.isAuthorizedToEdit);
 			return { newStory: story_response.data.story, newIsAuthorizedToEdit: story_response?.data?.isAuthorizedToEdit };
@@ -107,11 +113,24 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 
 		async function getStoryIcon(iconID) {
 			if (!iconID) return setStoryIcon(false);
-			const response = await APIRequest("/image/" + iconID, "GET");
-			if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
+			if (isGetting.storyIcon) return;
+			isGetting.storyIcon = true;
 
-			setStoryIcon(response.data.image.image);
-			return response.data.image;
+			let icon = false;
+			const recentImage = recentImages.current.find((e) => e?._id === iconID);
+			if (recentImage) {
+				icon = recentImage;
+			} else {
+				const response = await APIRequest("/image/" + iconID, "GET");
+				if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
+				icon = response?.data?.image;
+			}
+
+			addImagesToRecentImages([icon]);
+
+			setStoryIcon(icon.image);
+
+			return icon;
 		}
 
 		async function getSubstory(story_id) {
@@ -122,6 +141,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				setFailure(true);
 				return false;
 			}
+			curr_substory_uid.current = substory_response?.data?.substory?.uid;
 			setSubstory(substory_response.data.substory);
 			return substory_response.data.substory;
 		}
@@ -147,31 +167,58 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		}
 
 		async function getSubstoryOverviewBackground(overviewBackgroundID) {
-			if (hasGotData.substoryOverviewBackground === true) return true;
-			if (!overviewBackgroundID) return;
-			const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
-			if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) return false;
+			if (!overviewBackgroundID || isGetting.substoryOverviewBackground) return;
+			isGetting.substoryOverviewBackground = true;
 
-			setSubstoryOverviewBackground(overview_background_image_response.data.image.image);
-			hasGotData.substoryOverviewBackground = true;
-			return overview_background_image_response.data.image.image;
+			let overviewBackground = false;
+
+			const recentImage = recentImages.current.find((e) => e?._id === overviewBackgroundID);
+			if (recentImage?.image) {
+				overviewBackground = recentImage;
+			} else {
+				const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
+				if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) return false;
+				overviewBackground = overview_background_image_response?.data?.image;
+			}
+
+			addImagesToRecentImages([overviewBackground]);
+
+			setSubstoryOverviewBackground(overviewBackground.image);
+			return overviewBackground.image;
 		}
 
 		async function getSubstoryPosterBackground(posterBackgroundID) {
-			if (hasGotData.substoryPosterBackground === true) return true;
-			if (!posterBackgroundID) return;
-			const poster_background_image_response = await APIRequest("/image/" + posterBackgroundID, "GET");
-			if (poster_background_image_response?.errors || !poster_background_image_response?.data?.image?.image) return false;
+			if (!posterBackgroundID || isGetting.substoryPosterBackground) return;
+			isGetting.substoryPosterBackground = true;
 
-			setSubstoryPosterBackground(poster_background_image_response.data.image.image);
-			hasGotData.substoryPosterBackground = true;
-			return poster_background_image_response.data.image.image;
+			let posterBackground = false;
+
+			const recentImage = recentImages.current.find((e) => e?._id === posterBackgroundID);
+			if (recentImage?.image) {
+				posterBackground = recentImage;
+			} else {
+				const poster_background_image_response = await APIRequest("/image/" + posterBackgroundID, "GET");
+				if (poster_background_image_response?.errors || !poster_background_image_response?.data?.image?.image) return false;
+				posterBackground = poster_background_image_response?.data?.image;
+			}
+
+			addImagesToRecentImages([posterBackground]);
+
+			setSubstoryPosterBackground(posterBackground.image);
+			return posterBackground.image;
 		}
 
 		async function getSubstoryImages(imageIDs) {
-			if (hasGotData.substoryImages === true) return true;
+			if (!imageIDs || isGetting.substoryImages) return;
+			isGetting.substoryImages = true;
+
 			let newSubstoryImages = await Promise.all(
 				imageIDs.map(async (imageID) => {
+					if (!imageID) return false;
+
+					const recentImage = recentImages.current.find((e) => e?._id === imageID);
+					if (recentImage) return recentImage;
+
 					const image_response = await APIRequest("/image/" + imageID, "GET");
 					if (image_response?.errors || !image_response?.data?.image?.image) return false;
 					return image_response.data.image;
@@ -179,14 +226,16 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			);
 			newSubstoryImages = newSubstoryImages.filter((e) => e !== false);
 
+			addImagesToRecentImages(newSubstoryImages);
+
 			setSubstoryImages(newSubstoryImages);
-			hasGotData.substoryImages = true;
 			return newSubstoryImages;
 		}
 
 		async function getSubstorySoundtrack(playlist_id, old_tracks) {
-			if (hasGotData.substorySoundtrack === true) return true;
 			if (!playlist_id) return false;
+			if (isGetting.substorySoundtrack === true) return true;
+			isGetting.substoryImages = true;
 
 			const response = await SpotifyRequest("/playlists/" + playlist_id, "GET");
 			if (!response || response?.errors) return false;
@@ -225,7 +274,6 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			);
 
 			let newSubstorySoundtrack = { playlist_id, tracks };
-			hasGotData.substorySoundtrack = true;
 			setSubstorySoundtrack(newSubstorySoundtrack);
 		}
 
@@ -237,16 +285,19 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		location,
 		story_uid,
 		substory_uid,
+		curr_story_uid,
+		curr_substory_uid,
+		isGetting,
 		APIRequest,
+		recentImages,
+		addImagesToRecentImages,
 		SpotifyRequest,
 		failure,
 		setFailure,
 		isAuthorizedToEdit,
 		setIsAuthorizedToEdit,
-		story,
 		setStory,
 		setStoryIcon,
-		substory,
 		allSubpages,
 		setSubstory,
 		setOpenSubpageID,

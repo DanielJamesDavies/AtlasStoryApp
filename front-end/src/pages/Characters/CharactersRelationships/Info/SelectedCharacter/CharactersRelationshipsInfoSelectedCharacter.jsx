@@ -56,7 +56,11 @@ export const CharactersRelationshipsInfoSelectedCharacter = () => {
 						.filter((e) => !e?.isRemoved)
 						.map((relationship, index) => (
 							<div key={index} className='characters-relationship-info-home-selected-character-relationship-item-container'>
-								<CharactersRelationshipsInfoSelectedCharacterRelationshipItem relationship={relationship} isEditing={true} />
+								<CharactersRelationshipsInfoSelectedCharacterRelationshipItem
+									relationship={relationship}
+									isEditing={true}
+									selectedCharacterRelationships={selectedCharacterRelationships}
+								/>
 							</div>
 						))}
 				</div>
