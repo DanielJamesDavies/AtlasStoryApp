@@ -32,7 +32,8 @@
 	}
 
 	.character-primary-name-container,
-	.character-primary-name-container input {
+	.character-primary-name,
+	.character-primary-name input {
 		font-size: 26px;
 		word-wrap: break-word;
 	}

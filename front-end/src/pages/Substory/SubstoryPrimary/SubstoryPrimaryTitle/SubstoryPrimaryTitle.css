@@ -24,7 +24,8 @@
 	}
 
 	.substory-primary-title-container,
-	.substory-primary-title-container input {
+	.substory-primary-title,
+	.substory-primary-title input {
 		font-size: 26px;
 	}
 
