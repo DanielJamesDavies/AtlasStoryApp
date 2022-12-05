@@ -188,7 +188,7 @@ export const LightboxLogic = () => {
 
 			let diffDist = prevDist.current - dist;
 
-			zoom.current -= diffDist * zoom.current * 0.01;
+			zoom.current -= diffDist * zoom.current * 0.006;
 
 			if (zoom.current <= 1) {
 				zoom.current = 1;
