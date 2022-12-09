@@ -15,7 +15,7 @@ import { CharacterContext } from "./CharacterContext";
 // Assets
 
 export const CharacterLogic = () => {
-	const { character, isOnOverviewSection, setIsOnOverviewSection } = useContext(CharacterContext);
+	const { character, isOnOverviewSection, setIsOnOverviewSection, setCharacterPaddingTop } = useContext(CharacterContext);
 	const [characterStyle, setCharacterStyle] = useState(false);
 	const characterPrimaryRef = useRef();
 
@@ -33,6 +33,7 @@ export const CharacterLogic = () => {
 				let characterPaddingTop = primaryHeight + 10;
 				if (window?.innerWidth !== undefined && window?.innerWidth <= 700) characterPaddingTop = 6 + primaryHeight + 12;
 				newCharacterStyle["--characterPaddingTop"] = characterPaddingTop + "px";
+				setCharacterPaddingTop(characterPaddingTop);
 			}
 
 			setCharacterStyle((oldCharacterStyle) => {

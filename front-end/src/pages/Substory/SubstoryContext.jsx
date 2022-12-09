@@ -48,6 +48,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const [subpages, setSubpages] = useState([]);
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 
+	const hasReloaded = useRef(false);
 	const curr_story_uid = useRef(false);
 	const curr_substory_uid = useRef(false);
 	const isGetting = useRef({
@@ -63,6 +64,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				setStateToDefault();
 				return;
 			}
+			if (!hasReloaded.current) return (hasReloaded.current = true);
 			if (curr_story_uid.current === story_uid && curr_substory_uid.current === substory_uid) return;
 
 			let { newStory, newIsAuthorizedToEdit } = await getStory();
@@ -285,6 +287,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		location,
 		story_uid,
 		substory_uid,
+		hasReloaded,
 		curr_story_uid,
 		curr_substory_uid,
 		isGetting,

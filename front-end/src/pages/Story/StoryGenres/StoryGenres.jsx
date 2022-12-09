@@ -108,7 +108,7 @@ export const StoryGenres = () => {
 											</div>
 										</div>
 									</div>
-									<div className='story-genres-item-add-btn-container'>
+									<div className='story-genres-item-remove-btn-container'>
 										<IconBtn
 											icon={<FaTimes />}
 											iconName='times'

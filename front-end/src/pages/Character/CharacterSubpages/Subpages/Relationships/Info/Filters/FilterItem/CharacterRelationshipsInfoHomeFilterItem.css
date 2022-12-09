@@ -1,0 +1,36 @@
+.characters-relationship-info-home-filter-item {
+	display: flex;
+	align-items: center;
+	margin: 4px 0;
+	cursor: pointer;
+}
+
+.characters-relationship-info-home-filter-item-check-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 6px;
+	border-radius: 4px;
+
+	width: 18px;
+	height: 18px;
+
+	background: var(--grey4);
+	font-size: 13px;
+}
+
+.characters-relationship-info-home-filter-item-active .characters-relationship-info-home-filter-item-check-box {
+	background: var(--blue);
+}
+
+.characters-relationship-info-home-filter-item-check-box svg {
+	opacity: 0;
+}
+
+.characters-relationship-info-home-filter-item-active .characters-relationship-info-home-filter-item-check-box svg {
+	opacity: 1;
+}
+
+.characters-relationship-info-home-filter-item-name {
+	font-size: 14px;
+}

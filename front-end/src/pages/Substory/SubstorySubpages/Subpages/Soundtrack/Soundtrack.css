@@ -7,16 +7,6 @@
 	overflow-x: hidden;
 }
 
-.substory-subpage-soundtrack::-webkit-scrollbar {
-	width: 6px;
-	background: transparent;
-}
-
-.substory-subpage-soundtrack::-webkit-scrollbar-thumb {
-	border-radius: 4px;
-	background: var(--substoryColour);
-}
-
 @media (max-width: 750px) {
 	.substory-subpage-soundtrack {
 		padding-right: 12px;

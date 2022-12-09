@@ -18,11 +18,14 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location } = useContext(RoutesContext);
 
+	const hasReloaded = useRef(false);
 	const curr_story_uid = useRef(false);
-	const isGetting = useRef({ substoriesPosterBackgrounds: false });
+	const isGetting = useRef({ storyIcon: false, substoriesPosterBackgrounds: false });
+
 	useEffect(() => {
-		async function getStoryAndSubstories() {
+		async function getInitial() {
 			if (!story_uid) return setStateToDefault();
+			if (!hasReloaded.current) return (hasReloaded.current = true);
 			if (curr_story_uid.current === story_uid) return;
 
 			let newStory = await getStory();
@@ -124,15 +127,16 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 			return newSubstoriesPosterBackgrounds;
 		}
 
-		getStoryAndSubstories();
+		getInitial();
 
-		let reloadTimer = setTimeout(() => getStoryAndSubstories(), 1);
+		let reloadTimer = setTimeout(() => getInitial(), 1);
 		return () => {
 			clearTimeout(reloadTimer);
 		};
 	}, [
 		location,
 		story_uid,
+		hasReloaded,
 		APIRequest,
 		recentImages,
 		addImagesToRecentImages,

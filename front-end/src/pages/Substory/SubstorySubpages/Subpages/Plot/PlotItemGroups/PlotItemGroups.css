@@ -14,16 +14,6 @@
 	overflow-x: hidden;
 }
 
-.substory-subpage-plot-item-groups::-webkit-scrollbar {
-	width: 6px;
-	background: transparent;
-}
-
-.substory-subpage-plot-item-groups::-webkit-scrollbar-thumb {
-	border-radius: 4px;
-	background: var(--substoryColour);
-}
-
 @media (max-width: 1200px) {
 	.substory-subpage-plot-item-groups-container {
 		position: absolute;

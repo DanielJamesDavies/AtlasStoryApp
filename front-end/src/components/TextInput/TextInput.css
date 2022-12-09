@@ -3,6 +3,7 @@
 	flex-direction: column;
 	margin: 0;
 	padding: 16px 16px;
+	padding-bottom: calc(6px + var(--fontSizePM));
 	border: 3px solid rgba(0, 0, 0, 0);
 	border-radius: 12px;
 
@@ -19,6 +20,7 @@
 
 .text-input-container-size-s {
 	padding: 6px 12px;
+	padding-bottom: calc(6px + var(--fontSizePM));
 	border-radius: 12px;
 
 	width: calc(100% - 24px - 6px);
@@ -111,7 +113,7 @@
 }
 
 .text-input-container-size-s.text-input-container-empty .text-input-label {
-	padding-top: 6px;
+	padding-top: 7px;
 	font-size: var(--fontSizePM);
 }
 
@@ -145,6 +147,15 @@
 
 .text-input-container-empty.text-input-container-size-s .text-input-label svg {
 	margin-right: 14px;
+}
+
+.font-size-xs .text-input-label svg {
+	margin-right: 8px !important;
+	font-size: 11px !important;
+}
+
+.font-size-xs .text-input-container-empty .text-input-label svg {
+	font-size: 14px !important;
 }
 
 .text-input input {
@@ -183,7 +194,7 @@
 
 .text-input-container-empty input {
 	position: absolute;
-	top: 3px;
+	top: 7px;
 	font-size: var(--fontSizePM);
 }
 

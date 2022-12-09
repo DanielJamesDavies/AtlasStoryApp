@@ -10,16 +10,6 @@
 	vertical-align: top;
 }
 
-.substory-subpage-plot-items-container::-webkit-scrollbar {
-	width: 6px;
-	background: transparent;
-}
-
-.substory-subpage-plot-items-container::-webkit-scrollbar-thumb {
-	border-radius: 4px;
-	background: var(--substoryColour);
-}
-
 .substory-subpage-plot-items-container-all {
 	width: calc(100% - 260px - 24px - 12px - 12px);
 }
@@ -35,16 +25,6 @@
 	max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 36px - 24px - 6px);
 	overflow-y: overlay;
 	overflow-x: hidden;
-}
-
-.substory-subpage-plot-items-list::-webkit-scrollbar {
-	width: 6px;
-	background: transparent;
-}
-
-.substory-subpage-plot-items-list::-webkit-scrollbar-thumb {
-	border-radius: 4px;
-	background: var(--substoryColour);
 }
 
 @media (max-width: 1200px) {

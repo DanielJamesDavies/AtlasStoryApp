@@ -1,0 +1,82 @@
+.character-relationship-info-home-selected-character-relationship-item {
+	display: flex;
+	align-items: center;
+	margin: 4px 0;
+	padding: 6px 12px !important;
+}
+
+.character-relationship-info-home-selected-character-relationship-item-content {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.editable-container-is-editing .character-relationship-info-home-selected-character-relationship-item-content {
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.character-relationship-info-home-selected-character-relationship-item-second-character-name-container {
+	flex-shrink: 1;
+	margin-right: 12px;
+}
+
+.character-relationship-info-home-selected-character-relationship-item-second-character-name-container {
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.character-relationship-info-home-selected-character-relationship-item-second-character-name-container .dropdown-value {
+	text-align: left;
+}
+
+.character-relationship-info-home-selected-character-relationship-item-second-character-name-container {
+	position: relative;
+	text-align: left;
+}
+
+.character-relationship-info-home-selected-character-relationship-item-relationship-type-container {
+	position: relative;
+	margin-left: auto;
+}
+
+.editable-container-is-editing .character-relationship-info-home-selected-character-relationship-item-relationship-type-container {
+	margin-top: 4px;
+	margin-left: 0;
+}
+
+.character-relationship-info-home-selected-character-relationship-item-relationship-type-container .dropdown-value {
+	text-align: right;
+}
+
+.character-relationship-info-home-selected-character-relationship-item-relationship-type {
+	border-radius: 4px;
+
+	width: fit-content;
+
+	text-align: right;
+	font-size: 13px;
+	white-space: pre-wrap;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+.character-relationship-info-home-selected-character-relationship-item-second-character-name-container .dropdown-value-container,
+.character-relationship-info-home-selected-character-relationship-item-relationship-type-container .dropdown-value-container {
+	background: var(--grey4);
+}
+
+.character-relationship-info-home-selected-character-relationship-item-second-character-name-container .dropdown-value,
+.character-relationship-info-home-selected-character-relationship-item-relationship-type-container .dropdown-value {
+	font-size: 13px;
+}
+
+.character-relationship-info-home-selected-character-relationship-item-buttons-container {
+	flex-shrink: 0;
+	margin-left: auto;
+	padding-left: 8px;
+}
+
+.character-relationship-info-home-selected-character-relationship-item-buttons-container .icon-btn-container:last-child {
+	margin-right: 0;
+}

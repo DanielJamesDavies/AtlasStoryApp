@@ -1,0 +1,27 @@
+.characters-relationship-info-home-filters {
+	margin-bottom: 24px;
+	padding: 8px 12px !important;
+	padding-bottom: 4px !important;
+}
+
+.characters-relationship-info-home-filters-primary {
+	display: flex;
+	align-items: center;
+	margin-bottom: 6px;
+}
+
+.characters-relationship-info-home-filters-title {
+	margin-right: 4px;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.characters-relationship-info-home-filters-subtitle {
+	margin-bottom: 6px;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.characters-relationship-info-home-filters-list {
+	margin-bottom: 12px;
+}

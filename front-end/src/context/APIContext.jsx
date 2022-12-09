@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useCallback } from "react";
 
 export const APIContext = createContext();
 
@@ -7,32 +7,36 @@ const APIProvider = ({ children }) => {
 	const [username, setUsername] = useState(false);
 	const [userProfilePicture, setUserProfilePicture] = useState(false);
 	const [cookiesConsent, setCookiesConsent] = useState(false);
-	const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api" : "https://www.atlas-story.app/api";
 
-	const APIRequest = async (path, method, body) => {
-		let data = {
-			method,
-			crossDomain: true,
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-				withCredentials: true,
-			},
-		};
-		if (body) data.body = JSON.stringify(body);
+	const APIRequest = useCallback(
+		async (path, method, body) => {
+			let data = {
+				method,
+				crossDomain: true,
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+					withCredentials: true,
+				},
+			};
+			if (body) data.body = JSON.stringify(body);
 
-		try {
-			const response = await fetch(API_URL + path, data);
+			try {
+				const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api" : "https://www.atlas-story.app/api";
 
-			const responseData = await response.json();
+				const response = await fetch(API_URL + path, data);
 
-			if (responseData?.cookiesConsent !== undefined) setCookiesConsent(responseData?.cookiesConsent);
+				const responseData = await response.json();
 
-			return responseData;
-		} catch (e) {
-			return { errors: [{ message: "Failed to Send Request to Server" }] };
-		}
-	};
+				if (responseData?.cookiesConsent !== undefined) setCookiesConsent(responseData?.cookiesConsent);
+
+				return responseData;
+			} catch (e) {
+				return { errors: [{ message: "Failed to Send Request to Server" }] };
+			}
+		},
+		[setCookiesConsent]
+	);
 
 	return (
 		<APIContext.Provider

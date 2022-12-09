@@ -69,7 +69,7 @@
 	width: fit-content;
 
 	background: var(--grey3);
-	color: #fff;
+	color: var(--textColour);
 	font-size: 15px;
 }
 

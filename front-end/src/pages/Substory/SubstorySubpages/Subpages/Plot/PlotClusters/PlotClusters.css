@@ -14,16 +14,6 @@
 	overflow-x: hidden;
 }
 
-.substory-subpage-plot-clusters::-webkit-scrollbar {
-	width: 6px;
-	background: transparent;
-}
-
-.substory-subpage-plot-clusters::-webkit-scrollbar-thumb {
-	border-radius: 4px;
-	background: var(--substoryColour);
-}
-
 .substory-subpage-plot-clusters-list-item-container .btn-list-item-active,
 .substory-subpage-plot-clusters-list-item-container .btn-list-item-active:hover {
 	background: var(--substoryColour);

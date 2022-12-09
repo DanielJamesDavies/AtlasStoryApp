@@ -13,7 +13,11 @@ module.exports = async (req, res) => {
 	}
 	if (!story_id) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
-	const characterRelationships = await CharacterRelationship.find({ story_id })
+	let characterRelationshipsFilter = { story_id };
+
+	if (req?.query?.character_id) characterRelationshipsFilter.character_ids = req?.query?.character_id;
+
+	const characterRelationships = await CharacterRelationship.find(characterRelationshipsFilter)
 		.exec()
 		.catch(() => []);
 	if (!characterRelationships) return res.status(200).send({ errors: [{ message: "Character Relationships Not Found" }] });

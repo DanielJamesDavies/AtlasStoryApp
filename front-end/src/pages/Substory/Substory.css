@@ -54,6 +54,16 @@
 	height: calc(100%);
 }
 
+.substory *::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.substory *::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--characterColour);
+}
+
 .substory-hidden {
 	display: none;
 }

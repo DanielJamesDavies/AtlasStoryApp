@@ -73,6 +73,7 @@
 
 .story-genres-item-active {
 	background: var(--storyColour);
+	color: #fff;
 }
 
 .editable-container-is-editing .story-genres-item-active:hover {
@@ -112,9 +113,14 @@
 	font-weight: 700;
 }
 
+.story-genres-item-remove-btn-container,
 .story-genres-item-add-btn-container {
 	margin-left: auto;
 	padding-left: 4px;
+}
+
+.story-genres-item-remove-btn-container .icon-btn svg {
+	fill: #fff;
 }
 
 .story-genres-search-container {

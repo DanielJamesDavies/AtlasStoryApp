@@ -5,7 +5,7 @@
 
 .content-container {
 	display: inline-block;
-	width: calc(100vw - var(--navbarWidth));
+	width: calc(100vw - var(--navbarWidth) - 4px);
 	height: 100%;
 	vertical-align: top;
 	overflow-y: overlay;
@@ -17,9 +17,13 @@
 	background: transparent;
 }
 
+.content-container::-webkit-scrollbar-track {
+	margin: 4px 2px;
+}
+
 .content-container::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--blue);
+	background: var(--scrollBarThumbBackground);
 }
 
 .content-container-unauthorized {

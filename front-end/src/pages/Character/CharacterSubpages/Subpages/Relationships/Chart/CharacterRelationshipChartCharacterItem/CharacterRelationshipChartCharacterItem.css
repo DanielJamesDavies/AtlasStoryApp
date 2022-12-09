@@ -1,0 +1,35 @@
+.character-subpage-relationships-chart-character-item {
+	position: absolute;
+	width: var(--characterRelationshipsChartItemWidth);
+	height: calc(var(--characterRelationshipsChartItemWidth) + 18px);
+	pointer-events: none;
+}
+
+.character-subpage-relationships-chart-character-item:hover,
+.character-subpage-relationships-chart-character-item-active {
+	z-index: 2;
+}
+
+.character-subpage-relationships-chart-character-item-face-image {
+	margin: 0 auto;
+	border: 3px solid var(--grey1);
+	border-radius: 100%;
+
+	width: calc(var(--characterRelationshipsChartItemWidth) - 6px);
+	height: calc(var(--characterRelationshipsChartItemWidth) - 6px);
+
+	background: var(--grey3);
+	pointer-events: all;
+	cursor: pointer;
+}
+
+.character-subpage-relationships-chart-character-item-active .character-subpage-relationships-chart-character-item-face-image {
+	border-color: var(--characterColour);
+}
+
+.character-subpage-relationships-chart-character-item-face-image img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}

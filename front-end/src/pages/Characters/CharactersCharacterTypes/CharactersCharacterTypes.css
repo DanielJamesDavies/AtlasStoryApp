@@ -47,7 +47,7 @@
 
 .characters-character-types-character-type-items-container::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--blue);
+	background: var(--scrollBarThumbBackground);
 }
 
 .characters-character-types-character-type-item-container .btn-list-item-active {

@@ -23,6 +23,7 @@
 	--textColour: #ffffff;
 	--textSecondaryColour: #bbbbbb;
 	--textTertiaryColour: #999999;
+	--scrollBarThumbBackground: var(--grey5);
 }
 
 .theme-dim {
@@ -34,6 +35,7 @@
 	--textColour: #ffffff;
 	--textSecondaryColour: #bbbbbb;
 	--textTertiaryColour: #999999;
+	--scrollBarThumbBackground: var(--grey5);
 }
 
 .theme-light {
@@ -45,6 +47,7 @@
 	--textColour: #000000;
 	--textSecondaryColour: #888888;
 	--textTertiaryColour: #aaaaaa;
+	--scrollBarThumbBackground: var(--grey5);
 }
 
 .font-size-xs {
@@ -156,7 +159,7 @@ img {
 
 ::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--blue);
+	background: var(--scrollBarThumbBackground);
 }
 
 @keyframes wiggle-very-small {

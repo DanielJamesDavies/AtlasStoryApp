@@ -65,10 +65,8 @@ export const CharactersRelationshipsLogic = () => {
 
 			const [x1, y1] = getCharacterItemTransform(0, newCharactersRelationshipChartWidth);
 			const [x2, y2] = getCharacterItemTransform(1, newCharactersRelationshipChartWidth);
-			const a = Math.abs(y2 - y1);
-			const b = Math.abs(x2 - x1);
-			const c = Math.sqrt(a * a + b * b);
-			setCharactersRelationshipChartItemWidth(Math.min(c, 100));
+			const newChartItemWidth = Math.min(Math.hypot(Math.abs(y2 - y1), Math.abs(x2 - x1)), 100);
+			setCharactersRelationshipChartItemWidth(newChartItemWidth);
 		}
 		updateChartStyles();
 		window.addEventListener("resize", updateChartStyles);
@@ -85,7 +83,7 @@ export const CharactersRelationshipsLogic = () => {
 					group?.data?.characters.map((character) => {
 						let oldCharacter = characters.find((e) => e?._id === character?.character_id);
 						if (!oldCharacter) return false;
-						if (!relationshipsFilters.groups.includes(oldCharacter?.group_id)) return false;
+						if (!relationshipsFilters?.groups?.includes(oldCharacter?.group_id)) return false;
 						if (!charactersFaceImages) return oldCharacter;
 						let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
 						newCharacter.data.faceImage = charactersFaceImages?.find((e) => e?._id === newCharacter?.data?.faceImage);

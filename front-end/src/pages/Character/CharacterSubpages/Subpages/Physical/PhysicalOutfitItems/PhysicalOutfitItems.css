@@ -35,16 +35,6 @@
 	overflow-x: hidden;
 }
 
-.character-subpage-physical-outfit-items::-webkit-scrollbar {
-	width: 6px;
-	background: transparent;
-}
-
-.character-subpage-physical-outfit-items::-webkit-scrollbar-thumb {
-	border-radius: 4px;
-	background: var(--characterColour);
-}
-
 .character-subpage-physical-outfit-character-images-open
 	.character-subpage-physical-outfit-items-container.editable-container-is-editing
 	.character-subpage-physical-outfit-items {

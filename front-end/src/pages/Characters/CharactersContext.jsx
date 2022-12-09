@@ -36,11 +36,14 @@ const CharactersProvider = ({ children, story_uid }) => {
 	const [charactersCardBackgrounds, setCharactersCardBackgrounds] = useState(false);
 	const [charactersFaceImages, setCharactersFaceImages] = useState(false);
 
+	const hasReloaded = useRef(false);
 	const curr_story_uid = useRef(false);
 	const isGetting = useRef({ storyIcon: false, characterRelationships: false, charactersCardBackgrounds: false, charactersFaceImages: false });
+
 	useEffect(() => {
 		async function getInitial() {
 			if (!story_uid) return setStateToDefault();
+			if (!hasReloaded.current) return (hasReloaded.current = true);
 			if (curr_story_uid.current === story_uid) return;
 
 			let newStory = await getStory();
@@ -248,6 +251,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 		story_uid,
 		APIRequest,
 		setIsAuthorizedToEdit,
+		hasReloaded,
 		curr_story_uid,
 		recentImages,
 		addImagesToRecentImages,

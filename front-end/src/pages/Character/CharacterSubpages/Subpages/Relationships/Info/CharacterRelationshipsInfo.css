@@ -1,0 +1,38 @@
+.character-subpage-relationships-info-container {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 12px;
+	width: 400px;
+	max-height: calc(var(--characterRelationshipsChartWidth));
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+@media (max-width: 1100px) {
+	.character-subpage-relationships-info-container {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin-left: auto;
+		max-height: 100%;
+		width: calc(100%);
+		display: none;
+	}
+
+	.character-subpage-relationships-info-container-is-displaying {
+		display: block;
+	}
+
+	.character-subpage-relationships-info-container .character-relationship-info {
+		margin: 0;
+		padding: 12px;
+	}
+}
+
+@media (max-width: 750px) {
+	.character-subpage-relationships-info-container {
+		width: calc(100vw - 8px - 6px);
+	}
+}

@@ -18,7 +18,7 @@
 
 .carousel-content::-webkit-scrollbar-thumb:horizontal {
 	border-radius: 4px;
-	background: var(--blue);
+	background: var(--scrollBarThumbBackground);
 }
 
 .carousel-scroll-left,

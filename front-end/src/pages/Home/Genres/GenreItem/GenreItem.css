@@ -26,6 +26,7 @@
 
 .home-genres-list-item-favourited {
 	background: var(--blue);
+	color: #fff;
 }
 
 .home-genres-list-item-favourited:hover {
@@ -91,6 +92,10 @@
 
 .home-genres-list-item-delete-btn-container svg {
 	width: 74% !important;
+}
+
+.home-genres-list-item-favourited .home-genres-list-item-delete-btn-container svg {
+	fill: #fff;
 }
 
 .home-genres-list-item-unfavourite-btn-container .icon-btn svg {
