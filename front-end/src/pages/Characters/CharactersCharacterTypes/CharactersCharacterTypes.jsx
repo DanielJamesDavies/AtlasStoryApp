@@ -82,7 +82,7 @@ export const CharactersCharacterTypes = () => {
 										value={characterTypes.find((e) => e._id === characterTypeID)?.data?.name}
 										index={index}
 										isActive={characterType._id === characterTypeID}
-										onClick={() => changeCharacterType(characterTypeID)}
+										onClick={(e) => (e?.button === 2 ? null : changeCharacterType(characterTypeID))}
 									/>
 								</DragDropItem>
 							))}

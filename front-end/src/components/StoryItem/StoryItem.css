@@ -189,7 +189,7 @@
 
 @media (max-width: 750px) {
 	.story-item {
-		--storyItemHeight: 300px;
+		--storyItemHeight: 275px;
 	}
 
 	.story-item-size-l {
@@ -201,8 +201,18 @@
 	}
 
 	.story-item-title {
-		top: 27%;
-		font-size: 22px;
+		top: 24%;
+		font-size: 20px;
+	}
+
+	.story-item-size-l .story-item-title {
+		top: 22%;
+		font-size: 5vw;
+	}
+
+	.story-item-size-s .story-item-title {
+		top: 23%;
+		font-size: 3.5vw;
 	}
 
 	.story-item-owner {

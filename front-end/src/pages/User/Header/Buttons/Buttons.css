@@ -1,0 +1,20 @@
+.user-header-buttons-container {
+	display: inline-block;
+	margin-left: auto;
+	margin-right: 12px;
+	vertical-align: middle;
+}
+
+.user-header-btn {
+	margin: 0 6px;
+}
+
+.user-header-btn:last-child {
+	margin-right: 0;
+}
+
+@media (max-width: 750px) {
+	.user-header-btn {
+		margin: 2px 8px;
+	}
+}

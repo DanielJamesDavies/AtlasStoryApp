@@ -35,6 +35,7 @@ export const SubstoriesListSubstoryPosterLogic = ({ substoryID }) => {
 	}, [substoryID, substories, substoriesPosterBackgrounds, setSubstory, setPosterBackground]);
 
 	function navigateToSubstory(e) {
+		if (e.button === 2) return;
 		e.preventDefault();
 		if (story?.uid && substory?.uid) changeLocation("/s/" + story.uid + "/s/" + substory.uid, e.button === 1);
 	}

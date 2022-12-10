@@ -3,9 +3,10 @@
 // Components
 
 // Logic
-import { UserPrimary } from "./UserPrimary/UserPrimary";
-import { UserStories } from "./UserStories/UserStories";
-import { UserSettings } from "./UserSettings/UserSettings";
+import { Banner } from "./Banner/Banner";
+import { Header } from "./Header/Header";
+import { Stories } from "./Stories/Stories";
+import { Settings } from "./Settings/Settings";
 
 // Context
 
@@ -19,9 +20,10 @@ import "./User.css";
 export const User = () => {
 	return (
 		<div className='user'>
-			<UserPrimary />
-			<UserStories />
-			<UserSettings />
+			<Banner />
+			<Header />
+			<Stories />
+			<Settings />
 		</div>
 	);
 };

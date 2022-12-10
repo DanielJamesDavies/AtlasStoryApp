@@ -83,7 +83,7 @@ export const CharactersGroups = () => {
 										value={groups.find((e) => e._id === groupID)?.data?.name}
 										index={index}
 										isActive={group._id === groupID}
-										onClick={() => changeGroup(groupID)}
+										onClick={(e) => (e?.button === 2 ? null : changeGroup(groupID))}
 									/>
 								</DragDropItem>
 							))}

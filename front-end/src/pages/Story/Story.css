@@ -18,6 +18,11 @@
 	vertical-align: top;
 }
 
+.story-section-1 .content-item,
+.story-section-2 .content-item {
+	margin: 8px 4px;
+}
+
 @media (max-width: 1050px) {
 	.story {
 		padding: 6px;
@@ -27,5 +32,9 @@
 	.story-section-2 {
 		margin: 0;
 		width: 100%;
+	}
+
+	.story-section-2 {
+		margin-top: -8px;
 	}
 }

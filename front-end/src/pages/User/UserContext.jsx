@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext, useEffect, useRef } from "react";
 
 import { APIContext } from "../../context/APIContext";
 import { RoutesContext } from "../../context/RoutesContext";
@@ -16,59 +16,67 @@ const UserProvider = ({ children, user_username }) => {
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
 
+	const curr_username = useRef(false);
+	const isGetting = useRef({ profilePicture: false, banner: false, stories: false });
 	useEffect(() => {
-		let reloadTimer = setTimeout(() => getUser(), 1);
+		async function getInitial() {
+			if (!user_username) return setStateToDefault();
+			if (curr_username.current === user_username) return;
 
-		async function getUser() {
-			if (user.username === user_username) return;
-			setUser(false);
-			setProfilePicture(false);
-			setBanner(false);
-			setIsAuthorizedToEdit(false);
-			if (!user_username) return;
-
-			// User Data
-			const response = await APIRequest("/user?username=" + user_username, "GET");
-			if (!response?.data?.user || response?.error) {
-				setUser(false);
-				setProfilePicture(false);
-				setBanner(false);
-				setIsAuthorizedToEdit(false);
-				return;
-			}
-
-			setIsAuthorizedToEdit(response.data?.isAuthorizedToEdit);
-
-			if (user_username === response?.data?.user?.username) setUser(response.data.user);
+			const newUser = await getUser();
 
 			// Document Title
-			if (response?.data?.user?.data?.nickname) {
-				document.title = response.data.user.data.nickname + " | User | Atlas Story App";
+			if (newUser?.data?.nickname) {
+				document.title = newUser.data.nickname + " | User | Atlas Story App";
 			} else {
 				document.title = "https://www.atlas-story.app" + location;
 			}
 
-			getUserProfilePicture(response.data.user?.data?.profilePicture);
-			getStories(response.data.user?.data?.stories);
-			getUserBanner(response.data.user?.data?.banner);
+			getUserProfilePicture(newUser?.data?.profilePicture);
+			getStories(newUser?.data?.stories);
+			getUserBanner(newUser?.data?.banner);
+		}
+
+		function setStateToDefault() {
+			setUser(false);
+			setIsAuthorizedToEdit(false);
+			setProfilePicture(false);
+			setBanner(false);
+			setStories(false);
+			isGetting.current = { profilePicture: false, banner: false, stories: false };
+		}
+
+		async function getUser() {
+			const response = await APIRequest("/user?username=" + user_username, "GET");
+			if (!response || response?.error || !response?.data?.user) {
+				setStateToDefault();
+				return false;
+			}
+			curr_username.current = response?.data?.user?.username;
+			setIsAuthorizedToEdit(response?.data?.isAuthorizedToEdit);
+			setUser(response?.data?.user);
+			return response?.data?.user;
 		}
 
 		async function getUserProfilePicture(profilePictureID) {
-			if (!profilePictureID) return;
+			if (!profilePictureID || isGetting.current.profilePicture) return;
+			isGetting.current.profilePicture = true;
 			const response = await APIRequest("/image/" + profilePictureID, "GET");
 			if (response?.error || !response?.data?.image?.image) return setProfilePicture(false);
 			setProfilePicture(response.data.image.image);
 		}
 
 		async function getUserBanner(bannerID) {
-			if (!bannerID) return;
+			if (!bannerID || isGetting.current.banner) return;
+			isGetting.current.banner = true;
 			const response = await APIRequest("/image/" + bannerID, "GET");
 			if (response?.error || !response?.data?.image?.image) return setBanner(false);
 			setBanner(response.data.image.image);
 		}
 
 		async function getStories(storyIDs) {
-			if (!storyIDs) return;
+			if (!storyIDs || isGetting.current.stories) return;
+			isGetting.current.stories = true;
 			let newStories = await Promise.all(storyIDs.map(async (storyID) => await getStory(storyID)));
 			newStories = newStories.filter((e) => e !== false);
 			setStories(newStories);
@@ -80,12 +88,10 @@ const UserProvider = ({ children, user_username }) => {
 			return storyResponse.data.story;
 		}
 
-		if (user.username !== user_username) getUser();
-
-		return () => {
-			clearTimeout(reloadTimer);
-		};
-	}, [location, user_username, APIRequest, setIsAuthorizedToEdit, user, setUser, setProfilePicture, setBanner]);
+		getInitial();
+		let reloadTimer = setTimeout(() => getInitial(), 1);
+		return () => clearTimeout(reloadTimer);
+	}, [location, user_username, curr_username, isGetting, APIRequest, setIsAuthorizedToEdit, user, setUser, setProfilePicture, setBanner]);
 
 	return (
 		<UserContext.Provider

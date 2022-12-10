@@ -39,6 +39,7 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 	}, [characterID, characters, charactersCardBackgrounds, characterTypes, setCharacter, setCardBackground, setCharacterType]);
 
 	function navigateToCharacter(e) {
+		if (e.button === 2) return;
 		e.preventDefault();
 		if (story?.uid && character?.uid) changeLocation("/s/" + story.uid + "/c/" + character.uid, e.button === 1);
 	}

@@ -1,0 +1,33 @@
+.user-banner-container {
+	display: block;
+	margin-top: -6px;
+	width: 100%;
+	height: min(16vw, 250px);
+	background: var(--grey2);
+}
+
+.user-banner {
+	width: 100%;
+	height: 100%;
+}
+
+.user-banner img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+@media (max-width: 750px) {
+	.user-banner-container {
+		margin-top: -6px;
+		margin-left: -6px;
+		width: calc(100% + 12px);
+		max-width: calc(100% + 12px);
+		height: 120px;
+	}
+
+	.user-banner {
+		border-radius: 0px;
+	}
+}

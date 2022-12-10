@@ -181,11 +181,8 @@ const StoryProvider = ({ children, story_uid }) => {
 		}
 
 		getInitial();
-
 		let reloadTimer = setTimeout(() => getInitial(), 1);
-		return () => {
-			clearTimeout(reloadTimer);
-		};
+		return () => clearTimeout(reloadTimer);
 	}, [
 		location,
 		story_uid,

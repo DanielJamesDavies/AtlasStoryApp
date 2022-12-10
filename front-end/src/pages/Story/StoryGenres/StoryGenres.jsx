@@ -8,6 +8,7 @@ import { LabelContainer } from "../../../components/LabelContainer/LabelContaine
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
+import { TextInput } from "../../../components/TextInput/TextInput";
 
 // Logic
 import { StoryGenresLogic } from "./StoryGenresLogic";
@@ -18,7 +19,6 @@ import { StoryGenresLogic } from "./StoryGenresLogic";
 
 // Styles
 import "./StoryGenres.css";
-import { TextInput } from "../../../components/TextInput/TextInput";
 
 // Assets
 
