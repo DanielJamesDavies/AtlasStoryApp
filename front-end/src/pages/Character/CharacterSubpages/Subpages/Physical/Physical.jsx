@@ -12,6 +12,7 @@ import { PhysicalLogic } from "./PhysicalLogic";
 // Services
 
 // Styles
+import "./Physical.css";
 
 // Assets
 
@@ -29,22 +30,26 @@ export const Physical = () => {
 					: "character-subpage-physical character-subpage-physical-outfit-character-images-open"
 			}
 		>
-			<PhysicalAttributeItems
-				characterImagesCurrItem={characterImagesCurrItem}
-				characterImages={characterImages}
-				openCharacterImages={openCharacterImages}
-				closeCharacterImages={closeCharacterImages}
-				addImageToItem={addImageToItem}
-				onPhysicalItemImageClick={onPhysicalItemImageClick}
-			/>
-			<PhysicalOutfitItems
-				characterImagesCurrItem={characterImagesCurrItem}
-				characterImages={characterImages}
-				openCharacterImages={openCharacterImages}
-				closeCharacterImages={closeCharacterImages}
-				addImageToItem={addImageToItem}
-				onPhysicalItemImageClick={onPhysicalItemImageClick}
-			/>
+			<div className='character-subpage-physical-section-1'>
+				<PhysicalAttributeItems
+					characterImagesCurrItem={characterImagesCurrItem}
+					characterImages={characterImages}
+					openCharacterImages={openCharacterImages}
+					closeCharacterImages={closeCharacterImages}
+					addImageToItem={addImageToItem}
+					onPhysicalItemImageClick={onPhysicalItemImageClick}
+				/>
+			</div>
+			<div className='character-subpage-physical-section-2'>
+				<PhysicalOutfitItems
+					characterImagesCurrItem={characterImagesCurrItem}
+					characterImages={characterImages}
+					openCharacterImages={openCharacterImages}
+					closeCharacterImages={closeCharacterImages}
+					addImageToItem={addImageToItem}
+					onPhysicalItemImageClick={onPhysicalItemImageClick}
+				/>
+			</div>
 		</div>
 	);
 };

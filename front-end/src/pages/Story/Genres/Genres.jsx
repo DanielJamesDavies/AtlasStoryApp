@@ -42,15 +42,17 @@ export const Genres = () => {
 		createNewGenre,
 	} = GenresLogic();
 
+	if (!isAuthorizedToEdit && (!story?.data?.genres || !storyGenres || story?.data?.genres.length === 0)) return null;
+
 	if (!story?.data?.genres)
 		return (
 			<ContentItem size='s' hasBg={true}>
 				<LabelContainer className='story-genres-container' label='Genres'>
 					<div className='story-genres'>
 						<div className='story-genres-list'>
-							<div className='story-genres-item-placeholder'></div>
-							<div className='story-genres-item-placeholder'></div>
-							<div className='story-genres-item-placeholder'></div>
+							<div className='story-genres-item-placeholder loading-background'></div>
+							<div className='story-genres-item-placeholder loading-background'></div>
+							<div className='story-genres-item-placeholder loading-background'></div>
 						</div>
 					</div>
 				</LabelContainer>
@@ -64,13 +66,14 @@ export const Genres = () => {
 					<div className='story-genres'>
 						<div className='story-genres-list'>
 							{story?.data?.genres.map((genre, index) => (
-								<div key={index} className='story-genres-item-placeholder'></div>
+								<div key={index} className='story-genres-item-placeholder loading-background'></div>
 							))}
 						</div>
 					</div>
 				</LabelContainer>
 			</ContentItem>
 		);
+
 	return (
 		<ContentItem size='s' hasBg={true}>
 			<LabelContainer className='story-genres-container' label='Genres'>

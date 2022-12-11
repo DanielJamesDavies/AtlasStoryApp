@@ -30,7 +30,7 @@ export const BtnListItem = ({ className, size, value, index, isActive, onClick, 
 	return (
 		<div tabIndex='1' className={btnListItemClassName} onClick={onBtnListItemClick} onAuxClick={onClick}>
 			{value === undefined ? (
-				<div className='btn-list-item-value-placeholder'></div>
+				<div className='btn-list-item-value-placeholder loading-background'></div>
 			) : onChange === undefined ? (
 				<div className='btn-list-item-value'>{value}</div>
 			) : (

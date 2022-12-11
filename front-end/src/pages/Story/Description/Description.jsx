@@ -22,6 +22,9 @@ import "./Description.css";
 export const Description = () => {
 	const { isAuthorizedToEdit, story, changeStoryDescription, revertStoryDescription, saveStoryDescription } = DescriptionLogic();
 
+	if (!isAuthorizedToEdit && (!story?.data?.description || story?.data?.description.join("").split(" ").join("").split("").length === 0))
+		return null;
+
 	if (!story?.data?.description)
 		return (
 			<ContentItem size='s' hasBg={true}>

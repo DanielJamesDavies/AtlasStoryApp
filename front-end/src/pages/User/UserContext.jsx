@@ -63,7 +63,7 @@ const UserProvider = ({ children, user_username }) => {
 			const response = await APIRequest("/image/" + profilePictureID, "GET");
 			if (response?.error || !response?.data?.image?.image) return setProfilePicture(false);
 			setProfilePicture(response.data.image.image);
-			setUserProfilePicture(response.data.image.image);
+			if (newUsername === username) setUserProfilePicture(response.data.image.image);
 		}
 
 		async function getUserBanner(bannerID, newUsername) {

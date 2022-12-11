@@ -2,6 +2,7 @@
 
 // Components
 import { PhysicalOutfitItem } from "./PhysicalOutfitItem";
+import { OpenableComponent } from "../../../../../../components/OpenableComponent/OpenableComponent";
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
@@ -49,19 +50,19 @@ export const PhysicalOutfitItems = ({
 	} = PhysicalOutfitItemsLogic();
 
 	return (
-		<EditableContainer
-			className='character-subpage-physical-outfit-items-container'
-			isAuthorizedToEdit={isAuthorizedToEdit}
-			onAdd={addPhysicalOutfitItem}
-			onReorder={toggleIsReorderingPhysicalOutfitItems}
-			onRevert={revertPhysicalOutfitItems}
-			onSave={savePhysicalOutfitItems}
-			onScroll={onPhysicalOutfitItemsContainerScroll}
+		<OpenableComponent
+			title='Outfits'
+			onlyOnMobile={true}
+			isDisplaying={isAuthorizedToEdit || characterVersion?.physical?.outfits?.length !== 0}
 		>
-			<div>
-				{characterVersion?.physical?.outfits.length === 0 ? null : (
-					<div className='character-subpage-physical-outfit-items-title'>Outfits</div>
-				)}
+			<EditableContainer
+				isAuthorizedToEdit={isAuthorizedToEdit}
+				onAdd={addPhysicalOutfitItem}
+				onReorder={toggleIsReorderingPhysicalOutfitItems}
+				onRevert={revertPhysicalOutfitItems}
+				onSave={savePhysicalOutfitItems}
+				onScroll={onPhysicalOutfitItemsContainerScroll}
+			>
 				<div ref={physicalOutfitItemsRef} className='character-subpage-physical-outfit-items'>
 					{characterVersion?.physical?.outfits?.map((physicalOutfitItem, index) => (
 						<div key={index} className='character-subpage-physical-outfit-item-container'>
@@ -75,40 +76,39 @@ export const PhysicalOutfitItems = ({
 						</div>
 					))}
 				</div>
-			</div>
-			<div>
-				<div className='character-subpage-physical-outfit-items-title'>Outfits</div>
-				<ErrorMessage errors={errors} />
-				<DragDropContainer
-					innerRef={physicalOutfitItemsRef}
-					className='character-subpage-physical-outfit-items'
-					enableDragDrop={isReorderingPhysicalOutfitItems}
-					onDropItem={reorderPhysicalOutfitItems}
-				>
-					{characterVersion?.physical?.outfits?.map((physicalOutfitItem, index) => (
-						<DragDropItem className='character-subpage-physical-outfit-item-container' key={index} index={index}>
-							<PhysicalOutfitItem
-								index={index}
-								physicalOutfitItem={physicalOutfitItem}
-								isEditing={true}
-								changePhysicalOutfitItemTitle={changePhysicalOutfitItemTitle}
-								changePhysicalOutfitItemText={changePhysicalOutfitItemText}
-								removePhysicalOutfitItem={removePhysicalOutfitItem}
-								openCharacterImages={openCharacterImages}
-								characterImages={characterImages}
-								onPhysicalItemImageClick={onPhysicalItemImageClick}
-								changePhysicalOutfitItemImageCaption={changePhysicalOutfitItemImageCaption}
-								removePhysicalOutfitItemImage={removePhysicalOutfitItemImage}
-								isReorderingPhysicalOutfitItems={isReorderingPhysicalOutfitItems}
-								reorderPhysicalOutfitItemImages={reorderPhysicalOutfitItemImages}
-							/>
-						</DragDropItem>
-					))}
-				</DragDropContainer>
-				{characterImagesCurrItem === false || characterImagesCurrItem?.type !== "outfits" ? null : (
-					<CharacterImages onAddImage={addImageToItem} onClose={closeCharacterImages} />
-				)}
-			</div>
-		</EditableContainer>
+				<div>
+					<ErrorMessage errors={errors} />
+					<DragDropContainer
+						innerRef={physicalOutfitItemsRef}
+						className='character-subpage-physical-outfit-items'
+						enableDragDrop={isReorderingPhysicalOutfitItems}
+						onDropItem={reorderPhysicalOutfitItems}
+					>
+						{characterVersion?.physical?.outfits?.map((physicalOutfitItem, index) => (
+							<DragDropItem className='character-subpage-physical-outfit-item-container' key={index} index={index}>
+								<PhysicalOutfitItem
+									index={index}
+									physicalOutfitItem={physicalOutfitItem}
+									isEditing={true}
+									changePhysicalOutfitItemTitle={changePhysicalOutfitItemTitle}
+									changePhysicalOutfitItemText={changePhysicalOutfitItemText}
+									removePhysicalOutfitItem={removePhysicalOutfitItem}
+									openCharacterImages={openCharacterImages}
+									characterImages={characterImages}
+									onPhysicalItemImageClick={onPhysicalItemImageClick}
+									changePhysicalOutfitItemImageCaption={changePhysicalOutfitItemImageCaption}
+									removePhysicalOutfitItemImage={removePhysicalOutfitItemImage}
+									isReorderingPhysicalOutfitItems={isReorderingPhysicalOutfitItems}
+									reorderPhysicalOutfitItemImages={reorderPhysicalOutfitItemImages}
+								/>
+							</DragDropItem>
+						))}
+					</DragDropContainer>
+					{characterImagesCurrItem === false || characterImagesCurrItem?.type !== "outfits" ? null : (
+						<CharacterImages onAddImage={addImageToItem} onClose={closeCharacterImages} />
+					)}
+				</div>
+			</EditableContainer>
+		</OpenableComponent>
 	);
 };

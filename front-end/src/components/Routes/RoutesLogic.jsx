@@ -44,6 +44,7 @@ export const RoutesLogic = () => {
 			const locationSplit = location.split("?")[0].split("/");
 			locationSplit.splice(0, 1);
 			if (locationSplit.length === 0) return null;
+			document.title = "https://www.atlas-story.app" + location;
 
 			setRenderComponent(null);
 			setShowUnauthorizedNavigationBar(false);

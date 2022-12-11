@@ -28,7 +28,7 @@ export const Stories = () => {
 		<div className='user-stories'>
 			<div className='user-stories-top'>
 				{!user ? null : <div className='user-stories-top-title'>Stories</div>}
-				<div className='user-stories-top-items-count'>{!stories ? null : "(" + stories.length + ")"}</div>
+				<div className='user-stories-top-items-count'>{!stories ? (!user ? null : "(0)") : "(" + stories.length + ")"}</div>
 				{!isAuthorizedToEdit ? null : (
 					<div className='user-stories-top-modify-btns-container'>
 						<IconBtn

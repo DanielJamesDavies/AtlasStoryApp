@@ -8,6 +8,6 @@
 
 @media (max-width: 750px) {
 	.character-subpage-psychology-items {
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 48px);
+		max-height: none;
 	}
 }

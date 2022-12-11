@@ -15,7 +15,7 @@ import { StoryContext } from "./StoryContext";
 // Assets
 
 export const StoryLogic = () => {
-	const { story } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story } = useContext(StoryContext);
 
 	const [storyStyles, setStoryStyles] = useState({});
 
@@ -29,5 +29,5 @@ export const StoryLogic = () => {
 		getStoryStyles();
 	}, [story]);
 
-	return { storyStyles };
+	return { isAuthorizedToEdit, story, storyStyles };
 };

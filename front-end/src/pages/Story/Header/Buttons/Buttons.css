@@ -76,6 +76,17 @@
 	display: block;
 }
 
+.story-header-follow-btn-placeholder {
+	display: flex;
+	align-items: center;
+	margin: 0 12px;
+	border: 0;
+	border-radius: 32px;
+
+	width: 96px;
+	height: 36px;
+}
+
 @media (max-width: 750px) {
 	.story-header-buttons-container {
 		padding-left: 0;

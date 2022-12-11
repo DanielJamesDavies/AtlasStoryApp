@@ -2,6 +2,7 @@
 
 // Components
 import { PhysicalAttributeItem } from "./PhysicalAttributeItem";
+import { OpenableComponent } from "../../../../../../components/OpenableComponent/OpenableComponent";
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
@@ -50,20 +51,20 @@ export const PhysicalAttributeItems = ({
 	} = PhysicalAttributeItemsLogic();
 
 	return (
-		<EditableContainer
-			className='character-subpage-physical-attribute-items-container'
-			isAuthorizedToEdit={isAuthorizedToEdit}
-			onAdd={addPhysicalAttributeItem}
-			onDefault={defaultPhysicalAttributeItems}
-			onReorder={toggleIsReorderingPhysicalAttributeItems}
-			onRevert={revertPhysicalAttributeItems}
-			onSave={savePhysicalAttributeItems}
-			onScroll={onPhysicalAttributeItemsContainerScroll}
+		<OpenableComponent
+			title='Physical Attributes'
+			onlyOnMobile={true}
+			isDisplaying={isAuthorizedToEdit || characterVersion?.physical?.attributes?.length !== 0}
 		>
-			<div>
-				{characterVersion?.physical?.attributes?.length === 0 ? null : (
-					<div className='character-subpage-physical-attribute-items-title'>Physical Attributes</div>
-				)}
+			<EditableContainer
+				isAuthorizedToEdit={isAuthorizedToEdit}
+				onAdd={addPhysicalAttributeItem}
+				onDefault={defaultPhysicalAttributeItems}
+				onReorder={toggleIsReorderingPhysicalAttributeItems}
+				onRevert={revertPhysicalAttributeItems}
+				onSave={savePhysicalAttributeItems}
+				onScroll={onPhysicalAttributeItemsContainerScroll}
+			>
 				<div ref={physicalAttributeItemsRef} className='character-subpage-physical-attribute-items'>
 					{characterVersion?.physical?.attributes?.map((physicalAttributeItem, index) => (
 						<div key={index} className='character-subpage-physical-attribute-item-container'>
@@ -77,40 +78,39 @@ export const PhysicalAttributeItems = ({
 						</div>
 					))}
 				</div>
-			</div>
-			<div>
-				<div className='character-subpage-physical-attribute-items-title'>Physical Attributes</div>
-				<ErrorMessage errors={errors} />
-				<DragDropContainer
-					innerRef={physicalAttributeItemsRef}
-					className='character-subpage-physical-attribute-items'
-					enableDragDrop={isReorderingPhysicalAttributeItems}
-					onDropItem={reorderPhysicalAttributeItems}
-				>
-					{characterVersion?.physical?.attributes?.map((physicalAttributeItem, index) => (
-						<DragDropItem className='character-subpage-physical-attribute-item-container' key={index} index={index}>
-							<PhysicalAttributeItem
-								index={index}
-								physicalAttributeItem={physicalAttributeItem}
-								isEditing={true}
-								changePhysicalAttributeItemTitle={changePhysicalAttributeItemTitle}
-								changePhysicalAttributeItemText={changePhysicalAttributeItemText}
-								removePhysicalAttributeItem={removePhysicalAttributeItem}
-								openCharacterImages={openCharacterImages}
-								characterImages={characterImages}
-								onPhysicalItemImageClick={onPhysicalItemImageClick}
-								changePhysicalAttributeItemImageCaption={changePhysicalAttributeItemImageCaption}
-								removePhysicalAttributeItemImage={removePhysicalAttributeItemImage}
-								isReorderingPhysicalAttributeItems={isReorderingPhysicalAttributeItems}
-								reorderPhysicalAttributeItemImages={reorderPhysicalAttributeItemImages}
-							/>
-						</DragDropItem>
-					))}
-				</DragDropContainer>
-				{characterImagesCurrItem === false || characterImagesCurrItem?.type !== "attributes" ? null : (
-					<CharacterImages onAddImage={addImageToItem} onClose={closeCharacterImages} />
-				)}
-			</div>
-		</EditableContainer>
+				<div>
+					<ErrorMessage errors={errors} />
+					<DragDropContainer
+						innerRef={physicalAttributeItemsRef}
+						className='character-subpage-physical-attribute-items'
+						enableDragDrop={isReorderingPhysicalAttributeItems}
+						onDropItem={reorderPhysicalAttributeItems}
+					>
+						{characterVersion?.physical?.attributes?.map((physicalAttributeItem, index) => (
+							<DragDropItem className='character-subpage-physical-attribute-item-container' key={index} index={index}>
+								<PhysicalAttributeItem
+									index={index}
+									physicalAttributeItem={physicalAttributeItem}
+									isEditing={true}
+									changePhysicalAttributeItemTitle={changePhysicalAttributeItemTitle}
+									changePhysicalAttributeItemText={changePhysicalAttributeItemText}
+									removePhysicalAttributeItem={removePhysicalAttributeItem}
+									openCharacterImages={openCharacterImages}
+									characterImages={characterImages}
+									onPhysicalItemImageClick={onPhysicalItemImageClick}
+									changePhysicalAttributeItemImageCaption={changePhysicalAttributeItemImageCaption}
+									removePhysicalAttributeItemImage={removePhysicalAttributeItemImage}
+									isReorderingPhysicalAttributeItems={isReorderingPhysicalAttributeItems}
+									reorderPhysicalAttributeItemImages={reorderPhysicalAttributeItemImages}
+								/>
+							</DragDropItem>
+						))}
+					</DragDropContainer>
+					{characterImagesCurrItem === false || characterImagesCurrItem?.type !== "attributes" ? null : (
+						<CharacterImages onAddImage={addImageToItem} onClose={closeCharacterImages} />
+					)}
+				</div>
+			</EditableContainer>
+		</OpenableComponent>
 	);
 };

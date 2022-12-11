@@ -49,9 +49,6 @@
 	border-radius: 12px;
 	width: calc(100% - 10px);
 	height: 19px;
-	background: linear-gradient(90deg, var(--grey3), var(--grey5), var(--grey3));
-	background-size: 400%;
-	animation: btn-list-item-value-placeholder 5s infinite linear;
 }
 
 .btn-list-item-size-s {
@@ -68,15 +65,6 @@
 .btn-list-item-size-s .btn-list-item-value,
 .btn-list-item-size-s .btn-list-item-value input {
 	font-size: 14px;
-}
-
-@keyframes btn-list-item-value-placeholder {
-	0% {
-		background-position: 0%;
-	}
-	100% {
-		background-position: 400%;
-	}
 }
 
 .btn-list-item-btns-container {

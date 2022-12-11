@@ -21,7 +21,7 @@ import "./PrimaryCharacters.css";
 export const PrimaryCharacters = () => {
 	const { isAuthorizedToEdit, primaryCharacters, toggleIsReorderingCharacters } = PrimaryCharactersLogic();
 
-	if (!primaryCharacters) return null;
+	if (!isAuthorizedToEdit && (!primaryCharacters || primaryCharacters.length === 0)) return null;
 	return (
 		<ContentItem size='s' hasBg={true}>
 			<div className='story-primary-characters'>

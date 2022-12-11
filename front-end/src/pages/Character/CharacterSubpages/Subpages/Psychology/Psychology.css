@@ -24,3 +24,16 @@
 		margin-top: 28px;
 	}
 }
+
+@media (max-width: 750px) {
+	.character-subpage-psychology-section-1,
+	.character-subpage-psychology-section-2 {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+
+	.character-subpage-psychology-section-2 {
+		margin: 24px 0;
+	}
+}

@@ -14,6 +14,7 @@ import { BigFiveLogic } from "./BigFiveLogic";
 
 // Styles
 import "./BigFive.css";
+import { OpenableComponent } from "../../../../../../components/OpenableComponent/OpenableComponent";
 
 // Assets
 
@@ -21,8 +22,7 @@ export const BigFive = () => {
 	const { isAuthorizedToEdit, bigFiveTraits, revertBigFive, saveBigFive, errors, bigFiveRef, onBigFiveContainerScroll } = BigFiveLogic();
 
 	return (
-		<div className='character-subpage-psychology-big-five-container'>
-			<div className='character-subpage-psychology-big-five-title'>Big Five Personality Traits</div>
+		<OpenableComponent className='character-subpage-psychology-big-five-container' title='Big Five Personality Traits' onlyOnMobile={true}>
 			<EditableContainer
 				className='character-subpage-psychology-big-five'
 				isAuthorizedToEdit={isAuthorizedToEdit}
@@ -42,6 +42,6 @@ export const BigFive = () => {
 					))}
 				</div>
 			</EditableContainer>
-		</div>
+		</OpenableComponent>
 	);
 };

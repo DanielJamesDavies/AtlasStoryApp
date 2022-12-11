@@ -23,21 +23,6 @@
 
 	width: 70px;
 	min-height: 15px;
-
-	background: linear-gradient(90deg, var(--grey3), var(--grey5), var(--grey3));
-	background-size: 400%;
-	animation: story-genres-item-placeholder 5s infinite linear;
-	transition: background 0.1s;
-	opacity: 0.4;
-}
-
-@keyframes story-genres-item-placeholder {
-	0% {
-		background-position: 0%;
-	}
-	100% {
-		background-position: 400%;
-	}
 }
 
 .story-genres-item {

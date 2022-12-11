@@ -222,3 +222,20 @@ img {
 .lightbox-openable-image:hover {
 	opacity: 0.8;
 }
+
+.loading-background {
+	background: linear-gradient(90deg, var(--grey3), var(--grey5), var(--grey3));
+	background-size: 400%;
+	animation: loading-background 5s infinite linear;
+	transition: background 0.1s;
+	opacity: 0.4;
+}
+
+@keyframes loading-background {
+	0% {
+		background-position: 0%;
+	}
+	100% {
+		background-position: 400%;
+	}
+}

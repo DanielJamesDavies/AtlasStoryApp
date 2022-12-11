@@ -21,20 +21,26 @@ import "./Story.css";
 // Assets
 
 export const Story = () => {
-	const { storyStyles } = StoryLogic();
+	const { isAuthorizedToEdit, story, storyStyles } = StoryLogic();
 
 	return (
 		<div className='story' style={storyStyles}>
 			<Banner />
 			<Header />
-			<div className='story-section-1'>
-				<Genres />
-				<Description />
+			<div className='story-content'>
+				{!isAuthorizedToEdit &&
+				(!story?.data?.genres || story?.data?.genres.length === 0) &&
+				(!story?.data?.description || story?.data?.description.join("").split(" ").join("").split("").length === 0) ? null : (
+					<div className='story-section-1'>
+						<Genres />
+						<Description />
+					</div>
+				)}
+				<div className='story-section-2'>
+					<PrimaryCharacters />
+				</div>
+				<Settings />
 			</div>
-			<div className='story-section-2'>
-				<PrimaryCharacters />
-			</div>
-			<Settings />
 		</div>
 	);
 };
