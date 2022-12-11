@@ -32,7 +32,7 @@ import { AppContext } from "../../context/AppContext";
 
 export const RoutesLogic = () => {
 	const { location, changeLocation } = useContext(RoutesContext);
-	const { APIRequest, user_id, setUserID, username, setUsername, setUserProfilePicture } = useContext(APIContext);
+	const { APIRequest, user_id, setUserID, username, setUsername, setUserProfilePicture, setUserBanner } = useContext(APIContext);
 	const { changeAccentColour, changeAccentHoverColour, setUITheme, setFontSize } = useContext(AppContext);
 
 	const contentContainerRef = useRef();
@@ -182,20 +182,29 @@ export const RoutesLogic = () => {
 			if (user?.data?.fontSize) setFontSize(user.data.fontSize);
 
 			getUserProfilePicture(user?.data?.profilePicture);
+			getUserBanner(user?.data?.banner);
 
 			return response?.data?.user;
 		}
 
-		async function getUserProfilePicture(userProfilePictureID) {
-			if (!userProfilePictureID) return false;
-			const response = await APIRequest("/image/" + userProfilePictureID, "GET");
+		async function getUserProfilePicture(profilePictureID) {
+			if (!profilePictureID) return false;
+			const response = await APIRequest("/image/" + profilePictureID, "GET");
 			if (response?.error || !response?.data?.image?.image) return false;
 			setUserProfilePicture(response.data.image.image);
 			return response.data.image.image;
 		}
 
+		async function getUserBanner(bannerID) {
+			if (!bannerID) return false;
+			const response = await APIRequest("/image/" + bannerID, "GET");
+			if (response?.error || !response?.data?.image?.image) return false;
+			setUserBanner(response.data.image.image);
+			return response.data.image.image;
+		}
+
 		getUser();
-	}, [APIRequest, user_id, setUserID, username, setUsername, setUITheme, setFontSize, setUserProfilePicture]);
+	}, [APIRequest, user_id, setUserID, username, setUsername, setUITheme, setFontSize, setUserProfilePicture, setUserBanner]);
 
 	useEffect(() => {
 		contentContainerRef.current.scrollTop = 0;

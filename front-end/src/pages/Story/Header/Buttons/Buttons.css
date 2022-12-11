@@ -1,0 +1,110 @@
+.story-header-buttons-container {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+	margin-right: 12px;
+	padding-left: 12px;
+}
+
+.story-header-btn {
+	margin: 0 6px;
+}
+
+.story-header-btn:first-child {
+	margin-left: 0;
+}
+
+.story-header-btn:last-child {
+	margin-right: 0;
+}
+
+.story-header-follow-btn {
+	margin: 0 12px;
+	border: 0;
+	border-radius: 32px;
+
+	width: 96px;
+	height: 36px;
+
+	background: var(--grey3);
+	color: #fff;
+	text-align: center;
+	font-weight: 700;
+	cursor: pointer;
+	transition: 0.1s;
+}
+
+.story-header-follow-btn:hover {
+	background: var(--grey4);
+}
+
+.story-header-is-authorized .story-header-follow-btn {
+	margin-left: 12px;
+}
+
+.story-header-follow-btn-is-following {
+	background: var(--storyColour);
+	color: #fff;
+}
+
+.story-header-follow-btn-is-following:hover {
+	background: var(--red);
+	color: #fff;
+}
+
+.story-header-follow-btn-is-following .story-header-follow-btn-text-follow {
+	display: none;
+}
+
+.story-header-follow-btn-text-following {
+	display: none;
+}
+
+.story-header-follow-btn-is-following .story-header-follow-btn-text-following {
+	display: block;
+}
+
+.story-header-follow-btn-is-following:hover .story-header-follow-btn-text-following {
+	display: none;
+}
+
+.story-header-follow-btn-text-unfollow {
+	display: none;
+}
+
+.story-header-follow-btn-is-following:hover .story-header-follow-btn-text-unfollow {
+	display: block;
+}
+
+@media (max-width: 750px) {
+	.story-header-buttons-container {
+		padding-left: 0;
+	}
+
+	.story-header-btn {
+		margin: 2px 8px;
+	}
+
+	.story-header-follow-btn {
+		margin: 0px;
+		margin-right: 4px;
+		font-size: 14px;
+	}
+
+	.story-header-is-authorized .story-header-follow-btn {
+		margin-left: 0px;
+	}
+
+	.story-header-follow-btn-is-following:hover {
+		background: var(--storyColour);
+		color: #fff;
+	}
+
+	.story-header-follow-btn-is-following:hover .story-header-follow-btn-text-following {
+		display: block;
+	}
+
+	.story-header-follow-btn-is-following:hover .story-header-follow-btn-text-unfollow {
+		display: none;
+	}
+}

@@ -17,7 +17,15 @@ import getImageFromFile from "../../services/GetImageFromFile";
 export const ImageInputLogic = ({ className, isCircular, onChange }) => {
 	const inputRef = useRef();
 
-	const [imageInputClassName, setImageInputClassName] = useState(!isCircular ? "image-input" : "image-input image-input-circular");
+	const [imageInputClassName, setImageInputClassName] = useState(
+		!isCircular
+			? className
+				? "image-input " + className
+				: "image-input"
+			: className
+			? "image-input image-input-circular " + className
+			: "image-input image-input-circular"
+	);
 
 	useEffect(() => {
 		function getImageInputClassName() {

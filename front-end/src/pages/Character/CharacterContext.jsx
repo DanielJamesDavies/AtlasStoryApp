@@ -59,27 +59,11 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 	const [characterPaddingTop, setCharacterPaddingTop] = useState(0);
 
-	const hasReloaded = useRef(false);
 	const curr_story_uid = useRef(false);
 	const curr_character_uid = useRef(false);
-	const isGetting = useRef({
-		storyIcon: false,
-		characterTypes: false,
-		groups: false,
-		characters: false,
-		characterOverviewBackground: false,
-		characterCardBackground: false,
-		faceImage: false,
-		characterImages: false,
-		characterRelationships: false,
-	});
 	useEffect(() => {
 		async function getInitial() {
-			if (failure || !story_uid || !character_uid) {
-				setStateToDefault();
-				return;
-			}
-			if (!hasReloaded.current) return (hasReloaded.current = true);
+			if (failure || !story_uid || !character_uid) return setStateToDefault();
 			if (curr_story_uid.current === story_uid && curr_character_uid.current === character_uid) return;
 
 			let { newStory, newIsAuthorizedToEdit } = await getStory();
@@ -137,8 +121,6 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 
 		async function getStoryIcon(iconID) {
 			if (!iconID) return setStoryIcon(false);
-			if (isGetting.storyIcon) return;
-			isGetting.storyIcon = true;
 
 			let icon = false;
 			const recentImage = recentImages.current.find((e) => e?._id === iconID);
@@ -171,8 +153,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		async function getCharacterTypes(characterTypesIDs, story_id) {
-			if (!characterTypesIDs || isGetting.characterTypes) return;
-			isGetting.characterTypes = true;
+			if (!characterTypesIDs) return;
 
 			let newCharacterTypes = await Promise.all(
 				characterTypesIDs.map(async (characterTypeID) => {
@@ -188,8 +169,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		async function getGroups(groupIDs, story_id) {
-			if (!groupIDs || !story_id || isGetting.groups) return;
-			isGetting.groups = true;
+			if (!groupIDs || !story_id) return;
 
 			let newGroups = await Promise.all(
 				groupIDs.map(async (groupID) => {
@@ -211,8 +191,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		async function getCharacters(groups, story_id) {
-			if (!story_id || isGetting.characters) return false;
-			isGetting.characters = true;
+			if (!story_id) return false;
 
 			let newCharacters = (
 				await Promise.all(
@@ -273,8 +252,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		async function getCharacterOverviewBackground(overviewBackgroundID) {
-			if (!overviewBackgroundID || isGetting.characterOverviewBackground) return;
-			isGetting.characterOverviewBackground = true;
+			if (!overviewBackgroundID) return;
 
 			let overviewBackground = false;
 
@@ -294,8 +272,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		async function getCharacterCardBackground(cardBackgroundID) {
-			if (!cardBackgroundID || isGetting.characterCardBackground) return;
-			isGetting.characterCardBackground = true;
+			if (!cardBackgroundID) return;
 
 			let cardBackground = false;
 
@@ -315,8 +292,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		async function getCharacterFaceImage(faceImageID) {
-			if (!faceImageID || isGetting.faceImage) return;
-			isGetting.faceImage = true;
+			if (!faceImageID) return;
 
 			let faceImage = false;
 
@@ -336,8 +312,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		async function getCharacterImages(imageIDs) {
-			if (!imageIDs || isGetting.characterImages) return;
-			isGetting.characterImages = true;
+			if (!imageIDs) return;
 
 			let newCharacterImages = await Promise.all(
 				imageIDs.map(async (imageID) => {
@@ -359,8 +334,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		async function getCharacterRelationships(story_id, character_id) {
-			if (!story_id || !character_id || isGetting.characterRelationships) return false;
-			isGetting.characterRelationships = true;
+			if (!story_id || !character_id) return false;
 
 			let character_relationships_response = await APIRequest(
 				"/character-relationship?story_id=" + story_id + "&character_id=" + character_id,
@@ -378,17 +352,12 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		}
 
 		getInitial();
-
-		let reloadTimer = setTimeout(() => getInitial(), 50);
-		return () => clearTimeout(reloadTimer);
 	}, [
 		location,
 		story_uid,
 		character_uid,
-		hasReloaded,
 		curr_story_uid,
 		curr_character_uid,
-		isGetting,
 		APIRequest,
 		recentImages,
 		addImagesToRecentImages,

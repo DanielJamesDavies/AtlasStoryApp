@@ -36,14 +36,10 @@ const CharactersProvider = ({ children, story_uid }) => {
 	const [charactersCardBackgrounds, setCharactersCardBackgrounds] = useState(false);
 	const [charactersFaceImages, setCharactersFaceImages] = useState(false);
 
-	const hasReloaded = useRef(false);
 	const curr_story_uid = useRef(false);
-	const isGetting = useRef({ storyIcon: false, characterRelationships: false, charactersCardBackgrounds: false, charactersFaceImages: false });
-
 	useEffect(() => {
 		async function getInitial() {
 			if (!story_uid) return setStateToDefault();
-			if (!hasReloaded.current) return (hasReloaded.current = true);
 			if (curr_story_uid.current === story_uid) return;
 
 			let newStory = await getStory();
@@ -103,8 +99,6 @@ const CharactersProvider = ({ children, story_uid }) => {
 
 		async function getStoryIcon(iconID) {
 			if (!iconID) return setStoryIcon(false);
-			if (isGetting.storyIcon) return;
-			isGetting.storyIcon = true;
 
 			let icon = false;
 			const recentImage = recentImages.current.find((e) => e?._id === iconID);
@@ -164,8 +158,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 		}
 
 		async function getCharacterRelationships(story_id) {
-			if (!story_id || isGetting.characterRelationships) return false;
-			isGetting.characterRelationships = true;
+			if (!story_id) return false;
 
 			let character_relationships_response = await APIRequest("/character-relationship?story_id=" + story_id, "GET");
 			if (
@@ -180,8 +173,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 		}
 
 		async function getCharactersCardBackgrounds(newCharacters) {
-			if (!newCharacters || isGetting.charactersCardBackgrounds) return;
-			isGetting.charactersCardBackgrounds = true;
+			if (!newCharacters) return;
 
 			let newCharactersCardBackgrounds = await Promise.all(
 				newCharacters.map(async (character) => {
@@ -204,8 +196,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 		}
 
 		async function getCharactersFaceImages(newCharacters) {
-			if (!newCharacters || isGetting.charactersFaceImages) return;
-			isGetting.charactersFaceImages = true;
+			if (!newCharacters) return;
 
 			let newCharactersFaceImages = await Promise.all(
 				newCharacters.map(async (character) => {
@@ -243,15 +234,11 @@ const CharactersProvider = ({ children, story_uid }) => {
 		}
 
 		getInitial();
-
-		let reloadTimer = setTimeout(() => getInitial(), 50);
-		return () => clearTimeout(reloadTimer);
 	}, [
 		location,
 		story_uid,
 		APIRequest,
 		setIsAuthorizedToEdit,
-		hasReloaded,
 		curr_story_uid,
 		recentImages,
 		addImagesToRecentImages,
@@ -266,7 +253,6 @@ const CharactersProvider = ({ children, story_uid }) => {
 		setCharactersFaceImages,
 		changeAccentColour,
 		changeAccentHoverColour,
-		isGetting,
 	]);
 
 	const [isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm] = useState(false);

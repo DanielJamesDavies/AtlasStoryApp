@@ -1,11 +1,12 @@
 // Packages
 
 // Components
-import { StoryPrimary } from "./StoryPrimary/StoryPrimary";
-import { StoryDescription } from "./StoryDescription/StoryDescription";
-import { StoryGenres } from "./StoryGenres/StoryGenres";
-import { StoryPrimaryCharacters } from "./StoryPrimaryCharacters/StoryPrimaryCharacters";
-import { StorySettings } from "./StorySettings/StorySettings";
+import { Banner } from "./Banner/Banner";
+import { Header } from "./Header/Header";
+import { Description } from "./Description/Description";
+import { Genres } from "./Genres/Genres";
+import { PrimaryCharacters } from "./PrimaryCharacters/PrimaryCharacters";
+import { Settings } from "./Settings/Settings";
 
 // Logic
 import { StoryLogic } from "./StoryLogic";
@@ -24,15 +25,16 @@ export const Story = () => {
 
 	return (
 		<div className='story' style={storyStyles}>
-			<StoryPrimary />
+			<Banner />
+			<Header />
 			<div className='story-section-1'>
-				<StoryGenres />
-				<StoryDescription />
+				<Genres />
+				<Description />
 			</div>
 			<div className='story-section-2'>
-				<StoryPrimaryCharacters />
+				<PrimaryCharacters />
 			</div>
-			<StorySettings />
+			<Settings />
 		</div>
 	);
 };

@@ -7,13 +7,13 @@
 .editable-container-content {
 	display: inline-block;
 	position: relative;
-	padding-right: 6px;
 	width: 100%;
 	height: 100%;
 	vertical-align: top;
 }
 
 .editable-container-is-authorized .editable-container-content {
+	padding-right: 6px;
 	width: calc(100% - 26px - 6px);
 }
 
@@ -22,7 +22,7 @@
 	width: 100%;
 }
 
-.editable-container-absolute-position-edit-btns .editable-container-content {
+.editable-container-is-authorized.editable-container-absolute-position-edit-btns .editable-container-content {
 	padding-right: calc(6px + 26px);
 }
 

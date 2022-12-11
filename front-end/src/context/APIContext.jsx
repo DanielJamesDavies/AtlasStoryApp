@@ -6,6 +6,7 @@ const APIProvider = ({ children }) => {
 	const [user_id, setUserID] = useState(false);
 	const [username, setUsername] = useState(false);
 	const [userProfilePicture, setUserProfilePicture] = useState(false);
+	const [userBanner, setUserBanner] = useState(false);
 	const [cookiesConsent, setCookiesConsent] = useState(false);
 
 	const APIRequest = useCallback(
@@ -48,6 +49,8 @@ const APIProvider = ({ children }) => {
 				setUsername,
 				userProfilePicture,
 				setUserProfilePicture,
+				userBanner,
+				setUserBanner,
 				cookiesConsent,
 				setCookiesConsent,
 			}}

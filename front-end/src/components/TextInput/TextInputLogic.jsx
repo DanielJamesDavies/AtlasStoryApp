@@ -19,7 +19,13 @@ export const TextInputLogic = (props) => {
 	const inputWidthRef = useRef();
 	const [focused, setFocused] = useState(false);
 	const [inputClassName, setInputClassName] = useState(
-		props?.seamless ? "text-input-container text-input-container-seamless" : "text-input-container"
+		props?.seamless
+			? props?.className
+				? "text-input-container text-input-container-seamless " + props?.className
+				: "text-input-container text-input-container-seamless"
+			: props?.className
+			? "text-input-container " + props?.className
+			: "text-input-container"
 	);
 	const DynamicIconComponent = props.icon;
 

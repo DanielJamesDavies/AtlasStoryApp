@@ -1,0 +1,33 @@
+.story-header-main-info-title-container {
+	margin-top: -3px;
+	margin-bottom: 3px;
+	width: fit-content;
+	font-weight: 700;
+}
+
+.editable-container-is-editing.story-header-main-info-title-container {
+	align-items: flex-end;
+}
+
+.story-header-main-info-title {
+	width: 100%;
+}
+
+.story-header-main-info-title,
+.story-header-main-info-title-container input {
+	font-weight: 700;
+	font-size: 40px;
+	color: var(--textColour);
+}
+
+@media (max-width: 750px) {
+	.story-header-main-info-title {
+		font-size: 24px;
+		width: 100%;
+	}
+
+	.story-header-main-info-title,
+	.story-header-main-info-title-container input {
+		font-size: 28px;
+	}
+}

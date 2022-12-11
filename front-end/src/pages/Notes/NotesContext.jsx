@@ -75,11 +75,6 @@ const NotesProvider = ({ children, story_uid, notes_uid }) => {
 		}
 
 		getStory();
-
-		let reloadTimer = setTimeout(() => getStory(), 1);
-		return () => {
-			clearTimeout(reloadTimer);
-		};
 	}, [
 		location,
 		story_uid,

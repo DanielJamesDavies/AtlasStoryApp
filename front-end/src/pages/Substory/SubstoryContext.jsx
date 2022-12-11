@@ -48,23 +48,11 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const [subpages, setSubpages] = useState([]);
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 
-	const hasReloaded = useRef(false);
 	const curr_story_uid = useRef(false);
 	const curr_substory_uid = useRef(false);
-	const isGetting = useRef({
-		storyIcon: false,
-		substoryOverviewBackground: false,
-		substoryPosterBackground: false,
-		substoryImages: false,
-		substorySoundtrack: false,
-	});
 	useEffect(() => {
 		async function getInitial() {
-			if (failure || !story_uid || !substory_uid) {
-				setStateToDefault();
-				return;
-			}
-			if (!hasReloaded.current) return (hasReloaded.current = true);
+			if (failure || !story_uid || !substory_uid) return setStateToDefault();
 			if (curr_story_uid.current === story_uid && curr_substory_uid.current === substory_uid) return;
 
 			let { newStory, newIsAuthorizedToEdit } = await getStory();
@@ -115,8 +103,6 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 
 		async function getStoryIcon(iconID) {
 			if (!iconID) return setStoryIcon(false);
-			if (isGetting.storyIcon) return;
-			isGetting.storyIcon = true;
 
 			let icon = false;
 			const recentImage = recentImages.current.find((e) => e?._id === iconID);
@@ -169,8 +155,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		}
 
 		async function getSubstoryOverviewBackground(overviewBackgroundID) {
-			if (!overviewBackgroundID || isGetting.substoryOverviewBackground) return;
-			isGetting.substoryOverviewBackground = true;
+			if (!overviewBackgroundID) return;
 
 			let overviewBackground = false;
 
@@ -190,8 +175,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		}
 
 		async function getSubstoryPosterBackground(posterBackgroundID) {
-			if (!posterBackgroundID || isGetting.substoryPosterBackground) return;
-			isGetting.substoryPosterBackground = true;
+			if (!posterBackgroundID) return;
 
 			let posterBackground = false;
 
@@ -211,8 +195,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		}
 
 		async function getSubstoryImages(imageIDs) {
-			if (!imageIDs || isGetting.substoryImages) return;
-			isGetting.substoryImages = true;
+			if (!imageIDs) return;
 
 			let newSubstoryImages = await Promise.all(
 				imageIDs.map(async (imageID) => {
@@ -236,8 +219,6 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 
 		async function getSubstorySoundtrack(playlist_id, old_tracks) {
 			if (!playlist_id) return false;
-			if (isGetting.substorySoundtrack === true) return true;
-			isGetting.substoryImages = true;
 
 			const response = await SpotifyRequest("/playlists/" + playlist_id, "GET");
 			if (!response || response?.errors) return false;
@@ -280,17 +261,12 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		}
 
 		getInitial();
-
-		let reloadTimer = setTimeout(() => getInitial(), 50);
-		return () => clearTimeout(reloadTimer);
 	}, [
 		location,
 		story_uid,
 		substory_uid,
-		hasReloaded,
 		curr_story_uid,
 		curr_substory_uid,
-		isGetting,
 		APIRequest,
 		recentImages,
 		addImagesToRecentImages,

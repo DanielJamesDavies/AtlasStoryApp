@@ -18,14 +18,10 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location } = useContext(RoutesContext);
 
-	const hasReloaded = useRef(false);
 	const curr_story_uid = useRef(false);
-	const isGetting = useRef({ storyIcon: false, substoriesPosterBackgrounds: false });
-
 	useEffect(() => {
 		async function getInitial() {
 			if (!story_uid) return setStateToDefault();
-			if (!hasReloaded.current) return (hasReloaded.current = true);
 			if (curr_story_uid.current === story_uid) return;
 
 			let newStory = await getStory();
@@ -68,8 +64,6 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 
 		async function getStoryIcon(iconID) {
 			if (!iconID) return setStoryIcon(false);
-			if (isGetting.storyIcon) return;
-			isGetting.storyIcon = true;
 
 			let icon = false;
 			const recentImage = recentImages.current.find((e) => e?._id === iconID);
@@ -104,8 +98,7 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 		}
 
 		async function getSubstoriesPosterBackgrounds(newSubstories) {
-			if (!newSubstories || isGetting?.substoriesPosterBackgrounds) return;
-			isGetting.substoriesPosterBackgrounds = true;
+			if (!newSubstories) return;
 
 			let newSubstoriesPosterBackgrounds = await Promise.all(
 				newSubstories.map(async (substory) => {
@@ -128,21 +121,14 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 		}
 
 		getInitial();
-
-		let reloadTimer = setTimeout(() => getInitial(), 1);
-		return () => {
-			clearTimeout(reloadTimer);
-		};
 	}, [
 		location,
 		story_uid,
-		hasReloaded,
 		APIRequest,
 		recentImages,
 		addImagesToRecentImages,
 		setIsAuthorizedToEdit,
 		curr_story_uid,
-		isGetting,
 		setStory,
 		setStoryIcon,
 		setSubstories,

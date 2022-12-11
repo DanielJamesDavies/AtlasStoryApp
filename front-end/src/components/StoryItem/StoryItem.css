@@ -258,10 +258,12 @@
 
 	.story-item-owner {
 		font-size: 13px;
+		bottom: 12px;
 	}
 
 	.story-item-size-l .story-item-owner {
 		font-size: 13px;
+		bottom: 12px;
 	}
 
 	.story-item-size-s .story-item-owner {

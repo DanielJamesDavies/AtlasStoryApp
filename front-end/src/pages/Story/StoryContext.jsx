@@ -24,7 +24,6 @@ const StoryProvider = ({ children, story_uid }) => {
 	const { location } = useContext(RoutesContext);
 
 	const curr_story_uid = useRef(false);
-	const isGetting = useRef({ storyIcon: false, storyBanner: false, primaryCharactersCardBackgrounds: false });
 	useEffect(() => {
 		async function getInitial() {
 			if (!story_uid) return setStateToDefault();
@@ -94,8 +93,7 @@ const StoryProvider = ({ children, story_uid }) => {
 		}
 
 		async function getStoryIcon(iconID) {
-			if (!iconID || isGetting.storyIcon) return;
-			isGetting.storyIcon = true;
+			if (!iconID) return;
 
 			let icon = false;
 			const recentImage = recentImages.current.find((e) => e?._id === iconID);
@@ -113,8 +111,7 @@ const StoryProvider = ({ children, story_uid }) => {
 		}
 
 		async function getStoryBanner(bannerID) {
-			if (!bannerID || isGetting.storyBanner) return;
-			isGetting.storyBanner = true;
+			if (!bannerID) return;
 
 			let banner = false;
 			const recentImage = recentImages.current.find((e) => e?._id === bannerID);
@@ -132,8 +129,7 @@ const StoryProvider = ({ children, story_uid }) => {
 		}
 
 		async function getStoryPrimaryCharacters(primaryCharactersIDs) {
-			if (!primaryCharactersIDs || isGetting.primaryCharactersCardBackgrounds) return;
-			isGetting.primaryCharactersCardBackgrounds = true;
+			if (!primaryCharactersIDs) return;
 
 			let newPrimaryCharacters = await Promise.all(
 				primaryCharactersIDs.map(async (characterID) => {
@@ -181,8 +177,6 @@ const StoryProvider = ({ children, story_uid }) => {
 		}
 
 		getInitial();
-		let reloadTimer = setTimeout(() => getInitial(), 1);
-		return () => clearTimeout(reloadTimer);
 	}, [
 		location,
 		story_uid,
@@ -190,7 +184,6 @@ const StoryProvider = ({ children, story_uid }) => {
 		recentImages,
 		addImagesToRecentImages,
 		curr_story_uid,
-		isGetting,
 		setStory,
 		setMembers,
 		setIcon,

@@ -6,18 +6,18 @@ import { RoutesContext } from "../../context/RoutesContext";
 export const UserContext = createContext();
 
 const UserProvider = ({ children, user_username }) => {
+	const { APIRequest, username, userProfilePicture, setUserProfilePicture, userBanner, setUserBanner } = useContext(APIContext);
+	const { location } = useContext(RoutesContext);
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
-	const [user, setUser] = useState(false);
 	const [profilePicture, setProfilePicture] = useState(false);
+	const [user, setUser] = useState(false);
 	const [banner, setBanner] = useState(false);
 	const [stories, setStories] = useState(false);
 	const [isDisplayingSettings, setIsDisplayingSettings] = useState(false);
 	const [isDisplayingCreateStoryForm, setIsDisplayingCreateStoryForm] = useState(false);
-	const { APIRequest } = useContext(APIContext);
-	const { location } = useContext(RoutesContext);
 
 	const curr_username = useRef(false);
-	const isGetting = useRef({ profilePicture: false, banner: false, stories: false });
+	const authorized_user_images = useRef({ profilePicture: userProfilePicture, banner: userBanner });
 	useEffect(() => {
 		async function getInitial() {
 			if (!user_username) return setStateToDefault();
@@ -32,9 +32,9 @@ const UserProvider = ({ children, user_username }) => {
 				document.title = "https://www.atlas-story.app" + location;
 			}
 
-			getUserProfilePicture(newUser?.data?.profilePicture);
+			getUserProfilePicture(newUser?.data?.profilePicture, newUser.username);
+			getUserBanner(newUser?.data?.banner, newUser.username);
 			getStories(newUser?.data?.stories);
-			getUserBanner(newUser?.data?.banner);
 		}
 
 		function setStateToDefault() {
@@ -43,7 +43,6 @@ const UserProvider = ({ children, user_username }) => {
 			setProfilePicture(false);
 			setBanner(false);
 			setStories(false);
-			isGetting.current = { profilePicture: false, banner: false, stories: false };
 		}
 
 		async function getUser() {
@@ -58,25 +57,26 @@ const UserProvider = ({ children, user_username }) => {
 			return response?.data?.user;
 		}
 
-		async function getUserProfilePicture(profilePictureID) {
-			if (!profilePictureID || isGetting.current.profilePicture) return;
-			isGetting.current.profilePicture = true;
+		async function getUserProfilePicture(profilePictureID, newUsername) {
+			if (!profilePictureID) return;
+			if (newUsername === username) setProfilePicture(authorized_user_images?.current?.profilePicture);
 			const response = await APIRequest("/image/" + profilePictureID, "GET");
 			if (response?.error || !response?.data?.image?.image) return setProfilePicture(false);
 			setProfilePicture(response.data.image.image);
+			setUserProfilePicture(response.data.image.image);
 		}
 
-		async function getUserBanner(bannerID) {
-			if (!bannerID || isGetting.current.banner) return;
-			isGetting.current.banner = true;
+		async function getUserBanner(bannerID, newUsername) {
+			if (!bannerID) return;
+			if (newUsername === username) setBanner(authorized_user_images?.current?.banner);
 			const response = await APIRequest("/image/" + bannerID, "GET");
 			if (response?.error || !response?.data?.image?.image) return setBanner(false);
 			setBanner(response.data.image.image);
+			setUserBanner(response.data.image.image);
 		}
 
 		async function getStories(storyIDs) {
-			if (!storyIDs || isGetting.current.stories) return;
-			isGetting.current.stories = true;
+			if (!storyIDs) return;
 			let newStories = await Promise.all(storyIDs.map(async (storyID) => await getStory(storyID)));
 			newStories = newStories.filter((e) => e !== false);
 			setStories(newStories);
@@ -89,9 +89,21 @@ const UserProvider = ({ children, user_username }) => {
 		}
 
 		getInitial();
-		let reloadTimer = setTimeout(() => getInitial(), 1);
-		return () => clearTimeout(reloadTimer);
-	}, [location, user_username, curr_username, isGetting, APIRequest, setIsAuthorizedToEdit, user, setUser, setProfilePicture, setBanner]);
+	}, [
+		location,
+		username,
+		user_username,
+		curr_username,
+		authorized_user_images,
+		APIRequest,
+		setIsAuthorizedToEdit,
+		user,
+		setUser,
+		setProfilePicture,
+		setUserProfilePicture,
+		setBanner,
+		setUserBanner,
+	]);
 
 	return (
 		<UserContext.Provider
