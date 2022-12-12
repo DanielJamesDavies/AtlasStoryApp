@@ -90,6 +90,12 @@ export const GalleryLogic = () => {
 		setLightboxIndex(index);
 	}
 
+	const [isDisplayingSubstorysImages, setIsDisplayingSubstorysImages] = useState(false);
+
+	function toggleIsDisplayingSubstorysImages() {
+		setIsDisplayingSubstorysImages((oldIsDisplayingSubstorysImages) => !oldIsDisplayingSubstorysImages);
+	}
+
 	return {
 		isAuthorizedToEdit,
 		substory,
@@ -104,5 +110,7 @@ export const GalleryLogic = () => {
 		galleryRef,
 		onGalleryScroll,
 		onGalleryItemClick,
+		isDisplayingSubstorysImages,
+		toggleIsDisplayingSubstorysImages,
 	};
 };

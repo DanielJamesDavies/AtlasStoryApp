@@ -4,27 +4,13 @@
 	padding-right: 12px;
 
 	width: calc(100% - 12px);
-	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 4px);
+	max-height: calc(var(--characterSubpageMaxHeight) - 4px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
 
-.character-subpage-development-items-character-images-open {
-	width: calc(80% - 12px);
-}
-
-.character-subpage-development-items-character-images-open ~ .character-images-container {
-	display: inline-block;
-}
-
-@media (max-width: 1000px) {
-	.character-subpage-development-items-character-images-open {
-		width: calc(100% - 12px);
-	}
-}
-
 @media (max-width: 750px) {
 	.character-subpage-development-items {
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--characterPaddingTop) - 32px - 4px - 8px - 4px);
+		max-height: calc(var(--characterSubpageMaxHeight) - 4px);
 	}
 }

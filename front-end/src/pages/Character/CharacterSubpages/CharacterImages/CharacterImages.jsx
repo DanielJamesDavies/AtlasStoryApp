@@ -34,47 +34,6 @@ export const CharacterImages = ({ onAddImage, onClose }) => {
 		saveCharacterImages,
 	} = CharacterImagesLogic();
 
-	if (document.body.clientWidth > 1000)
-		return (
-			<EditableContainer
-				innerRef={characterImagesContainerRef}
-				className='character-images-container'
-				isAuthorizedToEdit={isAuthorizedToEdit}
-				onClose={onClose}
-				onAdd={() => addImageInputRef.current.click()}
-				onReorder={toggleIsReorderingCharacterImages}
-				onRevert={revertCharacterImages}
-				onSave={saveCharacterImages}
-				onScroll={(e) => e.stopPropagation()}
-			>
-				<div className='character-images'>
-					<div className='character-images-title'>All Character Images</div>
-					{character?.data?.images?.map((image_id, index) => (
-						<div key={index} className='character-image-item-container'>
-							<CharacterImageItem image_id={image_id} onAddImage={onAddImage} />
-						</div>
-					))}
-				</div>
-				<div className='character-images'>
-					<div className='character-images-title'>All Character Images</div>
-					<DragDropContainer onDropItem={reorderCharacterImages} enableDragDrop={isReorderingCharacterImages}>
-						{character?.data?.images?.map((image_id, index) => (
-							<DragDropItem key={index} index={index} className='character-image-item-container'>
-								<CharacterImageItem image_id={image_id} onAddImage={onAddImage} onRemoveImage={removeCharacterImage} />
-							</DragDropItem>
-						))}
-					</DragDropContainer>
-					<input
-						ref={addImageInputRef}
-						className='character-images-add-image-input'
-						type='file'
-						accept='image/*'
-						onChange={onAddImageToCharacterImages}
-					/>
-				</div>
-			</EditableContainer>
-		);
-
 	return (
 		<PopUpContainer className='character-images-container-container' title='All Character Images' isDisplaying={true} onClosePopUp={onClose}>
 			<EditableContainer

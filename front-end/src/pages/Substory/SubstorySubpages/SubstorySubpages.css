@@ -36,6 +36,7 @@
 	width: calc(100% - 16px);
 	min-height: calc(100% - 24px - 36px);
 	max-height: calc(100% - var(--substoryPrimaryPaddingTop) - 32px - 4px);
+	--substorySubpageMaxHeight: calc(100% - var(--substoryPrimaryPaddingTop) - 32px - 4px);
 	overflow-y: overlay;
 }
 

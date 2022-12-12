@@ -7,7 +7,7 @@
 
 .character-subpage-abilities-list-items {
 	padding-right: 8px;
-	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 24px);
+	max-height: var(--characterSubpageMaxHeight);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
@@ -34,6 +34,7 @@
 	}
 
 	.character-subpage-abilities-list-items {
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--characterPaddingTop) - 36px - 24px - 38px);
+		max-height: 100%;
+		overflow-y: hidden;
 	}
 }

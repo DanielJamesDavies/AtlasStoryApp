@@ -19,30 +19,6 @@
 	overflow-x: hidden;
 }
 
-.editable-container-is-editing.character-subpage-gallery {
-	width: 80%;
-}
-
-.character-subpage-gallery-items {
-	display: flex;
-	flex-wrap: wrap;
-	width: 100%;
-}
-
-.editable-container-is-editing ~ .character-images-container {
-	display: inline-block;
-}
-
-.character-subpage-gallery ~ .character-images-container .character-images {
-	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 48px);
-}
-
-@media (max-width: 1000px) {
-	.editable-container-is-editing.character-subpage-gallery {
-		width: 100%;
-	}
-}
-
 @media (max-width: 750px) {
 	.character-subpage-gallery-items-container {
 		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 48px);

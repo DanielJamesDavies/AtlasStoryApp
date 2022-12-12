@@ -1,6 +1,7 @@
 .character-subpage-physical-section-1,
 .character-subpage-physical-section-2 {
 	display: inline-block;
+	vertical-align: top;
 	width: calc(50% - 8px);
 }
 

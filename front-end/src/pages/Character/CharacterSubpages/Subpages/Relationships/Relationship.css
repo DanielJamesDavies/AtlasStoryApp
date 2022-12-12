@@ -18,22 +18,27 @@
 .character-subpage-relationships-content {
 	position: relative;
 	min-height: 80px;
+	height: var(--characterSubpageMaxHeight);
 }
 
 @media (max-width: 1100px) {
 	.character-subpage-relationships {
-		max-height: calc(var(--vh) - var(--characterPaddingTop) - 36px - 24px);
+		height: var(--characterSubpageMaxHeight);
+		max-height: var(--characterSubpageMaxHeight);
 		overflow-y: overlay;
 	}
 
 	.character-subpage-relationships-primary-buttons-container {
 		display: flex;
 	}
+
+	.character-subpage-relationships-content {
+		height: calc(var(--characterSubpageMaxHeight) - 24px - 8px);
+	}
 }
 
 @media (max-width: 750px) {
 	.character-subpage-relationships {
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--characterPaddingTop) - 44px);
 		overflow-y: overlay;
 	}
 }

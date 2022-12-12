@@ -1,7 +1,7 @@
 .character-subpage-psychology-items {
 	padding-right: 12px;
 	width: calc(100% - 12px);
-	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px);
+	max-height: var(--characterSubpageMaxHeight);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }

@@ -72,7 +72,7 @@ const UserProvider = ({ children, user_username }) => {
 			const response = await APIRequest("/image/" + bannerID, "GET");
 			if (response?.error || !response?.data?.image?.image) return setBanner(false);
 			setBanner(response.data.image.image);
-			setUserBanner(response.data.image.image);
+			if (newUsername === username) setUserBanner(response.data.image.image);
 		}
 
 		async function getStories(storyIDs) {

@@ -41,6 +41,7 @@
 	border-radius: 8px;
 
 	width: calc(100% - (34px * 2));
+	--popUpContentHeight: min(calc(680px - 48px - 24px), calc(var(--vh) - 24px - 48px - 24px));
 
 	background: var(--grey2);
 }
@@ -82,6 +83,11 @@
 		width: calc(100vw - 48px);
 		height: calc(600px - 24px);
 		max-height: calc(var(--vh) - 48px);
+	}
+
+	.pop-up-content {
+		padding: 6px 6px;
+		--popUpContentHeight: min(calc(600px - 24px - 12px), calc(var(--vh) - 48px - 12px));
 	}
 
 	.pop-up-content-primary-title {

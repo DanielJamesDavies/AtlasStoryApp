@@ -35,6 +35,8 @@ export const Gallery = () => {
 		galleryRef,
 		onGalleryScroll,
 		onGalleryItemClick,
+		isDisplayingSubstorysImages,
+		toggleIsDisplayingSubstorysImages,
 	} = GalleryLogic();
 
 	return (
@@ -46,6 +48,7 @@ export const Gallery = () => {
 				onReorder={toggleIsReorderingGalleryItems}
 				onRevert={revertGalleryItems}
 				onSave={saveGalleryItems}
+				onAdd={toggleIsDisplayingSubstorysImages}
 				onScroll={onGalleryScroll}
 			>
 				<div className='substory-subpage-gallery-items-container'>
@@ -76,7 +79,9 @@ export const Gallery = () => {
 					</div>
 				</div>
 			</EditableContainer>
-			<SubstoryImages onAddImage={addImageToVersionGallery} />
+			{!isDisplayingSubstorysImages ? null : (
+				<SubstoryImages onAddImage={addImageToVersionGallery} onClose={toggleIsDisplayingSubstorysImages} />
+			)}
 		</div>
 	);
 };

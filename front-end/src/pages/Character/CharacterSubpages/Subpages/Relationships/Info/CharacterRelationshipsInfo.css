@@ -5,7 +5,7 @@
 	vertical-align: top;
 	margin-left: 12px;
 	width: 400px;
-	max-height: calc(var(--characterRelationshipsChartWidth));
+	max-height: var(--characterSubpageMaxHeight);
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
@@ -16,7 +16,7 @@
 		top: 0;
 		right: 0;
 		margin-left: auto;
-		max-height: 100%;
+		height: calc(var(--characterSubpageMaxHeight) - 24px - 8px);
 		width: calc(100%);
 		display: none;
 	}

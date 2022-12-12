@@ -2,7 +2,7 @@
 	display: inline-block;
 	padding-right: 8px;
 	width: calc(100% - 310px - 24px - 8px);
-	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 24px);
+	max-height: var(--characterSubpageMaxHeight);
 	overflow-y: overlay;
 	overflow-x: hidden;
 	vertical-align: top;
@@ -11,6 +11,6 @@
 @media (max-width: 750px) {
 	.character-subpage-biography-cluster {
 		width: calc(100% - 8px);
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--characterPaddingTop) - 32px - 4px - 8px - 48px);
+		max-height: calc(var(--characterSubpageMaxHeight) - 48px);
 	}
 }

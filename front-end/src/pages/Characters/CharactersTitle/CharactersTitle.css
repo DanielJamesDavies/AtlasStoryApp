@@ -4,7 +4,7 @@
 	align-items: center;
 	margin-bottom: 24px;
 	padding: 14px 12px;
-	padding-bottom: calc(14px + 2px);
+	padding-bottom: calc(14px + 1px);
 	border-radius: 4px;
 	width: calc(100% - 24px);
 }
@@ -18,8 +18,8 @@
 	content: "";
 	border-radius: 4px;
 	width: 100%;
-	height: 2px;
-	background: var(--grey3);
+	height: 1px;
+	background: var(--grey5);
 }
 
 .characters-title-story-icon {

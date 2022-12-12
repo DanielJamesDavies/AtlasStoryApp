@@ -8,20 +8,6 @@
 	overflow-x: hidden;
 }
 
-.substory-subpage-development-items-substory-images-open {
-	width: calc(80% - 12px);
-}
-
-.substory-subpage-development-items-substory-images-open ~ .substory-images-container {
-	display: inline-block;
-}
-
-@media (max-width: 1000px) {
-	.substory-subpage-development-items-substory-images-open {
-		width: 100%;
-	}
-}
-
 @media (max-width: 750px) {
 	.substory-subpage-development-items {
 		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--substoryPrimaryPaddingTop) - 36px - 12px);
