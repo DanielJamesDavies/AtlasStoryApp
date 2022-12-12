@@ -1,5 +1,5 @@
 // Packages
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 
 // Components
 import { Gallery } from "./Subpages/Gallery/Gallery";
@@ -25,6 +25,19 @@ import { CharacterContext } from "../CharacterContext";
 
 export const CharacterSubpagesLogic = () => {
 	const { openSubpageID } = useContext(CharacterContext);
+
+	const subpageContainerRef = useRef();
+
+	useEffect(() => {
+		const subpageContainerRefCurrent = subpageContainerRef?.current;
+		function onWheel(e) {
+			if (subpageContainerRefCurrent?.scrollTop === 0) return;
+			e.stopPropagation();
+		}
+		subpageContainerRefCurrent?.addEventListener("wheel", onWheel);
+		return () => subpageContainerRefCurrent?.removeEventListener("wheel", onWheel);
+	}, [subpageContainerRef]);
+
 	const [subpage, setSubpage] = useState(null);
 
 	useEffect(() => {
@@ -55,5 +68,5 @@ export const CharacterSubpagesLogic = () => {
 		setSubpage(getSubpage());
 	}, [openSubpageID]);
 
-	return { subpage };
+	return { subpageContainerRef, subpage };
 };

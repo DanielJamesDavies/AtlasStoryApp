@@ -35,6 +35,8 @@
 	padding: 12px 8px;
 	width: calc(100% - 16px);
 	min-height: calc(100% - 24px - 36px);
+	max-height: calc(100% - var(--characterPaddingTop) - 32px - 4px);
+	overflow-y: overlay;
 }
 
 @media (max-width: 750px) {

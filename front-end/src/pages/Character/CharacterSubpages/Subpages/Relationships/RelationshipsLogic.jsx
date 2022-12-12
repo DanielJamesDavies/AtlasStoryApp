@@ -54,10 +54,10 @@ export const RelationshipsLogic = () => {
 				chartWidth = window.innerWidth - navbarWidth - 48 - 400 - 12 - 200;
 				chartHeight = window.innerHeight - characterPaddingTop - 36 - 24 - 30 - 18;
 			} else if (window.innerWidth > 750) {
-				chartWidth = window.innerWidth - navbarWidth - 48;
+				chartWidth = window.innerWidth - navbarWidth - 42 - 16 - 8 - 16;
 				chartHeight = window.innerHeight - characterPaddingTop - 36 - 24 - 8;
 			} else {
-				chartWidth = window.innerWidth - 16;
+				chartWidth = window.innerWidth - 12 - 16 - 8;
 				chartHeight = window.innerHeight - navbarMobileHeight - characterPaddingTop - 36 - 24;
 			}
 

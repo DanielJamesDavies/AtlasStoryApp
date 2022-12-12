@@ -1,5 +1,5 @@
 // Packages
-import { useState, useContext, useEffect, useLayoutEffect } from "react";
+import { useState, useContext, useEffect, useLayoutEffect, useRef } from "react";
 
 // Components
 import { Gallery } from "./Subpages/Gallery/Gallery";
@@ -22,6 +22,18 @@ import { SubstoryContext } from "../SubstoryContext";
 
 export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef, setSubstoryPrimaryPaddingTop }) => {
 	const { openSubpageID } = useContext(SubstoryContext);
+
+	const subpageContainerRef = useRef();
+
+	useEffect(() => {
+		const subpageContainerRefCurrent = subpageContainerRef?.current;
+		function onWheel(e) {
+			if (subpageContainerRefCurrent?.scrollTop === 0) return;
+			e.stopPropagation();
+		}
+		subpageContainerRefCurrent?.addEventListener("wheel", onWheel);
+		return () => subpageContainerRefCurrent?.removeEventListener("wheel", onWheel);
+	}, [subpageContainerRef]);
 
 	const [subpagesContainerStyles, setSubpagesContainerStyles] = useState({});
 	useLayoutEffect(() => {
@@ -84,5 +96,5 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef, setSubstoryPrim
 		setSubpage(getSubpage());
 	}, [openSubpageID]);
 
-	return { subpagesContainerStyles, subpage };
+	return { subpageContainerRef, subpagesContainerStyles, subpage };
 };

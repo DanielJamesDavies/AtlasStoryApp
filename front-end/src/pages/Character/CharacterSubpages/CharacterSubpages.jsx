@@ -16,13 +16,15 @@ import "./CharacterSubpages.css";
 // Assets
 
 export const CharacterSubpages = ({ innerRef }) => {
-	const { subpage } = CharacterSubpagesLogic();
+	const { subpageContainerRef, subpage } = CharacterSubpagesLogic();
 
 	return (
 		<div className='character-subpages-container'>
 			<div ref={innerRef} className='character-subpages'>
 				<CharacterSubpagesBtns />
-				<div className='character-subpage-container'>{subpage}</div>
+				<div ref={subpageContainerRef} className='character-subpage-container'>
+					{subpage}
+				</div>
 			</div>
 		</div>
 	);

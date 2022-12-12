@@ -35,16 +35,18 @@
 	padding: 12px 8px;
 	width: calc(100% - 16px);
 	min-height: calc(100% - 24px - 36px);
+	max-height: calc(100% - var(--substoryPrimaryPaddingTop) - 32px - 4px);
+	overflow-y: overlay;
 }
 
 @media (max-width: 750px) {
 	.substory-subpages-container {
-		padding-top: var(--characterPaddingTop);
+		padding-top: var(--substoryPrimaryPaddingTop);
 		padding-left: 6px;
 		padding-right: 6px;
 
 		width: calc(100vw - 12px);
-		height: calc(100% - var(--characterPaddingTop));
+		height: calc(100% - var(--substoryPrimaryPaddingTop));
 	}
 
 	.substory-subpages {

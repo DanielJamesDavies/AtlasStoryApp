@@ -86,13 +86,26 @@
 .btn-list-item-arrow-container {
 	display: none;
 	margin-top: 1px;
-	margin-bottom: -3px;
+	margin-bottom: -4px;
 	font-size: 18px;
 }
 
 @media (max-width: 750px) {
+	.btn-list-item {
+		transition: 0.1s;
+	}
+
 	:not(.btn-list-item-active).btn-list-item-list-closed {
-		display: none;
+		margin-top: 0;
+		margin-bottom: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+		border: 0;
+		min-height: 0;
+		height: 0;
+		max-height: 0;
+		opacity: 0;
+		pointer-events: none;
 	}
 
 	.btn-list-item-active.btn-list-item-list-closed .btn-list-item-arrow-container {
