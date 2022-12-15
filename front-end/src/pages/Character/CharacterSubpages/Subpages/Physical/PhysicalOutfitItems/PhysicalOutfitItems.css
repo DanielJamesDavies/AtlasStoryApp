@@ -1,22 +1,5 @@
-.character-subpage-physical-outfit-character-images-open .character-subpage-physical-outfit-items-container {
-	width: calc(60% - 8px);
-}
-
-.character-subpage-physical-attribute-character-images-open .character-subpage-physical-outfit-items-container {
-	width: calc(40% - 8px);
-}
-
-@media (max-width: 1400px) {
-	.character-subpage-physical-outfit-character-images-open .character-subpage-physical-outfit-items-container {
-		width: calc(100% - 8px);
-	}
-
-	.character-subpage-physical-attribute-character-images-open .character-subpage-physical-outfit-items-container {
-		display: none;
-	}
-}
-
 .character-subpage-physical-outfit-items-title {
+	margin-bottom: 8px;
 	font-size: 20px;
 	font-weight: 700;
 }
@@ -29,30 +12,10 @@
 	overflow-x: hidden;
 }
 
-.character-subpage-physical-outfit-character-images-open
-	.character-subpage-physical-outfit-items-container.editable-container-is-editing
-	.character-subpage-physical-outfit-items {
-	display: inline-block;
-	width: calc(73% - 12px);
-}
-
-@media (min-width: 751px) {
-	.character-subpage-physical-outfit-character-images-open .character-images-container {
-		display: inline-block;
-		width: calc(27% - 24px);
-	}
-
-	.character-subpage-physical-outfit-character-images-open .character-images {
-		display: inline-block;
-		max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 48px);
-	}
-}
-
 @media (max-width: 750px) {
 	.character-subpage-physical-outfit-items-container {
 		display: inline-block;
-		margin-top: 24px;
-		padding-left: 0;
+		padding-right: 0;
 		width: 100%;
 	}
 

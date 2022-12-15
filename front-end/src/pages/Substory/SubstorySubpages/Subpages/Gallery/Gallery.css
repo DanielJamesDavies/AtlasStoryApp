@@ -1,15 +1,15 @@
-.character-subpage-gallery {
+.substory-subpage-gallery {
 	display: inline-block;
 	vertical-align: top;
 	width: 100%;
 	height: 100%;
 }
 
-.character-subpage-gallery-edit {
+.substory-subpage-gallery-edit {
 	display: flex;
 }
 
-.character-subpage-gallery-items-container {
+.substory-subpage-gallery-items-container {
 	width: 100%;
 	height: 100%;
 	padding-right: 8px;
@@ -19,8 +19,13 @@
 	overflow-x: hidden;
 }
 
+.substory-subpage-gallery-items {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 @media (max-width: 750px) {
-	.character-subpage-gallery-items-container {
+	.substory-subpage-gallery-items-container {
 		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--substoryPrimaryPaddingTop) - 32px - 4px - 12px - 12px - 48px);
 	}
 }

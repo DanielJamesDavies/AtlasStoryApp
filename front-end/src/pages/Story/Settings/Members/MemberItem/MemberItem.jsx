@@ -29,6 +29,7 @@ export const MemberItem = ({ member, index, memberType, memberTypes, changeMembe
 					<div className='story-settings-member-nickname'>{member?.nickname}</div>
 					<div className='story-settings-member-username'>@{member?.username}</div>
 				</div>
+				<div className='story-settings-member-flex-break'></div>
 				{!isEditing || isOwner ? (
 					<div className='story-settings-member-type-container'>
 						<div className='story-settings-member-type'>{memberType?.name}</div>

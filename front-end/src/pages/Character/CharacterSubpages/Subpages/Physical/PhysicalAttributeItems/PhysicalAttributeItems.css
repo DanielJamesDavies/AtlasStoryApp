@@ -1,11 +1,3 @@
-.character-subpage-physical-attribute-character-images-open .character-subpage-physical-attribute-items-container {
-	width: calc(60% - 8px);
-}
-
-.character-subpage-physical-outfit-character-images-open .character-subpage-physical-attribute-items-container {
-	width: calc(40% - 8px);
-}
-
 .character-subpage-physical-attribute-items-title {
 	margin-bottom: 8px;
 	font-size: 20px;
@@ -18,35 +10,6 @@
 	max-height: calc(var(--characterSubpageMaxHeight) - 24px - 8px);
 	overflow-y: overlay;
 	overflow-x: hidden;
-}
-
-.character-subpage-physical-attribute-character-images-open
-	.character-subpage-physical-attribute-items-container.editable-container-is-editing
-	.character-subpage-physical-attribute-items {
-	display: inline-block;
-	width: calc(73% - 12px);
-}
-
-@media (max-width: 1400px) {
-	.character-subpage-physical-attribute-character-images-open .character-subpage-physical-attribute-items-container {
-		width: calc(100% - 8px);
-	}
-
-	.character-subpage-physical-outfit-character-images-open .character-subpage-physical-attribute-items-container {
-		display: none;
-	}
-}
-
-@media (min-width: 751px) {
-	.character-subpage-physical-attribute-character-images-open .character-images-container {
-		display: inline-block;
-		width: calc(27% - 24px);
-	}
-
-	.character-subpage-physical-attribute-character-images-open .character-images {
-		display: inline-block;
-		max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px - 56px);
-	}
 }
 
 @media (max-width: 750px) {

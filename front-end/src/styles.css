@@ -18,24 +18,26 @@
 	--grey1: #000000;
 	--grey2: #0d0d12;
 	--grey3: #18181e;
-	--grey4: #2d2d33;
+	--grey4: #34343f;
 	--grey5: #40404b;
+	--grey6: #70707f;
 	--textColour: #ffffff;
 	--textSecondaryColour: #bbbbbb;
 	--textTertiaryColour: #999999;
-	--scrollBarThumbBackground: var(--grey5);
+	--scrollBarThumbBackground: var(--grey6);
 }
 
 .theme-dim {
-	--grey1: #0d0d0f;
-	--grey2: #1e1e20;
-	--grey3: #2e2e31;
+	--grey1: #0b0b0e;
+	--grey2: #1a1a26;
+	--grey3: #282830;
 	--grey4: #48484d;
 	--grey5: #505053;
+	--grey6: #808087;
 	--textColour: #ffffff;
 	--textSecondaryColour: #bbbbbb;
 	--textTertiaryColour: #999999;
-	--scrollBarThumbBackground: var(--grey5);
+	--scrollBarThumbBackground: var(--grey6);
 }
 
 .theme-light {
@@ -44,10 +46,11 @@
 	--grey3: #dedee1;
 	--grey4: #d3d3d8;
 	--grey5: #c0c0c5;
+	--grey6: #a0a0a5;
 	--textColour: #000000;
 	--textSecondaryColour: #888888;
 	--textTertiaryColour: #aaaaaa;
-	--scrollBarThumbBackground: var(--grey5);
+	--scrollBarThumbBackground: var(--grey6);
 }
 
 .font-size-xs {

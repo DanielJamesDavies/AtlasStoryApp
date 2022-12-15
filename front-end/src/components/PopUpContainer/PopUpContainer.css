@@ -80,14 +80,15 @@
 
 @media (max-width: 750px) {
 	.pop-up-content-container {
-		width: calc(100vw - 48px);
+		width: calc(100vw - 24px);
 		height: calc(600px - 24px);
-		max-height: calc(var(--vh) - 48px);
+		max-height: calc(var(--vh) - 24px);
 	}
 
 	.pop-up-content {
-		padding: 6px 6px;
-		--popUpContentHeight: min(calc(600px - 24px - 12px), calc(var(--vh) - 48px - 12px));
+		padding: 8px 12px;
+		width: calc(100% - (12px * 2));
+		--popUpContentHeight: min(calc(600px - 24px - (8px * 2)), calc(var(--vh) - 48px - (8px * 2)));
 	}
 
 	.pop-up-content-primary-title {
