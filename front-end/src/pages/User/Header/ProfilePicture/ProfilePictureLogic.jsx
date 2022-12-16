@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 // Context
 import { UserContext } from "../../UserContext";
 import { APIContext } from "../../../../context/APIContext";
+import { LightboxContext } from "../../../../context/LightboxContext";
 
 // Services
 
@@ -18,6 +19,7 @@ import { APIContext } from "../../../../context/APIContext";
 export const ProfilePictureLogic = () => {
 	const { isAuthorizedToEdit, user, profilePicture, setProfilePicture } = useContext(UserContext);
 	const { APIRequest, setUserProfilePicture } = useContext(APIContext);
+	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
 
 	const [errors, setErrors] = useState([]);
 
@@ -47,5 +49,10 @@ export const ProfilePictureLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, profilePicture, changeProfilePicture, revertProfilePicture, saveProfilePicture, errors };
+	function onClickProfilePicture() {
+		setLightboxImageIDs([user?.data?.profilePicture]);
+		setLightboxIndex(0);
+	}
+
+	return { isAuthorizedToEdit, profilePicture, changeProfilePicture, revertProfilePicture, saveProfilePicture, onClickProfilePicture, errors };
 };

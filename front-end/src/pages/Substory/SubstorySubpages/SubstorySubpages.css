@@ -14,21 +14,8 @@
 }
 
 .substory-subpages {
-	padding-right: 8px;
-	width: calc(100% - 8px);
+	width: 100%;
 	height: 100%;
-	overflow-y: overlay;
-	overflow-x: hidden;
-}
-
-.substory-subpages::-webkit-scrollbar {
-	width: 6px;
-	background: transparent;
-}
-
-.substory-subpages::-webkit-scrollbar-thumb {
-	border-radius: 4px;
-	background: var(--substoryColour);
 }
 
 .substory-subpage-container {
@@ -48,11 +35,6 @@
 
 		width: calc(100vw - 12px);
 		height: calc(100% - var(--substoryPrimaryPaddingTop));
-	}
-
-	.substory-subpages {
-		padding-right: 0;
-		width: 100%;
 	}
 
 	.substory-subpage-container {

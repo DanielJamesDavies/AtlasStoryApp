@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 // Context
 import { UserContext } from "../UserContext";
 import { APIContext } from "../../../context/APIContext";
+import { LightboxContext } from "../../../context/LightboxContext";
 
 // Services
 
@@ -18,6 +19,7 @@ import { APIContext } from "../../../context/APIContext";
 export const BannerLogic = () => {
 	const { isAuthorizedToEdit, user, banner, setBanner } = useContext(UserContext);
 	const { APIRequest } = useContext(APIContext);
+	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
 
 	const [errors, setErrors] = useState([]);
 
@@ -46,5 +48,10 @@ export const BannerLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, banner, changeBanner, revertBanner, saveBanner, errors };
+	function onClickBanner() {
+		setLightboxImageIDs([user?.data?.banner]);
+		setLightboxIndex(0);
+	}
+
+	return { isAuthorizedToEdit, banner, changeBanner, revertBanner, saveBanner, onClickBanner, errors };
 };

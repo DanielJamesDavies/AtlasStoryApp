@@ -18,7 +18,7 @@ import "./Banner.css";
 // Assets
 
 export const Banner = () => {
-	const { isAuthorizedToEdit, banner, changeStoryBanner, errors, revertStoryBanner, saveStoryBanner } = BannerLogic();
+	const { isAuthorizedToEdit, banner, changeStoryBanner, errors, revertStoryBanner, saveStoryBanner, onClickBanner } = BannerLogic();
 
 	return (
 		<EditableContainer
@@ -28,7 +28,9 @@ export const Banner = () => {
 			onRevert={revertStoryBanner}
 			onSave={saveStoryBanner}
 		>
-			<div className='story-banner'>{!banner ? null : <img src={banner} alt='' />}</div>
+			<div className='story-banner lightbox-openable-image' onClick={onClickBanner}>
+				{!banner ? null : <img src={banner} alt='' />}
+			</div>
 			<ImageInput className='story-banner' value={banner} onChange={changeStoryBanner} />
 			<ErrorMessage errors={errors} />
 		</EditableContainer>

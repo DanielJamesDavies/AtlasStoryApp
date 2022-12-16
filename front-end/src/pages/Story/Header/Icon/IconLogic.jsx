@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 // Context
 import { StoryContext } from "../../StoryContext";
 import { APIContext } from "../../../../context/APIContext";
+import { LightboxContext } from "../../../../context/LightboxContext";
 
 // Services
 
@@ -18,6 +19,7 @@ import { APIContext } from "../../../../context/APIContext";
 export const IconLogic = () => {
 	const { isAuthorizedToEdit, story, icon, setIcon } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
+	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
 
 	const [errors, setErrors] = useState([]);
 
@@ -51,5 +53,10 @@ export const IconLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, icon, changeStoryIcon, revertStoryIcon, saveStoryIcon, errors };
+	function onClickIcon() {
+		setLightboxImageIDs([story?.data?.icon]);
+		setLightboxIndex(0);
+	}
+
+	return { isAuthorizedToEdit, icon, changeStoryIcon, revertStoryIcon, saveStoryIcon, onClickIcon, errors };
 };

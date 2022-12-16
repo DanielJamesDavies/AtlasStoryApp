@@ -18,7 +18,8 @@ import "./ProfilePicture.css";
 // Assets
 
 export const ProfilePicture = () => {
-	const { isAuthorizedToEdit, profilePicture, changeProfilePicture, revertProfilePicture, saveProfilePicture, errors } = ProfilePictureLogic();
+	const { isAuthorizedToEdit, profilePicture, changeProfilePicture, revertProfilePicture, saveProfilePicture, onClickProfilePicture, errors } =
+		ProfilePictureLogic();
 
 	return (
 		<EditableContainer
@@ -28,7 +29,7 @@ export const ProfilePicture = () => {
 			onRevert={revertProfilePicture}
 			onSave={saveProfilePicture}
 		>
-			<div className='user-header-profile-picture'>
+			<div className='user-header-profile-picture lightbox-openable-image' onClick={onClickProfilePicture}>
 				{!profilePicture ? (
 					<div className='user-header-profile-picture-placeholder' />
 				) : (

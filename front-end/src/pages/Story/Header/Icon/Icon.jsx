@@ -18,7 +18,7 @@ import "./Icon.css";
 // Assets
 
 export const Icon = () => {
-	const { isAuthorizedToEdit, icon, changeStoryIcon, revertStoryIcon, saveStoryIcon, errors } = IconLogic();
+	const { isAuthorizedToEdit, icon, changeStoryIcon, revertStoryIcon, saveStoryIcon, onClickIcon, errors } = IconLogic();
 
 	return (
 		<EditableContainer
@@ -28,7 +28,7 @@ export const Icon = () => {
 			onRevert={revertStoryIcon}
 			onSave={saveStoryIcon}
 		>
-			<div className='story-header-icon'>
+			<div className='story-header-icon lightbox-openable-image' onClick={onClickIcon}>
 				{!icon ? <div className='story-header-icon-placeholder' /> : <img src={icon} alt='' draggable={false} />}
 			</div>
 			<ImageInput className='story-header-icon' isCircular={true} value={icon} onChange={changeStoryIcon} />
