@@ -148,5 +148,5 @@ export const CharacterRelationshipChartLogic = ({ characterRelationshipsChartWid
 		characterRelationshipsChartItemWidth,
 	]);
 
-	return { characterRelationshipsCharacters, onClickChart };
+	return { selectedCharacterRelationshipsCharacterId, characters, characterRelationshipsCharacters, onClickChart };
 };

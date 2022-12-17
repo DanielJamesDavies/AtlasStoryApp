@@ -21,14 +21,37 @@ export const CharacterRelationshipChart = ({
 	characterRelationshipsChartWidth,
 	characterRelationshipsChartItemWidth,
 }) => {
-	const { characterRelationshipsCharacters, onClickChart } = CharacterRelationshipChartLogic({
-		characterRelationshipsChartWidth,
-		characterRelationshipsChartItemWidth,
-	});
+	const { selectedCharacterRelationshipsCharacterId, characters, characterRelationshipsCharacters, onClickChart } =
+		CharacterRelationshipChartLogic({
+			characterRelationshipsChartWidth,
+			characterRelationshipsChartItemWidth,
+		});
 
 	return (
 		<div className='character-subpage-relationships-chart-container' onClick={onClickChart}>
 			<div ref={characterRelationshipsChartRef} className='character-subpage-relationships-chart'>
+				{!selectedCharacterRelationshipsCharacterId ? null : (
+					<div
+						key={selectedCharacterRelationshipsCharacterId}
+						className='character-subpage-relationships-chart-selected-character-item'
+						style={{
+							"--characterColour": characters.find((e) => e._id === selectedCharacterRelationshipsCharacterId)?.data?.colour,
+						}}
+					>
+						<div className='character-subpage-relationships-chart-selected-character-item-face-image'>
+							{!characters.find((e) => e._id === selectedCharacterRelationshipsCharacterId)?.data?.faceImage?.image ? null : (
+								<img
+									src={characters.find((e) => e._id === selectedCharacterRelationshipsCharacterId)?.data?.faceImage?.image}
+									alt=''
+									draggable={false}
+								/>
+							)}
+						</div>
+						<div className='character-subpage-relationships-chart-selected-character-item-name'>
+							{characters.find((e) => e._id === selectedCharacterRelationshipsCharacterId)?.data?.name}
+						</div>
+					</div>
+				)}
 				<div className='character-subpage-relationships-chart-characters-names-container'>
 					{!characterRelationshipsCharacters
 						? null

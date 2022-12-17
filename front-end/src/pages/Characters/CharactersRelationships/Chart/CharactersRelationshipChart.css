@@ -42,10 +42,10 @@
 }
 
 .characters-relationship-chart-selected-character-item-face-image {
-	border: 3px solid var(--characterColour);
+	border: 4px solid var(--characterColour);
 	border-radius: 100%;
-	width: calc(var(--selectedCharacterItemWidth) - 6px);
-	height: calc(var(--selectedCharacterItemWidth) - 6px);
+	width: calc(var(--selectedCharacterItemWidth) - (2 * 4px));
+	height: calc(var(--selectedCharacterItemWidth) - (2 * 4px));
 	background: var(--grey3);
 }
 

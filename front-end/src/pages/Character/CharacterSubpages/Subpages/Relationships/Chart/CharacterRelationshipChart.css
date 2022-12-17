@@ -13,6 +13,57 @@
 	height: var(--characterRelationshipsChartWidth);
 }
 
+.character-subpage-relationships-chart-selected-character-item {
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	--selectedCharacterItemWidth: calc(var(--characterRelationshipsChartWidth) * 0.35);
+	width: var(--selectedCharacterItemWidth);
+	height: calc(var(--selectedCharacterItemWidth) + 22px);
+
+	opacity: 0;
+	pointer-events: none;
+}
+
+@keyframes character-subpage-relationships-chart-selected-character-item {
+	0% {
+		opacity: 0;
+	}
+	40%,
+	80% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.character-subpage-relationships-chart-selected-character-item-face-image {
+	border: 4px solid var(--characterColour);
+	border-radius: 100%;
+	width: calc(var(--selectedCharacterItemWidth) - (2 * 4px));
+	height: calc(var(--selectedCharacterItemWidth) - (2 * 4px));
+	background: var(--grey3);
+}
+
+.character-subpage-relationships-chart-selected-character-item-face-image img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.character-subpage-relationships-chart-selected-character-item-name {
+	margin-top: 3px;
+	height: 19px;
+	font-weight: 700;
+	font-size: 15px;
+	text-align: center;
+}
+
 .character-subpage-relationships-chart-characters-container,
 .character-subpage-relationships-chart-characters-names-container {
 	position: relative;
@@ -49,6 +100,7 @@
 
 @media (max-width: 1100px) {
 	.character-subpage-relationships-chart-container {
+		margin-top: 0;
 		width: 100%;
 	}
 

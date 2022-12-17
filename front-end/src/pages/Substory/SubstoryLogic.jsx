@@ -54,7 +54,7 @@ export const SubstoryLogic = () => {
 			const touchMoveCoords = { x: e.touches[0].pageX, y: e.touches[0].pageY };
 			if (Math.abs(touchStartCoords.current.y - touchMoveCoords.y) > 24) return (touchStartCoords.current = { x: 0, y: 0 });
 			const deltaX = touchStartCoords.current.x - touchMoveCoords.x;
-			if (Math.abs(deltaX) < window.innerWidth * 0.3) return;
+			if (Math.abs(deltaX) < window.innerWidth * 0.15) return;
 			setIsOnOverviewSection(Math.sign(deltaX) === -1);
 			touchStartCoords.current = { x: 0, y: 0 };
 		};
