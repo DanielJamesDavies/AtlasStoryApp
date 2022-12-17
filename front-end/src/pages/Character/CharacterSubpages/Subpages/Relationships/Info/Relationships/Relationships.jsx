@@ -1,22 +1,22 @@
 // Packages
 
 // Components
-import { CharacterRelationshipsInfoSelectedCharacterRelationshipItem } from "./RelationshipItem/CharacterRelationshipsInfoSelectedCharacterRelationshipItem";
+import { RelationshipItem } from "./RelationshipItem/RelationshipItem";
 import { EditableContainer } from "../../../../../../../components/EditableContainer/EditableContainer";
 
 // Logic
-import { CharacterRelationshipsInfoSelectedCharacterLogic } from "./CharacterRelationshipsInfoSelectedCharacterLogic";
+import { RelationshipsLogic } from "./RelationshipsLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterRelationshipsInfoSelectedCharacter.css";
+import "./Relationships.css";
 
 // Assets
 
-export const CharacterRelationshipsInfoSelectedCharacter = () => {
+export const Relationships = () => {
 	const {
 		isAuthorizedToEdit,
 		selectedCharacter,
@@ -26,7 +26,7 @@ export const CharacterRelationshipsInfoSelectedCharacter = () => {
 		addRelationship,
 		selectedCharacterRef,
 		onSelectedCharacterContainerScroll,
-	} = CharacterRelationshipsInfoSelectedCharacterLogic();
+	} = RelationshipsLogic();
 
 	if (!selectedCharacter) return null;
 	return (
@@ -49,7 +49,7 @@ export const CharacterRelationshipsInfoSelectedCharacter = () => {
 						.filter((e) => !e?.isRemoved)
 						.map((relationship, index) => (
 							<div key={index} className='character-relationship-info-home-selected-character-relationship-item-container'>
-								<CharacterRelationshipsInfoSelectedCharacterRelationshipItem relationship={relationship} isEditing={false} />
+								<RelationshipItem relationship={relationship} isEditing={false} />
 							</div>
 						))}
 				</div>
@@ -58,7 +58,7 @@ export const CharacterRelationshipsInfoSelectedCharacter = () => {
 						.filter((e) => !e?.isRemoved)
 						.map((relationship, index) => (
 							<div key={index} className='character-relationship-info-home-selected-character-relationship-item-container'>
-								<CharacterRelationshipsInfoSelectedCharacterRelationshipItem
+								<RelationshipItem
 									relationship={relationship}
 									isEditing={true}
 									selectedCharacterRelationships={selectedCharacterRelationships}

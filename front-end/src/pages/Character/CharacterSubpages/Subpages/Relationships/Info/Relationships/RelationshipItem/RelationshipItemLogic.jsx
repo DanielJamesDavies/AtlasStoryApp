@@ -14,7 +14,7 @@ import { CharacterContext } from "../../../../../../CharacterContext";
 
 // Assets
 
-export const CharacterRelationshipsInfoSelectedCharacterRelationshipItemLogic = ({ relationship, selectedCharacterRelationships }) => {
+export const RelationshipItemLogic = ({ relationship, selectedCharacterRelationships }) => {
 	const { story, groups, character, characters, characterRelationships, setCharacterRelationships, setCharacterRelationshipsRemovedIds } =
 		useContext(CharacterContext);
 

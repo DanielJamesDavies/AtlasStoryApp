@@ -4,6 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 // Components
 import { CharacterRelationshipChart } from "./Chart/CharacterRelationshipChart";
 import { CharacterRelationshipsInfo } from "./Info/CharacterRelationshipsInfo";
+import { Relationship } from "./Relationship/Relationship";
 import { IconBtn } from "../../../../../components/IconBtn/IconBtn";
 import { LoadingCircle } from "../../../../../components/LoadingCircle/LoadingCircle";
 
@@ -21,6 +22,7 @@ import "./Relationship.css";
 
 export const Relationships = () => {
 	const {
+		character,
 		groups,
 		characters,
 		characterRelationships,
@@ -31,6 +33,7 @@ export const Relationships = () => {
 		isDisplayingInfo,
 		toggleIsDisplayingInfo,
 		characterSubpageRelationshipsRef,
+		selectedCharacterRelationshipsCharacterId,
 	} = RelationshipsLogic();
 
 	return (
@@ -65,7 +68,14 @@ export const Relationships = () => {
 						characterRelationshipsChartWidth={characterRelationshipsChartWidth}
 						characterRelationshipsChartItemWidth={characterRelationshipsChartItemWidth}
 					/>
-					<CharacterRelationshipsInfo isDisplayingInfo={isDisplayingInfo} />
+					{!selectedCharacterRelationshipsCharacterId ||
+					characterRelationships.findIndex(
+						(e) => e.character_ids.includes(character._id) && e.character_ids.includes(selectedCharacterRelationshipsCharacterId)
+					) === -1 ? (
+						<CharacterRelationshipsInfo isDisplayingInfo={isDisplayingInfo} />
+					) : (
+						<Relationship />
+					)}
 				</div>
 			)}
 		</div>

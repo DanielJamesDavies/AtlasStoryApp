@@ -17,6 +17,7 @@ import { CharacterContext } from "../../../CharacterContext";
 export const RelationshipsLogic = () => {
 	const {
 		character_uid,
+		character,
 		groups,
 		characters,
 		characterRelationships,
@@ -24,6 +25,7 @@ export const RelationshipsLogic = () => {
 		setCharacterRelationshipsCharacters,
 		relationshipsFilters,
 		characterPaddingTop,
+		selectedCharacterRelationshipsCharacterId,
 	} = useContext(CharacterContext);
 
 	const characterRelationshipsChartRef = useRef();
@@ -134,6 +136,7 @@ export const RelationshipsLogic = () => {
 	}, [characterSubpageRelationshipsRef]);
 
 	return {
+		character,
 		groups,
 		characters,
 		characterRelationships,
@@ -144,5 +147,6 @@ export const RelationshipsLogic = () => {
 		isDisplayingInfo,
 		toggleIsDisplayingInfo,
 		characterSubpageRelationshipsRef,
+		selectedCharacterRelationshipsCharacterId,
 	};
 };

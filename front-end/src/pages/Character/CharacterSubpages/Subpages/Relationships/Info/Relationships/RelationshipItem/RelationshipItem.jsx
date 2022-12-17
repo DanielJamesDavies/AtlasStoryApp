@@ -7,20 +7,20 @@ import { DropdownContainer } from "../../../../../../../../components/DropdownCo
 import { IconBtn } from "../../../../../../../../components/IconBtn/IconBtn";
 
 // Logic
-import { CharacterRelationshipsInfoSelectedCharacterRelationshipItemLogic } from "./CharacterRelationshipsInfoSelectedCharacterRelationshipItemLogic";
+import { RelationshipItemLogic } from "./RelationshipItemLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterRelationshipsInfoSelectedCharacterRelationshipItem.css";
+import "./RelationshipItem.css";
 
 // Assets
 
-export const CharacterRelationshipsInfoSelectedCharacterRelationshipItem = ({ relationship, isEditing, selectedCharacterRelationships }) => {
+export const RelationshipItem = ({ relationship, isEditing, selectedCharacterRelationships }) => {
 	const { story, groups, characters, secondCharacter, changeRelationshipSecondCharacter, changeRelationshipType, removeRelationship } =
-		CharacterRelationshipsInfoSelectedCharacterRelationshipItemLogic({ relationship, selectedCharacterRelationships });
+		RelationshipItemLogic({ relationship, selectedCharacterRelationships });
 
 	return (
 		<ContentItem

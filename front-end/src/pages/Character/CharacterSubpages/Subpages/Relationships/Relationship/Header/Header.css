@@ -1,0 +1,29 @@
+.character-subpage-relationships-relationship-header-title {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.character-subpage-relationships-relationship-header-type {
+	display: flex;
+	align-items: center;
+	margin-top: 8px;
+}
+
+.character-subpage-relationships-relationship-header-type-colour {
+	display: block;
+	content: "";
+	margin-right: 8px;
+	border-radius: 4px;
+
+	min-width: 24px;
+	width: 24px;
+	min-height: 24px;
+	height: 24px;
+
+	background: var(--grey3);
+}
+
+.character-subpage-relationships-relationship-header-type-name {
+	font-size: 14px;
+	font-weight: 700;
+}

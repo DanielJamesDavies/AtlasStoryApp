@@ -15,7 +15,7 @@ import { APIContext } from "../../../../../../../context/APIContext";
 
 // Assets
 
-export const CharacterRelationshipsInfoSelectedCharacterLogic = () => {
+export const RelationshipsLogic = () => {
 	const {
 		isAuthorizedToEdit,
 		story,

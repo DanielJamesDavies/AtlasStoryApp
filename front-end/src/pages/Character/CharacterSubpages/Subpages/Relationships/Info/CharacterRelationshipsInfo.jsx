@@ -4,7 +4,7 @@
 import { CharacterRelationshipsInfoLogic } from "./CharacterRelationshipsInfoLogic";
 import { CharacterRelationshipsInfoFilters } from "./Filters/CharacterRelationshipsInfoFilters";
 import { CharacterRelationshipsInfoRelationshipTypes } from "./RelationshipTypes/CharacterRelationshipsInfoRelationshipTypes";
-import { CharacterRelationshipsInfoSelectedCharacter } from "./SelectedCharacter/CharacterRelationshipsInfoSelectedCharacter";
+import { Relationships } from "./Relationships/Relationships";
 import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 
 // Logic
@@ -31,7 +31,7 @@ export const CharacterRelationshipsInfo = ({ isDisplayingInfo }) => {
 			}
 		>
 			<ContentItem className='character-subpage-relationships-info' hasBg={true}>
-				<CharacterRelationshipsInfoSelectedCharacter />
+				<Relationships />
 				<CharacterRelationshipsInfoFilters />
 				<CharacterRelationshipsInfoRelationshipTypes />
 			</ContentItem>

@@ -22,6 +22,11 @@ export const LoadingCircle = ({ className, size, center }) => {
 			<div className='loading-circle'>
 				<div className='loading-circle-circle' />
 			</div>
+			<div className='loading-circle-small-container'>
+				<div className='loading-circle-small'>
+					<div className='loading-circle-circle' />
+				</div>
+			</div>
 		</div>
 	);
 };
