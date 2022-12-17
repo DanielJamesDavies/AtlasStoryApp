@@ -11,11 +11,12 @@
 }
 
 .character-primary {
+	position: relative;
 	display: flex;
 }
 
 .character-primary-story {
-	position: absolute;
+	position: fixed;
 	top: 6px;
 	display: flex;
 	align-items: center;
@@ -59,6 +60,12 @@
 	animation: none;
 }
 
+.character-primary-section-switcher-btn-to-subpages {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
 .character-primary-section-switcher-btn svg {
 	position: absolute;
 	top: 50%;
@@ -94,23 +101,24 @@
 	.character-primary-section-switcher-btn {
 		display: inline-block;
 		width: 0;
+		max-width: 0;
 		opacity: 0;
 		pointer-events: none;
 		transition: 0.3s linear;
 		vertical-align: middle;
 	}
 
-	.character-container:not(.character-container-is-on-overview) .character-primary-section-switcher-btn-to-overview {
+	.character-container-is-on-subpages .character-primary-section-switcher-btn-to-overview {
 		display: inline-block;
 		margin-right: 10px;
-		animation: character-primary-section-switcher-btn 0.3s 1;
+		animation: character-primary-section-switcher-btn 0.3s 1 linear;
 		animation-fill-mode: forwards;
 	}
 
 	.character-container-is-on-overview .character-primary-section-switcher-btn-to-subpages {
 		display: inline-block;
 		margin-left: 10px;
-		animation: character-primary-section-switcher-btn 0.3s 1;
+		animation: character-primary-section-switcher-btn 0.3s 1 linear;
 		animation-fill-mode: forwards;
 	}
 
@@ -121,6 +129,7 @@
 		}
 		100% {
 			width: 17px;
+			max-width: 17px;
 			opacity: 1;
 			pointer-events: all;
 		}

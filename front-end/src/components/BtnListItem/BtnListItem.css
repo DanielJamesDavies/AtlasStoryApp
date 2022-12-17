@@ -92,6 +92,11 @@
 }
 
 @media (max-width: 750px) {
+	.btn-list-item-loading,
+	.btn-list-item-active {
+		transition: 0 !important;
+	}
+
 	.btn-list-item {
 		transition: 0.1s;
 	}

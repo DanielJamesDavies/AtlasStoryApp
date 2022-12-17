@@ -7,6 +7,7 @@ import { useContext, useState, useEffect } from "react";
 
 // Context
 import { StoryContext } from "../../context/StoryContext";
+import { RoutesContext } from "../../context/RoutesContext";
 
 // Services
 
@@ -16,6 +17,21 @@ import { StoryContext } from "../../context/StoryContext";
 
 export const StoryLogic = () => {
 	const { isAuthorizedToEdit, story } = useContext(StoryContext);
+	const { location } = useContext(RoutesContext);
+
+	useEffect(() => {
+		function getDocumentTitle() {
+			if (!story) return;
+
+			// Document Title
+			if (story?.data?.title) {
+				document.title = story?.data?.title + " | Atlas Story App";
+			} else {
+				document.title = "https://www.atlas-story.app" + location;
+			}
+		}
+		getDocumentTitle();
+	}, [story, location]);
 
 	const [storyStyles, setStoryStyles] = useState({});
 

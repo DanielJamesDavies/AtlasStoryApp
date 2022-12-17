@@ -12,18 +12,20 @@ import { BtnListContainerContext } from "../BtnListContainer/BtnListContainerCon
 
 // Assets
 
-export const BtnListItemLogic = ({ className, size, index, isActive, onClick, onRemove }) => {
+export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundActive, onClick, onRemove }) => {
 	const isBtnListOpen = useContext(BtnListContainerContext)?.isBtnListOpen;
 	const setIsBtnListOpen = useContext(BtnListContainerContext)?.setIsBtnListOpen;
 
 	const [btnListItemClassName, setBtnListItemClassName] = useState(
-		isActive ? "btn-list-item-loading btn-list-item-active" : "btn-list-item-loading"
+		(hasFoundActive !== false ? isActive : index === 0)
+			? "btn-list-item-active btn-list-item-loading"
+			: "btn-list-item-loading btn-list-item-list-closed"
 	);
 
 	useEffect(() => {
 		function getBtnListItemClassName() {
 			let newBtnListItemClassName = "btn-list-item";
-			if (isActive) newBtnListItemClassName += " btn-list-item-active";
+			if (hasFoundActive !== false ? isActive : index === 0) newBtnListItemClassName += " btn-list-item-active";
 			if (onClick) newBtnListItemClassName += " btn-list-item-clickable";
 			if (className) newBtnListItemClassName += " " + className;
 			if (size) newBtnListItemClassName += " btn-list-item-size-" + size;
@@ -31,7 +33,7 @@ export const BtnListItemLogic = ({ className, size, index, isActive, onClick, on
 			setBtnListItemClassName(newBtnListItemClassName);
 		}
 		getBtnListItemClassName();
-	}, [setBtnListItemClassName, className, size, isActive, onClick, isBtnListOpen]);
+	}, [setBtnListItemClassName, className, size, index, isActive, hasFoundActive, onClick, isBtnListOpen]);
 
 	async function onBtnListItemClick(e) {
 		if (setIsBtnListOpen) setIsBtnListOpen((oldIsBtnListOpen) => !oldIsBtnListOpen);

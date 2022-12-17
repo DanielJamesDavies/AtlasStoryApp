@@ -5,14 +5,14 @@
 
 .search-input {
 	padding: 10px 20px;
-	border: 3px solid var(--grey4);
+	border: 3px solid var(--grey3);
 	border-radius: 30px;
 	outline: 0;
 
 	width: 100%;
 	box-sizing: border-box;
 
-	background: var(--grey4);
+	background: var(--grey3);
 	color: #fff;
 	font-size: 13px;
 	font-weight: 500;
@@ -22,7 +22,7 @@
 .search-input:focus {
 	outline: 0;
 	border-color: var(--blue);
-	background: var(--grey4);
+	background: var(--grey3);
 }
 
 .search-input-placeholder-container {

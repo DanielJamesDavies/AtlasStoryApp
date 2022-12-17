@@ -83,6 +83,7 @@ export const CharactersGroups = () => {
 										value={storyGroups.find((e) => e._id === groupID)?.data?.name}
 										index={index}
 										isActive={group._id === groupID}
+										hasFoundActive={group?._id !== undefined}
 										onClick={(e) => (e?.button === 2 ? null : changeGroup(groupID))}
 									/>
 								</DragDropItem>

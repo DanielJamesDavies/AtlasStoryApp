@@ -55,6 +55,7 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 									value={biologyCluster?.name}
 									index={index}
 									isActive={biologyCluster._id === currBiographyCluster._id}
+									hasFoundActive={currBiographyCluster?._id !== undefined}
 									onClick={() => onClickBiographyCluster(biologyCluster)}
 								/>
 							</div>
@@ -73,6 +74,7 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 								value={biologyCluster?.name}
 								index={index}
 								isActive={biologyCluster._id === currBiographyCluster._id}
+								hasFoundActive={currBiographyCluster?._id !== undefined}
 								onClick={() => onClickBiographyCluster(biologyCluster)}
 								onRemove={(e) => removeBiographyCluster(e, index)}
 							/>

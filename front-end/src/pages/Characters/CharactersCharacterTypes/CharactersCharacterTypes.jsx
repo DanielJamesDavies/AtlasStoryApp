@@ -82,6 +82,7 @@ export const CharactersCharacterTypes = () => {
 										value={storyCharacterTypes.find((e) => e._id === characterTypeID)?.data?.name}
 										index={index}
 										isActive={characterType._id === characterTypeID}
+										hasFoundActive={characterType?._id !== undefined}
 										onClick={(e) => (e?.button === 2 ? null : changeCharacterType(characterTypeID))}
 									/>
 								</DragDropItem>

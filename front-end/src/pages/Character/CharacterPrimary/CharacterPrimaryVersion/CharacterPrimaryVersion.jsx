@@ -16,12 +16,12 @@ import "./CharacterPrimaryVersion.css";
 
 // Assets
 
-export const CharacterPrimaryVersion = () => {
+export const CharacterPrimaryVersion = ({ characterPrimaryVersionRef }) => {
 	const { character, characterVersion, decrementCharacterVersion, incrementCharacterVersion, primaryVersionStyle, primaryVersionWidthRef } =
 		CharacterPrimaryVersionLogic();
 
 	return (
-		<div className='character-primary-version-container'>
+		<div ref={characterPrimaryVersionRef} className='character-primary-version-container'>
 			<IconBtn icon={<FaChevronLeft />} onClick={decrementCharacterVersion} seamless={true} size='s' />
 			<div className='character-primary-version' style={primaryVersionStyle}>
 				<div className='character-primary-version-label'>Version</div>

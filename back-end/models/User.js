@@ -46,7 +46,7 @@ const UserSchema = mongoose.Schema({
 		},
 		uiTheme: {
 			type: String,
-			default: "dark",
+			default: "dim",
 		},
 		fontSize: {
 			type: String,

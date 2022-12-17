@@ -3,7 +3,7 @@ import React, { createContext, useState } from "react";
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-	const [uiTheme, setUITheme] = useState("dark");
+	const [uiTheme, setUITheme] = useState("dim");
 	const [fontSize, setFontSize] = useState("m");
 	const [fontSizeMultiplier, setFontSizeMultiplier] = useState(1);
 	const defaultAccentColour = "#0044ff";

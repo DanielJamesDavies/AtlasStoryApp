@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 
 // Components
 
@@ -15,19 +15,34 @@ import isLightBackground from "../../../services/IsLightBackground";
 
 // Assets
 
-export const CharacterPrimaryLogic = () => {
+export const CharacterPrimaryLogic = ({ characterPrimaryRef }) => {
 	const { story, storyIcon, isOnOverviewSection, characterOverviewBackground, setIsOnOverviewSection } = useContext(CharacterContext);
 	const [primaryStoryStyles, setPrimaryStoryStyles] = useState({});
+	const characterPrimaryVersionRef = useRef();
 
 	useEffect(() => {
 		async function getPrimaryStyles() {
-			if (!isOnOverviewSection) return setPrimaryStoryStyles({ "--textColour": "#fff" });
-			if (!characterOverviewBackground) setPrimaryStoryStyles({ "--textColour": "#fff" });
-			const isDarkName = await isLightBackground(characterOverviewBackground, [0, 40], [-1, 115]);
-			setPrimaryStoryStyles({ "--textColour": isDarkName ? "#000" : "#fff" });
+			let newPrimaryStoryStyles = {};
+			newPrimaryStoryStyles["--textColour"] = await getTextColour();
+			newPrimaryStoryStyles["minHeight"] = getHeight();
+			newPrimaryStoryStyles["--characterPrimaryMinHeight"] = getHeight();
+			setPrimaryStoryStyles(newPrimaryStoryStyles);
 		}
+
+		async function getTextColour() {
+			if (!isOnOverviewSection || !characterOverviewBackground) return "#fff";
+			const isDarkName = await isLightBackground(characterOverviewBackground, [0, 40], [-1, 115]);
+			return isDarkName ? "#000" : "#fff";
+		}
+
+		function getHeight() {
+			return Math.max(characterPrimaryRef?.current?.children[1]?.clientHeight, characterPrimaryVersionRef?.current?.clientHeight);
+		}
+
 		getPrimaryStyles();
-	}, [characterOverviewBackground, isOnOverviewSection, setPrimaryStoryStyles]);
+		window.addEventListener("resize", getPrimaryStyles);
+		return () => window.removeEventListener("resize", getPrimaryStyles);
+	}, [characterOverviewBackground, isOnOverviewSection, setPrimaryStoryStyles, characterPrimaryRef, characterPrimaryVersionRef]);
 
 	function toOverviewSection() {
 		setIsOnOverviewSection(true);
@@ -37,5 +52,5 @@ export const CharacterPrimaryLogic = () => {
 		setIsOnOverviewSection(false);
 	}
 
-	return { story, storyIcon, primaryStoryStyles, toOverviewSection, toSubpagesSection };
+	return { story, storyIcon, characterPrimaryVersionRef, primaryStoryStyles, toOverviewSection, toSubpagesSection };
 };

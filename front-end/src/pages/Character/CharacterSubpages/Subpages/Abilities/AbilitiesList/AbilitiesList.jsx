@@ -53,6 +53,7 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 									value={ability?.name}
 									index={index}
 									isActive={ability._id === currAbility._id}
+									hasFoundActive={currAbility?._id !== undefined}
 									onClick={() => onClickAbility(ability)}
 								/>
 							</div>
@@ -71,6 +72,7 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 								value={ability?.name}
 								index={index}
 								isActive={ability._id === currAbility._id}
+								hasFoundActive={currAbility?._id !== undefined}
 								onClick={() => onClickAbility(ability)}
 								onRemove={(e) => removeAbility(e, index)}
 							/>

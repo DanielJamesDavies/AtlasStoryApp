@@ -19,7 +19,9 @@ import "./CharacterPrimary.css";
 // Assets
 
 export const CharacterPrimary = ({ characterPrimaryRef }) => {
-	const { story, storyIcon, primaryStoryStyles, toOverviewSection, toSubpagesSection } = CharacterPrimaryLogic({ characterPrimaryRef });
+	const { story, storyIcon, characterPrimaryVersionRef, primaryStoryStyles, toOverviewSection, toSubpagesSection } = CharacterPrimaryLogic({
+		characterPrimaryRef,
+	});
 
 	return (
 		<div ref={characterPrimaryRef} className='character-primary-container' style={primaryStoryStyles}>
@@ -36,7 +38,7 @@ export const CharacterPrimary = ({ characterPrimaryRef }) => {
 				</div>
 				<CharacterPrimaryName />
 				<CharacterPrimaryType />
-				<CharacterPrimaryVersion />
+				<CharacterPrimaryVersion characterPrimaryVersionRef={characterPrimaryVersionRef} />
 			</div>
 			<button
 				className='character-primary-section-switcher-btn character-primary-section-switcher-btn-to-subpages'
