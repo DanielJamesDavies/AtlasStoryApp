@@ -68,11 +68,30 @@ export const CharacterLogic = () => {
 	const characterOverviewContainerRef = useRef();
 	const characterSubpagesContainerRef = useRef();
 
+	const touchStartCoords = useRef({ x: 0, y: 0 });
 	useEffect(() => {
 		const onWheel = (e) => (!character || !characterStyle || e?.ctrlKey ? null : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1));
+		const onTouchStart = (e) => {
+			touchStartCoords.current = { x: e.touches[0].pageX, y: e.touches[0].pageY };
+		};
+		const onTouchMove = (e) => {
+			const touchMoveCoords = { x: e.touches[0].pageX, y: e.touches[0].pageY };
+			if (Math.abs(touchStartCoords.current.y - touchMoveCoords.y) > 24) return (touchStartCoords.current = { x: 0, y: 0 });
+			const deltaX = touchStartCoords.current.x - touchMoveCoords.x;
+			if (Math.abs(deltaX) < window.innerWidth * 0.3) return;
+			setIsOnOverviewSection(Math.sign(deltaX) === -1);
+			touchStartCoords.current = { x: 0, y: 0 };
+		};
+
 		const characterContainerRefCurrent = characterContainerRef?.current;
 		characterContainerRefCurrent?.addEventListener("wheel", onWheel);
-		return () => characterContainerRefCurrent?.removeEventListener("wheel", onWheel);
+		characterContainerRefCurrent?.addEventListener("touchstart", onTouchStart);
+		characterContainerRefCurrent?.addEventListener("touchmove", onTouchMove);
+		return () => {
+			characterContainerRefCurrent?.removeEventListener("wheel", onWheel);
+			characterContainerRefCurrent?.removeEventListener("touchstart", onTouchStart);
+			characterContainerRefCurrent?.removeEventListener("touchmove", onTouchMove);
+		};
 	}, [character, characterStyle, characterContainerRef, setIsOnOverviewSection]);
 
 	useEffect(() => {

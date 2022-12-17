@@ -159,7 +159,6 @@ export const LightboxLogic = () => {
 	let startCoords = useRef({ centerX: false, centerY: false });
 
 	function onTouchStart(e) {
-		e.preventDefault();
 		e.stopPropagation();
 
 		if (e.touches.length === 1) {
@@ -175,8 +174,6 @@ export const LightboxLogic = () => {
 	}
 
 	function onTouchMove(e) {
-		e.preventDefault();
-
 		if (e.touches.length === 1) {
 			const newPointX = e.touches[0].pageX - startPos.x;
 			const newPointY = e.touches[0].pageY - startPos.y;
