@@ -19,7 +19,7 @@ function App() {
 	AppLogic();
 
 	return (
-		<div className='App'>
+		<div id='App' className='App'>
 			<Page />
 			<canvas id='isLightBackgroundCanvas'></canvas>
 		</div>

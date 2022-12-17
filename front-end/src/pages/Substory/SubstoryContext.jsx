@@ -5,6 +5,7 @@ import { APIContext } from "../../context/APIContext";
 import { RecentDataContext } from "../../context/RecentDataContext";
 import { RoutesContext } from "../../context/RoutesContext";
 import { SpotifyContext } from "../../context/SpotifyContext";
+import { StoryContext } from "../../context/StoryContext";
 
 export const SubstoryContext = createContext();
 
@@ -14,13 +15,9 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location } = useContext(RoutesContext);
 	const { spotify_access_token, spotify_refresh_token, SpotifyRequest } = useContext(SpotifyContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
 
 	const [failure, setFailure] = useState(false);
-
-	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
-
-	const [story, setStory] = useState(false);
-	const [storyIcon, setStoryIcon] = useState(false);
 
 	const [substory, setSubstory] = useState(false);
 
@@ -54,26 +51,20 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		async function getInitial() {
 			if (failure || !story_uid || !substory_uid) return setStateToDefault();
 			if (curr_story_uid.current === story_uid && curr_substory_uid.current === substory_uid) return;
+			if (!story || story.uid !== story_uid) return;
+			curr_story_uid.current = story?.uid;
 
-			let { newStory, newIsAuthorizedToEdit } = await getStory();
-			if (!newStory) return;
-
-			changeAccentColour(newStory?.data?.colours?.accent);
-			changeAccentHoverColour(newStory?.data?.colours?.accentHover);
-
-			getStoryIcon(newStory?.data?.icon);
-
-			let newSubstory = await getSubstory(newStory._id);
+			let newSubstory = await getSubstory(story._id);
 			if (!newSubstory) return;
 
 			// Document Title
-			if (newStory?.data?.title && newSubstory?.data?.title) {
-				document.title = newSubstory?.data?.title + " | " + newStory?.data?.title + " | Substory | Atlas Story App";
+			if (story?.data?.title && newSubstory?.data?.title) {
+				document.title = newSubstory?.data?.title + " | " + story?.data?.title + " | Substory | Atlas Story App";
 			} else {
 				document.title = "https://www.atlas-story.app" + location;
 			}
 
-			getSubstorySubpages(newSubstory?.data?.subpages, newIsAuthorizedToEdit);
+			getSubstorySubpages(newSubstory?.data?.subpages, isAuthorizedToEdit);
 			getSubstoryOverviewBackground(newSubstory?.data?.overviewBackground);
 			getSubstoryPosterBackground(newSubstory?.data?.posterBackground);
 			getSubstoryImages(newSubstory?.data?.images);
@@ -81,44 +72,9 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		}
 
 		function setStateToDefault() {
-			setIsAuthorizedToEdit(false);
-			setStory(false);
-			setStoryIcon(false);
 			setSubstory(false);
 			setSubstoryOverviewBackground(false);
 			setSubstoryPosterBackground(false);
-		}
-
-		async function getStory() {
-			const story_response = await APIRequest("/story?uid=" + story_uid + "&story_uid=" + story_uid, "GET");
-			if (!story_response?.data?.story || story_response?.error || story_response?.data?.story?.uid !== story_uid) {
-				setStateToDefault();
-				return false;
-			}
-			curr_story_uid.current = story_response?.data?.story?.uid;
-			setStory(story_response.data.story);
-			setIsAuthorizedToEdit(story_response?.data?.isAuthorizedToEdit);
-			return { newStory: story_response.data.story, newIsAuthorizedToEdit: story_response?.data?.isAuthorizedToEdit };
-		}
-
-		async function getStoryIcon(iconID) {
-			if (!iconID) return setStoryIcon(false);
-
-			let icon = false;
-			const recentImage = recentImages.current.find((e) => e?._id === iconID);
-			if (recentImage) {
-				icon = recentImage;
-			} else {
-				const response = await APIRequest("/image/" + iconID, "GET");
-				if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
-				icon = response?.data?.image;
-			}
-
-			addImagesToRecentImages([icon]);
-
-			setStoryIcon(icon.image);
-
-			return icon;
 		}
 
 		async function getSubstory(story_id) {
@@ -264,6 +220,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	}, [
 		location,
 		story_uid,
+		story,
 		substory_uid,
 		curr_story_uid,
 		curr_substory_uid,
@@ -274,9 +231,6 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		failure,
 		setFailure,
 		isAuthorizedToEdit,
-		setIsAuthorizedToEdit,
-		setStory,
-		setStoryIcon,
 		allSubpages,
 		setSubstory,
 		setOpenSubpageID,

@@ -6,8 +6,8 @@ import { useContext, useEffect, useState } from "react";
 // Logic
 
 // Context
+import { StoryContext } from "../../../../../context/StoryContext";
 import { RoutesContext } from "../../../../../context/RoutesContext";
-import { StoryContext } from "../../../StoryContext";
 
 // Services
 
@@ -17,20 +17,14 @@ import { StoryContext } from "../../../StoryContext";
 
 export const CharacterCardLogic = ({ character }) => {
 	const { changeLocation } = useContext(RoutesContext);
-	const { story, primaryCharactersCardBackgrounds, characterTypes } = useContext(StoryContext);
+	const { story, characterTypes } = useContext(StoryContext);
 
-	const [cardBackground, setCardBackground] = useState(false);
 	const [characterType, setCharacterType] = useState(false);
 
 	useEffect(() => {
-		if (primaryCharactersCardBackgrounds) {
-			const newCardBackground = primaryCharactersCardBackgrounds?.find((e) => e._id === character?.data?.cardBackground)?.image;
-			setCardBackground(newCardBackground === undefined ? false : newCardBackground);
-		}
-
 		const newCharacterType = characterTypes?.find((e) => e._id === character?.character_type_id);
 		setCharacterType(newCharacterType === undefined ? false : newCharacterType);
-	}, [character, primaryCharactersCardBackgrounds, characterTypes, setCardBackground, setCharacterType]);
+	}, [character, characterTypes, setCharacterType]);
 
 	function navigateToCharacter(e) {
 		if (story?.uid && character?.uid) changeLocation("/s/" + story.uid + "/c/" + character.uid, e.button === 1);
@@ -45,5 +39,5 @@ export const CharacterCardLogic = ({ character }) => {
 		setCardStyles({ "--characterColour": character?.data?.colour ? character.data.colour : "#0044ff" });
 	}, [character, setCardStyles]);
 
-	return { cardBackground, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles };
+	return { characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles };
 };

@@ -16,10 +16,9 @@ import { CharactersContext } from "../CharactersContext";
 
 export const CharactersRelationshipsLogic = () => {
 	const {
-		groups,
-		characters,
-		charactersFaceImages,
-		characterRelationships,
+		storyGroups,
+		storyCharacters,
+		storyCharacterRelationships,
 		characterRelationshipsCharacters,
 		setCharacterRelationshipsCharacters,
 		relationshipsFilters,
@@ -75,18 +74,22 @@ export const CharactersRelationshipsLogic = () => {
 
 	useEffect(() => {
 		function getCharacterRelationshipsCharacters() {
-			if (!characters || characters.length === 0 || !characterRelationships || relationshipsFilters === false || !charactersFaceImages)
+			if (
+				!storyGroups ||
+				storyGroups.length === 0 ||
+				!storyCharacters ||
+				storyCharacters.length === 0 ||
+				!storyCharacterRelationships ||
+				relationshipsFilters === false
+			)
 				return false;
 
-			let newCharacterRelationshipsCharacters = groups
+			let newCharacterRelationshipsCharacters = storyGroups
 				.map((group) =>
 					group?.data?.characters.map((character) => {
-						let oldCharacter = characters.find((e) => e?._id === character?.character_id);
-						if (!oldCharacter) return false;
-						if (!relationshipsFilters?.groups?.includes(oldCharacter?.group_id)) return false;
-						if (!charactersFaceImages) return oldCharacter;
-						let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-						newCharacter.data.faceImage = charactersFaceImages?.find((e) => e?._id === newCharacter?.data?.faceImage);
+						const newCharacter = storyCharacters.find((e) => e?._id === character?.character_id);
+						if (!newCharacter) return false;
+						if (!relationshipsFilters?.groups?.includes(newCharacter?.group_id)) return false;
 						return newCharacter;
 					})
 				)
@@ -96,7 +99,7 @@ export const CharactersRelationshipsLogic = () => {
 			setCharacterRelationshipsCharacters(newCharacterRelationshipsCharacters);
 		}
 		getCharacterRelationshipsCharacters();
-	}, [setCharacterRelationshipsCharacters, characterRelationships, relationshipsFilters, groups, characters, charactersFaceImages]);
+	}, [setCharacterRelationshipsCharacters, storyCharacterRelationships, relationshipsFilters, storyGroups, storyCharacters]);
 
 	const [isDisplayingInfo, setIsDisplayingInfo] = useState(false);
 
@@ -105,9 +108,8 @@ export const CharactersRelationshipsLogic = () => {
 	}
 
 	return {
-		groups,
-		characters,
-		charactersFaceImages,
+		storyGroups,
+		storyCharacters,
 		charactersRelationshipChartRef,
 		charactersRelationshipChartWidth,
 		charactersRelationshipChartItemWidth,

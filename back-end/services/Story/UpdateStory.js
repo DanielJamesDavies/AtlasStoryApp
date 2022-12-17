@@ -83,14 +83,17 @@ module.exports = async (req, res) => {
 				let newPath = JSON.parse(JSON.stringify(req.body.path));
 				const notesIndex = newStory.data.notes.findIndex((e) => e.uid === newPath[2]);
 				if (notesIndex === -1) {
-					if (req?.body?.newValue) newStory.data.notes.push(req.body.newValue);
-					break;
+					console.log(req.body.newValue);
+					if (!req?.body?.newValue) return;
+					newStory.data.notes.push(req.body.newValue);
+					newPath[2] = newStory.data.notes.length - 1;
+				} else {
+					newPath[2] = notesIndex;
 				}
-				newPath[2] = notesIndex;
 
 				// Notes Images
 				let oldNotesImages = [];
-				newStory.data.notes[notesIndex].items.forEach((item) => {
+				newStory.data.notes[newPath[2]].items.forEach((item) => {
 					if (item.images) oldNotesImages = oldNotesImages.concat(item.images.map((image) => image?.image));
 				});
 

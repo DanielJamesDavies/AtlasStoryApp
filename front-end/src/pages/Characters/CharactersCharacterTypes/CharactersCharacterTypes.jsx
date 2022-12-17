@@ -26,7 +26,7 @@ export const CharactersCharacterTypes = () => {
 	const {
 		isAuthorizedToEdit,
 		story,
-		characterTypes,
+		storyCharacterTypes,
 		characterType,
 		changeCharacterType,
 		openCreateCharacterTypeForm,
@@ -62,7 +62,7 @@ export const CharactersCharacterTypes = () => {
 						</div>
 					)}
 				</div>
-				{!story?.data?.characterTypes || !characterTypes ? (
+				{!story?.data?.characterTypes || !storyCharacterTypes ? (
 					<div className='characters-character-types-character-type-items-container'>
 						<BtnListItem />
 						<BtnListItem />
@@ -79,7 +79,7 @@ export const CharactersCharacterTypes = () => {
 							{story.data.characterTypes.map((characterTypeID, index) => (
 								<DragDropItem key={index} index={index} className='characters-character-types-character-type-item-container'>
 									<BtnListItem
-										value={characterTypes.find((e) => e._id === characterTypeID)?.data?.name}
+										value={storyCharacterTypes.find((e) => e._id === characterTypeID)?.data?.name}
 										index={index}
 										isActive={characterType._id === characterTypeID}
 										onClick={(e) => (e?.button === 2 ? null : changeCharacterType(characterTypeID))}

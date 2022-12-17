@@ -9,6 +9,7 @@ import { CookiesConsentPopUp } from "../CookiesConsentPopUp/CookiesConsentPopUp"
 import { RoutesLogic } from "./RoutesLogic";
 
 // Context
+import StoryProvider from "../../context/StoryContext";
 
 // Services
 
@@ -27,7 +28,9 @@ export const Routes = () => {
 				ref={contentContainerRef}
 				className={showUnauthorizedNavigationBar ? "content-container content-container-unauthorized" : "content-container"}
 			>
-				<RenderComponent renderComponent={renderComponent} />
+				<StoryProvider>
+					<RenderComponent renderComponent={renderComponent} />
+				</StoryProvider>
 			</div>
 			<CookiesConsentPopUp />
 		</div>

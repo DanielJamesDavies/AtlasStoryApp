@@ -19,21 +19,11 @@ import "./SubstoriesListSubstoryPosters.css";
 // Assets
 
 export const SubstoriesListSubstoryPosters = () => {
-	const { story, substoriesPosterBackgrounds, isReorderingSubstories, changeSubstoriesOrder } = SubstoriesListSubstoryPostersLogic();
+	const { story, isReorderingSubstories, changeSubstoriesOrder } = SubstoriesListSubstoryPostersLogic();
 
 	return (
 		<div className='substories-list-substories-posters-container'>
-			{!story?.data?.substories ? null : !substoriesPosterBackgrounds ? (
-				<div className='substories-list-substories-posters-placeholders-container'>
-					<div className='substories-list-substories-posters'>
-						{story?.data?.substories.map((substoryID, index) => (
-							<DragDropItem key={index} index={index} className='substories-list-substory-poster-container'>
-								<SubstoriesListSubstoryPoster />
-							</DragDropItem>
-						))}
-					</div>
-				</div>
-			) : (
+			{!story?.data?.substories ? null : (
 				<CarouselContainer speed={1.25} fallback={true} scrollStartOnDataChange={story?._id}>
 					<DragDropContainer
 						className='substories-list-substories-posters'

@@ -9,7 +9,7 @@ import { ForgotPassword } from "../../pages/ForgotPassword/ForgotPassword";
 import { ChangeForgottenPassword } from "../../pages/ChangeForgottenPassword/ChangeForgottenPassword";
 import { UserContainer } from "../../pages/User/UserContainer";
 import { Home } from "../../pages/Home/Home";
-import { StoryContainer } from "../../pages/Story/StoryContainer";
+import { Story } from "../../pages/Story/Story";
 import { CharactersContainer } from "../../pages/Characters/CharactersContainer";
 import { CharacterContainer } from "../../pages/Character/CharacterContainer";
 import { SubstoriesContainer } from "../../pages/Substories/SubstoriesContainer";
@@ -151,7 +151,7 @@ export const RoutesLogic = () => {
 								break;
 						}
 					} else {
-						setRenderComponent(<StoryContainer story_uid={locationSplit[1]} />);
+						setRenderComponent(<Story story_uid={locationSplit[1]} />);
 					}
 					break;
 				default:
@@ -165,10 +165,7 @@ export const RoutesLogic = () => {
 			}
 		}
 
-		let reloadTimer = setTimeout(() => updateRoutesState(), 50);
-		return () => {
-			clearTimeout(reloadTimer);
-		};
+		updateRoutesState();
 	}, [username, location, changeLocation, setRenderComponent, setShowUnauthorizedNavigationBar, changeAccentColour, changeAccentHoverColour]);
 
 	useEffect(() => {

@@ -16,7 +16,7 @@ import { APIContext } from "../../../../context/APIContext";
 // Assets
 
 export const CharactersGroupCharacterCardsLogic = () => {
-	const { story, groups, setGroups, group, changeGroup, charactersCardBackgrounds, isReorderingCharacters } = useContext(CharactersContext);
+	const { story, storyGroups, setStoryGroups, group, changeGroup, isReorderingCharacters } = useContext(CharactersContext);
 	const { APIRequest } = useContext(APIContext);
 
 	const [prevGroupID, setPrevGroupID] = useState("");
@@ -29,7 +29,7 @@ export const CharactersGroupCharacterCardsLogic = () => {
 	// Reorder Characters
 	async function changeCharactersOrder(res) {
 		let newStory = JSON.parse(JSON.stringify(story));
-		let newGroups = JSON.parse(JSON.stringify(groups));
+		let newGroups = JSON.parse(JSON.stringify(storyGroups));
 		const openGroup = newGroups.findIndex((e) => e._id === group._id);
 
 		if (openGroup === -1) return;
@@ -39,7 +39,7 @@ export const CharactersGroupCharacterCardsLogic = () => {
 		const tempCharacter = newGroups[openGroup].data.characters.splice(res.from, 1)[0];
 		newGroups[openGroup].data.characters.splice(res.to, 0, tempCharacter);
 
-		setGroups(newGroups);
+		setStoryGroups(newGroups);
 		changeGroup(newGroups[openGroup]._id, newGroups);
 
 		await APIRequest("/group/" + newGroups[openGroup]._id, "PATCH", {
@@ -49,5 +49,5 @@ export const CharactersGroupCharacterCardsLogic = () => {
 		});
 	}
 
-	return { group, charactersCardBackgrounds, isReorderingCharacters, changeCharactersOrder };
+	return { group, isReorderingCharacters, changeCharactersOrder };
 };

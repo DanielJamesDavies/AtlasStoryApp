@@ -15,12 +15,12 @@ import "./Members.css";
 // Assets
 
 export const Members = () => {
-	const { members, navigateToMember } = MembersLogic();
+	const { storyMembers, navigateToMember } = MembersLogic();
 
 	return (
 		<div className='story-header-main-info-members'>
-			{!Array.isArray(members) || members?.filter((e) => e.type !== "viewer")?.length === 0 ? null : "By "}
-			{members
+			{!Array.isArray(storyMembers) || storyMembers?.filter((e) => e.type !== "viewer")?.length === 0 ? null : "By "}
+			{storyMembers
 				.filter((e) => e.type !== "viewer")
 				.map((member, index) => (
 					<div
@@ -31,7 +31,7 @@ export const Members = () => {
 						onMouseDown={(e) => e.preventDefault()}
 					>
 						{member?.nickname}
-						{members.filter((e) => e.type !== "viewer").length - 1 === index ? null : ","}
+						{storyMembers.filter((e) => e.type !== "viewer").length - 1 === index ? null : ","}
 						<div className='story-header-main-info-member-label'>
 							<div className='ustory-header-main-info-member-label-username'>@{member?.username}</div>
 						</div>

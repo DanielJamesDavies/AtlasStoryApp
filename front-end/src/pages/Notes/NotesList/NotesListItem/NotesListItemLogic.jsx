@@ -18,7 +18,7 @@ import getImageFromFile from "../../../../services/GetImageFromFile";
 // Assets
 
 export const NotesListItemLogic = ({ item, index }) => {
-	const { notes_uid, story, setStory, noteImages, setNoteImages } = useContext(NotesContext);
+	const { notes_uid, story, setStory, storyNotesImages, setStoryNotesImages } = useContext(NotesContext);
 	const { APIRequest } = useContext(APIContext);
 	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
 
@@ -88,10 +88,10 @@ export const NotesListItemLogic = ({ item, index }) => {
 		newStory.data.notes[notesIndex].items[index].images.push({ image: new_id_response.data._id, caption: "" });
 		setStory(newStory);
 
-		setNoteImages((oldNoteImages) => {
-			let newNoteImages = JSON.parse(JSON.stringify(oldNoteImages));
-			newNoteImages.push({ _id: new_id_response.data._id, image: image.data, isUnsaved: true });
-			return newNoteImages;
+		setStoryNotesImages((oldNotesImages) => {
+			let newNotesImages = JSON.parse(JSON.stringify(oldNotesImages));
+			newNotesImages.push({ _id: new_id_response.data._id, image: image.data, isUnsaved: true });
+			return newNotesImages;
 		});
 
 		return true;
@@ -109,7 +109,7 @@ export const NotesListItemLogic = ({ item, index }) => {
 		changeItemImageCaption,
 		removeItemImage,
 		removeItem,
-		noteImages,
+		storyNotesImages,
 		addImageInputRef,
 		onAddImageToItem,
 		onItemImageClick,

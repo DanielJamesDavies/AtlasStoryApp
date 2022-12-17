@@ -8,6 +8,7 @@ import { MultiLineTextInput } from "../../../../components/MultiLineTextInput/Mu
 import { DragDropContainer } from "../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../components/DragDropItem/DragDropItem";
 import { IconBtn } from "../../../../components/IconBtn/IconBtn";
+import { LoadingCircle } from "../../../../components/LoadingCircle/LoadingCircle";
 
 // Logic
 import { NotesListItemLogic } from "./NotesListItemLogic";
@@ -18,7 +19,6 @@ import { NotesListItemLogic } from "./NotesListItemLogic";
 
 // Styles
 import "./NotesListItem.css";
-import { LoadingCircle } from "../../../../components/LoadingCircle/LoadingCircle";
 
 // Assets
 
@@ -30,7 +30,7 @@ export const NotesListItem = ({ item, index, isEditing, isReorderingNotes }) => 
 		changeItemImageCaption,
 		removeItemImage,
 		removeItem,
-		noteImages,
+		storyNotesImages,
 		addImageInputRef,
 		onAddImageToItem,
 		onItemImageClick,
@@ -48,13 +48,13 @@ export const NotesListItem = ({ item, index, isEditing, isReorderingNotes }) => 
 					{item?.images?.map((image, imageIndex) => (
 						<div key={imageIndex} className='notes-list-item-image-item'>
 							<div className='notes-list-item-image-item-image'>
-								{!noteImages.find((e) => e._id === image?.image)?.image ? (
+								{!storyNotesImages.find((e) => e._id === image?.image)?.image ? (
 									<div className='notes-list-item-image-item-image-item-loading-circle-container'>
 										<LoadingCircle size='s' center={true} />
 									</div>
 								) : (
 									<img
-										src={noteImages.find((e) => e._id === image.image).image}
+										src={storyNotesImages.find((e) => e._id === image.image).image}
 										alt=''
 										onClick={() => onItemImageClick(imageIndex)}
 									/>
@@ -86,12 +86,12 @@ export const NotesListItem = ({ item, index, isEditing, isReorderingNotes }) => 
 						: item.images.map((image, imageIndex) => (
 								<DragDropItem key={imageIndex} index={imageIndex} className='notes-list-item-image-item'>
 									<div className='notes-list-item-image-item-image'>
-										{!noteImages.find((e) => e._id === image?.image)?.image ? (
+										{!storyNotesImages.find((e) => e._id === image?.image)?.image ? (
 											<div className='notes-list-item-image-item-loading-circle-container'>
 												<LoadingCircle size='s' center={true} />
 											</div>
 										) : (
-											<img src={noteImages.find((e) => e._id === image.image).image} alt='' />
+											<img src={storyNotesImages.find((e) => e._id === image.image).image} alt='' />
 										)}
 									</div>
 									<TextInput

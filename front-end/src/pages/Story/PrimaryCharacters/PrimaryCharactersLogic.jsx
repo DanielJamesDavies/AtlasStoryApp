@@ -6,7 +6,7 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { StoryContext } from "../StoryContext";
+import { StoryContext } from "../../../context/StoryContext";
 
 // Services
 
@@ -15,7 +15,7 @@ import { StoryContext } from "../StoryContext";
 // Assets
 
 export const PrimaryCharactersLogic = () => {
-	const { isAuthorizedToEdit, primaryCharacters, toggleIsReorderingCharacters } = useContext(StoryContext);
+	const { isAuthorizedToEdit, storyCharacters, toggleIsReorderingCharacters } = useContext(StoryContext);
 
-	return { isAuthorizedToEdit, primaryCharacters, toggleIsReorderingCharacters };
+	return { isAuthorizedToEdit, storyCharacters, toggleIsReorderingCharacters };
 };

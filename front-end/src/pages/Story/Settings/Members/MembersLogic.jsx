@@ -6,7 +6,7 @@ import { useContext, useState, useEffect } from "react";
 // Logic
 
 // Context
-import { StoryContext } from "../../StoryContext";
+import { StoryContext } from "../../../../context/StoryContext";
 import { APIContext } from "../../../../context/APIContext";
 import { RoutesContext } from "../../../../context/RoutesContext";
 

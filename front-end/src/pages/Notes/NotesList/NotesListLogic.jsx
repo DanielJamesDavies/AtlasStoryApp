@@ -16,7 +16,7 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const NotesListLogic = () => {
-	const { notes_uid, isAuthorizedToEdit, story, setStory, noteImages } = useContext(NotesContext);
+	const { notes_uid, isAuthorizedToEdit, story, setStory, storyNotesImages } = useContext(NotesContext);
 	const { APIRequest } = useContext(APIContext);
 
 	function addNotesItem() {
@@ -64,14 +64,16 @@ export const NotesListLogic = () => {
 	async function saveNotes() {
 		setErrors([]);
 		if (!story?._id) return false;
-		const notesIndex = story.data.notes.findIndex((e) => e.uid === notes_uid);
-		if (notesIndex === -1) return false;
+		const note = story.data.notes.find((e) => e.uid === notes_uid);
+		if (!note) return false;
 
 		const response = await APIRequest("/story/" + story._id, "PATCH", {
 			story_id: story._id,
 			path: ["data", "notes", notes_uid],
-			newValue: story.data.notes[notesIndex],
-			newImages: noteImages,
+			newValue: note,
+			newImages: storyNotesImages?.filter(
+				(image) => note.items.findIndex((item) => item?.images?.findIndex((e) => e?.image === image?._id) !== -1) !== -1
+			),
 		});
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);

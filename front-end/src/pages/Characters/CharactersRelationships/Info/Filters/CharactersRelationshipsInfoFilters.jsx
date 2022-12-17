@@ -19,7 +19,7 @@ import { ContentItem } from "../../../../../components/ContentItem/ContentItem";
 // Assets
 
 export const CharactersRelationshipsInfoFilters = () => {
-	const { story, groups, isDisplayingFilters, toggleIsDisplayingFilters, relationshipsFilters, toggleFilter } =
+	const { story, storyGroups, isDisplayingFilters, toggleIsDisplayingFilters, relationshipsFilters, toggleFilter } =
 		CharactersRelationshipsInfoFiltersLogic();
 
 	if (relationshipsFilters === false) return null;
@@ -41,7 +41,7 @@ export const CharactersRelationshipsInfoFilters = () => {
 				<ContentItem className='characters-relationship-info-home-filters' size='s' margin='none' hasBg={true} backgroundColour='grey3'>
 					<div className='characters-relationship-info-home-filters-subtitle'>Groups</div>
 					<div className='characters-relationship-info-home-filters-list'>
-						{groups?.map((group, index) => (
+						{storyGroups?.map((group, index) => (
 							<CharactersRelationshipsInfoHomeFilterItem
 								key={index}
 								name={group?.data?.name}

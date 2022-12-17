@@ -17,10 +17,12 @@ import { LightboxContext } from "../../context/LightboxContext";
 export const LightboxLogic = () => {
 	const { lightboxImageIDs, setLightboxImageIDs, lightboxImages, setLightboxImages, lightboxIndex, setLightboxIndex } =
 		useContext(LightboxContext);
+	const [isImagePixelated, setIsImagePixelated] = useState(false);
 
 	function incrementLightboxIndex(e) {
 		e.stopPropagation();
 		setLightboxIndex((oldLightboxIndex) => (oldLightboxIndex - 1 < 0 ? 0 : oldLightboxIndex - 1));
+		setIsImagePixelated(false);
 	}
 
 	function decrementLightboxIndex(e) {
@@ -28,12 +30,14 @@ export const LightboxLogic = () => {
 		setLightboxIndex((oldLightboxIndex) =>
 			oldLightboxIndex + 1 > lightboxImages.length - 1 ? lightboxImages.length - 1 : oldLightboxIndex + 1
 		);
+		setIsImagePixelated(false);
 	}
 
 	function closeLightbox() {
 		setLightboxImageIDs([]);
 		setLightboxImages([]);
 		setLightboxIndex(0);
+		setIsImagePixelated(false);
 	}
 
 	const lightBoxImageContainerRef = useRef();
@@ -102,6 +106,8 @@ export const LightboxLogic = () => {
 		} else {
 			zoom.current /= 1.2;
 		}
+
+		setIsImagePixelated(zoom.current > 3);
 
 		if (zoom.current <= 1) {
 			zoom.current = 1;
@@ -189,6 +195,7 @@ export const LightboxLogic = () => {
 			let diffDist = prevDist.current - dist;
 
 			zoom.current -= diffDist * zoom.current * 0.006;
+			setIsImagePixelated(zoom.current > 3);
 
 			if (zoom.current <= 1) {
 				zoom.current = 1;
@@ -223,5 +230,6 @@ export const LightboxLogic = () => {
 		lightboxContainerRef,
 		onTouchStart,
 		onTouchMove,
+		isImagePixelated,
 	};
 };

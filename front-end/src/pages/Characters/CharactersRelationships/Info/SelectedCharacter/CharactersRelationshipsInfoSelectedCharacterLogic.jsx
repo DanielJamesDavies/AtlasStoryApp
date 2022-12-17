@@ -19,8 +19,8 @@ export const CharactersRelationshipsInfoSelectedCharacterLogic = () => {
 	const {
 		isAuthorizedToEdit,
 		story,
-		characters,
-		characterRelationships,
+		storyCharacters,
+		storyCharacterRelationships,
 		setCharacterRelationships,
 		characterRelationshipsAddedIds,
 		setCharacterRelationshipsAddedIds,
@@ -38,10 +38,10 @@ export const CharactersRelationshipsInfoSelectedCharacterLogic = () => {
 			setSelectedCharacter(false);
 			setSelectedCharacterRelationships(false);
 		} else {
-			const newSelectedCharacter = characters.find((e) => e._id === selectedCharacterRelationshipsCharacterId);
+			const newSelectedCharacter = storyCharacters.find((e) => e._id === selectedCharacterRelationshipsCharacterId);
 			setSelectedCharacter(newSelectedCharacter ? newSelectedCharacter : false);
 
-			const newSelectedCharacterRelationships = characterRelationships
+			const newSelectedCharacterRelationships = storyCharacterRelationships
 				.filter((e) => e.character_ids.includes(selectedCharacterRelationshipsCharacterId))
 				.sort((a, b) =>
 					story?.data?.characterRelationshipTypes.findIndex((e) => e?._id === a?.relationship_type) >=
@@ -51,7 +51,7 @@ export const CharactersRelationshipsInfoSelectedCharacterLogic = () => {
 				);
 			setSelectedCharacterRelationships(newSelectedCharacterRelationships);
 		}
-	}, [setSelectedCharacter, selectedCharacterRelationshipsCharacterId, story, characters, characterRelationships]);
+	}, [setSelectedCharacter, selectedCharacterRelationshipsCharacterId, story, storyCharacters, storyCharacterRelationships]);
 
 	async function revertRelationships() {
 		if (!story?._id) return false;
@@ -67,7 +67,7 @@ export const CharactersRelationshipsInfoSelectedCharacterLogic = () => {
 			return false;
 
 		const newCharacterRelationships = character_relationships_response.data.characterRelationships.map((relationship) => {
-			const oldRelationship = characterRelationships.find((e) => e._id === relationship._id);
+			const oldRelationship = storyCharacterRelationships.find((e) => e._id === relationship._id);
 			if (oldRelationship && !relationship.character_ids.includes(newSelectedCharacterRelationshipsCharacterId)) return oldRelationship;
 			return relationship;
 		});
@@ -149,7 +149,7 @@ export const CharactersRelationshipsInfoSelectedCharacterLogic = () => {
 		const newId = new_id_response?.data?._id;
 		if (!newId) return false;
 
-		let newCharacterRelationships = JSON.parse(JSON.stringify(characterRelationships));
+		let newCharacterRelationships = JSON.parse(JSON.stringify(storyCharacterRelationships));
 		newCharacterRelationships.push({ _id: newId, character_ids: [newSelectedCharacterRelationshipsCharacterId], relationship_type: undefined });
 		setCharacterRelationships(newCharacterRelationships);
 
@@ -162,8 +162,6 @@ export const CharactersRelationshipsInfoSelectedCharacterLogic = () => {
 
 	return {
 		isAuthorizedToEdit,
-		story,
-		characters,
 		selectedCharacterRelationshipsCharacterId,
 		selectedCharacter,
 		selectedCharacterRelationships,

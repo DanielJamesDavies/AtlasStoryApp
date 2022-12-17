@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 // Logic
 
 // Context
-import { StoryContext } from "../StoryContext";
+import { StoryContext } from "../../../context/StoryContext";
 import { APIContext } from "../../../context/APIContext";
 import { LightboxContext } from "../../../context/LightboxContext";
 
@@ -17,7 +17,7 @@ import { LightboxContext } from "../../../context/LightboxContext";
 // Assets
 
 export const BannerLogic = () => {
-	const { isAuthorizedToEdit, story, banner, setBanner } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, storyBanner, setStoryBanner } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
 
@@ -25,7 +25,7 @@ export const BannerLogic = () => {
 
 	async function changeStoryBanner(image) {
 		setErrors([]);
-		setBanner(image);
+		setStoryBanner(image);
 	}
 
 	async function revertStoryBanner() {
@@ -33,7 +33,7 @@ export const BannerLogic = () => {
 		if (!story?.data?.banner) return false;
 		const response = await APIRequest("/image/" + story.data.banner, "GET");
 		if (!response || response?.errors || !response?.data?.image?.image) return false;
-		setBanner(response.data.image.image);
+		setStoryBanner(response.data.image.image);
 		return true;
 	}
 
@@ -45,7 +45,7 @@ export const BannerLogic = () => {
 			newValue: story?.data?.banner,
 			story_id: story._id,
 		});
-		const response = await APIRequest("/image/" + story.data.banner, "PATCH", { newValue: banner, story_id: story._id });
+		const response = await APIRequest("/image/" + story.data.banner, "PATCH", { newValue: storyBanner, story_id: story._id });
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);
 			return false;
@@ -58,5 +58,5 @@ export const BannerLogic = () => {
 		setLightboxIndex(0);
 	}
 
-	return { isAuthorizedToEdit, banner, changeStoryBanner, errors, revertStoryBanner, saveStoryBanner, onClickBanner };
+	return { isAuthorizedToEdit, storyBanner, changeStoryBanner, errors, revertStoryBanner, saveStoryBanner, onClickBanner };
 };

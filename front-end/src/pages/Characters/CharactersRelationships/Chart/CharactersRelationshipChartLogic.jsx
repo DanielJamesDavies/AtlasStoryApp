@@ -17,11 +17,10 @@ import { CharactersContext } from "../../CharactersContext";
 export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWidth, charactersRelationshipChartItemWidth }) => {
 	const {
 		story,
-		groups,
-		characters,
-		characterRelationships,
+		storyGroups,
+		storyCharacters,
+		storyCharacterRelationships,
 		characterRelationshipsCharacters,
-		charactersFaceImages,
 		selectedCharacterRelationshipsCharacterId,
 		setSelectedCharacterRelationshipsCharacterId,
 		relationshipsFilters,
@@ -34,12 +33,12 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 	useEffect(() => {
 		function drawChartCanvas() {
 			if (
-				!groups ||
-				groups?.length === 0 ||
-				!characters ||
-				characters?.length === 0 ||
-				!characterRelationships ||
-				characterRelationships?.length === 0 ||
+				!storyGroups ||
+				storyGroups?.length === 0 ||
+				!storyCharacters ||
+				storyCharacters?.length === 0 ||
+				!storyCharacterRelationships ||
+				storyCharacterRelationships?.length === 0 ||
 				!relationshipsFilters
 			)
 				return false;
@@ -58,7 +57,7 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 
 			const charactersOrder = characterRelationshipsCharacters.map((character) => character._id);
 
-			const newCharacterRelationships = JSON.parse(JSON.stringify(characterRelationships))
+			const newCharacterRelationships = JSON.parse(JSON.stringify(storyCharacterRelationships))
 				.filter(
 					(e) =>
 						e.character_ids.length === 2 &&
@@ -139,16 +138,15 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 		drawChartCanvas();
 	}, [
 		story,
-		groups,
-		characters,
-		characterRelationships,
+		storyGroups,
+		storyCharacters,
+		storyCharacterRelationships,
 		characterRelationshipsCharacters,
-		charactersFaceImages,
 		selectedCharacterRelationshipsCharacterId,
 		relationshipsFilters,
 		charactersRelationshipChartWidth,
 		charactersRelationshipChartItemWidth,
 	]);
 
-	return { characters, charactersFaceImages, selectedCharacterRelationshipsCharacterId, characterRelationshipsCharacters, onClickChart };
+	return { storyCharacters, selectedCharacterRelationshipsCharacterId, characterRelationshipsCharacters, onClickChart };
 };

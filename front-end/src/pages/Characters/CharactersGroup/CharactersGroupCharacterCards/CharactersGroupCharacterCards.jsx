@@ -19,7 +19,7 @@ import "./CharactersGroupCharacterCards.css";
 // Assets
 
 export const CharactersGroupCharacterCards = () => {
-	const { group, charactersCardBackgrounds, isReorderingCharacters, changeCharactersOrder } = CharactersGroupCharacterCardsLogic();
+	const { group, isReorderingCharacters, changeCharactersOrder } = CharactersGroupCharacterCardsLogic();
 
 	return (
 		<div className='characters-group-characters-cards-container'>
@@ -34,14 +34,6 @@ export const CharactersGroupCharacterCards = () => {
 					<div className='characters-group-character-card-container'>
 						<CharactersGroupCharacterCard />
 					</div>
-				</div>
-			) : !charactersCardBackgrounds ? (
-				<div className='characters-group-characters-cards'>
-					{group?.data?.characters.map((character, index) => (
-						<DragDropItem key={index} index={index} className='characters-group-character-card-container'>
-							<CharactersGroupCharacterCard />
-						</DragDropItem>
-					))}
 				</div>
 			) : (
 				<CarouselContainer speed={1.25} fallback={true} scrollStartOnDataChange={group?._id}>

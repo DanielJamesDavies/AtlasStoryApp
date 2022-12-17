@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 // Logic
 
 // Context
-import { StoryContext } from "../../StoryContext";
+import { StoryContext } from "../../../../context/StoryContext";
 import { APIContext } from "../../../../context/APIContext";
 import { LightboxContext } from "../../../../context/LightboxContext";
 
@@ -17,7 +17,7 @@ import { LightboxContext } from "../../../../context/LightboxContext";
 // Assets
 
 export const IconLogic = () => {
-	const { isAuthorizedToEdit, story, icon, setIcon } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, storyIcon, setStoryIcon } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
 
@@ -25,7 +25,7 @@ export const IconLogic = () => {
 
 	async function changeStoryIcon(image) {
 		setErrors([]);
-		setIcon(image);
+		setStoryIcon(image);
 	}
 
 	async function revertStoryIcon() {
@@ -33,7 +33,7 @@ export const IconLogic = () => {
 		if (!story?.data?.icon) return false;
 		const response = await APIRequest("/image/" + story.data.icon, "GET");
 		if (!response || response?.errors || !response?.data?.image?.image) return false;
-		setIcon(response.data.image.image);
+		setStoryIcon(response.data.image.image);
 		return true;
 	}
 
@@ -45,7 +45,7 @@ export const IconLogic = () => {
 			newValue: story?.data?.icon,
 			story_id: story._id,
 		});
-		const response = await APIRequest("/image/" + story.data.icon, "PATCH", { newValue: icon, story_id: story._id });
+		const response = await APIRequest("/image/" + story.data.icon, "PATCH", { newValue: storyIcon, story_id: story._id });
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);
 			return false;
@@ -58,5 +58,5 @@ export const IconLogic = () => {
 		setLightboxIndex(0);
 	}
 
-	return { isAuthorizedToEdit, icon, changeStoryIcon, revertStoryIcon, saveStoryIcon, onClickIcon, errors };
+	return { isAuthorizedToEdit, storyIcon, changeStoryIcon, revertStoryIcon, saveStoryIcon, onClickIcon, errors };
 };

@@ -1,14 +1,13 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 // Components
 
 // Logic
 
 // Context
-import { StoryContext } from "../StoryContext";
+import { StoryContext } from "../../../context/StoryContext";
 import { APIContext } from "../../../context/APIContext";
-import { useEffect } from "react";
 
 // Services
 

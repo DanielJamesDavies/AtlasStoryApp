@@ -62,7 +62,7 @@ export const CharacterLogic = () => {
 		return () => {
 			window.removeEventListener("resize", getCharacterStyle);
 		};
-	}, [setCharacterStyle, character]);
+	}, [setCharacterStyle, character, setCharacterPaddingTop]);
 
 	const characterContainerRef = useRef();
 	const characterOverviewContainerRef = useRef();

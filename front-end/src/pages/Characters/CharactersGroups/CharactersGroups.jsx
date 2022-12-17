@@ -26,7 +26,7 @@ export const CharactersGroups = () => {
 	const {
 		isAuthorizedToEdit,
 		story,
-		groups,
+		storyGroups,
 		group,
 		changeGroup,
 		openCreateGroupForm,
@@ -61,7 +61,7 @@ export const CharactersGroups = () => {
 						</div>
 					)}
 				</div>
-				{!story?.data?.groups || !groups ? (
+				{!story?.data?.groups || !storyGroups ? (
 					<div className='characters-groups-group-items-container characters-groups-group-items-container-placeholder'>
 						<BtnListItem />
 						<BtnListItem />
@@ -80,7 +80,7 @@ export const CharactersGroups = () => {
 							{story.data.groups.map((groupID, index) => (
 								<DragDropItem key={index} index={index} className='characters-groups-group-item-container'>
 									<BtnListItem
-										value={groups.find((e) => e._id === groupID)?.data?.name}
+										value={storyGroups.find((e) => e._id === groupID)?.data?.name}
 										index={index}
 										isActive={group._id === groupID}
 										onClick={(e) => (e?.button === 2 ? null : changeGroup(groupID))}

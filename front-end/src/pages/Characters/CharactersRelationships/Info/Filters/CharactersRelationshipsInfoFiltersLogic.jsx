@@ -15,7 +15,7 @@ import { CharactersContext } from "../../../CharactersContext";
 // Assets
 
 export const CharactersRelationshipsInfoFiltersLogic = () => {
-	const { story, groups, relationshipsFilters, setRelationshipsFilters } = useContext(CharactersContext);
+	const { story, storyGroups, relationshipsFilters, setRelationshipsFilters } = useContext(CharactersContext);
 
 	const [isDisplayingFilters, setIsDisplayingFilters] = useState(false);
 
@@ -26,10 +26,10 @@ export const CharactersRelationshipsInfoFiltersLogic = () => {
 	useEffect(() => {
 		function getRelationshipsFilters() {
 			if (relationshipsFilters !== false) return false;
-			if (!groups) return false;
+			if (!story?.data?.characterRelationshipTypes || !storyGroups || storyGroups.length === 0) return false;
 
-			let newRelationshipsFilters = {
-				groups: groups.map((group) => group?._id).filter((e) => e !== false),
+			const newRelationshipsFilters = {
+				groups: storyGroups.map((group) => group?._id).filter((e) => e !== false),
 				relationshipTypes: story?.data?.characterRelationshipTypes
 					.map((relationshipType) => relationshipType?._id)
 					.filter((e) => e !== false),
@@ -38,7 +38,7 @@ export const CharactersRelationshipsInfoFiltersLogic = () => {
 		}
 
 		getRelationshipsFilters();
-	}, [setRelationshipsFilters, relationshipsFilters, groups, story]);
+	}, [setRelationshipsFilters, relationshipsFilters, storyGroups, story]);
 
 	function toggleFilter(id, type) {
 		const newRelationshipsFilters = JSON.parse(JSON.stringify(relationshipsFilters));
@@ -51,5 +51,5 @@ export const CharactersRelationshipsInfoFiltersLogic = () => {
 		setRelationshipsFilters(newRelationshipsFilters);
 	}
 
-	return { story, groups, isDisplayingFilters, toggleIsDisplayingFilters, relationshipsFilters, toggleFilter };
+	return { story, storyGroups, isDisplayingFilters, toggleIsDisplayingFilters, relationshipsFilters, toggleFilter };
 };

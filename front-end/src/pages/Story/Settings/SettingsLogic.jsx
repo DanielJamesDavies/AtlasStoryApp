@@ -6,7 +6,7 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { StoryContext } from "../StoryContext";
+import { StoryContext } from "../../../context/StoryContext";
 
 // Services
 

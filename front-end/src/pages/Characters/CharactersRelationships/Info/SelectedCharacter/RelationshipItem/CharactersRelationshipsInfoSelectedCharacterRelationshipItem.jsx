@@ -1,4 +1,5 @@
 // Packages
+import { FaTimes } from "react-icons/fa";
 
 // Components
 import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
@@ -14,12 +15,11 @@ import { CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic } fro
 
 // Styles
 import "./CharactersRelationshipsInfoSelectedCharacterRelationshipItem.css";
-import { FaTimes } from "react-icons/fa";
 
 // Assets
 
 export const CharactersRelationshipsInfoSelectedCharacterRelationshipItem = ({ relationship, isEditing, selectedCharacterRelationships }) => {
-	const { story, groups, characters, secondCharacter, changeRelationshipSecondCharacter, changeRelationshipType, removeRelationship } =
+	const { story, storyGroups, storyCharacters, secondCharacter, changeRelationshipSecondCharacter, changeRelationshipType, removeRelationship } =
 		CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic({ relationship, selectedCharacterRelationships });
 
 	return (
@@ -40,7 +40,7 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItem = ({ r
 						)
 					) : (
 						<DropdownContainer value={secondCharacter?.data?.name} onChange={changeRelationshipSecondCharacter} noBackground={true}>
-							{groups
+							{storyGroups
 								.map((group) =>
 									group?.data?.characters
 										.filter(
@@ -50,7 +50,7 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItem = ({ r
 													.findIndex((relationship) => relationship.character_ids.includes(character?.character_id)) ===
 												-1
 										)
-										.map((character) => characters.find((e) => e._id === character?.character_id))
+										.map((character) => storyCharacters.find((e) => e._id === character?.character_id))
 								)
 								.flat(1)
 								.filter((e) => e)

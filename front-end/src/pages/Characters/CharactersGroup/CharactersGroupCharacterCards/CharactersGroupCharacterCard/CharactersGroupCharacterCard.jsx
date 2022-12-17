@@ -15,10 +15,9 @@ import "./CharactersGroupCharacterCard.css";
 // Assets
 
 export const CharactersGroupCharacterCard = ({ characterID }) => {
-	const { character, cardBackground, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles } =
-		CharactersGroupCharacterCardLogic({
-			characterID,
-		});
+	const { character, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles } = CharactersGroupCharacterCardLogic({
+		characterID,
+	});
 
 	if (!character) return <div className='characters-group-character-card-placeholder' />;
 	return (
@@ -50,9 +49,9 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 						  ))}
 				</div>
 			</div>
-			{!cardBackground ? null : (
+			{!character?.data?.cardBackground?.image ? null : (
 				<div className='characters-group-character-card-background'>
-					<img src={cardBackground} alt='' />
+					<img src={character.data.cardBackground.image} alt='' />
 				</div>
 			)}
 		</div>

@@ -15,7 +15,7 @@ import "./CharacterCard.css";
 // Assets
 
 export const CharacterCard = ({ character }) => {
-	const { cardBackground, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles } = CharacterCardLogic({
+	const { characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles } = CharacterCardLogic({
 		character,
 	});
 
@@ -41,9 +41,9 @@ export const CharacterCard = ({ character }) => {
 						  ))}
 				</div>
 			</div>
-			{!cardBackground ? null : (
+			{!character?.data?.cardBackground?.image ? null : (
 				<div className='story-primary-character-card-background'>
-					<img src={cardBackground} alt='' />
+					<img src={character?.data?.cardBackground?.image} alt='' />
 				</div>
 			)}
 		</div>

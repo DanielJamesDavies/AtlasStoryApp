@@ -6,7 +6,7 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { StoryContext } from "../../StoryContext";
+import { StoryContext } from "../../../../context/StoryContext";
 import { RoutesContext } from "../../../../context/RoutesContext";
 
 // Services
@@ -16,7 +16,7 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const MembersLogic = () => {
-	const { members } = useContext(StoryContext);
+	const { storyMembers } = useContext(StoryContext);
 	const { changeLocation } = useContext(RoutesContext);
 
 	function navigateToMember(e, memberUsername) {
@@ -24,5 +24,5 @@ export const MembersLogic = () => {
 		changeLocation("/u/" + memberUsername, e.button === 1);
 	}
 
-	return { members, navigateToMember };
+	return { storyMembers, navigateToMember };
 };

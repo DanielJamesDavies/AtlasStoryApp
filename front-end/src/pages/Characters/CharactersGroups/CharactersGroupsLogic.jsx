@@ -20,8 +20,8 @@ export const CharactersGroupsLogic = () => {
 		isAuthorizedToEdit,
 		story,
 		setStory,
-		groups,
-		setGroups,
+		storyGroups,
+		setStoryGroups,
 		group,
 		changeGroup,
 		setIsDisplayingCreateGroupForm,
@@ -42,10 +42,10 @@ export const CharactersGroupsLogic = () => {
 		newStory.data.groups.splice(res.to, 0, tempStoryGroup);
 		setStory(newStory);
 
-		let newGroups = JSON.parse(JSON.stringify(groups));
+		let newGroups = JSON.parse(JSON.stringify(storyGroups));
 		const tempGroup = newGroups.splice(res.from, 1)[0];
 		newGroups.splice(res.to, 0, tempGroup);
-		setGroups(newGroups);
+		setStoryGroups(newGroups);
 
 		await APIRequest("/story/" + newStory._id, "PATCH", {
 			story_id: newStory._id,
@@ -57,7 +57,7 @@ export const CharactersGroupsLogic = () => {
 	return {
 		isAuthorizedToEdit,
 		story,
-		groups,
+		storyGroups,
 		group,
 		changeGroup,
 		openCreateGroupForm,

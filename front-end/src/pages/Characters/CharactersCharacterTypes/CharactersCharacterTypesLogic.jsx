@@ -20,7 +20,7 @@ export const CharactersCharacterTypesLogic = () => {
 		isAuthorizedToEdit,
 		story,
 		setStory,
-		characterTypes,
+		storyCharacterTypes,
 		characterType,
 		changeCharacterType,
 		setIsDisplayingCreateCharacterTypeForm,
@@ -51,7 +51,7 @@ export const CharactersCharacterTypesLogic = () => {
 	return {
 		isAuthorizedToEdit,
 		story,
-		characterTypes,
+		storyCharacterTypes,
 		characterType,
 		changeCharacterType,
 		openCreateCharacterTypeForm,

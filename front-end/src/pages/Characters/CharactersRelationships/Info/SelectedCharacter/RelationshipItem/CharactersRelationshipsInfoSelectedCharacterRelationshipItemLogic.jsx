@@ -17,8 +17,8 @@ import { CharactersContext } from "../../../../CharactersContext";
 export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic = ({ relationship, selectedCharacterRelationships }) => {
 	const {
 		story,
-		groups,
-		characters,
+		storyGroups,
+		storyCharacters,
 		selectedCharacterRelationshipsCharacterId,
 		characterRelationships,
 		setCharacterRelationships,
@@ -31,15 +31,15 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic =
 		if (!selectedCharacterRelationshipsCharacterId) {
 			setSecondCharacter(false);
 		} else {
-			const newSecondCharacter = characters.find(
+			const newSecondCharacter = storyCharacters.find(
 				(e) => e._id === relationship.character_ids.find((e) => e !== selectedCharacterRelationshipsCharacterId)
 			);
 			setSecondCharacter(newSecondCharacter ? newSecondCharacter : false);
 		}
-	}, [setSecondCharacter, relationship, selectedCharacterRelationshipsCharacterId, characters]);
+	}, [setSecondCharacter, relationship, selectedCharacterRelationshipsCharacterId, storyCharacters]);
 
 	function changeRelationshipSecondCharacter(index) {
-		const options = groups
+		const options = storyGroups
 			.map((group) =>
 				group?.data?.characters
 					.filter(
@@ -48,7 +48,7 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic =
 								.filter((e) => !e?.isRemoved)
 								.findIndex((relationship) => relationship.character_ids.includes(character?.character_id)) === -1
 					)
-					.map((character) => characters.find((e) => e._id === character?.character_id)?._id)
+					.map((character) => storyCharacters.find((e) => e._id === character?.character_id)?._id)
 			)
 			.flat(1)
 			.filter((e) => e);
@@ -97,8 +97,8 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic =
 
 	return {
 		story,
-		groups,
-		characters,
+		storyGroups,
+		storyCharacters,
 		selectedCharacterRelationshipsCharacterId,
 		secondCharacter,
 		changeRelationshipSecondCharacter,

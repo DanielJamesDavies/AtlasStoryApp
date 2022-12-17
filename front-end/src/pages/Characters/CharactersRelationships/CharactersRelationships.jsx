@@ -21,9 +21,8 @@ import "./CharactersRelationships.css";
 
 export const CharactersRelationships = () => {
 	const {
-		groups,
-		characters,
-		charactersFaceImages,
+		storyGroups,
+		storyCharacters,
 		charactersRelationshipChartRef,
 		charactersRelationshipChartWidth,
 		charactersRelationshipChartItemWidth,
@@ -41,7 +40,7 @@ export const CharactersRelationships = () => {
 		>
 			<div className='characters-relationship-primary'>
 				<div className='characters-relationship-primary-title'>Character Relationships</div>
-				{!groups || !characters || !charactersFaceImages ? null : (
+				{!storyGroups || !storyCharacters ? null : (
 					<div className='characters-relationship-primary-buttons-container'>
 						<IconBtn
 							icon={<FaBars />}
@@ -53,7 +52,7 @@ export const CharactersRelationships = () => {
 					</div>
 				)}
 			</div>
-			{!groups || !characters || !charactersFaceImages ? (
+			{!storyGroups || !storyCharacters ? (
 				<div className='characters-relationship-content'>
 					<LoadingCircle center={true} />
 				</div>

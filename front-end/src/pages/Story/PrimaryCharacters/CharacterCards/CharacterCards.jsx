@@ -19,15 +19,14 @@ import "./CharacterCards.css";
 // Assets
 
 export const CharacterCards = () => {
-	const { primaryCharacters, primaryCharactersCardBackgrounds, isReorderingCharacters, changePrimaryCharactersOrder } = CharacterCardsLogic();
+	const { story, storyCharacters, isReorderingCharacters, changePrimaryCharactersOrder } = CharacterCardsLogic();
 
-	if (!primaryCharacters) return null;
 	return (
 		<div className='story-primary-characters-cards-container'>
 			<CarouselContainer speed={1.1} fallback={true}>
-				{!primaryCharactersCardBackgrounds ? (
+				{!story?.data?.primaryCharacters ? null : !storyCharacters ? (
 					<div className='story-primary-characters-cards'>
-						{primaryCharacters.map((character, index) => (
+						{story?.data?.primaryCharacters.map((character, index) => (
 							<div key={index} className='story-primary-character-card-container'>
 								<CharacterCard />
 							</div>
@@ -40,9 +39,9 @@ export const CharacterCards = () => {
 						enableDragDrop={isReorderingCharacters}
 						onDropItem={changePrimaryCharactersOrder}
 					>
-						{primaryCharacters.map((character, index) => (
+						{story?.data?.primaryCharacters.map((character, index) => (
 							<DragDropItem key={index} index={index} className='story-primary-character-card-container'>
-								<CharacterCard character={character} />
+								<CharacterCard character={storyCharacters.find((e) => e._id === character)} />
 							</DragDropItem>
 						))}
 					</DragDropContainer>

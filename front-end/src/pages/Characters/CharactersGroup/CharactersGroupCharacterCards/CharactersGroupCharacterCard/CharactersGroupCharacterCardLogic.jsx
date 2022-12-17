@@ -16,27 +16,21 @@ import { RoutesContext } from "../../../../../context/RoutesContext";
 // Assets
 
 export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
-	const { story, characters, characterTypes, charactersCardBackgrounds } = useContext(CharactersContext);
+	const { story, storyCharacters, storyCharacterTypes } = useContext(CharactersContext);
 	const { changeLocation } = useContext(RoutesContext);
 
 	const [character, setCharacter] = useState(false);
-	const [cardBackground, setCardBackground] = useState(false);
 	const [characterType, setCharacterType] = useState(false);
 
 	useEffect(() => {
 		if (characterID) {
-			const newCharacter = characters?.find((e) => e._id === characterID);
+			const newCharacter = storyCharacters?.find((e) => e._id === characterID);
 			setCharacter(newCharacter);
 
-			if (charactersCardBackgrounds) {
-				const newCardBackground = charactersCardBackgrounds?.find((e) => e._id === newCharacter?.data?.cardBackground)?.image;
-				setCardBackground(newCardBackground === undefined ? false : newCardBackground);
-			}
-
-			const newCharacterType = characterTypes?.find((e) => e._id === newCharacter?.character_type_id);
+			const newCharacterType = storyCharacterTypes?.find((e) => e._id === newCharacter?.character_type_id);
 			setCharacterType(newCharacterType === undefined ? false : newCharacterType);
 		}
-	}, [characterID, characters, charactersCardBackgrounds, characterTypes, setCharacter, setCardBackground, setCharacterType]);
+	}, [characterID, storyCharacters, storyCharacterTypes, setCharacter, setCharacterType]);
 
 	function navigateToCharacter(e) {
 		if (e.button === 2) return;
@@ -57,7 +51,6 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 
 	return {
 		character,
-		cardBackground,
 		characterType,
 		navigateToCharacter,
 		onCharacterCardMouseDown,

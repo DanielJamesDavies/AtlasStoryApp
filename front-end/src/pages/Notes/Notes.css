@@ -1,7 +1,8 @@
 .notes {
 	margin: 0 auto;
-	padding: 0 48px;
-	max-width: 1700px;
+	padding: 0 24px;
+	padding-bottom: 48px;
+	max-width: 1900px;
 }
 
 @media (max-width: 750px) {

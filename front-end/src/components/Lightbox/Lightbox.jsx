@@ -28,6 +28,7 @@ export const Lightbox = () => {
 		lightboxContainerRef,
 		onTouchStart,
 		onTouchMove,
+		isImagePixelated,
 	} = LightboxLogic();
 
 	return (
@@ -50,7 +51,7 @@ export const Lightbox = () => {
 						<FaChevronLeft />
 					</button>
 					<div ref={lightBoxImageContainerRef} className='lightbox-image-container'>
-						<div className='lightbox-image'>
+						<div className={isImagePixelated ? "lightbox-image lightbox-image-is-pixelated" : "lightbox-image"}>
 							<img src={lightboxImages[lightboxIndex]?.image} alt='' onClick={(e) => e.stopPropagation()} />
 						</div>
 					</div>
