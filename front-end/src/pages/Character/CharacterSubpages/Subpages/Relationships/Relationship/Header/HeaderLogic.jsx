@@ -15,7 +15,7 @@ import { CharacterContext } from "../../../../../CharacterContext";
 // Assets
 
 export const HeaderLogic = () => {
-	const { story, character, characters, selectedCharacterRelationshipsCharacterId } = useContext(CharacterContext);
+	const { isAuthorizedToEdit, story, character, characters, selectedCharacterRelationshipsCharacterId } = useContext(CharacterContext);
 
 	const [secondCharacter, setSecondCharacter] = useState(false);
 	useEffect(() => {
@@ -36,5 +36,7 @@ export const HeaderLogic = () => {
 		return () => (headerRefCurrent ? headerRefCurrent.removeEventListener("wheel", onWheel) : null);
 	}, [headerRef]);
 
-	return { headerRef, story, character, secondCharacter };
+	function changeRelationshipType() {}
+
+	return { isAuthorizedToEdit, headerRef, story, character, secondCharacter, changeRelationshipType };
 };

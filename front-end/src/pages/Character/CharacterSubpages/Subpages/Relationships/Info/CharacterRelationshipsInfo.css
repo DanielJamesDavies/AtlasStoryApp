@@ -21,6 +21,10 @@
 		display: none;
 	}
 
+	.character-subpage-relationships-info {
+		min-height: calc(100% - 16px);
+	}
+
 	.character-subpage-relationships-info-container-is-displaying {
 		display: block;
 	}

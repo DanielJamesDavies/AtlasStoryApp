@@ -1,11 +1,12 @@
 // Packages
-import { useEffect, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 // Components
 
 // Logic
 
 // Context
+import { DropdownContext } from "../../context/DropdownContext";
 
 // Services
 
@@ -13,8 +14,26 @@ import { useEffect, useState } from "react";
 
 // Assets
 
-export const DropdownContainerLogic = ({ className, seamless, onChange }) => {
-	const [isSelecting, setIsSelecting] = useState(false);
+export const DropdownContainerLogic = ({ children, className, seamless, onChange, includeUnselectedOption }) => {
+	const { dropdownContainerRef, dropdownChildren, setDropdownChildren, setOnDropdownChange, setIncludeUnselectedOption, closeDropdown } =
+		useContext(DropdownContext);
+
+	const [isDisplaying, setIsDisplaying] = useState(false);
+
+	useEffect(() => {
+		setIsDisplaying(false);
+	}, [dropdownChildren]);
+
+	function toggleDropdownOptions() {
+		const newIsDisplaying = !JSON.parse(JSON.stringify(isDisplaying));
+		setTimeout(() => setIsDisplaying(newIsDisplaying), 50);
+
+		if (!newIsDisplaying) return closeDropdown();
+
+		setOnDropdownChange({ onChange });
+		setIncludeUnselectedOption(includeUnselectedOption);
+		setDropdownChildren(children);
+	}
 
 	const [dropdownContainerClassName, setDropdownContainerClassName] = useState("dropdown-container dropdown-container-seamless");
 
@@ -22,19 +41,12 @@ export const DropdownContainerLogic = ({ className, seamless, onChange }) => {
 		function getDropdownContainerClassName() {
 			let newClassName = "dropdown-container";
 			if (seamless) newClassName += " dropdown-container-seamless";
-			if (isSelecting) newClassName += " dropdown-container-is-selecting";
+			if (isDisplaying) newClassName += " dropdown-container-is-selecting";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}
 		setDropdownContainerClassName(getDropdownContainerClassName());
-	}, [setDropdownContainerClassName, className, seamless, isSelecting]);
+	}, [setDropdownContainerClassName, className, seamless, isDisplaying]);
 
-	function selectChild(e, index) {
-		e.preventDefault();
-		e.stopPropagation();
-		setIsSelecting(false);
-		if (onChange) onChange(index);
-	}
-
-	return { isSelecting, setIsSelecting, dropdownContainerClassName, selectChild };
+	return { isDisplaying, dropdownContainerRef, dropdownContainerClassName, toggleDropdownOptions };
 };

@@ -17,11 +17,18 @@ import "./Relationship.css";
 
 // Assets
 
-export const Relationship = () => {
+export const Relationship = ({ isDisplayingInfo }) => {
 	const { relationshipRef, relationship, setRelationship, relationshipCharacterIndex } = RelationshipLogic();
 
 	return (
-		<div ref={relationshipRef} className='character-subpage-relationships-relationship-container'>
+		<div
+			ref={relationshipRef}
+			className={
+				isDisplayingInfo
+					? "character-subpage-relationships-relationship-container character-subpage-relationships-relationship-container-is-displaying"
+					: "character-subpage-relationships-relationship-container"
+			}
+		>
 			<ContentItem className='character-subpage-relationships-relationship' hasBg={true}>
 				<Header relationship={relationship} setRelationship={setRelationship} />
 				<Items relationship={relationship} setRelationship={setRelationship} relationshipCharacterIndex={relationshipCharacterIndex} />

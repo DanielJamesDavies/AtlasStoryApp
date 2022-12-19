@@ -13,6 +13,8 @@ import AppProvider from "./context/AppContext";
 import APIProvider from "./context/APIContext";
 import LightboxProvider from "./context/LightboxContext";
 import RecentDataProvider from "./context/RecentDataContext";
+import DropdownProvider from "./context/DropdownContext";
+
 // Services
 
 // Styles
@@ -25,7 +27,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 			<APIProvider>
 				<RecentDataProvider>
 					<LightboxProvider>
-						<App />
+						<DropdownProvider>
+							<App />
+						</DropdownProvider>
 					</LightboxProvider>
 				</RecentDataProvider>
 			</APIProvider>

@@ -74,7 +74,7 @@ export const Relationships = () => {
 					) === -1 ? (
 						<CharacterRelationshipsInfo isDisplayingInfo={isDisplayingInfo} />
 					) : (
-						<Relationship />
+						<Relationship isDisplayingInfo={isDisplayingInfo} />
 					)}
 				</div>
 			)}

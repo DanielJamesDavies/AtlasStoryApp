@@ -100,7 +100,7 @@
 
 @media (max-width: 1100px) {
 	.character-subpage-relationships-chart-container {
-		margin-top: 0;
+		margin-top: 8px;
 		width: 100%;
 	}
 
