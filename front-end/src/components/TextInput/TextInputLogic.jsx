@@ -122,6 +122,17 @@ export const TextInputLogic = (props) => {
 		};
 	}, [props, focused, inputRef, inputWidthRef, setInputStyle]);
 
+	useEffect(() => {
+		const onTouch = (e) => (!focused ? null : e.stopPropagation());
+		const inputRefCurrent = inputRef.current;
+		inputRefCurrent.addEventListener("touchstart", onTouch);
+		inputRefCurrent.addEventListener("touchmove", onTouch);
+		return () => {
+			inputRefCurrent.removeEventListener("touchstart", onTouch);
+			inputRefCurrent.removeEventListener("touchmove", onTouch);
+		};
+	}, [inputRef, focused]);
+
 	return {
 		inputContainerRef,
 		inputRef,

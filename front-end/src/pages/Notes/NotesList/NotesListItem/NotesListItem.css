@@ -155,11 +155,11 @@
 	.notes-list-item-image-item {
 		position: relative;
 		margin: 4px;
-		width: calc((100% / 2) - 8px);
+		width: calc(100% - 8px);
 	}
 
 	.notes-list .drag-drop-item {
 		margin: 4px;
-		width: calc((100% / 2) - 8px);
+		width: calc(100% - 8px);
 	}
 }
