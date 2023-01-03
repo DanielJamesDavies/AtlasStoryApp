@@ -19,10 +19,10 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic =
 		story,
 		storyGroups,
 		storyCharacters,
+		storyCharacterRelationships,
+		setStoryCharacterRelationships,
 		selectedCharacterRelationshipsCharacterId,
-		characterRelationships,
-		setCharacterRelationships,
-		setCharacterRelationshipsRemovedIds,
+		setStoryCharacterRelationshipsRemovedIds,
 	} = useContext(CharactersContext);
 
 	const [secondCharacter, setSecondCharacter] = useState(false);
@@ -53,7 +53,7 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic =
 			.flat(1)
 			.filter((e) => e);
 
-		let newCharacterRelationships = JSON.parse(JSON.stringify(characterRelationships));
+		let newCharacterRelationships = JSON.parse(JSON.stringify(storyCharacterRelationships));
 		const relationshipIndex = newCharacterRelationships.findIndex((e) => e._id === relationship._id);
 
 		if (relationshipIndex === -1) return false;
@@ -67,24 +67,24 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic =
 			newCharacterRelationships[relationshipIndex].character_ids[secondCharacterIndex] = options[index];
 		}
 
-		setCharacterRelationships(newCharacterRelationships);
+		setStoryCharacterRelationships(newCharacterRelationships);
 	}
 
 	function changeRelationshipType(index) {
-		let newCharacterRelationships = JSON.parse(JSON.stringify(characterRelationships));
+		let newCharacterRelationships = JSON.parse(JSON.stringify(storyCharacterRelationships));
 		const relationshipIndex = newCharacterRelationships.findIndex((e) => e._id === relationship._id);
 		if (relationshipIndex === -1) return false;
 		newCharacterRelationships[relationshipIndex].relationship_type = story?.data?.characterRelationshipTypes[index]._id;
-		setCharacterRelationships(newCharacterRelationships);
+		setStoryCharacterRelationships(newCharacterRelationships);
 	}
 
 	function removeRelationship() {
-		let newCharacterRelationships = JSON.parse(JSON.stringify(characterRelationships));
+		let newCharacterRelationships = JSON.parse(JSON.stringify(storyCharacterRelationships));
 		const relationshipIndex = newCharacterRelationships.findIndex((e) => e._id === relationship._id);
 		if (relationshipIndex === -1) return false;
 		newCharacterRelationships[relationshipIndex].isRemoved = true;
 
-		setCharacterRelationshipsRemovedIds((oldCharacterRelationshipsRemovedIds) => {
+		setStoryCharacterRelationshipsRemovedIds((oldCharacterRelationshipsRemovedIds) => {
 			let newCharacterRelationshipsRemovedIds = JSON.parse(JSON.stringify(oldCharacterRelationshipsRemovedIds));
 			const removedIndex = newCharacterRelationshipsRemovedIds.findIndex((e) => e === newCharacterRelationships[relationshipIndex]._id);
 			if (removedIndex !== -1) return newCharacterRelationshipsRemovedIds;
@@ -92,7 +92,7 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic =
 			return newCharacterRelationshipsRemovedIds;
 		});
 
-		setCharacterRelationships(newCharacterRelationships);
+		setStoryCharacterRelationships(newCharacterRelationships);
 	}
 
 	return {

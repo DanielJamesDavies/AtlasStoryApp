@@ -32,6 +32,7 @@
 		order: 3;
 		flex: 1 0 calc(100% - 24px);
 		margin: 4px 12px;
+		margin-top: 8px;
 		max-width: 100%;
 	}
 }
