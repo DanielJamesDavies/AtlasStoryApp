@@ -24,7 +24,7 @@ export const Login = () => {
 	return (
 		<div className='login'>
 			<div className='login-form'>
-				<div className='login-form-title'>Log In</div>
+				<div className='login-form-title'>Log In a</div>
 
 				<div className='login-form-text-input-container'>
 					<TextInput label='Username' value={username} onChange={changeUsername} isDark={true} />

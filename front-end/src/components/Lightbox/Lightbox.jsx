@@ -55,12 +55,22 @@ export const Lightbox = () => {
 							<img src={lightboxImages[lightboxIndex]?.image} alt='' onClick={(e) => e.stopPropagation()} />
 						</div>
 					</div>
-					{lightboxImages[lightboxIndex]?.caption === undefined ||
-					lightboxImages[lightboxIndex]?.caption.split(" ").join("").length === 0 ? null : (
-						<div className='lightbox-caption-container'>
-							<div className='lightbox-caption'>{lightboxImages[lightboxIndex]?.caption}</div>
+					<div className='lightbox-text-container'>
+						{lightboxImages[lightboxIndex]?.caption === undefined ||
+						lightboxImages[lightboxIndex]?.caption.split(" ").join("").length === 0 ? null : (
+							<div className='lightbox-caption-container'>
+								<div className='lightbox-caption'>{lightboxImages[lightboxIndex]?.caption}</div>
+							</div>
+						)}
+						<div className='lightbox-text-image-file-size'>
+							{Math.floor(
+								(lightboxImages[lightboxIndex]?.image.length * (3 / 4) -
+									(lightboxImages[lightboxIndex]?.image.slice(-2) === "==" ? 2 : 1)) /
+									1000
+							)}
+							KB
 						</div>
-					)}
+					</div>
 					<button className='lightbox-switch-btn lightbox-switch-btn-increment' onClick={decrementLightboxIndex}>
 						<FaChevronRight />
 					</button>

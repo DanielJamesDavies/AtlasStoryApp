@@ -4,19 +4,68 @@ async function getImageFromFile(file) {
 
 		fr.readAsDataURL(file);
 
-		fr.onload = () => {
-			let image = new Image();
-			image.onload = async () => {
-				resolve({ data: fr.result });
-			};
-
-			image.src = fr.result;
+		fr.onload = async () => {
+			const newImage = await resizeBase64Image(fr.result);
+			if (newImage === false) resolve({ error: "Image Too Large." });
+			resolve({ data: newImage });
 		};
 
 		fr.onerror = (error) => {
 			resolve({ error });
 		};
 	});
+}
+
+async function resizeBase64Image(base64, attempt) {
+	const maxFileSizeInKBs = 250;
+
+	if (attempt > 40) return false;
+
+	return await new Promise((resolve) => {
+		const image = document.createElement("img");
+		image.crossOrigin = "anonymous";
+		image.src = base64;
+
+		image.onload = (e) => {
+			const canvas = document.createElement("canvas");
+
+			const max = attempt <= 10 ? 1920 : 1280 - (attempt - 10) * 26;
+			if (e.target.width === e.target.height && e.target.width > max) {
+				canvas.width = max;
+				canvas.height = max;
+			} else if (e.target.width > e.target.height && e.target.width > max) {
+				canvas.width = max;
+				canvas.height = e.target.height * (max / e.target.width);
+			} else if (e.target.width < e.target.height && e.target.height > max) {
+				canvas.width = e.target.width * (max / e.target.height);
+				canvas.height = max;
+			} else {
+				canvas.width = e.target.width;
+				canvas.height = e.target.height;
+			}
+
+			canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
+
+			let quality = 1;
+			if (attempt !== undefined) {
+				if (attempt <= 10) {
+					quality = 1 - (attempt - 1) / 10;
+				} else {
+					quality = 10 / attempt;
+				}
+			}
+			let newBase64 = canvas.toDataURL("image/jpeg", quality);
+
+			if (getBase64FileSize(newBase64) / 1000 > maxFileSizeInKBs)
+				newBase64 = resizeBase64Image(base64, attempt === undefined ? 2 : attempt + 1);
+
+			resolve(newBase64);
+		};
+	});
+}
+
+function getBase64FileSize(base64) {
+	return base64.length * (3 / 4) - (base64.slice(-2) === "==" ? 2 : 1);
 }
 
 export default getImageFromFile;

@@ -55,7 +55,7 @@ export const NotesListLogic = () => {
 		let newStory = JSON.parse(JSON.stringify(story));
 		const notesIndex = newStory.data.notes.findIndex((e) => e.uid === notes_uid);
 		if (notesIndex === -1) return false;
-		newStory.data.notes[notesIndex].items = response.data.value;
+		newStory.data.notes[notesIndex].items = response.data.value.items;
 		setStory(newStory);
 
 		return true;
