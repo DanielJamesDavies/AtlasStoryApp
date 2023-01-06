@@ -16,11 +16,6 @@
 	color: var(--textColour);
 }
 
-.editable-container-is-editing.character-primary-name-container {
-	margin-top: -4px;
-	margin-bottom: 1px;
-}
-
 @media (max-width: 750px) {
 	.character-primary-name-container {
 		margin: 4px 0;

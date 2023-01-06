@@ -4,7 +4,7 @@
 }
 
 .search-input {
-	padding: 10px 20px;
+	padding: 10px 16px;
 	border: 1px solid var(--grey4);
 	border-radius: 30px;
 	outline: 0;
@@ -28,7 +28,7 @@
 .search-input-placeholder-container {
 	position: absolute;
 	top: 50%;
-	left: 30px;
+	left: 18px;
 	transform: translateY(-50%);
 	display: flex;
 	align-items: center;

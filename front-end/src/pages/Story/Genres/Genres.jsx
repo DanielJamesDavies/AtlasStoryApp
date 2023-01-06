@@ -1,5 +1,5 @@
 // Packages
-import { FaBook, FaPlus, FaSearch, FaStar, FaTimes } from "react-icons/fa";
+import { FaBook, FaPlus, FaStar, FaTimes } from "react-icons/fa";
 
 // Components
 import { ContentItem } from "../../../components/ContentItem/ContentItem";
@@ -8,7 +8,7 @@ import { LabelContainer } from "../../../components/LabelContainer/LabelContaine
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
-import { TextInput } from "../../../components/TextInput/TextInput";
+import { SearchInput } from "../../../components/SearchInput/SearchInput";
 
 // Logic
 import { GenresLogic } from "./GenresLogic";
@@ -37,8 +37,6 @@ export const Genres = () => {
 		removeGenre,
 		genresSearchValue,
 		changeGenresSearchValue,
-		genresNewGenreName,
-		changeGenresNewGenreName,
 		createNewGenre,
 	} = GenresLogic();
 
@@ -124,13 +122,7 @@ export const Genres = () => {
 							))}
 						</DragDropContainer>
 						<div className='story-genres-search-container'>
-							<TextInput
-								icon={FaSearch}
-								label='Search Genres'
-								value={genresSearchValue}
-								onChange={changeGenresSearchValue}
-								size='s'
-							/>
+							<SearchInput label='Search Genres' value={genresSearchValue} onChange={changeGenresSearchValue} />
 						</div>
 						<div className='story-genres-list'>
 							{allGenres
@@ -172,16 +164,23 @@ export const Genres = () => {
 									)
 								)}
 						</div>
-						<div className='story-genres-new-genre-container'>
-							<TextInput
-								icon={FaPlus}
-								label='Create New Genre'
-								value={genresNewGenreName}
-								onChange={changeGenresNewGenreName}
-								size='s'
-							/>
-							<IconBtn icon={<FaPlus />} iconName='plus' seamless={true} size='m' onClick={createNewGenre} />
-						</div>
+						{allGenres
+							.filter(
+								(e) =>
+									storyGenres.findIndex((e2) => e._id === e2._id) === -1 && new RegExp("^" + genresSearchValue, "i").test(e.name)
+							)
+							.sort((a, b) => {
+								const regex = new RegExp("^" + genresSearchValue, "i");
+								return regex.test(a.name) ? (regex.test(b.name) ? (a.storiesUsing <= b.storiesUsing ? 1 : -1) : -1) : 1;
+							}).length !== 0 ? null : (
+							<div className='story-genres-new-genre-container'>
+								<div className='story-genres-new-genre-label'>
+									Would You Like to Create a New Genre Called "
+									<span className='story-genres-new-genre-label-value'>{genresSearchValue}</span>"?
+								</div>
+								<IconBtn icon={<FaPlus />} iconName='plus' seamless={true} size='s' onClick={createNewGenre} />
+							</div>
+						)}
 					</div>
 				</EditableContainer>
 			</LabelContainer>

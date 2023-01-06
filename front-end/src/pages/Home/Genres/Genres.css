@@ -17,6 +17,7 @@
 	width: calc(100% - 12px);
 	max-height: calc(var(--vh) - (12px + 42px + 12px) - 26px - 8px - 12px - 12px);
 	overflow-y: overlay;
+	overflow-x: hidden;
 }
 
 .home-genres-list-search-container {

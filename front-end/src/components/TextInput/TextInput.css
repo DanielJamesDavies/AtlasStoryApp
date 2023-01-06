@@ -1,3 +1,7 @@
+.text-input-container {
+	display: inline-block;
+}
+
 .text-input-label {
 	margin: 0 2px;
 	margin-bottom: 6px;
@@ -94,6 +98,10 @@
 }
 
 .text-input-container-seamless .text-input {
+	margin-top: -1px;
+	margin-bottom: -1px;
+	margin-left: -2px;
+	margin-right: -1.75px;
 	padding: 0;
 	border: 0;
 	width: 100%;

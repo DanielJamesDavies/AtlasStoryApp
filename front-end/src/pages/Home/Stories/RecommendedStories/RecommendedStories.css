@@ -10,7 +10,7 @@
 
 .home-stories-recommended-loading-circle-container {
 	position: relative;
-	height: 80px;
+	height: 346px;
 }
 
 .home-stories-recommended-list {
@@ -41,7 +41,17 @@
 }
 
 @media (max-width: 750px) {
+	.home-stories-recommended-loading-circle-container {
+		height: 305px;
+	}
+
 	.home-stories-recommended-list {
 		flex-wrap: nowrap;
+	}
+}
+
+@media (max-width: 484px) {
+	.home-stories-recommended-loading-circle-container {
+		height: calc(((((50vw - 22px) * 3) / 2) - 30px) + (5px * 2));
 	}
 }

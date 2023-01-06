@@ -113,14 +113,8 @@ export const GenresLogic = () => {
 		setGenresSearchValue(e.target.value);
 	}
 
-	const [genresNewGenreName, setGenresNewGenreName] = useState("");
-
-	function changeGenresNewGenreName(e) {
-		setGenresNewGenreName(e.target.value);
-	}
-
 	async function createNewGenre() {
-		const response = await APIRequest("/genre/", "POST", { name: genresNewGenreName });
+		const response = await APIRequest("/genre/", "POST", { name: genresSearchValue });
 		if (!response || response?.errors || !response?.data?.genre) return false;
 		setAllGenres((oldAllGenres) => oldAllGenres.concat([response.data.genre]));
 		return true;
@@ -140,8 +134,6 @@ export const GenresLogic = () => {
 		removeGenre,
 		genresSearchValue,
 		changeGenresSearchValue,
-		genresNewGenreName,
-		changeGenresNewGenreName,
 		createNewGenre,
 	};
 };

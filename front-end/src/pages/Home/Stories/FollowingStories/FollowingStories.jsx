@@ -25,7 +25,7 @@ export const FollowingStories = () => {
 		<div className='home-stories-following-container'>
 			<div className='home-stories-following-title'>Following Stories</div>
 			{!followingStories ? (
-				<div className='home-stories-recommended-loading-circle-container'>
+				<div className='home-stories-following-loading-circle-container'>
 					<LoadingCircle center={true} size='s' />
 				</div>
 			) : (

@@ -1,9 +1,9 @@
 // Packages
-import { FaSearch, FaPlus } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 
 // Components
 import { GenreItem } from "./GenreItem/GenreItem";
-import { TextInput } from "../../../components/TextInput/TextInput";
+import { SearchInput } from "../../../components/SearchInput/SearchInput";
 import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 
@@ -58,13 +58,7 @@ export const Genres = () => {
 					<>
 						{allGenres.filter((e) => favouritedGenres.findIndex((e2) => e._id === e2._id) === -1).length === 0 ? null : (
 							<div className='home-genres-list-search-container'>
-								<TextInput
-									icon={FaSearch}
-									label='Search Genres'
-									value={genresSearchValue}
-									onChange={changeGenresSearchValue}
-									size='s'
-								/>
+								<SearchInput label='Search Genres' value={genresSearchValue} onChange={changeGenresSearchValue} />
 							</div>
 						)}
 						{allGenres

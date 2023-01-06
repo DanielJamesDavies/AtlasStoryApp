@@ -1,3 +1,7 @@
+.story-genres-container {
+	margin: 0;
+}
+
 .story-genres-container .label-label {
 	margin-bottom: 6px;
 }
@@ -115,8 +119,15 @@
 .story-genres-new-genre-container {
 	display: flex;
 	align-items: center;
+	padding: 8px;
 }
 
-.story-genres-new-genre-container .icon-btn {
-	margin-left: 8px;
+.story-genres-new-genre-label {
+	margin-right: 8px;
+	font-size: 14px;
+	color: var(--lightgreen);
+}
+
+.story-genres-new-genre-label-value {
+	font-weight: 700;
 }

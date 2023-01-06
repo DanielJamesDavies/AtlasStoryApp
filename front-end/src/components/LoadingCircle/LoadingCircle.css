@@ -8,7 +8,7 @@
 	align-items: center;
 }
 
-.loading-circle-container {
+.loading-circle-container:not(.loading-circle-container-centered) {
 	position: relative;
 }
 
