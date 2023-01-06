@@ -76,7 +76,7 @@ export const Register = () => {
 					<ErrorMessage errors={errors} />
 
 					<div className='register-form-submit-container'>
-						<SubmitBtn label='Register Account' onSubmit={submitNewUser} />
+						<SubmitBtn label='Register' onSubmit={submitNewUser} />
 					</div>
 				</div>
 			) : (

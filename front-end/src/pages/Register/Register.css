@@ -32,6 +32,10 @@
 	text-align: right;
 }
 
+.register-form-submit-container .submit-btn-text {
+	min-width: 64px;
+}
+
 .register-completed-container {
 	margin: 80px auto;
 	margin-top: 8vh;

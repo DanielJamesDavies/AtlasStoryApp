@@ -3,11 +3,13 @@
 	display: flex;
 	flex-shrink: 0;
 	align-items: center;
+	margin: 0 auto;
 	padding: 12px;
 
 	width: calc(100% - 24px);
+	max-width: 1250px;
 
-	background: var(--grey2);
+	background: var(--grey1);
 }
 
 .unauthorized-navigation-bar-landing-btn {
@@ -17,9 +19,9 @@
 	border: 0;
 
 	background: #00000000;
-	color: var(--blue);
-	font-size: 20px;
-	font-weight: 700;
+	color: var(--textTertiaryColour);
+	font-size: 16px;
+	font-weight: 500;
 	white-space: nowrap;
 	transition: 0.2s;
 	cursor: pointer;
@@ -27,17 +29,19 @@
 }
 
 .unauthorized-navigation-bar-landing-btn:hover {
-	color: var(--blue2);
+	color: var(--textSecondaryColour);
 }
 
 .unauthorized-navigation-bar-landing-btn-logo {
-	min-height: 36px;
-	height: 36px;
+	--logoHeight: 30px;
+	min-height: var(--logoHeight);
+	height: var(--logoHeight);
+	filter: brightness(0) invert(1) brightness(0.4);
 	transition: 0.2s;
 }
 
 .unauthorized-navigation-bar-landing-btn:hover .unauthorized-navigation-bar-landing-btn-logo {
-	filter: hue-rotate(-16deg) brightness(1.4);
+	filter: brightness(0) invert(1) brightness(0.65);
 }
 
 .unauthorized-navigation-bar-landing-btn-text {
@@ -47,20 +51,30 @@
 .unauthorized-navigation-bar-btn {
 	margin: 0;
 	margin-left: 10px;
-	padding: 8px 20px;
+	padding: 8px 12px;
 	border: 0;
 	border-radius: 32px;
 
 	height: fit-content;
 
-	background: var(--blue);
-	color: var(--textColour);
+	background: transparent;
+	color: var(--textTertiaryColour);
+	font-weight: 600;
 	transition: 0.2s;
 	cursor: pointer;
 }
 
 .unauthorized-navigation-bar-btn:hover {
-	background: var(--blue2);
+	color: var(--textColour);
+}
+
+.unauthorized-navigation-bar-btn-register {
+	color: var(--textSecondaryColour);
+	background: var(--grey2);
+}
+
+.unauthorized-navigation-bar-btn-register:hover {
+	background: var(--grey3);
 }
 
 .unauthorized-navigation-bar-btn:last-child {

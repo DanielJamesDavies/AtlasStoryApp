@@ -34,7 +34,7 @@
 	--grey4: #48484d;
 	--grey5: #505053;
 	--grey6: #808087;
-	--textColour: #ffffff;
+	--textColour: #eeeeee;
 	--textSecondaryColour: #bbbbbb;
 	--textTertiaryColour: #999999;
 	--scrollBarThumbBackground: var(--grey6);
@@ -120,6 +120,7 @@ body {
 	overflow: hidden;
 
 	font-family: "Inter", sans-serif;
+	color: var(--textColour);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }

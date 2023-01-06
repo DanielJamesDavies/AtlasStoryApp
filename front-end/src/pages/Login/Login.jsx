@@ -24,7 +24,7 @@ export const Login = () => {
 	return (
 		<div className='login'>
 			<div className='login-form'>
-				<div className='login-form-title'>Log In a</div>
+				<div className='login-form-title'>Log In</div>
 
 				<div className='login-form-text-input-container'>
 					<TextInput label='Username' value={username} onChange={changeUsername} isDark={true} />
@@ -44,7 +44,7 @@ export const Login = () => {
 
 				<div className='login-form-submit-container'>
 					{!isLoggingIn ? null : <LoadingCircle className='login-form-submit-loading-circle-container' size='s' />}
-					<SubmitBtn label='Log in to Your Account' onSubmit={submitLoginUser} />
+					<SubmitBtn label='Login' onSubmit={submitLoginUser} />
 				</div>
 			</div>
 		</div>

@@ -23,8 +23,8 @@ import DropdownProvider from "./context/DropdownContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<BrowserRouter>
-		<AppProvider>
-			<APIProvider>
+		<APIProvider>
+			<AppProvider>
 				<RecentDataProvider>
 					<LightboxProvider>
 						<DropdownProvider>
@@ -32,8 +32,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 						</DropdownProvider>
 					</LightboxProvider>
 				</RecentDataProvider>
-			</APIProvider>
-		</AppProvider>
+			</AppProvider>
+		</APIProvider>
 	</BrowserRouter>
 );
 

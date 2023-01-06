@@ -1,8 +1,11 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
+
+import { APIContext } from "./APIContext";
 
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+	const { username } = useContext(APIContext);
 	const [uiTheme, setUITheme] = useState("dim");
 	const [fontSize, setFontSize] = useState("m");
 	const [fontSizeMultiplier, setFontSizeMultiplier] = useState(1);
@@ -10,6 +13,10 @@ const AppProvider = ({ children }) => {
 	const defaultAccentHoverColour = "#0088ff";
 	const [accentColour, setAccentColour] = useState(defaultAccentColour);
 	const [accentHoverColour, setAccentHoverColour] = useState(defaultAccentHoverColour);
+
+	useEffect(() => {
+		if (username === false) setUITheme("dim");
+	}, [username, setUITheme]);
 
 	function changeAccentColour(newAccentColour) {
 		if (newAccentColour === "default") return setAccentColour(defaultAccentColour);
