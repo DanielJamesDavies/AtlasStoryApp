@@ -8,6 +8,10 @@
 	align-items: center;
 }
 
+.loading-circle-container {
+	position: relative;
+}
+
 .loading-circle {
 	width: 48px;
 	height: 48px;
