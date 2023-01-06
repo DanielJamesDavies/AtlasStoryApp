@@ -15,13 +15,13 @@
 }
 
 .theme-dark {
-	--grey1: #000000;
+	--grey1: #050507;
 	--grey2: #0d0d12;
 	--grey3: #18181e;
 	--grey4: #34343f;
 	--grey5: #40404b;
 	--grey6: #70707f;
-	--textColour: #ffffff;
+	--textColour: #eeeeee;
 	--textSecondaryColour: #bbbbbb;
 	--textTertiaryColour: #999999;
 	--scrollBarThumbBackground: var(--grey6);
@@ -34,7 +34,7 @@
 	--grey4: #48484d;
 	--grey5: #505053;
 	--grey6: #808087;
-	--textColour: #eeeeee;
+	--textColour: #dddddd;
 	--textSecondaryColour: #bbbbbb;
 	--textTertiaryColour: #999999;
 	--scrollBarThumbBackground: var(--grey6);

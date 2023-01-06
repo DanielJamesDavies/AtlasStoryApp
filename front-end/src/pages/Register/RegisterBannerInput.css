@@ -5,9 +5,11 @@
 }
 
 .register-banner-label {
-	margin-bottom: 12px;
-	text-align: left;
+	margin-bottom: 6px;
 	color: #bbbbbb;
+	font-weight: 600;
+	font-size: var(--fontSizePS);
+	text-align: left;
 }
 
 .register-banner-value {
@@ -16,7 +18,7 @@
 	border-radius: 4px;
 	width: 100%;
 	height: 200px;
-	background: var(--grey1);
+	background: var(--grey2);
 	transition: 0.2s;
 	cursor: pointer;
 }

@@ -33,7 +33,13 @@ export const ChangeForgottenPassword = ({ username, email, verificationCode }) =
 				<div className='change-forgotten-password-message'>
 					<div className='change-forgotten-password-message-title'>Change Forgotten Password</div>
 					<div className='change-forgotten-password-message-input'>
-						<TextInput value={password} onChange={changePassword} label='New Password' hideValue={true} />
+						<TextInput
+							value={password}
+							onChange={changePassword}
+							label='New Password'
+							hideValue={true}
+							onKeyEnter={submitNewPassword}
+						/>
 					</div>
 					<div>
 						<SubmitBtn label='Change Password' onSubmit={submitNewPassword} />

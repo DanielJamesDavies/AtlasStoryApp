@@ -2,11 +2,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
 // Components
-import { Register } from "../../pages/Register/Register";
-import { Verify } from "../../pages/Verify/Verify";
+import { Landing } from "../../pages/Landing/Landing";
 import { Login } from "../../pages/Login/Login";
 import { ForgotPassword } from "../../pages/ForgotPassword/ForgotPassword";
 import { ChangeForgottenPassword } from "../../pages/ChangeForgottenPassword/ChangeForgottenPassword";
+import { Register } from "../../pages/Register/Register";
+import { Verify } from "../../pages/Verify/Verify";
 import { UserContainer } from "../../pages/User/UserContainer";
 import { Home } from "../../pages/Home/Home";
 import { Story } from "../../pages/Story/Story";
@@ -51,25 +52,6 @@ export const RoutesLogic = () => {
 			if (window !== window.parent || ["authorize-spotify", "spotify"].includes(locationSplit[0])) return null;
 
 			switch (locationSplit[0]) {
-				case "register":
-					if (!username) {
-						changeAccentColour("default");
-						changeAccentHoverColour("default");
-						setShowUnauthorizedNavigationBar(true);
-						setRenderComponent(<Register />);
-						document.title = "Register | Atlas Story App";
-					} else {
-						changeLocation("/u/" + username);
-					}
-					break;
-				case "verify":
-					if (locationSplit.length >= 4) {
-						changeAccentColour("default");
-						changeAccentHoverColour("default");
-						setShowUnauthorizedNavigationBar(true);
-						setRenderComponent(<Verify username={locationSplit[1]} email={locationSplit[2]} verificationCode={locationSplit[3]} />);
-					}
-					break;
 				case "login":
 					if (!username) {
 						changeAccentColour("default");
@@ -95,6 +77,25 @@ export const RoutesLogic = () => {
 						setRenderComponent(
 							<ChangeForgottenPassword username={locationSplit[1]} email={locationSplit[2]} verificationCode={locationSplit[3]} />
 						);
+					}
+					break;
+				case "register":
+					if (!username) {
+						changeAccentColour("default");
+						changeAccentHoverColour("default");
+						setShowUnauthorizedNavigationBar(true);
+						setRenderComponent(<Register />);
+						document.title = "Register | Atlas Story App";
+					} else {
+						changeLocation("/u/" + username);
+					}
+					break;
+				case "verify":
+					if (locationSplit.length >= 4) {
+						changeAccentColour("default");
+						changeAccentHoverColour("default");
+						setShowUnauthorizedNavigationBar(true);
+						setRenderComponent(<Verify username={locationSplit[1]} email={locationSplit[2]} verificationCode={locationSplit[3]} />);
 					}
 					break;
 				case "u":
@@ -159,7 +160,7 @@ export const RoutesLogic = () => {
 					document.title = "Atlas Story App";
 					changeAccentColour("default");
 					changeAccentHoverColour("default");
-					setRenderComponent(null);
+					setRenderComponent(<Landing />);
 					setShowUnauthorizedNavigationBar(true);
 					break;
 			}

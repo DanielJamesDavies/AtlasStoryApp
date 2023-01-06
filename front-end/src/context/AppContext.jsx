@@ -15,8 +15,11 @@ const AppProvider = ({ children }) => {
 	const [accentHoverColour, setAccentHoverColour] = useState(defaultAccentHoverColour);
 
 	useEffect(() => {
-		if (username === false) setUITheme("dim");
-	}, [username, setUITheme]);
+		if (username === false) {
+			setUITheme("dim");
+			setFontSize("m");
+		}
+	}, [username, setUITheme, setFontSize]);
 
 	function changeAccentColour(newAccentColour) {
 		if (newAccentColour === "default") return setAccentColour(defaultAccentColour);

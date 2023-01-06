@@ -1,8 +1,6 @@
 // Packages
 
 // Components
-import { RegisterProfilePictureInput } from "./RegisterProfilePictureInput";
-import { RegisterBannerInput } from "./RegisterBannerInput";
 import { TextInput } from "../../components/TextInput/TextInput";
 import { ErrorMessage } from "../../components/ErrorMessage/ErrorMessage";
 import { SubmitBtn } from "../../components/SubmitBtn/SubmitBtn";
@@ -21,12 +19,6 @@ import "./Register.css";
 
 export const Register = () => {
 	const {
-		profilePictureInputRef,
-		profilePicture,
-		changeProfilePicture,
-		bannerInputRef,
-		banner,
-		changeBanner,
 		username,
 		changeUsername,
 		nickname,
@@ -62,16 +54,6 @@ export const Register = () => {
 						<TextInput label='Password' value={password} onChange={changePassword} hideValue={true} isDark={true} />
 						<ErrorMessage errors={errors} attribute='password' />
 					</div>
-
-					<RegisterProfilePictureInput
-						profilePictureInputRef={profilePictureInputRef}
-						profilePicture={profilePicture}
-						changeProfilePicture={changeProfilePicture}
-					/>
-					<ErrorMessage errors={errors} attribute='profilePicture' />
-
-					<RegisterBannerInput bannerInputRef={bannerInputRef} banner={banner} changeBanner={changeBanner} />
-					<ErrorMessage errors={errors} attribute='banner' />
 
 					<ErrorMessage errors={errors} />
 

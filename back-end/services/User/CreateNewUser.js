@@ -63,21 +63,25 @@ module.exports = async (req, res) => {
 	}
 
 	// Create and Save New Profile Picture
-	const profilePicture = new Image({ _id: profilePictureID, image: req.body.profilePicture, user_id: user._id });
+	if (req?.body?.profilePicture) {
+		const profilePicture = new Image({ _id: profilePictureID, image: req.body.profilePicture, user_id: user._id });
 
-	try {
-		await profilePicture.save();
-	} catch (error) {
-		return res.status(200).send({ errors: [{ message: "Profile Picture Could Not Be Created" }] });
+		try {
+			await profilePicture.save();
+		} catch (error) {
+			return res.status(200).send({ errors: [{ message: "Profile Picture Could Not Be Created" }] });
+		}
 	}
 
 	// Create and Save New Banner
-	const banner = new Image({ _id: bannerID, image: req.body.banner, user_id: user._id });
+	if (req?.body?.banner) {
+		const banner = new Image({ _id: bannerID, image: req.body.banner, user_id: user._id });
 
-	try {
-		await banner.save();
-	} catch (error) {
-		return res.status(200).send({ errors: [{ message: "Banner Could Not Be Created" }] });
+		try {
+			await banner.save();
+		} catch (error) {
+			return res.status(200).send({ errors: [{ message: "Banner Could Not Be Created" }] });
+		}
 	}
 
 	// Success Response
@@ -92,8 +96,8 @@ async function validateUser(user) {
 		nickname: Joi.string().min(1).max(32).required(),
 		email: Joi.string().min(1).max(255).required().email(),
 		password: Joi.string().min(6).max(255).required(),
-		profilePicture: Joi.string().min(1).required(),
-		banner: Joi.string().min(1).required(),
+		profilePicture: Joi.string().min(1),
+		banner: Joi.string().min(1),
 	});
 
 	const userValidationError = userSchema.validate(user, { abortEarly: false })?.error?.details;

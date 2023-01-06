@@ -69,8 +69,8 @@
 }
 
 .unauthorized-navigation-bar-btn-register {
-	color: var(--textSecondaryColour);
 	background: var(--grey2);
+	color: var(--textSecondaryColour);
 }
 
 .unauthorized-navigation-bar-btn-register:hover {

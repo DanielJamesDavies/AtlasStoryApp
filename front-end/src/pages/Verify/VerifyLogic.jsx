@@ -23,7 +23,7 @@ export const VerifyLogic = ({ username, email, verificationCode }) => {
 
 	useEffect(() => {
 		async function verifyUser() {
-			setUsername(false);
+			if (username) setUsername(false);
 			setErrors([]);
 			const response = await APIRequest("/user/verify", "POST", { username, email, verificationCode });
 			if (response?.errors) return setErrors(response.errors);

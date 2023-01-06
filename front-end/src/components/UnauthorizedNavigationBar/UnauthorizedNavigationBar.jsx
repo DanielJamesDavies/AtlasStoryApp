@@ -26,7 +26,7 @@ export const UnauthorizedNavigationBar = () => {
 				Login
 			</button>
 			<button className='unauthorized-navigation-bar-btn unauthorized-navigation-bar-btn-register' onClick={navigateToRegister}>
-				Register
+				Get Started
 			</button>
 		</div>
 	);

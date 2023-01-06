@@ -29,20 +29,22 @@ export const TextInput = (props) => {
 		onInputContainerBlur,
 		isHidden,
 		toggleIsHidden,
+		onKeyDown,
 	} = TextInputLogic(props);
 
 	return (
 		<div ref={inputContainerRef} className={inputClassName} onClick={focusOnInput}>
+			<div className='text-input-label'>
+				{props.icon ? <DynamicIconComponent /> : null}
+				<span onClick={selectAll}>{props.label}</span>
+			</div>
 			<div className='text-input'>
-				<div className='text-input-label'>
-					{props.icon ? <DynamicIconComponent /> : null}
-					<span onClick={selectAll}>{props.label}</span>
-				</div>
-
 				<input
 					ref={inputRef}
+					className='text-input-input'
 					value={props.value === undefined ? "" : props.value}
 					onChange={props.onChange}
+					onKeyDown={onKeyDown}
 					type={props.type === undefined ? (!props?.hideValue ? "text" : isHidden ? "password" : "text") : props.type}
 					autoComplete={props.autocomplete}
 					onFocus={onInputContainerFocus}
@@ -51,16 +53,16 @@ export const TextInput = (props) => {
 					onClick={(e) => e.stopPropagation()}
 				/>
 
-				<div ref={inputWidthRef} className='text-input text-input-width-element'>
+				<div ref={inputWidthRef} className='text-input-width-element'>
 					{props?.value}
 				</div>
-			</div>
 
-			{!props?.hideValue ? null : (
-				<button className='text-input-hide-value-btn' onClick={toggleIsHidden}>
-					{isHidden ? <FaEye /> : <FaEyeSlash />}
-				</button>
-			)}
+				{!props?.hideValue ? null : (
+					<button className='text-input-hide-value-btn' onClick={toggleIsHidden}>
+						{isHidden ? <FaEye /> : <FaEyeSlash />}
+					</button>
+				)}
+			</div>
 		</div>
 	);
 };

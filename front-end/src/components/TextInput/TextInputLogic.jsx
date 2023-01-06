@@ -133,6 +133,10 @@ export const TextInputLogic = (props) => {
 		};
 	}, [inputRef, focused]);
 
+	function onKeyDown(e) {
+		if (e.code === "Enter") props.onKeyEnter();
+	}
+
 	return {
 		inputContainerRef,
 		inputRef,
@@ -146,5 +150,6 @@ export const TextInputLogic = (props) => {
 		onInputContainerBlur,
 		isHidden,
 		toggleIsHidden,
+		onKeyDown,
 	};
 };

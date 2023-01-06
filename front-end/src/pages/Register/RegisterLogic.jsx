@@ -1,5 +1,5 @@
 // Packages
-import { useRef, useState, useContext } from "react";
+import { useState, useContext } from "react";
 
 // Components
 
@@ -9,37 +9,12 @@ import { useRef, useState, useContext } from "react";
 import { APIContext } from "../../context/APIContext";
 
 // Services
-import getImageFromFile from "../../services/GetImageFromFile";
 
 // Styles
 
 // Assets
 
 export const RegisterLogic = () => {
-	// Profile Picture
-	const profilePictureInputRef = useRef();
-	const [profilePicture, setProfilePicture] = useState(false);
-
-	async function changeProfilePicture(e) {
-		if (e.target.files.length === 0) return false;
-		const image = await getImageFromFile(e.target.files[0]);
-		profilePictureInputRef.current.value = [];
-		if (image?.error || !image?.data) return;
-		setProfilePicture(image.data);
-	}
-
-	// Banner
-	const bannerInputRef = useRef();
-	const [banner, setBanner] = useState(false);
-
-	async function changeBanner(e) {
-		if (e.target.files.length === 0) return false;
-		const image = await getImageFromFile(e.target.files[0]);
-		bannerInputRef.current.value = [];
-		if (image?.error || !image?.data) return;
-		setBanner(image.data);
-	}
-
 	// Username
 	const [username, setUsername] = useState("");
 
@@ -75,18 +50,12 @@ export const RegisterLogic = () => {
 
 	const submitNewUser = async () => {
 		setErrors([]);
-		const response = await APIRequest("/user", "POST", { username, nickname, email, password, profilePicture, banner });
+		const response = await APIRequest("/user", "POST", { username, nickname, email, password });
 		if (response?.errors) return setErrors(response.errors);
 		setHasCompletedRegistration(true);
 	};
 
 	return {
-		profilePictureInputRef,
-		profilePicture,
-		changeProfilePicture,
-		bannerInputRef,
-		banner,
-		changeBanner,
 		username,
 		changeUsername,
 		nickname,

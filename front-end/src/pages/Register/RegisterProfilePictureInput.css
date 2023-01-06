@@ -5,17 +5,19 @@
 }
 
 .register-profile-picture-label {
-	text-align: left;
+	margin-bottom: 6px;
 	color: #bbbbbb;
+	font-weight: 600;
+	font-size: var(--fontSizePS);
+	text-align: left;
 }
 
 .register-profile-picture-value {
 	position: relative;
-	margin: auto;
 	border-radius: 100%;
 	width: 150px;
 	height: 150px;
-	background: var(--grey1);
+	background: var(--grey2);
 	transition: 0.2s;
 	cursor: pointer;
 }

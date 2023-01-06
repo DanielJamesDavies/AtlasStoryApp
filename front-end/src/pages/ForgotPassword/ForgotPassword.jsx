@@ -29,7 +29,7 @@ export const ForgotPassword = () => {
 						<div className='forgot-password-form-title'>Forgot Password</div>
 
 						<div className='forgot-password-form-text-input-container'>
-							<TextInput label='Email' value={email} onChange={changeEmail} isDark={true} />
+							<TextInput label='Email' value={email} onChange={changeEmail} isDark={true} onKeyEnter={submitForgotPasswordRequest} />
 							<ErrorMessage errors={errors} attribute='email' />
 						</div>
 						<ErrorMessage errors={errors} />
