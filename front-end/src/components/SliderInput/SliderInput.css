@@ -69,7 +69,7 @@
 	content: "";
 	border-radius: 4px;
 
-	width: 4px;
+	width: 6px;
 	height: 24px;
 
 	background: #fff;
@@ -97,6 +97,7 @@
 
 .slider-input-label {
 	position: relative;
+	margin-top: 2px;
 	padding: 4px 8px;
 	border-radius: 4px;
 	width: fit-content;
@@ -185,9 +186,5 @@
 	.slider-input-progress,
 	.slider-input-background {
 		height: 9px;
-	}
-
-	.slider-input-container-has-thumb .slider-input-thumb {
-		width: 6px;
 	}
 }

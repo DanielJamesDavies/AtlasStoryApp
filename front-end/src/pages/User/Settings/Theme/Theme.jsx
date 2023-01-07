@@ -31,7 +31,10 @@ export const Theme = () => {
 							}
 							style={theme?.styles}
 							onClick={() => changeTheme(theme?.id)}
-						></div>
+						>
+							<div className='user-settings-theme-btn-colour'></div>
+							<div className='user-settings-theme-btn-halo'></div>
+						</div>
 						<div className='user-settings-theme-btn-label'>{theme?.label}</div>
 					</div>
 				))}

@@ -54,7 +54,7 @@ export const SliderInputLogic = ({ value, min, max, enableSlider, hasPercentageC
 	useEffect(() => {
 		function getSliderThumbStyles() {
 			var newSliderThumbStyles = {};
-			newSliderThumbStyles.left = "calc(" + (value / max) * 100 + "% - (" + value / max + " * " + (window.innerWidth > 750 ? 4 : 6) + "px))";
+			newSliderThumbStyles.left = "calc(" + (value / max) * 100 + "% - (" + value / max + " * " + 6 + "px))";
 			setSliderThumbStyles(newSliderThumbStyles);
 		}
 		getSliderThumbStyles();

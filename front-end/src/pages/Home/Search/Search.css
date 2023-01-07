@@ -9,6 +9,14 @@
 	text-align: center;
 }
 
+.home-search-container .search-input {
+	padding: 10px 22px;
+}
+
+.home-search-container .search-input-placeholder-container {
+	left: 24px;
+}
+
 @media (max-width: 750px) {
 	.home-search-container {
 		top: 6px;

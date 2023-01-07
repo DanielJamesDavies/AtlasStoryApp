@@ -1,5 +1,5 @@
 // Packages
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
 
 // Components
 import { LoadingCircle } from "../LoadingCircle/LoadingCircle";
@@ -21,8 +21,8 @@ export const Lightbox = () => {
 		lightboxImageIDs,
 		lightboxImages,
 		lightboxIndex,
-		incrementLightboxIndex,
 		decrementLightboxIndex,
+		incrementLightboxIndex,
 		closeLightbox,
 		lightBoxImageContainerRef,
 		lightboxContainerRef,
@@ -47,7 +47,14 @@ export const Lightbox = () => {
 				</div>
 			) : (
 				<>
-					<button className='lightbox-switch-btn lightbox-switch-btn-decrement' onClick={incrementLightboxIndex}>
+					<button
+						className={
+							lightboxIndex === 0
+								? "lightbox-switch-btn lightbox-switch-btn-decrement lightbox-switch-btn-inactive"
+								: "lightbox-switch-btn lightbox-switch-btn-decrement"
+						}
+						onClick={decrementLightboxIndex}
+					>
 						<FaChevronLeft />
 					</button>
 					<div ref={lightBoxImageContainerRef} className='lightbox-image-container'>
@@ -71,8 +78,18 @@ export const Lightbox = () => {
 							KB
 						</div>
 					</div>
-					<button className='lightbox-switch-btn lightbox-switch-btn-increment' onClick={decrementLightboxIndex}>
+					<button
+						className={
+							lightboxIndex === lightboxImages.length - 1
+								? "lightbox-switch-btn lightbox-switch-btn-increment lightbox-switch-btn-inactive"
+								: "lightbox-switch-btn lightbox-switch-btn-increment"
+						}
+						onClick={incrementLightboxIndex}
+					>
 						<FaChevronRight />
+					</button>
+					<button className='lightbox-close-btn' onClick={closeLightbox}>
+						<FaTimes />
 					</button>
 				</>
 			)}

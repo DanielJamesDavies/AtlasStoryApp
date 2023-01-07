@@ -1,23 +1,18 @@
 .home-genres-list-item {
 	display: flex;
 	align-items: center;
-	margin: 4px 0;
-	padding: 5px 10px;
+	margin: 3px 0;
+	padding: 3px 14px;
+	padding-right: 6px;
 	border-radius: 18px;
 
-	min-width: min(120px, calc(50% - 6px - 20px));
+	min-width: min(115px, calc(50% - 14px - 6px - 22px));
 
 	background: var(--grey4);
 	word-break: break-word;
 	overflow-wrap: anywhere;
 	transition: background 0.1s;
 	cursor: pointer;
-}
-
-.home-genres-list-item {
-	padding: 4px 14px;
-	padding-right: 6px;
-	min-width: min(115px, calc(50% - 14px - 6px - 22px));
 }
 
 .home-genres-list-item:hover {
@@ -52,7 +47,7 @@
 .home-genres-list-item-stat {
 	display: flex;
 	align-items: center;
-	margin-right: 8px;
+	margin-right: 10px;
 }
 
 .home-genres-list-item-stat:last-child {
@@ -64,7 +59,7 @@
 }
 
 .home-genres-list-item-stat-value {
-	margin-left: 2px;
+	margin-left: 3px;
 	font-size: 12px;
 	font-weight: 600;
 }

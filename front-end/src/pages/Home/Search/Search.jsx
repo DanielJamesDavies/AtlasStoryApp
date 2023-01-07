@@ -1,7 +1,7 @@
 // Packages
 
 // Components
-import { SearchInput } from "./SearchInput/SearchInput";
+import { SearchInput } from "../../../components/SearchInput/SearchInput";
 import { SearchResultsList } from "./SearchResultsList/SearchResultsList";
 
 // Logic
@@ -21,7 +21,7 @@ export const Search = () => {
 
 	return (
 		<div className='home-search-container'>
-			<SearchInput searchValue={searchValue} changeSearchValue={changeSearchValue} />
+			<SearchInput label='Search for Users and Stories' value={searchValue} onChange={changeSearchValue} />
 			<SearchResultsList searchResults={searchResults} />
 		</div>
 	);

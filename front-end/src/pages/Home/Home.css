@@ -9,8 +9,9 @@
 .home-content {
 	position: relative;
 	top: calc(12px + 42px + 24px);
-	left: 8px;
-	width: calc(100% - 16px);
+	left: 50%;
+	transform: translateX(-50%);
+	width: calc(100% - 48px);
 }
 
 @media (max-width: 750px) {

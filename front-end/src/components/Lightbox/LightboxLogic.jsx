@@ -19,13 +19,13 @@ export const LightboxLogic = () => {
 		useContext(LightboxContext);
 	const [isImagePixelated, setIsImagePixelated] = useState(false);
 
-	function incrementLightboxIndex(e) {
+	function decrementLightboxIndex(e) {
 		e.stopPropagation();
 		setLightboxIndex((oldLightboxIndex) => (oldLightboxIndex - 1 < 0 ? 0 : oldLightboxIndex - 1));
 		setIsImagePixelated(false);
 	}
 
-	function decrementLightboxIndex(e) {
+	function incrementLightboxIndex(e) {
 		e.stopPropagation();
 		setLightboxIndex((oldLightboxIndex) =>
 			oldLightboxIndex + 1 > lightboxImages.length - 1 ? lightboxImages.length - 1 : oldLightboxIndex + 1
@@ -39,6 +39,46 @@ export const LightboxLogic = () => {
 		setLightboxIndex(0);
 		setIsImagePixelated(false);
 	}
+
+	useEffect(() => {
+		function onWindowKeyDown(e) {
+			if (!lightboxImages || lightboxImages.length === 0) return;
+			e.preventDefault();
+			switch (e.code) {
+				case "ArrowUp":
+					setLightboxIndex((oldLightboxIndex) => (oldLightboxIndex - 1 < 0 ? 0 : oldLightboxIndex - 1));
+					setIsImagePixelated(false);
+					break;
+				case "ArrowLeft":
+					setLightboxIndex((oldLightboxIndex) => (oldLightboxIndex - 1 < 0 ? 0 : oldLightboxIndex - 1));
+					setIsImagePixelated(false);
+					break;
+				case "ArrowRight":
+					setLightboxIndex((oldLightboxIndex) =>
+						oldLightboxIndex + 1 > lightboxImages.length - 1 ? lightboxImages.length - 1 : oldLightboxIndex + 1
+					);
+					setIsImagePixelated(false);
+					break;
+				case "ArrowDown":
+					setLightboxIndex((oldLightboxIndex) =>
+						oldLightboxIndex + 1 > lightboxImages.length - 1 ? lightboxImages.length - 1 : oldLightboxIndex + 1
+					);
+					setIsImagePixelated(false);
+					break;
+				case "Escape":
+					setLightboxImageIDs([]);
+					setLightboxImages([]);
+					setLightboxIndex(0);
+					setIsImagePixelated(false);
+					break;
+				default:
+					break;
+			}
+		}
+
+		window.addEventListener("keydown", onWindowKeyDown);
+		return () => window.removeEventListener("keydown", onWindowKeyDown);
+	}, [lightboxImages, setLightboxIndex, setIsImagePixelated, setLightboxImageIDs, setLightboxImages]);
 
 	const lightBoxImageContainerRef = useRef();
 	var zoom = useRef(1);
