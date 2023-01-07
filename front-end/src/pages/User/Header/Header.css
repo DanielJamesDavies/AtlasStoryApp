@@ -1,30 +1,37 @@
 .user-header {
 	position: relative;
+	z-index: 2;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
+	margin-top: -117px;
 	padding: 12px 0;
-	padding-bottom: calc(12px + 1px);
+	padding-bottom: calc(12px + 1px + 12px);
 	border-radius: 4px;
-	background: var(--grey1);
 }
 
-.user-header::after {
+.user-header-background {
 	position: absolute;
-	bottom: 0;
+	z-index: -1;
+	top: -24px;
 	left: 50%;
-	transform: translateX(-50%);
+	transform: translate(-50%);
 	display: block;
 	content: "";
-	border-radius: 4px;
 	width: 100%;
-	height: 1px;
-	background: var(--grey5);
+	height: calc(117px + 24px);
+	background: linear-gradient(180deg, transparent, var(--grey1));
+	pointer-events: none;
 }
 
 @media (max-width: 750px) {
 	.user-header {
+		margin-top: 0;
 		padding: 6px 0;
 		padding-bottom: calc(6px + 1px);
+	}
+
+	.user-header-background {
+		top: calc(-24px + -37px);
 	}
 }

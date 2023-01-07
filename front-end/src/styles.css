@@ -15,7 +15,7 @@
 }
 
 .theme-dark {
-	--grey1: #050507;
+	--grey1: #000000;
 	--grey2: #0d0d12;
 	--grey3: #18181e;
 	--grey4: #34343f;
@@ -28,8 +28,8 @@
 }
 
 .theme-dim {
-	--grey1: #0b0b0e;
-	--grey2: #1a1a21;
+	--grey1: #0a0a0d;
+	--grey2: #18181e;
 	--grey3: #282830;
 	--grey4: #48484d;
 	--grey5: #505053;

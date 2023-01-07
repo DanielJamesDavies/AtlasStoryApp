@@ -35,15 +35,6 @@
 @media (max-width: 750px) {
 	.user-header-profile-picture-container {
 		--profilePictureWidth: 70px;
-		margin-top: calc(-1 * (24px + 6px + -4px + (var(--profilePictureWidth) / 4)));
-	}
-
-	.editable-container-is-authorized.user-header-profile-picture-container {
-		--profilePictureWidth: 70px;
-		margin-top: calc(-1 * (32px + 6px + -4px + (var(--profilePictureWidth) / 4)));
-	}
-
-	.user-header-profile-picture {
-		border: 2px solid #000;
+		margin-top: calc(-1 * (32px + 2px + -4px + (var(--profilePictureWidth) / 4)));
 	}
 }

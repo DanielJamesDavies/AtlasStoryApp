@@ -22,6 +22,7 @@ export const Header = () => {
 			<ProfilePicture />
 			<Names />
 			<Buttons />
+			<div className='user-header-background' />
 		</div>
 	);
 };

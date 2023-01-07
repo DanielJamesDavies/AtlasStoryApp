@@ -35,16 +35,7 @@
 @media (max-width: 750px) {
 	.story-header-icon-container {
 		--iconWidth: 70px;
-		margin-top: calc(-1 * (24px + 6px + -4px + (var(--iconWidth) / 4)));
+		margin-top: calc(-1 * (32px + 2px + -4px + (var(--iconWidth) / 4)));
 		margin-right: 0;
-	}
-
-	.editable-container-is-authorized.story-header-icon-container {
-		--iconWidth: 70px;
-		margin-top: calc(-1 * (32px + 6px + -4px + (var(--iconWidth) / 4)));
-	}
-
-	.story-header-icon {
-		border: 2px solid #000;
 	}
 }

@@ -35,6 +35,7 @@ export const Header = () => {
 				<Members />
 			</div>
 			<Buttons />
+			<div className='story-header-background' />
 		</div>
 	);
 };
