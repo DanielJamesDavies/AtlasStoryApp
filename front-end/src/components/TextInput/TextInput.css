@@ -1,5 +1,6 @@
 .text-input-container {
 	display: inline-block;
+	width: 100%;
 }
 
 .text-input-label {
