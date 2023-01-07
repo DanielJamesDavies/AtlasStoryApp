@@ -16,7 +16,7 @@
 .characters-character-type-primary-name,
 .characters-character-type-name-container input {
 	font-size: 22px;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .characters-character-type-name-container .text-input-container {
@@ -27,6 +27,6 @@
 	.characters-character-type-primary-name,
 	.characters-character-type-name-container input {
 		font-size: 22px;
-		font-weight: 700;
+		font-weight: 600;
 	}
 }

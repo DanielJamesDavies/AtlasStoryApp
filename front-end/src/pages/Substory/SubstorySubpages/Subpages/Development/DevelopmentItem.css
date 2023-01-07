@@ -116,7 +116,7 @@
 .substory-subpage-development-item-title,
 .substory-subpage-development-item-title input {
 	font-size: var(--fontSizePM);
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .substory-subpage-development-item .text-input-container-empty {

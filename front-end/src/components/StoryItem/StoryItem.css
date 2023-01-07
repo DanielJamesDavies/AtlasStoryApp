@@ -109,7 +109,7 @@
 	margin: 0 auto;
 	width: calc(100% - 24px);
 	font-size: 30px;
-	font-weight: 700;
+	font-weight: 600;
 	text-align: center;
 
 	font-size: 26px;
@@ -140,7 +140,7 @@
 
 	text-align: center;
 	font-size: 14px;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .story-item-size-l .story-item-owner {

@@ -96,7 +96,7 @@
 
 .story-primary-character-card-top-name {
 	font-size: 24px;
-	font-weight: 700;
+	font-weight: 600;
 	color: var(--characterColour);
 }
 
@@ -109,7 +109,7 @@
 	border-radius: 32px;
 	height: fit-content;
 	font-size: 12px;
-	font-weight: 700;
+	font-weight: 600;
 	color: #fff;
 }
 

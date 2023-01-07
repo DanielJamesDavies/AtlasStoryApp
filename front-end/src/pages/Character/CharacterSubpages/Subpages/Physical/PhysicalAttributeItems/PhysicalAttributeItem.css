@@ -44,7 +44,7 @@
 .character-subpage-physical-attribute-item-title,
 .character-subpage-physical-attribute-item-title input {
 	font-size: var(--fontSizePM);
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .character-subpage-physical-attribute-item .text-input-container-empty {

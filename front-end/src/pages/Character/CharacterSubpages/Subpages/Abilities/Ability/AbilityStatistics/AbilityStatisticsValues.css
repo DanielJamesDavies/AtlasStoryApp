@@ -25,7 +25,8 @@
 
 .character-subpage-abilities-ability-statistics-value-label,
 .character-subpage-abilities-ability-statistics-value-label input {
-	font-size: 14px;
+	font-size: 13px;
+	font-weight: 300;
 }
 
 .character-subpage-abilities-ability-statistics-value-value {
@@ -39,7 +40,7 @@
 .character-subpage-abilities-ability-statistics-value-value input {
 	text-align: center;
 	font-size: 13px;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .editable-container-is-editing .drag-drop-item-enable-drag-drop.character-subpage-abilities-ability-statistics-value-container {
@@ -80,7 +81,7 @@
 .character-subpage-abilities-ability-statistics-max-value-value input {
 	text-align: right;
 	font-size: 13px;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 @media (max-width: 750px) {

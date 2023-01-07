@@ -41,7 +41,7 @@
 .substory-subpage-plot-item-label .text-input-label,
 .substory-subpage-plot-item-label input {
 	font-size: var(--fontSizeH2);
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .substory-subpage-plot-item-label.text-input-container-empty {

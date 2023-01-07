@@ -8,7 +8,7 @@
 
 .suggestions-message-label {
 	display: inline-block;
-	font-weight: 700;
+	font-weight: 600;
 	color: var(--textColour);
 }
 

@@ -1,6 +1,5 @@
 .story-header-main-info-title-container {
 	width: fit-content;
-	font-weight: 700;
 }
 
 .editable-container-is-editing.story-header-main-info-title-container {
@@ -13,7 +12,7 @@
 
 .story-header-main-info-title,
 .story-header-main-info-title-container input {
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 40px;
 	color: var(--textColour);
 }

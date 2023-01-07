@@ -14,7 +14,7 @@
 	border-radius: 32px;
 	height: fit-content;
 	font-size: 14px;
-	font-weight: 700;
+	font-weight: 600;
 	color: #fff;
 }
 
@@ -27,7 +27,7 @@
 	border-radius: 32px;
 	height: fit-content;
 	font-size: 15px;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 @media (max-width: 750px) {

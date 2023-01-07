@@ -9,7 +9,7 @@
 .character-subpage-abilities-ability-name,
 .character-subpage-abilities-ability-name input {
 	font-size: 20px;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 @media (max-width: 750px) {

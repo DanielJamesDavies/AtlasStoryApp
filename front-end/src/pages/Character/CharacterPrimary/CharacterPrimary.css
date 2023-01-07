@@ -42,7 +42,7 @@
 .character-primary-story-name {
 	width: max-content;
 	font-size: 14px;
-	font-weight: 700;
+
 	color: var(--textColour);
 }
 

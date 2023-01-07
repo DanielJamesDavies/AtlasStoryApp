@@ -2,7 +2,7 @@
 	display: block;
 	margin-top: -6px;
 	width: 100%;
-	height: min(20vw, 320px);
+	height: min(20vw, 324px);
 	background: var(--grey2);
 }
 

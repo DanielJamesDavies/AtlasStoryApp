@@ -9,7 +9,7 @@
 .home-genres-list-title {
 	margin-bottom: 8px;
 	font-size: 22px;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .home-genres-content {
@@ -46,7 +46,7 @@
 }
 
 .home-genres-list-new-genre-label-value {
-	font-weight: 700;
+	font-weight: 600;
 }
 
 @media (max-width: 750px) {

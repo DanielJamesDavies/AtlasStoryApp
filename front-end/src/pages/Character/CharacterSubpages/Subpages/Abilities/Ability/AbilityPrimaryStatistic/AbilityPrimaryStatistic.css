@@ -27,7 +27,7 @@
 .character-subpage-abilities-ability-primary-statistic-label,
 .character-subpage-abilities-ability-primary-statistic-label input {
 	font-size: 14px;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .character-subpage-abilities-ability-primary-statistic-value {
@@ -39,7 +39,7 @@
 .character-subpage-abilities-ability-primary-statistic-value,
 .character-subpage-abilities-ability-primary-statistic-value input {
 	font-size: 14px;
-	font-weight: 700;
+	font-weight: 600;
 	color: #fff;
 }
 

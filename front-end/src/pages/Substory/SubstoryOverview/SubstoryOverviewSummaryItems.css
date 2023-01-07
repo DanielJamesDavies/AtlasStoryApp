@@ -42,7 +42,7 @@
 .substory-overview-summary-item-text,
 .substory-overview-summary-item-text input {
 	font-size: 14px;
-	font-weight: 700;
+	font-weight: 600;
 	min-height: 17px;
 }
 
@@ -67,7 +67,7 @@
 .substory-overview-summary-item-text .text-input-label {
 	margin-top: -4px;
 	font-size: 14px;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .drag-drop-item-enable-drag-drop.substory-overview-summary-item {

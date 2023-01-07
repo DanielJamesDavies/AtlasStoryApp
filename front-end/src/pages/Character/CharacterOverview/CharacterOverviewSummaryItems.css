@@ -74,7 +74,7 @@
 .character-overview-summary-item-text .text-input-label {
 	margin-top: -4px;
 	font-size: var(--fontSizePM);
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .drag-drop-item-enable-drag-drop.character-overview-summary-item {

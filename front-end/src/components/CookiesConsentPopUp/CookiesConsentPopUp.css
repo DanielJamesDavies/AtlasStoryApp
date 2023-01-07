@@ -60,11 +60,11 @@
 
 .cookies-consent-pop-up-title {
 	font-size: 32px;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .cookies-consent-pop-up-text {
-	font-size: 18px;
+	font-size: 16px;
 }
 
 .cookies-consent-pop-up-buttons-container {
@@ -140,6 +140,10 @@
 	margin: 0;
 	margin-top: 4px;
 	padding-left: 24px;
+}
+
+.cookies-consent-pop-up-what-for-container b {
+	font-weight: 600;
 }
 
 @media (max-width: 750px) {

@@ -116,7 +116,7 @@
 .substory-subpage-miscellaneous-item-title,
 .substory-subpage-miscellaneous-item-title input {
 	font-size: var(--fontSizePM);
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .substory-subpage-miscellaneous-item .text-input-container-empty {
