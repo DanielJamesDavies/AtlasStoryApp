@@ -1,5 +1,5 @@
 // Packages
-import { FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
 
 // Components
 import { LoadingCircle } from "../LoadingCircle/LoadingCircle";
@@ -55,7 +55,7 @@ export const Lightbox = () => {
 						}
 						onClick={decrementLightboxIndex}
 					>
-						<FaChevronLeft />
+						<FaArrowLeft />
 					</button>
 					<div ref={lightBoxImageContainerRef} className='lightbox-image-container'>
 						<div className={isImagePixelated ? "lightbox-image lightbox-image-is-pixelated" : "lightbox-image"}>
@@ -86,7 +86,7 @@ export const Lightbox = () => {
 						}
 						onClick={incrementLightboxIndex}
 					>
-						<FaChevronRight />
+						<FaArrowRight />
 					</button>
 					<button className='lightbox-close-btn' onClick={closeLightbox}>
 						<FaTimes />
