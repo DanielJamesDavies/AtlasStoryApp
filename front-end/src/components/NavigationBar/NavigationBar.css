@@ -5,6 +5,7 @@
 	width: calc(var(--navbarWidth) - (12px * 2));
 	height: calc(100% - 48px);
 	background: var(--grey1);
+	--navigationBarBtnColour: var(--textSecondaryColour);
 }
 
 .navigation-bar-btn-container {
@@ -28,7 +29,7 @@
 	height: 44px;
 
 	background: #00000000;
-	color: var(--accentColour);
+	color: var(--navigationBarBtnColour);
 	font-size: 22px;
 	text-align: center;
 	transition: 0.2s;
@@ -58,12 +59,12 @@
 
 .navigation-bar-btn-active:hover,
 .navigation-bar-btn-active:hover img {
-	color: var(--accentColour);
+	color: var(--navigationBarBtnColour);
 }
 
 .navigation-bar-btn-active::before,
 .navigation-bar-btn-active:hover::before {
-	background: var(--accentColour);
+	background: var(--navigationBarBtnColour);
 }
 
 .navigation-bar-btn img {

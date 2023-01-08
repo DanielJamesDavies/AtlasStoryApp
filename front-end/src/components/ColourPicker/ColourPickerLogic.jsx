@@ -14,7 +14,7 @@ import isValidHexColour from "../../services/IsValidHexColour";
 
 // Assets
 
-export const ColourPickerLogic = ({ value, onChange, size, enableEdit, pickerVerticalPlacement, horizontalAlignment }) => {
+export const ColourPickerLogic = ({ value, onChange, size, enableEdit, pickerVerticalPlacement, horizontalAlignment, circular }) => {
 	const [colourPickerClassName, setColourPickerClassName] = useState(
 		pickerVerticalPlacement === "bottom" ? "colour-picker colour-picker-placement-bottom" : "colour-picker"
 	);
@@ -40,11 +40,12 @@ export const ColourPickerLogic = ({ value, onChange, size, enableEdit, pickerVer
 			if (enableEdit) className += " colour-picker-is-editing";
 			if (pickerVerticalPlacement === "bottom") className += " colour-picker-placement-bottom";
 			if (horizontalAlignment === "right") className += " colour-picker-alignment-right";
+			if (circular) className += " colour-picker-circular";
 			if (isShowingPicker) className += " colour-picker-is-showing-picker";
 			return className;
 		}
 		setColourPickerClassName(getColourPickerClassName());
-	}, [setColourPickerClassName, size, enableEdit, pickerVerticalPlacement, horizontalAlignment, isShowingPicker]);
+	}, [setColourPickerClassName, size, enableEdit, pickerVerticalPlacement, horizontalAlignment, circular, isShowingPicker]);
 
 	useEffect(() => {
 		setColourBlockStyle(isValidHexColour(value) ? { background: value } : {});

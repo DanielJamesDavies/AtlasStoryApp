@@ -19,7 +19,7 @@
 	display: block;
 	content: "";
 	width: 100%;
-	height: calc(117px + 24px);
+	height: calc(117px + 24px + 1px);
 	background: linear-gradient(180deg, transparent, var(--grey1));
 	pointer-events: none;
 }
@@ -33,6 +33,7 @@
 
 	.story-header-background {
 		top: calc(-24px + -37px);
+		width: 100vw;
 	}
 
 	.story-header-title-members-container {

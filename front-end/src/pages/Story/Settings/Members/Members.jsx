@@ -6,7 +6,7 @@ import { UserItem } from "./UserItem/UserItem";
 import { EditableContainer } from "../../../../components/EditableContainer/EditableContainer";
 import { LoadingCircle } from "../../../../components/LoadingCircle/LoadingCircle";
 import { ContentItem } from "../../../../components/ContentItem/ContentItem";
-import { TextInput } from "../../../../components/TextInput/TextInput";
+import { SearchInput } from "../../../../components/SearchInput/SearchInput";
 import { ErrorMessage } from "../../../../components/ErrorMessage/ErrorMessage";
 
 // Logic
@@ -52,8 +52,8 @@ export const Members = () => {
 							<LoadingCircle size='s' center={true} />
 						</div>
 					) : (
-						<ContentItem hasBg={true} margin='none' backgroundColour='grey3'>
-							<div className='story-settings-members-list-container'>
+						<ContentItem className='story-settings-members-list-container' hasBg={true} margin='none' backgroundColour='grey3'>
+							<div className='story-settings-members-list'>
 								{story?.data?.members?.map((member, index) => (
 									<div key={index} className='story-settings-member-item-container'>
 										<MemberItem
@@ -75,8 +75,8 @@ export const Members = () => {
 								<LoadingCircle size='s' center={true} />
 							</div>
 						) : (
-							<ContentItem hasBg={true} margin='none' backgroundColour='grey3'>
-								<div className='story-settings-members-list-container'>
+							<ContentItem className='story-settings-members-list-container' hasBg={true} margin='none' backgroundColour='grey3'>
+								<div className='story-settings-members-list'>
 									{story?.data?.members?.map((member, index) => (
 										<div key={index} className='story-settings-member-item-container'>
 											<MemberItem
@@ -94,13 +94,7 @@ export const Members = () => {
 								</div>
 								<div className='story-settings-members-users-container'>
 									<div className='story-settings-members-users-search-container'>
-										<TextInput
-											label='Search Users'
-											value={searchUsersValue}
-											onChange={changeSearchUsersValue}
-											size='s'
-											backgroundColour='grey4'
-										/>
+										<SearchInput label='Search Users' value={searchUsersValue} onChange={changeSearchUsersValue} />
 									</div>
 									<div className='story-settings-members-users-list-container'>
 										{!users

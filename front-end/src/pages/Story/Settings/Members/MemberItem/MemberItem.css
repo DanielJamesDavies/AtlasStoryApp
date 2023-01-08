@@ -43,7 +43,7 @@
 .story-settings-member-username {
 	font-weight: 400;
 	font-size: 16px;
-	color: #aaa;
+	color: var(--textSecondaryColour);
 }
 
 .story-settings-member-type-container {
@@ -66,8 +66,8 @@
 }
 
 @media (max-width: 750px) {
-	.story-settings-members-container .content-item-w-bg {
-		padding: 6px 6px;
+	.story-settings-members-list .content-item-w-bg {
+		padding: 8px;
 	}
 
 	.story-settings-member {

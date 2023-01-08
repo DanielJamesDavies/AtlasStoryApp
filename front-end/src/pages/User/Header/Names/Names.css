@@ -28,7 +28,11 @@
 .user-header-names-username {
 	font-weight: 300;
 	font-size: 16px;
-	color: #aaa;
+	color: var(--textSecondaryColour);
+}
+
+.theme-light .user-header-names-username {
+	color: #000;
 }
 
 @media (max-width: 750px) {

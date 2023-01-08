@@ -41,6 +41,7 @@ export const CharacterRelationshipsInfoHomeRelationshipTypeItem = ({ relationshi
 						size='s'
 						pickerVerticalPlacement='bottom'
 						noBackground={true}
+						circular={true}
 					/>
 				</div>
 				<div className='characters-relationship-info-home-relationship-type-item-name-container'>

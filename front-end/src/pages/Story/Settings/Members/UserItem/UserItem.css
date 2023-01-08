@@ -1,6 +1,5 @@
 .story-settings-members-user-item-container {
 	margin: 6px 0;
-	margin-left: -6px;
 }
 
 .story-settings-members-user-item {
@@ -36,7 +35,7 @@
 .story-settings-members-user-item-names-username {
 	font-weight: 400;
 	font-size: 16px;
-	color: #aaa;
+	color: var(--textSecondaryColour);
 }
 
 .story-settings-members-user-item-btns-container {

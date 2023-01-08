@@ -130,9 +130,8 @@
 	width: 50%;
 }
 
-.lightbox-switch-btn-inactive,
-.lightbox-switch-btn-inactive:hover {
-	color: #ffffff33;
+.lightbox-switch-btn-inactive {
+	display: none;
 }
 
 .lightbox-switch-btn-decrement {
@@ -203,7 +202,7 @@
 	}
 
 	.lightbox-close-btn {
-		top: 0;
+		top: 10px;
 		right: 0;
 	}
 }

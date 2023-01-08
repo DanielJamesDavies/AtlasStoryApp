@@ -8,23 +8,19 @@
 }
 
 .story-settings-members-list-container {
-	padding: 0 6px;
-	max-height: 336px;
-	overflow-y: scroll;
-	margin-left: -12px;
-	width: calc(100% + 12px);
+	padding: 2px 10px;
+	padding-bottom: 4px;
 }
 
-.story-settings-members-users-search-container {
-	margin-left: -6px;
-	width: calc(100% + 6px);
+.story-settings-members-list {
+	max-height: 336px;
+	overflow-y: scroll;
 }
 
 @media (max-width: 750px) {
 	.story-settings-members-list-container {
-		padding: 0;
-		margin-left: 0;
-		width: calc(100% + 6px);
+		padding: 0 6px;
+		padding-bottom: 3px;
 	}
 
 	.story-settings-members-users-search-container {
