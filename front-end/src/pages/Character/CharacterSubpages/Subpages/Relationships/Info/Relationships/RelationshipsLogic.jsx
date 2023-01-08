@@ -20,7 +20,7 @@ export const RelationshipsLogic = () => {
 		isAuthorizedToEdit,
 		story,
 		character,
-		characters,
+		storyCharacters,
 		characterRelationships,
 		setCharacterRelationships,
 		characterRelationshipsAddedIds,
@@ -38,7 +38,7 @@ export const RelationshipsLogic = () => {
 			setSelectedCharacter(false);
 			setSelectedCharacterRelationships(false);
 		} else {
-			const newSelectedCharacter = characters.find((e) => e._id === character?._id);
+			const newSelectedCharacter = storyCharacters.find((e) => e._id === character?._id);
 			setSelectedCharacter(newSelectedCharacter ? newSelectedCharacter : false);
 
 			const newSelectedCharacterRelationships = characterRelationships
@@ -51,7 +51,7 @@ export const RelationshipsLogic = () => {
 				);
 			setSelectedCharacterRelationships(newSelectedCharacterRelationships);
 		}
-	}, [setSelectedCharacter, character, story, characters, characterRelationships]);
+	}, [setSelectedCharacter, character, story, storyCharacters, characterRelationships]);
 
 	async function revertRelationships() {
 		if (!story?._id) return false;
@@ -168,8 +168,6 @@ export const RelationshipsLogic = () => {
 
 	return {
 		isAuthorizedToEdit,
-		story,
-		characters,
 		selectedCharacter,
 		selectedCharacterRelationships,
 		revertRelationships,

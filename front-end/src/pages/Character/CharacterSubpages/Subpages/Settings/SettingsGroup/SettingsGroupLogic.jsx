@@ -16,21 +16,21 @@ import { APIContext } from "../../../../../../context/APIContext";
 // Assets
 
 export const SettingsGroupLogic = () => {
-	const { story_uid, character_uid, isAuthorizedToEdit, story, character, groups } = useContext(CharacterContext);
+	const { story_uid, character_uid, isAuthorizedToEdit, story, character, storyGroups } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 
 	const [group, setGroup] = useState(false);
 	useEffect(() => {
 		function getGroup() {
-			const newGroup = groups.find((e) => e._id === character.group_id);
+			const newGroup = storyGroups.find((e) => e._id === character.group_id);
 			if (!newGroup) setGroup(false);
 			setGroup(newGroup);
 		}
 		getGroup();
-	}, [story_uid, character_uid, groups, character]);
+	}, [story_uid, character_uid, storyGroups, character]);
 
 	function changeGroup(e) {
-		const newGroup = groups[e];
+		const newGroup = storyGroups[e];
 		if (newGroup) setGroup(newGroup);
 	}
 
@@ -43,7 +43,7 @@ export const SettingsGroupLogic = () => {
 		});
 		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
-		const newGroup = groups.find((e) => e._id === response.data.value);
+		const newGroup = storyGroups.find((e) => e._id === response.data.value);
 		if (newGroup) setGroup(newGroup);
 
 		return true;
@@ -68,5 +68,5 @@ export const SettingsGroupLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, groups, group, changeGroup, revertGroup, saveGroup, errors };
+	return { isAuthorizedToEdit, storyGroups, group, changeGroup, revertGroup, saveGroup, errors };
 };

@@ -23,8 +23,8 @@ import "./Relationship.css";
 export const Relationships = () => {
 	const {
 		character,
-		groups,
-		characters,
+		storyGroups,
+		storyCharacters,
 		characterRelationships,
 		characterRelationshipsCharacters,
 		characterRelationshipsChartRef,
@@ -45,7 +45,7 @@ export const Relationships = () => {
 				"--characterRelationshipsChartItemWidth": characterRelationshipsChartItemWidth + "px",
 			}}
 		>
-			{!groups || !characters ? null : (
+			{!storyGroups || !storyCharacters ? null : (
 				<div className='character-subpage-relationships-primary-buttons-container'>
 					<IconBtn
 						className='character-subpage-relationships-primary-btn-toggle-is-displaying-info'
@@ -57,7 +57,7 @@ export const Relationships = () => {
 					/>
 				</div>
 			)}
-			{!groups || !characters || !characterRelationships || !characterRelationshipsCharacters ? (
+			{!storyGroups || !storyCharacters || !characterRelationships || !characterRelationshipsCharacters ? (
 				<div className='character-subpage-relationships-content'>
 					<LoadingCircle center={true} />
 				</div>

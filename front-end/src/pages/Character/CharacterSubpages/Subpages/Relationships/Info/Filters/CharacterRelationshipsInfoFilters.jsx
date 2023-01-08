@@ -19,7 +19,7 @@ import "./CharacterRelationshipsInfoFilters.css";
 // Assets
 
 export const CharacterRelationshipsInfoFilters = () => {
-	const { story, groups, isDisplayingFilters, toggleIsDisplayingFilters, relationshipsFilters, toggleFilter } =
+	const { story, storyGroups, isDisplayingFilters, toggleIsDisplayingFilters, relationshipsFilters, toggleFilter } =
 		CharacterRelationshipsInfoFiltersLogic();
 
 	if (relationshipsFilters === false) return null;
@@ -41,7 +41,7 @@ export const CharacterRelationshipsInfoFilters = () => {
 				<ContentItem className='characters-relationship-info-home-filters' size='s' margin='none' hasBg={true} backgroundColour='grey3'>
 					<div className='characters-relationship-info-home-filters-subtitle'>Groups</div>
 					<div className='characters-relationship-info-home-filters-list'>
-						{groups?.map((group, index) => (
+						{storyGroups?.map((group, index) => (
 							<CharacterRelationshipsInfoHomeFilterItem
 								key={index}
 								name={group?.data?.name}

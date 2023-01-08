@@ -18,8 +18,8 @@ export const RelationshipsLogic = () => {
 	const {
 		character_uid,
 		character,
-		groups,
-		characters,
+		storyGroups,
+		storyCharacters,
 		characterRelationships,
 		characterRelationshipsCharacters,
 		setCharacterRelationshipsCharacters,
@@ -87,12 +87,12 @@ export const RelationshipsLogic = () => {
 
 	useEffect(() => {
 		function getCharacterRelationshipsCharacters() {
-			if (!characters || characters.length === 0 || !characterRelationships || relationshipsFilters === false) return false;
+			if (!storyCharacters || storyCharacters.length === 0 || !characterRelationships || relationshipsFilters === false) return false;
 
-			let newCharacterRelationshipsCharacters = groups
+			let newCharacterRelationshipsCharacters = storyGroups
 				.map((group) =>
 					group?.data?.characters.map((character) => {
-						let newCharacter = characters.find((e) => e?._id === character?.character_id);
+						let newCharacter = storyCharacters.find((e) => e?._id === character?.character_id);
 						if (!newCharacter) return false;
 						if (!relationshipsFilters?.groups?.includes(newCharacter?.group_id)) return false;
 						return newCharacter;
@@ -112,7 +112,7 @@ export const RelationshipsLogic = () => {
 			setCharacterRelationshipsCharacters(newCharacterRelationshipsCharacters);
 		}
 		getCharacterRelationshipsCharacters();
-	}, [setCharacterRelationshipsCharacters, character_uid, characterRelationships, relationshipsFilters, groups, characters]);
+	}, [setCharacterRelationshipsCharacters, character_uid, characterRelationships, relationshipsFilters, storyGroups, storyCharacters]);
 
 	const [isDisplayingInfo, setIsDisplayingInfo] = useState(false);
 
@@ -137,8 +137,8 @@ export const RelationshipsLogic = () => {
 
 	return {
 		character,
-		groups,
-		characters,
+		storyGroups,
+		storyCharacters,
 		characterRelationships,
 		characterRelationshipsCharacters,
 		characterRelationshipsChartRef,

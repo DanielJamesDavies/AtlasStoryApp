@@ -17,8 +17,8 @@ import { CharacterContext } from "../../../../CharacterContext";
 export const CharacterRelationshipChartLogic = ({ characterRelationshipsChartWidth, characterRelationshipsChartItemWidth }) => {
 	const {
 		story,
-		groups,
-		characters,
+		storyGroups,
+		storyCharacters,
 		characterRelationships,
 		characterRelationshipsCharacters,
 		selectedCharacterRelationshipsCharacterId,
@@ -33,10 +33,10 @@ export const CharacterRelationshipChartLogic = ({ characterRelationshipsChartWid
 	useEffect(() => {
 		function drawChartCanvas() {
 			if (
-				!groups ||
-				groups?.length === 0 ||
-				!characters ||
-				characters?.length === 0 ||
+				!storyGroups ||
+				storyGroups?.length === 0 ||
+				!storyCharacters ||
+				storyCharacters?.length === 0 ||
 				!characterRelationships ||
 				characterRelationships?.length === 0 ||
 				!relationshipsFilters
@@ -138,8 +138,8 @@ export const CharacterRelationshipChartLogic = ({ characterRelationshipsChartWid
 		drawChartCanvas();
 	}, [
 		story,
-		groups,
-		characters,
+		storyGroups,
+		storyCharacters,
 		characterRelationships,
 		characterRelationshipsCharacters,
 		relationshipsFilters,
@@ -148,5 +148,5 @@ export const CharacterRelationshipChartLogic = ({ characterRelationshipsChartWid
 		characterRelationshipsChartItemWidth,
 	]);
 
-	return { selectedCharacterRelationshipsCharacterId, characters, characterRelationshipsCharacters, onClickChart };
+	return { selectedCharacterRelationshipsCharacterId, storyCharacters, characterRelationshipsCharacters, onClickChart };
 };

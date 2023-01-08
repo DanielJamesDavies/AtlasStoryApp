@@ -15,8 +15,15 @@ import { CharacterContext } from "../../../../../../CharacterContext";
 // Assets
 
 export const RelationshipItemLogic = ({ relationship, selectedCharacterRelationships }) => {
-	const { story, groups, character, characters, characterRelationships, setCharacterRelationships, setCharacterRelationshipsRemovedIds } =
-		useContext(CharacterContext);
+	const {
+		story,
+		storyGroups,
+		character,
+		storyCharacters,
+		characterRelationships,
+		setCharacterRelationships,
+		setCharacterRelationshipsRemovedIds,
+	} = useContext(CharacterContext);
 
 	const [secondCharacter, setSecondCharacter] = useState(false);
 
@@ -24,13 +31,13 @@ export const RelationshipItemLogic = ({ relationship, selectedCharacterRelations
 		if (!character?._id) {
 			setSecondCharacter(false);
 		} else {
-			const newSecondCharacter = characters.find((e) => e._id === relationship.character_ids.find((e) => e !== character?._id));
+			const newSecondCharacter = storyCharacters.find((e) => e._id === relationship.character_ids.find((e) => e !== character?._id));
 			setSecondCharacter(newSecondCharacter ? newSecondCharacter : false);
 		}
-	}, [setSecondCharacter, relationship, character, characters]);
+	}, [setSecondCharacter, relationship, character, storyCharacters]);
 
 	function changeRelationshipSecondCharacter(index) {
-		const options = groups
+		const options = storyGroups
 			.map((group) =>
 				group?.data?.characters
 					.filter(
@@ -39,7 +46,7 @@ export const RelationshipItemLogic = ({ relationship, selectedCharacterRelations
 								.filter((e) => !e?.isRemoved)
 								.findIndex((relationship) => relationship.character_ids.includes(character?.character_id)) === -1
 					)
-					.map((character) => characters.find((e) => e._id === character?.character_id)?._id)
+					.map((character) => storyCharacters.find((e) => e._id === character?.character_id)?._id)
 			)
 			.flat(1)
 			.filter((e) => e);
@@ -86,8 +93,8 @@ export const RelationshipItemLogic = ({ relationship, selectedCharacterRelations
 
 	return {
 		story,
-		groups,
-		characters,
+		storyGroups,
+		storyCharacters,
 		secondCharacter,
 		changeRelationshipSecondCharacter,
 		changeRelationshipType,

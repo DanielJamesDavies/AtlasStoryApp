@@ -20,7 +20,7 @@ export const CharacterPrimaryType = () => {
 	const {
 		isAuthorizedToEdit,
 		story,
-		characterTypes,
+		storyCharacterTypes,
 		characterType,
 		changeCharacterType,
 		revertCharacterType,
@@ -50,7 +50,7 @@ export const CharacterPrimaryType = () => {
 			>
 				{story?.data?.characterTypes.map((characterTypeID, index) => (
 					<div key={index} is-active={(characterTypeID === characterType?._id).toString()}>
-						{characterTypes.find((e) => e._id === characterTypeID)?.data?.name}
+						{storyCharacterTypes.find((e) => e._id === characterTypeID)?.data?.name}
 					</div>
 				))}
 			</DropdownContainer>

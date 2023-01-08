@@ -19,7 +19,7 @@ import { SettingsGroupLogic } from "./SettingsGroupLogic";
 // Assets
 
 export const SettingsGroup = () => {
-	const { isAuthorizedToEdit, groups, group, changeGroup, revertGroup, saveGroup, errors } = SettingsGroupLogic();
+	const { isAuthorizedToEdit, storyGroups, group, changeGroup, revertGroup, saveGroup, errors } = SettingsGroupLogic();
 
 	return (
 		<ContentItem hasBg={true} size='s'>
@@ -30,7 +30,7 @@ export const SettingsGroup = () => {
 					</div>
 					<div>
 						<DropdownContainer value={group?.data?.name} onChange={changeGroup}>
-							{groups.map((groupsGroup, index) => (
+							{storyGroups.map((groupsGroup, index) => (
 								<div key={index} className=''>
 									{groupsGroup?.data?.name}
 								</div>

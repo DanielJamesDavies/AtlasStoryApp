@@ -17,7 +17,7 @@ import isLightBackground from "../../../../services/IsLightBackground";
 // Assets
 
 export const CharacterPrimaryTypeLogic = () => {
-	const { isAuthorizedToEdit, story, character, setCharacter, characterTypes, isOnOverviewSection, characterOverviewBackground } =
+	const { isAuthorizedToEdit, story, character, setCharacter, storyCharacterTypes, isOnOverviewSection, characterOverviewBackground } =
 		useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 
@@ -25,19 +25,19 @@ export const CharacterPrimaryTypeLogic = () => {
 
 	useEffect(() => {
 		setCharacterType(
-			characterTypes.findIndex((e) => e._id === character?.character_type_id) === -1
+			storyCharacterTypes.findIndex((e) => e._id === character?.character_type_id) === -1
 				? {}
-				: characterTypes.find((e) => e._id === character?.character_type_id)
+				: storyCharacterTypes.find((e) => e._id === character?.character_type_id)
 		);
-	}, [character, characterTypes, setCharacterType]);
+	}, [character, storyCharacterTypes, setCharacterType]);
 
 	function changeCharacterType(index) {
 		setCharacter((oldCharacter) => {
 			let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-			if (!characterTypes[index]?._id) {
+			if (!storyCharacterTypes[index]?._id) {
 				newCharacter.character_type_id = undefined;
 			} else {
-				newCharacter.character_type_id = characterTypes[index]._id;
+				newCharacter.character_type_id = storyCharacterTypes[index]._id;
 			}
 			return newCharacter;
 		});
@@ -85,7 +85,7 @@ export const CharacterPrimaryTypeLogic = () => {
 	return {
 		isAuthorizedToEdit,
 		story,
-		characterTypes,
+		storyCharacterTypes,
 		characterType,
 		changeCharacterType,
 		revertCharacterType,

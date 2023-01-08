@@ -13,15 +13,12 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const { APIRequest } = useContext(APIContext);
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location } = useContext(RoutesContext);
-	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, storyGroups, storyCharacters, storyCharacterTypes, storyCharacterRelationships } =
+		useContext(StoryContext);
 
 	const [failure, setFailure] = useState(false);
 
 	const [character, setCharacter] = useState(false);
-
-	const [characterTypes, setCharacterTypes] = useState([]);
-	const [groups, setGroups] = useState([]);
-	const [characters, setCharacters] = useState([]);
 
 	const [characterOverviewBackground, setCharacterOverviewBackground] = useState(false);
 	const [characterCardBackground, setCharacterCardBackground] = useState(false);
@@ -65,9 +62,6 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			if (!story || story.uid !== story_uid) return;
 			curr_story_uid.current = story?.uid;
 
-			getCharacterTypes(story?.data?.characterTypes, story?._id);
-			getGroups(story?.data?.groups, story?._id);
-
 			let newCharacter = await getCharacter(story._id);
 			if (!newCharacter) return;
 
@@ -83,14 +77,12 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			getCharacterCardBackground(newCharacter?.data?.cardBackground);
 			getCharacterFaceImage(newCharacter?.data?.faceImage);
 			getCharacterImages(newCharacter?.data?.images);
-			getCharacterRelationships(story._id, newCharacter?._id);
 
 			if (newCharacter?.data?.versions[0]) setCharacterVersion(newCharacter.data.versions[0]);
 		}
 
 		function setStateToDefault() {
 			setCharacter(false);
-			setCharacterTypes([]);
 			setCharacterOverviewBackground(false);
 			setCharacterCardBackground(false);
 			setCharacterFaceImage(false);
@@ -109,86 +101,6 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				return character_response.data.character;
 			});
 			return character_response.data.character;
-		}
-
-		async function getCharacterTypes(characterTypesIDs, story_id) {
-			if (!characterTypesIDs) return;
-
-			let newCharacterTypes = await Promise.all(
-				characterTypesIDs.map(async (characterTypeID) => {
-					const character_type_response = await APIRequest("/character-type/" + characterTypeID + "?story_id=" + story_id, "GET");
-					if (character_type_response?.errors || !character_type_response?.data?.characterType) return false;
-					return character_type_response.data.characterType;
-				})
-			);
-			newCharacterTypes = newCharacterTypes.filter((e) => e !== false);
-
-			setCharacterTypes(newCharacterTypes);
-			return newCharacterTypes;
-		}
-
-		async function getGroups(groupIDs, story_id) {
-			if (!groupIDs || !story_id) return;
-
-			let newGroups = await Promise.all(
-				groupIDs.map(async (groupID) => {
-					const group_response = await APIRequest("/group/" + groupID + "?story_id=" + story_id, "GET");
-					if (group_response?.errors || !group_response?.data?.group) return false;
-					return {
-						_id: group_response.data.group._id,
-						data: { name: group_response.data.group.data.name, characters: group_response.data.group.data.characters },
-					};
-				})
-			);
-			newGroups = newGroups.filter((e) => e !== false);
-
-			setGroups(newGroups);
-
-			getCharacters(newGroups, story_id);
-
-			return newGroups;
-		}
-
-		async function getCharacters(groups, story_id) {
-			if (!story_id) return false;
-
-			let newCharacters = (
-				await Promise.all(
-					groups.map(async (group) => {
-						return await Promise.all(
-							group?.data?.characters?.map(async (group_character) => {
-								const character_response = await APIRequest(
-									"/character/" + group_character.character_id + "?card=true&story_id=" + story_id,
-									"GET"
-								);
-								if (character_response?.errors || !character_response?.data?.character) return false;
-								let newCharacter = JSON.parse(JSON.stringify(character_response.data.character));
-								if (newCharacter?.data?.faceImage) {
-									const recentImage = recentImages.current.find((e) => e?._id === newCharacter?.data?.faceImage);
-									if (recentImage) {
-										newCharacter.data.faceImage = recentImage;
-									} else {
-										const face_image_response = await APIRequest("/image/" + newCharacter.data.faceImage, "GET");
-										newCharacter.data.faceImage = face_image_response?.data?.image;
-									}
-								}
-								return newCharacter;
-							})
-						);
-					})
-				)
-			)
-				.flat(1)
-				.filter((e) => e !== false);
-
-			setCharacters(newCharacters);
-
-			const characterIndex = newCharacters.findIndex((e) => e.uid === character_uid);
-			const firstNewCharacterRelationshipsCharacters = JSON.parse(JSON.stringify(newCharacters)).slice(characterIndex);
-			const lastNewCharacterRelationshipsCharacters = JSON.parse(JSON.stringify(newCharacters)).slice(0, characterIndex);
-			const newCharacterRelationshipsCharacters = firstNewCharacterRelationshipsCharacters.concat(lastNewCharacterRelationshipsCharacters);
-
-			setCharacterRelationshipsCharacters(newCharacterRelationshipsCharacters);
 		}
 
 		function getCharacterSubpages(characterSubpages, isAuthorizedToEdit) {
@@ -292,24 +204,6 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			setCharacterImages(newCharacterImages);
 		}
 
-		async function getCharacterRelationships(story_id, character_id) {
-			if (!story_id || !character_id) return false;
-
-			let character_relationships_response = await APIRequest(
-				"/character-relationship?story_id=" + story_id + "&character_id=" + character_id,
-				"GET"
-			);
-			if (
-				!character_relationships_response ||
-				character_relationships_response?.errors ||
-				!character_relationships_response?.data?.characterRelationships
-			)
-				return false;
-
-			setCharacterRelationships(character_relationships_response.data.characterRelationships);
-			return character_relationships_response.data.characterRelationships;
-		}
-
 		getInitial();
 	}, [
 		location,
@@ -326,8 +220,6 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		setFailure,
 		setStory,
 		setCharacter,
-		setCharacterTypes,
-		setGroups,
 		allSubpages,
 		setSubpages,
 		setOpenSubpageID,
@@ -338,6 +230,67 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		changeAccentColour,
 		changeAccentHoverColour,
 	]);
+
+	const curr_character_relatioships_characters_character_uid = useRef(false);
+	useEffect(() => {
+		async function getCharacterRelationshipsCharacters() {
+			if (storyCharacters.length === 0) return false;
+			if (!character?._id) return false;
+			if (curr_character_relatioships_characters_character_uid.current === character.uid) return false;
+			curr_character_relatioships_characters_character_uid.current = character.uid;
+
+			// let newCharacters = (
+			// 	await Promise.all(
+			// 		groups.map(async (group) => {
+			// 			return await Promise.all(
+			// 				group?.data?.characters?.map(async (group_character) => {
+			// 					const character_response = await APIRequest(
+			// 						"/character/" + group_character.character_id + "?card=true&story_id=" + story_id,
+			// 						"GET"
+			// 					);
+			// 					if (character_response?.errors || !character_response?.data?.character) return false;
+			// 					let newCharacter = JSON.parse(JSON.stringify(character_response.data.character));
+			// 					if (newCharacter?.data?.faceImage) {
+			// 						const recentImage = recentImages.current.find((e) => e?._id === newCharacter?.data?.faceImage);
+			// 						if (recentImage) {
+			// 							newCharacter.data.faceImage = recentImage;
+			// 						} else {
+			// 							const face_image_response = await APIRequest("/image/" + newCharacter.data.faceImage, "GET");
+			// 							newCharacter.data.faceImage = face_image_response?.data?.image;
+			// 						}
+			// 					}
+			// 					return newCharacter;
+			// 				})
+			// 			);
+			// 		})
+			// 	)
+			// )
+			// 	.flat(1)
+			// 	.filter((e) => e !== false);
+
+			const characterIndex = storyCharacters.findIndex((e) => e.uid === character.uid);
+			const firstNewCharacterRelationshipsCharacters = JSON.parse(JSON.stringify(storyCharacters)).slice(characterIndex);
+			const lastNewCharacterRelationshipsCharacters = JSON.parse(JSON.stringify(storyCharacters)).slice(0, characterIndex);
+			const newCharacterRelationshipsCharacters = firstNewCharacterRelationshipsCharacters.concat(lastNewCharacterRelationshipsCharacters);
+
+			setCharacterRelationshipsCharacters(newCharacterRelationshipsCharacters);
+		}
+		getCharacterRelationshipsCharacters();
+	}, [storyCharacters, character]);
+
+	const curr_character_relatioships_character_uid = useRef(false);
+	useEffect(() => {
+		async function getCharacterRelationships() {
+			if (!character?._id) return false;
+			if (curr_character_relatioships_character_uid.current === character.uid) return false;
+			curr_character_relatioships_character_uid.current = character.uid;
+
+			const newCharacterRelationships = storyCharacterRelationships.filter((e) => e.character_ids.includes(character._id));
+			setCharacterRelationships(newCharacterRelationships);
+			return newCharacterRelationships;
+		}
+		getCharacterRelationships();
+	}, [setCharacterRelationships, storyCharacters, story, character, storyCharacterRelationships]);
 
 	function changeCharacterVersion(newCharacterVersion) {
 		setCharacterVersion(newCharacterVersion);
@@ -374,12 +327,9 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				storyIcon,
 				character,
 				setCharacter,
-				characterTypes,
-				setCharacterTypes,
-				groups,
-				setGroups,
-				characters,
-				setCharacters,
+				storyCharacterTypes,
+				storyGroups,
+				storyCharacters,
 				characterOverviewBackground,
 				setCharacterOverviewBackground,
 				characterCardBackground,
