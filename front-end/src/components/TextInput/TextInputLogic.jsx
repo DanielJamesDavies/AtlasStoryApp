@@ -137,6 +137,17 @@ export const TextInputLogic = (props) => {
 		if (e.code === "Enter") props.onKeyEnter();
 	}
 
+	const [inputContainerStyles, setInputContainerStyles] = useState({});
+	useLayoutEffect(() => {
+		function getInputContainerStyles() {
+			let newInputContainerStyles = {};
+			newInputContainerStyles["--inputHeight"] =
+				inputRef?.current?.clientHeight === undefined ? "15px" : inputRef?.current?.clientHeight + "px";
+			setInputContainerStyles(newInputContainerStyles);
+		}
+		getInputContainerStyles();
+	}, [setInputContainerStyles, inputRef]);
+
 	return {
 		inputContainerRef,
 		inputRef,
@@ -151,5 +162,6 @@ export const TextInputLogic = (props) => {
 		isHidden,
 		toggleIsHidden,
 		onKeyDown,
+		inputContainerStyles,
 	};
 };

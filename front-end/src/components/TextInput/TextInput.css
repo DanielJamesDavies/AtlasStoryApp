@@ -1,6 +1,7 @@
 .text-input-container {
 	display: inline-block;
 	width: 100%;
+	font-size: var(--fontSizePM);
 }
 
 .text-input-label {
@@ -19,6 +20,7 @@
 	border: 1px solid var(--grey3);
 	border-radius: 6px;
 	width: calc(100% - (1px * 2) - (12px * 2));
+	cursor: text;
 }
 
 .text-input-container-focused .text-input {
@@ -32,9 +34,9 @@
 	background: rgba(0, 0, 0, 0);
 	color: var(--textColour);
 	caret-color: var(--textColour);
-	font-size: var(--fontSizePM);
 	font-family: "Inter", sans-serif;
 	transition: border 0.1s;
+	cursor: text;
 }
 
 .text-input-input:focus {
@@ -96,6 +98,14 @@
 
 .text-input-container-seamless.text-input-container-empty .text-input-label {
 	display: block;
+	margin-top: 2px;
+	margin-bottom: -3px;
+	margin-left: 0;
+	font-size: inherit;
+}
+
+.text-input-container-seamless.text-input-container-empty .text-input-input {
+	margin-top: calc(-1 * var(--inputHeight) - 2px + 7px);
 }
 
 .text-input-container-seamless .text-input {

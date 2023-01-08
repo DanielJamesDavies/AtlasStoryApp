@@ -29,10 +29,6 @@
 	margin-bottom: 3px;
 }
 
-.character-subpage-psychology-item-title .text-input {
-	margin-top: 2px;
-}
-
 .character-subpage-psychology-item-title .text-input-label ~ input {
 	margin-top: 2px;
 	height: 17px;
@@ -47,12 +43,6 @@
 .character-subpage-psychology-item-title input {
 	font-size: 14px;
 	font-weight: 600;
-}
-
-.character-subpage-psychology-item .text-input-container-empty {
-	margin-top: 3px;
-	margin-bottom: 4px;
-	height: 17px;
 }
 
 .character-subpage-psychology-item-text {

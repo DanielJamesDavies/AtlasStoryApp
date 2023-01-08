@@ -30,10 +30,11 @@ export const TextInput = (props) => {
 		isHidden,
 		toggleIsHidden,
 		onKeyDown,
+		inputContainerStyles,
 	} = TextInputLogic(props);
 
 	return (
-		<div ref={inputContainerRef} className={inputClassName} onClick={focusOnInput}>
+		<div ref={inputContainerRef} className={inputClassName} onClick={focusOnInput} style={inputContainerStyles}>
 			<div className='text-input-label'>
 				{props.icon ? <DynamicIconComponent /> : null}
 				<span onClick={selectAll}>{props.label}</span>
