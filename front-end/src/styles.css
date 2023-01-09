@@ -119,14 +119,15 @@ body {
 	height: 100%;
 	overflow: hidden;
 
-	font-family: "Inter", sans-serif;
+	--fontFamily: "Inter", sans-serif;
+	font-family: var(--fontFamily);
 	color: var(--textColour);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
 input {
-	font-family: "Inter", sans-serif;
+	font-family: var(--fontFamily);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -136,7 +137,7 @@ button {
 }
 
 button:focus {
-	outline: 0;
+	outline: 0 !important;
 }
 
 img {

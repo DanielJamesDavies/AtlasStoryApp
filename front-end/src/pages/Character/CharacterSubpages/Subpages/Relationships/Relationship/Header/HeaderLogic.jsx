@@ -7,6 +7,7 @@ import { useContext, useRef, useEffect, useState } from "react";
 
 // Context
 import { CharacterContext } from "../../../../../CharacterContext";
+import { APIContext } from "../../../../../../../context/APIContext";
 
 // Services
 
@@ -14,18 +15,19 @@ import { CharacterContext } from "../../../../../CharacterContext";
 
 // Assets
 
-export const HeaderLogic = () => {
-	const { isAuthorizedToEdit, story, character, characters, selectedCharacterRelationshipsCharacterId } = useContext(CharacterContext);
+export const HeaderLogic = ({ relationship, changeRelationship }) => {
+	const { isAuthorizedToEdit, story, character, storyCharacters, selectedCharacterRelationshipsCharacterId } = useContext(CharacterContext);
+	const { APIRequest } = useContext(APIContext);
 
 	const [secondCharacter, setSecondCharacter] = useState(false);
 	useEffect(() => {
 		function getSecondCharacter() {
-			if (!characters || !selectedCharacterRelationshipsCharacterId) return false;
-			let newSecondCharacter = characters.find((e) => e._id === selectedCharacterRelationshipsCharacterId);
+			if (!storyCharacters || !selectedCharacterRelationshipsCharacterId) return false;
+			let newSecondCharacter = storyCharacters.find((e) => e._id === selectedCharacterRelationshipsCharacterId);
 			setSecondCharacter(newSecondCharacter);
 		}
 		getSecondCharacter();
-	}, [setSecondCharacter, selectedCharacterRelationshipsCharacterId, characters]);
+	}, [setSecondCharacter, selectedCharacterRelationshipsCharacterId, storyCharacters]);
 
 	const headerRef = useRef();
 
@@ -36,7 +38,43 @@ export const HeaderLogic = () => {
 		return () => (headerRefCurrent ? headerRefCurrent.removeEventListener("wheel", onWheel) : null);
 	}, [headerRef]);
 
-	function changeRelationshipType() {}
+	function changeRelationshipType(index) {
+		let newRelationship = JSON.parse(JSON.stringify(relationship));
+		newRelationship.relationship_type = story?.data?.characterRelationshipTypes[index]._id;
+		changeRelationship(newRelationship);
+	}
 
-	return { isAuthorizedToEdit, headerRef, story, character, secondCharacter, changeRelationshipType };
+	async function saveRelationshipType() {
+		const response = await APIRequest("/character-relationship/" + relationship._id, "PATCH", {
+			story_id: story._id,
+			path: ["relationship_type"],
+			newValue: relationship.relationship_type,
+		});
+		if (!response || response?.errors) return false;
+		return true;
+	}
+
+	async function revertRelationshipType() {
+		const response = await APIRequest("/character-relationship/get-value/" + relationship._id, "POST", {
+			story_id: story._id,
+			path: ["relationship_type"],
+		});
+		if (!response || response?.errors || response?.data?.value === undefined) return false;
+
+		let newRelationship = JSON.parse(JSON.stringify(relationship));
+		newRelationship.relationship_type = response.data.value;
+		changeRelationship(newRelationship);
+		return true;
+	}
+
+	return {
+		isAuthorizedToEdit,
+		headerRef,
+		story,
+		character,
+		secondCharacter,
+		changeRelationshipType,
+		saveRelationshipType,
+		revertRelationshipType,
+	};
 };

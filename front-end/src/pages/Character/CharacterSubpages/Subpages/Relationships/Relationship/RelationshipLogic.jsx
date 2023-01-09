@@ -15,7 +15,8 @@ import { CharacterContext } from "../../../../CharacterContext";
 // Assets
 
 export const RelationshipLogic = () => {
-	const { character, characterRelationships, selectedCharacterRelationshipsCharacterId } = useContext(CharacterContext);
+	const { character, characterRelationships, setCharacterRelationships, selectedCharacterRelationshipsCharacterId } =
+		useContext(CharacterContext);
 	const relationshipRef = useRef();
 
 	useEffect(() => {
@@ -34,10 +35,19 @@ export const RelationshipLogic = () => {
 				(e) => e.character_ids.includes(character._id) && e.character_ids.includes(selectedCharacterRelationshipsCharacterId)
 			);
 			setRelationship(newRelationship);
-			setRelationshipCharacterIndex(newRelationship.character_ids.findIndex((e) => e === character._id));
+			setRelationshipCharacterIndex(newRelationship.character_ids.findIndex((e) => e === character._id) + 1);
 		}
 		getRelationship();
 	}, [setRelationship, setRelationshipCharacterIndex, character, characterRelationships, selectedCharacterRelationshipsCharacterId]);
 
-	return { relationshipRef, relationship, setRelationship, relationshipCharacterIndex };
+	function changeRelationship(newRelationship) {
+		setRelationship(newRelationship);
+		let newCharacterRelationships = JSON.parse(JSON.stringify(characterRelationships));
+		const index = newCharacterRelationships.findIndex((e) => e._id === newRelationship._id);
+		if (index === -1) return false;
+		newCharacterRelationships[index] = newRelationship;
+		setCharacterRelationships(newCharacterRelationships);
+	}
+
+	return { relationshipRef, relationship, changeRelationship, relationshipCharacterIndex };
 };

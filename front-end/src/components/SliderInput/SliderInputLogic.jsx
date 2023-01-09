@@ -88,5 +88,17 @@ export const SliderInputLogic = ({ value, min, max, enableSlider, hasPercentageC
 		getSliderProgressStyles();
 	}, [setSliderProgressStyles, value, max, hasThumb]);
 
-	return { sliderInputContainerClassName, sliderThumbStyles, sliderLabelStyles, labelRef, sliderProgressStyles };
+	const sliderInputRef = useRef();
+	useEffect(() => {
+		const onTouch = (e) => (!enableSlider ? null : e.stopPropagation());
+		const sliderInputRefCurrent = sliderInputRef.current;
+		sliderInputRefCurrent.addEventListener("touchstart", onTouch);
+		sliderInputRefCurrent.addEventListener("touchmove", onTouch);
+		return () => {
+			sliderInputRefCurrent.removeEventListener("touchstart", onTouch);
+			sliderInputRefCurrent.removeEventListener("touchmove", onTouch);
+		};
+	}, [sliderInputRef, enableSlider]);
+
+	return { sliderInputRef, sliderInputContainerClassName, sliderThumbStyles, sliderLabelStyles, labelRef, sliderProgressStyles };
 };

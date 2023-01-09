@@ -10,7 +10,7 @@
 
 	background: var(--grey3);
 	color: #777;
-	font-family: "Inter", sans-serif;
+	font-family: var(--fontFamily);
 	vertical-align: middle;
 	cursor: text;
 }
@@ -123,7 +123,7 @@
 	background: rgba(0, 0, 0, 0);
 	color: var(--textColour);
 	font-size: var(--fontSizePM);
-	font-family: "Inter", sans-serif;
+	font-family: var(--fontFamily);
 	transition: border 0.1s;
 }
 

@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const Story = require("../models/Story");
 
 module.exports = async (req, res, next) => {
-	const storyFilter = { _id: 1, owner: 1, "data.members": 1 };
+	const storyFilter = { _id: 1, owner: 1, "data.isPrivate": 1, "data.members": 1 };
 	let story = false;
 	if (req?.query?.story_id) {
 		story = await Story.findById(req.query.story_id, storyFilter)

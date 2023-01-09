@@ -18,7 +18,7 @@ import "./Relationship.css";
 // Assets
 
 export const Relationship = ({ isDisplayingInfo }) => {
-	const { relationshipRef, relationship, setRelationship, relationshipCharacterIndex } = RelationshipLogic();
+	const { relationshipRef, relationship, changeRelationship, relationshipCharacterIndex } = RelationshipLogic();
 
 	return (
 		<div
@@ -30,8 +30,12 @@ export const Relationship = ({ isDisplayingInfo }) => {
 			}
 		>
 			<ContentItem className='character-subpage-relationships-relationship' hasBg={true}>
-				<Header relationship={relationship} setRelationship={setRelationship} />
-				<Items relationship={relationship} setRelationship={setRelationship} relationshipCharacterIndex={relationshipCharacterIndex} />
+				<Header relationship={relationship} changeRelationship={changeRelationship} />
+				<Items
+					relationship={relationship}
+					changeRelationship={changeRelationship}
+					relationshipCharacterIndex={relationshipCharacterIndex}
+				/>
 			</ContentItem>
 		</div>
 	);

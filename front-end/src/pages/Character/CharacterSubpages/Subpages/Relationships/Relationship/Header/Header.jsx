@@ -16,8 +16,17 @@ import "./Header.css";
 
 // Assets
 
-export const Header = ({ relationship }) => {
-	const { isAuthorizedToEdit, headerRef, story, character, secondCharacter, changeRelationshipType } = HeaderLogic();
+export const Header = ({ relationship, changeRelationship }) => {
+	const {
+		isAuthorizedToEdit,
+		headerRef,
+		story,
+		character,
+		secondCharacter,
+		changeRelationshipType,
+		saveRelationshipType,
+		revertRelationshipType,
+	} = HeaderLogic({ relationship, changeRelationship });
 
 	return (
 		<div ref={headerRef} className='character-subpage-relationships-relationship-header'>
@@ -28,6 +37,8 @@ export const Header = ({ relationship }) => {
 			<EditableContainer
 				className='character-subpage-relationships-relationship-header-type-container'
 				isAuthorizedToEdit={isAuthorizedToEdit}
+				onSave={saveRelationshipType}
+				onRevert={revertRelationshipType}
 			>
 				<div className='character-subpage-relationships-relationship-header-type'>
 					<div

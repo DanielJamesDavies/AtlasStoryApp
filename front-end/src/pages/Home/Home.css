@@ -22,7 +22,6 @@
 
 	.home-content {
 		top: calc(12px + 42px + 12px);
-		left: 0;
 		width: 100%;
 	}
 }
