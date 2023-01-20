@@ -21,14 +21,14 @@
 	margin: 4px 12px;
 	margin-top: calc(24px + 4px);
 	margin-bottom: calc(12px - 4px + 46px + 12px + 19px + 12px);
-	border: 5px solid var(--accentColour);
+	border: 5px solid var(--colour-accent);
 	border-color: var(--substoryColour);
 	border-radius: 6px;
 
 	width: 340px;
 	height: 510px;
 
-	background: var(--grey1);
+	background: var(--colour-grey-one);
 	box-shadow: 0 0 20px transparent;
 	cursor: pointer;
 	animation: substories-list-substories-poster-placeholder 3s infinite;
@@ -36,18 +36,18 @@
 
 @keyframes substories-list-substories-poster-placeholder {
 	0% {
-		border-color: var(--grey1);
-		background: var(--grey1);
+		border-color: var(--colour-grey-one);
+		background: var(--colour-grey-one);
 	}
 	15%,
 	55% {
-		border-color: var(--grey3);
-		background: var(--grey2);
+		border-color: var(--colour-grey-three);
+		background: var(--colour-grey-two);
 	}
 	88%,
 	100% {
-		border-color: var(--grey1);
-		background: var(--grey1);
+		border-color: var(--colour-grey-one);
+		background: var(--colour-grey-one);
 	}
 }
 
@@ -57,14 +57,14 @@
 	z-index: 1;
 	display: inline-block;
 	margin: 0;
-	border: 5px solid var(--accentColour);
+	border: 5px solid var(--colour-accent);
 	border-color: var(--substoryColour);
 	border-radius: 6px;
 
 	width: 340px;
 	height: 510px;
 
-	background: var(--grey1);
+	background: var(--colour-grey-one);
 	box-shadow: 0 0 20px transparent;
 	transition: 0.3s;
 	cursor: pointer;
@@ -142,7 +142,7 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-size: 18px;
-	color: var(--textSecondaryColour);
+	color: var(--text-colour-secondary);
 	transition: 0.3s;
 }
 

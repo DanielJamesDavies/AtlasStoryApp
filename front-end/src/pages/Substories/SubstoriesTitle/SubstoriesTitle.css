@@ -19,7 +19,7 @@
 	border-radius: 4px;
 	width: 100%;
 	height: 1px;
-	background: var(--grey5);
+	background: var(--colour-grey-five);
 }
 
 .substories-title-story-icon {
@@ -38,7 +38,7 @@
 	border-radius: inherit;
 	width: 100%;
 	height: 100%;
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .substories-title-story-icon img {

@@ -12,9 +12,10 @@
 
 .story-header-main-info-title,
 .story-header-main-info-title-container input {
-	font-weight: 600;
+	--text-input-font-size: 40px;
 	font-size: 40px;
-	color: var(--textColour);
+	font-weight: 600;
+	color: var(--text-colour-primary);
 }
 
 @media (max-width: 750px) {

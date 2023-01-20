@@ -33,7 +33,7 @@
 @media (max-width: 1100px) {
 	.characters-relationship-container {
 		min-height: 100%;
-		height: calc(var(--vh) - var(--navbarMobileHeight) - 48px - 48px);
+		height: calc(var(--vh) - var(--navbar-mobile-height) - 48px - 48px);
 	}
 
 	.characters-relationship-primary-buttons-container {

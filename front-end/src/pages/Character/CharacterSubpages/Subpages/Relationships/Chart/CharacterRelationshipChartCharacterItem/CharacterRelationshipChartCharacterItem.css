@@ -12,13 +12,13 @@
 
 .character-subpage-relationships-chart-character-item-face-image {
 	margin: 0 auto;
-	border: 3px solid var(--grey1);
+	border: 3px solid var(--colour-grey-one);
 	border-radius: 100%;
 
 	width: calc(var(--characterRelationshipsChartItemWidth) - 6px);
 	height: calc(var(--characterRelationshipsChartItemWidth) - 6px);
 
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 	pointer-events: all;
 	cursor: pointer;
 }

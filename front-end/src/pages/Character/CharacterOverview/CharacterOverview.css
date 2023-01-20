@@ -5,7 +5,7 @@
 	padding-top: calc(6px + 48px + 59px + 24px);
 	padding-left: 24px;
 	padding-right: 0;
-	width: calc(100vw - var(--navbarWidth) - 24px - 6px - 24px - 12px);
+	width: calc(100vw - var(--navbar-width) - 24px - 6px - 24px - 12px);
 	height: calc(100% - (6px + 48px + 59px + 24px));
 	overflow: visible;
 	vertical-align: top;
@@ -37,8 +37,8 @@
 	z-index: -1;
 	top: 50%;
 	left: 50%;
-	transform: translate(calc(-50% + ((var(--navbarWidth)) / 2) - 9px), calc(-50%));
-	width: calc(100vw - var(--navbarWidth));
+	transform: translate(calc(-50% + ((var(--navbar-width)) / 2) - 9px), calc(-50%));
+	width: calc(100vw - var(--navbar-width));
 	height: 100vh;
 	overflow: hidden;
 	transition: opacity 0.4s;
@@ -108,7 +108,7 @@
 
 	.character-overview-background {
 		width: 100vw;
-		transform: translate(calc(-50%), calc(-50% + (var(--navbarMobileHeight)) / 2));
+		transform: translate(calc(-50%), calc(-50% + (var(--navbar-mobile-height)) / 2));
 		transition: opacity 0.2s;
 		transition-delay: 0.1s;
 	}

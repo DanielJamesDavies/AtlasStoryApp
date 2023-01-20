@@ -3,8 +3,8 @@
 	z-index: 1;
 	top: 12px;
 	left: 50%;
-	transform: translateX(calc(-50% + (var(--navbarWidth) / 2)));
-	width: calc(100% - var(--navbarWidth));
+	transform: translateX(calc(-50% + (var(--navbar-width) / 2)));
+	width: calc(100% - var(--navbar-width));
 	max-width: 1550px;
 	text-align: center;
 }

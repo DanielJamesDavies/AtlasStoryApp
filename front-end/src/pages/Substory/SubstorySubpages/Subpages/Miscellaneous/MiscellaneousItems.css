@@ -10,6 +10,6 @@
 
 @media (max-width: 750px) {
 	.substory-subpage-miscellaneous-items {
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--substoryPrimaryPaddingTop) - 36px - 12px);
+		max-height: calc(var(--vh) - var(--navbar-mobile-height) - var(--substoryPrimaryPaddingTop) - 36px - 12px);
 	}
 }

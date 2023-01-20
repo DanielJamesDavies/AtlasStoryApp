@@ -1,7 +1,7 @@
 .characters-relationship-chart-character-item {
 	position: absolute;
-	width: var(--charactersRelationshipChartItemWidth);
-	height: calc(var(--charactersRelationshipChartItemWidth) + 18px);
+	width: var(--charactersrelationshipchartitem-width);
+	height: calc(var(--charactersrelationshipchartitem-width) + 18px);
 	pointer-events: none;
 }
 
@@ -12,13 +12,13 @@
 
 .characters-relationship-chart-character-item-face-image {
 	margin: 0 auto;
-	border: 3px solid var(--grey1);
+	border: 3px solid var(--colour-grey-one);
 	border-radius: 100%;
 
-	width: calc(var(--charactersRelationshipChartItemWidth) - 6px);
-	height: calc(var(--charactersRelationshipChartItemWidth) - 6px);
+	width: calc(var(--charactersrelationshipchartitem-width) - 6px);
+	height: calc(var(--charactersrelationshipchartitem-width) - 6px);
 
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 	pointer-events: all;
 	cursor: pointer;
 }

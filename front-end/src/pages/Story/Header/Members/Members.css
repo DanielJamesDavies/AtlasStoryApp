@@ -3,7 +3,7 @@
 	margin-bottom: 3px;
 	font-weight: 400;
 	font-size: 16px;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 	min-height: 24px;
 }
 
@@ -25,8 +25,8 @@
 	padding: 4px 8px;
 	border-radius: 4px;
 
-	background: var(--grey4);
-	color: var(--textColour);
+	background: var(--colour-grey-four);
+	color: var(--text-colour-primary);
 	font-weight: 400;
 	font-size: 16px;
 	opacity: 0;

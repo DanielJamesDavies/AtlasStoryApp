@@ -3,13 +3,13 @@
 	padding-right: 12px;
 	padding-bottom: 6px;
 	text-align: right;
-	color: var(--lightgreen);
+	color: var(--colour-light-green);
 }
 
 .suggestions-message-label {
 	display: inline-block;
 	font-weight: 600;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 .suggestions-message-suggestion {

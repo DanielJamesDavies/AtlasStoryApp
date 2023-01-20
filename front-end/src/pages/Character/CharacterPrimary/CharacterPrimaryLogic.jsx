@@ -23,7 +23,7 @@ export const CharacterPrimaryLogic = ({ characterPrimaryRef }) => {
 	useEffect(() => {
 		async function getPrimaryStyles() {
 			let newPrimaryStoryStyles = {};
-			newPrimaryStoryStyles["--textColour"] = await getTextColour();
+			newPrimaryStoryStyles["--text-colour-primary"] = await getTextColour();
 			newPrimaryStoryStyles["minHeight"] = getHeight();
 			newPrimaryStoryStyles["--characterPrimaryMinHeight"] = getHeight();
 			setPrimaryStoryStyles(newPrimaryStoryStyles);

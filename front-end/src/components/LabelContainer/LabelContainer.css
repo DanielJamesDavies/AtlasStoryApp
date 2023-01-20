@@ -28,7 +28,7 @@
 	font-weight: 600;
 	word-break: break-word;
 	overflow-wrap: anywhere;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 .label-container-is-inline .label-label {
@@ -46,7 +46,7 @@
 	font-weight: 400;
 	word-break: break-word;
 	overflow-wrap: anywhere;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 .label-container-is-inline .label-value {
@@ -66,7 +66,7 @@
 
 .label-container-is-inline .label-value input {
 	text-align: right;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 .label-container-is-inline .label-value .dropdown-container {

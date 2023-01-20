@@ -8,7 +8,7 @@
 	margin-bottom: 6px;
 	color: #bbbbbb;
 	font-weight: 600;
-	font-size: var(--fontSizePS);
+	font-size: var(--font-size-p-s);
 	text-align: left;
 }
 
@@ -17,7 +17,7 @@
 	border-radius: 100%;
 	width: 150px;
 	height: 150px;
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 	transition: 0.2s;
 	cursor: pointer;
 }
@@ -40,7 +40,7 @@
 	height: 48px;
 
 	font-size: 48px;
-	color: var(--blue);
+	color: var(--colour-blue);
 	opacity: 0;
 	transition: 0.2s;
 }
@@ -62,7 +62,7 @@
 	width: 150px;
 	height: 150px;
 
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 	opacity: 0.6;
 }
 

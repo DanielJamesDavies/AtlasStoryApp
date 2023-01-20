@@ -35,7 +35,7 @@
 .story-settings-members-user-item-names-username {
 	font-weight: 400;
 	font-size: 16px;
-	color: var(--textSecondaryColour);
+	color: var(--text-colour-secondary);
 }
 
 .story-settings-members-user-item-btns-container {
@@ -44,7 +44,7 @@
 
 .story-settings-members-user-item-btns-container .icon-btn:hover,
 .story-settings-members-user-item-btns-container .icon-btn:focus {
-	color: var(--lightgreen);
+	color: var(--colour-light-green);
 }
 
 @media (max-width: 750px) {

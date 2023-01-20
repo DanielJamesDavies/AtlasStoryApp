@@ -46,16 +46,16 @@
 
 .characters-groups-group-items-container::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--scrollBarThumbBackground);
+	background: var(--colour-scroll-bar-thumb-background);
 }
 
 .characters-groups-group-item-container .btn-list-item-active {
-	background: var(--accentColour);
+	background: var(--colour-accent);
 	color: #fff;
 }
 
 .characters-groups-group-item-container .btn-list-item-active:hover {
-	background: var(--accentHoverColour);
+	background: var(--colour-accent-hover);
 	color: #fff;
 }
 
@@ -77,8 +77,8 @@
 	width: 100%;
 	height: 39px;
 
-	background: var(--grey3);
-	color: var(--textColour);
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
 	font-size: 15px;
 	text-align: left;
 	transition: 0.2s;

@@ -26,7 +26,7 @@
 	width: 96px;
 	height: 36px;
 
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 	color: #fff;
 	text-align: center;
 	font-weight: 600;
@@ -35,7 +35,7 @@
 }
 
 .story-header-follow-btn:hover {
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 }
 
 .story-header-is-authorized .story-header-follow-btn {
@@ -48,7 +48,7 @@
 }
 
 .story-header-follow-btn-is-following:hover {
-	background: var(--red);
+	background: var(--colour-red);
 	color: #fff;
 }
 

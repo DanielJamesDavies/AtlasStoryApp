@@ -31,7 +31,7 @@
 	.substory-subpage-soundtrack-playlist-selector-container.pop-up-container {
 		top: var(--substoryPrimaryPaddingTop);
 		transform: translateX(100vw);
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - (var(--substoryPrimaryPaddingTop)) - 12px);
+		max-height: calc(var(--vh) - var(--navbar-mobile-height) - (var(--substoryPrimaryPaddingTop)) - 12px);
 	}
 
 	.substory-subpage-soundtrack-playlist-selector-container.pop-up-container .pop-up-content-container {
@@ -47,7 +47,7 @@
 		max-height: min(
 			600px,
 			calc(600px - 24px - 32px - 24px - 17px - 12px - 30px),
-			calc(var(--vh) - var(--navbarMobileHeight) - (var(--substoryPrimaryPaddingTop)) - 12px - 24px - 32px - 24px - 17px - 12px - 43px)
+			calc(var(--vh) - var(--navbar-mobile-height) - (var(--substoryPrimaryPaddingTop)) - 12px - 24px - 32px - 24px - 17px - 12px - 43px)
 		);
 	}
 }

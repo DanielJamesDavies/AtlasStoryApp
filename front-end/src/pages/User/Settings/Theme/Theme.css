@@ -71,7 +71,7 @@
 }
 
 .user-settings-theme-btn-active .user-settings-theme-btn-colour {
-	box-shadow: 0 0 6px 2px var(--grey3);
+	box-shadow: 0 0 6px 2px var(--colour-grey-three);
 }
 
 .user-settings-theme-btn-label {
@@ -82,7 +82,7 @@
 	padding: 4px 8px;
 	border-radius: 3px;
 
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 	opacity: 0;
 	pointer-events: none;
 	transition: 0.2s;

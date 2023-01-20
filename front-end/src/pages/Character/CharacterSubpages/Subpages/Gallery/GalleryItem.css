@@ -39,8 +39,8 @@
 	max-width: calc(100% - 16px);
 	word-break: break-word;
 	overflow-wrap: anywhere;
-	background: var(--grey3);
-	color: var(--textColour);
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
 }
 
 .character-subpage-gallery-item-caption,

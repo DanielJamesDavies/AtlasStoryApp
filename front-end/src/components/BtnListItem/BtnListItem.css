@@ -7,7 +7,7 @@
 	border-radius: 20px;
 	box-sizing: border-box;
 	min-height: 35px;
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .btn-list-item {
@@ -19,17 +19,17 @@
 }
 
 .btn-list-item-clickable:hover {
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 }
 
 .btn-list-item-active {
-	background: var(--grey4);
-	border-color: var(--white);
+	background: var(--colour-grey-four);
+	border-color: var(--colour-white);
 }
 
 .btn-list-item-active:hover {
-	background: var(--grey5);
-	border-color: var(--white);
+	background: var(--colour-grey-five);
+	border-color: var(--colour-white);
 }
 
 .btn-list-item-value {

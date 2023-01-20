@@ -20,7 +20,7 @@
 	border-radius: 4px;
 	width: 100%;
 	height: 2px;
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 }
 
 .notes-list-item-container:last-child::after {
@@ -136,8 +136,8 @@
 	max-width: calc(100% - 16px);
 	word-break: break-word;
 	overflow-wrap: anywhere;
-	background: var(--grey3);
-	color: var(--textColour);
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
 }
 
 .notes-list-item-image-item-caption,

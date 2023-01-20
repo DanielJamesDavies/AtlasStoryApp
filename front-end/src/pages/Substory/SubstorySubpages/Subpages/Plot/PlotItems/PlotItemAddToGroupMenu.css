@@ -6,7 +6,7 @@
 	padding: 10px 16px;
 	width: 200px;
 	border-radius: 2px;
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .substory-subpage-plot-item-add-to-group-menu-container-hidden {
@@ -67,8 +67,8 @@
 
 	width: 100%;
 
-	background: var(--grey4);
-	color: var(--textColour);
+	background: var(--colour-grey-four);
+	color: var(--text-colour-primary);
 	font-size: 14px;
 	text-align: left;
 	transition: 0.2s;
@@ -76,7 +76,7 @@
 }
 
 .substory-subpage-plot-item-add-to-group-menu-slide-btn:hover {
-	background: var(--grey5);
+	background: var(--colour-grey-five);
 }
 
 .substory-subpage-plot-item-add-to-group-menu-slide-btn-active,

@@ -3,7 +3,7 @@
 	max-width: 850px;
 	font-size: 52px;
 	font-weight: 500;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 @media (max-width: 800px) {

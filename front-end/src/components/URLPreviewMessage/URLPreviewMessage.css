@@ -3,13 +3,13 @@
 	padding-right: 12px;
 	padding-top: 6px;
 	text-align: right;
-	color: var(--lightgreen);
+	color: var(--colour-light-green);
 }
 
 .url-preview-message-label {
 	display: inline-block;
 	font-weight: 600;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 .url-preview-message-suggestion {

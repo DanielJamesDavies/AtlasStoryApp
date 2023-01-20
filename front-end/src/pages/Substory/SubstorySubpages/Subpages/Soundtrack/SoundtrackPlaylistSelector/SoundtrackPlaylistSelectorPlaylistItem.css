@@ -9,12 +9,12 @@
 }
 
 .substory-subpage-soundtrack-playlist-selector-playlist-item:hover {
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 }
 
 .substory-subpage-soundtrack-playlist-selector-playlist-item:focus {
 	outline: 0;
-	background: var(--grey5);
+	background: var(--colour-grey-five);
 }
 
 .substory-subpage-soundtrack-playlist-selector-playlist-item-photo {
@@ -23,7 +23,7 @@
 	width: var(--photoWidth);
 	min-height: var(--photoWidth);
 	height: var(--photoWidth);
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .substory-subpage-soundtrack-playlist-selector-playlist-item-photo img {

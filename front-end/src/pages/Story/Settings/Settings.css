@@ -15,6 +15,7 @@
 .story-settings-input-container {
 	position: relative;
 	margin: 6px 0;
+	width: 100%;
 }
 
 .editable-container-is-editing.story-settings-input-container {

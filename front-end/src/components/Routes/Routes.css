@@ -5,7 +5,7 @@
 
 .content-container {
 	display: inline-block;
-	width: calc(100vw - var(--navbarWidth) - 4px);
+	width: calc(100vw - var(--navbar-width) - 4px);
 	height: 100%;
 	vertical-align: top;
 	overflow-y: overlay;
@@ -23,7 +23,7 @@
 
 .content-container::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--scrollBarThumbBackground);
+	background: var(--colour-scroll-bar-thumb-background);
 }
 
 .content-container-unauthorized {
@@ -40,6 +40,6 @@
 
 	.content-container {
 		width: 100vw;
-		height: calc(100% - var(--navbarMobileHeight));
+		height: calc(100% - var(--navbar-mobile-height));
 	}
 }

@@ -21,5 +21,5 @@
 }
 
 .confirm-delete-btn-delete:hover {
-	color: var(--red);
+	color: var(--colour-red);
 }

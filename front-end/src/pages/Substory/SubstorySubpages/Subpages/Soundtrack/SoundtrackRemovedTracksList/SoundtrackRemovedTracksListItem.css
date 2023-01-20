@@ -13,19 +13,19 @@
 
 	width: calc(50% - 6px);
 
-	background: var(--grey1);
-	color: var(--textColour);
+	background: var(--colour-grey-one);
+	color: var(--text-colour-primary);
 	text-align: left;
 	transition: background 0.1s;
 	cursor: pointer;
 }
 
 .substory-subpage-soundtrack-removed-track:hover .substory-subpage-soundtrack-removed-track-song {
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .substory-subpage-soundtrack-removed-track-song:focus {
-	background: var(--grey4) !important;
+	background: var(--colour-grey-four) !important;
 }
 
 .substory-subpage-soundtrack-removed-track-artwork {
@@ -39,7 +39,7 @@
 	width: var(--artworkWidth);
 	min-height: var(--artworkWidth);
 	height: var(--artworkWidth);
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .substory-subpage-soundtrack-removed-track-artwork img {
@@ -61,12 +61,12 @@
 
 .substory-subpage-soundtrack-removed-track-artists {
 	font-size: 11px;
-	color: var(--textTertiaryColour);
+	color: var(--text-colour-tertiary);
 }
 
 .substory-subpage-soundtrack-removed-track-album {
 	font-size: 11px;
-	color: var(--textTertiaryColour);
+	color: var(--text-colour-tertiary);
 }
 
 .substory-subpage-soundtrack-removed-track-text-container {

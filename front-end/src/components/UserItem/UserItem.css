@@ -9,14 +9,14 @@
 	padding: 8px 16px;
 	border-radius: 18px;
 
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 	width: fit-content;
 	transition: background 0.2s;
 	cursor: pointer;
 }
 
 .user-item:hover {
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .user-item-profile-picture {

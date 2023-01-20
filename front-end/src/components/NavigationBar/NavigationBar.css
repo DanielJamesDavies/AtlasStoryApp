@@ -2,10 +2,10 @@
 	position: relative;
 	display: inline-block;
 	padding: 24px 12px;
-	width: calc(var(--navbarWidth) - (12px * 2));
+	width: calc(var(--navbar-width) - (12px * 2));
 	height: calc(100% - 48px);
-	background: var(--grey1);
-	--navigationBarBtnColour: var(--textSecondaryColour);
+	background: var(--colour-grey-one);
+	--navigationbarbtn-colour: var(--text-colour-secondary);
 }
 
 .navigation-bar-btn-container {
@@ -21,7 +21,7 @@
 	display: inline-block;
 	margin: 8px auto;
 	padding: 0;
-	border: 2px solid var(--grey2);
+	border: 2px solid var(--colour-grey-two);
 	border: 0;
 	border-radius: 18px;
 
@@ -29,7 +29,7 @@
 	height: 44px;
 
 	background: #00000000;
-	color: var(--navigationBarBtnColour);
+	color: var(--navigationbarbtn-colour);
 	font-size: 22px;
 	text-align: center;
 	transition: 0.2s;
@@ -49,22 +49,22 @@
 }
 
 .navigation-bar-btn:hover::before {
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .navigation-bar-btn-active,
 .navigation-bar-btn-active img {
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .navigation-bar-btn-active:hover,
 .navigation-bar-btn-active:hover img {
-	color: var(--navigationBarBtnColour);
+	color: var(--navigationbarbtn-colour);
 }
 
 .navigation-bar-btn-active::before,
 .navigation-bar-btn-active:hover::before {
-	background: var(--navigationBarBtnColour);
+	background: var(--navigationbarbtn-colour);
 }
 
 .navigation-bar-btn img {
@@ -83,7 +83,7 @@
 
 .navigation-bar-btn:hover,
 .navigation-bar-btn:hover img {
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .navigation-bar-btn svg {
@@ -98,7 +98,7 @@
 	border-radius: inherit;
 	width: 100%;
 	height: 100%;
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .navigation-bar-btn-label {
@@ -107,16 +107,16 @@
 	top: 50%;
 	left: calc(51px + 8px);
 	transform: translateY(-50%);
-	padding: 8px;
+	padding: 6px 8px;
 	padding-right: 10px;
-	border-radius: 5px;
+	border-radius: 4px;
 
 	width: max-content;
 	max-width: 120px;
 	overflow-y: visible;
 
-	background: var(--grey3);
-	font-size: 14px;
+	background: var(--colour-grey-three);
+	font-size: 13px;
 	font-weight: 600;
 	pointer-events: none;
 	transition: 0.2s;
@@ -135,7 +135,7 @@
 		justify-content: space-between;
 		order: 1;
 		padding: 0 6px;
-		height: var(--navbarMobileHeight);
+		height: var(--navbar-mobile-height);
 		width: calc(100vw - 12px);
 	}
 

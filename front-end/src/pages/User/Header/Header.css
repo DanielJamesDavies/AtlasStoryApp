@@ -20,7 +20,7 @@
 	content: "";
 	width: 100%;
 	height: calc(117px + 24px + 1px);
-	background: linear-gradient(180deg, transparent, var(--grey1));
+	background: linear-gradient(180deg, transparent, var(--colour-grey-one));
 	pointer-events: none;
 }
 

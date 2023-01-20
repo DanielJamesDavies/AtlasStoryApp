@@ -36,7 +36,7 @@
 	padding: 5px 10px;
 	border-radius: 18px;
 
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 	transition: background 0.1s;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .editable-container-is-editing .story-genres-item:hover {
-	background: var(--grey5);
+	background: var(--colour-grey-five);
 }
 
 .story-genres-item-active {
@@ -125,7 +125,7 @@
 .story-genres-new-genre-label {
 	margin-right: 8px;
 	font-size: 14px;
-	color: var(--lightgreen);
+	color: var(--colour-light-green);
 }
 
 .story-genres-new-genre-label-value {

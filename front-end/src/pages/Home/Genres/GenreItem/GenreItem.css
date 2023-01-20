@@ -8,7 +8,7 @@
 
 	min-width: min(115px, calc(50% - 14px - 6px - 22px));
 
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 	word-break: break-word;
 	overflow-wrap: anywhere;
 	transition: background 0.1s;
@@ -16,16 +16,16 @@
 }
 
 .home-genres-list-item:hover {
-	background: var(--grey5);
+	background: var(--colour-grey-five);
 }
 
 .home-genres-list-item-favourited {
-	background: var(--blue);
+	background: var(--colour-blue);
 	color: #fff;
 }
 
 .home-genres-list-item-favourited:hover {
-	background: var(--blue2);
+	background: var(--colour-blue-two);
 }
 
 .home-genres-list-item-title {
@@ -82,7 +82,7 @@
 }
 
 .home-genres-list-item-delete-btn-container .icon-btn:hover {
-	color: var(--textSecondaryColour);
+	color: var(--text-colour-secondary);
 }
 
 .home-genres-list-item-delete-btn-container svg {
@@ -107,7 +107,7 @@
 
 .home-genres-list-item .icon-btn,
 .home-genres-list-item .icon-btn:hover {
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 @media (max-width: 750px) {

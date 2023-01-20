@@ -42,7 +42,7 @@
 .home-genres-list-new-genre-label {
 	margin-right: 8px;
 	font-size: 14px;
-	color: var(--lightgreen);
+	color: var(--colour-light-green);
 }
 
 .home-genres-list-new-genre-label-value {
@@ -81,12 +81,12 @@
 		border-radius: 4px;
 		height: 6px;
 		background: transparent;
-		background: var(--grey1);
+		background: var(--colour-grey-one);
 	}
 
 	.home-genres-list::-webkit-scrollbar-thumb:horizontal {
 		border-radius: 4px;
-		background: var(--blue);
+		background: var(--colour-blue);
 	}
 
 	.home-genres-list-search-container {

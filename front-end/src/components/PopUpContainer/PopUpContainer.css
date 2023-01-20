@@ -33,7 +33,7 @@
 
 .pop-up-content-container::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--scrollBarThumbBackground);
+	background: var(--colour-scroll-bar-thumb-background);
 }
 
 .pop-up-content {
@@ -41,9 +41,9 @@
 	border-radius: 8px;
 
 	width: calc(100% - (34px * 2));
-	--popUpContentHeight: min(calc(680px - 48px - 24px), calc(var(--vh) - 24px - 48px - 24px));
+	--popupcontent-height: min(calc(680px - 48px - 24px), calc(var(--vh) - 24px - 48px - 24px));
 
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .pop-up-content-primary-container {
@@ -88,7 +88,7 @@
 	.pop-up-content {
 		padding: 8px 12px;
 		width: calc(100% - (12px * 2));
-		--popUpContentHeight: min(calc(600px - 24px - (8px * 2)), calc(var(--vh) - 48px - (8px * 2)));
+		--popupcontent-height: min(calc(600px - 24px - (8px * 2)), calc(var(--vh) - 48px - (8px * 2)));
 	}
 
 	.pop-up-content-primary-title {

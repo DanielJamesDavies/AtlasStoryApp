@@ -13,8 +13,9 @@
 
 .user-header-names-nickname,
 .user-header-names-nickname-container input {
-	font-weight: 600;
+	--text-input-font-size: 24px;
 	font-size: 24px;
+	font-weight: 600;
 }
 
 .user-header-names-nickname-container {
@@ -26,9 +27,9 @@
 }
 
 .user-header-names-username {
-	font-weight: 300;
 	font-size: 16px;
-	color: var(--textSecondaryColour);
+	font-weight: 300;
+	color: var(--text-colour-secondary);
 }
 
 .theme-light .user-header-names-username {

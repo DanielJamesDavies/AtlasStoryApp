@@ -49,13 +49,13 @@
 	margin-left: auto;
 	width: fit-content;
 	font-size: 15px;
-	color: var(--textSecondaryColour);
+	color: var(--text-colour-secondary);
 	transition: colour 0.1s;
 	cursor: pointer;
 }
 
 .login-form-forgot-password:hover {
-	color: var(--blue2);
+	color: var(--colour-blue-two);
 }
 
 @media (max-width: 750px) {

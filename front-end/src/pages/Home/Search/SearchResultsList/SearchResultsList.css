@@ -4,7 +4,7 @@
 	border-radius: 8px;
 	width: calc(100% - 24px);
 	text-align: center;
-	background: var(--grey1);
+	background: var(--colour-grey-one);
 }
 
 .home-search-results-list-title {
@@ -36,13 +36,13 @@
 	border-radius: 4px;
 	height: 6px;
 	background: transparent;
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .home-search-results-users-list::-webkit-scrollbar-thumb:horizontal,
 .home-search-results-stories-list::-webkit-scrollbar-thumb:horizontal {
 	border-radius: 4px;
-	background: var(--blue);
+	background: var(--colour-blue);
 }
 
 .home-search-results-user-item {
@@ -63,7 +63,7 @@
 	.home-search-results-list-container {
 		margin-left: 0;
 		margin-right: 0;
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - 6px - 50px - 4px - 12px);
+		max-height: calc(var(--vh) - var(--navbar-mobile-height) - 6px - 50px - 4px - 12px);
 		overflow-y: overlay;
 	}
 
@@ -74,6 +74,6 @@
 
 	.home-search-results-list-container::-webkit-scrollbar-thumb {
 		border-radius: 4px;
-		background: var(--blue);
+		background: var(--colour-blue);
 	}
 }

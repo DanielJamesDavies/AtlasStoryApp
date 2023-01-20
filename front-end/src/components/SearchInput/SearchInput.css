@@ -5,14 +5,14 @@
 
 .search-input {
 	padding: 10px 16px;
-	border: 1px solid var(--grey4);
+	border: 1px solid var(--colour-grey-four);
 	border-radius: 30px;
 	outline: 0;
 
 	width: 100%;
 	box-sizing: border-box;
 
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 	color: #fff;
 	font-size: 13px;
 	font-weight: 600;
@@ -21,8 +21,8 @@
 
 .search-input:focus {
 	outline: 0;
-	border-color: var(--blue);
-	background: var(--grey2);
+	border-color: var(--colour-blue);
+	background: var(--colour-grey-two);
 }
 
 .search-input-placeholder-container {
@@ -42,13 +42,13 @@
 	margin-top: 2px;
 	margin-bottom: -2px;
 	font-size: 18px;
-	color: var(--textSecondaryColour);
+	color: var(--text-colour-secondary);
 }
 
 .search-input-placeholder-text {
 	margin-left: 10px;
 	font-size: 13px;
-	color: var(--textSecondaryColour);
+	color: var(--text-colour-secondary);
 }
 
 .search-input:focus ~ .search-input-placeholder-container {

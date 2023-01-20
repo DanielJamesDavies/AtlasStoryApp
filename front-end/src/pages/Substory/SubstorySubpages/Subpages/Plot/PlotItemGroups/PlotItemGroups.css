@@ -18,7 +18,7 @@
 	.substory-subpage-plot-item-groups-container {
 		position: absolute;
 		z-index: 1000;
-		background: var(--grey1);
+		background: var(--colour-grey-one);
 		top: 51px;
 		margin-right: 0;
 		padding: 0;

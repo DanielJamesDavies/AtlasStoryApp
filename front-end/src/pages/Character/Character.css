@@ -16,7 +16,7 @@
 	content: "";
 	width: calc(100% + (7px));
 	height: calc(var(--characterPaddingTop) + 12px);
-	background: linear-gradient(0deg, var(--characterColour), var(--grey1));
+	background: linear-gradient(0deg, var(--characterColour), var(--colour-grey-one));
 	opacity: 0.6;
 	transition: opacity 0.2s;
 }
@@ -36,7 +36,7 @@
 	content: "";
 	width: calc(100% + (7px));
 	height: calc(6px + 6px + 36px);
-	background: linear-gradient(180deg, var(--characterColour), var(--grey1));
+	background: linear-gradient(180deg, var(--characterColour), var(--colour-grey-one));
 	opacity: 0.35;
 	transition: opacity 0.2s;
 }
@@ -91,7 +91,7 @@
 }
 
 .character-content-container-is-on-subpages {
-	transform: translateX(calc(-1 * (100vw - var(--navbarWidth) - 24px - 12px - 6px)));
+	transform: translateX(calc(-1 * (100vw - var(--navbar-width) - 24px - 12px - 6px)));
 }
 
 @media (max-width: 750px) {

@@ -65,11 +65,11 @@
 @keyframes character-subpage-miscellaneous-item-images-container-is-current {
 	0%,
 	100% {
-		background: var(--grey1);
+		background: var(--colour-grey-one);
 	}
 	35%,
 	65% {
-		background: var(--grey3);
+		background: var(--colour-grey-three);
 	}
 }
 
@@ -115,16 +115,16 @@
 
 .character-subpage-miscellaneous-item-title,
 .character-subpage-miscellaneous-item-title input {
-	font-size: var(--fontSizePM);
+	font-size: var(--font-size-p-m);
 	font-weight: 600;
 }
 
 .character-subpage-miscellaneous-item .text-input-container-empty {
-	height: var(--fontSizePMHeight);
+	height: var(--font-size-p-m-height);
 }
 
 .character-subpage-miscellaneous-item-text {
-	min-height: var(--fontSizePMHeight);
+	min-height: var(--font-size-p-m-height);
 }
 
 .character-subpage-miscellaneous-item-image-item-caption {
@@ -134,7 +134,7 @@
 	max-width: calc(100% - 16px);
 	word-break: break-word;
 	overflow-wrap: anywhere;
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .character-subpage-miscellaneous-item-image-item-caption,

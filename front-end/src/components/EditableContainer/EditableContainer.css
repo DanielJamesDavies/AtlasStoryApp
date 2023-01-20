@@ -57,7 +57,7 @@
 
 .editable-container-is-editing .editable-container-buttons-container {
 	z-index: 120;
-	background: var(--grey1);
+	background: var(--colour-grey-one);
 }
 
 .editable-container-edit-btn {
@@ -71,7 +71,7 @@
 	height: 18px;
 
 	background: transparent;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 	font-size: 18px;
 	text-align: center;
 
@@ -80,11 +80,11 @@
 }
 
 .editable-container-is-editing .editable-container-edit-btn {
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 .editable-container-edit-btn:hover {
-	color: var(--accentColour);
+	color: var(--colour-accent);
 }
 
 .editable-container-edit-btn:first-child {
@@ -149,7 +149,7 @@
 	z-index: 1;
 	width: 20px;
 	height: 20px;
-	color: var(--grey1);
+	color: var(--colour-grey-one);
 }
 
 .editable-container-edit-btn-small-icon-bg-1 {
@@ -168,7 +168,7 @@
 
 .editable-container-edit-btn:hover .editable-container-edit-btn-small-icon {
 	background: transparent;
-	color: var(--accentColour);
+	color: var(--colour-accent);
 }
 
 @media (max-width: 750px) {

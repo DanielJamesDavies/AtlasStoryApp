@@ -88,9 +88,21 @@ export const SliderInputLogic = ({ value, min, max, enableSlider, hasPercentageC
 		getSliderProgressStyles();
 	}, [setSliderProgressStyles, value, max, hasThumb]);
 
-	const sliderInputRef = useRef();
+	const sliderInputContainerRef = useRef();
 	useEffect(() => {
 		const onTouch = (e) => (!enableSlider ? null : e.stopPropagation());
+		const sliderInputContainerRefCurrent = sliderInputContainerRef.current;
+		sliderInputContainerRefCurrent.addEventListener("touchstart", onTouch);
+		sliderInputContainerRefCurrent.addEventListener("touchmove", onTouch);
+		return () => {
+			sliderInputContainerRefCurrent.removeEventListener("touchstart", onTouch);
+			sliderInputContainerRefCurrent.removeEventListener("touchmove", onTouch);
+		};
+	}, [sliderInputContainerRef, enableSlider]);
+
+	const sliderInputRef = useRef();
+	useEffect(() => {
+		const onTouch = (e) => (!enableSlider ? null : console.log(JSON.stringify(e)));
 		const sliderInputRefCurrent = sliderInputRef.current;
 		sliderInputRefCurrent.addEventListener("touchstart", onTouch);
 		sliderInputRefCurrent.addEventListener("touchmove", onTouch);
@@ -100,5 +112,13 @@ export const SliderInputLogic = ({ value, min, max, enableSlider, hasPercentageC
 		};
 	}, [sliderInputRef, enableSlider]);
 
-	return { sliderInputRef, sliderInputContainerClassName, sliderThumbStyles, sliderLabelStyles, labelRef, sliderProgressStyles };
+	return {
+		sliderInputContainerRef,
+		sliderInputRef,
+		sliderInputContainerClassName,
+		sliderThumbStyles,
+		sliderLabelStyles,
+		labelRef,
+		sliderProgressStyles,
+	};
 };

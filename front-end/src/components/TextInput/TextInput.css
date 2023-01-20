@@ -1,30 +1,31 @@
 .text-input-container {
 	display: inline-block;
 	width: 100%;
-	font-size: var(--fontSizePM);
+	--text-input-font-size: var(--font-size-p-m);
+	font-size: var(--text-input-font-size);
 }
 
 .text-input-label {
 	margin: 0 2px;
 	margin-bottom: 6px;
 	text-align: left;
-	font-size: var(--fontSizePS);
+	font-size: var(--font-size-p-s);
 	font-weight: 600;
-	color: var(--textSecondaryColour);
+	color: var(--text-colour-secondary);
 }
 
 .text-input {
 	display: flex;
 	align-items: center;
 	padding: 6px 12px;
-	border: 1px solid var(--grey3);
+	border: 1px solid var(--colour-grey-three);
 	border-radius: 6px;
 	width: calc(100% - (1px * 2) - (12px * 2));
 	cursor: text;
 }
 
 .text-input-container-focused .text-input {
-	border: 1px solid var(--blue);
+	border: 1px solid var(--colour-blue);
 }
 
 .text-input-input {
@@ -32,9 +33,10 @@
 
 	width: 100%;
 	background: rgba(0, 0, 0, 0);
-	color: var(--textColour);
-	caret-color: var(--textColour);
-	font-family: var(--fontFamily);
+	color: var(--text-colour-primary);
+	caret-color: var(--text-colour-primary);
+	font-family: var(--font-family);
+	font-size: var(--text-input-font-size);
 	transition: border 0.1s;
 	cursor: text;
 }
@@ -47,7 +49,7 @@
 .text-input-input:-webkit-autofill:hover,
 .text-input-input:-webkit-autofill:focus,
 .text-input-input:-webkit-autofill:active {
-	-webkit-text-fill-color: var(--textColour) !important;
+	-webkit-text-fill-color: var(--text-colour-primary) !important;
 	transition: background-color 99999s ease-in-out 0s;
 }
 
@@ -63,7 +65,10 @@
 
 	min-width: 1px;
 	width: fit-content;
+
 	white-space: pre;
+	font-family: var(--font-family);
+	font-size: var(--text-input-font-size);
 }
 
 .text-input-hide-value-btn {
@@ -87,7 +92,7 @@
 }
 
 .text-input-hide-value-btn:hover {
-	color: var(--blue);
+	color: var(--colour-blue);
 }
 
 /* Seamless */
@@ -101,11 +106,11 @@
 	margin-top: 2px;
 	margin-bottom: -3px;
 	margin-left: 0;
-	font-size: inherit;
+	font-size: var(--text-input-font-size);
 }
 
 .text-input-container-seamless.text-input-container-empty .text-input-input {
-	margin-top: calc(-1 * var(--inputHeight) - 2px + 7px);
+	margin-top: calc(-1 * var(--input-height) - 2px + 7px);
 }
 
 .text-input-container-seamless .text-input {

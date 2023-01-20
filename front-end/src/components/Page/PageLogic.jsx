@@ -30,16 +30,16 @@ export const PageLogic = () => {
 
 	const [pageStyles, setPageStyles] = useState({
 		"--vh": window.innerHeight + "px",
-		"--accentColour": accentColour,
-		"--accentHoverColour": accentHoverColour,
+		"--colour-accent": accentColour,
+		"--colour-accent-hover": accentHoverColour,
 	});
 
 	useEffect(() => {
 		function getPageStyles() {
 			setPageStyles({
 				"--vh": window.innerHeight + "px",
-				"--accentColour": accentColour,
-				"--accentHoverColour": accentHoverColour,
+				"--colour-accent": accentColour,
+				"--colour-accent-hover": accentHoverColour,
 			});
 		}
 		getPageStyles();

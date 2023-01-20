@@ -47,16 +47,16 @@
 
 .characters-character-types-character-type-items-container::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--scrollBarThumbBackground);
+	background: var(--colour-scroll-bar-thumb-background);
 }
 
 .characters-character-types-character-type-item-container .btn-list-item-active {
-	background: var(--accentColour);
+	background: var(--colour-accent);
 	color: #fff;
 }
 
 .characters-character-types-character-type-item-container .btn-list-item-active:hover {
-	background: var(--accentHoverColour);
+	background: var(--colour-accent-hover);
 	color: #fff;
 }
 

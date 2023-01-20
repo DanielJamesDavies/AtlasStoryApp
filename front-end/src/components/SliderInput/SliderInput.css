@@ -51,8 +51,8 @@
 	width: 100%;
 	height: 6px;
 
-	background: var(--blue);
-	background: var(--grey5);
+	background: var(--colour-blue);
+	background: var(--colour-grey-five);
 	background: transparent;
 }
 
@@ -101,10 +101,10 @@
 	padding: 4px 8px;
 	border-radius: 4px;
 	width: fit-content;
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 	pointer-events: none;
 	user-select: none;
-	font-size: var(--fontSizePM);
+	font-size: var(--font-size-p-m);
 }
 
 .slider-input-progress {
@@ -121,7 +121,7 @@
 	height: 6px;
 	width: 0%;
 
-	background: var(--blue);
+	background: var(--colour-blue);
 }
 
 .slider-input-background {
@@ -137,7 +137,7 @@
 	height: 6px;
 	width: 100%;
 
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 }
 
 .slider-input-container-percentage-colour-exceptionally-high .slider-input-progress {

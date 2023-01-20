@@ -5,7 +5,7 @@
 	margin-bottom: 10px;
 	padding: 0 24px;
 	padding-top: calc(28px + 4px * 2);
-	width: calc(100vw - var(--navbarWidth) - 48px);
+	width: calc(100vw - var(--navbar-width) - 48px);
 	height: 59px;
 	align-items: center;
 }
@@ -42,7 +42,7 @@
 	width: max-content;
 	font-size: 14px;
 	font-weight: 600;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 .substory-primary-section-switcher-btn {
@@ -52,7 +52,7 @@
 	padding: 0;
 	border: 0;
 	background: transparent;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 	font-size: 32px;
 	width: 17px;
 	height: 32px;

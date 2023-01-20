@@ -11,11 +11,11 @@
 	display: inline-block;
 	border-radius: inherit;
 
-	--storyItemHeight: 390px;
-	width: calc(((var(--storyItemHeight) / 3) * 2) + 20px);
-	height: var(--storyItemHeight);
+	--storyitem-height: 390px;
+	width: calc(((var(--storyitem-height) / 3) * 2) + 20px);
+	height: var(--storyitem-height);
 
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 	cursor: pointer;
 	transition: background 0.3s;
 	animation: story-item-placeholder 1s infinite;
@@ -23,15 +23,15 @@
 
 @keyframes story-item-placeholder {
 	0% {
-		background: var(--grey1);
+		background: var(--colour-grey-one);
 	}
 	10%,
 	55% {
-		background: var(--grey2);
+		background: var(--colour-grey-two);
 	}
 	88%,
 	100% {
-		background: var(--grey1);
+		background: var(--colour-grey-one);
 	}
 }
 
@@ -44,32 +44,32 @@
 	display: inline-block;
 	border-radius: 5px;
 
-	--storyItemHeight: 320px;
-	width: calc(((var(--storyItemHeight) / 3) * 2) + 20px);
-	height: var(--storyItemHeight);
+	--storyitem-height: 320px;
+	width: calc(((var(--storyitem-height) / 3) * 2) + 20px);
+	height: var(--storyitem-height);
 
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 	cursor: pointer;
 	transition: background 0.3s;
 }
 
 .story-item-container:hover .story-item {
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 }
 
 .story-item-size-l {
 	border-radius: 5px;
-	--storyItemHeight: 390px;
+	--storyitem-height: 390px;
 }
 
 .story-item-size-s {
 	border-radius: 3px;
-	--storyItemHeight: 220px;
+	--storyitem-height: 220px;
 }
 
 .story-item-spine {
 	display: inline-block;
-	border: 3px solid var(--grey1);
+	border: 3px solid var(--colour-grey-one);
 	border-width: 0 2px 0 0;
 	width: 20px;
 	height: 100%;
@@ -159,7 +159,7 @@
 	padding: 4px 8px;
 	border-radius: 4px;
 
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 	font-weight: 500;
 	font-size: 14px;
 	opacity: 0;
@@ -189,15 +189,15 @@
 
 @media (max-width: 750px) {
 	.story-item {
-		--storyItemHeight: 275px;
+		--storyitem-height: 275px;
 	}
 
 	.story-item-size-l {
-		--storyItemHeight: 300px;
+		--storyitem-height: 300px;
 	}
 
 	.story-item-size-s {
-		--storyItemHeight: 200px;
+		--storyitem-height: 200px;
 	}
 
 	.story-item-title {
@@ -236,9 +236,9 @@
 	}
 
 	.story-item-size-s {
-		--storyItemHeight: calc(100vw / 2.3);
-		width: calc(((var(--storyItemHeight) / 3) * 2) + 20px);
-		height: var(--storyItemHeight);
+		--storyitem-height: calc(100vw / 2.3);
+		width: calc(((var(--storyitem-height) / 3) * 2) + 20px);
+		height: var(--storyitem-height);
 	}
 
 	.story-item-title {

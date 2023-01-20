@@ -18,7 +18,7 @@
 	z-index: 2;
 	padding: 12px 0;
 	border-radius: 8px;
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .dropdown-option {
@@ -28,8 +28,8 @@
 	border: 0;
 	width: 100%;
 
-	background: var(--grey3);
-	color: var(--textColour);
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
 	font-size: 13px;
 	text-align: left;
 	white-space: pre-wrap;
@@ -40,7 +40,7 @@
 }
 
 .dropdown-option:hover {
-	background: var(--grey5);
+	background: var(--colour-grey-five);
 }
 
 .dropdown-option:last-child {

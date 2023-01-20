@@ -23,8 +23,8 @@
 	height: 32px;
 	overflow: visible;
 
-	background: var(--accentColour);
-	color: var(--textColour);
+	background: var(--colour-accent);
+	color: var(--text-colour-primary);
 	text-align: center;
 	vertical-align: middle;
 	transition: 0.2s;
@@ -33,8 +33,8 @@
 
 .icon-btn:hover,
 .icon-btn:focus {
-	background: var(--accentHoverColour);
-	color: var(--textColour);
+	background: var(--colour-accent-hover);
+	color: var(--text-colour-primary);
 }
 
 .icon-btn svg {
@@ -73,7 +73,7 @@
 .icon-btn-container-seamless .icon-btn:hover,
 .icon-btn-container-seamless .icon-btn:focus {
 	background: transparent;
-	color: var(--accentColour);
+	color: var(--colour-accent);
 }
 
 .icon-btn-container-has-hover-icon .icon-btn .icon-btn-hover-icon-container svg,
@@ -128,7 +128,7 @@
 	right: -3px;
 	width: 16px;
 	height: 16px;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 	pointer-events: none;
 }
 
@@ -140,7 +140,7 @@
 	z-index: 2;
 	width: 16px;
 	height: 16px;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 	transition: background 0.2s;
 	transition: color 0.2s;
 }
@@ -158,7 +158,7 @@
 	z-index: 1;
 	width: 24px;
 	height: 24px;
-	color: var(--grey1);
+	color: var(--colour-grey-one);
 }
 
 .icon-btn-small-icon-bg svg {
@@ -169,7 +169,7 @@
 .icon-btn-container-seamless .icon-btn:hover .icon-btn-small-icon,
 .icon-btn-container-seamless .icon-btn:focus .icon-btn-small-icon {
 	background: transparent;
-	color: var(--accentColour);
+	color: var(--colour-accent);
 }
 
 .icon-btn-label {
@@ -186,7 +186,7 @@
 	width: min-content;
 	max-width: 120px;
 
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 	font-size: 15px;
 	word-wrap: break-word;
 	pointer-events: none;

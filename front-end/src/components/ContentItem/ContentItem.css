@@ -10,7 +10,7 @@
 	margin: 8px;
 	padding: 12px 16px;
 	border-radius: 8px;
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .content-item-w-bg.content-item-size-s {
@@ -30,21 +30,21 @@
 }
 
 .content-item-w-bg.content-item-bg-grey-1 {
-	background: var(--grey1);
+	background: var(--colour-grey-one);
 }
 
 .content-item-w-bg.content-item-bg-grey-2 {
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .content-item-w-bg.content-item-bg-grey-3 {
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .content-item-w-bg.content-item-bg-grey-4 {
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 }
 
 .content-item-w-bg.content-item-bg-grey-5 {
-	background: var(--grey5);
+	background: var(--colour-grey-five);
 }

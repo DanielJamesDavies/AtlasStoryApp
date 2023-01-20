@@ -46,7 +46,7 @@
 	border-radius: 100%;
 	width: calc(var(--selectedCharacterItemWidth) - (2 * 4px));
 	height: calc(var(--selectedCharacterItemWidth) - (2 * 4px));
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .character-subpage-relationships-chart-selected-character-item-face-image img {

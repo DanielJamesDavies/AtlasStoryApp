@@ -6,7 +6,7 @@
 	padding-left: 0;
 	padding-right: 16px;
 
-	width: calc(100vw - var(--navbarWidth) - 6px - 24px - 12px - 16px);
+	width: calc(100vw - var(--navbar-width) - 6px - 24px - 12px - 16px);
 	height: calc(100% - (var(--substoryPrimaryPaddingTop)));
 	overflow: visible;
 

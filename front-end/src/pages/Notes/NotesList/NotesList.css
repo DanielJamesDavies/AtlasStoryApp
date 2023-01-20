@@ -12,6 +12,6 @@
 
 @media (max-width: 750px) {
 	.notes-list {
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - 80px - 12px);
+		max-height: calc(var(--vh) - var(--navbar-mobile-height) - 80px - 12px);
 	}
 }

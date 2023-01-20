@@ -25,14 +25,14 @@
 	z-index: 1;
 	display: inline-block;
 	margin: 4px;
-	border: 6px solid var(--accentColour);
+	border: 6px solid var(--colour-accent);
 	border-color: var(--characterColour);
 	border-radius: 16px;
 
 	width: 412px;
 	height: 585px;
 
-	background: var(--grey1);
+	background: var(--colour-grey-one);
 	transition: margin 0.4s;
 	cursor: pointer;
 }
@@ -51,14 +51,14 @@
 	z-index: 1;
 	display: inline-block;
 	margin: 4px;
-	border: 6px solid var(--accentColour);
-	border-color: var(--grey2);
+	border: 6px solid var(--colour-accent);
+	border-color: var(--colour-grey-two);
 	border-radius: 16px;
 
 	width: 418px;
 	height: 585px;
 
-	background: var(--grey1);
+	background: var(--colour-grey-one);
 	transition: margin 0.4s;
 	cursor: pointer;
 	animation: characters-group-character-card-placeholder 2.5s infinite;
@@ -66,18 +66,18 @@
 
 @keyframes characters-group-character-card-placeholder {
 	0% {
-		border-color: var(--grey1);
-		background: var(--grey1);
+		border-color: var(--colour-grey-one);
+		background: var(--colour-grey-one);
 	}
 	15%,
 	55% {
-		border-color: var(--grey3);
-		background: var(--grey2);
+		border-color: var(--colour-grey-three);
+		background: var(--colour-grey-two);
 	}
 	88%,
 	100% {
-		border-color: var(--grey1);
-		background: var(--grey1);
+		border-color: var(--colour-grey-one);
+		background: var(--colour-grey-one);
 	}
 }
 
@@ -96,7 +96,7 @@
 .characters-group-character-card-top-name {
 	font-size: 28px;
 	font-weight: 600;
-	color: var(--blue);
+	color: var(--colour-blue);
 	color: var(--characterColour);
 }
 
@@ -135,7 +135,7 @@
 
 	width: calc(100% - 24px);
 
-	background: var(--blue);
+	background: var(--colour-blue);
 	background: var(--characterColour);
 	color: #fff;
 	text-align: left;
@@ -182,9 +182,9 @@
 		border-width: 5px;
 
 		width: calc(100vw - 24px - 10px - 24px);
-		max-width: min(441px, calc((var(--vh) - var(--navbarMobileHeight) - 8px - 12px - 10px - 24px - 39px - 24px) * (441 / 607)));
+		max-width: min(441px, calc((var(--vh) - var(--navbar-mobile-height) - 8px - 12px - 10px - 24px - 39px - 24px) * (441 / 607)));
 		height: calc((100vw - 24px - 10px - 24px) * (607 / 441));
-		max-height: min(607px, calc(var(--vh) - var(--navbarMobileHeight) - 8px - 12px - 10px - 24px - 39px - 24px));
+		max-height: min(607px, calc(var(--vh) - var(--navbar-mobile-height) - 8px - 12px - 10px - 24px - 39px - 24px));
 	}
 
 	.characters-group-character-card-top-container {

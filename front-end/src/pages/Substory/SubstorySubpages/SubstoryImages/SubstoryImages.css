@@ -1,6 +1,6 @@
 .substory-images-container-container {
-	width: calc(100vw - var(--navbarWidth));
-	transform: translateX(calc(100vw - var(--navbarWidth) - 24px - 12px - 6px));
+	width: calc(100vw - var(--navbar-width));
+	transform: translateX(calc(100vw - var(--navbar-width) - 24px - 12px - 6px));
 }
 
 .substory-images-container {
@@ -26,7 +26,7 @@
 }
 
 .substory-images {
-	max-height: calc(var(--popUpContentHeight) - 32px - 24px);
+	max-height: calc(var(--popupcontent-height) - 32px - 24px);
 }
 
 .substory-images,
@@ -66,8 +66,8 @@
 		transform: translateX(100vw);
 	}
 	.substory-images-container-container .pop-up-content-container {
-		margin-top: calc(var(--substoryPaddingTop) / 2 - var(--navbarMobileHeight) + 12px);
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--substoryPaddingTop) - 12px);
+		margin-top: calc(var(--substoryPaddingTop) / 2 - var(--navbar-mobile-height) + 12px);
+		max-height: calc(var(--vh) - var(--navbar-mobile-height) - var(--substoryPaddingTop) - 12px);
 	}
 
 	.substory-images-container-container .pop-up-content {
@@ -76,6 +76,6 @@
 	}
 
 	.substory-images {
-		max-height: calc(var(--vh) - var(--navbarMobileHeight) - var(--substoryPaddingTop) - 12px - 32px - 24px - 48px);
+		max-height: calc(var(--vh) - var(--navbar-mobile-height) - var(--substoryPaddingTop) - 12px - 32px - 24px - 48px);
 	}
 }

@@ -34,14 +34,14 @@
 
 .character-overview-summary-item-label,
 .character-overview-summary-item-label input {
-	font-size: var(--fontSizePS);
-	min-height: var(--fontSizePSHeight);
+	font-size: var(--font-size-p-s);
+	min-height: var(--font-size-p-s-height);
 }
 
 .character-overview-summary-item-text,
 .character-overview-summary-item-text input {
-	font-size: var(--fontSizePM);
-	min-height: var(--fontSizePMHeight);
+	font-size: var(--font-size-p-m);
+	min-height: var(--font-size-p-m-height);
 }
 
 .character-overview-summary-item-text.text-input-container {
@@ -63,7 +63,7 @@
 
 .character-overview-summary-item-label .text-input-label {
 	margin-top: -4px;
-	font-size: var(--fontSizePS);
+	font-size: var(--font-size-p-s);
 	font-weight: 400;
 }
 
@@ -73,7 +73,7 @@
 
 .character-overview-summary-item-text .text-input-label {
 	margin-top: -4px;
-	font-size: var(--fontSizePM);
+	font-size: var(--font-size-p-m);
 	font-weight: 600;
 }
 

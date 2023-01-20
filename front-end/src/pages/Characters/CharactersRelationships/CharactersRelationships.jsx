@@ -35,7 +35,7 @@ export const CharactersRelationships = () => {
 			className='characters-relationship-container'
 			style={{
 				"--charactersRelationshipChartWidth": charactersRelationshipChartWidth + "px",
-				"--charactersRelationshipChartItemWidth": charactersRelationshipChartItemWidth + "px",
+				"--charactersrelationshipchartitem-width": charactersRelationshipChartItemWidth + "px",
 			}}
 		>
 			<div className='characters-relationship-primary'>

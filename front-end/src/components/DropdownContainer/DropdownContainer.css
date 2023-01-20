@@ -10,8 +10,8 @@
 	padding: 8px 12px;
 	border: 0;
 	border-radius: 4px;
-	background: var(--grey3);
-	color: var(--textColour);
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
 	min-width: 110px;
 }
 

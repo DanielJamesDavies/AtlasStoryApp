@@ -29,7 +29,7 @@
 
 	border-radius: 25px;
 
-	background: var(--grey5);
+	background: var(--colour-grey-five);
 	transition: 0.2s;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .toggle-input-active .toggle-input-slider {
-	background: var(--blue);
+	background: var(--colour-blue);
 }
 
 .toggle-input-active .toggle-input-slider:before {

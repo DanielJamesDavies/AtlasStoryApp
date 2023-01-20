@@ -2,108 +2,108 @@
 @import url("https://fonts.googleapis.com/css2?family=Palatino+Linotype&display=swap");
 
 :root {
-	--white: #ffffff;
-	--blue: #0044ff;
-	--blue2: #0066ff;
-	--blue3: #0088ff;
-	--red: #cc0000;
-	--red2: #ee4400;
-	--green: #00ff44;
-	--lightgreen: #00ffaa;
-	--navbarWidth: 68px;
-	--navbarMobileHeight: 58px;
+	--colour-white: #ffffff;
+	--colour-blue: #0044ff;
+	--colour-blue-two: #0066ff;
+	--colour-blue-three: #0088ff;
+	--colour-red: #cc0000;
+	--colour-red-two: #ee4400;
+	--colour-green: #00ff44;
+	--colour-light-green: #00ffaa;
+	--navbar-width: 68px;
+	--navbar-mobile-height: 58px;
 }
 
 .theme-dark {
-	--grey1: #000000;
-	--grey2: #0d0d12;
-	--grey3: #18181e;
-	--grey4: #34343f;
-	--grey5: #40404b;
-	--grey6: #70707f;
-	--textColour: #eeeeee;
-	--textSecondaryColour: #bbbbbb;
-	--textTertiaryColour: #999999;
-	--scrollBarThumbBackground: var(--grey6);
+	--colour-grey-one: #000000;
+	--colour-grey-two: #0d0d0f;
+	--colour-grey-three: #25252a;
+	--colour-grey-four: #3d3d45;
+	--colour-grey-five: #555560;
+	--colour-grey-six: #6d6d7b;
+	--text-colour-primary: #eeeeee;
+	--text-colour-secondary: #bbbbbb;
+	--text-colour-tertiary: #999999;
+	--colour-scroll-bar-thumb-background: var(--colour-grey-six);
 }
 
 .theme-dim {
-	--grey1: #0a0a0d;
-	--grey2: #18181e;
-	--grey3: #282830;
-	--grey4: #48484d;
-	--grey5: #505053;
-	--grey6: #808087;
-	--textColour: #dddddd;
-	--textSecondaryColour: #bbbbbb;
-	--textTertiaryColour: #999999;
-	--scrollBarThumbBackground: var(--grey6);
+	--colour-grey-one: #0a0a0d;
+	--colour-grey-two: #18181e;
+	--colour-grey-three: #2f2f3a;
+	--colour-grey-four: #464656;
+	--colour-grey-five: #5d5d72;
+	--colour-grey-six: #74748e;
+	--text-colour-primary: #dddddd;
+	--text-colour-secondary: #bbbbbb;
+	--text-colour-tertiary: #999999;
+	--colour-scroll-bar-thumb-background: var(--colour-grey-six);
 }
 
 .theme-light {
-	--grey1: #fbfbff;
-	--grey2: #e8e8ea;
-	--grey3: #dedee1;
-	--grey4: #d3d3d8;
-	--grey5: #c0c0c5;
-	--grey6: #a0a0a5;
-	--textColour: #000000;
-	--textSecondaryColour: #888888;
-	--textTertiaryColour: #aaaaaa;
-	--scrollBarThumbBackground: var(--grey6);
+	--colour-grey-one: #fbfbfe;
+	--colour-grey-two: #e8e8ea;
+	--colour-grey-three: #dbdbde;
+	--colour-grey-four: #ceced2;
+	--colour-grey-five: #c1c1c6;
+	--colour-grey-six: #b4b4ba;
+	--text-colour-primary: #000000;
+	--text-colour-secondary: #888888;
+	--text-colour-tertiary: #aaaaaa;
+	--colour-scroll-bar-thumb-background: var(--colour-grey-six);
 }
 
 .font-size-xs {
-	--fontSizePS: 11px;
-	--fontSizePSHeight: 14px;
-	--fontSizePM: 12px;
-	--fontSizePMHeight: 15px;
-	--fontSizeH1: 17px;
-	--fontSizeH2: 15px;
-	--fontSizeH3: 14px;
-	--fontSizeH4: 13px;
-	--fontSizeH5: 12px;
-	--fontSizeH6: 12px;
+	--font-size-p-s: 11px;
+	--font-size-p-s-height: 14px;
+	--font-size-p-m: 12px;
+	--font-size-p-m-height: 15px;
+	--font-size-h1: 17px;
+	--font-size-h2: 15px;
+	--font-size-h3: 14px;
+	--font-size-h4: 13px;
+	--font-size-h5: 12px;
+	--font-size-h6: 12px;
 }
 
 .font-size-s {
-	--fontSizePS: 13px;
-	--fontSizePSHeight: 16px;
-	--fontSizePM: 14px;
-	--fontSizePMHeight: 17px;
-	--fontSizeH1: 18px;
-	--fontSizeH2: 15px;
-	--fontSizeH3: 14px;
-	--fontSizeH4: 13px;
-	--fontSizeH5: 12px;
-	--fontSizeH6: 12px;
+	--font-size-p-s: 13px;
+	--font-size-p-s-height: 16px;
+	--font-size-p-m: 14px;
+	--font-size-p-m-height: 17px;
+	--font-size-h1: 18px;
+	--font-size-h2: 15px;
+	--font-size-h3: 14px;
+	--font-size-h4: 13px;
+	--font-size-h5: 12px;
+	--font-size-h6: 12px;
 }
 
 .App,
 .font-size-m {
-	--fontSizePS: 14px;
-	--fontSizePSHeight: 17px;
-	--fontSizePM: 15px;
-	--fontSizePMHeight: 19px;
-	--fontSizeH1: 19px;
-	--fontSizeH2: 16px;
-	--fontSizeH3: 15px;
-	--fontSizeH4: 14px;
-	--fontSizeH5: 13px;
-	--fontSizeH6: 13px;
+	--font-size-p-s: 14px;
+	--font-size-p-s-height: 17px;
+	--font-size-p-m: 15px;
+	--font-size-p-m-height: 19px;
+	--font-size-h1: 19px;
+	--font-size-h2: 16px;
+	--font-size-h3: 15px;
+	--font-size-h4: 14px;
+	--font-size-h5: 13px;
+	--font-size-h6: 13px;
 }
 
 .font-size-l {
-	--fontSizePS: 15px;
-	--fontSizePSHeight: 19px;
-	--fontSizePM: 16px;
-	--fontSizePMHeight: 20px;
-	--fontSizeH1: 21px;
-	--fontSizeH2: 17px;
-	--fontSizeH3: 16px;
-	--fontSizeH4: 15px;
-	--fontSizeH5: 14px;
-	--fontSizeH6: 14px;
+	--font-size-p-s: 15px;
+	--font-size-p-s-height: 19px;
+	--font-size-p-m: 16px;
+	--font-size-p-m-height: 20px;
+	--font-size-h1: 21px;
+	--font-size-h2: 17px;
+	--font-size-h3: 16px;
+	--font-size-h4: 15px;
+	--font-size-h5: 14px;
+	--font-size-h6: 14px;
 }
 
 html,
@@ -119,24 +119,23 @@ body {
 	height: 100%;
 	overflow: hidden;
 
-	--fontFamily: "Inter", sans-serif;
-	font-family: var(--fontFamily);
-	color: var(--textColour);
+	--font-family: "Inter", sans-serif;
+	font-family: var(--font-family);
+	font-size: var(--font-size-p-m);
+	color: var(--text-colour-primary);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
 input {
-	font-family: var(--fontFamily);
+	font-family: var(--font-family);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
-button {
-	font-family: inherit;
-}
-
+button,
 button:focus {
+	font-family: inherit;
 	outline: 0 !important;
 }
 
@@ -153,8 +152,8 @@ img {
 	max-height: 100vh;
 	overflow: hidden;
 
-	background: var(--grey1);
-	color: var(--textColour);
+	background: var(--colour-grey-one);
+	color: var(--text-colour-primary);
 }
 
 ::-webkit-scrollbar {
@@ -164,7 +163,7 @@ img {
 
 ::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--scrollBarThumbBackground);
+	background: var(--colour-scroll-bar-thumb-background);
 }
 
 @keyframes wiggle-very-small {
@@ -229,7 +228,7 @@ img {
 }
 
 .loading-background {
-	background: linear-gradient(90deg, var(--grey3), var(--grey5), var(--grey3));
+	background: linear-gradient(90deg, var(--colour-grey-three), var(--colour-grey-five), var(--colour-grey-three));
 	background-size: 400%;
 	animation: loading-background 5s infinite linear;
 	transition: background 0.1s;

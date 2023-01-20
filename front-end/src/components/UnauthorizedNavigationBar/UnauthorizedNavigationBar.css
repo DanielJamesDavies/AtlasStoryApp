@@ -9,7 +9,7 @@
 	width: calc(100% - 24px);
 	max-width: 1250px;
 
-	background: var(--grey1);
+	background: var(--colour-grey-one);
 }
 
 .unauthorized-navigation-bar-landing-btn {
@@ -19,7 +19,7 @@
 	border: 0;
 
 	background: #00000000;
-	color: var(--textTertiaryColour);
+	color: var(--text-colour-tertiary);
 	font-size: 16px;
 	font-weight: 500;
 	white-space: nowrap;
@@ -29,7 +29,7 @@
 }
 
 .unauthorized-navigation-bar-landing-btn:hover {
-	color: var(--textSecondaryColour);
+	color: var(--text-colour-secondary);
 }
 
 .unauthorized-navigation-bar-landing-btn-logo {
@@ -58,23 +58,23 @@
 	height: fit-content;
 
 	background: transparent;
-	color: var(--textTertiaryColour);
+	color: var(--text-colour-tertiary);
 	font-weight: 600;
 	transition: 0.2s;
 	cursor: pointer;
 }
 
 .unauthorized-navigation-bar-btn:hover {
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 .unauthorized-navigation-bar-btn-register {
-	background: var(--grey2);
-	color: var(--textSecondaryColour);
+	background: var(--colour-grey-two);
+	color: var(--text-colour-secondary);
 }
 
 .unauthorized-navigation-bar-btn-register:hover {
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .unauthorized-navigation-bar-btn:last-child {

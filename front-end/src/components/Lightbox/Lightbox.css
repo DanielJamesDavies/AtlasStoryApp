@@ -81,9 +81,9 @@
 
 	width: fit-content;
 
-	background: var(--grey3);
-	color: var(--textColour);
-	font-size: var(--fontSizePM);
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+	font-size: var(--font-size-p-m);
 }
 
 .lightbox-caption {
@@ -96,7 +96,7 @@
 .lightbox-text-image-file-size {
 	margin: 2px 0;
 	margin-left: 6px;
-	font-size: var(--fontSizePS);
+	font-size: var(--font-size-p-s);
 	opacity: 0.4;
 }
 
@@ -105,11 +105,11 @@
 	z-index: 4;
 	border: 0;
 
-	--switchBtnWidth: calc(16px * 2);
-	min-width: var(--switchBtnWidth);
-	width: var(--switchBtnWidth);
-	min-height: var(--switchBtnWidth);
-	height: var(--switchBtnWidth);
+	--switchbtn-width: calc(16px * 2);
+	min-width: var(--switchbtn-width);
+	width: var(--switchbtn-width);
+	min-height: var(--switchbtn-width);
+	height: var(--switchbtn-width);
 
 	font-size: 32px;
 	background: #00000000;
@@ -149,11 +149,11 @@
 	right: 12px;
 	border: 0;
 
-	--closeBtnWidth: calc(16px * 2);
-	min-width: var(--closeBtnWidth);
-	width: var(--closeBtnWidth);
-	min-height: var(--closeBtnWidth);
-	height: var(--closeBtnWidth);
+	--closebtn-width: calc(16px * 2);
+	min-width: var(--closebtn-width);
+	width: var(--closebtn-width);
+	min-height: var(--closebtn-width);
+	height: var(--closebtn-width);
 
 	font-size: 32px;
 	background: #00000000;
@@ -184,7 +184,7 @@
 	width: 100%;
 	height: 100%;
 
-	background: var(--grey1);
+	background: var(--colour-grey-one);
 	opacity: 0.7;
 }
 

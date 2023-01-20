@@ -24,14 +24,14 @@
 	min-height: 15px;
 	font-size: 12px;
 	font-weight: 400;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 .character-primary-version-title {
 	min-height: 17px;
 	font-size: 14px;
 	font-weight: 600;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 .character-primary-version-width-element {

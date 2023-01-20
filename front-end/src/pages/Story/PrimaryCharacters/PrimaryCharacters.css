@@ -15,7 +15,7 @@
 .story-primary-characters-primary-title {
 	font-size: 20px;
 	font-weight: 600;
-	color: var(--textColour);
+	color: var(--text-colour-primary);
 }
 
 .story-primary-characters-primary-modify-btn-container {

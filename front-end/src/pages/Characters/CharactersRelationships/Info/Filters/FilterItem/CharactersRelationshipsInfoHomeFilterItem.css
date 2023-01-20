@@ -15,12 +15,12 @@
 	width: 18px;
 	height: 18px;
 
-	background: var(--grey4);
+	background: var(--colour-grey-four);
 	font-size: 13px;
 }
 
 .characters-relationship-info-home-filter-item-active .characters-relationship-info-home-filter-item-check-box {
-	background: var(--blue);
+	background: var(--colour-blue);
 }
 
 .characters-relationship-info-home-filter-item-check-box svg {

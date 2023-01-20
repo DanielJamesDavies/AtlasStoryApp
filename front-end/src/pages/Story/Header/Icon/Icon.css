@@ -11,14 +11,14 @@
 	width: var(--iconWidth);
 	height: var(--iconWidth);
 	vertical-align: middle;
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .story-header-icon-placeholder {
 	border-radius: inherit;
 	width: 100%;
 	height: 100%;
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .editable-container-is-authorized .story-header-icon {

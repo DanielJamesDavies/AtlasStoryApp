@@ -34,26 +34,26 @@
 }
 
 .character-subpage-physical-attribute-item-title .text-input-label ~ input {
-	height: var(--fontSizePMHeight);
+	height: var(--font-size-p-m-height);
 }
 
 .character-subpage-physical-attribute-item-title .text-input-label {
-	font-size: var(--fontSizePM);
+	font-size: var(--font-size-p-m);
 }
 
 .character-subpage-physical-attribute-item-title,
 .character-subpage-physical-attribute-item-title input {
-	font-size: var(--fontSizePM);
+	font-size: var(--font-size-p-m);
 	font-weight: 600;
 }
 
 .character-subpage-physical-attribute-item .text-input-container-empty {
 	margin-bottom: 5px;
-	height: var(--fontSizePMHeight);
+	height: var(--font-size-p-m-height);
 }
 
 .character-subpage-physical-attribute-item-text {
-	min-height: var(--fontSizePMHeight);
+	min-height: var(--font-size-p-m-height);
 }
 
 .character-subpage-physical-attribute-item-btns-container {
@@ -94,12 +94,12 @@
 	max-width: calc(100% - 16px);
 	word-break: break-word;
 	overflow-wrap: anywhere;
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .character-subpage-physical-attribute-item-image-item-caption,
 .character-subpage-physical-attribute-item-image-item-caption input {
-	font-size: var(--fontSizePM);
+	font-size: var(--font-size-p-m);
 	min-height: 20px;
 }
 

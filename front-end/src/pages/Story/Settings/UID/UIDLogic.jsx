@@ -17,14 +17,14 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const UIDLogic = () => {
-	const { story_uid, isAuthorizedToEdit, story } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 
 	const [uid, setUid] = useState(story.uid);
 	useEffect(() => {
-		setUid(story_uid);
-	}, [story_uid]);
+		setUid(story.uid);
+	}, [story]);
 
 	function changeUid(e) {
 		setUid(e.target.value);

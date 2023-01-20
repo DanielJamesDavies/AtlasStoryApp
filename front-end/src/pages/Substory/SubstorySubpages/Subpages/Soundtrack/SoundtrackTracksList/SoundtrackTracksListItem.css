@@ -14,19 +14,19 @@
 
 	width: calc(50% - 6px);
 
-	background: var(--grey1);
-	color: var(--textColour);
+	background: var(--colour-grey-one);
+	color: var(--text-colour-primary);
 	text-align: left;
 	transition: background 0.1s;
 	cursor: pointer;
 }
 
 .substory-subpage-soundtrack-track:hover .substory-subpage-soundtrack-track-song {
-	background: var(--grey3);
+	background: var(--colour-grey-three);
 }
 
 .substory-subpage-soundtrack-track-song:focus {
-	background: var(--grey4) !important;
+	background: var(--colour-grey-four) !important;
 }
 
 .substory-subpage-soundtrack-track-number {
@@ -36,7 +36,7 @@
 	margin: 0 12px;
 	font-size: 14px;
 	font-weight: 400;
-	color: var(--textSecondaryColour);
+	color: var(--text-colour-secondary);
 	width: 27px;
 	text-align: right;
 }
@@ -52,7 +52,7 @@
 	width: var(--artworkWidth);
 	min-height: var(--artworkWidth);
 	height: var(--artworkWidth);
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .substory-subpage-soundtrack-track-artwork img {
@@ -74,12 +74,12 @@
 
 .substory-subpage-soundtrack-track-artists {
 	font-size: 11px;
-	color: var(--textTertiaryColour);
+	color: var(--text-colour-tertiary);
 }
 
 .substory-subpage-soundtrack-track-album {
 	font-size: 11px;
-	color: var(--textTertiaryColour);
+	color: var(--text-colour-tertiary);
 }
 
 .substory-subpage-soundtrack-track-text-container {

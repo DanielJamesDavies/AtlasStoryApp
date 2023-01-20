@@ -11,14 +11,14 @@
 	width: var(--profilePictureWidth);
 	height: var(--profilePictureWidth);
 	vertical-align: middle;
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .user-header-profile-picture-placeholder {
 	border-radius: inherit;
 	width: 100%;
 	height: 100%;
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .editable-container-is-authorized .user-header-profile-picture {

@@ -15,22 +15,30 @@ import "./SliderInput.css";
 // Assets
 
 export const SliderInput = ({ value, min, max, step, onChange, enableSlider, hasPercentageColours, flipPercentageColours, hasThumb, label }) => {
-	const { sliderInputRef, sliderInputContainerClassName, sliderThumbStyles, sliderLabelStyles, labelRef, sliderProgressStyles } =
-		SliderInputLogic({
-			value,
-			min,
-			max,
-			enableSlider,
-			hasPercentageColours,
-			flipPercentageColours,
-			hasThumb,
-			label,
-		});
+	const {
+		sliderInputContainerRef,
+		sliderInputRef,
+		sliderInputContainerClassName,
+		sliderThumbStyles,
+		sliderLabelStyles,
+		labelRef,
+		sliderProgressStyles,
+	} = SliderInputLogic({
+		value,
+		min,
+		max,
+		enableSlider,
+		hasPercentageColours,
+		flipPercentageColours,
+		hasThumb,
+		label,
+	});
 
 	return (
-		<div ref={sliderInputRef} className={sliderInputContainerClassName}>
+		<div ref={sliderInputContainerRef} className={sliderInputContainerClassName}>
 			<div className='slider'>
 				<input
+					ref={sliderInputRef}
 					className='slider-input'
 					type='range'
 					value={value}

@@ -3,11 +3,11 @@
 	z-index: 300;
 	display: flex;
 	align-items: center;
-	--colourBlockWidth: 32px;
+	--colourblock-width: 32px;
 }
 
 .colour-picker-size-s {
-	--colourBlockWidth: 24px;
+	--colourblock-width: 24px;
 }
 
 .colour-picker-is-showing-picker {
@@ -24,10 +24,10 @@
 	margin-right: 12px;
 	border-radius: 4px;
 
-	min-width: var(--colourBlockWidth);
-	width: var(--colourBlockWidth);
-	min-height: var(--colourBlockWidth);
-	height: var(--colourBlockWidth);
+	min-width: var(--colourblock-width);
+	width: var(--colourblock-width);
+	min-height: var(--colourblock-width);
+	height: var(--colourblock-width);
 }
 
 .colour-picker-size-s .colour-picker-colour-block {
@@ -52,9 +52,9 @@
 	position: absolute;
 	z-index: 3;
 	left: -6px;
-	bottom: calc(var(--colourBlockWidth) + 6px);
+	bottom: calc(var(--colourblock-width) + 6px);
 	height: fit-content;
-	background: var(--grey4) !important;
+	background: var(--colour-grey-four) !important;
 }
 
 .colour-picker-alignment-right .colour-picker-sketch-picker {
@@ -63,18 +63,18 @@
 }
 
 .colour-picker-placement-bottom .colour-picker-sketch-picker {
-	top: calc(var(--colourBlockWidth) + 6px);
+	top: calc(var(--colourblock-width) + 6px);
 }
 
 .colour-picker-sketch-picker,
 .colour-picker-sketch-picker input,
 .colour-picker-sketch-picker label {
-	color: var(--textColour) !important;
+	color: var(--text-colour-primary) !important;
 }
 
 .colour-picker-sketch-picker input {
 	box-shadow: none !important;
-	background: var(--grey3) !important;
+	background: var(--colour-grey-three) !important;
 }
 
 .colour-picker-background {

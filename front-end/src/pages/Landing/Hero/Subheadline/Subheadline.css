@@ -2,8 +2,8 @@
 	margin: 18px auto;
 	width: calc(100% - 48px);
 	max-width: 660px;
-	color: var(--textTertiaryColour);
-	font-size: var(--fontSizePM);
+	color: var(--text-colour-tertiary);
+	font-size: var(--font-size-p-m);
 	font-weight: 400;
-	line-height: calc(var(--fontSizePMHeight) + 2px);
+	line-height: calc(var(--font-size-p-m-height) + 2px);
 }

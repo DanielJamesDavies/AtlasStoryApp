@@ -3,7 +3,7 @@
 	margin-top: -6px;
 	width: 100%;
 	height: min(20vw, 324px);
-	background: var(--grey2);
+	background: var(--colour-grey-two);
 }
 
 .story-banner {
