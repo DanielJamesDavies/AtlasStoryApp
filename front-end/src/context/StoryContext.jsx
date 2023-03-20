@@ -141,41 +141,56 @@ const StoryProvider = ({ children }) => {
 		}
 
 		async function setFaviconToStoryIcon(base64) {
-			const borderRadius = 128;
+			const favicon_width = 128;
+			const border_radius = 32;
 
 			var image = new Image();
 			image.src = base64;
 			image.onload = function () {
 				const canvas = document.getElementById("faviconCanvas");
-				canvas.width = image.width;
-				canvas.height = image.height;
+
+				canvas.width = favicon_width;
+				canvas.height = favicon_width;
+
+				const crop_pixels = image.width * 0.08;
 
 				const ctx = canvas.getContext("2d");
-				ctx.drawImage(image, 0, 0);
+				ctx.drawImage(
+					image,
+					crop_pixels,
+					crop_pixels,
+					image.width - crop_pixels * 2,
+					image.height - crop_pixels * 2,
+					0,
+					0,
+					favicon_width,
+					favicon_width
+				);
 				ctx.save();
+
 				ctx.globalCompositeOperation = "destination-out";
 				ctx.beginPath();
 				ctx.moveTo(0, 0);
-				ctx.lineTo(borderRadius, 0);
-				ctx.arcTo(0, 0, 0, borderRadius, borderRadius);
+				ctx.lineTo(border_radius, 0);
+				ctx.arcTo(0, 0, 0, border_radius, border_radius);
 				ctx.closePath();
 				ctx.fill();
 				ctx.beginPath();
-				ctx.moveTo(image.width, 0);
-				ctx.lineTo(image.width / 2, 0);
-				ctx.arcTo(image.width, 0, image.height, borderRadius, borderRadius);
+				ctx.moveTo(favicon_width, 0);
+				ctx.lineTo(0, 0);
+				ctx.arcTo(favicon_width, 0, favicon_width, border_radius, border_radius);
 				ctx.closePath();
 				ctx.fill();
 				ctx.beginPath();
-				ctx.moveTo(0, image.width);
-				ctx.lineTo(0, image.width / 2);
-				ctx.arcTo(0, image.height, borderRadius, image.height, borderRadius);
+				ctx.moveTo(0, favicon_width);
+				ctx.lineTo(0, 0);
+				ctx.arcTo(0, favicon_width, border_radius, favicon_width, border_radius);
 				ctx.closePath();
 				ctx.fill();
 				ctx.beginPath();
-				ctx.moveTo(image.width, image.height);
-				ctx.lineTo(image.width / 2, image.height);
-				ctx.arcTo(image.width, image.height, image.width, image.height / 2, borderRadius);
+				ctx.moveTo(favicon_width, favicon_width);
+				ctx.lineTo(0, favicon_width);
+				ctx.arcTo(favicon_width, favicon_width, favicon_width, 0, border_radius);
 				ctx.closePath();
 				ctx.fill();
 				ctx.restore();
