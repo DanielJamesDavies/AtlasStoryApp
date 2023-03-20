@@ -14,6 +14,7 @@ const StoryProvider = ({ children }) => {
 	const { location } = useContext(RoutesContext);
 
 	const curr_story_uid = useRef(false);
+	const curr_location = useRef(false);
 
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
 	const [isFollowingStory, setIsFollowingStory] = useState(false);
@@ -29,14 +30,15 @@ const StoryProvider = ({ children }) => {
 	const [storySubstories, setStorySubstories] = useState([]);
 
 	useEffect(() => {
-		async function getInitial() {
+		async function getAll() {
 			if (window !== window.parent) return;
 
 			const story_uid = getStoryUID();
 			if (!story_uid) return setStateToDefault();
-			if (curr_story_uid.current === story_uid) return;
+			if (curr_story_uid.current === story_uid && curr_location.current === location) return;
+			if (curr_story_uid.current !== story_uid) setStateToDefault();
 			curr_story_uid.current = story_uid;
-			setStateToDefault();
+			curr_location.current = location;
 
 			const newStory = await getStory(story_uid);
 			if (!newStory) return;
@@ -312,7 +314,7 @@ const StoryProvider = ({ children }) => {
 			setStoryNotesImages(newStoryNotesImages);
 		}
 
-		getInitial();
+		getAll();
 	}, [
 		curr_story_uid,
 		APIRequest,
