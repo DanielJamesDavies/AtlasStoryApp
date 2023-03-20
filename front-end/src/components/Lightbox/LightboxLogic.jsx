@@ -224,10 +224,9 @@ export const LightboxLogic = () => {
 			let xs = (startCoords.centerX - pointX.current) / zoom.current;
 			let ys = (startCoords.centerY - pointY.current) / zoom.current;
 
-			if (prevDist.current === false)
-				prevDist.current = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-
 			let dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+
+			if (prevDist.current === false) prevDist.current = dist;
 
 			let diffDist = prevDist.current - dist;
 

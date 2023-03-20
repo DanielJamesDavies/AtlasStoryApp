@@ -16,7 +16,12 @@ import "./StoryItem.css";
 // Assets
 
 export const StoryItem = ({ story, className, size }) => {
-	const { storyItemClassName, onClick, onMouseDown, onOwnerClick } = StoryItemLogic({ story, className, size });
+	const { storyItemClassName, storyItemTitleContainerRef, storyItemTitleRef, storyItemTitleStyles, onClick, onMouseDown, onOwnerClick } =
+		StoryItemLogic({
+			story,
+			className,
+			size,
+		});
 
 	if (!story) return <div className={size ? "story-item-placeholder story-item-size-" + size : "story-item-placeholder"} />;
 	return (
@@ -24,7 +29,11 @@ export const StoryItem = ({ story, className, size }) => {
 			<div className='story-item-spine'></div>
 			<div className='story-item-content'>
 				<div className='story-item-private'>{story?.data?.isPrivate ? <FaLock /> : <FaLockOpen />}</div>
-				<div className='story-item-title'>{story?.data?.title}</div>
+				<div ref={storyItemTitleContainerRef} className='story-item-title-container'>
+					<div ref={storyItemTitleRef} className='story-item-title' style={storyItemTitleStyles}>
+						{story?.data?.title}
+					</div>
+				</div>
 				<div className='story-item-owner' onClick={onOwnerClick} onAuxClick={onOwnerClick} onMouseDown={(e) => e.preventDefault()}>
 					{story?.data?.owner?.nickname}
 					<div className='story-item-owner-label'>

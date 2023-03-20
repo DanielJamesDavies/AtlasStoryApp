@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useLayoutEffect, useRef } from "react";
 
 // Components
 
@@ -14,8 +14,8 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const StoryItemLogic = ({ story, className, size }) => {
 	const { changeLocation } = useContext(RoutesContext);
-	const [storyItemClassName, setStoryItemClassName] = useState("story-item-loading");
 
+	const [storyItemClassName, setStoryItemClassName] = useState("story-item-loading");
 	useEffect(() => {
 		function getStoryItemClassName() {
 			let newBtnListItemClassName = "story-item";
@@ -25,6 +25,34 @@ export const StoryItemLogic = ({ story, className, size }) => {
 		}
 		getStoryItemClassName();
 	}, [setStoryItemClassName, className, size]);
+
+	const storyItemTitleContainerRef = useRef();
+	const storyItemTitleRef = useRef();
+	const hasResizedStoryItemTitle = useRef(false);
+	const [storyItemTitleStyles, setStoryItemTitleStyles] = useState({});
+	useLayoutEffect(() => {
+		async function getStoryItemTitleStyles() {
+			await new Promise((resolve) => setTimeout(resolve, 1));
+
+			if (storyItemTitleRef?.current?.clientWidth <= storyItemTitleContainerRef?.current?.clientWidth) {
+				if (!hasResizedStoryItemTitle.current) setStoryItemTitleStyles({});
+				return;
+			}
+
+			hasResizedStoryItemTitle.current = true;
+
+			let currFontSize = getComputedStyle(storyItemTitleRef.current)?.fontSize;
+			currFontSize = currFontSize.substring(0, currFontSize.length - 2);
+			currFontSize = parseInt(currFontSize);
+			if (isNaN(currFontSize)) return false;
+			currFontSize--;
+
+			setStoryItemTitleStyles({ fontSize: currFontSize + "px" });
+
+			getStoryItemTitleStyles();
+		}
+		getStoryItemTitleStyles();
+	}, [setStoryItemTitleStyles, storyItemTitleContainerRef, storyItemTitleRef, hasResizedStoryItemTitle]);
 
 	function onClick(e) {
 		changeLocation("/s/" + story.uid, e.button === 1);
@@ -39,5 +67,5 @@ export const StoryItemLogic = ({ story, className, size }) => {
 		if (story?.data?.owner?.username) changeLocation("/u/" + story.data.owner.username, e.button === 1);
 	}
 
-	return { storyItemClassName, onClick, onMouseDown, onOwnerClick };
+	return { storyItemClassName, storyItemTitleContainerRef, storyItemTitleRef, storyItemTitleStyles, onClick, onMouseDown, onOwnerClick };
 };
