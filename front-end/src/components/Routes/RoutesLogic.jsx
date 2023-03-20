@@ -41,6 +41,10 @@ export const RoutesLogic = () => {
 	const [showUnauthorizedNavigationBar, setShowUnauthorizedNavigationBar] = useState(false);
 
 	useEffect(() => {
+		function setFaviconToDefault() {
+			document.getElementById("favicon").setAttribute("href", "/favicon.ico");
+		}
+
 		function updateRoutesState() {
 			const locationSplit = location.split("?")[0].split("/");
 			locationSplit.splice(0, 1);
@@ -51,6 +55,7 @@ export const RoutesLogic = () => {
 			setShowUnauthorizedNavigationBar(false);
 			if (window !== window.parent || ["authorize-spotify", "spotify"].includes(locationSplit[0])) return null;
 
+			if (locationSplit[0] !== "s") setFaviconToDefault();
 			switch (locationSplit[0]) {
 				case "login":
 					if (!username) {
@@ -158,6 +163,7 @@ export const RoutesLogic = () => {
 				default:
 					if (username) changeLocation("/home");
 					document.title = "Atlas Story App";
+
 					changeAccentColour("default");
 					changeAccentHoverColour("default");
 					setRenderComponent(<Landing />);

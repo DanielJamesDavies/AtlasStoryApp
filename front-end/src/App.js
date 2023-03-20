@@ -21,7 +21,8 @@ function App() {
 	return (
 		<div id='App' className='App'>
 			<Page />
-			<canvas id='isLightBackgroundCanvas'></canvas>
+			<canvas id='faviconCanvas' style={{ position: "absolute", opacity: "0", userSelect: "none", pointerEvents: "none" }}></canvas>
+			<canvas id='isLightBackgroundCanvas' style={{ position: "absolute", opacity: "0", userSelect: "none", pointerEvents: "none" }}></canvas>
 		</div>
 	);
 }

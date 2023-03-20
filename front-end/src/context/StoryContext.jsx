@@ -136,6 +136,52 @@ const StoryProvider = ({ children }) => {
 			addImagesToRecentImages([icon]);
 
 			setStoryIcon(icon.image);
+
+			setFaviconToStoryIcon(icon.image);
+		}
+
+		async function setFaviconToStoryIcon(base64) {
+			const borderRadius = 128;
+
+			var image = new Image();
+			image.src = base64;
+			image.onload = function () {
+				const canvas = document.getElementById("faviconCanvas");
+				canvas.width = image.width;
+				canvas.height = image.height;
+
+				const ctx = canvas.getContext("2d");
+				ctx.drawImage(image, 0, 0);
+				ctx.save();
+				ctx.globalCompositeOperation = "destination-out";
+				ctx.beginPath();
+				ctx.moveTo(0, 0);
+				ctx.lineTo(borderRadius, 0);
+				ctx.arcTo(0, 0, 0, borderRadius, borderRadius);
+				ctx.closePath();
+				ctx.fill();
+				ctx.beginPath();
+				ctx.moveTo(image.width, 0);
+				ctx.lineTo(image.width / 2, 0);
+				ctx.arcTo(image.width, 0, image.height, borderRadius, borderRadius);
+				ctx.closePath();
+				ctx.fill();
+				ctx.beginPath();
+				ctx.moveTo(0, image.width);
+				ctx.lineTo(0, image.width / 2);
+				ctx.arcTo(0, image.height, borderRadius, image.height, borderRadius);
+				ctx.closePath();
+				ctx.fill();
+				ctx.beginPath();
+				ctx.moveTo(image.width, image.height);
+				ctx.lineTo(image.width / 2, image.height);
+				ctx.arcTo(image.width, image.height, image.width, image.height / 2, borderRadius);
+				ctx.closePath();
+				ctx.fill();
+				ctx.restore();
+
+				document.getElementById("favicon").setAttribute("href", canvas.toDataURL("image/png"));
+			};
 		}
 
 		async function getStoryBanner(bannerID) {
