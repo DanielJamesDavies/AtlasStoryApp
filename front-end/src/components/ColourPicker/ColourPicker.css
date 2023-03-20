@@ -42,12 +42,6 @@
 	border-radius: 100%;
 }
 
-.colour-picker-sketch-picker-container {
-	position: absolute;
-	left: -6px;
-	z-index: 300000;
-}
-
 .colour-picker-sketch-picker {
 	position: absolute;
 	z-index: 3;
