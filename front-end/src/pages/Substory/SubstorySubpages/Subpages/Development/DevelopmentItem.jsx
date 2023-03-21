@@ -51,14 +51,22 @@ export const DevelopmentItem = ({
 
 	if (!isEditing)
 		return (
-			<div className='substory-subpage-development-item'>
+			<div
+				className={
+					developmentItem?.text.join("").split(" ").join("").length !== 0 && developmentItem?.text.length === 1
+						? "substory-subpage-development-item substory-subpage-development-item-has-single-line-text"
+						: "substory-subpage-development-item"
+				}
+			>
 				<ContentItem hasBg={true}>
 					<div className='substory-subpage-development-item-title-container'>
 						<div className='substory-subpage-development-item-title'>{developmentItem?.title}</div>
 					</div>
-					<div className={devItemTextContainerClassName}>
-						<Text className='substory-subpage-development-item-text-text' value={developmentItem?.text} />
-					</div>
+					{developmentItem?.text.join("").split(" ").join("").length === 0 ? null : (
+						<div className={devItemTextContainerClassName}>
+							<Text className='substory-subpage-development-item-text-text' value={developmentItem?.text} />
+						</div>
+					)}
 					{!developmentItem?.images || developmentItem?.images?.length === 0 ? null : (
 						<div className={devItemImagesContainerClassName}>
 							<div className='substory-subpage-development-item-images'>

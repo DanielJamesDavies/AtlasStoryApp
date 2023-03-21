@@ -41,9 +41,15 @@ export const NotesListItem = ({ item, index, isEditing, isReorderingNotes }) => 
 
 	if (!isEditing)
 		return (
-			<div className='notes-list-item'>
+			<div
+				className={
+					item?.text.join("").split(" ").join("").length !== 0 && item?.text.length === 1
+						? "notes-list-item notes-list-item-has-single-line-text"
+						: "notes-list-item"
+				}
+			>
 				<div className='notes-list-item-title'>{item?.title}</div>
-				<Text className='notes-list-item-text' value={item?.text} />
+				{item?.text.join("").split(" ").join("").length === 0 ? null : <Text className='notes-list-item-text' value={item?.text} />}
 				<div className='notes-list-item-images-container'>
 					{item?.images?.map((image, imageIndex) => (
 						<div key={imageIndex} className='notes-list-item-image-item'>

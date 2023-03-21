@@ -8,6 +8,10 @@
 	padding-right: 8px;
 }
 
+.character-subpage-miscellaneous-item-has-single-line-text .content-item {
+	padding-bottom: 8px;
+}
+
 .character-subpage-miscellaneous-item-container:last-child {
 	padding-bottom: 8px;
 }

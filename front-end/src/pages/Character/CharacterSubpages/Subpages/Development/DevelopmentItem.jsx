@@ -9,6 +9,7 @@ import { Text } from "../../../../../components/Text/Text";
 import { TextInput } from "../../../../../components/TextInput/TextInput";
 import { MultiLineTextInput } from "../../../../../components/MultiLineTextInput/MultiLineTextInput";
 import { IconBtn } from "../../../../../components/IconBtn/IconBtn";
+import { LoadingCircle } from "../../../../../components/LoadingCircle/LoadingCircle";
 
 // Logic
 import { DevelopmentItemLogic } from "./DevelopmentItemLogic";
@@ -19,7 +20,6 @@ import { DevelopmentItemLogic } from "./DevelopmentItemLogic";
 
 // Styles
 import "./DevelopmentItem.css";
-import { LoadingCircle } from "../../../../../components/LoadingCircle/LoadingCircle";
 
 // Assets
 
@@ -51,14 +51,22 @@ export const DevelopmentItem = ({
 
 	if (!isEditing)
 		return (
-			<div className='character-subpage-development-item'>
+			<div
+				className={
+					developmentItem?.text.join("").split(" ").join("").length !== 0 && developmentItem?.text.length === 1
+						? "character-subpage-development-item character-subpage-development-item-has-single-line-text"
+						: "character-subpage-development-item"
+				}
+			>
 				<ContentItem hasBg={true}>
 					<div className='character-subpage-development-item-title-container'>
 						<div className='character-subpage-development-item-title'>{developmentItem?.title}</div>
 					</div>
-					<div className={devItemTextContainerClassName}>
-						<Text className='character-subpage-development-item-text-text' value={developmentItem?.text} />
-					</div>
+					{developmentItem?.text.join("").split(" ").join("").length === 0 ? null : (
+						<div className={devItemTextContainerClassName}>
+							<Text className='character-subpage-development-item-text-text' value={developmentItem?.text} />
+						</div>
+					)}
 					{!developmentItem?.images || developmentItem?.images?.length === 0 ? null : (
 						<div className={devItemImagesContainerClassName}>
 							<div className='character-subpage-development-item-images'>

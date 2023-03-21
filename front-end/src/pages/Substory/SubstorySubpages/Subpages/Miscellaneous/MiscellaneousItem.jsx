@@ -51,14 +51,22 @@ export const MiscellaneousItem = ({
 
 	if (!isEditing)
 		return (
-			<div className='substory-subpage-miscellaneous-item'>
+			<div
+				className={
+					miscellaneousItem?.text.join("").split(" ").join("").length !== 0 && miscellaneousItem?.text.length === 1
+						? "substory-subpage-miscellaneous-item substory-subpage-miscellaneous-item-has-single-line-text"
+						: "substory-subpage-miscellaneous-item"
+				}
+			>
 				<ContentItem hasBg={true}>
 					<div className='substory-subpage-miscellaneous-item-title-container'>
 						<div className='substory-subpage-miscellaneous-item-title'>{miscellaneousItem?.title}</div>
 					</div>
-					<div className={devItemTextContainerClassName}>
-						<Text className='substory-subpage-miscellaneous-item-text-text' value={miscellaneousItem?.text} />
-					</div>
+					{miscellaneousItem?.text.join("").split(" ").join("").length === 0 ? null : (
+						<div className={devItemTextContainerClassName}>
+							<Text className='substory-subpage-miscellaneous-item-text-text' value={miscellaneousItem?.text} />
+						</div>
+					)}
 					{!miscellaneousItem?.images || miscellaneousItem?.images?.length === 0 ? null : (
 						<div className={devItemImagesContainerClassName}>
 							<div className='substory-subpage-miscellaneous-item-images'>

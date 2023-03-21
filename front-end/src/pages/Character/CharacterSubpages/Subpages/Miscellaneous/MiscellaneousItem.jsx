@@ -9,6 +9,7 @@ import { Text } from "../../../../../components/Text/Text";
 import { TextInput } from "../../../../../components/TextInput/TextInput";
 import { MultiLineTextInput } from "../../../../../components/MultiLineTextInput/MultiLineTextInput";
 import { IconBtn } from "../../../../../components/IconBtn/IconBtn";
+import { LoadingCircle } from "../../../../../components/LoadingCircle/LoadingCircle";
 
 // Logic
 import { MiscellaneousItemLogic } from "./MiscellaneousItemLogic";
@@ -19,7 +20,6 @@ import { MiscellaneousItemLogic } from "./MiscellaneousItemLogic";
 
 // Styles
 import "./MiscellaneousItem.css";
-import { LoadingCircle } from "../../../../../components/LoadingCircle/LoadingCircle";
 
 // Assets
 
@@ -51,14 +51,22 @@ export const MiscellaneousItem = ({
 
 	if (!isEditing)
 		return (
-			<div className='character-subpage-miscellaneous-item'>
+			<div
+				className={
+					miscellaneousItem?.text.join("").split(" ").join("").length !== 0 && miscellaneousItem?.text.length === 1
+						? "character-subpage-miscellaneous-item character-subpage-miscellaneous-item-has-single-line-text"
+						: "character-subpage-miscellaneous-item"
+				}
+			>
 				<ContentItem hasBg={true}>
 					<div className='character-subpage-miscellaneous-item-title-container'>
 						<div className='character-subpage-miscellaneous-item-title'>{miscellaneousItem?.title}</div>
 					</div>
-					<div className={devItemTextContainerClassName}>
-						<Text className='character-subpage-miscellaneous-item-text-text' value={miscellaneousItem?.text} />
-					</div>
+					{miscellaneousItem?.text.join("").split(" ").join("").length === 0 ? null : (
+						<div className={devItemTextContainerClassName}>
+							<Text className='character-subpage-miscellaneous-item-text-text' value={miscellaneousItem?.text} />
+						</div>
+					)}
 					{!miscellaneousItem?.images || miscellaneousItem?.images?.length === 0 ? null : (
 						<div className={devItemImagesContainerClassName}>
 							<div className='character-subpage-miscellaneous-item-images'>
