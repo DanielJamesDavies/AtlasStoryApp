@@ -1,4 +1,5 @@
 // Packages
+import { FaArrowRight } from "react-icons/fa";
 
 // Components
 
@@ -20,7 +21,8 @@ export const RegisterBtn = () => {
 	return (
 		<div className='landing-hero-register-btn-container'>
 			<button className='landing-hero-register-btn' onClick={goToRegisterPage}>
-				Get Started
+				<div>Get Started</div>
+				<FaArrowRight />
 			</button>
 		</div>
 	);

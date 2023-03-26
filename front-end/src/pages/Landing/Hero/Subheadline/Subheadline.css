@@ -1,9 +1,9 @@
 .landing-hero-subheadline {
-	margin: 18px auto;
+	margin: 32px 4px;
 	width: calc(100% - 48px);
 	max-width: 660px;
-	color: var(--text-colour-tertiary);
-	font-size: var(--font-size-p-m);
-	font-weight: 400;
+	color: var(--text-colour-primary);
+	font-size: var(--font-size-h2);
+	font-weight: 500;
 	line-height: calc(var(--font-size-p-m-height) + 2px);
 }

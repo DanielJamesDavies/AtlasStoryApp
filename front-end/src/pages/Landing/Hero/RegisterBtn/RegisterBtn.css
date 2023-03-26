@@ -1,12 +1,14 @@
 .landing-hero-register-btn-container {
-	margin: 18px auto;
-	margin-top: 28px;
+	margin: 18px 0;
+	margin-top: 12px;
 }
 
 .landing-hero-register-btn {
+	display: flex;
+	align-items: center;
+	gap: 0 10px;
 	margin: 0;
-	margin-left: 10px;
-	padding: 8px 12px;
+	padding: 10px 18px;
 	border: 0;
 	border-radius: 32px;
 
@@ -14,8 +16,8 @@
 
 	background: var(--colour-grey-three);
 	color: var(--text-colour-primary);
-	font-size: var(--font-size-p-s);
-	font-weight: 600;
+	font-size: var(--font-size-h2);
+	font-weight: 500;
 	transition: 0.2s;
 	cursor: pointer;
 }

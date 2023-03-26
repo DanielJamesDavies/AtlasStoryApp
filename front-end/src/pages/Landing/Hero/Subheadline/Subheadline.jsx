@@ -16,8 +16,8 @@ import "./Subheadline.css";
 export const Subheadline = () => {
 	return (
 		<div className='landing-hero-subheadline'>
-			Atlas Story App provides story writers a platform to store and share their stories, characters, substories, and world elements. The
-			application supports stories that are in any stage of development, ranging from sparse outlines to extremely intricate worlds.
+			Atlas Story App is a platform for writers to store and share their stories, characters, substories, and world elements in any stage of
+			development.
 		</div>
 	);
 };

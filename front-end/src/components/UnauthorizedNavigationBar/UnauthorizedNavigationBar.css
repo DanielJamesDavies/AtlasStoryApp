@@ -19,7 +19,7 @@
 	border: 0;
 
 	background: #00000000;
-	color: var(--text-colour-tertiary);
+	color: var(--text-colour-primary);
 	font-size: 16px;
 	font-weight: 500;
 	white-space: nowrap;
@@ -36,12 +36,12 @@
 	--logoHeight: 30px;
 	min-height: var(--logoHeight);
 	height: var(--logoHeight);
-	filter: brightness(0) invert(1) brightness(0.4);
+	filter: brightness(0) invert(1) brightness(0.8);
 	transition: 0.2s;
 }
 
 .unauthorized-navigation-bar-landing-btn:hover .unauthorized-navigation-bar-landing-btn-logo {
-	filter: brightness(0) invert(1) brightness(0.65);
+	filter: brightness(0) invert(1) brightness(0.55);
 }
 
 .unauthorized-navigation-bar-landing-btn-text {
@@ -58,23 +58,23 @@
 	height: fit-content;
 
 	background: transparent;
-	color: var(--text-colour-tertiary);
+	color: var(--text-colour-primary);
 	font-weight: 600;
 	transition: 0.2s;
 	cursor: pointer;
 }
 
 .unauthorized-navigation-bar-btn:hover {
-	color: var(--text-colour-primary);
+	color: var(--text-colour-secondary);
 }
 
 .unauthorized-navigation-bar-btn-register {
 	background: var(--colour-grey-two);
-	color: var(--text-colour-secondary);
+	color: var(--text-colour-primary);
 }
 
 .unauthorized-navigation-bar-btn-register:hover {
-	background: var(--colour-grey-three);
+	color: var(--text-colour-secondary);
 }
 
 .unauthorized-navigation-bar-btn:last-child {

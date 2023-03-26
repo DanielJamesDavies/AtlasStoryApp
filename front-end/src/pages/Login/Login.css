@@ -5,7 +5,7 @@
 
 .login-form {
 	margin: 80px auto;
-	margin-top: 16vh;
+	margin-top: 14vh;
 	padding: 24px;
 	border-radius: 4px;
 
@@ -16,8 +16,8 @@
 }
 
 .login-form-title {
-	margin-bottom: 20px;
-	font-size: 24px;
+	margin-bottom: 24px;
+	font-size: 28px;
 	font-weight: 600;
 	text-align: left;
 }

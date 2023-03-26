@@ -5,7 +5,7 @@
 
 .register-form {
 	margin: 80px auto;
-	margin-top: 8vh;
+	margin-top: 10vh;
 	padding: 24px;
 	border-radius: 4px;
 
@@ -17,7 +17,7 @@
 
 .register-form-title {
 	margin-bottom: 24px;
-	font-size: 24px;
+	font-size: 28px;
 	font-weight: 600;
 	text-align: left;
 }
