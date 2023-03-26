@@ -7,3 +7,10 @@
 	font-weight: 500;
 	line-height: calc(var(--font-size-p-m-height) + 2px);
 }
+
+@media (max-width: 756px) {
+	.landing-hero-subheadline {
+		margin-left: 6px;
+		margin-right: 6px;
+	}
+}

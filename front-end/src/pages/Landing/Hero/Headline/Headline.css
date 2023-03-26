@@ -46,11 +46,11 @@
 }
 
 .landing-hero-headline-moving-word {
-	margin-bottom: -48px;
+	margin-bottom: -2.5vw;
 }
 
 .landing-hero-headline-moving-word:first-child {
-	animation: landing-hero-headline-moving-word-first-child 10s infinite linear;
+	animation: landing-hero-headline-moving-word-first-child 8s infinite linear;
 	animation-delay: 0.5s;
 }
 
@@ -59,7 +59,7 @@
 		margin-top: 0;
 	}
 	100% {
-		margin-top: calc(-1 * (var(--fontSize) + -14px) * 5);
+		margin-top: calc(-5 * (var(--fontSize) + -2.5vw * 0.26));
 	}
 }
 
@@ -67,14 +67,19 @@
 	text-align: left;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 756px) {
 	.landing-hero-headline {
-		font-size: 6.5vw;
+		margin-left: 6px;
+		margin-right: 6px;
+		--fontSize: 14vw;
 	}
-}
 
-@media (max-width: 370px) {
-	.landing-hero-headline {
-		font-size: 24px;
+	@keyframes landing-hero-headline-moving-word-first-child {
+		0% {
+			margin-top: 0;
+		}
+		100% {
+			margin-top: calc(-5 * (var(--fontSize) + 0.5vw));
+		}
 	}
 }
