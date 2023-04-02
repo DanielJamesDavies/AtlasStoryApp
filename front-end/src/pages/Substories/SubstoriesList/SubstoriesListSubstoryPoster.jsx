@@ -16,7 +16,10 @@ import "./SubstoriesListSubstoryPoster.css";
 import Shine from "../../../content/shine.svg";
 
 export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
-	const { story, substory, navigateToSubstory, onSubstoryMouseDown, posterContainerStyles } = SubstoriesListSubstoryPosterLogic({ substoryID });
+	const { story, substory, navigateToSubstory, onSubstoryMouseDown, posterContainerStyles, posterTitleContainerRef, posterTitleContainerStyles } =
+		SubstoriesListSubstoryPosterLogic({
+			substoryID,
+		});
 
 	if (!substory) return <div className='substories-list-substories-poster-placeholder' />;
 	return (
@@ -29,13 +32,19 @@ export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
 		>
 			<div className='substories-list-substories-poster'>
 				<div className='substories-list-substories-poster-content'>
-					{!substory?.data?.isTitleOnPoster ? null : substory?.data?.isStoryTitleInTitle ? (
-						<div className='substories-list-substories-poster-content-title-container substories-list-substories-poster-content-title-container-with-story-title'>
-							<div className='substories-list-substories-poster-content-title-story'>{story?.data?.title}</div>
-							<div className='substories-list-substories-poster-content-title-substory'>{substory?.data?.title}</div>
-						</div>
-					) : (
-						<div className='substories-list-substories-poster-content-title-container'>
+					{!substory?.data?.isTitleOnPoster ? null : (
+						<div
+							ref={posterTitleContainerRef}
+							className={
+								!substory?.data?.isStoryTitleInTitle
+									? "substories-list-substories-poster-content-title-container"
+									: "substories-list-substories-poster-content-title-container substories-list-substories-poster-content-title-container-with-story-title"
+							}
+							style={posterTitleContainerStyles}
+						>
+							{!substory?.data?.isStoryTitleInTitle ? null : (
+								<div className='substories-list-substories-poster-content-title-story'>{story?.data?.title}</div>
+							)}
 							<div className='substories-list-substories-poster-content-title-substory'>{substory?.data?.title}</div>
 						</div>
 					)}
