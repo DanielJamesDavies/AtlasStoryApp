@@ -9,7 +9,7 @@ export const SubstoriesContext = createContext();
 const SubstoriesProvider = ({ children, story_uid }) => {
 	const { APIRequest } = useContext(APIContext);
 	const { location } = useContext(RoutesContext);
-	const { isAuthorizedToEdit, story, storyIcon, storySubstories, setStorySubstories } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, storySubstories, setStorySubstories } = useContext(StoryContext);
 
 	const curr_story_uid = useRef(false);
 	useEffect(() => {
@@ -41,6 +41,7 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 				isAuthorizedToEdit,
 				story_uid,
 				story,
+				setStory,
 				storyIcon,
 				storySubstories,
 				setStorySubstories,
