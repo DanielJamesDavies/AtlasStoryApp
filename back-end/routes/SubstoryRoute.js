@@ -3,8 +3,8 @@ const router = express.Router();
 
 const Authenticate = require("../services/TokenAuthentication");
 const CookieConsentAuthentication = require("../services/CookiesConsent/CookieConsentAuthentication");
-const StoryMemberAuthentication = require("../services/StoryMemberAuthentication");
-const StoryAuthentication = require("../services/StoryAuthentication");
+const StoryViewAuthentication = require("../services/StoryViewAuthentication");
+const StoryEditAuthentication = require("../services/StoryEditAuthentication");
 
 const GetSubstory = require("../services/Substory/GetSubstory");
 const GetSubstoryByID = require("../services/Substory/GetSubstoryByID");
@@ -13,11 +13,11 @@ const CreateSubstory = require("../services/Substory/CreateSubstory");
 const UpdateSubstory = require("../services/Substory/UpdateSubstory");
 const DeleteSubstory = require("../services/Substory/DeleteSubstory");
 
-router.get("/", StoryMemberAuthentication, GetSubstory);
-router.get("/:id", StoryMemberAuthentication, GetSubstoryByID);
-router.post("/get-value/:id", StoryMemberAuthentication, GetSubstoryValueByID);
-router.post("/", CookieConsentAuthentication, Authenticate, StoryAuthentication, CreateSubstory);
-router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, UpdateSubstory);
-router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, DeleteSubstory);
+router.get("/", StoryViewAuthentication, GetSubstory);
+router.get("/:id", StoryViewAuthentication, GetSubstoryByID);
+router.post("/get-value/:id", StoryViewAuthentication, GetSubstoryValueByID);
+router.post("/", CookieConsentAuthentication, Authenticate, StoryEditAuthentication, CreateSubstory);
+router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryEditAuthentication, UpdateSubstory);
+router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryEditAuthentication, DeleteSubstory);
 
 module.exports = router;

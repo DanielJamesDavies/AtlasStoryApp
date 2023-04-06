@@ -10,6 +10,10 @@ module.exports = async (req, res) => {
 		.catch(() => false);
 	if (!character) return res.status(200).send({ errors: [{ message: "Character Not Found" }] });
 
+	// Story Authentication Check
+	if (JSON.stringify(character.story_id) !== JSON.stringify(req.body.story_id))
+		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
+
 	const removeCharacterFromStoryPrimaryCharactersResult = await removeCharacterFromStoryPrimaryCharacters(req.params.id, character.story_id);
 	if (removeCharacterFromStoryPrimaryCharactersResult?.errors)
 		return res.status(200).send({ errors: removeCharacterFromStoryPrimaryCharactersResult?.errors });

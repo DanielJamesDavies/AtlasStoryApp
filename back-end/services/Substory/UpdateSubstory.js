@@ -11,6 +11,10 @@ module.exports = async (req, res) => {
 		.catch(() => false);
 	if (!oldSubstory) return res.status(200).send({ errors: [{ message: "Substory Not Found" }] });
 
+	// Story Authentication Check
+	if (JSON.stringify(oldSubstory.story_id) !== JSON.stringify(req.body.story_id))
+		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
+
 	let newSubstory = JSON.parse(JSON.stringify(oldSubstory));
 
 	switch (JSON.stringify(req.body.path)) {

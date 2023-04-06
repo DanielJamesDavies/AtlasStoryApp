@@ -8,6 +8,10 @@ module.exports = async (req, res) => {
 		.catch(() => false);
 	if (!oldCharacterRelationship) return res.status(200).send({ errors: [{ message: "Character Relationship Not Found" }] });
 
+	// Story Authentication Check
+	if (JSON.stringify(oldCharacterRelationship.story_id) !== JSON.stringify(req.body.story_id))
+		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
+
 	let newCharacterRelationship = JSON.parse(JSON.stringify(oldCharacterRelationship));
 	if (req?.body?.path) {
 		if (req?.body?.path === ["_id"] || req?.body?.path === ["story_id"]) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });

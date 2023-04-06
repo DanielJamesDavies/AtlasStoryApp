@@ -5,7 +5,6 @@ const Group = require("../../models/Group");
 const Story = require("../../models/Story");
 const Image = require("../../models/Image");
 
-const GetValueInNestedObject = require("../GetValueInNestedObject");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 module.exports = async (req, res) => {
@@ -16,8 +15,11 @@ module.exports = async (req, res) => {
 		.catch(() => false);
 	if (!oldCharacter) return res.status(200).send({ errors: [{ message: "Character Not Found" }] });
 
+	// Story Authentication Check
+	if (JSON.stringify(oldCharacter.story_id) !== JSON.stringify(req.body.story_id))
+		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
+
 	let newCharacter = JSON.parse(JSON.stringify(oldCharacter));
-	const oldValue = GetValueInNestedObject(newCharacter, req.body.path);
 
 	switch (JSON.stringify(req.body.path)) {
 		case JSON.stringify(["uid"]):

@@ -9,6 +9,10 @@ module.exports = async (req, res) => {
 		.catch(() => false);
 	if (!substory) return res.status(200).send({ errors: [{ message: "Substory Not Found" }] });
 
+	// Story Authentication Check
+	if (JSON.stringify(substory.story_id) !== JSON.stringify(req.body.story_id))
+		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
+
 	const removeSubstoryFromStoryResult = await removeSubstoryFromStory(req.params.id, substory.story_id);
 	if (removeSubstoryFromStoryResult?.errors) return res.status(200).send({ errors: removeSubstoryFromStoryResult?.errors });
 

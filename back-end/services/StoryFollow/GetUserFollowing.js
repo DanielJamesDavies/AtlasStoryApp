@@ -4,7 +4,7 @@ const StoryFollow = require("../../models/StoryFollow");
 const Story = require("../../models/Story");
 const User = require("../../models/User");
 
-const StoryMemberAuthentication = require("../StoryMemberAuthentication");
+const StoryViewAuthentication = require("../StoryViewAuthentication");
 
 module.exports = async (req, res) => {
 	let user_id = req?.params?.id;
@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
 async function getStory(req, story_id) {
 	if (!story_id) return false;
 
-	const storyMemberAuthenticationResponse = await StoryMemberAuthentication(req, { story_id, status: () => {} }, () => true);
+	const storyMemberAuthenticationResponse = await StoryViewAuthentication(req, { story_id, status: () => {} }, () => true);
 	if (storyMemberAuthenticationResponse !== true) return false;
 
 	const story = await Story.findById(story_id, { _id: 1, uid: 1, owner: 1, "data.title": 1, "data.isPrivate": 1 })

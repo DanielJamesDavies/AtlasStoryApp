@@ -10,6 +10,10 @@ module.exports = async (req, res) => {
 		.catch(() => false);
 	if (!oldGroup) return res.status(200).send({ errors: [{ message: "Group Not Found" }] });
 
+	// Story Authentication Check
+	if (JSON.stringify(oldGroup.story_id) !== JSON.stringify(req.body.story_id))
+		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
+
 	const newGroup = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldGroup)), req?.body?.path, req?.body?.newValue);
 
 	try {

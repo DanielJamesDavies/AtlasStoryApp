@@ -7,6 +7,10 @@ module.exports = async (req, res) => {
 		.catch(() => true);
 	if (!characterType?._id || !characterType?.story_id) return res.status(200).send({ errors: [{ message: "Character Type Not Found" }] });
 
+	// Story Authentication Check
+	if (JSON.stringify(characterType.story_id) !== JSON.stringify(req.body.story_id))
+		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
+
 	const oldStory = await Story.findById(characterType.story_id)
 		.exec()
 		.catch(() => true);

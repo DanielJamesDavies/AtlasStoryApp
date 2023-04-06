@@ -3,8 +3,8 @@ const router = express.Router();
 
 const Authenticate = require("../services/TokenAuthentication");
 const CookieConsentAuthentication = require("../services/CookiesConsent/CookieConsentAuthentication");
-const StoryMemberAuthentication = require("../services/StoryMemberAuthentication");
-const StoryAuthentication = require("../services/StoryAuthentication");
+const StoryViewAuthentication = require("../services/StoryViewAuthentication");
+const StoryEditAuthentication = require("../services/StoryEditAuthentication");
 
 const GetCharacter = require("../services/Character/GetCharacter");
 const GetPrimaryCharacter = require("../services/Character/GetPrimaryCharacter");
@@ -14,12 +14,12 @@ const CreateCharacter = require("../services/Character/CreateCharacter");
 const UpdateCharacter = require("../services/Character/UpdateCharacter");
 const DeleteCharacter = require("../services/Character/DeleteCharacter");
 
-router.get("/", StoryMemberAuthentication, GetCharacter);
-router.get("/primary-character", StoryMemberAuthentication, GetPrimaryCharacter);
-router.get("/:id", StoryMemberAuthentication, GetCharacterByID);
-router.post("/get-value/:id", StoryMemberAuthentication, GetCharacterValueByID);
-router.post("/", CookieConsentAuthentication, Authenticate, StoryAuthentication, CreateCharacter);
-router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, UpdateCharacter);
-router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryAuthentication, DeleteCharacter);
+router.get("/", StoryViewAuthentication, GetCharacter);
+router.get("/primary-character", StoryViewAuthentication, GetPrimaryCharacter);
+router.get("/:id", StoryViewAuthentication, GetCharacterByID);
+router.post("/get-value/:id", StoryViewAuthentication, GetCharacterValueByID);
+router.post("/", CookieConsentAuthentication, Authenticate, StoryEditAuthentication, CreateCharacter);
+router.patch("/:id", CookieConsentAuthentication, Authenticate, StoryEditAuthentication, UpdateCharacter);
+router.delete("/:id", CookieConsentAuthentication, Authenticate, StoryEditAuthentication, DeleteCharacter);
 
 module.exports = router;

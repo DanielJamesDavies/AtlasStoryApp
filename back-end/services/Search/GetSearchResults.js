@@ -2,7 +2,7 @@ const User = require("../../models/User");
 const Story = require("../../models/Story");
 const Image = require("../../models/Image");
 
-const StoryMemberAuthentication = require("../StoryMemberAuthentication");
+const StoryViewAuthentication = require("../StoryViewAuthentication");
 
 module.exports = async (req, res) => {
 	if (!req?.query?.value) return;
@@ -48,11 +48,7 @@ module.exports = async (req, res) => {
 
 	let newStories = await Promise.all(
 		stories.map(async (oldStory) => {
-			const storyMemberAuthenticationResponse = await StoryMemberAuthentication(
-				req,
-				{ story_id: oldStory._id, status: () => {} },
-				() => true
-			);
+			const storyMemberAuthenticationResponse = await StoryViewAuthentication(req, { story_id: oldStory._id, status: () => {} }, () => true);
 			if (storyMemberAuthenticationResponse !== true) return false;
 
 			let newStory = JSON.parse(JSON.stringify(oldStory));

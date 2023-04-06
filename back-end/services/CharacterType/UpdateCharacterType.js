@@ -10,6 +10,10 @@ module.exports = async (req, res) => {
 		.catch(() => false);
 	if (!oldCharacterType) return res.status(200).send({ errors: [{ message: "Character Type Not Found" }] });
 
+	// Story Authentication Check
+	if (JSON.stringify(oldCharacterType.story_id) !== JSON.stringify(req.body.story_id))
+		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
+
 	const newCharacterType = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldCharacterType)), req?.body?.path, req?.body?.newValue);
 
 	try {

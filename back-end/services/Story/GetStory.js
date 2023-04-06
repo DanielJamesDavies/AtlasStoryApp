@@ -3,11 +3,11 @@ const jwt_decode = require("jwt-decode");
 const Story = require("../../models/Story");
 const StoryFollow = require("../../models/StoryFollow");
 
-const StoryMemberAuthentication = require("../../services/StoryMemberAuthentication");
+const StoryViewAuthentication = require("../../services/StoryViewAuthentication");
 
 module.exports = async (req, res) => {
 	if (req?.query?.uid) {
-		const storyMemberAuthenticationResponse = await StoryMemberAuthentication(req, res, () => true);
+		const storyMemberAuthenticationResponse = await StoryViewAuthentication(req, res, () => true);
 		if (storyMemberAuthenticationResponse !== true) return false;
 
 		let story = await Story.findOne({ uid: req.query.uid })

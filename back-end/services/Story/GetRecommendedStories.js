@@ -4,7 +4,7 @@ const Story = require("../../models/Story");
 const User = require("../../models/User");
 const StoryFollow = require("../../models/StoryFollow");
 
-const StoryMemberAuthentication = require("../../services/StoryMemberAuthentication");
+const StoryViewAuthentication = require("../../services/StoryViewAuthentication");
 
 module.exports = async (req, res) => {
 	let stories = await Story.find({}, { _id: 1, uid: 1, owner: 1, "data.title": 1, "data.isPrivate": 1, "data.genres": 1 })
@@ -15,11 +15,7 @@ module.exports = async (req, res) => {
 	stories = (
 		await Promise.all(
 			stories.map(async (story) => {
-				const storyMemberAuthenticationResponse = await StoryMemberAuthentication(
-					req,
-					{ status: () => {}, story_id: story._id },
-					() => true
-				);
+				const storyMemberAuthenticationResponse = await StoryViewAuthentication(req, { status: () => {}, story_id: story._id }, () => true);
 				if (storyMemberAuthenticationResponse !== true) return false;
 
 				const isFollowingStory = await getIsFollowingStory(req?.cookies?.AtlasStoryAppToken, story?._id);

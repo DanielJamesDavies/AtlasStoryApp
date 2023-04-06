@@ -42,10 +42,11 @@ export const TextLogic = ({ value }) => {
 					newText.push(value[i]);
 
 					if (value[i]?.split(" ")?.join("")?.split("")?.length === 0 && i !== value.length - 1 && value[i + 1]?.split("")[0] !== "#") {
-						newText.push("\\");
+						newText.push("&nbsp;");
 					}
 				}
 			}
+
 			setText(newText.join("\n"));
 		}
 		getNewValue();

@@ -23,6 +23,10 @@ module.exports = async (req, res) => {
 	if (!story?.owner) return res.status(200).send({ errors: [{ message: "Owner Not Found" }] });
 	if (JSON.stringify(user_id) !== JSON.stringify(story.owner)) return res.status(200).send({ errors: [{ message: "Unauthorized Action" }] });
 
+	// Story Authentication Check
+	if (JSON.stringify(story.story_id) !== JSON.stringify(req.body.story_id))
+		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
+
 	// Remove Story Follows
 	const removeStoryFollowsResult = await removeStoryFollows(story._id);
 	if (removeStoryFollowsResult?.errors) return res.status(200).send({ errors: removeStoryFollowsResult.errors });
