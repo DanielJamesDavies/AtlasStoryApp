@@ -24,8 +24,7 @@ module.exports = async (req, res) => {
 	if (JSON.stringify(user_id) !== JSON.stringify(story.owner)) return res.status(200).send({ errors: [{ message: "Unauthorized Action" }] });
 
 	// Story Authentication Check
-	if (JSON.stringify(story.story_id) !== JSON.stringify(req.body.story_id))
-		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
+	if (JSON.stringify(story._id) !== JSON.stringify(req.body.story_id)) return res.status(200).send({ errors: [{ message: "Access Denied" }] });
 
 	// Remove Story Follows
 	const removeStoryFollowsResult = await removeStoryFollows(story._id);

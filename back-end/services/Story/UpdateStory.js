@@ -13,8 +13,7 @@ module.exports = async (req, res) => {
 	if (!oldStory) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
 
 	// Story Authentication Check
-	if (JSON.stringify(oldStory.story_id) !== JSON.stringify(req.body.story_id))
-		return res.status(200).send({ errors: [{ message: "Access Denied" }] });
+	if (JSON.stringify(oldStory._id) !== JSON.stringify(req.body.story_id)) return res.status(200).send({ errors: [{ message: "Access Denied" }] });
 
 	let newStory = JSON.parse(JSON.stringify(oldStory));
 
