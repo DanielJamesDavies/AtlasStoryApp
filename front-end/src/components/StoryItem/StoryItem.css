@@ -126,25 +126,25 @@
 	font-weight: 600;
 	text-align: center;
 
-	font-size: 26px;
+	font-size: 28px;
 	font-family: "Palatino Linotype", sans-serif;
 	text-transform: uppercase;
 	letter-spacing: 3px;
 	word-spacing: 1px;
 }
 
-.story-item-title {
-	width: fit-content;
-}
-
-.story-item-size-l .story-item-title {
+.story-item-size-l .story-item-title-container {
 	top: 78px;
 	font-size: 32px;
 }
 
-.story-item-size-s .story-item-title {
+.story-item-size-s .story-item-title-container {
 	top: 55px;
 	font-size: 18px;
+}
+
+.story-item-title {
+	width: fit-content;
 }
 
 .story-item-owner {
