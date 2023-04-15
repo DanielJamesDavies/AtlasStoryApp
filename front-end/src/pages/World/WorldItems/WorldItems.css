@@ -3,3 +3,11 @@
 	flex-wrap: wrap;
 	margin-top: 8vh;
 }
+
+@media (max-width: 680px) {
+	.world-items {
+		margin-top: 24px;
+		margin-bottom: 48px;
+		justify-content: center;
+	}
+}
