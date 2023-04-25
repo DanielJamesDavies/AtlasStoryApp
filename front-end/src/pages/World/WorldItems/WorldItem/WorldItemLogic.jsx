@@ -20,7 +20,7 @@ export const WorldItemLogic = ({ item }) => {
 	const { story } = useContext(StoryContext);
 
 	function onClick(e) {
-		changeLocation("/s/" + story.uid + "/w/" + item.link, e.button === 1);
+		changeLocation("/s/" + story.uid + "/" + item.link, e.button === 1);
 	}
 
 	function onMouseDown(e) {

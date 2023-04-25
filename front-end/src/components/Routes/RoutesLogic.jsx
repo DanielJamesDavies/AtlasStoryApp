@@ -149,17 +149,8 @@ export const RoutesLogic = () => {
 								}
 								setRenderComponent(<WorldContainer story_uid={locationSplit[1]} />);
 								break;
-							case "w":
-								if (locationSplit.length > 3) {
-									switch (locationSplit[3]) {
-										case "locations":
-											setRenderComponent(<LocationsContainer story_uid={locationSplit[1]} />);
-											break;
-										default:
-											break;
-									}
-									break;
-								}
+							case "locations":
+								setRenderComponent(<LocationsContainer story_uid={locationSplit[1]} />);
 								break;
 							case "notes":
 								setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid='all' />);
