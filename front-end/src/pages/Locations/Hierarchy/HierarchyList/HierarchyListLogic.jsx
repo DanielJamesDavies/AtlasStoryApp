@@ -96,7 +96,11 @@ export const HierarchyListLogic = () => {
 		const oldItemIndex = oldParentItemPath.pop();
 
 		let hierarchyOldParentItem = getItemInHierarchyFromPath(oldParentItemPath, newHierarchy);
-		hierarchyOldParentItem.children.splice(oldItemIndex, 1);
+		if (oldParentItemPath.length === 0) {
+			hierarchyOldParentItem.splice(oldItemIndex, 1);
+		} else {
+			hierarchyOldParentItem.children.splice(oldItemIndex, 1);
+		}
 
 		newHierarchy = changeItemInHierarchy(oldParentItemPath, hierarchyOldParentItem, newHierarchy);
 
