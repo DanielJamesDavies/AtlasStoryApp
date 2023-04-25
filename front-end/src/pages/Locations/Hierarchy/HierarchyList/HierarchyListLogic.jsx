@@ -207,6 +207,19 @@ export const HierarchyListLogic = () => {
 	}
 
 	async function revertHierarchyItems() {
+		// Revert Locations Hierarchy
+		const story_response = await APIRequest("/story/get-value/" + story._id, "POST", {
+			story_id: story._id,
+			path: ["data", "locationsHierarchy"],
+		});
+		if (!story_response || story_response?.errors || story_response?.data?.value === undefined) return false;
+		changeStoryHierarchy(story_response?.data?.value);
+
+		// Revert Locations
+		const locations_response = await APIRequest("/location?story_id=" + story._id, "GET");
+		if (!locations_response || locations_response?.errors || !locations_response?.data?.locations) return false;
+		setLocations(locations_response.data.locations);
+
 		return true;
 	}
 

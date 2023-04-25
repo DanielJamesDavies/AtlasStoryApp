@@ -28,6 +28,7 @@ const StoryProvider = ({ children }) => {
 	const [storyCharacterRelationships, setStoryCharacterRelationships] = useState([]);
 	const [storyCharacterTypes, setStoryCharacterTypes] = useState([]);
 	const [storySubstories, setStorySubstories] = useState([]);
+	const [locations, setLocations] = useState(false);
 
 	useEffect(() => {
 		async function getAll() {
@@ -56,6 +57,8 @@ const StoryProvider = ({ children }) => {
 			getStoryCharacterTypes(newStory.uid, newStory?.data?.characterTypes);
 
 			getStorySubstories(newStory.uid, newStory?.data?.substories);
+
+			getLocations(newStory.uid);
 		}
 
 		function setStateToDefault() {
@@ -71,6 +74,7 @@ const StoryProvider = ({ children }) => {
 			setStoryCharacterRelationships([]);
 			setStoryCharacterTypes([]);
 			setStorySubstories([]);
+			setLocations([]);
 		}
 
 		function getStoryUID() {
@@ -375,6 +379,12 @@ const StoryProvider = ({ children }) => {
 			setStoryNotesImages(newStoryNotesImages);
 		}
 
+		async function getLocations(story_uid) {
+			const response = await APIRequest("/location?story_uid=" + story_uid, "GET");
+			if (!response || response?.errors || !response?.data?.locations) return false;
+			setLocations(response.data.locations);
+		}
+
 		getAll();
 	}, [
 		curr_story_uid,
@@ -396,6 +406,7 @@ const StoryProvider = ({ children }) => {
 		setStoryCharacterRelationships,
 		setStoryCharacterTypes,
 		setStorySubstories,
+		setLocations,
 	]);
 
 	const [isDisplayingSettings, setIsDisplayingSettings] = useState(false);
@@ -437,6 +448,8 @@ const StoryProvider = ({ children }) => {
 				setStoryCharacterTypes,
 				storySubstories,
 				setStorySubstories,
+				locations,
+				setLocations,
 				isDisplayingSettings,
 				setIsDisplayingSettings,
 				isReorderingCharacters,

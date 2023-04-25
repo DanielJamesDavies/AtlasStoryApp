@@ -1,4 +1,5 @@
 // Packages
+import { FaCaretDown, FaTimes } from "react-icons/fa";
 
 // Components
 
@@ -11,7 +12,6 @@ import { HierarchyListItemLogic } from "./HierarchyListItemLogic";
 
 // Styles
 import "./HierarchyListItem.css";
-import { FaCaretDown, FaTimes } from "react-icons/fa";
 
 // Assets
 

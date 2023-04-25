@@ -28,9 +28,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 
 	const { location } = useContext(RoutesContext);
 	const { APIRequest } = useContext(APIContext);
-	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
-
-	const [locations, setLocations] = useState(false);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, locations, setLocations } = useContext(StoryContext);
 
 	const [isDisplayingCreateHierarchyItemForm, setIsDisplayingCreateHierarchyItemForm] = useState(false);
 
@@ -64,7 +62,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 		}
 
 		getInitial();
-	}, [location, story_uid, curr_story_uid, story, setStory, APIRequest]);
+	}, [location, story_uid, curr_story_uid, story, setStory, setLocations, APIRequest]);
 
 	function changeStoryHierarchy(newHierarchy) {
 		setStory((oldStory) => {
