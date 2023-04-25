@@ -7,7 +7,7 @@ export const WorldContext = createContext();
 
 const WorldProvider = ({ children, story_uid }) => {
 	const { location } = useContext(RoutesContext);
-	const { isAuthorizedToEdit, story, storyIcon } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
 
 	const curr_story_uid = useRef(false);
 	useEffect(() => {
@@ -17,6 +17,11 @@ const WorldProvider = ({ children, story_uid }) => {
 			if (!story || story.uid !== story_uid) return;
 
 			// Document Title
+			updateDocumentTitle();
+			setTimeout(() => updateDocumentTitle(), 1000);
+		}
+
+		function updateDocumentTitle() {
 			if (story?.data?.title) {
 				document.title = "World | " + story.data.title + " | Atlas Story App";
 			} else {
@@ -27,7 +32,18 @@ const WorldProvider = ({ children, story_uid }) => {
 		getInitial();
 	}, [location, story_uid, curr_story_uid, story]);
 
-	return <WorldContext.Provider value={{ isAuthorizedToEdit, story, storyIcon }}>{children}</WorldContext.Provider>;
+	return (
+		<WorldContext.Provider
+			value={{
+				isAuthorizedToEdit,
+				story,
+				setStory,
+				storyIcon,
+			}}
+		>
+			{children}
+		</WorldContext.Provider>
+	);
 };
 
 export default WorldProvider;

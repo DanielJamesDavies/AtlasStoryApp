@@ -19,6 +19,11 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 			if (!story || story.uid !== story_uid) return;
 
 			// Document Title
+			updateDocumentTitle();
+			setTimeout(() => updateDocumentTitle(), 1000);
+		}
+
+		function updateDocumentTitle() {
 			if (story?.data?.title) {
 				document.title = "Substories | " + story.data.title + " | Atlas Story App";
 			} else {

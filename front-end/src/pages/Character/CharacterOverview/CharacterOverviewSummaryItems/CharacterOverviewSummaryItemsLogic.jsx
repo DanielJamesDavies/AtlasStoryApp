@@ -6,8 +6,8 @@ import { useContext, useState } from "react";
 // Logic
 
 // Context
-import { CharacterContext } from "../CharacterContext";
-import { APIContext } from "../../../context/APIContext";
+import { CharacterContext } from "../../CharacterContext";
+import { APIContext } from "../../../../context/APIContext";
 
 // Services
 

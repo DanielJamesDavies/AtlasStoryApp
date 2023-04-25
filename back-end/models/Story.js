@@ -111,6 +111,7 @@ const StorySchema = mongoose.Schema({
 				default: {},
 			},
 			substories: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+			locationsHierarchy: { type: Object, default: [] },
 		},
 		default: {},
 	},

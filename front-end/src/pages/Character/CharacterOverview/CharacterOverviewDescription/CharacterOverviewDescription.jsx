@@ -1,9 +1,9 @@
 // Packages
 
 // Components
-import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
-import { Text } from "../../../components/Text/Text";
-import { MultiLineTextInput } from "../../../components/MultiLineTextInput/MultiLineTextInput";
+import { EditableContainer } from "../../../../components/EditableContainer/EditableContainer";
+import { Text } from "../../../../components/Text/Text";
+import { MultiLineTextInput } from "../../../../components/MultiLineTextInput/MultiLineTextInput";
 
 // Logic
 import { CharacterOverviewDescriptionLogic } from "./CharacterOverviewDescriptionLogic";

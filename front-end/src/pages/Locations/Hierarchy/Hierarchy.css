@@ -1,0 +1,33 @@
+.locations-hierarchy {
+	position: absolute;
+	right: 0;
+	padding: 16px;
+	z-index: 2;
+
+	width: 100%;
+	max-width: 400px;
+	height: 100%;
+}
+
+.locations-hierarchy::before {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+
+	display: block;
+	content: "";
+
+	width: 100%;
+	height: 100%;
+
+	background: linear-gradient(90deg, var(--colour-grey-two), var(--colour-grey-one));
+	opacity: 0.7;
+}
+
+.locations-hierarchy-title {
+	margin: 0 4px;
+	margin-bottom: 6px;
+	font-size: 20px;
+	font-weight: 600;
+}

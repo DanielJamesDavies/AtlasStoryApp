@@ -58,6 +58,7 @@
 	--font-size-p-s-height: 14px;
 	--font-size-p-m: 12px;
 	--font-size-p-m-height: 15px;
+	--font-size-p-l: 15px;
 	--font-size-h1: 17px;
 	--font-size-h2: 15px;
 	--font-size-h3: 14px;
@@ -71,6 +72,7 @@
 	--font-size-p-s-height: 16px;
 	--font-size-p-m: 14px;
 	--font-size-p-m-height: 17px;
+	--font-size-p-l: 16px;
 	--font-size-h1: 18px;
 	--font-size-h2: 15px;
 	--font-size-h3: 14px;
@@ -85,6 +87,7 @@
 	--font-size-p-s-height: 17px;
 	--font-size-p-m: 15px;
 	--font-size-p-m-height: 19px;
+	--font-size-p-l: 17px;
 	--font-size-h1: 19px;
 	--font-size-h2: 16px;
 	--font-size-h3: 15px;
@@ -98,6 +101,7 @@
 	--font-size-p-s-height: 19px;
 	--font-size-p-m: 16px;
 	--font-size-p-m-height: 20px;
+	--font-size-p-l: 18px;
 	--font-size-h1: 21px;
 	--font-size-h2: 17px;
 	--font-size-h3: 16px;
@@ -164,6 +168,10 @@ img {
 ::-webkit-scrollbar-thumb {
 	border-radius: 4px;
 	background: var(--colour-scroll-bar-thumb-background);
+}
+
+::-webkit-scrollbar-corner {
+	background: var(--colour-grey-one);
 }
 
 @keyframes wiggle-very-small {

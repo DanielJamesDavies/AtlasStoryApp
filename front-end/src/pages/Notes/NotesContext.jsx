@@ -19,6 +19,11 @@ const NotesProvider = ({ children, story_uid, notes_uid }) => {
 			if (!story || story.uid !== story_uid) return;
 
 			// Document Title
+			updateDocumentTitle();
+			setTimeout(() => updateDocumentTitle(), 1000);
+		}
+
+		function updateDocumentTitle() {
 			if (story?.data?.title) {
 				let newDocumentTitle = "";
 				switch (notes_uid) {

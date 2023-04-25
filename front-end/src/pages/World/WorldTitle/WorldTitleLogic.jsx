@@ -6,7 +6,7 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { WorldContext } from "../WorldContext";
+import { StoryContext } from "../../../context/StoryContext";
 import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
@@ -16,7 +16,7 @@ import { RoutesContext } from "../../../context/RoutesContext";
 // Assets
 
 export const WorldTitleLogic = () => {
-	const { story, storyIcon } = useContext(WorldContext);
+	const { story, storyIcon } = useContext(StoryContext);
 	const { changeLocation } = useContext(RoutesContext);
 
 	function goToWorldNotes(e) {

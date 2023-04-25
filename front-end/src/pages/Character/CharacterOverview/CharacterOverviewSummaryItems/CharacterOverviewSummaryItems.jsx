@@ -2,11 +2,11 @@
 import { FaTrash } from "react-icons/fa";
 
 // Components
-import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
-import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
-import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
-import { TextInput } from "../../../components/TextInput/TextInput";
-import { IconBtn } from "../../../components/IconBtn/IconBtn";
+import { EditableContainer } from "../../../../components/EditableContainer/EditableContainer";
+import { DragDropContainer } from "../../../../components/DragDropContainer/DragDropContainer";
+import { DragDropItem } from "../../../../components/DragDropItem/DragDropItem";
+import { TextInput } from "../../../../components/TextInput/TextInput";
+import { IconBtn } from "../../../../components/IconBtn/IconBtn";
 
 // Logic
 import { CharacterOverviewSummaryItemsLogic } from "./CharacterOverviewSummaryItemsLogic";

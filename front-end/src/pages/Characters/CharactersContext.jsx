@@ -42,14 +42,19 @@ const CharactersProvider = ({ children, story_uid }) => {
 			if (!story || story.uid !== story_uid) return;
 
 			// Document Title
+			updateDocumentTitle();
+			setTimeout(() => updateDocumentTitle(), 1000);
+
+			if (storyGroups.length > 0) setGroup(storyGroups[0]);
+			if (storyCharacterTypes.length > 0) setCharacterType(storyCharacterTypes[0]);
+		}
+
+		function updateDocumentTitle() {
 			if (story?.data?.title) {
 				document.title = "Characters | " + story?.data?.title + " | Atlas Story App";
 			} else {
 				document.title = "https://www.atlas-story.app" + location;
 			}
-
-			if (storyGroups.length > 0) setGroup(storyGroups[0]);
-			if (storyCharacterTypes.length > 0) setCharacterType(storyCharacterTypes[0]);
 		}
 
 		function setStateToDefault() {

@@ -20,7 +20,7 @@ export const StoryLogic = () => {
 	const { location } = useContext(RoutesContext);
 
 	useEffect(() => {
-		function getDocumentTitle() {
+		function updateDocumentTitle() {
 			if (!story) return;
 
 			// Document Title
@@ -30,7 +30,8 @@ export const StoryLogic = () => {
 				document.title = "https://www.atlas-story.app" + location;
 			}
 		}
-		getDocumentTitle();
+		updateDocumentTitle();
+		setTimeout(() => updateDocumentTitle(), 1000);
 	}, [story, location]);
 
 	const [storyStyles, setStoryStyles] = useState({});

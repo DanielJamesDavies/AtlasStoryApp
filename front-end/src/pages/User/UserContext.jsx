@@ -26,15 +26,20 @@ const UserProvider = ({ children, user_username }) => {
 			const newUser = await getUser();
 
 			// Document Title
+			updateDocumentTitle(newUser);
+			setTimeout(() => updateDocumentTitle(newUser), 1000);
+
+			getUserProfilePicture(newUser?.data?.profilePicture, newUser.username);
+			getUserBanner(newUser?.data?.banner, newUser.username);
+			getStories(newUser?.data?.stories);
+		}
+
+		function updateDocumentTitle(newUser) {
 			if (newUser?.data?.nickname) {
 				document.title = newUser.data.nickname + " | User | Atlas Story App";
 			} else {
 				document.title = "https://www.atlas-story.app" + location;
 			}
-
-			getUserProfilePicture(newUser?.data?.profilePicture, newUser.username);
-			getUserBanner(newUser?.data?.banner, newUser.username);
-			getStories(newUser?.data?.stories);
 		}
 
 		function setStateToDefault() {

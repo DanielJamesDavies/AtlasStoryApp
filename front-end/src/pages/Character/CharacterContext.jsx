@@ -66,11 +66,8 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			if (!newCharacter) return;
 
 			// Document Title
-			if (newCharacter?.data?.name && story?.data?.title) {
-				document.title = newCharacter?.data?.name + " | " + story?.data?.title + " | Characters | Atlas Story App";
-			} else {
-				document.title = "https://www.atlas-story.app" + location;
-			}
+			updateDocumentTitle(newCharacter);
+			setTimeout(() => updateDocumentTitle(newCharacter), 1000);
 
 			getCharacterSubpages(newCharacter?.data?.subpages, isAuthorizedToEdit);
 			getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
@@ -79,6 +76,14 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			getCharacterImages(newCharacter?.data?.images);
 
 			if (newCharacter?.data?.versions[0]) setCharacterVersion(newCharacter.data.versions[0]);
+		}
+
+		function updateDocumentTitle(newCharacter) {
+			if (newCharacter?.data?.name && story?.data?.title) {
+				document.title = newCharacter?.data?.name + " | " + story?.data?.title + " | Characters | Atlas Story App";
+			} else {
+				document.title = "https://www.atlas-story.app" + location;
+			}
 		}
 
 		function setStateToDefault() {

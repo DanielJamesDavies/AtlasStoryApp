@@ -6,7 +6,7 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { SubstoriesContext } from "../SubstoriesContext";
+import { StoryContext } from "../../../context/StoryContext";
 import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
@@ -16,7 +16,7 @@ import { RoutesContext } from "../../../context/RoutesContext";
 // Assets
 
 export const SubstoriesTitleLogic = () => {
-	const { story, storyIcon } = useContext(SubstoriesContext);
+	const { story, storyIcon } = useContext(StoryContext);
 	const { changeLocation } = useContext(RoutesContext);
 
 	function goToSubstoriesNotes(e) {

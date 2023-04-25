@@ -1,8 +1,8 @@
 // Packages
 
 // Components
-import { CharacterOverviewSummaryItems } from "./CharacterOverviewSummaryItems";
-import { CharacterOverviewDescription } from "./CharacterOverviewDescription";
+import { CharacterOverviewSummaryItems } from "./CharacterOverviewSummaryItems/CharacterOverviewSummaryItems";
+import { CharacterOverviewDescription } from "./CharacterOverviewDescription/CharacterOverviewDescription";
 
 // Logic
 import { CharacterOverviewLogic } from "./CharacterOverviewLogic";
