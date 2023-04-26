@@ -39,12 +39,6 @@ const AIProvider = ({ children }) => {
 
 			if (isNaN(parseInt(GPT_Max_Tokens))) updateGptMaxTokens(100);
 
-			console.log({
-				model: "gpt-3.5-turbo",
-				messages: newMessages,
-				max_tokens: isNaN(parseInt(GPT_Max_Tokens)) ? 100 : GPT_Max_Tokens,
-			});
-
 			const data = {
 				method: "POST",
 				headers: {

@@ -65,7 +65,10 @@ export const MultiLineTextInputLogic = (props) => {
 			inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
 			inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
 
-			inputContainerRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
+			inputContainerRef.current.setAttribute(
+				"style",
+				"height: calc(" + inputHeightRef.current.clientHeight + "px); --multiLineTextInputWidth: " + inputRef.current.clientWidth + "px;"
+			);
 			inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
 			inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
 		}
@@ -100,6 +103,17 @@ export const MultiLineTextInputLogic = (props) => {
 		};
 	}, [inputRef, focused]);
 
+	const [inputContainerStyles, setInputContainerStyles] = useState({ "--multiLineTextInputWidth": "0px" });
+	useLayoutEffect(() => {
+		function getInputContainerStyles() {
+			if (!inputRef?.current?.clientWidth) return;
+			setInputContainerStyles({ "--multiLineTextInputWidth": inputRef.current.clientWidth + "px" });
+		}
+		getInputContainerStyles();
+		window.addEventListener("resize", getInputContainerStyles);
+		return () => window.removeEventListener("resize", getInputContainerStyles);
+	}, [setInputContainerStyles, inputRef]);
+
 	return {
 		inputContainerRef,
 		inputRef,
@@ -112,5 +126,6 @@ export const MultiLineTextInputLogic = (props) => {
 		onInputContainerBlur,
 		onKeyDownTextArea,
 		focused,
+		inputContainerStyles,
 	};
 };

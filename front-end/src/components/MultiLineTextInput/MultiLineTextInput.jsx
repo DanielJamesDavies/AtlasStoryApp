@@ -28,10 +28,11 @@ export const MultiLineTextInput = (props) => {
 		onInputContainerBlur,
 		onKeyDownTextArea,
 		focused,
+		inputContainerStyles,
 	} = MultiLineTextInputLogic(props);
 
 	return (
-		<div ref={inputContainerRef} className={inputClassName} onClick={onClick}>
+		<div ref={inputContainerRef} className={inputClassName} onClick={onClick} style={inputContainerStyles}>
 			<div className='multi-line-text-input'>
 				<div className='multi-line-text-input-label'>
 					{props.icon ? <DynamicIconComponent /> : null}

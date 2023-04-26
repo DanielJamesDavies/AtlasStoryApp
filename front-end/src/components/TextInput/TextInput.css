@@ -122,3 +122,7 @@
 	border: 0;
 	width: 100%;
 }
+
+.text-input-ai-tools-container {
+	width: max(var(--textInputWidth), 200px);
+}

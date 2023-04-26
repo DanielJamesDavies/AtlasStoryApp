@@ -39,7 +39,7 @@
 
 .ai-tools-responses-gpt-message {
 	margin: 6px 0;
-	width: calc(100% - 20%);
+	width: calc(100% - 12%);
 }
 
 .ai-tools-responses-gpt-message-function {

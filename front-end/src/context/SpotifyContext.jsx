@@ -148,17 +148,28 @@ const SpofityProvider = ({ children }) => {
 
 					if (spotifyAuthorizationTimeout.current === null && !hasAttemptedAuthorization)
 						spotifyAuthorizationTimeout.current = setTimeout(() => {
-							const spotifyAuthURL =
-								"https://accounts.spotify.com/authorize?response_type=code&client_id=" +
-								client_id +
-								"&scope=" +
-								scope +
-								"&redirect_uri=" +
-								redirect_uri +
-								"&state=" +
-								window.location.pathname +
-								window.location.search;
-							window.location = spotifyAuthURL;
+							let currSpotifyAccessToken = false;
+							setSpotifyAccessToken((currValue) => {
+								console.log(currValue);
+								currSpotifyAccessToken = currValue;
+								return currValue;
+							});
+							console.log(currSpotifyAccessToken);
+							if (currSpotifyAccessToken) return true;
+
+							setTimeout(() => {
+								const spotifyAuthURL =
+									"https://accounts.spotify.com/authorize?response_type=code&client_id=" +
+									client_id +
+									"&scope=" +
+									scope +
+									"&redirect_uri=" +
+									redirect_uri +
+									"&state=" +
+									window.location.pathname +
+									window.location.search;
+								window.location = spotifyAuthURL;
+							}, 10000);
 						}, 5000);
 					return;
 				case "spotify-code":

@@ -197,3 +197,7 @@
 .multi-line-text-input-container-seamless .multi-line-text-input-height-element p {
 	min-height: var(--font-size-p-m-height);
 }
+
+.multi-line-text-input-ai-tools-container {
+	width: max(var(--multiLineTextInputWidth), 200px);
+}

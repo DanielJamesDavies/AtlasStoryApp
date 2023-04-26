@@ -143,6 +143,8 @@ export const TextInputLogic = (props) => {
 			let newInputContainerStyles = {};
 			newInputContainerStyles["--input-height"] =
 				inputRef?.current?.clientHeight === undefined ? "15px" : inputRef?.current?.clientHeight + "px";
+			newInputContainerStyles["--textInputWidth"] =
+				inputRef?.current?.clientWidth === undefined ? "200px" : inputRef?.current?.clientWidth + "px";
 			setInputContainerStyles(newInputContainerStyles);
 		}
 		getInputContainerStyles();
