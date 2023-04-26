@@ -21,7 +21,7 @@ export const AI = () => {
 	return (
 		<>
 			<div className='user-settings-ai-subtitle'>OpenAI API Key</div>
-			<TextInput value={GPT_API_Key} onChange={(e) => updateGptApiKey(e.target.value)} />
+			<TextInput value={GPT_API_Key} onChange={(e) => updateGptApiKey(e.target.value)} hideValue={true} />
 			<div className='user-settings-ai-subtitle'>GPT Token Limit</div>
 			<TextInput
 				value={GPT_Max_Tokens}
