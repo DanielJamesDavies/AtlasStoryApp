@@ -70,6 +70,7 @@ export const HierarchyListLogic = () => {
 		} else {
 			toItem = locations.find((e) => e._id === newItems[to - 1]?._id);
 		}
+		if (toItem === undefined) return false;
 
 		const toItemPath = getPathToItemInHierarchy(toItem._id, newHierarchy);
 		const parentPath = JSON.parse(JSON.stringify(toItemPath));
@@ -125,7 +126,6 @@ export const HierarchyListLogic = () => {
 
 	function changeHierarchyItemsOrder(res) {
 		if (res.from === undefined || res.to === undefined) return false;
-		if (res.to === 0) return false;
 		if (res.from === res.to) return false;
 
 		let oldHierarchy = JSON.parse(JSON.stringify(story?.data?.locationsHierarchy));
@@ -134,13 +134,23 @@ export const HierarchyListLogic = () => {
 
 		// Get Item
 		const item = locations.find((e) => e._id === newItems[res.from]?._id);
+		if (res.to === 0 && item.type !== "reality") return false;
 
 		// Get New Parent Item
 		const newParentItemId = getNewParentItemId(res.from, res.to, newHierarchy);
-		if (!newParentItemId) return false;
+		if (!newParentItemId && res.to !== 0) return false;
 
 		// Remove Item from Old Parent
 		newHierarchy = removeItemFromParent(item._id, newHierarchy);
+
+		// To Root Parent
+		if (res.to === 0) {
+			const itemPath = getPathToItemInHierarchy(item._id, oldHierarchy);
+			const hierarchyItem = getItemInHierarchyFromPath(itemPath, oldHierarchy);
+			newHierarchy.splice(0, 0, hierarchyItem);
+			changeStoryHierarchy(newHierarchy);
+			return true;
+		}
 
 		// Add Item to New Parent
 		newHierarchy = addItemToParent(item, newParentItemId, oldHierarchy, newHierarchy);

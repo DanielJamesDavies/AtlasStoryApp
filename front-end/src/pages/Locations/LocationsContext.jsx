@@ -30,6 +30,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const { APIRequest } = useContext(APIContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon, locations, setLocations } = useContext(StoryContext);
 
+	const [currentMapLocationId, setCurrentMapLocationId] = useState(false);
 	const [isDisplayingCreateHierarchyItemForm, setIsDisplayingCreateHierarchyItemForm] = useState(false);
 
 	const curr_story_uid = useRef(false);
@@ -44,6 +45,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			updateDocumentTitle();
 			setTimeout(() => updateDocumentTitle(), 1000);
 
+			getInitialMapLocationId();
 			getLocations();
 		}
 
@@ -55,6 +57,11 @@ const LocationsProvider = ({ children, story_uid }) => {
 			}
 		}
 
+		function getInitialMapLocationId() {
+			if (!story || !story?.data?.locationsHierarchy || story.data.locationsHierarchy.length === 0) return false;
+			setCurrentMapLocationId(story.data.locationsHierarchy[0]._id);
+		}
+
 		async function getLocations() {
 			const response = await APIRequest("/location?story_uid=" + story_uid, "GET");
 			if (!response || response?.errors || !response?.data?.locations) return false;
@@ -62,7 +69,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 		}
 
 		getInitial();
-	}, [location, story_uid, curr_story_uid, story, setStory, setLocations, APIRequest]);
+	}, [APIRequest, location, story_uid, curr_story_uid, story, setStory, setLocations, setCurrentMapLocationId]);
 
 	function changeStoryHierarchy(newHierarchy) {
 		setStory((oldStory) => {
@@ -83,6 +90,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				storyIcon,
 				locations,
 				setLocations,
+				currentMapLocationId,
+				setCurrentMapLocationId,
 				isDisplayingCreateHierarchyItemForm,
 				setIsDisplayingCreateHierarchyItemForm,
 			}}
