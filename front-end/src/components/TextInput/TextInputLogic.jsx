@@ -163,5 +163,6 @@ export const TextInputLogic = (props) => {
 		toggleIsHidden,
 		onKeyDown,
 		inputContainerStyles,
+		focused,
 	};
 };

@@ -78,13 +78,21 @@ export const NotesListItem = ({ item, index, isEditing, isReorderingNotes }) => 
 	return (
 		<div className='notes-list-item'>
 			<div className='notes-list-item-content'>
-				<TextInput className='notes-list-item-title' seamless={true} label='Note Title' value={item?.title} onChange={changeItemTitle} />
+				<TextInput
+					className='notes-list-item-title'
+					seamless={true}
+					label='Note Title'
+					value={item?.title}
+					onChange={changeItemTitle}
+					aiTools={true}
+				/>
 				<MultiLineTextInput
 					className='notes-list-item-text'
 					seamless={true}
 					label='Note Text'
 					value={item?.text?.join("\n")}
 					onChange={changeItemText}
+					aiTools={true}
 				/>
 				<DragDropContainer className='notes-list-item-image-item-images' enableDragDrop={isReorderingNotes} onDropItem={reorderItemImages}>
 					{!item?.images

@@ -76,6 +76,7 @@ export const CharacterOverviewSummaryItems = () => {
 										value={summaryItem.label}
 										onChange={(e) => changeSummaryItemLabel(e, index)}
 										isLightText={true}
+										aiTools={true}
 									/>
 									<TextInput
 										className='character-overview-summary-item-value'
@@ -84,6 +85,7 @@ export const CharacterOverviewSummaryItems = () => {
 										value={summaryItem.text}
 										onChange={(e) => changeSummaryItemText(e, index)}
 										isLightText={true}
+										aiTools={true}
 									/>
 								</div>
 								<IconBtn

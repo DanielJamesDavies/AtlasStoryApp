@@ -37,6 +37,7 @@ export const AbilityItem = ({ ability, changeAbility, abilityItem, index, isEdit
 							label='Ability Item Title'
 							value={abilityItem?.title}
 							onChange={changeAbilityItemTitle}
+							aiTools={true}
 						/>
 					)}
 
@@ -50,6 +51,7 @@ export const AbilityItem = ({ ability, changeAbility, abilityItem, index, isEdit
 							label='Ability Item Text'
 							value={abilityItem?.text.join("\n")}
 							onChange={changeAbilityItemText}
+							aiTools={true}
 						/>
 					)}
 

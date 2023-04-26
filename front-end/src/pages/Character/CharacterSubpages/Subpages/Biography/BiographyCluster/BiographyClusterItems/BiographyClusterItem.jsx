@@ -40,6 +40,7 @@ export const BiographyClusterItem = ({ biographyCluster, changeBiographyCluster,
 							label='Biography Cluster Item Title'
 							value={biographyClusterItem?.title}
 							onChange={changeBiographyClusterItemTitle}
+							aiTools={true}
 						/>
 					)}
 
@@ -52,6 +53,7 @@ export const BiographyClusterItem = ({ biographyCluster, changeBiographyCluster,
 							label='Biography Cluster Item Text'
 							value={biographyClusterItem?.text?.join("\n")}
 							onChange={changeBiographyClusterItemText}
+							aiTools={true}
 						/>
 					)}
 				</div>

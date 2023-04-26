@@ -76,6 +76,7 @@ export const SubstoryOverviewSummaryItems = () => {
 										value={summaryItem.label}
 										onChange={(e) => changeSummaryItemLabel(e, index)}
 										isLightText={true}
+										aiTools={true}
 									/>
 									<TextInput
 										className='substory-overview-summary-item-text'
@@ -84,6 +85,7 @@ export const SubstoryOverviewSummaryItems = () => {
 										value={summaryItem.text}
 										onChange={(e) => changeSummaryItemText(e, index)}
 										isLightText={true}
+										aiTools={true}
 									/>
 								</div>
 								<IconBtn

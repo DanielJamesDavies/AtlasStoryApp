@@ -45,6 +45,7 @@ export const PlotItem = ({ item, removePlotItem, cluster, isEditing }) => {
 						label='Plot Item Label'
 						value={item?.label}
 						onChange={changeItemLabel}
+						aiTools={true}
 					/>
 					<MultiLineTextInput
 						className='substory-subpage-plot-item-text'
@@ -52,6 +53,7 @@ export const PlotItem = ({ item, removePlotItem, cluster, isEditing }) => {
 						label='Plot Item Text'
 						value={item?.text.join("\n")}
 						onChange={changeItemText}
+						aiTools={true}
 					/>
 				</div>
 				<div className='substory-subpage-plot-item-btns-container'>

@@ -111,5 +111,6 @@ export const MultiLineTextInputLogic = (props) => {
 		onInputContainerFocus,
 		onInputContainerBlur,
 		onKeyDownTextArea,
+		focused,
 	};
 };

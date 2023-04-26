@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { AITools } from "../AIToolsMenu/AITools";
 
 // Logic
 import { MultiLineTextInputLogic } from "./MultiLineTextInputLogic";
@@ -26,6 +27,7 @@ export const MultiLineTextInput = (props) => {
 		onInputContainerFocus,
 		onInputContainerBlur,
 		onKeyDownTextArea,
+		focused,
 	} = MultiLineTextInputLogic(props);
 
 	return (
@@ -60,6 +62,12 @@ export const MultiLineTextInput = (props) => {
 					</div>
 				</div>
 			</div>
+
+			{!props?.aiTools ? null : (
+				<div className='multi-line-text-input-ai-tools-container'>
+					<AITools type='text' context={{ text: props.value }} isDisplayingButtons={focused} />
+				</div>
+			)}
 		</div>
 	);
 };

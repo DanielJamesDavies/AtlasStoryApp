@@ -74,6 +74,7 @@ export const PhysicalAttributeItem = ({
 						label='Physical Attribute Item Title'
 						value={physicalAttributeItem?.title}
 						onChange={(e) => changePhysicalAttributeItemTitle(e, index)}
+						aiTools={true}
 					/>
 					<MultiLineTextInput
 						className='character-subpage-physical-attribute-item-text'
@@ -81,6 +82,7 @@ export const PhysicalAttributeItem = ({
 						label='Physical Attribute Item Text'
 						value={physicalAttributeItem?.text.join("\n")}
 						onChange={(e) => changePhysicalAttributeItemText(e, index)}
+						aiTools={true}
 					/>
 					<DragDropContainer
 						className='character-subpage-physical-attribute-item-images'

@@ -1,6 +1,7 @@
 .user-settings-section-container {
 	margin: 12px 0;
 	margin-bottom: 24px;
+	color: var(--text-colour-secondary);
 }
 
 .user-settings-section-container:last-child {
@@ -10,6 +11,7 @@
 .user-settings-section-label {
 	font-size: 16px;
 	font-weight: 600;
+	color: var(--text-colour-primary);
 }
 
 .user-settings-input-container {

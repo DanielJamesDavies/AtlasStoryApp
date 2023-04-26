@@ -43,6 +43,7 @@ export const CharacterOverviewDescription = () => {
 					value={characterVersion?.description?.join("\n")}
 					onChange={changeDescription}
 					isLightText={true}
+					aiTools={true}
 				/>
 			</div>
 		</EditableContainer>

@@ -52,6 +52,7 @@ export const Description = () => {
 							value={story.data.description.join("\n")}
 							onChange={changeStoryDescription}
 							seamless={true}
+							aiTools={true}
 						/>
 					</EditableContainer>
 				</div>

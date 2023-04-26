@@ -2,6 +2,7 @@
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // Components
+import { AITools } from "../AIToolsMenu/AITools";
 
 // Logic
 import { TextInputLogic } from "./TextInputLogic";
@@ -31,6 +32,7 @@ export const TextInput = (props) => {
 		toggleIsHidden,
 		onKeyDown,
 		inputContainerStyles,
+		focused,
 	} = TextInputLogic(props);
 
 	return (
@@ -64,6 +66,11 @@ export const TextInput = (props) => {
 					</button>
 				)}
 			</div>
+			{!props?.aiTools ? null : (
+				<div className='text-input-ai-tools-container'>
+					<AITools type='text' context={{ text: props.value }} isDisplayingButtons={focused} />
+				</div>
+			)}
 		</div>
 	);
 };

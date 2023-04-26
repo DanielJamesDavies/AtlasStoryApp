@@ -56,6 +56,7 @@ export const SoundtrackTracksListItem = ({ track, index, isEditing, changeTrackT
 						value={track?.text.join("\n")}
 						onChange={(e) => changeTrackText(e, track?.uri)}
 						label={"Track Text"}
+						aiTools={true}
 					/>
 				)}
 			</div>

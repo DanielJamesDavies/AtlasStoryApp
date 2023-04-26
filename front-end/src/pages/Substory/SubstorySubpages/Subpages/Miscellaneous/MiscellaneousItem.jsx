@@ -106,6 +106,7 @@ export const MiscellaneousItem = ({
 							label='Miscellaneous Item Title'
 							value={miscellaneousItem?.title}
 							onChange={(e) => changeMiscellaneousItemTitle(e, index)}
+							aiTools={true}
 						/>
 					</div>
 					<div className={devItemTextContainerClassName}>
@@ -115,6 +116,7 @@ export const MiscellaneousItem = ({
 							label='Miscellaneous Item Text'
 							value={miscellaneousItem?.text.join("\n")}
 							onChange={(e) => changeMiscellaneousItemText(e, index)}
+							aiTools={true}
 						/>
 					</div>
 					<div className={devItemImagesContainerClassName}>

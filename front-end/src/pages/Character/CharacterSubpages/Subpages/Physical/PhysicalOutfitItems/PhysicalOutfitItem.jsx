@@ -74,6 +74,7 @@ export const PhysicalOutfitItem = ({
 						label='Physical Outfit Item Title'
 						value={physicalOutfitItem?.title}
 						onChange={(e) => changePhysicalOutfitItemTitle(e, index)}
+						aiTools={true}
 					/>
 					<MultiLineTextInput
 						className='character-subpage-physical-outfit-item-text'
@@ -81,6 +82,7 @@ export const PhysicalOutfitItem = ({
 						label='Physical Outfit Item Text'
 						value={physicalOutfitItem?.text.join("\n")}
 						onChange={(e) => changePhysicalOutfitItemText(e, index)}
+						aiTools={true}
 					/>
 					<DragDropContainer
 						className='character-subpage-physical-outfit-item-images'

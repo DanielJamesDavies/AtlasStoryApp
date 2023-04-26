@@ -39,6 +39,7 @@ export const CharactersCharacterTypeDescription = () => {
 						value={characterType.data.description.join("\n")}
 						onChange={changeCharacterTypeDescription}
 						seamless={true}
+						aiTools={true}
 					/>
 				}
 			</ContentItem>

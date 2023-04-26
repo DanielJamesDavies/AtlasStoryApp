@@ -43,6 +43,7 @@ export const SubstoryOverviewDescription = () => {
 					value={substory?.data?.description?.join("\n")}
 					onChange={changeDescription}
 					isLightText={true}
+					aiTools={true}
 				/>
 			</div>
 		</EditableContainer>

@@ -40,6 +40,7 @@ export const Item = ({ item, index, changeItemTitle, changeItemDescription, remo
 						value={item?.title}
 						onChange={(e) => changeItemTitle(e, index)}
 						seamless={true}
+						aiTools={true}
 					/>
 					<MultiLineTextInput
 						className='character-subpage-relationships-relationship-item-text'
@@ -47,6 +48,7 @@ export const Item = ({ item, index, changeItemTitle, changeItemDescription, remo
 						label='Relationship Item Text'
 						value={item?.text?.join("\n")}
 						onChange={(e) => changeItemDescription(e, index)}
+						aiTools={true}
 					/>
 				</div>
 				<IconBtn icon={<FaTimes />} iconName='times' seamless={true} size='s' onClick={() => removeItem(index)} />

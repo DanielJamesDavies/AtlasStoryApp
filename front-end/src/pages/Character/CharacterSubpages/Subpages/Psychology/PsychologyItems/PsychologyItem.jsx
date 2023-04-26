@@ -40,6 +40,7 @@ export const PsychologyItem = ({ psychologyItem, index, isEditing, changePsychol
 						label='Psychology Item Title'
 						value={psychologyItem?.title}
 						onChange={(e) => changePsychologyItemTitle(e, index)}
+						aiTools={true}
 					/>
 					<MultiLineTextInput
 						className='character-subpage-psychology-item-text'
@@ -47,6 +48,7 @@ export const PsychologyItem = ({ psychologyItem, index, isEditing, changePsychol
 						label='Psychology Item Text'
 						value={psychologyItem?.text?.join("\n")}
 						onChange={(e) => changePsychologyItemText(e, index)}
+						aiTools={true}
 					/>
 				</div>
 				<IconBtn icon={<FaTimes />} iconName='times' seamless={true} size='s' onClick={() => removePsychologyItem(index)} />

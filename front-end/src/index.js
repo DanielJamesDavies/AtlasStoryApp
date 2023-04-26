@@ -11,6 +11,7 @@ import reportWebVitals from "./reportWebVitals";
 // Context
 import AppProvider from "./context/AppContext";
 import APIProvider from "./context/APIContext";
+import AIProvider from "./context/AIContext";
 import LightboxProvider from "./context/LightboxContext";
 import RecentDataProvider from "./context/RecentDataContext";
 import DropdownProvider from "./context/DropdownContext";
@@ -24,15 +25,17 @@ import DropdownProvider from "./context/DropdownContext";
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<BrowserRouter>
 		<APIProvider>
-			<AppProvider>
-				<RecentDataProvider>
-					<LightboxProvider>
-						<DropdownProvider>
-							<App />
-						</DropdownProvider>
-					</LightboxProvider>
-				</RecentDataProvider>
-			</AppProvider>
+			<AIProvider>
+				<AppProvider>
+					<RecentDataProvider>
+						<LightboxProvider>
+							<DropdownProvider>
+								<App />
+							</DropdownProvider>
+						</LightboxProvider>
+					</RecentDataProvider>
+				</AppProvider>
+			</AIProvider>
 		</APIProvider>
 	</BrowserRouter>
 );

@@ -7,6 +7,7 @@ import { Email } from "./Email/Email";
 import { Theme } from "./Theme/Theme";
 import { FontSize } from "./FontSize/FontSize";
 import { ConnectToSpotify } from "./ConnectToSpotify/ConnectToSpotify";
+import { AI } from "./AI/AI";
 import { CookiesConsent } from "./CookiesConsent/CookiesConsent";
 import { Delete } from "./Delete/Delete";
 import { PopUpContainer } from "../../../components/PopUpContainer/PopUpContainer";
@@ -58,6 +59,10 @@ export const Settings = () => {
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Connect This Device to Spotfiy</div>
 					<ConnectToSpotify />
+				</div>
+				<div className='user-settings-section-container'>
+					<div className='user-settings-section-label'>Artificial Intelligence</div>
+					<AI />
 				</div>
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Cookies Consent</div>

@@ -106,6 +106,7 @@ export const DevelopmentItem = ({
 							label='Development Item Title'
 							value={developmentItem?.title}
 							onChange={(e) => changeDevelopmentItemTitle(e, index)}
+							aiTools={true}
 						/>
 					</div>
 					<div className={devItemTextContainerClassName}>
@@ -115,6 +116,7 @@ export const DevelopmentItem = ({
 							label='Development Item Text'
 							value={developmentItem?.text.join("\n")}
 							onChange={(e) => changeDevelopmentItemText(e, index)}
+							aiTools={true}
 						/>
 					</div>
 					<div className={devItemImagesContainerClassName}>
