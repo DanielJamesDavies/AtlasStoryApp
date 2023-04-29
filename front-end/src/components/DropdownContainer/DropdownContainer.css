@@ -15,6 +15,14 @@
 	min-width: 110px;
 }
 
+.dropdown-value-container {
+	cursor: pointer;
+}
+
+.dropdown-container-disable-edit .dropdown-value-container {
+	cursor: auto;
+}
+
 .dropdown-container-seamless .dropdown-value-container {
 	margin: 0;
 	padding: 0;
@@ -35,4 +43,8 @@
 
 .dropdown-container-is-selecting .dropdown-value-arrow {
 	transform: rotate(180deg);
+}
+
+.dropdown-container-disable-edit .dropdown-value-arrow {
+	opacity: 0;
 }

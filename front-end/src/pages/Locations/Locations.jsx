@@ -2,7 +2,8 @@
 
 // Components
 import { LoadingCircle } from "../../components/LoadingCircle/LoadingCircle";
-import { Hierarchy } from "./Hierarchy/Hierarchy";
+import { Menu } from "./Menu/Menu";
+import { Map } from "./Map/Map";
 
 // Logic
 import { LocationsLogic } from "./LocationsLogic";
@@ -28,7 +29,8 @@ export const Locations = () => {
 
 	return (
 		<div className='locations'>
-			<Hierarchy />
+			<Menu />
+			<Map />
 		</div>
 	);
 };

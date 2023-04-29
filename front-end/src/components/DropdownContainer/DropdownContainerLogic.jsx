@@ -14,7 +14,7 @@ import { DropdownContext } from "../../context/DropdownContext";
 
 // Assets
 
-export const DropdownContainerLogic = ({ children, className, seamless, onChange, includeUnselectedOption }) => {
+export const DropdownContainerLogic = ({ children, className, seamless, onChange, includeUnselectedOption, enableEdit }) => {
 	const { dropdownContainerRef, dropdownChildren, setDropdownChildren, setOnDropdownChange, setIncludeUnselectedOption, closeDropdown } =
 		useContext(DropdownContext);
 
@@ -42,11 +42,12 @@ export const DropdownContainerLogic = ({ children, className, seamless, onChange
 			let newClassName = "dropdown-container";
 			if (seamless) newClassName += " dropdown-container-seamless";
 			if (isDisplaying) newClassName += " dropdown-container-is-selecting";
+			if (enableEdit === false) newClassName += " dropdown-container-disable-edit";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}
 		setDropdownContainerClassName(getDropdownContainerClassName());
-	}, [setDropdownContainerClassName, className, seamless, isDisplaying]);
+	}, [setDropdownContainerClassName, className, seamless, isDisplaying, enableEdit]);
 
 	return { isDisplaying, dropdownContainerRef, dropdownContainerClassName, toggleDropdownOptions };
 };

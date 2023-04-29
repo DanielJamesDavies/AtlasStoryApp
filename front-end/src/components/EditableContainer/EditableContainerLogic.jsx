@@ -129,13 +129,13 @@ export const EditableContainerLogic = ({
 
 	async function onRevertBtnClick(e) {
 		e.stopPropagation();
-		const revert_success = await onRevert();
+		const revert_success = await onRevert(e);
 		if (revert_success) setIsEditing(false);
 	}
 
 	async function onSaveBtnClick(e) {
 		e.stopPropagation();
-		const save_success = await onSave();
+		const save_success = await onSave(e);
 		if (save_success) setIsEditing(false);
 	}
 

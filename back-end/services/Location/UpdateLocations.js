@@ -42,6 +42,13 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Story Could Not Save" }] });
 	}
 
+	// Update Locations
+	await Promise.all(
+		newLocations.map(async (location) => {
+			return await updateLocation(location, req.body.story_id);
+		})
+	);
+
 	return res.status(200).send({ message: "Success", data: { locations: newLocations } });
 };
 
@@ -51,26 +58,6 @@ async function getStoryLocations(story_id) {
 		.catch(() => false);
 	if (!locations || locations.length === 0) return [];
 	return locations;
-}
-
-async function updateLocation(input_location) {
-	const location_id = input_location?._id;
-
-	const oldLocation = await Location.findById(location_id)
-		.exec()
-		.catch(() => false);
-	if (!oldLocation) return false;
-
-	let newLocation = JSON.parse(JSON.stringify(oldLocation));
-
-	// Updates
-	newLocation.data.name = input_location.name;
-
-	try {
-		await Location.findOneAndReplace({ _id: req.params.id }, newLocation, { upsert: true });
-	} catch (error) {
-		return false;
-	}
 }
 
 async function createLocation(input_location, story_id) {
@@ -99,4 +86,23 @@ async function deleteLocation(location, story_id) {
 	}
 
 	return true;
+}
+
+async function updateLocation(location, story_id) {
+	const location_id = location?._id;
+
+	const oldLocation = await Location.findById(location_id)
+		.exec()
+		.catch(() => false);
+	if (!oldLocation) return false;
+	if (JSON.stringify(oldLocation?.story_id) !== JSON.stringify(story_id)) return false;
+
+	let newLocation = JSON.parse(JSON.stringify(location));
+	newLocation.story_id = JSON.parse(JSON.stringify(oldLocation.story_id));
+
+	try {
+		await Location.findOneAndReplace({ _id: location_id }, newLocation, { upsert: true });
+	} catch (error) {
+		return false;
+	}
 }

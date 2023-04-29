@@ -13,6 +13,18 @@ const LocationSchema = mongoose.Schema({
 	type: { type: String, required: true, default: "reality" },
 	position: { type: [Number], required: true, default: [0, 0, 0] },
 	scale: { type: Number, required: true, default: 1 },
+	paths: {
+		type: [
+			{
+				from: { type: mongoose.Schema.Types.ObjectId },
+				to: { type: mongoose.Schema.Types.ObjectId },
+				pathType: { type: String },
+				isMajor: { type: Boolean, default: false },
+			},
+		],
+		required: true,
+		default: [],
+	},
 	data: {
 		type: {
 			name: { type: String },

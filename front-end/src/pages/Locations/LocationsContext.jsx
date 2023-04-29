@@ -5,6 +5,8 @@ import { RoutesContext } from "../../context/RoutesContext";
 import { APIContext } from "../../context/APIContext";
 import { StoryContext } from "../../context/StoryContext";
 
+import { HierarchyFunctions } from "./HierarchyFunctions";
+
 export const LocationsContext = createContext();
 
 const LocationsProvider = ({ children, story_uid }) => {
@@ -29,8 +31,15 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const { location } = useContext(RoutesContext);
 	const { APIRequest } = useContext(APIContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon, locations, setLocations } = useContext(StoryContext);
+	const { getInitialMapLocationItem } = HierarchyFunctions();
 
+	const locationsMapRef = useRef();
 	const [currentMapLocationId, setCurrentMapLocationId] = useState(false);
+	const [selectedLocationId, setSelectedLocationId] = useState(false);
+	const [isDisplayingHierarchy, setIsDisplayingHierarchy] = useState(false);
+	const [playerActions, setPlayerActions] = useState({ forward: false, backward: false, left: false, right: false, up: false, down: false });
+	const [playerSpeed, setPlayerSpeed] = useState(1);
+
 	const [isDisplayingCreateHierarchyItemForm, setIsDisplayingCreateHierarchyItemForm] = useState(false);
 
 	const curr_story_uid = useRef(false);
@@ -45,7 +54,6 @@ const LocationsProvider = ({ children, story_uid }) => {
 			updateDocumentTitle();
 			setTimeout(() => updateDocumentTitle(), 1000);
 
-			getInitialMapLocationId();
 			getLocations();
 		}
 
@@ -57,19 +65,22 @@ const LocationsProvider = ({ children, story_uid }) => {
 			}
 		}
 
-		function getInitialMapLocationId() {
+		function getInitialMapLocationId(newLocations) {
 			if (!story || !story?.data?.locationsHierarchy || story.data.locationsHierarchy.length === 0) return false;
-			setCurrentMapLocationId(story.data.locationsHierarchy[0]._id);
+			const newCurrentMapLocationItem = getInitialMapLocationItem(story.data.locationsHierarchy, newLocations);
+			if (newCurrentMapLocationItem?._id === undefined) return false;
+			setCurrentMapLocationId(newCurrentMapLocationItem._id);
 		}
 
 		async function getLocations() {
 			const response = await APIRequest("/location?story_uid=" + story_uid, "GET");
 			if (!response || response?.errors || !response?.data?.locations) return false;
 			setLocations(response.data.locations);
+			getInitialMapLocationId(response.data.locations);
 		}
 
 		getInitial();
-	}, [APIRequest, location, story_uid, curr_story_uid, story, setStory, setLocations, setCurrentMapLocationId]);
+	}, [APIRequest, location, story_uid, curr_story_uid, story, setStory, setLocations, setCurrentMapLocationId, getInitialMapLocationItem]);
 
 	function changeStoryHierarchy(newHierarchy) {
 		setStory((oldStory) => {
@@ -90,8 +101,17 @@ const LocationsProvider = ({ children, story_uid }) => {
 				storyIcon,
 				locations,
 				setLocations,
+				locationsMapRef,
 				currentMapLocationId,
 				setCurrentMapLocationId,
+				selectedLocationId,
+				setSelectedLocationId,
+				isDisplayingHierarchy,
+				setIsDisplayingHierarchy,
+				playerActions,
+				setPlayerActions,
+				playerSpeed,
+				setPlayerSpeed,
 				isDisplayingCreateHierarchyItemForm,
 				setIsDisplayingCreateHierarchyItemForm,
 			}}

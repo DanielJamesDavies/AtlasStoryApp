@@ -1,0 +1,9 @@
+.locations-details-type {
+	display: flex;
+	padding: 6px 0;
+	font-size: var(--font-size-p-m);
+}
+
+.locations-details-type-value {
+	font-weight: 600;
+}

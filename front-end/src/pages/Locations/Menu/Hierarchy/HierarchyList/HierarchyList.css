@@ -1,0 +1,9 @@
+.locations-hierarchy-list {
+	padding-right: 12px;
+	height: calc(var(--locationsHierarchyHeight) - 24px - 6px);
+	overflow-y: auto;
+}
+
+.locations-hierarchy-list::-webkit-scrollbar:horizontal {
+	height: 6px;
+}

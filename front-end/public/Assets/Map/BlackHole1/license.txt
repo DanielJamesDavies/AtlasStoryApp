@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gargantua the Black Hole
+* source:	https://sketchfab.com/3d-models/gargantua-the-black-hole-d8b4c8af897842d0a85f4ea170e4fecc
+* author:	Bl@ke (https://sketchfab.com/Bl_at_ke)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gargantua the Black Hole" (https://sketchfab.com/3d-models/gargantua-the-black-hole-d8b4c8af897842d0a85f4ea170e4fecc) by Bl@ke (https://sketchfab.com/Bl_at_ke) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

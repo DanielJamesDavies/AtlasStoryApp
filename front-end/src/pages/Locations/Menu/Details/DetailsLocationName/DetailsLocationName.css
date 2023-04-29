@@ -1,0 +1,12 @@
+.locations-details-name,
+.locations-details-name input {
+	--text-input-font-size: var(--font-size-p-l);
+	font-size: var(--font-size-p-l);
+	font-weight: 600;
+}
+
+.locations-details-name-container .locations-details-name {
+	display: flex;
+	align-items: center;
+	min-height: 26px;
+}

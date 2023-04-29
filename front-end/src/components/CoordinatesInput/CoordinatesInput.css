@@ -1,0 +1,20 @@
+.coordinates-input-container {
+	display: flex;
+	margin: 6px 0;
+	gap: 6px;
+}
+
+.coordinates-input input {
+	padding: 6px 12px;
+	border: 2px solid var(--colour-grey-three);
+	border-radius: 2px;
+	outline: 0;
+	width: 40px;
+	background: var(--colour-grey-two);
+	font-size: var(--font-size-p-m);
+	color: var(--text-colour-primary);
+}
+
+.coordinates-input-container-read-only .coordinates-input input {
+	cursor: default;
+}
