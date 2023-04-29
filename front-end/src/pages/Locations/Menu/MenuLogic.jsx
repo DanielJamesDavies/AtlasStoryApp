@@ -1,5 +1,7 @@
 // Packages
 import { useContext, useState } from "react";
+import { FaFighterJet } from "react-icons/fa";
+import { GiRabbit, GiSnail } from "react-icons/gi";
 
 // Components
 
@@ -15,19 +17,22 @@ import { LocationsContext } from "../LocationsContext";
 // Assets
 
 export const MenuLogic = () => {
-	const { isDisplayingHierarchy, setIsDisplayingHierarchy, playerActions, playerSpeed } = useContext(LocationsContext);
+	const { isDisplayingHierarchy, setIsDisplayingHierarchy, playerSpeed, setPlayerSpeed } = useContext(LocationsContext);
 	const [isDisplayingControlScheme, setIsDisplayingControlScheme] = useState(false);
 
 	function toggleIsDisplayingHierarchy() {
 		setIsDisplayingHierarchy((oldIsDisplayingHierarchy) => !oldIsDisplayingHierarchy);
 	}
 
+	const speedIcons = [<GiSnail />, <GiRabbit />, <FaFighterJet />];
+
 	return {
 		isDisplayingHierarchy,
 		toggleIsDisplayingHierarchy,
 		isDisplayingControlScheme,
 		setIsDisplayingControlScheme,
-		playerActions,
 		playerSpeed,
+		setPlayerSpeed,
+		speedIcons,
 	};
 };

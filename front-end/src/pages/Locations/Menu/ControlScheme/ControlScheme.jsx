@@ -19,7 +19,7 @@ import "./ControlScheme.css";
 export const ControlScheme = ({ isDisplayingControlScheme }) => {
 	const controls = [
 		{ icon: <FaMouse />, label: "Hold Left to Rotate" },
-		{ icon: <FaMouse />, label: "Scroll to Move Forward/Back" },
+		{ icon: <FaMouse />, label: "Scroll to Change Speed" },
 		{ key: "W", label: "Move Forward" },
 		{ key: "S", label: "Move Backward" },
 		{ key: "A", label: "Move Left" },

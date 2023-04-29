@@ -19,7 +19,7 @@ import "./DetailsLocationRotation.css";
 export const DetailsLocationRotation = () => {
 	const { isAuthorizedToEdit, locations, selectedLocationId, changeRotation, revertRotation, saveRotation } = DetailsLocationRotationLogic();
 
-	if (["reality"].includes(locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.type)) return null;
+	if (["reality", "starSystem"].includes(locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.type)) return null;
 	return (
 		<EditableContainer
 			className='locations-details-rotation-container'

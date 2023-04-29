@@ -32,7 +32,7 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 	const mutliKeyPresses = useRef();
 
 	const isMouseDown = useRef(false);
-	const cameraRotation = useRef([0, 0, Math.PI / 2]);
+	const cameraRotation = useRef([8 * (Math.PI / 180), 300 * (Math.PI / 180), Math.PI / 2]);
 
 	const resetPlayerActions = useCallback(() => {
 		setPlayerActions((oldPlayerActions) => {
@@ -44,8 +44,6 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 
 	useEffect(() => {
 		camera.fov = 80;
-		cameraRotation.current[0] = 8 * (Math.PI / 180);
-		cameraRotation.current[1] = 300 * (Math.PI / 180);
 		camera.rotation.set(...cameraRotation.current);
 	}, [camera, cameraRotation]);
 
@@ -94,66 +92,14 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 		(e) => {
 			if (!isPlayerMovementEnabled) return false;
 
-			let speedDelta = 0;
-			setPlayerActions((oldPlayerActions) => {
-				let newPlayerActions = JSON.parse(JSON.stringify(oldPlayerActions));
-
-				if (playerSpeed > 1) {
-					if (
-						(newPlayerActions["forward"] && Math.sign(e.deltaY) === -1) ||
-						(newPlayerActions["backward"] && Math.sign(e.deltaY) === 1)
-					) {
-						speedDelta += 1;
-					} else {
-						speedDelta = -playerSpeed + 1;
-						newPlayerActions["forward"] = false;
-						newPlayerActions["backward"] = false;
-					}
-				} else {
-					if (
-						(Math.sign(e.deltaY) === 1 && newPlayerActions["forward"]) ||
-						(Math.sign(e.deltaY) === -1 && newPlayerActions["backward"])
-					) {
-						newPlayerActions["forward"] = false;
-						newPlayerActions["backward"] = false;
-					} else if (Math.sign(e.deltaY) === -1) {
-						if (newPlayerActions["forward"]) speedDelta = 1;
-						newPlayerActions["forward"] = true;
-						newPlayerActions["backward"] = false;
-					} else {
-						if (newPlayerActions["backward"]) speedDelta = 1;
-						newPlayerActions["backward"] = true;
-						newPlayerActions["forward"] = false;
-					}
-				}
-				return newPlayerActions;
+			setPlayerSpeed((oldPlayerSpeed) => {
+				let newPlayerSpeed = JSON.parse(JSON.stringify(oldPlayerSpeed));
+				newPlayerSpeed += -Math.sign(e.deltaY);
+				return newPlayerSpeed < 1 ? 1 : newPlayerSpeed > 3 ? 3 : newPlayerSpeed;
 			});
-
-			setPlayerSpeed((oldPlayerSpeed) => oldPlayerSpeed + speedDelta);
 		},
-		[setPlayerActions, playerSpeed, setPlayerSpeed, isPlayerMovementEnabled]
+		[setPlayerSpeed, isPlayerMovementEnabled]
 	);
-
-	function getMultiKeyPressCount() {
-		const maxPressDelta = 500;
-
-		let newEvents = [];
-		mutliKeyPresses.current.events.map((event) => {
-			if (newEvents.length !== 0 && newEvents[newEvents.length - 1][0] === event[0]) return false;
-			newEvents.push(event);
-			return true;
-		});
-
-		let startIndex = 0;
-		newEvents.map((curr_event, index) => {
-			if (index === 0) return false;
-			const prev_event = newEvents[index - 1];
-			if (curr_event[1] - prev_event[1] > maxPressDelta) startIndex = index;
-			return true;
-		});
-
-		return newEvents.filter((e, index) => index >= startIndex && e[0] === "keyDown")?.length;
-	}
 
 	const onKeyDown = useCallback(
 		(e) => {
@@ -172,12 +118,8 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 
 			if (mutliKeyPresses.current?.key !== key_pressed) mutliKeyPresses.current = { key: key_pressed, events: [] };
 			mutliKeyPresses.current.events.push(["keyDown", Date.now()]);
-			setPlayerSpeed((oldPlayerSpeed) => {
-				const multiKeyPressCount = getMultiKeyPressCount();
-				return oldPlayerSpeed > multiKeyPressCount ? oldPlayerSpeed : multiKeyPressCount;
-			});
 		},
-		[actionInputPairs, setPlayerActions, setPlayerSpeed, isPlayerMovementEnabled]
+		[actionInputPairs, setPlayerActions, isPlayerMovementEnabled]
 	);
 
 	const onKeyUp = useCallback(
@@ -198,15 +140,8 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 
 			if (mutliKeyPresses.current?.key !== key_pressed) mutliKeyPresses.current = { key: key_pressed, events: [] };
 			mutliKeyPresses.current.events.push(["keyUp", Date.now()]);
-			setPlayerSpeed((oldPlayerSpeed) => {
-				return Object.entries(newPlayerActions)
-					.filter(([_, value]) => value)
-					.map((e) => e[0]).length === 0
-					? 1
-					: oldPlayerSpeed;
-			});
 		},
-		[actionInputPairs, setPlayerActions, setPlayerSpeed, isPlayerMovementEnabled]
+		[actionInputPairs, setPlayerActions, isPlayerMovementEnabled]
 	);
 
 	useEffect(() => {

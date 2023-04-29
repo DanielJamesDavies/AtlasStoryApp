@@ -1,6 +1,5 @@
 // Packages
-import { FaArrowRight, FaFighterJet, FaKeyboard, FaListUl } from "react-icons/fa";
-import { GiRabbit, GiSnail } from "react-icons/gi";
+import { FaArrowRight, FaKeyboard, FaListUl } from "react-icons/fa";
 
 // Components
 import { Hierarchy } from "./Hierarchy/Hierarchy";
@@ -26,22 +25,24 @@ export const Menu = () => {
 		toggleIsDisplayingHierarchy,
 		isDisplayingControlScheme,
 		setIsDisplayingControlScheme,
-		playerActions,
 		playerSpeed,
+		setPlayerSpeed,
+		speedIcons,
 	} = MenuLogic();
 
 	return (
 		<div className={isDisplayingHierarchy ? "locations-menu-container locations-menu-container-is-displaying" : "locations-menu-container"}>
 			<Credits />
 			<div className='locations-menu-buttons'>
-				<div className='locations-menu-btn locations-menu-speed'>
-					{Object.entries(playerActions).filter(([_, value]) => value).length === 0 ? null : (
-						<>
-							{!(playerSpeed >= 3) ? null : <FaFighterJet />}
-							{!(playerSpeed === 2) ? null : <GiRabbit />}
-							{!(playerSpeed === 1) ? null : <GiSnail />}
-						</>
-					)}
+				<div className='locations-menu-speed-container'>
+					{speedIcons.map((icon, index) => (
+						<div
+							className={playerSpeed === index + 1 ? "locations-menu-speed locations-menu-speed-active" : "locations-menu-speed"}
+							onClick={() => setPlayerSpeed(index + 1)}
+						>
+							{icon}
+						</div>
+					))}
 				</div>
 				<div
 					className='locations-menu-btn locations-menu-toggle-control-scheme-visible-btn'

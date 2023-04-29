@@ -4,3 +4,29 @@
 	width: 100%;
 	height: 100%;
 }
+
+.locations-loading-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	background: var(--colour-grey-one);
+}
+
+.locations-loading-container-fade {
+	animation: locations-loading-container-fade 0.2s linear 1.2s 1;
+	animation-fill-mode: forwards;
+}
+
+@keyframes locations-loading-container-fade {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		pointer-events: none;
+		user-select: none;
+	}
+}

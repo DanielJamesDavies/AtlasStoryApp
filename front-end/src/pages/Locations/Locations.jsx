@@ -23,13 +23,18 @@ export const Locations = () => {
 
 	if (!story || !locations)
 		return (
-			<div className='locations-loading-container'>
-				<LoadingCircle center={true} />
+			<div className='locations'>
+				<div className='locations-loading-container'>
+					<LoadingCircle center={true} />
+				</div>
 			</div>
 		);
 
 	return (
 		<div className='locations'>
+			<div className='locations-loading-container locations-loading-container-fade'>
+				<LoadingCircle center={true} />
+			</div>
 			<Menu />
 			<Map />
 			<MapLocationName />

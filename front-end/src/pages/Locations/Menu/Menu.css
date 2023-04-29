@@ -39,15 +39,31 @@
 	background: var(--colour-grey-four);
 }
 
+.locations-menu-speed-container {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 8px;
+}
+
 .locations-menu-speed,
 .locations-menu-speed:hover {
-	padding: 0;
-	align-items: last baseline;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: -6px 0;
 	width: 46px;
 	height: 46px;
 	font-size: 32px;
 	background: transparent;
-	cursor: auto;
+	cursor: pointer;
+}
+
+.locations-menu-speed {
+	opacity: 0.344;
+}
+
+.locations-menu-speed-active {
+	opacity: 1;
 }
 
 .locations-menu {
