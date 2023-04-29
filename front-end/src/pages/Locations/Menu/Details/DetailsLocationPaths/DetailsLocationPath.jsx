@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { ColourPicker } from "../../../../../components/ColourPicker/ColourPicker";
 import { DropdownContainer } from "../../../../../components/DropdownContainer/DropdownContainer";
 import { ToggleInput } from "../../../../../components/ToggleInput/ToggleInput";
 
@@ -23,16 +24,16 @@ export const DetailsLocationPath = ({
 	isEditing,
 	changePathFrom,
 	changePathTo,
-	changePathType,
 	togglePathIsMajor,
+	changePathColour,
 }) => {
 	return (
 		<div className='locations-details-path'>
 			<div className='locations-details-path-labels'>
 				<div className='locations-details-path-label'>To</div>
 				<div className='locations-details-path-label'>From</div>
-				<div className='locations-details-path-label'>Type</div>
 				<div className='locations-details-path-label'>Is Major</div>
+				<div className='locations-details-path-label'>Colour</div>
 			</div>
 			<div className='locations-details-path-values'>
 				<div className='locations-details-path-value'>
@@ -78,15 +79,21 @@ export const DetailsLocationPath = ({
 					</DropdownContainer>
 				</div>
 				<div className='locations-details-path-value'>
-					<DropdownContainer
-						value={path?.pathType}
-						onChange={changePathType}
-						noBackground={true}
-						enableEdit={isEditing}
-					></DropdownContainer>
+					<ToggleInput value={path?.isMajor} onToggle={(e) => togglePathIsMajor(e, index)} enableEdit={isEditing} />
 				</div>
 				<div className='locations-details-path-value'>
-					<ToggleInput value={path?.isMajor} onToggle={(e) => togglePathIsMajor(e, index)} enableEdit={isEditing} />
+					<ColourPicker
+						value={path?.colour}
+						onChange={(colour) => changePathColour(colour, index)}
+						enableEdit={isEditing}
+						pickerVerticalPlacement='bottom'
+						noBackground={false}
+						circular={false}
+						presetColours={[
+							{ color: "#888888", title: "Grey" },
+							{ color: "#444444", title: "Dark Grey" },
+						]}
+					/>
 				</div>
 			</div>
 		</div>

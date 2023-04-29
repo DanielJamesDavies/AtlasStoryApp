@@ -1,5 +1,5 @@
 .locations-details-container {
-	--locationsDetailsHeight: calc(50% - 2 * 16px);
+	--locationsDetailsHeight: calc(60% - 2 * 16px);
 	position: absolute;
 	z-index: 3;
 	bottom: 0;

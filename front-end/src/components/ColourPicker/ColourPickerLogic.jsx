@@ -14,24 +14,13 @@ import isValidHexColour from "../../services/IsValidHexColour";
 
 // Assets
 
-export const ColourPickerLogic = ({ value, onChange, size, enableEdit, pickerVerticalPlacement, horizontalAlignment, circular }) => {
+export const ColourPickerLogic = ({ value, onChange, size, enableEdit, pickerVerticalPlacement, horizontalAlignment, circular, presetColours }) => {
 	const [colourPickerClassName, setColourPickerClassName] = useState(
 		pickerVerticalPlacement === "bottom" ? "colour-picker colour-picker-placement-bottom" : "colour-picker"
 	);
 	const [isShowingPicker, setIsShowingPicker] = useState(false);
 
 	const [colourBlockStyle, setColourBlockStyle] = useState({});
-
-	const presetColours = [
-		{ color: "#0044ff", title: "Blue" },
-		{ color: "#ff0000", title: "Red" },
-		{ color: "#ff0055", title: "Pink" },
-		{ color: "#aa00ff", title: "Purple" },
-		{ color: "#d4af37", title: "Gold" },
-		{ color: "#bbbbbb", title: "Silver" },
-		{ color: "#ffdd00", title: "Yellow" },
-		{ color: "#ff7700", title: "Orange" },
-	];
 
 	useEffect(() => {
 		function getColourPickerClassName() {
@@ -55,5 +44,28 @@ export const ColourPickerLogic = ({ value, onChange, size, enableEdit, pickerVer
 		await onChange(colour.hex);
 	}
 
-	return { colourPickerClassName, isShowingPicker, setIsShowingPicker, colourBlockStyle, presetColours, onSketchPickerChange };
+	const [currentPresetColours, setCurrentPresetColours] = useState([]);
+
+	useEffect(() => {
+		const defaultPresetColours = [
+			{ color: "#0044ff", title: "Blue" },
+			{ color: "#ff0000", title: "Red" },
+			{ color: "#ff0055", title: "Pink" },
+			{ color: "#aa00ff", title: "Purple" },
+			{ color: "#d4af37", title: "Gold" },
+			{ color: "#bbbbbb", title: "Silver" },
+			{ color: "#ffdd00", title: "Yellow" },
+			{ color: "#ff7700", title: "Orange" },
+		];
+
+		function getCurrentPresetColours() {
+			let newCurrentPresetColours = [];
+			if (presetColours) newCurrentPresetColours = newCurrentPresetColours.concat(presetColours);
+			newCurrentPresetColours = newCurrentPresetColours.concat(defaultPresetColours);
+			setCurrentPresetColours(newCurrentPresetColours);
+		}
+		getCurrentPresetColours();
+	}, [setCurrentPresetColours, presetColours]);
+
+	return { colourPickerClassName, isShowingPicker, setIsShowingPicker, colourBlockStyle, currentPresetColours, onSketchPickerChange };
 };

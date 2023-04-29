@@ -1,3 +1,7 @@
+.locations-details-paths-container {
+	padding: 8px 0;
+}
+
 .locations-details-paths-title {
 	font-size: var(--font-size-p-m);
 	font-weight: 600;

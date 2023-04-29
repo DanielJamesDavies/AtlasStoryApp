@@ -4,6 +4,7 @@
 import { DetailsLocationName } from "./DetailsLocationName/DetailsLocationName";
 import { DetailsLocationType } from "./DetailsLocationType/DetailsLocationType";
 import { DetailsLocationPosition } from "./DetailsLocationPosition/DetailsLocationPosition";
+import { DetailsLocationRotation } from "./DetailsLocationRotation/DetailsLocationRotation";
 import { DetailsLocationPaths } from "./DetailsLocationPaths/DetailsLocationPaths";
 
 // Logic
@@ -29,6 +30,7 @@ export const Details = () => {
 				<DetailsLocationName />
 				<DetailsLocationType />
 				<DetailsLocationPosition />
+				<DetailsLocationRotation />
 				<DetailsLocationPaths />
 			</div>
 		</div>

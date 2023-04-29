@@ -25,14 +25,15 @@ export const DetailsLocationPaths = () => {
 		selectedLocationId,
 		changePathFrom,
 		changePathTo,
-		changePathType,
 		togglePathIsMajor,
+		changePathColour,
 		addPath,
 		revertPaths,
 		savePaths,
 	} = DetailsLocationPathsLogic();
 	const { getItemFromIdInHierarchy } = HierarchyFunctions();
 
+	if (!["starCluster"].includes(locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.type)) return null;
 	return (
 		<EditableContainer
 			className='locations-details-paths-container'
@@ -76,8 +77,8 @@ export const DetailsLocationPaths = () => {
 									isEditing={true}
 									changePathFrom={changePathFrom}
 									changePathTo={changePathTo}
-									changePathType={changePathType}
 									togglePathIsMajor={togglePathIsMajor}
+									changePathColour={changePathColour}
 								/>
 							))}
 					</div>

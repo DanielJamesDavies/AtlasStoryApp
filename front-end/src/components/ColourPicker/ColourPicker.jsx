@@ -25,10 +25,10 @@ export const ColourPicker = ({
 	horizontalAlignment,
 	noBackground,
 	circular,
+	presetColours,
 }) => {
-	const { colourPickerClassName, isShowingPicker, setIsShowingPicker, colourBlockStyle, presetColours, onSketchPickerChange } = ColourPickerLogic(
-		{ value, onChange, size, enableEdit, pickerVerticalPlacement, horizontalAlignment, circular }
-	);
+	const { colourPickerClassName, isShowingPicker, setIsShowingPicker, colourBlockStyle, currentPresetColours, onSketchPickerChange } =
+		ColourPickerLogic({ value, onChange, size, enableEdit, pickerVerticalPlacement, horizontalAlignment, circular, presetColours });
 
 	return (
 		<div
@@ -44,7 +44,7 @@ export const ColourPicker = ({
 						className='colour-picker-sketch-picker'
 						color={value}
 						onChange={onSketchPickerChange}
-						presetColors={presetColours}
+						presetColors={currentPresetColours}
 					/>
 				)}
 			</div>

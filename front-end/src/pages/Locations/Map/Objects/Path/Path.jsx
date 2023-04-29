@@ -39,7 +39,7 @@ export const Path = ({ path, locations }) => {
 			if (!lineRef?.current || !cylinderBufferGeometryRef?.current) return false;
 			if (JSON.stringify(currPositions.current) === JSON.stringify([pos_from, pos_to])) return false;
 
-			setWidth(path?.isMajor ? 0.03 : 0.015);
+			setWidth(path?.isMajor ? 0.04 : 0.015);
 
 			const newLength = Math.hypot(pos_from[0] - pos_to[0], pos_from[1] - pos_to[1], pos_from[2] - pos_to[2]);
 			setLength(newLength);
@@ -61,7 +61,7 @@ export const Path = ({ path, locations }) => {
 
 	return (
 		<line ref={lineRef} position={getPointPositons()[0]}>
-			<meshLambertMaterial attach='material' color={path?.isMajor ? "#aaa" : "#444"} transparent />
+			<meshLambertMaterial attach='material' color={path?.colour === undefined ? "#444444" : path?.colour} transparent />
 			<cylinderBufferGeometry ref={cylinderBufferGeometryRef} args={[width, width, length, 400]} />
 		</line>
 	);

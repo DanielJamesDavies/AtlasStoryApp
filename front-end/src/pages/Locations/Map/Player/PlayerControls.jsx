@@ -15,7 +15,8 @@ import { LocationsContext } from "../../LocationsContext";
 // Assets
 
 export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
-	const { locationsMapRef, playerActions, setPlayerActions, playerSpeed, setPlayerSpeed } = useContext(LocationsContext);
+	const { locationsMapRef, playerActions, setPlayerActions, playerSpeed, setPlayerSpeed, setIsMouseControllingPlayer } =
+		useContext(LocationsContext);
 
 	const actionInputPairs = useRef([
 		{ input: "KeyW", action: "forward" },
@@ -56,9 +57,10 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 		(e) => {
 			if (e?.button !== 0) return false;
 			isMouseDown.current = true;
+			setIsMouseControllingPlayer(true);
 			locationsMapRef.current.style.cursor = "none";
 		},
-		[isMouseDown, locationsMapRef]
+		[isMouseDown, locationsMapRef, setIsMouseControllingPlayer]
 	);
 
 	const onMouseMove = useCallback(
@@ -82,9 +84,10 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 		(e) => {
 			if (e?.button !== 0) return resetPlayerActions();
 			isMouseDown.current = false;
+			setIsMouseControllingPlayer(false);
 			locationsMapRef.current.style.cursor = "auto";
 		},
-		[isMouseDown, locationsMapRef, resetPlayerActions]
+		[isMouseDown, locationsMapRef, resetPlayerActions, setIsMouseControllingPlayer]
 	);
 
 	const onWheel = useCallback(

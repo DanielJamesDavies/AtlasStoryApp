@@ -42,7 +42,7 @@ export const StarCluster = ({ location, locations, hierarchyItem, setCursorPoint
 							<StarTwinkle
 								key={index}
 								position={coordToPosition(starSystem?.position, { order: "yxz", multiplier: 0.05 })}
-								scale={1.8}
+								scale={2}
 								onClick={() => onClickStar(starSystem)}
 								onPointerOver={() => setHoverStarSystemId(starSystem?._id)}
 								onPointerOut={() => setHoverStarSystemId(false)}

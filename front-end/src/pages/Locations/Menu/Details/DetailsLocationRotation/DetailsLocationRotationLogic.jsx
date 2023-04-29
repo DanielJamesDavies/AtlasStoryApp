@@ -15,49 +15,20 @@ import { APIContext } from "../../../../../context/APIContext";
 
 // Assets
 
-export const DetailsLocationPathsLogic = () => {
+export const DetailsLocationRotationLogic = () => {
 	const { isAuthorizedToEdit, story, locations, setLocations, selectedLocationId } = useContext(LocationsContext);
 	const { APIRequest } = useContext(APIContext);
 
-	function changePathValue(newValue, index, key) {
-		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
-		let newLocations = JSON.parse(JSON.stringify(locations));
-		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].paths[index][key] = newValue;
-		setLocations(newLocations);
-	}
-
-	function changePathFrom(newValue, index) {
-		changePathValue(newValue, index, "from");
-	}
-
-	function changePathTo(newValue, index) {
-		changePathValue(newValue, index, "to");
-	}
-
-	function togglePathIsMajor(e, index) {
+	function changeRotation(e, newValue) {
 		e.stopPropagation();
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].paths[index].isMajor = !newLocations[locationIndex].paths[index].isMajor;
+		newLocations[locationIndex].rotation = newValue;
 		setLocations(newLocations);
 	}
 
-	function changePathColour(newValue, index) {
-		changePathValue(newValue, index, "colour");
-	}
-
-	function addPath() {
-		const newPath = { from: "Unselected", to: "Unselected", type: "Unselected", isMajor: false };
-		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
-		let newLocations = JSON.parse(JSON.stringify(locations));
-		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].paths.push(newPath);
-		setLocations(newLocations);
-	}
-
-	async function revertPaths(e) {
+	async function revertRotation(e) {
 		e.stopPropagation();
 		if (!story?._id) return false;
 
@@ -65,19 +36,19 @@ export const DetailsLocationPathsLogic = () => {
 
 		const story_response = await APIRequest("/location/get-value/" + newSelectedLocationId, "POST", {
 			story_id: story._id,
-			path: ["paths"],
+			path: ["rotation"],
 		});
 		if (!story_response || story_response?.errors || story_response?.data?.value === undefined) return false;
 
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].paths = story_response?.data?.value;
+		newLocations[locationIndex].rotation = story_response?.data?.value;
 		setLocations(newLocations);
 
 		return true;
 	}
 
-	async function savePaths(e) {
+	async function saveRotation(e) {
 		e.stopPropagation();
 		if (!story?._id) return false;
 
@@ -87,24 +58,12 @@ export const DetailsLocationPathsLogic = () => {
 
 		const response = await APIRequest("/location/" + newSelectedLocationId, "PATCH", {
 			story_id: story._id,
-			newValue: locations[locationIndex]?.paths,
-			path: ["paths"],
+			newValue: locations[locationIndex]?.rotation,
+			path: ["rotation"],
 		});
 		if (!response || response?.errors) return false;
 		return true;
 	}
 
-	return {
-		isAuthorizedToEdit,
-		story,
-		locations,
-		selectedLocationId,
-		changePathFrom,
-		changePathTo,
-		togglePathIsMajor,
-		changePathColour,
-		addPath,
-		revertPaths,
-		savePaths,
-	};
+	return { isAuthorizedToEdit, locations, selectedLocationId, changeRotation, revertRotation, saveRotation };
 };

@@ -31,10 +31,10 @@
 	width: 100%;
 }
 
-.locations-details-path-value .dropdown-value-container {
-	width: 100%;
-}
-
 .locations-details-path-value .toggle-input-container {
 	padding: 0;
+}
+
+.locations-details-path-value .colour-picker {
+	padding-left: 8px;
 }

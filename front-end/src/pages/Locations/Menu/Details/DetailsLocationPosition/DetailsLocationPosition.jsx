@@ -19,6 +19,7 @@ import "./DetailsLocationPosition.css";
 export const DetailsLocationPosition = () => {
 	const { isAuthorizedToEdit, locations, selectedLocationId, changePosition, revertPosition, savePosition } = DetailsLocationPositionLogic();
 
+	if (["reality"].includes(locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.type)) return null;
 	return (
 		<EditableContainer
 			className='locations-details-position-container'

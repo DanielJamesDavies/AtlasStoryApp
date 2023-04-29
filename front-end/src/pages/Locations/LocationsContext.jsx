@@ -39,6 +39,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [isDisplayingHierarchy, setIsDisplayingHierarchy] = useState(false);
 	const [playerActions, setPlayerActions] = useState({ forward: false, backward: false, left: false, right: false, up: false, down: false });
 	const [playerSpeed, setPlayerSpeed] = useState(1);
+	const [isMouseControllingPlayer, setIsMouseControllingPlayer] = useState(false);
 
 	const [isDisplayingCreateHierarchyItemForm, setIsDisplayingCreateHierarchyItemForm] = useState(false);
 
@@ -112,6 +113,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setPlayerActions,
 				playerSpeed,
 				setPlayerSpeed,
+				isMouseControllingPlayer,
+				setIsMouseControllingPlayer,
 				isDisplayingCreateHierarchyItemForm,
 				setIsDisplayingCreateHierarchyItemForm,
 			}}
