@@ -36,6 +36,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const locationsMapRef = useRef();
 	const [currentMapLocationId, setCurrentMapLocationId] = useState(false);
 	const [selectedLocationId, setSelectedLocationId] = useState(false);
+	const [hoverMapLocationId, setHoverMapLocationId] = useState(false);
 	const [isDisplayingHierarchy, setIsDisplayingHierarchy] = useState(false);
 	const [playerActions, setPlayerActions] = useState({ forward: false, backward: false, left: false, right: false, up: false, down: false });
 	const [playerSpeed, setPlayerSpeed] = useState(1);
@@ -107,6 +108,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setCurrentMapLocationId,
 				selectedLocationId,
 				setSelectedLocationId,
+				hoverMapLocationId,
+				setHoverMapLocationId,
 				isDisplayingHierarchy,
 				setIsDisplayingHierarchy,
 				playerActions,

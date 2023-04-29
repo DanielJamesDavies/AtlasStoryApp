@@ -1,0 +1,12 @@
+.locations-map-location-name-container {
+	position: absolute;
+	bottom: 8px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.locations-map-location-name {
+	font-size: 16px;
+	font-weight: 600;
+	color: #aaa;
+}

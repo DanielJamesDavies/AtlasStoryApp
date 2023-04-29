@@ -18,14 +18,24 @@ import { LocationsContext } from "../../../LocationsContext";
 // Assets
 
 export const StarCluster = ({ location, locations, hierarchyItem, setCursorPointer }) => {
-	const { setIsDisplayingHierarchy, setSelectedLocationId } = useContext(LocationsContext);
+	const { setIsDisplayingHierarchy, setSelectedLocationId, setHoverMapLocationId } = useContext(LocationsContext);
 	const { coordToPosition } = MapFunctions();
 	const ref = useRef();
-	const [hoverStarSystemId, setHoverStarSystemId] = useState(false);
+	const [isHovering, setIsHovering] = useState(false);
+
+	function onPointerOver(star_system_id) {
+		setHoverMapLocationId(star_system_id);
+		setIsHovering(true);
+	}
+
+	function onPointerOut() {
+		setHoverMapLocationId(false);
+		setIsHovering(false);
+	}
 
 	useEffect(() => {
-		setCursorPointer(hoverStarSystemId !== false);
-	}, [setCursorPointer, hoverStarSystemId]);
+		setCursorPointer(isHovering);
+	}, [setCursorPointer, isHovering]);
 
 	function onClickStar(starSystem) {
 		setIsDisplayingHierarchy(true);
@@ -44,8 +54,8 @@ export const StarCluster = ({ location, locations, hierarchyItem, setCursorPoint
 								position={coordToPosition(starSystem?.position, { order: "yxz", multiplier: 0.05 })}
 								scale={2}
 								onClick={() => onClickStar(starSystem)}
-								onPointerOver={() => setHoverStarSystemId(starSystem?._id)}
-								onPointerOut={() => setHoverStarSystemId(false)}
+								onPointerOver={() => onPointerOver(starSystem?._id)}
+								onPointerOut={() => onPointerOut()}
 							/>
 						);
 				  })}

@@ -4,6 +4,7 @@
 import { LoadingCircle } from "../../components/LoadingCircle/LoadingCircle";
 import { Menu } from "./Menu/Menu";
 import { Map } from "./Map/Map";
+import { MapLocationName } from "./MapLocationName/MapLocationName";
 
 // Logic
 import { LocationsLogic } from "./LocationsLogic";
@@ -31,6 +32,7 @@ export const Locations = () => {
 		<div className='locations'>
 			<Menu />
 			<Map />
+			<MapLocationName />
 		</div>
 	);
 };
