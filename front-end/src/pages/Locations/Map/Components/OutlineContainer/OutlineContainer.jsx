@@ -28,8 +28,8 @@ export const OutlineContainer = ({
 	const { playerCamera } = useContext(LocationsContext);
 	const outlineRef = useRef();
 
-	const [actualThickness, setActualThickness] = useState(0);
-	const [distanceAway, setDistanceAway] = useState(0);
+	const [actualThickness, setActualThickness] = useState(false);
+	const [distanceAway, setDistanceAway] = useState(false);
 
 	useFrame(() => {
 		if (!isDisplaying || !outlineRef?.current || !playerCamera) return false;
@@ -49,17 +49,19 @@ export const OutlineContainer = ({
 			<group>{children}</group>
 			{!isDisplaying ? null : (
 				<group ref={outlineRef}>
-					<mesh>
-						<torusGeometry
-							args={[
-								(scale + gap + actualThickness) * Math.max(((4 * scale) / distanceAway) * 0.22, 0.36 + scale * 0.05),
-								actualThickness,
-								5,
-								100,
-							]}
-						/>
-						<meshBasicMaterial color={colour} />
-					</mesh>
+					{actualThickness === false || distanceAway === false ? null : (
+						<mesh>
+							<torusGeometry
+								args={[
+									(scale + gap + actualThickness) * Math.max(((4 * scale) / distanceAway) * 0.22, 0.045 + scale * 10),
+									actualThickness,
+									5,
+									100,
+								]}
+							/>
+							<meshBasicMaterial color={colour} />
+						</mesh>
+					)}
 				</group>
 			)}
 		</group>

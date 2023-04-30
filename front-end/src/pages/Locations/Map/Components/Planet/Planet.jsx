@@ -1,7 +1,7 @@
 // Packages
 import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
+import { TextureLoader } from "three";
+import { useLoader, useFrame } from "@react-three/fiber";
 
 // Components
 
@@ -15,54 +15,31 @@ import { useGLTF } from "@react-three/drei";
 
 // Assets
 
-export const Planet = ({ position, scale = 1, tilt, onClick, onPointerOver, onPointerOut, isHovering }) => {
+export const Planet = ({ position, scale = 1, tilt, onClick }) => {
 	const ref = useRef();
-	const { nodes, materials } = useGLTF("/Assets/Map/Earth/scene.gltf");
+	const [earthDayMap, earthCloudsMap] = useLoader(TextureLoader, [
+		"/Assets/Map/Earth/2k_earth_daymap.jpg",
+		"/Assets/Map/Earth/2k_earth_clouds.jpg",
+	]);
 
-	useFrame((_, delta) => (ref.current.rotation.x -= delta * 0.3 * Math.min(1 / (scale * scale), 3)));
+	useFrame((_, delta) => (ref.current.rotation.x -= delta * 0.6 * Math.min(1 / (scale * scale), 3)));
 
 	return (
-		<group
-			ref={ref}
-			position={position}
-			scale={scale}
-			dispose={null}
-			onClick={onClick === undefined ? null : () => onClick()}
-			onPointerOver={onPointerOver}
-			onPointerOut={onPointerOut}
-		>
-			<group name='Sketchfab_model' rotation={[0, -Math.PI / 2, 0]} scale={0.5}>
-				<group name='157f21a0fd4a468082d7f17951348031fbx' rotation={[Math.PI / 2, 0, 0]}>
-					<group name='group1' rotation={tilt === undefined ? [0, 0, 0] : tilt}>
-						<group name='Nubes' position={[0, 0, 0]}>
-							<mesh name='Nubes_tierra_nubes_0' geometry={nodes.Nubes_tierra_nubes_0.geometry} material={materials.tierra_nubes} />
-						</group>
-						<group name='Atmosfera' scale={0.99}>
-							<mesh
-								name='Atmosfera_tierra_atmosfera_01_0'
-								geometry={nodes.Atmosfera_tierra_atmosfera_01_0.geometry}
-								material={materials.tierra_atmosfera_01}
-							/>
-						</group>
-						<group name='Tierra'>
-							<mesh
-								name='Tierra_Tierra_blin_superficie_0'
-								geometry={nodes.Tierra_Tierra_blin_superficie_0.geometry}
-								material={materials.Tierra_blin_superficie}
-							/>
-						</group>
-						<group name='Atmosfera1' scale={0.98}>
-							<mesh
-								name='Atmosfera1_tierra_atmosfera_02_0'
-								geometry={nodes.Atmosfera1_tierra_atmosfera_02_0.geometry}
-								material={materials.tierra_atmosfera_02}
-							/>
-						</group>
-					</group>
-				</group>
+		<group ref={ref} position={position} scale={scale} dispose={null} onClick={onClick === undefined ? null : () => onClick()}>
+			<group rotation={tilt === undefined ? [0, 0, 0] : tilt} scale={0.5}>
+				<mesh rotation={[0, 0, Math.PI / 2]}>
+					<sphereGeometry args={[20, 32, 16]} />
+					<meshStandardMaterial map={earthDayMap} />
+				</mesh>
+				<mesh rotation={[0, 0, Math.PI / 2]}>
+					<sphereGeometry args={[21, 32, 16]} />
+					<meshStandardMaterial map={earthCloudsMap} opacity={0.5} transparent />
+				</mesh>
+				<mesh>
+					<sphereGeometry attach='geometry' args={[22, 32, 16]} />
+					<meshPhongMaterial attach='material' color='#0055ff' opacity={0.2} transparent />
+				</mesh>
 			</group>
 		</group>
 	);
 };
-
-useGLTF.preload("/Assets/Map/Earth/scene.gltf");

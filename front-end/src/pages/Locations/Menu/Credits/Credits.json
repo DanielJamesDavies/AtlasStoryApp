@@ -8,9 +8,16 @@
 			"licenseLink": "https://creativecommons.org/licenses/by/4.0/"
 		},
 		{
-			"title": "Planet Earth",
-			"creator": "rodrigoscar",
-			"sourceLink": "https://sketchfab.com/3d-models/planet-earth-eb83482f3a2a415eb73e4c73790fce21",
+			"title": "Earth",
+			"creator": "Solar System Scope",
+			"sourceLink": "https://www.solarsystemscope.com/textures/",
+			"license": "CC BY 4.0",
+			"licenseLink": "https://creativecommons.org/licenses/by/4.0/"
+		},
+		{
+			"title": "NASA CGI Moon Kit",
+			"creator": "Thomas Flynn",
+			"sourceLink": "https://sketchfab.com/3d-models/nasa-cgi-moon-kit-1c496b3b57304526b5b9d1cf9c1087fc",
 			"license": "CC BY 4.0",
 			"licenseLink": "https://creativecommons.org/licenses/by/4.0/"
 		},

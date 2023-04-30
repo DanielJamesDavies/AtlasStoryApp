@@ -15,7 +15,7 @@ import { useGLTF } from "@react-three/drei";
 
 // Assets
 
-export const Star = ({ position, scale = 1, onClick, onPointerOver, onPointerOut }) => {
+export const Star = ({ position, scale = 1, onClick }) => {
 	const ref = useRef();
 	const { nodes, materials } = useGLTF("/Assets/Map/Star1/scene.gltf");
 
@@ -25,15 +25,7 @@ export const Star = ({ position, scale = 1, onClick, onPointerOver, onPointerOut
 	});
 
 	return (
-		<group
-			ref={ref}
-			position={position}
-			scale={scale}
-			dispose={null}
-			onClick={onClick === undefined ? null : () => onClick()}
-			onPointerOver={onPointerOver}
-			onPointerOut={onPointerOut}
-		>
+		<group ref={ref} position={position} scale={scale} dispose={null} onClick={onClick === undefined ? null : () => onClick()}>
 			<group name='Sketchfab_Scene' rotation={[0, 0, Math.PI / 2]}>
 				<group name='Sketchfab_model'>
 					<group name='3a2aaa22fb3d4b329318a980ad1bf6d1fbx'>

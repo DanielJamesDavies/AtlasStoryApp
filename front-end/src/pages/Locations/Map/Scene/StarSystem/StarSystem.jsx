@@ -6,6 +6,7 @@ import { OrbitContainer } from "../../Components/OrbitContainer/OrbitContainer";
 import { OutlineContainer } from "../../Components/OutlineContainer/OutlineContainer";
 import { Star } from "../../Components/Star/Star";
 import { Planet } from "../../Components/Planet/Planet";
+import { Moon } from "../../Components/Moon/Moon";
 
 // Logic
 import { MapFunctions } from "../../MapFunctions";
@@ -38,12 +39,14 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 		changeCameraRotation([8 * (Math.PI / 180), 320 * (Math.PI / 180), Math.PI / 2]);
 	}, [playerApi, changeCameraRotation]);
 
-	function onPointerOver(star_system_id) {
-		setHoverMapLocationId(star_system_id);
+	function onPointerOver(e, location_id) {
+		e.stopPropagation();
+		setHoverMapLocationId(location_id);
 		setIsHovering(true);
 	}
 
-	function onPointerOut() {
+	function onPointerOut(e) {
+		e.stopPropagation();
 		setHoverMapLocationId(false);
 		setIsHovering(false);
 	}
@@ -52,9 +55,9 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 		setCursorPointer(isHovering);
 	}, [setCursorPointer, isHovering]);
 
-	function onClickStar(starSystem) {
+	function onClickLocation(input_location) {
 		setIsDisplayingHierarchy(true);
-		setSelectedLocationId(starSystem?._id);
+		setSelectedLocationId(input_location?._id);
 	}
 
 	return (
@@ -64,24 +67,31 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 				: hierarchyItem?.children.map((child, index) => {
 						const childLocation = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(child?._id));
 						return (
-							<OrbitContainer key={index} apoapsis={index * 6} periapsis={index * 4} inclination={0}>
+							<OrbitContainer
+								key={index}
+								apoapsis={index * 6}
+								periapsis={index * 4}
+								inclination={0}
+								onClick={() => onClickLocation(childLocation)}
+								onPointerOver={(e) => onPointerOver(e, childLocation?._id)}
+								onPointerOut={(e) => onPointerOut(e)}
+							>
 								{childLocation?.type !== "star" ? null : (
 									<OutlineContainer
-										scale={0.8}
+										scale={0.06}
 										thickness={2}
 										isDisplaying={
 											JSON.stringify(childLocation?._id) === JSON.stringify(selectedLocationId) ||
 											JSON.stringify(childLocation?._id) === JSON.stringify(hoverMapLocationId)
 										}
 										colour={JSON.stringify(childLocation?._id) === JSON.stringify(selectedLocationId) ? "#fff" : "#aaa"}
-										onPointerOver={() => onPointerOver(childLocation?._id)}
-										onPointerOut={() => onPointerOut()}
+										onPointerOver={(e) => onPointerOver(e, childLocation?._id)}
+										onPointerOut={(e) => onPointerOut(e)}
 									>
 										<Star
 											position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
 											scale={0.06}
-											onClick={() => onClickStar(childLocation)}
-											isHovering={JSON.stringify(childLocation?._id) === JSON.stringify(hoverMapLocationId)}
+											onClick={() => onClickLocation(childLocation)}
 										/>
 									</OutlineContainer>
 								)}
@@ -94,17 +104,63 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 											JSON.stringify(childLocation?._id) === JSON.stringify(hoverMapLocationId)
 										}
 										colour={JSON.stringify(childLocation?._id) === JSON.stringify(selectedLocationId) ? "#fff" : "#aaa"}
-										onPointerOver={() => onPointerOver(childLocation?._id)}
-										onPointerOut={() => onPointerOut()}
+										onClick={() => onClickLocation(childLocation)}
+										onPointerOver={(e) => onPointerOver(e, childLocation?._id)}
+										onPointerOut={(e) => onPointerOut(e)}
 									>
 										<Planet
 											position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
 											scale={0.03}
-											onClick={() => onClickStar(childLocation)}
-											isHovering={JSON.stringify(childLocation?._id) === JSON.stringify(hoverMapLocationId)}
+											onClick={() => onClickLocation(childLocation)}
 										/>
 									</OutlineContainer>
 								)}
+								{child?.children === undefined || child?.children.length === 0
+									? null
+									: child?.children.map((child2, index) => {
+											const child2Location = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(child2?._id));
+											return (
+												<OrbitContainer
+													key={index}
+													apoapsis={index + 1}
+													periapsis={index + 1}
+													inclination={0}
+													thickness={0.5}
+													onClick={() => onClickLocation(child2Location)}
+													onPointerOver={(e) => onPointerOver(e, child2Location?._id)}
+													onPointerOut={(e) => onPointerOut(e)}
+												>
+													{child2Location?.type !== "moon" ? null : (
+														<OutlineContainer
+															scale={0.01}
+															thickness={1}
+															isDisplaying={
+																JSON.stringify(child2Location?._id) === JSON.stringify(selectedLocationId) ||
+																JSON.stringify(child2Location?._id) === JSON.stringify(hoverMapLocationId)
+															}
+															colour={
+																JSON.stringify(child2Location?._id) === JSON.stringify(selectedLocationId)
+																	? "#fff"
+																	: "#aaa"
+															}
+															onPointerOver={() => onPointerOver(child2Location?._id)}
+															onPointerOut={() => onPointerOut()}
+														>
+															<Moon
+																position={coordToPosition(child2Location?.position, {
+																	order: "yxz",
+																	multiplier: 0.05,
+																})}
+																scale={0.01}
+																onClick={() => onClickLocation(child2Location)}
+																onPointerOver={(e) => onPointerOver(e, child2Location?._id)}
+																onPointerOut={(e) => onPointerOut(e)}
+															/>
+														</OutlineContainer>
+													)}
+												</OrbitContainer>
+											);
+									  })}
 							</OrbitContainer>
 						);
 				  })}

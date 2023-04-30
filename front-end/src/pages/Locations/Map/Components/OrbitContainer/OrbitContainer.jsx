@@ -1,5 +1,5 @@
 // Packages
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 
 // Components
@@ -14,10 +14,11 @@ import { useFrame } from "@react-three/fiber";
 
 // Assets
 
-export const OrbitContainer = ({ children, apoapsis, periapsis, inclination }) => {
+export const OrbitContainer = ({ children, apoapsis, periapsis, inclination, thickness = 1, onClick, onPointerOver, onPointerOut }) => {
 	const orbitContainerRef = useRef();
 	const orbitRef = useRef();
 	const orbitChildrenContainerRef = useRef();
+	const [isHovering, setIsHovering] = useState(false);
 
 	useLayoutEffect(() => {
 		function translateOrbitChildrenContainer() {
@@ -40,9 +41,25 @@ export const OrbitContainer = ({ children, apoapsis, periapsis, inclination }) =
 			<group ref={orbitRef}>
 				<group ref={orbitChildrenContainerRef}>{children}</group>
 				<group rotation={[0, Math.PI / 2, 0]}>
+					<mesh
+						onClick={onClick}
+						onPointerOver={(e) => {
+							setIsHovering(true);
+							onPointerOver(e);
+						}}
+						onPointerOut={(e) => {
+							setIsHovering(false);
+							onPointerOut(e);
+						}}
+					>
+						<torusGeometry args={[apoapsis, 0.2, 5, 100]} />
+						<meshBasicMaterial opacity={0} transparent />
+					</mesh>
+				</group>
+				<group rotation={[0, Math.PI / 2, 0]}>
 					<mesh>
-						<torusGeometry args={[apoapsis, 0.01, 5, 100]} />
-						<meshBasicMaterial color='#444444 ' />
+						<torusGeometry args={[apoapsis, 0.02 * thickness, 5, 100]} />
+						<meshBasicMaterial color={isHovering ? "#888" : "#555"} />
 					</mesh>
 				</group>
 			</group>
