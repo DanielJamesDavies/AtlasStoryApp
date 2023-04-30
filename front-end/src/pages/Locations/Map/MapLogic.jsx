@@ -16,12 +16,22 @@ import "./Map.css";
 // Assets
 
 export const MapLogic = () => {
-	const { locationsMapRef, setSelectedLocationId, isMouseControllingPlayer } = useContext(LocationsContext);
+	const { locationsMapRef, setSelectedLocationId, isMouseControllingPlayer, setIsMouseOverMap } = useContext(LocationsContext);
 	const [isPlayerMovementEnabled, setisPlayerMovementEnabled] = useState(false);
+
+	function onMouseEnter() {
+		setIsMouseOverMap(true);
+		setisPlayerMovementEnabled(true);
+	}
+
+	function onMouseLeave() {
+		setIsMouseOverMap(false);
+		setisPlayerMovementEnabled(false);
+	}
 
 	function setCursorPointer(value) {
 		if (!isMouseControllingPlayer) locationsMapRef.current.style.cursor = value ? "pointer" : "auto";
 	}
 
-	return { locationsMapRef, setSelectedLocationId, isPlayerMovementEnabled, setisPlayerMovementEnabled, setCursorPointer };
+	return { locationsMapRef, onMouseEnter, onMouseLeave, setSelectedLocationId, isPlayerMovementEnabled, setCursorPointer };
 };

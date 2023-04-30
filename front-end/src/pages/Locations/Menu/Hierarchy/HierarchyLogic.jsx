@@ -15,7 +15,7 @@ import { LocationsContext } from "../../LocationsContext";
 // Assets
 
 export const HierarchyLogic = () => {
-	const { selectedLocationId, setSelectedLocationId } = useContext(LocationsContext);
+	const { isMouseOverMap, selectedLocationId, setSelectedLocationId } = useContext(LocationsContext);
 
-	return { selectedLocationId, setSelectedLocationId };
+	return { isMouseOverMap, selectedLocationId, setSelectedLocationId };
 };

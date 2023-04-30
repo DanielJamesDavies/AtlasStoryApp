@@ -17,11 +17,19 @@ import "./Hierarchy.css";
 // Assets
 
 export const Hierarchy = () => {
-	const { selectedLocationId, setSelectedLocationId } = HierarchyLogic();
+	const { isMouseOverMap, selectedLocationId, setSelectedLocationId } = HierarchyLogic();
 
 	return (
 		<div
-			className={selectedLocationId ? "locations-hierarchy locations-hierarchy-is-displaying-details" : "locations-hierarchy"}
+			className={
+				selectedLocationId
+					? isMouseOverMap
+						? "locations-hierarchy locations-hierarchy-is-displaying-details locations-hierarchy-mouse-over-map"
+						: "locations-hierarchy locations-hierarchy-is-displaying-details"
+					: isMouseOverMap
+					? "locations-hierarchy locations-hierarchy-mouse-over-map"
+					: "locations-hierarchy"
+			}
 			onClick={() => setSelectedLocationId(false)}
 		>
 			<div className='locations-hierarchy-title'>Hierarchy</div>

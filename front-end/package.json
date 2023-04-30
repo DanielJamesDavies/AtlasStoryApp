@@ -1,52 +1,52 @@
 {
-  "name": "story-app-front-end",
-  "version": "1.0.0",
-  "private": true,
-  "dependencies": {
-    "@react-three/cannon": "^6.5.2",
-    "@react-three/drei": "^9.66.0",
-    "@react-three/fiber": "^8.12.2",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.2.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/three": "^0.150.2",
-    "buffer": "^6.0.3",
-    "chart.js": "^3.8.0",
-    "cross-env": "^7.0.3",
-    "dotenv": "^16.0.3",
-    "react": "^18.1.0",
-    "react-chartjs-2": "^4.3.1",
-    "react-color": "^2.19.3",
-    "react-dom": "^18.1.0",
-    "react-icons": "^4.3.1",
-    "react-markdown": "^8.0.3",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "^5.0.1",
-    "three": "^0.152.0",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "set BROWSER=none && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+	"name": "story-app-front-end",
+	"version": "1.0.0",
+	"private": true,
+	"dependencies": {
+		"@react-three/cannon": "^6.5.2",
+		"@react-three/drei": "^9.66.0",
+		"@react-three/fiber": "^8.13.0",
+		"@testing-library/jest-dom": "^5.16.4",
+		"@testing-library/react": "^13.2.0",
+		"@testing-library/user-event": "^13.5.0",
+		"@types/three": "^0.150.2",
+		"buffer": "^6.0.3",
+		"chart.js": "^3.8.0",
+		"cross-env": "^7.0.3",
+		"dotenv": "^16.0.3",
+		"react": "^18.1.0",
+		"react-chartjs-2": "^4.3.1",
+		"react-color": "^2.19.3",
+		"react-dom": "^18.1.0",
+		"react-icons": "^4.3.1",
+		"react-markdown": "^8.0.3",
+		"react-router-dom": "^6.3.0",
+		"react-scripts": "^5.0.1",
+		"three": "^0.152.2",
+		"web-vitals": "^2.1.4"
+	},
+	"scripts": {
+		"start": "set BROWSER=none && react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	}
 }

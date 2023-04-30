@@ -1,0 +1,11 @@
+Model Information:
+* title:	Planet Earth
+* source:	https://sketchfab.com/3d-models/planet-earth-eb83482f3a2a415eb73e4c73790fce21
+* author:	rodrigoscar (https://sketchfab.com/rodrigoscar)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Planet Earth" (https://sketchfab.com/3d-models/planet-earth-eb83482f3a2a415eb73e4c73790fce21) by rodrigoscar (https://sketchfab.com/rodrigoscar) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

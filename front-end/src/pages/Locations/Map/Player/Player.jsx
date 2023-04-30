@@ -1,5 +1,5 @@
 // Packages
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { Vector3 } from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useSphere } from "@react-three/cannon";
@@ -10,6 +10,7 @@ import { PlayerControls } from "./PlayerControls";
 // Logic
 
 // Context
+import { LocationsContext } from "../../LocationsContext";
 
 // Services
 
@@ -19,13 +20,15 @@ import { PlayerControls } from "./PlayerControls";
 
 export const Player = ({ isPlayerMovementEnabled }) => {
 	const { camera } = useThree();
-	const { playerActions, playerSpeed } = PlayerControls({ camera, isPlayerMovementEnabled });
 	const [ref, api] = useSphere(() => ({ mass: 1, type: "Dynamic", position: [-22, -2, 17] }));
+	const { playerActions, playerSpeed } = PlayerControls({ camera, isPlayerMovementEnabled });
+	const { setPlayerApi } = useContext(LocationsContext);
 
 	const position = useRef([0, 0, 0]);
 	useEffect(() => {
+		setPlayerApi(api);
 		api.position.subscribe((pos) => (position.current = pos));
-	}, [api]);
+	}, [api, setPlayerApi]);
 
 	function getNewVelocity() {
 		let newVelocity = [0, 0, 0];

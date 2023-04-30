@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 
 // Components
 
@@ -28,11 +28,40 @@ export const HierarchyListItemLogic = ({ item, locationTypes }) => {
 		getIcon();
 	}, [item, locationTypes]);
 
+	const clicks = useRef([]);
+
+	function getNewClicks(oldClicks, maxDelta) {
+		let newClicks = JSON.parse(JSON.stringify(oldClicks));
+
+		let startIndex = 0;
+		newClicks.map((curr_click, index) => {
+			if (index === newClicks.length - 1) return false;
+			const next_click = newClicks[index + 1];
+			if (next_click - curr_click > maxDelta) startIndex = index + 1;
+			return true;
+		});
+
+		return newClicks.filter((_, index) => index >= startIndex);
+	}
+
 	function onClickItem(e) {
 		e.stopPropagation();
 		if (item?._id === undefined) return false;
-		setSelectedLocationId(item._id);
-		// if (item?.type !== "reality") setCurrentMapLocationId(item._id);
+
+		const maxDelta = 400;
+
+		clicks.current.push(Date.now());
+		clicks.current = getNewClicks(clicks.current, maxDelta);
+		switch (clicks.current.length) {
+			case 1:
+				setSelectedLocationId(item?._id);
+				break;
+			case 2:
+				if (!["reality"].includes(item?.type)) setCurrentMapLocationId(item?._id);
+				break;
+			default:
+				break;
+		}
 	}
 
 	function onClickTravelToLocation(e) {

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { FaBullseye, FaDiceD6, FaDotCircle, FaGlobe, FaGlobeEurope, FaMap, FaMoon, FaProjectDiagram, FaSatellite, FaSun } from "react-icons/fa";
 
 import { RoutesContext } from "../../context/RoutesContext";
@@ -24,7 +24,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			type: "surfaceLocation",
 			name: "Surface Location",
 			icon: <FaMap />,
-			possibleParents: ["reality", "planet", "moon", "artificialSatellite"],
+			possibleParents: ["reality", "planet", "moon", "artificialSatellite", "surfaceLocation"],
 		},
 	];
 
@@ -34,12 +34,16 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const { getInitialMapLocationItem } = HierarchyFunctions();
 
 	const locationsMapRef = useRef();
+	const [playerApi, setPlayerApi] = useState(false);
+	const [playerCamera, setPlayerCamera] = useState(false);
+	const playerCameraRotation = useRef([0, 0, Math.PI / 2]);
 	const [currentMapLocationId, setCurrentMapLocationId] = useState(false);
 	const [selectedLocationId, setSelectedLocationId] = useState(false);
 	const [hoverMapLocationId, setHoverMapLocationId] = useState(false);
 	const [isDisplayingHierarchy, setIsDisplayingHierarchy] = useState(false);
 	const [playerActions, setPlayerActions] = useState({ forward: false, backward: false, left: false, right: false, up: false, down: false });
 	const [playerSpeed, setPlayerSpeed] = useState(1);
+	const [isMouseOverMap, setIsMouseOverMap] = useState(false);
 	const [isMouseControllingPlayer, setIsMouseControllingPlayer] = useState(false);
 
 	const [isDisplayingCreateHierarchyItemForm, setIsDisplayingCreateHierarchyItemForm] = useState(false);
@@ -84,6 +88,19 @@ const LocationsProvider = ({ children, story_uid }) => {
 		getInitial();
 	}, [APIRequest, location, story_uid, curr_story_uid, story, setStory, setLocations, setCurrentMapLocationId, getInitialMapLocationItem]);
 
+	useEffect(() => {
+		setHoverMapLocationId(false);
+	}, [currentMapLocationId]);
+
+	const changeCameraRotation = useCallback(
+		(newRotation) => {
+			if (!newRotation) return false;
+			playerCamera.rotation.set(...newRotation);
+			playerCameraRotation.current = newRotation;
+		},
+		[playerCamera, playerCameraRotation]
+	);
+
 	function changeStoryHierarchy(newHierarchy) {
 		setStory((oldStory) => {
 			let newStory = JSON.parse(JSON.stringify(oldStory));
@@ -104,6 +121,12 @@ const LocationsProvider = ({ children, story_uid }) => {
 				locations,
 				setLocations,
 				locationsMapRef,
+				playerApi,
+				setPlayerApi,
+				playerCamera,
+				setPlayerCamera,
+				playerCameraRotation,
+				changeCameraRotation,
 				currentMapLocationId,
 				setCurrentMapLocationId,
 				selectedLocationId,
@@ -116,6 +139,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setPlayerActions,
 				playerSpeed,
 				setPlayerSpeed,
+				isMouseOverMap,
+				setIsMouseOverMap,
 				isMouseControllingPlayer,
 				setIsMouseControllingPlayer,
 				isDisplayingCreateHierarchyItemForm,

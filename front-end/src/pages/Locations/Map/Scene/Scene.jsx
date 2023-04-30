@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 
 // Components
 import { StarCluster } from "./StarCluster/StarCluster";
+import { StarSystem } from "./StarSystem/StarSystem";
 
 // Logic
 
@@ -38,6 +39,11 @@ export const Scene = ({ setCursorPointer }) => {
 				case "starCluster":
 					newScene = (
 						<StarCluster location={location} locations={locations} hierarchyItem={hierarchyItem} setCursorPointer={setCursorPointer} />
+					);
+					break;
+				case "starSystem":
+					newScene = (
+						<StarSystem location={location} locations={locations} hierarchyItem={hierarchyItem} setCursorPointer={setCursorPointer} />
 					);
 					break;
 				default:

@@ -37,6 +37,7 @@ export const Menu = () => {
 				<div className='locations-menu-speed-container'>
 					{speedIcons.map((icon, index) => (
 						<div
+							key={index}
 							className={playerSpeed === index + 1 ? "locations-menu-speed locations-menu-speed-active" : "locations-menu-speed"}
 							onClick={() => setPlayerSpeed(index + 1)}
 						>

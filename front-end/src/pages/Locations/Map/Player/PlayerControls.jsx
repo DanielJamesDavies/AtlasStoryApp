@@ -15,8 +15,16 @@ import { LocationsContext } from "../../LocationsContext";
 // Assets
 
 export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
-	const { locationsMapRef, playerActions, setPlayerActions, playerSpeed, setPlayerSpeed, setIsMouseControllingPlayer } =
-		useContext(LocationsContext);
+	const {
+		setPlayerCamera,
+		playerCameraRotation,
+		locationsMapRef,
+		playerActions,
+		setPlayerActions,
+		playerSpeed,
+		setPlayerSpeed,
+		setIsMouseControllingPlayer,
+	} = useContext(LocationsContext);
 
 	const actionInputPairs = useRef([
 		{ input: "KeyW", action: "forward" },
@@ -30,9 +38,13 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 	]);
 
 	const mutliKeyPresses = useRef();
-
 	const isMouseDown = useRef(false);
-	const cameraRotation = useRef([8 * (Math.PI / 180), 300 * (Math.PI / 180), Math.PI / 2]);
+
+	useEffect(() => {
+		camera.fov = 80;
+		camera.rotation.set(...playerCameraRotation.current);
+		setPlayerCamera(camera);
+	}, [camera, playerCameraRotation, setPlayerCamera]);
 
 	const resetPlayerActions = useCallback(() => {
 		setPlayerActions((oldPlayerActions) => {
@@ -41,11 +53,6 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 			return newPlayerActions;
 		});
 	}, [setPlayerActions]);
-
-	useEffect(() => {
-		camera.fov = 80;
-		camera.rotation.set(...cameraRotation.current);
-	}, [camera, cameraRotation]);
 
 	useEffect(() => {
 		if (!isPlayerMovementEnabled) return resetPlayerActions();
@@ -70,12 +77,12 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 			const deltaX = e.movementX * mouseSensitivity;
 			const deltaY = e.movementY * mouseSensitivity;
 
-			cameraRotation.current[0] += deltaX * (Math.PI / 180);
-			cameraRotation.current[1] += -deltaY * (Math.PI / 180);
+			playerCameraRotation.current[0] += deltaX * (Math.PI / 180);
+			playerCameraRotation.current[1] += -deltaY * (Math.PI / 180);
 
-			camera.rotation.set(...cameraRotation.current);
+			camera.rotation.set(...playerCameraRotation.current);
 		},
-		[camera]
+		[camera, playerCameraRotation]
 	);
 
 	const onMouseUp = useCallback(

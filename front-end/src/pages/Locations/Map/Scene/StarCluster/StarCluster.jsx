@@ -2,11 +2,11 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
 // Components
-import { StarTwinkle } from "../../Objects/StarTwinkle/StarTwinkle";
+import { StarTwinkle } from "../../Components/StarTwinkle/StarTwinkle";
 
 // Logic
 import { MapFunctions } from "../../MapFunctions";
-import { Path } from "../../Objects/Path/Path";
+import { Path } from "../../Components/Path/Path";
 
 // Context
 import { LocationsContext } from "../../../LocationsContext";
@@ -18,10 +18,18 @@ import { LocationsContext } from "../../../LocationsContext";
 // Assets
 
 export const StarCluster = ({ location, locations, hierarchyItem, setCursorPointer }) => {
-	const { setIsDisplayingHierarchy, setSelectedLocationId, setHoverMapLocationId } = useContext(LocationsContext);
+	const { playerApi, changeCameraRotation, setCurrentMapLocationId, setIsDisplayingHierarchy, setSelectedLocationId, setHoverMapLocationId } =
+		useContext(LocationsContext);
 	const { coordToPosition } = MapFunctions();
 	const ref = useRef();
 	const [isHovering, setIsHovering] = useState(false);
+
+	useEffect(() => {
+		if (playerApi) playerApi.position.set(...[-22, -2, 17]);
+		changeCameraRotation([8 * (Math.PI / 180), 300 * (Math.PI / 180), Math.PI / 2]);
+	}, [playerApi, changeCameraRotation]);
+
+	const clicks = useRef([]);
 
 	function onPointerOver(star_system_id) {
 		setHoverMapLocationId(star_system_id);
@@ -37,9 +45,43 @@ export const StarCluster = ({ location, locations, hierarchyItem, setCursorPoint
 		setCursorPointer(isHovering);
 	}, [setCursorPointer, isHovering]);
 
+	function getNewClicks(oldClicks, maxDelta) {
+		let newClicks = JSON.parse(JSON.stringify(oldClicks));
+
+		let startIndex = 0;
+		newClicks.map((curr_click, index) => {
+			if (index === newClicks.length - 1) return false;
+			const next_click = newClicks[index + 1];
+			if (next_click - curr_click > maxDelta) startIndex = index + 1;
+			return true;
+		});
+
+		return newClicks.filter((_, index) => index >= startIndex);
+	}
+
+	const clickTimeout = useRef(false);
+
 	function onClickStar(starSystem) {
-		setIsDisplayingHierarchy(true);
-		setSelectedLocationId(starSystem?._id);
+		const maxDelta = 400;
+
+		clicks.current.push(Date.now());
+		clicks.current = getNewClicks(clicks.current, maxDelta);
+		switch (clicks.current.length) {
+			case 1:
+				clickTimeout.current = setTimeout(() => {
+					setIsDisplayingHierarchy(true);
+					setSelectedLocationId(starSystem?._id);
+				}, maxDelta);
+				break;
+			case 2:
+				clearTimeout(clickTimeout.current);
+				setIsDisplayingHierarchy(false);
+				setSelectedLocationId(false);
+				setCurrentMapLocationId(starSystem?._id);
+				break;
+			default:
+				break;
+		}
 	}
 
 	return (

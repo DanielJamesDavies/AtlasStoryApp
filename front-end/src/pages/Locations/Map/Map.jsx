@@ -20,17 +20,17 @@ import "./Map.css";
 // Assets
 
 export const Map = () => {
-	const { locationsMapRef, setSelectedLocationId, isPlayerMovementEnabled, setisPlayerMovementEnabled, setCursorPointer } = MapLogic();
+	const { locationsMapRef, onMouseEnter, onMouseLeave, setSelectedLocationId, isPlayerMovementEnabled, setCursorPointer } = MapLogic();
 
 	return (
 		<div
 			ref={locationsMapRef}
 			className='locations-map'
 			onMouseDown={() => setSelectedLocationId(false)}
-			onMouseEnter={() => setisPlayerMovementEnabled(true)}
-			onMouseLeave={() => setisPlayerMovementEnabled(false)}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 		>
-			<Canvas>
+			<Canvas gl={{ powerPreference: "high-performance" }}>
 				<Physics gravity={[0, 0, 0]}>
 					<Player isPlayerMovementEnabled={isPlayerMovementEnabled} />
 					<Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
