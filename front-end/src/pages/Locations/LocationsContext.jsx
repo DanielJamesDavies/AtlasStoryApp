@@ -42,7 +42,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [hoverMapLocationId, setHoverMapLocationId] = useState(false);
 	const [isDisplayingHierarchy, setIsDisplayingHierarchy] = useState(false);
 	const [playerActions, setPlayerActions] = useState({ forward: false, backward: false, left: false, right: false, up: false, down: false });
-	const [playerSpeed, setPlayerSpeed] = useState(1);
+	const [playerSpeed, setPlayerSpeed] = useState(2);
 	const [isMouseOverMap, setIsMouseOverMap] = useState(false);
 	const [isMouseControllingPlayer, setIsMouseControllingPlayer] = useState(false);
 

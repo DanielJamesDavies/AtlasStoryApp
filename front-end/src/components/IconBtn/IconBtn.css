@@ -176,24 +176,31 @@
 	position: absolute;
 	left: 0;
 	z-index: 200;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 5px;
 
 	margin-top: 8px;
 	margin-left: -20px;
-	margin-right: 6px;
+	margin-right: -20px;
 	padding: 8px;
 	border-radius: 4px;
 
-	width: min-content;
+	width: fit-content;
 	max-width: 120px;
 
 	background: var(--colour-grey-three);
 	font-size: 15px;
-	word-wrap: break-word;
+
 	pointer-events: none;
 	user-select: none;
 	opacity: 0;
 	transition: opacity 0.2s;
 	transition-delay: 0.1;
+}
+
+.icon-btn-label-word {
+	white-space: nowrap;
 }
 
 .icon-btn-container:hover .icon-btn-label {

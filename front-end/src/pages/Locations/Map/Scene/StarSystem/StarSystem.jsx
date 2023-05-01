@@ -35,8 +35,8 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 	const [isHovering, setIsHovering] = useState(false);
 
 	useEffect(() => {
-		if (playerApi) playerApi.position.set(...[-10, -3, 22]);
-		changeCameraRotation([8 * (Math.PI / 180), 320 * (Math.PI / 180), Math.PI / 2]);
+		if (playerApi) playerApi.position.set(...[-6.5, -3.5, 22]);
+		changeCameraRotation([8 * (Math.PI / 180), 330 * (Math.PI / 180), Math.PI / 2]);
 	}, [playerApi, changeCameraRotation]);
 
 	function onPointerOver(e, location_id) {
@@ -133,7 +133,7 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 													{child2Location?.type !== "moon" ? null : (
 														<OutlineContainer
 															scale={0.01}
-															thickness={1}
+															thickness={0.8}
 															isDisplaying={
 																JSON.stringify(child2Location?._id) === JSON.stringify(selectedLocationId) ||
 																JSON.stringify(child2Location?._id) === JSON.stringify(hoverMapLocationId)

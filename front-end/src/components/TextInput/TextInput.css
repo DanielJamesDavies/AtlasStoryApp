@@ -123,6 +123,8 @@
 	width: 100%;
 }
 
+/* AI Tools */
+
 .text-input-ai-tools-container {
 	width: max(var(--textInputWidth), 200px);
 }

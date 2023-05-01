@@ -52,8 +52,8 @@ export const Player = ({ isPlayerMovementEnabled }) => {
 				return true;
 			});
 
-		const speedLevels = [3, 8, 16];
-		const speed = playerSpeed >= 3 ? speedLevels[2] : playerSpeed === 2 ? speedLevels[1] : speedLevels[0];
+		const speedLevels = [2, 8, 16, 28];
+		const speed = speedLevels[playerSpeed - 1] === undefined ? 0 : speedLevels[playerSpeed - 1];
 
 		const vector = new Vector3(...newVelocity).multiplyScalar(speed).applyEuler(camera.rotation);
 		return vector;

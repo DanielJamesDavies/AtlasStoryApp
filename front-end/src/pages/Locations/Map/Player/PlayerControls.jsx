@@ -39,6 +39,7 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 
 	const mutliKeyPresses = useRef();
 	const isMouseDown = useRef(false);
+	const maxSpeed = useRef(4);
 
 	useEffect(() => {
 		camera.fov = 80;
@@ -102,10 +103,10 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 			setPlayerSpeed((oldPlayerSpeed) => {
 				let newPlayerSpeed = JSON.parse(JSON.stringify(oldPlayerSpeed));
 				newPlayerSpeed += -Math.sign(e.deltaY);
-				return newPlayerSpeed < 1 ? 1 : newPlayerSpeed > 3 ? 3 : newPlayerSpeed;
+				return newPlayerSpeed < 1 ? 1 : newPlayerSpeed > maxSpeed.current ? maxSpeed.current : newPlayerSpeed;
 			});
 		},
-		[setPlayerSpeed, isPlayerMovementEnabled]
+		[setPlayerSpeed, isPlayerMovementEnabled, maxSpeed]
 	);
 
 	const onKeyDown = useCallback(

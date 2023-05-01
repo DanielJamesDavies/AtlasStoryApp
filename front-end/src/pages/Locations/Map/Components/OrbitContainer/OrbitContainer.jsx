@@ -52,8 +52,8 @@ export const OrbitContainer = ({ children, apoapsis, periapsis, inclination, thi
 							onPointerOut(e);
 						}}
 					>
-						<torusGeometry args={[apoapsis, 0.2, 5, 100]} />
-						<meshBasicMaterial opacity={0} transparent />
+						<torusGeometry args={[apoapsis, 0.25, 5, 100]} />
+						<meshBasicMaterial color='#fff' opacity={0} transparent />
 					</mesh>
 				</group>
 				<group rotation={[0, Math.PI / 2, 0]}>

@@ -1,6 +1,6 @@
 // Packages
 import { useContext, useState } from "react";
-import { FaFighterJet } from "react-icons/fa";
+import { FaFighterJet, FaSpaceShuttle } from "react-icons/fa";
 import { GiRabbit, GiSnail } from "react-icons/gi";
 
 // Components
@@ -24,7 +24,7 @@ export const MenuLogic = () => {
 		setIsDisplayingHierarchy((oldIsDisplayingHierarchy) => !oldIsDisplayingHierarchy);
 	}
 
-	const speedIcons = [<GiSnail />, <GiRabbit />, <FaFighterJet />];
+	const speedIcons = [<GiSnail />, <GiRabbit />, <FaFighterJet />, <FaSpaceShuttle />];
 
 	return {
 		isDisplayingHierarchy,

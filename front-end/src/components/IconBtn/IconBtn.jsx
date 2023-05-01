@@ -31,7 +31,11 @@ export const IconBtn = ({ className, seamless, size, icon, iconName, iconHover, 
 			</button>
 			{label === undefined ? null : (
 				<div ref={labelRef} className='icon-btn-label' style={labelStyle}>
-					{label}
+					{label.split(" ").map((word, index) => (
+						<div key={index} className='icon-btn-label-word'>
+							{word}
+						</div>
+					))}
 				</div>
 			)}
 		</div>
