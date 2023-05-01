@@ -76,6 +76,14 @@
 }
 
 @media (max-width: 768px) {
+	.locations-credits-title {
+		transform: rotate(90deg) translate(24px, -28px);
+	}
+
+	.locations-credits-container-is-displaying-credits .locations-credits-title {
+		transform: rotate(0deg) translate(0, 0);
+	}
+
 	.locations-credits {
 		display: none;
 		max-height: calc(var(--vh) - var(--navbar-mobile-height) - 40px);

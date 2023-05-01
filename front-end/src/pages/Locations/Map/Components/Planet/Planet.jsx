@@ -22,7 +22,7 @@ export const Planet = ({ position, scale = 1, tilt, onClick }) => {
 		"/Assets/Map/Earth/2k_earth_clouds.jpg",
 	]);
 
-	useFrame((_, delta) => (ref.current.rotation.x -= delta * 0.6 * Math.min(1 / (scale * scale), 3)));
+	useFrame((_, delta) => (ref.current.rotation.x -= delta * 0.8 * Math.min(1 / (scale * scale), 3)));
 
 	return (
 		<group ref={ref} position={position} scale={scale} dispose={null} onClick={onClick === undefined ? null : () => onClick()}>

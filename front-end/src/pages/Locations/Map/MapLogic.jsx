@@ -16,7 +16,8 @@ import "./Map.css";
 // Assets
 
 export const MapLogic = () => {
-	const { locationsMapRef, setSelectedLocationId, isMouseControllingPlayer, setIsMouseOverMap } = useContext(LocationsContext);
+	const { locationsMapRef, selectedLocationId, setSelectedLocationId, setIsDisplayingHierarchy, isMouseControllingPlayer, setIsMouseOverMap } =
+		useContext(LocationsContext);
 	const [isPlayerMovementEnabled, setisPlayerMovementEnabled] = useState(false);
 
 	function onMouseEnter() {
@@ -33,5 +34,14 @@ export const MapLogic = () => {
 		if (!isMouseControllingPlayer) locationsMapRef.current.style.cursor = value ? "pointer" : "auto";
 	}
 
-	return { locationsMapRef, onMouseEnter, onMouseLeave, setSelectedLocationId, isPlayerMovementEnabled, setCursorPointer };
+	return {
+		locationsMapRef,
+		onMouseEnter,
+		onMouseLeave,
+		selectedLocationId,
+		setSelectedLocationId,
+		setIsDisplayingHierarchy,
+		isPlayerMovementEnabled,
+		setCursorPointer,
+	};
 };

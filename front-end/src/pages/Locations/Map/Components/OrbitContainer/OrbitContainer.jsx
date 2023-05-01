@@ -14,7 +14,7 @@ import { useFrame } from "@react-three/fiber";
 
 // Assets
 
-export const OrbitContainer = ({ children, apoapsis, periapsis, inclination, thickness = 1, onClick, onPointerOver, onPointerOut }) => {
+export const OrbitContainer = ({ children, apoapsis, periapsis, inclination, thickness = 1, onClick, onPointerOver, onPointerOut, isActive }) => {
 	const orbitContainerRef = useRef();
 	const orbitRef = useRef();
 	const orbitChildrenContainerRef = useRef();
@@ -32,7 +32,7 @@ export const OrbitContainer = ({ children, apoapsis, periapsis, inclination, thi
 
 	useFrame((_, delta) => {
 		if (apoapsis === 0) return false;
-		const speed = 0.008;
+		const speed = 0.0032;
 		orbitRef.current.rotation.x -= (delta + 1 / (apoapsis + 0.5)) * speed;
 	});
 
@@ -60,7 +60,7 @@ export const OrbitContainer = ({ children, apoapsis, periapsis, inclination, thi
 				<group rotation={[0, Math.PI / 2, 0]}>
 					<mesh>
 						<torusGeometry args={[apoapsis, 0.02 * thickness, 5, 100]} />
-						<meshBasicMaterial color={isHovering ? "#888" : "#555"} />
+						<meshBasicMaterial color={isActive || isHovering ? "#888" : "#555"} />
 					</mesh>
 				</group>
 			</group>

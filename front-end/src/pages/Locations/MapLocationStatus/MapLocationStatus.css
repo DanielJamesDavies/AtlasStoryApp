@@ -1,0 +1,93 @@
+.locations-map-location-status-container {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	user-select: none;
+	font-size: 16px;
+	font-weight: 600;
+	color: #aaa;
+	user-select: none;
+}
+
+.locations-map-location-status-current-container {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding-right: 12px;
+}
+
+.locations-map-location-status-back-location-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 0;
+	background: transparent;
+	color: #aaa;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.locations-map-location-status-back-location-btn:hover {
+	color: #fff;
+}
+
+.locations-map-location-status-path {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.locations-map-location-status-path-item {
+	display: flex;
+	vertical-align: middle;
+}
+
+.locations-map-location-status-path-item-arrow {
+	margin: 0 4px;
+}
+
+.locations-map-location-status-next-location-container {
+	display: flex;
+	gap: 12px;
+	animation: locations-map-location-status-fade-in 0.1s 1 linear;
+}
+
+@keyframes locations-map-location-status-fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.locations-map-location-status-next-location {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.locations-map-location-status-next-location-icon {
+	margin-top: 2px;
+	margin-bottom: -2px;
+}
+
+@media (max-width: 768px) {
+	.locations-map-location-status-container {
+		display: block;
+	}
+
+	.locations-map-location-status-current-container {
+		padding-right: 28px;
+	}
+
+	.locations-map-location-status-divider {
+		display: none;
+	}
+
+	.locations-map-location-status-next-location-container {
+		margin-top: 4px;
+		margin-left: 48px;
+	}
+}

@@ -19,7 +19,7 @@ export const Moon = ({ position, scale = 1, tilt, onClick, onPointerOver, onPoin
 	const ref = useRef();
 	const { nodes, materials } = useGLTF("/Assets/Map/Moon1/scene.gltf");
 
-	useFrame((_, delta) => (ref.current.rotation.x -= delta * 0.6 * Math.min(1 / (scale * scale), 3)));
+	useFrame((_, delta) => (ref.current.rotation.x -= delta * 0.008 * Math.min(1 / (scale * scale), 3)));
 
 	return (
 		<group
@@ -31,7 +31,7 @@ export const Moon = ({ position, scale = 1, tilt, onClick, onPointerOver, onPoin
 			onPointerOver={onPointerOver}
 			onPointerOut={onPointerOut}
 		>
-			<group name='Sketchfab_model' rotation={[0, -Math.PI / 2, 0]} scale={1}>
+			<group name='Sketchfab_model' rotation={[0, -Math.PI / 2, 2 * (Math.PI / 2)]} scale={1}>
 				<group name='157f21a0fd4a468082d7f17951348031fbx' rotation={[Math.PI / 2, 0, 0]}>
 					<group name='group1' rotation={tilt === undefined ? [0, 0, 0] : tilt}>
 						<group rotation={[-Math.PI / 2, 0, 0]}>

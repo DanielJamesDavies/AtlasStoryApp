@@ -20,13 +20,28 @@ import "./Map.css";
 // Assets
 
 export const Map = () => {
-	const { locationsMapRef, onMouseEnter, onMouseLeave, setSelectedLocationId, isPlayerMovementEnabled, setCursorPointer } = MapLogic();
+	const {
+		locationsMapRef,
+		onMouseEnter,
+		onMouseLeave,
+		selectedLocationId,
+		setSelectedLocationId,
+		setIsDisplayingHierarchy,
+		isPlayerMovementEnabled,
+		setCursorPointer,
+	} = MapLogic();
 
 	return (
 		<div
 			ref={locationsMapRef}
 			className='locations-map'
-			onMouseDown={() => setSelectedLocationId(false)}
+			onMouseDown={() => {
+				if (selectedLocationId) {
+					setSelectedLocationId(false);
+				} else {
+					setIsDisplayingHierarchy(false);
+				}
+			}}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 		>

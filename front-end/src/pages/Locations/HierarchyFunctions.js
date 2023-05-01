@@ -1,11 +1,7 @@
-export const HierarchyFunctions = () => {
-	function getItemFromIdInHierarchy(itemId, newHierarchy) {
-		const path = getPathToItemInHierarchy(itemId, newHierarchy);
-		if (!path) return false;
-		return getItemInHierarchyFromPath(path, newHierarchy);
-	}
+import { useCallback } from "react";
 
-	function getPathToItemInHierarchy(itemId, newHierarchy) {
+export const HierarchyFunctions = () => {
+	const getPathToItemInHierarchy = useCallback((itemId, newHierarchy) => {
 		let hierarchyUnnested = [JSON.parse(JSON.stringify(newHierarchy))];
 		let path = [];
 		let visited = [];
@@ -36,9 +32,9 @@ export const HierarchyFunctions = () => {
 		if (hierarchyUnnested.length === 0) return false;
 
 		return path;
-	}
+	}, []);
 
-	function getItemInHierarchyFromPath(path, newHierarchy) {
+	const getItemInHierarchyFromPath = useCallback((path, newHierarchy) => {
 		let item = JSON.parse(JSON.stringify(newHierarchy));
 		for (let i = 0; i < path.length; i++) {
 			if (i === 0) {
@@ -48,9 +44,18 @@ export const HierarchyFunctions = () => {
 			}
 		}
 		return item;
-	}
+	}, []);
 
-	function changeItemInHierarchy(path, newValue, oldHierarchy) {
+	const getItemFromIdInHierarchy = useCallback(
+		(itemId, newHierarchy) => {
+			const path = getPathToItemInHierarchy(itemId, newHierarchy);
+			if (!path) return false;
+			return getItemInHierarchyFromPath(path, newHierarchy);
+		},
+		[getPathToItemInHierarchy, getItemInHierarchyFromPath]
+	);
+
+	const changeItemInHierarchy = useCallback((path, newValue, oldHierarchy) => {
 		let objectUnnested = [JSON.parse(JSON.stringify(oldHierarchy))];
 
 		for (let i = 0; i < path.length; i++) {
@@ -78,8 +83,9 @@ export const HierarchyFunctions = () => {
 		}
 
 		return objectUnnested[0];
-	}
-	function getInitialMapLocationItem(newHierarchy, newLocations) {
+	}, []);
+
+	const getInitialMapLocationItem = useCallback((newHierarchy, newLocations) => {
 		let hierarchyUnnested = [JSON.parse(JSON.stringify(newHierarchy))];
 		let path = [];
 		let visited = [];
@@ -112,7 +118,7 @@ export const HierarchyFunctions = () => {
 		if (hierarchyUnnested.length === 0) return false;
 
 		return item;
-	}
+	}, []);
 
 	return { getItemFromIdInHierarchy, getPathToItemInHierarchy, getItemInHierarchyFromPath, changeItemInHierarchy, getInitialMapLocationItem };
 };
