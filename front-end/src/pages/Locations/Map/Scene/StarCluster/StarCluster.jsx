@@ -18,7 +18,7 @@ import { LocationsContext } from "../../../LocationsContext";
 // Assets
 
 export const StarCluster = ({ location, locations, hierarchyItem, setCursorPointer }) => {
-	const { playerApi, changeCameraRotation, setCurrentMapLocationId, setIsDisplayingHierarchy, setSelectedLocationId, setHoverMapLocationId } =
+	const { playerApi, changeCameraRotation, changeCurrentMapLocationId, setIsDisplayingHierarchy, setSelectedLocationId, setHoverMapLocationId } =
 		useContext(LocationsContext);
 	const { coordToPosition } = MapFunctions();
 	const ref = useRef();
@@ -77,7 +77,7 @@ export const StarCluster = ({ location, locations, hierarchyItem, setCursorPoint
 				clearTimeout(clickTimeout.current);
 				setIsDisplayingHierarchy(false);
 				setSelectedLocationId(false);
-				setCurrentMapLocationId(starSystem?._id);
+				changeCurrentMapLocationId(starSystem?._id);
 				break;
 			default:
 				break;

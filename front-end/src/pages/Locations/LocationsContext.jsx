@@ -37,7 +37,9 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [playerApi, setPlayerApi] = useState(false);
 	const [playerCamera, setPlayerCamera] = useState(false);
 	const playerCameraRotation = useRef([0, 0, Math.PI / 2]);
+	const [playerLookAtObjectPosition, setPlayerLookAtObjectPosition] = useState(false);
 	const [currentMapLocationId, setCurrentMapLocationId] = useState(false);
+	const [travellingToMapLocationId, setTravellingToMapLocationId] = useState(false);
 	const [selectedLocationId, setSelectedLocationId] = useState(false);
 	const [hoverMapLocationId, setHoverMapLocationId] = useState(false);
 	const [isDisplayingHierarchy, setIsDisplayingHierarchy] = useState(false);
@@ -109,6 +111,10 @@ const LocationsProvider = ({ children, story_uid }) => {
 		});
 	}
 
+	function changeCurrentMapLocationId(newCurrentMapLocationId) {
+		setTravellingToMapLocationId(newCurrentMapLocationId);
+	}
+
 	return (
 		<LocationsContext.Provider
 			value={{
@@ -127,8 +133,13 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setPlayerCamera,
 				playerCameraRotation,
 				changeCameraRotation,
+				playerLookAtObjectPosition,
+				setPlayerLookAtObjectPosition,
 				currentMapLocationId,
 				setCurrentMapLocationId,
+				changeCurrentMapLocationId,
+				travellingToMapLocationId,
+				setTravellingToMapLocationId,
 				selectedLocationId,
 				setSelectedLocationId,
 				hoverMapLocationId,

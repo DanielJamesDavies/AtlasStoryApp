@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Components
 
@@ -16,18 +16,29 @@ import "./Map.css";
 // Assets
 
 export const MapLogic = () => {
-	const { locationsMapRef, selectedLocationId, setSelectedLocationId, setIsDisplayingHierarchy, isMouseControllingPlayer, setIsMouseOverMap } =
-		useContext(LocationsContext);
-	const [isPlayerMovementEnabled, setisPlayerMovementEnabled] = useState(false);
+	const {
+		locationsMapRef,
+		travellingToMapLocationId,
+		selectedLocationId,
+		setSelectedLocationId,
+		setIsDisplayingHierarchy,
+		isMouseControllingPlayer,
+		setIsMouseOverMap,
+	} = useContext(LocationsContext);
+	const [isPlayerMovementEnabled, setIsPlayerMovementEnabled] = useState(false);
+
+	useEffect(() => {
+		if (travellingToMapLocationId !== false) setIsPlayerMovementEnabled(false);
+	}, [travellingToMapLocationId, setIsPlayerMovementEnabled]);
 
 	function onMouseEnter() {
 		setIsMouseOverMap(true);
-		setisPlayerMovementEnabled(true);
+		setIsPlayerMovementEnabled(true);
 	}
 
 	function onMouseLeave() {
 		setIsMouseOverMap(false);
-		setisPlayerMovementEnabled(false);
+		setIsPlayerMovementEnabled(false);
 	}
 
 	function setCursorPointer(value) {
@@ -42,6 +53,7 @@ export const MapLogic = () => {
 		setSelectedLocationId,
 		setIsDisplayingHierarchy,
 		isPlayerMovementEnabled,
+		setIsPlayerMovementEnabled,
 		setCursorPointer,
 	};
 };

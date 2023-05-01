@@ -14,8 +14,9 @@ import { LocationsContext } from "../../LocationsContext";
 
 // Assets
 
-export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
+export const PlayerControls = ({ camera, isPlayerMovementEnabled, setIsPlayerMovementEnabled, isPlayerViewControlEnabled }) => {
 	const {
+		travellingToMapLocationId,
 		setPlayerCamera,
 		playerCameraRotation,
 		locationsMapRef,
@@ -62,16 +63,19 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 	const onMouseDown = useCallback(
 		(e) => {
 			if (e?.button !== 0) return false;
+			if (!isPlayerViewControlEnabled) return false;
+
 			isMouseDown.current = true;
 			setIsMouseControllingPlayer(true);
 			locationsMapRef.current.style.cursor = "none";
 		},
-		[isMouseDown, locationsMapRef, setIsMouseControllingPlayer]
+		[isMouseDown, locationsMapRef, setIsMouseControllingPlayer, isPlayerViewControlEnabled]
 	);
 
 	const onMouseMove = useCallback(
 		(e) => {
 			if (!isMouseDown.current) return false;
+			if (!isPlayerViewControlEnabled) return false;
 
 			const mouseSensitivity = 0.15;
 
@@ -83,17 +87,19 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 
 			camera.rotation.set(...playerCameraRotation.current);
 		},
-		[camera, playerCameraRotation]
+		[camera, playerCameraRotation, isPlayerViewControlEnabled]
 	);
 
 	const onMouseUp = useCallback(
 		(e) => {
 			if (e?.button !== 0) return resetPlayerActions();
+			if (!isPlayerViewControlEnabled) return false;
+
 			isMouseDown.current = false;
 			setIsMouseControllingPlayer(false);
 			locationsMapRef.current.style.cursor = "auto";
 		},
-		[isMouseDown, locationsMapRef, resetPlayerActions, setIsMouseControllingPlayer]
+		[isMouseDown, locationsMapRef, resetPlayerActions, setIsMouseControllingPlayer, isPlayerViewControlEnabled]
 	);
 
 	const onWheel = useCallback(
@@ -165,6 +171,8 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 	const onTouchStart = useCallback(
 		(e) => {
 			e.stopPropagation();
+			if (!isPlayerViewControlEnabled) return false;
+			if (travellingToMapLocationId === false) setIsPlayerMovementEnabled(true);
 
 			setIsUsingTouch(true);
 
@@ -178,12 +186,21 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 				);
 			}
 		},
-		[setIsUsingTouch, currTouches, prevTouchPoint, prevTouchDistance]
+		[
+			setIsUsingTouch,
+			currTouches,
+			prevTouchPoint,
+			prevTouchDistance,
+			setIsPlayerMovementEnabled,
+			travellingToMapLocationId,
+			isPlayerViewControlEnabled,
+		]
 	);
 
 	const onTouchMove = useCallback(
 		(e) => {
 			e.stopPropagation();
+			if (!isPlayerViewControlEnabled) return false;
 
 			if (currTouches.current !== e.touches.length) return false;
 
@@ -224,17 +241,19 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 				}
 			}
 		},
-		[playerCameraRotation, camera, prevTouchPoint, prevTouchDistance, setPlayerActions]
+		[playerCameraRotation, camera, prevTouchPoint, prevTouchDistance, setPlayerActions, isPlayerViewControlEnabled]
 	);
 
 	const onTouchEnd = useCallback(
 		(e) => {
 			e.stopPropagation();
+			if (!isPlayerViewControlEnabled) return false;
 			currTouches.current = 0;
 			resetPlayerActions();
 			setIsUsingTouch(false);
+			if (travellingToMapLocationId === false) setIsPlayerMovementEnabled(false);
 		},
-		[currTouches, resetPlayerActions, setIsUsingTouch]
+		[currTouches, resetPlayerActions, setIsUsingTouch, setIsPlayerMovementEnabled, travellingToMapLocationId, isPlayerViewControlEnabled]
 	);
 
 	useEffect(() => {

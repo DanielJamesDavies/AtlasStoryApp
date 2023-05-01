@@ -22,7 +22,13 @@ export const MapLocationStatus = () => {
 	return (
 		<div className='locations-map-location-status-container'>
 			<div className='locations-map-location-status-current-container'>
-				<div className='locations-map-location-status-back-location-btn-container'>
+				<div
+					className={
+						statusPath.length < 3
+							? "locations-map-location-status-back-location-btn-container locations-map-location-status-back-location-btn-container-hidden"
+							: "locations-map-location-status-back-location-btn-container"
+					}
+				>
 					<button className='locations-map-location-status-back-location-btn' onClick={goBackLocation}>
 						<FaChevronLeft />
 					</button>

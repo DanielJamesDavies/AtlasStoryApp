@@ -22,7 +22,8 @@ export const MenuLogic = () => {
 	const [isDisplayingControlScheme, setIsDisplayingControlScheme] = useState(false);
 
 	function toggleIsDisplayingHierarchy() {
-		setIsDisplayingHierarchy((oldIsDisplayingHierarchy) => !oldIsDisplayingHierarchy);
+		if (isDisplayingHierarchy) setSelectedLocationId(false);
+		setIsDisplayingHierarchy(!isDisplayingHierarchy);
 	}
 
 	const speedIcons = [<GiSnail />, <GiRabbit />, <FaFighterJet />, <FaSpaceShuttle />];

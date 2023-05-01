@@ -16,6 +16,7 @@ import { MapLogic } from "./MapLogic";
 
 // Styles
 import "./Map.css";
+import { PlayerLookAt } from "./Player/PlayerLookAt";
 
 // Assets
 
@@ -28,6 +29,7 @@ export const Map = () => {
 		setSelectedLocationId,
 		setIsDisplayingHierarchy,
 		isPlayerMovementEnabled,
+		setIsPlayerMovementEnabled,
 		setCursorPointer,
 	} = MapLogic();
 
@@ -47,7 +49,8 @@ export const Map = () => {
 		>
 			<Canvas gl={{ powerPreference: "high-performance" }}>
 				<Physics gravity={[0, 0, 0]}>
-					<Player isPlayerMovementEnabled={isPlayerMovementEnabled} />
+					<Player isPlayerMovementEnabled={isPlayerMovementEnabled} setIsPlayerMovementEnabled={setIsPlayerMovementEnabled} />
+					<PlayerLookAt />
 					<Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
 					<ambientLight />
 					<pointLight position={[10, 10, 10]} />

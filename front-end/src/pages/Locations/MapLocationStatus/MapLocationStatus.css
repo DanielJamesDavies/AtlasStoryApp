@@ -5,7 +5,7 @@
 	top: 8px;
 	left: 8px;
 	user-select: none;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 600;
 	color: #aaa;
 	user-select: none;
@@ -18,6 +18,11 @@
 	padding-right: 12px;
 }
 
+.locations-map-location-status-back-location-btn-container {
+	margin-top: 1px;
+	margin-bottom: -1px;
+}
+
 .locations-map-location-status-back-location-btn {
 	display: flex;
 	justify-content: center;
@@ -25,12 +30,19 @@
 	border: 0;
 	background: transparent;
 	color: #aaa;
-	font-size: 24px;
+	font-size: 22px;
 	cursor: pointer;
 }
 
 .locations-map-location-status-back-location-btn:hover {
 	color: #fff;
+}
+
+.locations-map-location-status-back-location-btn-container-hidden,
+.locations-map-location-status-back-location-btn-container-hidden .locations-map-location-status-back-location-btn {
+	width: 0;
+	opacity: 0;
+	cursor: auto;
 }
 
 .locations-map-location-status-path {

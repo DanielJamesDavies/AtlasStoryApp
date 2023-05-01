@@ -51,4 +51,8 @@
 
 		width: calc(100vw - (2 * 16px) - 8px - 8px - 40px);
 	}
+
+	.locations-hierarchy-is-displaying-details {
+		display: none;
+	}
 }
