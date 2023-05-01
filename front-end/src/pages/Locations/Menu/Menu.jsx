@@ -21,7 +21,10 @@ import { Details } from "./Details/Details";
 
 export const Menu = () => {
 	const {
+		selectedLocationId,
+		setSelectedLocationId,
 		isDisplayingHierarchy,
+		setIsDisplayingHierarchy,
 		toggleIsDisplayingHierarchy,
 		isDisplayingControlScheme,
 		setIsDisplayingControlScheme,
@@ -31,9 +34,18 @@ export const Menu = () => {
 	} = MenuLogic();
 
 	return (
-		<div className={isDisplayingHierarchy ? "locations-menu-container locations-menu-container-is-displaying" : "locations-menu-container"}>
+		<div
+			className={isDisplayingHierarchy ? "locations-menu-container locations-menu-container-is-displaying" : "locations-menu-container"}
+			onClick={() => {
+				if (selectedLocationId) {
+					setSelectedLocationId(false);
+				} else {
+					setIsDisplayingHierarchy(false);
+				}
+			}}
+		>
 			<Credits />
-			<div className='locations-menu-buttons'>
+			<div className='locations-menu-buttons' onClick={(e) => e.stopPropagation()}>
 				<div className='locations-menu-speed-container'>
 					{speedIcons.map((icon, index) => (
 						<div

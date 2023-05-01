@@ -51,7 +51,7 @@ export const OrbitContainer = ({ children, apoapsis, periapsis, inclination, thi
 							setIsHovering(false);
 							onPointerOut(e);
 						}}
-						renderOrder={100}
+						renderOrder={10}
 					>
 						<torusGeometry args={[apoapsis, 0.25, 5, 100]} />
 						<meshBasicMaterial color='#fff' opacity={0} transparent />

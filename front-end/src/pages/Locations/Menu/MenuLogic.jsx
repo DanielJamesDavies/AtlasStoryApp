@@ -17,7 +17,8 @@ import { LocationsContext } from "../LocationsContext";
 // Assets
 
 export const MenuLogic = () => {
-	const { isDisplayingHierarchy, setIsDisplayingHierarchy, playerSpeed, setPlayerSpeed } = useContext(LocationsContext);
+	const { selectedLocationId, setSelectedLocationId, isDisplayingHierarchy, setIsDisplayingHierarchy, playerSpeed, setPlayerSpeed } =
+		useContext(LocationsContext);
 	const [isDisplayingControlScheme, setIsDisplayingControlScheme] = useState(false);
 
 	function toggleIsDisplayingHierarchy() {
@@ -27,7 +28,10 @@ export const MenuLogic = () => {
 	const speedIcons = [<GiSnail />, <GiRabbit />, <FaFighterJet />, <FaSpaceShuttle />];
 
 	return {
+		selectedLocationId,
+		setSelectedLocationId,
 		isDisplayingHierarchy,
+		setIsDisplayingHierarchy,
 		toggleIsDisplayingHierarchy,
 		isDisplayingControlScheme,
 		setIsDisplayingControlScheme,

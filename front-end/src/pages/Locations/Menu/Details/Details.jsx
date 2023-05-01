@@ -24,7 +24,7 @@ export const Details = () => {
 
 	if (!selectedLocationId) return null;
 	return (
-		<div className='locations-details-container'>
+		<div className='locations-details-container' onClick={(e) => e.stopPropagation()}>
 			<div className='locations-details'>
 				<div className='locations-details-title'>Details</div>
 				<DetailsLocationName />

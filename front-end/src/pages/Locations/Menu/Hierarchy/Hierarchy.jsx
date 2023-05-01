@@ -30,7 +30,10 @@ export const Hierarchy = () => {
 					? "locations-hierarchy locations-hierarchy-mouse-over-map"
 					: "locations-hierarchy"
 			}
-			onClick={() => setSelectedLocationId(false)}
+			onClick={(e) => {
+				e.stopPropagation();
+				setSelectedLocationId(false);
+			}}
 		>
 			<div className='locations-hierarchy-title'>Hierarchy</div>
 			<HierarchyList />
