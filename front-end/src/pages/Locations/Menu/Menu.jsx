@@ -45,13 +45,17 @@ export const Menu = () => {
 						</div>
 					))}
 				</div>
-				<div
-					className='locations-menu-btn locations-menu-toggle-control-scheme-visible-btn'
-					onMouseEnter={() => setIsDisplayingControlScheme(true)}
-					onMouseLeave={() => setIsDisplayingControlScheme(false)}
-				>
-					<FaKeyboard />
-				</div>
+				{[/Android/i, /webOS/i, /iPhone/i, /iPad/i, /iPod/i, /BlackBerry/i, /Windows Phone/i].some((toMatchItem) => {
+					return navigator.userAgent.match(toMatchItem);
+				}) ? null : (
+					<div
+						className='locations-menu-btn locations-menu-toggle-control-scheme-visible-btn'
+						onMouseEnter={() => setIsDisplayingControlScheme(true)}
+						onMouseLeave={() => setIsDisplayingControlScheme(false)}
+					>
+						<FaKeyboard />
+					</div>
+				)}
 				<div className='locations-menu-btn locations-menu-toggle-hierarchy-visible-btn' onClick={toggleIsDisplayingHierarchy}>
 					{!isDisplayingHierarchy ? <FaListUl /> : <FaArrowRight />}
 				</div>

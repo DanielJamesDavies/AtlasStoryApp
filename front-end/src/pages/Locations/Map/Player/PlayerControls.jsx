@@ -1,5 +1,5 @@
 // Packages
-import { useCallback, useContext, useEffect, useRef } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 // Components
 
@@ -139,9 +139,8 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 
 			const actionKeyPair = actionInputPairs.current.find((pair) => pair.input === key_pressed);
 			if (!actionKeyPair) return false;
-			let newPlayerActions = false;
 			setPlayerActions((oldPlayerActions) => {
-				newPlayerActions = JSON.parse(JSON.stringify(oldPlayerActions));
+				let newPlayerActions = JSON.parse(JSON.stringify(oldPlayerActions));
 				newPlayerActions[actionKeyPair.action] = false;
 				return newPlayerActions;
 			});
@@ -152,27 +151,128 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled }) => {
 		[actionInputPairs, setPlayerActions, isPlayerMovementEnabled]
 	);
 
+	const onGesture = useCallback((e) => {
+		e.preventDefault();
+		e.stopPropagation();
+		document.body.style.zoom = 0.99;
+	}, []);
+
+	const currTouches = useRef(0);
+	const prevTouchPoint = useRef(false);
+	const prevTouchDistance = useRef(false);
+	const [isUsingTouch, setIsUsingTouch] = useState(false);
+
+	const onTouchStart = useCallback(
+		(e) => {
+			e.stopPropagation();
+
+			setIsUsingTouch(true);
+
+			currTouches.current = e.touches.length;
+			if (e.touches.length === 1) {
+				prevTouchPoint.current = [e.touches[0]?.clientX, e.touches[0]?.clientY];
+			} else if (e.touches.length === 2) {
+				prevTouchDistance.current = Math.hypot(
+					e.touches[1]?.clientX - e.touches[0]?.clientX,
+					e.touches[1]?.clientY - e.touches[0]?.clientY
+				);
+			}
+		},
+		[setIsUsingTouch, currTouches, prevTouchPoint, prevTouchDistance]
+	);
+
+	const onTouchMove = useCallback(
+		(e) => {
+			e.stopPropagation();
+
+			if (currTouches.current !== e.touches.length) return false;
+
+			if (e.touches.length === 1) {
+				const prev_point = JSON.parse(JSON.stringify(prevTouchPoint.current));
+				prevTouchPoint.current = [e.touches[0]?.clientX, e.touches[0]?.clientY];
+				const curr_point = JSON.parse(JSON.stringify(prevTouchPoint.current));
+
+				const deltaX = (curr_point[0] - prev_point[0]) * 0.22;
+				const deltaY = (curr_point[1] - prev_point[1]) * 0.15;
+
+				playerCameraRotation.current[0] += -deltaX * (Math.PI / 180);
+				playerCameraRotation.current[1] += deltaY * (Math.PI / 180);
+
+				camera.rotation.set(...playerCameraRotation.current);
+			} else if (e.touches.length === 2) {
+				const prev_dist = JSON.parse(JSON.stringify(prevTouchDistance.current));
+				prevTouchDistance.current = Math.hypot(
+					e.touches[1]?.clientX - e.touches[0]?.clientX,
+					e.touches[1]?.clientY - e.touches[0]?.clientY
+				);
+				const curr_dist = JSON.parse(JSON.stringify(prevTouchDistance.current));
+				const dist_delta = curr_dist - prev_dist;
+
+				let actionKey = false;
+				if (dist_delta > 0) {
+					actionKey = "forward";
+				} else if (dist_delta < 0) {
+					actionKey = "backward";
+				}
+
+				if (actionKey) {
+					setPlayerActions((oldPlayerActions) => {
+						let newPlayerActions = JSON.parse(JSON.stringify(oldPlayerActions));
+						newPlayerActions[actionKey] = true;
+						return newPlayerActions;
+					});
+				}
+			}
+		},
+		[playerCameraRotation, camera, prevTouchPoint, prevTouchDistance, setPlayerActions]
+	);
+
+	const onTouchEnd = useCallback(
+		(e) => {
+			e.stopPropagation();
+			currTouches.current = 0;
+			resetPlayerActions();
+			setIsUsingTouch(false);
+		},
+		[currTouches, resetPlayerActions, setIsUsingTouch]
+	);
+
 	useEffect(() => {
 		const locationsMapRefCurrent = locationsMapRef?.current;
+
+		document.addEventListener("keydown", onKeyDown);
+		document.addEventListener("keyup", onKeyUp);
+
 		locationsMapRefCurrent?.addEventListener("mousedown", onMouseDown);
 		locationsMapRefCurrent.addEventListener("mousemove", onMouseMove);
 		locationsMapRefCurrent?.addEventListener("mouseup", onMouseUp);
 		locationsMapRefCurrent?.addEventListener("mouseleave", onMouseUp);
 		locationsMapRefCurrent?.addEventListener("wheel", onWheel);
 
-		document.addEventListener("keydown", onKeyDown);
-		document.addEventListener("keyup", onKeyUp);
+		locationsMapRefCurrent.addEventListener("gesturestart", onGesture);
+		locationsMapRefCurrent.addEventListener("gesturechange", onGesture);
+		locationsMapRefCurrent.addEventListener("gestureend", onGesture);
+		locationsMapRefCurrent.addEventListener("touchstart", onTouchStart);
+		locationsMapRefCurrent.addEventListener("touchmove", onTouchMove);
+		locationsMapRefCurrent.addEventListener("touchend", onTouchEnd);
 		return () => {
+			document.removeEventListener("keydown", onKeyDown);
+			document.removeEventListener("keyup", onKeyUp);
+
 			locationsMapRefCurrent.removeEventListener("mousedown", onMouseDown);
 			locationsMapRefCurrent.removeEventListener("mousemove", onMouseMove);
 			locationsMapRefCurrent.removeEventListener("mouseup", onMouseUp);
 			locationsMapRefCurrent?.removeEventListener("mouseleave", onMouseUp);
 			locationsMapRefCurrent?.removeEventListener("wheel", onWheel);
 
-			document.removeEventListener("keydown", onKeyDown);
-			document.removeEventListener("keyup", onKeyUp);
+			locationsMapRefCurrent.removeEventListener("gesturestart", onGesture);
+			locationsMapRefCurrent.removeEventListener("gesturechange", onGesture);
+			locationsMapRefCurrent.removeEventListener("gestureend", onGesture);
+			locationsMapRefCurrent.removeEventListener("touchstart", onTouchStart);
+			locationsMapRefCurrent.removeEventListener("touchmove", onTouchMove);
+			locationsMapRefCurrent.removeEventListener("touchend", onTouchEnd);
 		};
-	}, [locationsMapRef, onKeyDown, onKeyUp, onMouseDown, onMouseMove, onMouseUp, onWheel]);
+	}, [locationsMapRef, onKeyDown, onKeyUp, onMouseDown, onMouseMove, onMouseUp, onWheel, onGesture, onTouchStart, onTouchMove, onTouchEnd]);
 
-	return { playerActions, playerSpeed };
+	return { playerActions, playerSpeed, isUsingTouch };
 };

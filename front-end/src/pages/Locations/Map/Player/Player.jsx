@@ -21,7 +21,7 @@ import { LocationsContext } from "../../LocationsContext";
 export const Player = ({ isPlayerMovementEnabled }) => {
 	const { camera } = useThree();
 	const [ref, api] = useSphere(() => ({ mass: 1, type: "Dynamic", position: [-22, -2, 17] }));
-	const { playerActions, playerSpeed } = PlayerControls({ camera, isPlayerMovementEnabled });
+	const { playerActions, playerSpeed, isUsingTouch } = PlayerControls({ camera, isPlayerMovementEnabled });
 	const { setPlayerApi } = useContext(LocationsContext);
 
 	const position = useRef([0, 0, 0]);
@@ -53,7 +53,8 @@ export const Player = ({ isPlayerMovementEnabled }) => {
 			});
 
 		const speedLevels = [2, 8, 16, 28];
-		const speed = speedLevels[playerSpeed - 1] === undefined ? 0 : speedLevels[playerSpeed - 1];
+		const speedMultiplier = isUsingTouch ? 2 : 1;
+		const speed = speedLevels[playerSpeed - 1] === undefined ? 0 : speedLevels[playerSpeed - 1] * speedMultiplier;
 
 		const vector = new Vector3(...newVelocity).multiplyScalar(speed).applyEuler(camera.rotation);
 		return vector;
