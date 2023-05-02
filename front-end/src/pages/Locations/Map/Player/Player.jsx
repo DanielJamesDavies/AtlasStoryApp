@@ -84,7 +84,7 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 		if (travellingToMapLocationId !== false && playerLookAtObjectPosition !== false) {
 			if (rotatingTime.current < 1.2) {
 				camera.lookAt(new Vector3(...playerLookAtObjectPosition));
-				camera.rotateZ(Math.PI / 2 - 0.12);
+				camera.rotateZ(Math.PI / 2 - camera.rotation._z);
 				rotatingTime.current += delta;
 				setIsPlayerViewControlEnabled(false);
 			} else {
@@ -98,7 +98,6 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 				if (movingTime.current > 0.85) {
 					movingTime.current = 0;
 					rotatingTime.current = 0;
-					camera.rotateZ(Math.PI / 2 + 0.12);
 
 					setCurrentMapLocationId(JSON.parse(JSON.stringify(travellingToMapLocationId)));
 					setTravellingToMapLocationId(false);

@@ -60,7 +60,7 @@ export const PlayerLookAt = () => {
 				playerLookAt.current.position.set(playerCamera.position.x, playerCamera.position.y, playerCamera.position.z);
 				playerLookAt.current.rotation.set(playerCamera.rotation.x, playerCamera.rotation.y, playerCamera.rotation.z);
 			}
-			if (playerLookAtBetween.current) playerLookAtBetween.current.position.set(0, 0, 0);
+			if (playerLookAtBetween.current) playerLookAtBetween.current.position.set(0, 0, -10);
 			if (playerLookAtMesh.current) playerLookAtMesh.current.position.set(0, 0, 0);
 		}
 	});
@@ -70,7 +70,7 @@ export const PlayerLookAt = () => {
 		<group ref={playerLookAt}>
 			<group ref={playerLookAtBetween}>
 				<mesh ref={playerLookAtMesh}>
-					<sphereGeometry args={[0.5, 10, 10]} />
+					<sphereGeometry args={[0.5, 1, 1]} />
 					<meshStandardMaterial color='#0044ff' opacity={0} transparent />
 				</mesh>
 			</group>
