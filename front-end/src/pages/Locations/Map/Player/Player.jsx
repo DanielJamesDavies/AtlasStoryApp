@@ -82,7 +82,7 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 	const movingTime = useRef(0);
 	useFrame((_, delta) => {
 		if (travellingToMapLocationId !== false && playerLookAtObjectPosition !== false) {
-			if (rotatingTime.current < 1.2) {
+			if (rotatingTime.current < 0.4) {
 				camera.lookAt(new Vector3(...playerLookAtObjectPosition));
 				camera.rotateZ(Math.PI / 2 - camera.rotation._z);
 				rotatingTime.current += delta;
@@ -91,11 +91,11 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 				const newLocationId = getItemFromIdInHierarchy(travellingToMapLocationId, story?.data?.locationsHierarchy)?._id;
 				let newPosition = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newLocationId))?.position;
 				newPosition = coordToPosition(newPosition, { order: "yxz", multiplier: 0.05 });
-				camera.position.lerp(new Vector3(...newPosition), 0.08);
+				camera.position.lerp(new Vector3(...newPosition), 0.1);
 
 				movingTime.current += delta;
 
-				if (movingTime.current > 0.85) {
+				if (movingTime.current > 0.75) {
 					movingTime.current = 0;
 					rotatingTime.current = 0;
 

@@ -51,7 +51,7 @@ export const PlayerLookAt = () => {
 					Math.abs(playerLookAtBetweenWorldPosition.y - newPosition[1]),
 					Math.abs(playerLookAtBetweenWorldPosition.z - newPosition[2])
 				);
-				playerLookAtMesh.current.position.lerp(new Vector3(0, 0, distance), 0.018);
+				playerLookAtMesh.current.position.lerp(new Vector3(0, 0, distance), 0.06);
 				setPlayerLookAtObjectPosition(playerLookAtMesh.current.getWorldPosition(new Vector3()));
 			}
 		} else {
