@@ -23,16 +23,16 @@ export const Routes = () => {
 
 	return (
 		<div className='routes'>
-			{showUnauthorizedNavigationBar ? <UnauthorizedNavigationBar /> : <NavigationBar />}
-			<div
-				ref={contentContainerRef}
-				className={showUnauthorizedNavigationBar ? "content-container content-container-unauthorized" : "content-container"}
-			>
-				<StoryProvider>
+			<StoryProvider>
+				{showUnauthorizedNavigationBar ? <UnauthorizedNavigationBar /> : <NavigationBar />}
+				<div
+					ref={contentContainerRef}
+					className={showUnauthorizedNavigationBar ? "content-container content-container-unauthorized" : "content-container"}
+				>
 					<RenderComponent renderComponent={renderComponent} />
-				</StoryProvider>
-			</div>
-			<CookiesConsentPopUp />
+				</div>
+				<CookiesConsentPopUp />
+			</StoryProvider>
 		</div>
 	);
 };

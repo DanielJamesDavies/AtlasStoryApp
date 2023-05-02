@@ -8,6 +8,7 @@ import { useEffect, useState, useContext } from "react";
 // Context
 import { APIContext } from "../../context/APIContext";
 import { RoutesContext } from "../../context/RoutesContext";
+import { StoryContext } from "../../context/StoryContext";
 
 // Styles
 
@@ -15,34 +16,13 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const NavigationBarLogic = () => {
 	const [isOnStory, setIsOnStory] = useState(false);
-	const { APIRequest, username, userProfilePicture } = useContext(APIContext);
+	const { username, userProfilePicture } = useContext(APIContext);
 	const { location, changeLocation } = useContext(RoutesContext);
-	const [storyIcon, setStoryIcon] = useState(false);
+	const { storyIcon } = useContext(StoryContext);
 
 	useEffect(() => {
 		setIsOnStory(location.split("/")[1] === "s");
 	}, [location]);
-
-	useEffect(() => {
-		async function getStory() {
-			const locationSplit = location.split("/");
-			if (locationSplit.length < 3 || locationSplit[1] !== "s") return setStoryIcon(false);
-			const response = await APIRequest("/story?uid=" + locationSplit[2] + "&story_uid=" + locationSplit[2], "GET");
-			if (response?.error || !response?.data?.story || locationSplit[2] !== response?.data?.story?.uid) return setStoryIcon(false);
-			const story = response.data.story;
-			getStoryIcon(story?.data?.icon, story?._id);
-		}
-
-		async function getStoryIcon(storyIconID, story_id) {
-			if (!storyIconID) return false;
-			const response = await APIRequest("/image/" + storyIconID + "?story_id=" + story_id, "GET");
-			if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
-			setStoryIcon(response.data.image.image);
-			return response.data.image.image;
-		}
-
-		getStory();
-	}, [APIRequest, location, setStoryIcon]);
 
 	function getBtnClassName(btnName, isWithImage) {
 		let newBtnClassName = "navigation-bar-btn";
