@@ -13,7 +13,7 @@ import { SubstoriesListSubstoryPosterLogic } from "./SubstoriesListSubstoryPoste
 import "./SubstoriesListSubstoryPoster.css";
 
 // Assets
-import Shine from "../../../content/shine.svg";
+import Shine from "../../../../../content/shine.svg";
 
 export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
 	const { story, substory, navigateToSubstory, onSubstoryMouseDown, posterContainerStyles, posterTitleContainerRef, posterTitleContainerStyles } =
@@ -21,7 +21,12 @@ export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
 			substoryID,
 		});
 
-	if (!substory) return <div className='substories-list-substories-poster-placeholder' />;
+	if (!substory)
+		return (
+			<div className='substories-list-substories-poster-container'>
+				<div className='substories-list-substories-poster-placeholder' />
+			</div>
+		);
 	return (
 		<div
 			className='substories-list-substories-poster-container drag-drop-item-content'

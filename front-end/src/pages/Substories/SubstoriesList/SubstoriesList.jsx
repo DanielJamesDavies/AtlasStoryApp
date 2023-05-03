@@ -2,9 +2,9 @@
 
 // Components
 import { ContentItem } from "../../../components/ContentItem/ContentItem";
-import { SubstoriesListPrimary } from "./SubstoriesListPrimary";
-import { SubstoriesListSubstoryPosters } from "./SubstoriesListSubstoryPosters";
-import { SubstoriesListCreateSubstory } from "./SubstoriesListCreateSubstory";
+import { SubstoriesListPrimary } from "./SubstoriesListPrimary/SubstoriesListPrimary";
+import { SubstoriesListSubstoryPosters } from "./SubstoriesListSubstoryPosters/SubstoriesListSubstoryPosters";
+import { SubstoriesListCreateSubstory } from "./SubstoriesListCreateSubstory/SubstoriesListCreateSubstory";
 
 // Logic
 

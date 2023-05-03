@@ -6,8 +6,8 @@ import { useContext, useRef, useState, useEffect, useLayoutEffect } from "react"
 // Logic
 
 // Context
-import { SubstoriesContext } from "../SubstoriesContext";
-import { RoutesContext } from "../../../context/RoutesContext";
+import { SubstoriesContext } from "../../../SubstoriesContext";
+import { RoutesContext } from "../../../../../context/RoutesContext";
 
 // Services
 

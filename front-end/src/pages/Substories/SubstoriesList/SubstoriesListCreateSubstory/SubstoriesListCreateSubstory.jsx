@@ -1,12 +1,12 @@
 // Packages
 
 // Components
-import { PopUpContainer } from "../../../components/PopUpContainer/PopUpContainer";
-import { TextInput } from "../../../components/TextInput/TextInput";
-import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
-import { SuggestionsMessage } from "../../../components/SuggestionsMessage/SuggestionsMessage";
-import { URLPreviewMessage } from "../../../components/URLPreviewMessage/URLPreviewMessage";
-import { SubmitBtn } from "../../../components/SubmitBtn/SubmitBtn";
+import { PopUpContainer } from "../../../../components/PopUpContainer/PopUpContainer";
+import { TextInput } from "../../../../components/TextInput/TextInput";
+import { ErrorMessage } from "../../../../components/ErrorMessage/ErrorMessage";
+import { SuggestionsMessage } from "../../../../components/SuggestionsMessage/SuggestionsMessage";
+import { URLPreviewMessage } from "../../../../components/URLPreviewMessage/URLPreviewMessage";
+import { SubmitBtn } from "../../../../components/SubmitBtn/SubmitBtn";
 
 // Logic
 import { SubstoriesListCreateSubstoryLogic } from "./SubstoriesListCreateSubstoryLogic";

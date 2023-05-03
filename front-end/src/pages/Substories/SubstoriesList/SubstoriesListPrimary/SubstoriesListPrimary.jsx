@@ -2,7 +2,7 @@
 import { FaPlus, FaSort, FaBookOpen } from "react-icons/fa";
 
 // Components
-import { IconBtn } from "../../../components/IconBtn/IconBtn";
+import { IconBtn } from "../../../../components/IconBtn/IconBtn";
 
 // Logic
 import { SubstoriesListPrimaryLogic } from "./SubstoriesListPrimaryLogic";

@@ -1,10 +1,10 @@
 // Packages
 
 // Components
-import { SubstoriesListSubstoryPoster } from "./SubstoriesListSubstoryPoster";
-import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
-import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
-import { CarouselContainer } from "../../../components/CarouselContainer/CarouselContainer";
+import { DragDropContainer } from "../../../../components/DragDropContainer/DragDropContainer";
+import { DragDropItem } from "../../../../components/DragDropItem/DragDropItem";
+import { CarouselContainer } from "../../../../components/CarouselContainer/CarouselContainer";
+import { SubstoriesListSubstoryPoster } from "./SubstoriesListSubstoryPoster/SubstoriesListSubstoryPoster";
 
 // Logic
 import { SubstoriesListSubstoryPostersLogic } from "./SubstoriesListSubstoryPostersLogic";

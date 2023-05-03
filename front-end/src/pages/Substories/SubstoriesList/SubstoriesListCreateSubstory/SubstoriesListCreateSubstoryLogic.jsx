@@ -6,9 +6,9 @@ import { useContext, useState } from "react";
 // Logic
 
 // Context
-import { SubstoriesContext } from "../SubstoriesContext";
-import { APIContext } from "../../../context/APIContext";
-import { RoutesContext } from "../../../context/RoutesContext";
+import { SubstoriesContext } from "../../SubstoriesContext";
+import { APIContext } from "../../../../context/APIContext";
+import { RoutesContext } from "../../../../context/RoutesContext";
 
 // Services
 
