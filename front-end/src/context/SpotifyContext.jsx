@@ -13,11 +13,16 @@ const SpofityProvider = ({ children }) => {
 	const [spotify_access_token, setSpotifyAccessToken] = useState(false);
 	const [spotify_refresh_token, setSpotifyRefreshToken] = useState(false);
 	const [connectDeviceToSpotify, setConnectDeviceToSpotify] = useState(false);
-	const [hasAttemptedAuthorization, setHasAttemptedAuthorization] = useState(false);
+	const hasAttemptedAuthorization = useRef(false);
+	const attempts = useRef(0);
 
 	useEffect(() => {
 		async function authorizeSpotify() {
+			if (navigator.connection.downlink < 0.5 && attempts !== 0) await new Promise((resolve) => setTimeout(resolve, 4000));
 			if (spotify_access_token || spotify_refresh_token) return true;
+
+			const max_attepts = 1;
+			if (attempts.current >= max_attepts) return false;
 
 			if (window === window?.parent) {
 				const should_connect_device_response = await APIRequest("/spotify/should-connect-device", "GET");
@@ -27,47 +32,40 @@ const SpofityProvider = ({ children }) => {
 			}
 
 			if (window.location.pathname !== "/spotify") {
-				if (/Mobi/i.test(window.navigator.userAgent)) {
-					const client_id_response = await APIRequest("/spotify/client-id", "GET");
-					const client_id = client_id_response?.data?.client_id;
-					if (client_id_response?.errors || !client_id) return false;
+				const client_id_response = await APIRequest("/spotify/client-id", "GET");
+				const client_id = client_id_response?.data?.client_id;
+				if (client_id_response?.errors || !client_id) return false;
 
-					const spotifyAuthURL =
-						"https://accounts.spotify.com/authorize?response_type=code&client_id=" +
-						client_id +
-						"&scope=" +
-						scope +
-						"&redirect_uri=" +
-						redirect_uri +
-						"&state=" +
-						window.location.pathname +
-						window.location.search;
-					window.location = spotifyAuthURL;
+				const spotifyAuthURL =
+					"https://accounts.spotify.com/authorize?response_type=code&client_id=" +
+					client_id +
+					"&scope=" +
+					scope +
+					"&redirect_uri=" +
+					redirect_uri +
+					"&state=" +
+					"url<" +
+					window.location.pathname +
+					window.location.search +
+					">,attempts<" +
+					(attempts.current + 1) +
+					">";
+
+				if (/Mobi/i.test(window.navigator.userAgent)) {
+					if (spotify_access_token || spotify_refresh_token) return true;
+					if (attempts.current < max_attepts) window.location = spotifyAuthURL;
 				} else {
 					if (window === window?.parent) return false;
 
-					const client_id_response = await APIRequest("/spotify/client-id", "GET");
-					const client_id = client_id_response?.data?.client_id;
-					if (client_id_response?.errors || !client_id) return false;
-
 					if (window.location.pathname === "/authorize-spotify") {
 						window.parent.postMessage(JSON.stringify({ message: "spotify-authorizing" }), "*");
-						const spotifyAuthURL =
-							"https://accounts.spotify.com/authorize?response_type=code&client_id=" +
-							client_id +
-							"&scope=" +
-							scope +
-							"&redirect_uri=" +
-							redirect_uri +
-							"&state=" +
-							window.location.pathname +
-							window.location.search;
+						if (spotify_access_token || spotify_refresh_token) return true;
 						window.location = spotifyAuthURL;
 					}
 				}
 				return true;
 			} else {
-				setHasAttemptedAuthorization(true);
+				hasAttemptedAuthorization.current = true;
 
 				let code = false;
 				let previous_location = "/";
@@ -81,7 +79,16 @@ const SpofityProvider = ({ children }) => {
 							code = pairSplit.join("=");
 						} else if (pairSplit[0] === "state") {
 							pairSplit.splice(0, 1);
-							previous_location = pairSplit.join("=").split("%2F").join("/");
+							const state = pairSplit
+								.join("=")
+								.split("%2C")
+								.map((value) => {
+									let newValue = value.split("%2F").join("/").split("%3E").join("").split("%3C");
+									const key = newValue.splice(0, 1)[0];
+									return { key, value: newValue.join("<") };
+								});
+							previous_location = state.find((e) => e.key === "url")?.value;
+							attempts.current = parseInt(state.find((e) => e.key === "attempts")?.value);
 						}
 						return false;
 					});
@@ -120,7 +127,8 @@ const SpofityProvider = ({ children }) => {
 		setSpotifyRefreshToken,
 		connectDeviceToSpotify,
 		setConnectDeviceToSpotify,
-		setHasAttemptedAuthorization,
+		hasAttemptedAuthorization,
+		attempts,
 	]);
 
 	const spotifyAuthorizationTimeout = useRef(null);
@@ -146,7 +154,7 @@ const SpofityProvider = ({ children }) => {
 					const client_id = client_id_response?.data?.client_id;
 					if (client_id_response?.errors || !client_id) return false;
 
-					if (spotifyAuthorizationTimeout.current === null && !hasAttemptedAuthorization)
+					if (spotifyAuthorizationTimeout.current === null && !hasAttemptedAuthorization.current)
 						spotifyAuthorizationTimeout.current = setTimeout(() => {
 							let currSpotifyAccessToken = false;
 							setSpotifyAccessToken((currValue) => {
@@ -163,8 +171,14 @@ const SpofityProvider = ({ children }) => {
 								"&redirect_uri=" +
 								redirect_uri +
 								"&state=" +
+								"url<" +
 								window.location.pathname +
-								window.location.search;
+								window.location.search +
+								">,attempts<" +
+								(attempts.current + 1) +
+								">";
+
+							if (spotify_access_token || spotify_refresh_token) return true;
 							window.location = spotifyAuthURL;
 						}, 5000);
 					return;
