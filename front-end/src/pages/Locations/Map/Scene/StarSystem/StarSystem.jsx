@@ -55,7 +55,9 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 		setCursorPointer(isHovering);
 	}, [setCursorPointer, isHovering]);
 
-	function onClickLocation(input_location) {
+	function onClickLocation(e, input_location) {
+		e.stopPropagation();
+
 		setIsDisplayingHierarchy(true);
 		setSelectedLocationId(input_location?._id);
 	}
@@ -72,7 +74,7 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 								apoapsis={index * 6}
 								periapsis={index * 4}
 								inclination={0}
-								onClick={() => onClickLocation(childLocation)}
+								onClick={(e) => onClickLocation(e, childLocation)}
 								onPointerOver={(e) => onPointerOver(e, childLocation?._id)}
 								onPointerOut={(e) => onPointerOut(e)}
 								isActive={
@@ -95,7 +97,7 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 										<Star
 											position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
 											scale={0.1}
-											onClick={() => onClickLocation(childLocation)}
+											onClick={(e) => onClickLocation(e, childLocation)}
 										/>
 									</OutlineContainer>
 								)}
@@ -108,14 +110,14 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 											JSON.stringify(childLocation?._id) === JSON.stringify(hoverMapLocationId)
 										}
 										colour={JSON.stringify(childLocation?._id) === JSON.stringify(selectedLocationId) ? "#fff" : "#aaa"}
-										onClick={() => onClickLocation(childLocation)}
+										onClick={(e) => onClickLocation(e, childLocation)}
 										onPointerOver={(e) => onPointerOver(e, childLocation?._id)}
 										onPointerOut={(e) => onPointerOut(e)}
 									>
 										<Planet
 											position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
 											scale={0.04}
-											onClick={() => onClickLocation(childLocation)}
+											onClick={(e) => onClickLocation(e, childLocation)}
 										/>
 									</OutlineContainer>
 								)}
@@ -156,7 +158,7 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 																	multiplier: 0.05,
 																})}
 																scale={0.01}
-																onClick={() => onClickLocation(child2Location)}
+																onClick={(e) => onClickLocation(e, child2Location)}
 																onPointerOver={(e) => onPointerOver(e, child2Location?._id)}
 																onPointerOut={(e) => onPointerOut(e)}
 															/>

@@ -25,7 +25,7 @@ export const Planet = ({ position, scale = 1, tilt, onClick }) => {
 	useFrame((_, delta) => (ref.current.rotation.x -= delta * 0.8 * Math.min(1 / (scale * scale), 3)));
 
 	return (
-		<group ref={ref} position={position} scale={scale} dispose={null} onClick={onClick === undefined ? null : () => onClick()}>
+		<group ref={ref} position={position} scale={scale} dispose={null} onClick={onClick === undefined ? null : (e) => onClick(e)}>
 			<group rotation={tilt === undefined ? [0, 0, 0] : tilt} scale={0.5}>
 				<mesh rotation={[0, 0, Math.PI / 2]}>
 					<sphereGeometry args={[20, 32, 16]} />

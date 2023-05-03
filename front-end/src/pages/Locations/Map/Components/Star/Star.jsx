@@ -25,7 +25,7 @@ export const Star = ({ position, scale = 1, onClick }) => {
 	});
 
 	return (
-		<group ref={ref} position={position} scale={scale} dispose={null} onClick={onClick === undefined ? null : () => onClick()}>
+		<group ref={ref} position={position} scale={scale} dispose={null} onClick={onClick === undefined ? null : (e) => onClick(e)}>
 			<group name='Sketchfab_Scene' rotation={[0, 0, Math.PI / 2]}>
 				<group name='Sketchfab_model'>
 					<group name='3a2aaa22fb3d4b329318a980ad1bf6d1fbx'>

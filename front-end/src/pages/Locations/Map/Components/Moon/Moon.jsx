@@ -27,7 +27,7 @@ export const Moon = ({ position, scale = 1, tilt, onClick, onPointerOver, onPoin
 			position={position}
 			scale={scale}
 			dispose={null}
-			onClick={onClick === undefined ? null : () => onClick()}
+			onClick={onClick === undefined ? null : (e) => onClick(e)}
 			onPointerOver={onPointerOver}
 			onPointerOut={onPointerOut}
 		>

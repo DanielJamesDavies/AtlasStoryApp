@@ -46,6 +46,7 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 	useEffect(() => {
 		setPlayerApi(api);
 		api.position.subscribe((pos) => (position.current = pos));
+		api.position.subscribe((pos) => (position.current = pos));
 	}, [api, setPlayerApi]);
 
 	function getNewVelocity() {
@@ -81,7 +82,10 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 	const rotatingTime = useRef(0);
 	const movingTime = useRef(0);
 	useFrame((_, delta) => {
-		if (travellingToMapLocationId !== false && playerLookAtObjectPosition !== false) {
+		if (travellingToMapLocationId === false || playerLookAtObjectPosition === false) {
+			api.velocity.set(...getNewVelocity());
+			camera.position.copy(new Vector3(position.current[0], position.current[1], position.current[2]));
+		} else {
 			if (rotatingTime.current < 0.4) {
 				camera.lookAt(new Vector3(...playerLookAtObjectPosition));
 				camera.rotateZ(Math.PI / 2 - camera.rotation._z);
@@ -105,9 +109,6 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 					setIsPlayerViewControlEnabled(true);
 				}
 			}
-		} else {
-			camera.position.copy(new Vector3(position.current[0], position.current[1], position.current[2]));
-			api.velocity.set(...getNewVelocity());
 		}
 	});
 

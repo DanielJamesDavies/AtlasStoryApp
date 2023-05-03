@@ -38,7 +38,6 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled, setIsPlayerMov
 		{ input: "ShiftLeft", action: "down" },
 	]);
 
-	const mutliKeyPresses = useRef();
 	const isMouseDown = useRef(false);
 	const maxSpeed = useRef(4);
 
@@ -129,9 +128,6 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled, setIsPlayerMov
 				newPlayerActions[actionKeyPair.action] = true;
 				return newPlayerActions;
 			});
-
-			if (mutliKeyPresses.current?.key !== key_pressed) mutliKeyPresses.current = { key: key_pressed, events: [] };
-			mutliKeyPresses.current.events.push(["keyDown", Date.now()]);
 		},
 		[actionInputPairs, setPlayerActions, isPlayerMovementEnabled]
 	);
@@ -150,9 +146,6 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled, setIsPlayerMov
 				newPlayerActions[actionKeyPair.action] = false;
 				return newPlayerActions;
 			});
-
-			if (mutliKeyPresses.current?.key !== key_pressed) mutliKeyPresses.current = { key: key_pressed, events: [] };
-			mutliKeyPresses.current.events.push(["keyUp", Date.now()]);
 		},
 		[actionInputPairs, setPlayerActions, isPlayerMovementEnabled]
 	);

@@ -33,7 +33,9 @@ export const Locations = () => {
 	return (
 		<div className='locations'>
 			<div className='locations-loading-container locations-loading-container-fade'>
-				<LoadingCircle center={true} />
+				<div>
+					<LoadingCircle center={true} />
+				</div>
 			</div>
 			<Menu />
 			<Map />
