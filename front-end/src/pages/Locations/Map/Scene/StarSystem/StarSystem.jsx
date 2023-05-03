@@ -20,11 +20,10 @@ import { LocationsContext } from "../../../LocationsContext";
 
 // Assets
 
-export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointer }) => {
+export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 	const {
-		playerApi,
-		changeCameraRotation,
 		setIsDisplayingHierarchy,
+		changeCurrentMapLocationId,
 		selectedLocationId,
 		setSelectedLocationId,
 		hoverMapLocationId,
@@ -33,11 +32,6 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 	const { coordToPosition } = MapFunctions();
 	const ref = useRef();
 	const [isHovering, setIsHovering] = useState(false);
-
-	useEffect(() => {
-		if (playerApi) playerApi.position.set(...[-6.5, -3.5, 22]);
-		changeCameraRotation([8 * (Math.PI / 180), 330 * (Math.PI / 180), Math.PI / 2]);
-	}, [playerApi, changeCameraRotation]);
 
 	function onPointerOver(e, location_id) {
 		e.stopPropagation();
@@ -55,11 +49,49 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 		setCursorPointer(isHovering);
 	}, [setCursorPointer, isHovering]);
 
+	const clicks = useRef([]);
+	const clickTimeout = useRef(false);
+
+	function getNewClicks(oldClicks, maxDelta) {
+		let newClicks = JSON.parse(JSON.stringify(oldClicks));
+
+		let startIndex = 0;
+		newClicks.map((curr_click, index) => {
+			if (index === newClicks.length - 1) return false;
+			const next_click = newClicks[index + 1];
+			if (next_click - curr_click > maxDelta) startIndex = index + 1;
+			return true;
+		});
+
+		return newClicks.filter((_, index) => index >= startIndex);
+	}
+
 	function onClickLocation(e, input_location) {
 		e.stopPropagation();
 
-		setIsDisplayingHierarchy(true);
-		setSelectedLocationId(input_location?._id);
+		const maxDelta = 400;
+
+		clicks.current.push(Date.now());
+		clicks.current = getNewClicks(clicks.current, maxDelta);
+		switch (clicks.current.length) {
+			case 1:
+				clickTimeout.current = setTimeout(() => {
+					setIsDisplayingHierarchy(true);
+					setSelectedLocationId(input_location?._id);
+				}, maxDelta);
+				break;
+			case 2:
+				clearTimeout(clickTimeout.current);
+				setIsDisplayingHierarchy(false);
+				setSelectedLocationId(false);
+
+				let forwardDelta = 0;
+				if (input_location?.type === "star") forwardDelta = -4.5;
+				changeCurrentMapLocationId(input_location?._id, forwardDelta);
+				break;
+			default:
+				break;
+		}
 	}
 
 	return (
@@ -84,7 +116,7 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 							>
 								{childLocation?.type !== "star" ? null : (
 									<OutlineContainer
-										scale={0.1}
+										scale={0.08}
 										thickness={2}
 										isDisplaying={
 											JSON.stringify(childLocation?._id) === JSON.stringify(selectedLocationId) ||
@@ -96,7 +128,7 @@ export const StarSystem = ({ location, locations, hierarchyItem, setCursorPointe
 									>
 										<Star
 											position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
-											scale={0.1}
+											scale={0.08}
 											onClick={(e) => onClickLocation(e, childLocation)}
 										/>
 									</OutlineContainer>

@@ -35,9 +35,12 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 		locations,
 		playerLookAtObjectPosition,
 		setPlayerApi,
+		playerCameraRotation,
 		setCurrentMapLocationId,
 		travellingToMapLocationId,
 		setTravellingToMapLocationId,
+		travellingToMapLocationForwardDelta,
+		scenesChangePlayerInitial,
 	} = useContext(LocationsContext);
 	const { getItemFromIdInHierarchy } = HierarchyFunctions();
 	const { coordToPosition } = MapFunctions();
@@ -93,15 +96,23 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 				setIsPlayerViewControlEnabled(false);
 			} else {
 				const newLocationId = getItemFromIdInHierarchy(travellingToMapLocationId, story?.data?.locationsHierarchy)?._id;
-				let newPosition = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newLocationId))?.position;
+				const newLocation = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newLocationId));
+				let newPosition = newLocation?.position;
 				newPosition = coordToPosition(newPosition, { order: "yxz", multiplier: 0.05 });
 				camera.position.lerp(new Vector3(...newPosition), 0.1);
 
 				movingTime.current += delta;
 
-				if (movingTime.current > 0.75) {
+				if (movingTime.current > 0.75 + travellingToMapLocationForwardDelta / 10) {
 					movingTime.current = 0;
 					rotatingTime.current = 0;
+
+					const sceneChangePlayerInitial = scenesChangePlayerInitial.current.find((e) => e.type === newLocation?.type);
+					console.log(sceneChangePlayerInitial);
+					if (sceneChangePlayerInitial) {
+						api.position.set(...sceneChangePlayerInitial?.position);
+						playerCameraRotation.current = sceneChangePlayerInitial?.rotation;
+					}
 
 					setCurrentMapLocationId(JSON.parse(JSON.stringify(travellingToMapLocationId)));
 					setTravellingToMapLocationId(false);

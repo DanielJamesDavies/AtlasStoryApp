@@ -40,6 +40,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [playerLookAtObjectPosition, setPlayerLookAtObjectPosition] = useState(false);
 	const [currentMapLocationId, setCurrentMapLocationId] = useState(false);
 	const [travellingToMapLocationId, setTravellingToMapLocationId] = useState(false);
+	const [travellingToMapLocationForwardDelta, setTravellingToMapLocationForwardDelta] = useState(false);
 	const [selectedLocationId, setSelectedLocationId] = useState(false);
 	const [hoverMapLocationId, setHoverMapLocationId] = useState(false);
 	const [isDisplayingHierarchy, setIsDisplayingHierarchy] = useState(false);
@@ -47,6 +48,24 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [playerSpeed, setPlayerSpeed] = useState(2);
 	const [isMouseOverMap, setIsMouseOverMap] = useState(false);
 	const [isMouseControllingPlayer, setIsMouseControllingPlayer] = useState(false);
+
+	const scenesChangePlayerInitial = useRef([
+		{
+			type: "starCluster",
+			position: [-22, -2, 17],
+			rotation: [8 * (Math.PI / 180), 300 * (Math.PI / 180), Math.PI / 2],
+		},
+		{
+			type: "starSystem",
+			position: [-6.5, -3.5, 22],
+			rotation: [8 * (Math.PI / 180), 330 * (Math.PI / 180), Math.PI / 2],
+		},
+		{
+			type: "star",
+			position: [-10.5, -2.5, 20],
+			rotation: [7 * (Math.PI / 180), 330 * (Math.PI / 180), Math.PI / 2],
+		},
+	]);
 
 	const [isDisplayingCreateHierarchyItemForm, setIsDisplayingCreateHierarchyItemForm] = useState(false);
 
@@ -111,8 +130,9 @@ const LocationsProvider = ({ children, story_uid }) => {
 		});
 	}
 
-	function changeCurrentMapLocationId(newCurrentMapLocationId) {
+	function changeCurrentMapLocationId(newCurrentMapLocationId, forwardDelta) {
 		setTravellingToMapLocationId(newCurrentMapLocationId);
+		setTravellingToMapLocationForwardDelta(forwardDelta === undefined ? 0 : forwardDelta);
 	}
 
 	return (
@@ -140,6 +160,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 				changeCurrentMapLocationId,
 				travellingToMapLocationId,
 				setTravellingToMapLocationId,
+				travellingToMapLocationForwardDelta,
 				selectedLocationId,
 				setSelectedLocationId,
 				hoverMapLocationId,
@@ -154,6 +175,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setIsMouseOverMap,
 				isMouseControllingPlayer,
 				setIsMouseControllingPlayer,
+				scenesChangePlayerInitial,
 				isDisplayingCreateHierarchyItemForm,
 				setIsDisplayingCreateHierarchyItemForm,
 			}}

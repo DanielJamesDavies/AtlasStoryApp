@@ -4,6 +4,7 @@ import { useContext, useEffect, useState, useRef } from "react";
 // Components
 import { StarCluster } from "./StarCluster/StarCluster";
 import { StarSystem } from "./StarSystem/StarSystem";
+import { Star } from "./Star/Star";
 
 // Logic
 
@@ -18,14 +19,17 @@ import { HierarchyFunctions } from "../../HierarchyFunctions";
 // Assets
 
 export const Scene = ({ setCursorPointer }) => {
-	const { story, locations, currentMapLocationId } = useContext(LocationsContext);
+	const { story, locations, currentMapLocationId, playerApi, changeCameraRotation, scenesChangePlayerInitial } = useContext(LocationsContext);
 	const { getItemFromIdInHierarchy } = HierarchyFunctions();
 	const [scene, setScene] = useState(null);
 	const [hasInitializedScenes, setHasInitializedScenes] = useState(false);
 
+	const currSceneLocationId = useRef(false);
+
 	const scenes = useRef([
 		{ type: "starCluster", scene: StarCluster },
 		{ type: "starSystem", scene: StarSystem },
+		{ type: "star", scene: Star },
 	]);
 
 	useEffect(() => {
@@ -96,13 +100,35 @@ export const Scene = ({ setCursorPointer }) => {
 				JSON.parse(JSON.stringify(story?.data?.locationsHierarchy))
 			);
 
-			const NewScene = scenes.current.find((e) => e?.type === location?.type)?.scene;
-			if (!NewScene) return false;
+			if (currSceneLocationId.current !== location?._id) {
+				currSceneLocationId.current = location?._id;
+				const sceneChangePlayerInitial = scenesChangePlayerInitial.current.find((e) => e?.type === location?.type);
+				playerApi.position.set(...sceneChangePlayerInitial?.position);
+				changeCameraRotation(sceneChangePlayerInitial?.rotation);
+			}
 
-			setScene(<NewScene location={location} locations={locations} hierarchyItem={hierarchyItem} setCursorPointer={setCursorPointer} />);
+			const newScene = scenes.current.find((e) => e?.type === location?.type);
+			if (!newScene?.scene) return false;
+
+			setScene(
+				<newScene.scene location={location} locations={locations} hierarchyItem={hierarchyItem} setCursorPointer={setCursorPointer} />
+			);
 		}
 		getScene();
-	}, [setScene, story, locations, currentMapLocationId, getItemFromIdInHierarchy, setCursorPointer, scenes, hasInitializedScenes]);
+	}, [
+		setScene,
+		story,
+		locations,
+		currentMapLocationId,
+		getItemFromIdInHierarchy,
+		setCursorPointer,
+		scenes,
+		hasInitializedScenes,
+		currSceneLocationId,
+		playerApi,
+		changeCameraRotation,
+		scenesChangePlayerInitial,
+	]);
 
 	return scene;
 };

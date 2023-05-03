@@ -18,18 +18,10 @@ import { LocationsContext } from "../../../LocationsContext";
 // Assets
 
 export const StarCluster = ({ location, locations, hierarchyItem, setCursorPointer }) => {
-	const { playerApi, changeCameraRotation, changeCurrentMapLocationId, setIsDisplayingHierarchy, setSelectedLocationId, setHoverMapLocationId } =
-		useContext(LocationsContext);
+	const { changeCurrentMapLocationId, setIsDisplayingHierarchy, setSelectedLocationId, setHoverMapLocationId } = useContext(LocationsContext);
 	const { coordToPosition } = MapFunctions();
 	const ref = useRef();
 	const [isHovering, setIsHovering] = useState(false);
-
-	useEffect(() => {
-		if (playerApi) playerApi.position.set(...[-22, -2, 17]);
-		changeCameraRotation([8 * (Math.PI / 180), 300 * (Math.PI / 180), Math.PI / 2]);
-	}, [playerApi, changeCameraRotation]);
-
-	const clicks = useRef([]);
 
 	function onPointerOver(star_system_id) {
 		setHoverMapLocationId(star_system_id);
@@ -45,6 +37,9 @@ export const StarCluster = ({ location, locations, hierarchyItem, setCursorPoint
 		setCursorPointer(isHovering);
 	}, [setCursorPointer, isHovering]);
 
+	const clicks = useRef([]);
+	const clickTimeout = useRef(false);
+
 	function getNewClicks(oldClicks, maxDelta) {
 		let newClicks = JSON.parse(JSON.stringify(oldClicks));
 
@@ -58,8 +53,6 @@ export const StarCluster = ({ location, locations, hierarchyItem, setCursorPoint
 
 		return newClicks.filter((_, index) => index >= startIndex);
 	}
-
-	const clickTimeout = useRef(false);
 
 	function onClickStar(e, starSystem) {
 		e.stopPropagation();
