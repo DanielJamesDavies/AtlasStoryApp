@@ -5,6 +5,8 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { StarCluster } from "./StarCluster/StarCluster";
 import { StarSystem } from "./StarSystem/StarSystem";
 import { Star } from "./Star/Star";
+import { Planet } from "./Planet/Planet";
+import { Moon } from "./Moon/Moon";
 
 // Logic
 
@@ -30,6 +32,8 @@ export const Scene = ({ setCursorPointer }) => {
 		{ type: "starCluster", scene: StarCluster },
 		{ type: "starSystem", scene: StarSystem },
 		{ type: "star", scene: Star },
+		{ type: "planet", scene: Planet },
+		{ type: "moon", scene: Moon },
 	]);
 
 	useEffect(() => {
@@ -103,8 +107,10 @@ export const Scene = ({ setCursorPointer }) => {
 			if (currSceneLocationId.current !== location?._id) {
 				currSceneLocationId.current = location?._id;
 				const sceneChangePlayerInitial = scenesChangePlayerInitial.current.find((e) => e?.type === location?.type);
-				playerApi.position.set(...sceneChangePlayerInitial?.position);
-				changeCameraRotation(sceneChangePlayerInitial?.rotation);
+				if (sceneChangePlayerInitial) {
+					playerApi.position.set(...sceneChangePlayerInitial?.position);
+					changeCameraRotation(sceneChangePlayerInitial?.rotation);
+				}
 			}
 
 			const newScene = scenes.current.find((e) => e?.type === location?.type);

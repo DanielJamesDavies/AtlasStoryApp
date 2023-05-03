@@ -65,6 +65,16 @@ const LocationsProvider = ({ children, story_uid }) => {
 			position: [-10.5, -2.5, 20],
 			rotation: [7 * (Math.PI / 180), 330 * (Math.PI / 180), Math.PI / 2],
 		},
+		{
+			type: "planet",
+			position: [-10.5, -2.5, 20],
+			rotation: [7 * (Math.PI / 180), 330 * (Math.PI / 180), Math.PI / 2],
+		},
+		{
+			type: "moon",
+			position: [-10.5, -2.5, 20],
+			rotation: [7 * (Math.PI / 180), 330 * (Math.PI / 180), Math.PI / 2],
+		},
 	]);
 
 	const [isDisplayingCreateHierarchyItemForm, setIsDisplayingCreateHierarchyItemForm] = useState(false);

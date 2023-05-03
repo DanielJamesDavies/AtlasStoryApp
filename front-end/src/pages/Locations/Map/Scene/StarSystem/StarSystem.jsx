@@ -67,7 +67,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 	}
 
 	function onClickLocation(e, input_location) {
-		e.stopPropagation();
+		if (e?.stopPropagation !== undefined) e.stopPropagation();
 
 		const maxDelta = 400;
 
@@ -87,6 +87,8 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 
 				let forwardDelta = 0;
 				if (input_location?.type === "star") forwardDelta = -4.5;
+				if (input_location?.type === "planet") forwardDelta = -4.5;
+				if (input_location?.type === "moon") forwardDelta = -4.5;
 				changeCurrentMapLocationId(input_location?._id, forwardDelta);
 				break;
 			default:
@@ -164,7 +166,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 													periapsis={index + 1}
 													inclination={0}
 													thickness={0.5}
-													onClick={() => onClickLocation(child2Location)}
+													onClick={(e) => onClickLocation(e, child2Location)}
 													onPointerOver={(e) => onPointerOver(e, child2Location?._id)}
 													onPointerOut={(e) => onPointerOut(e)}
 												>

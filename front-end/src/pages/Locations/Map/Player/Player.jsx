@@ -108,7 +108,6 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 					rotatingTime.current = 0;
 
 					const sceneChangePlayerInitial = scenesChangePlayerInitial.current.find((e) => e.type === newLocation?.type);
-					console.log(sceneChangePlayerInitial);
 					if (sceneChangePlayerInitial) {
 						api.position.set(...sceneChangePlayerInitial?.position);
 						playerCameraRotation.current = sceneChangePlayerInitial?.rotation;
