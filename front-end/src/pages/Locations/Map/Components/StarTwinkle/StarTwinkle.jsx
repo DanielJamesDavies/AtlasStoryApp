@@ -15,7 +15,7 @@ import { useLoader } from "@react-three/fiber";
 // Assets
 import starTwinkle from "./StarTwinkle.png";
 
-export const StarTwinkle = ({ position, scale = 1, onClick, onMouseDown, onPointerOver, onPointerOut }) => {
+export const StarTwinkle = ({ position, scale = 1, onClick, onPointerOver, onPointerOut }) => {
 	const starSprite = useLoader(TextureLoader, starTwinkle);
 
 	return (
@@ -24,7 +24,6 @@ export const StarTwinkle = ({ position, scale = 1, onClick, onMouseDown, onPoint
 			scale={scale < 1 ? 1 : scale}
 			renderOrder={100}
 			onClick={onClick}
-			onMouseDown={onMouseDown}
 			onPointerOver={onPointerOver}
 			onPointerOut={onPointerOut}
 		>

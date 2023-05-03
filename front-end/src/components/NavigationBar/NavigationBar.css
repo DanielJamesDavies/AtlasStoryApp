@@ -118,6 +118,7 @@
 	background: var(--colour-grey-three);
 	font-size: 13px;
 	font-weight: 600;
+	user-select: none;
 	pointer-events: none;
 	transition: 0.2s;
 	transition-delay: 0s;

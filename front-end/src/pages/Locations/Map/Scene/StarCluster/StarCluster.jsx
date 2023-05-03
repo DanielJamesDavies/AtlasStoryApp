@@ -86,10 +86,6 @@ export const StarCluster = ({ location, locations, hierarchyItem, setCursorPoint
 		}
 	}
 
-	function onMouseDownStar(e) {
-		e.preventDefault();
-	}
-
 	return (
 		<group ref={ref}>
 			{!hierarchyItem?.children
@@ -101,7 +97,6 @@ export const StarCluster = ({ location, locations, hierarchyItem, setCursorPoint
 								key={index}
 								position={coordToPosition(starSystem?.position, { order: "yxz", multiplier: 0.05 })}
 								scale={2}
-								onMouseDown={onMouseDownStar}
 								onClick={(e) => onClickStar(e, starSystem)}
 								onPointerOver={() => onPointerOver(starSystem?._id)}
 								onPointerOut={() => onPointerOut()}
