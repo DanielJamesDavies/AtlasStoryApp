@@ -18,7 +18,7 @@ const SpofityProvider = ({ children }) => {
 
 	useEffect(() => {
 		async function authorizeSpotify() {
-			if (navigator.connection.downlink < 0.5 && attempts !== 0) await new Promise((resolve) => setTimeout(resolve, 4000));
+			if (navigator.connection.downlink < 0.8 && attempts !== 0) await new Promise((resolve) => setTimeout(resolve, 4000));
 			if (spotify_access_token || spotify_refresh_token) return true;
 
 			const max_attepts = 1;

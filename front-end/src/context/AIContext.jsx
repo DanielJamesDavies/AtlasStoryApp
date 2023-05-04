@@ -25,7 +25,7 @@ const AIProvider = ({ children }) => {
 	}
 
 	const AI_GPT_Request = useCallback(
-		async (messages) => {
+		async (messages, temperature = 0) => {
 			const gpt_system_message = [
 				"You are Atlas AI, a large language model trained by OpenAI.",
 				"Be clear, concise, and honest. Don't describe the question, just answer.",
@@ -49,6 +49,7 @@ const AIProvider = ({ children }) => {
 					model: "gpt-3.5-turbo",
 					messages: newMessages,
 					max_tokens: isNaN(parseInt(GPT_Max_Tokens)) ? 100 : GPT_Max_Tokens,
+					temperature,
 				}),
 			};
 
