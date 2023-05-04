@@ -87,7 +87,7 @@ export const Scene = ({ setCursorPointer }) => {
 				</group>
 			);
 
-			setTimeout(() => setHasInitializedScenes(true), 2200);
+			setTimeout(() => setHasInitializedScenes(true), 1000);
 		}
 		initializeScenes();
 	}, [scenes, getItemFromIdInHierarchy, setCursorPointer]);

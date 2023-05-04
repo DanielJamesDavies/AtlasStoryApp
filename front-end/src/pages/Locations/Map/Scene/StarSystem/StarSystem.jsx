@@ -172,7 +172,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 												>
 													{child2Location?.type !== "moon" ? null : (
 														<OutlineContainer
-															scale={0.01}
+															scale={0.013}
 															thickness={0.8}
 															isDisplaying={
 																JSON.stringify(child2Location?._id) === JSON.stringify(selectedLocationId) ||
@@ -191,7 +191,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 																	order: "yxz",
 																	multiplier: 0.05,
 																})}
-																scale={0.01}
+																scale={0.013}
 																onClick={(e) => onClickLocation(e, child2Location)}
 																onPointerOver={(e) => onPointerOver(e, child2Location?._id)}
 																onPointerOut={(e) => onPointerOut(e)}

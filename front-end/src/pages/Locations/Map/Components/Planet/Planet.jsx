@@ -30,7 +30,7 @@ export const Planet = ({ position, scale = 1, tilt, onClick }) => {
 
 	return (
 		<group ref={ref} position={position} scale={scale} dispose={null} onClick={onClick === undefined ? null : (e) => onClick(e)}>
-			<group rotation={tilt === undefined ? [0, 0, 0] : tilt} scale={0.5}>
+			<group rotation={tilt === undefined ? [0, 0, 0] : tilt} scale={0.47}>
 				<mesh rotation={[0, 0, Math.PI / 2]}>
 					<sphereGeometry args={[21.5, 32, 16]} />
 					<meshStandardMaterial map={earthDayMap} />
