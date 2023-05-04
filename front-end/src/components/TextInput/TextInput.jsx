@@ -25,7 +25,7 @@ export const TextInput = (props) => {
 		inputStyle,
 		DynamicIconComponent,
 		selectAll,
-		focusOnInput,
+		onClickContainer,
 		onInputContainerFocus,
 		onInputContainerBlur,
 		isHidden,
@@ -33,10 +33,13 @@ export const TextInput = (props) => {
 		onKeyDown,
 		inputContainerStyles,
 		focused,
+		selection,
+		onMouseDownHiddenCharacter,
+		onMouseEnterHiddenCharacter,
 	} = TextInputLogic(props);
 
 	return (
-		<div ref={inputContainerRef} className={inputClassName} onClick={focusOnInput} style={inputContainerStyles}>
+		<div ref={inputContainerRef} className={inputClassName} onClick={onClickContainer} style={inputContainerStyles}>
 			<div className='text-input-label'>
 				{props.icon ? <DynamicIconComponent /> : null}
 				<span onClick={selectAll}>{props.label}</span>
@@ -48,7 +51,7 @@ export const TextInput = (props) => {
 					value={props.value === undefined ? "" : props.value}
 					onChange={props.onChange}
 					onKeyDown={onKeyDown}
-					type={props.type === undefined ? (!props?.hideValue ? "text" : isHidden ? "password" : "text") : props.type}
+					type={props.type === undefined || (props.type === "password" && !isHidden) ? "text" : props.type}
 					autoComplete={props.autocomplete}
 					onFocus={onInputContainerFocus}
 					onBlur={onInputContainerBlur}
@@ -58,6 +61,34 @@ export const TextInput = (props) => {
 
 				<div ref={inputWidthRef} className='text-input-width-element'>
 					{props?.value}
+				</div>
+
+				<div className='text-input-hidden-characters'>
+					{!props?.value
+						? null
+						: props?.value
+								.toString()
+								?.split("")
+								.concat([""])
+								.map((_, index) => (
+									<div
+										key={index}
+										className='text-input-hidden-character-container'
+										onMouseEnter={(e) => onMouseEnterHiddenCharacter(e, index)}
+										onMouseDown={(e) => onMouseDownHiddenCharacter(e, index)}
+									>
+										<div
+											key={index}
+											className={
+												selection[0] === index && selection[1] === -1
+													? "text-input-hidden-character text-input-hidden-character-single-selected"
+													: selection[1] !== -1 && index >= Math.min(...selection) && index <= Math.max(...selection)
+													? "text-input-hidden-character text-input-hidden-character-selected"
+													: "text-input-hidden-character"
+											}
+										/>
+									</div>
+								))}
 				</div>
 
 				{!props?.hideValue ? null : (

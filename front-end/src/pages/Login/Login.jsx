@@ -33,6 +33,7 @@ export const Login = () => {
 				<div className='login-form-text-input-container'>
 					<TextInput
 						label='Password'
+						type='password'
 						value={password}
 						onChange={changePassword}
 						hideValue={true}

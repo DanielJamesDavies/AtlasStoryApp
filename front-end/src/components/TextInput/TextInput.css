@@ -15,6 +15,7 @@
 }
 
 .text-input {
+	position: relative;
 	display: flex;
 	align-items: center;
 	padding: 6px 12px;
@@ -121,6 +122,92 @@
 	padding: 0;
 	border: 0;
 	width: 100%;
+}
+
+/* Hide Value */
+
+.text-input-container-hide-value .text-input-input {
+	opacity: 0;
+	user-select: none;
+	pointer-events: none;
+}
+
+.text-input-hidden-characters {
+	position: absolute;
+	top: 50%;
+	left: 13px;
+	transform: translateY(-50%);
+	margin-top: 1px;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	width: calc(100% - 2 * 13px - 16px - 2px);
+	text-align: left;
+	user-select: none;
+}
+
+.text-input-container:not(.text-input-container-hide-value) .text-input-hidden-characters {
+	opacity: 0;
+	pointer-events: none;
+	user-select: none;
+}
+
+.text-input-hidden-character-container {
+	--text-input-hidden-character-height: 14px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: var(--text-input-hidden-character-height);
+}
+
+.text-input-hidden-character-container:last-child {
+	flex-grow: 1;
+}
+
+.text-input-hidden-character {
+	--text-input-hidden-character-size: 6px;
+	display: block;
+	margin: 1px;
+	content: "";
+	border-radius: 100%;
+	width: var(--text-input-hidden-character-size);
+	height: var(--text-input-hidden-character-size);
+	background: var(--text-colour-tertiary);
+}
+
+.text-input-hidden-character-container:last-child .text-input-hidden-character {
+	background: transparent;
+}
+
+.text-input-hidden-character-selected {
+	background: var(--text-colour-primary);
+}
+
+.text-input-hidden-character-selected::before {
+	position: absolute;
+	display: block;
+	content: "";
+	top: 0;
+	left: 1px;
+	z-index: -1;
+	margin: 0 -2px;
+	padding: 0 2px;
+	width: calc(var(--text-input-hidden-character-size) - 1px);
+	height: var(--text-input-hidden-character-height);
+	background: var(--colour-blue-two);
+}
+
+.text-input-hidden-character-single-selected::before {
+	position: absolute;
+	display: block;
+	content: "";
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	width: 1px;
+	height: var(--text-input-hidden-character-height);
+	background: var(--text-colour-primary);
 }
 
 /* AI Tools */

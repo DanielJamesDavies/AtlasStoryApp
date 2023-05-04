@@ -28,6 +28,13 @@ export const TextInputLogic = (props) => {
 			: "text-input-container"
 	);
 	const DynamicIconComponent = props.icon;
+	const [selection, setSelection] = useState([-1, -1]);
+
+	const [isHidden, setIsHidden] = useState(true);
+	function toggleIsHidden(e) {
+		e.stopPropagation();
+		setIsHidden((oldIsHidden) => !oldIsHidden);
+	}
 
 	useEffect(() => {
 		function getInputClassName() {
@@ -37,7 +44,7 @@ export const TextInputLogic = (props) => {
 			if (props.value === undefined || props.value === "") className += " text-input-container-empty";
 			if (props?.isSaved === false && !focused) className += " text-input-container-unsaved";
 			if (props?.isDark) className += " text-input-container-dark";
-			if (props?.hideValue) className += " text-input-container-hide-value";
+			if (props?.hideValue && isHidden) className += " text-input-container-hide-value";
 			if (props?.seamless) className += " text-input-container-seamless";
 			if (props?.isLightText) className += " text-input-container-light-text";
 			if (props?.size) {
@@ -73,14 +80,14 @@ export const TextInputLogic = (props) => {
 			return className;
 		}
 		setInputClassName(getInputClassName());
-	}, [props, focused]);
+	}, [props, focused, isHidden]);
 
 	function selectAll() {
 		if (inputRef && inputRef.current) inputRef.current.select();
 	}
 
-	function focusOnInput() {
-		if (inputRef && inputRef.current) inputRef.current.focus();
+	function onClickContainer(e) {
+		if (e?.detail === 1 && inputRef && inputRef.current) inputRef.current.focus();
 	}
 
 	function onInputContainerFocus() {
@@ -89,14 +96,6 @@ export const TextInputLogic = (props) => {
 
 	function onInputContainerBlur() {
 		setFocused(false);
-	}
-
-	// Hide Value
-	const [isHidden, setIsHidden] = useState(true);
-
-	function toggleIsHidden(e) {
-		e.stopPropagation();
-		setIsHidden((oldIsHidden) => !oldIsHidden);
 	}
 
 	// Resize Input
@@ -150,6 +149,33 @@ export const TextInputLogic = (props) => {
 		getInputContainerStyles();
 	}, [setInputContainerStyles, inputRef]);
 
+	function onMouseDownHiddenCharacter(e, index) {
+		e.stopPropagation();
+		if (e?.buttons !== 1) return false;
+		if (e?.detail === 2) {
+			if (props?.value?.length === undefined) return false;
+			setSelection([0, props?.value?.split("").length - 1]);
+			inputRef.current.setSelectionRange(0, props?.value?.split("").length, "forward");
+			inputRef.current.blur();
+			setTimeout(() => inputRef.current.focus(), 1);
+		} else {
+			setSelection([index, -1]);
+			inputRef.current.setSelectionRange(index, index, "none");
+		}
+	}
+
+	function onMouseEnterHiddenCharacter(e, index) {
+		e.stopPropagation();
+		if (e?.buttons !== 1) return false;
+		const newSelection = [selection[0], index];
+		setSelection(newSelection);
+		inputRef.current.setSelectionRange(
+			Math.min(...newSelection),
+			Math.max(...newSelection),
+			Math.min(...newSelection) === newSelection[0] ? "forward" : "backward"
+		);
+	}
+
 	return {
 		inputContainerRef,
 		inputRef,
@@ -158,7 +184,7 @@ export const TextInputLogic = (props) => {
 		inputStyle,
 		DynamicIconComponent,
 		selectAll,
-		focusOnInput,
+		onClickContainer,
 		onInputContainerFocus,
 		onInputContainerBlur,
 		isHidden,
@@ -166,5 +192,8 @@ export const TextInputLogic = (props) => {
 		onKeyDown,
 		inputContainerStyles,
 		focused,
+		selection,
+		onMouseDownHiddenCharacter,
+		onMouseEnterHiddenCharacter,
 	};
 };
