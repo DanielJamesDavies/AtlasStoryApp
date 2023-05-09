@@ -18,11 +18,11 @@ const SpofityProvider = ({ children }) => {
 
 	useEffect(() => {
 		async function authorizeSpotify() {
-			if (navigator.connection.downlink < 0.8 && attempts !== 0) await new Promise((resolve) => setTimeout(resolve, 4000));
+			if (attempts.current !== 0) await new Promise((resolve) => setTimeout(resolve, 1500));
 			if (spotify_access_token || spotify_refresh_token) return true;
 
-			const max_attepts = 1;
-			if (attempts.current >= max_attepts) return false;
+			const max_attempts = 2;
+			if (attempts.current >= max_attempts) return false;
 
 			if (window === window?.parent) {
 				const should_connect_device_response = await APIRequest("/spotify/should-connect-device", "GET");
@@ -53,7 +53,7 @@ const SpofityProvider = ({ children }) => {
 
 				if (/Mobi/i.test(window.navigator.userAgent)) {
 					if (spotify_access_token || spotify_refresh_token) return true;
-					if (attempts.current < max_attepts) window.location = spotifyAuthURL;
+					if (attempts.current < max_attempts) window.location = spotifyAuthURL;
 				} else {
 					if (window === window?.parent) return false;
 
