@@ -33,7 +33,7 @@
 	height: 585px;
 
 	background: var(--colour-grey-one);
-	transition: margin 0.4s;
+	transition: margin-left 0.4s;
 	cursor: pointer;
 }
 
@@ -51,6 +51,7 @@
 	z-index: 1;
 	display: inline-block;
 	margin: 4px;
+	margin-bottom: 0;
 	border: 6px solid var(--colour-accent);
 	border-color: var(--colour-grey-two);
 	border-radius: 16px;
@@ -59,8 +60,6 @@
 	height: 585px;
 
 	background: var(--colour-grey-one);
-	transition: margin 0.4s;
-	cursor: pointer;
 	animation: characters-group-character-card-placeholder 2.5s infinite;
 }
 

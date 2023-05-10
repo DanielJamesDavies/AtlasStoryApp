@@ -12,14 +12,15 @@ const SpofityProvider = ({ children }) => {
 	const scope = "user-read-private user-read-playback-state user-modify-playback-state playlist-read-private";
 	const [spotify_access_token, setSpotifyAccessToken] = useState(false);
 	const [spotify_refresh_token, setSpotifyRefreshToken] = useState(false);
+	const isAuthorized = useRef(false);
 	const [connectDeviceToSpotify, setConnectDeviceToSpotify] = useState(false);
 	const hasAttemptedAuthorization = useRef(false);
 	const attempts = useRef(0);
 
 	useEffect(() => {
 		async function authorizeSpotify() {
-			if (attempts.current !== 0) await new Promise((resolve) => setTimeout(resolve, 1500));
-			if (spotify_access_token || spotify_refresh_token) return true;
+			if (attempts.current !== 0) await new Promise((resolve) => setTimeout(resolve, 2000));
+			if (isAuthorized.current) return true;
 
 			const max_attempts = 2;
 			if (attempts.current >= max_attempts) return false;
@@ -52,14 +53,14 @@ const SpofityProvider = ({ children }) => {
 					">";
 
 				if (/Mobi/i.test(window.navigator.userAgent)) {
-					if (spotify_access_token || spotify_refresh_token) return true;
+					if (isAuthorized.current) return true;
 					if (attempts.current < max_attempts) window.location = spotifyAuthURL;
 				} else {
 					if (window === window?.parent) return false;
 
 					if (window.location.pathname === "/authorize-spotify") {
 						window.parent.postMessage(JSON.stringify({ message: "spotify-authorizing" }), "*");
-						if (spotify_access_token || spotify_refresh_token) return true;
+						if (isAuthorized.current) return true;
 						window.location = spotifyAuthURL;
 					}
 				}
@@ -99,6 +100,7 @@ const SpofityProvider = ({ children }) => {
 				const token_response = await APIRequest("/spotify/get-tokens?code=" + code + "&redirect_uri=" + redirect_uri, "GET");
 				if (token_response?.data?.access_token) setSpotifyAccessToken(token_response.data.access_token);
 				if (token_response?.data?.refresh_token) setSpotifyRefreshToken(token_response.data.refresh_token);
+				if (token_response?.data?.access_token && token_response?.data?.refresh_token) isAuthorized.current = true;
 
 				if (window !== window?.parent)
 					window.parent.postMessage(
@@ -121,9 +123,8 @@ const SpofityProvider = ({ children }) => {
 		changeLocation,
 		redirect_uri,
 		scope,
-		spotify_access_token,
+		isAuthorized,
 		setSpotifyAccessToken,
-		spotify_refresh_token,
 		setSpotifyRefreshToken,
 		connectDeviceToSpotify,
 		setConnectDeviceToSpotify,
