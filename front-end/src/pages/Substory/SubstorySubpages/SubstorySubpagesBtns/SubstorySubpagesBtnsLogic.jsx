@@ -15,7 +15,7 @@ import { SubstoryContext } from "../../SubstoryContext";
 // Assets
 
 export const SubstorySubpagesBtnsLogic = () => {
-	const { isAuthorizedToEdit, subpages, openSubpageID, setOpenSubpageID } = useContext(SubstoryContext);
+	const { isAuthorizedToEdit, subpages, openSubpageID, setOpenSubpageID, updateSubstorySoundtrackFromSpotify } = useContext(SubstoryContext);
 
 	const subpagesBtnsRef = useRef();
 
@@ -36,5 +36,10 @@ export const SubstorySubpagesBtnsLogic = () => {
 		subpagesBtnsRef.current.scrollLeft += 120 * direction;
 	}
 
-	return { isAuthorizedToEdit, subpages, openSubpageID, setOpenSubpageID, subpagesBtnsRef, scrollSubpageBtns };
+	function onClickSubpageBtn(subpage_id) {
+		if (subpage_id === "soundtrack") updateSubstorySoundtrackFromSpotify();
+		setOpenSubpageID(subpage_id);
+	}
+
+	return { isAuthorizedToEdit, subpages, openSubpageID, onClickSubpageBtn, subpagesBtnsRef, scrollSubpageBtns };
 };

@@ -21,7 +21,7 @@ import { SubstoryContext } from "../SubstoryContext";
 // Assets
 
 export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef, setSubstoryPrimaryPaddingTop }) => {
-	const { openSubpageID } = useContext(SubstoryContext);
+	const { substory, openSubpageID } = useContext(SubstoryContext);
 
 	const subpageContainerRef = useRef();
 
@@ -37,19 +37,19 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef, setSubstoryPrim
 
 	const [subpagesContainerStyles, setSubpagesContainerStyles] = useState({});
 	useLayoutEffect(() => {
-		function getSubpagesContainerStyles(e) {
+		function getSubpagesContainerStyles() {
 			let newSubpagesContainerStyles = {};
 			const primaryTitleHeight = substoryPrimaryTitleRef?.current?.clientHeight;
 			if (primaryTitleHeight === undefined) return setSubpagesContainerStyles(newSubpagesContainerStyles);
 
-			newSubpagesContainerStyles.paddingTop = "calc((32px + 8px * 2) + " + primaryTitleHeight + "px + 24px)";
-			newSubpagesContainerStyles["--substoryPrimaryPaddingTop"] = 32 + 8 * 2 + primaryTitleHeight + 24 + "px";
+			newSubpagesContainerStyles.paddingTop = 32 + 6 * 2 + primaryTitleHeight + 10 + "px";
+			newSubpagesContainerStyles["--substoryPrimaryPaddingTop"] = newSubpagesContainerStyles.paddingTop;
 			setSubstoryPrimaryPaddingTop(newSubpagesContainerStyles["--substoryPrimaryPaddingTop"]);
 
 			const windowWidth = window?.innerWidth;
 			if (windowWidth !== undefined && windowWidth <= 700) {
-				newSubpagesContainerStyles.paddingTop = "calc(6px + " + primaryTitleHeight + "px + 12px)";
-				newSubpagesContainerStyles["--substoryPrimaryPaddingTop"] = 6 + primaryTitleHeight + 12 + "px";
+				newSubpagesContainerStyles.paddingTop = 6 + primaryTitleHeight + 12 + "px";
+				newSubpagesContainerStyles["--substoryPrimaryPaddingTop"] = newSubpagesContainerStyles.paddingTop;
 				setSubstoryPrimaryPaddingTop(newSubpagesContainerStyles["--substoryPrimaryPaddingTop"]);
 			}
 
@@ -58,15 +58,11 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef, setSubstoryPrim
 		setTimeout(() => getSubpagesContainerStyles(), 100);
 		setTimeout(() => getSubpagesContainerStyles(), 200);
 		setTimeout(() => getSubpagesContainerStyles(), 400);
-		setTimeout(() => getSubpagesContainerStyles(), 600);
-		setTimeout(() => getSubpagesContainerStyles(), 800);
-		setTimeout(() => getSubpagesContainerStyles(), 1000);
-		setTimeout(() => getSubpagesContainerStyles(), 1200);
 		window.addEventListener("resize", getSubpagesContainerStyles);
 		return () => {
 			window.removeEventListener("resize", getSubpagesContainerStyles);
 		};
-	}, [setSubpagesContainerStyles, substoryPrimaryTitleRef, setSubstoryPrimaryPaddingTop]);
+	}, [setSubpagesContainerStyles, substoryPrimaryTitleRef, setSubstoryPrimaryPaddingTop, substory]);
 
 	const [subpage, setSubpage] = useState(null);
 

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect, useMemo, useRef } from "react";
+import React, { createContext, useState, useContext, useEffect, useMemo, useRef, useCallback } from "react";
 
 import { AppContext } from "../../context/AppContext";
 import { APIContext } from "../../context/APIContext";
@@ -27,10 +27,6 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const [substorySoundtrack, setSubstorySoundtrack] = useState(false);
 
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
-	// const subpages = [
-	// 	{ id: "characters", name: "Characters", isEnabled: true },
-	// 	{ id: "locations", name: "Locations", isEnabled: true },
-	// ];
 	const allSubpages = useMemo(
 		() => [
 			{ id: "gallery", name: "Gallery", isEnabled: true },
@@ -242,76 +238,62 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		changeAccentHoverColour,
 	]);
 
-	const [old_spotify_access_token, setOldSpotifyAccessToken] = useState(false);
-	const [old_spotify_refresh_token, setOldSpotifyRefreshToken] = useState(false);
+	const updateSubstorySoundtrackFromSpotify = useCallback(async () => {
+		const newSubstory = JSON.parse(JSON.stringify(substory));
+		const playlist_id = newSubstory?.data?.soundtrack?.playlist_id;
+		const old_tracks = newSubstory?.data?.soundtrack?.tracks;
+		if (!playlist_id || !old_tracks) return false;
+
+		const response = await SpotifyRequest("/playlists/" + playlist_id, "GET");
+		if (!response || response?.errors) return false;
+
+		let tracks = await Promise.all(
+			!response?.tracks?.items
+				? null
+				: response.tracks.items.map(async (item) => {
+						let artwork = undefined;
+						if (!item?.is_local) {
+							try {
+								artwork = await new Promise(async (resolve) => {
+									const artwork_response = await fetch(item?.track?.album?.images[0]?.url);
+									const reader = new FileReader();
+									reader.onloadend = () => resolve(reader.result);
+									reader.readAsDataURL(await artwork_response.blob());
+								});
+							} catch (e) {}
+						}
+
+						return {
+							id: item?.track?.id,
+							uri: item?.track?.uri,
+							is_local: item?.is_local,
+							name: item?.track?.name,
+							album: item?.track?.album?.name,
+							artists: item?.track?.artists?.map((artist) => artist?.name).join(","),
+							artwork,
+							artwork_url: item?.track?.album?.images[0]?.url,
+							text:
+								old_tracks?.findIndex((e) => e?.uri === item?.track?.uri) === -1
+									? [""]
+									: old_tracks?.find((e) => e?.uri === item?.track?.uri)?.text,
+						};
+				  })
+		);
+
+		setSubstorySoundtrack({ playlist_id, tracks });
+	}, [substory, SpotifyRequest]);
+
+	const old_spotify_tokens = useRef({});
 
 	useEffect(() => {
-		async function getSubstorySoundtrack() {
-			if (
-				JSON.stringify(spotify_access_token) === JSON.stringify(old_spotify_access_token) ||
-				JSON.stringify(spotify_refresh_token) === JSON.stringify(old_spotify_refresh_token)
-			)
-				return true;
-			setOldSpotifyAccessToken(spotify_access_token);
-			setOldSpotifyRefreshToken(spotify_refresh_token);
-
-			const newSubstory = JSON.parse(JSON.stringify(substory));
-			const playlist_id = newSubstory?.data?.soundtrack?.playlist_id;
-			const old_tracks = newSubstory?.data?.soundtrack?.tracks;
-			if (!playlist_id || !old_tracks) return false;
-
-			const response = await SpotifyRequest("/playlists/" + playlist_id, "GET");
-			if (!response || response?.errors) return false;
-
-			let tracks = await Promise.all(
-				!response?.tracks?.items
-					? null
-					: response.tracks.items.map(async (item) => {
-							let artwork = undefined;
-							if (!item?.is_local) {
-								try {
-									artwork = await new Promise(async (resolve) => {
-										const artwork_response = await fetch(item?.track?.album?.images[0]?.url);
-										const reader = new FileReader();
-										reader.onloadend = () => resolve(reader.result);
-										reader.readAsDataURL(await artwork_response.blob());
-									});
-								} catch (e) {}
-							}
-
-							return {
-								id: item?.track?.id,
-								uri: item?.track?.uri,
-								is_local: item?.is_local,
-								name: item?.track?.name,
-								album: item?.track?.album?.name,
-								artists: item?.track?.artists?.map((artist) => artist?.name).join(","),
-								artwork,
-								artwork_url: item?.track?.album?.images[0]?.url,
-								text:
-									old_tracks?.findIndex((e) => e?.uri === item?.track?.uri) === -1
-										? [""]
-										: old_tracks?.find((e) => e?.uri === item?.track?.uri)?.text,
-							};
-					  })
-			);
-
-			let newSubstorySoundtrack = { playlist_id, tracks };
-
-			setSubstorySoundtrack(newSubstorySoundtrack);
+		if (
+			old_spotify_tokens.current?.access_token !== spotify_access_token &&
+			old_spotify_tokens.current?.refresh_token !== spotify_refresh_token
+		) {
+			old_spotify_tokens.current = { access_token: spotify_access_token, refresh_token: spotify_refresh_token };
+			updateSubstorySoundtrackFromSpotify();
 		}
-
-		getSubstorySoundtrack();
-	}, [
-		substory,
-		spotify_access_token,
-		old_spotify_access_token,
-		setOldSpotifyAccessToken,
-		spotify_refresh_token,
-		old_spotify_refresh_token,
-		setOldSpotifyRefreshToken,
-		SpotifyRequest,
-	]);
+	}, [spotify_access_token, spotify_refresh_token, old_spotify_tokens, updateSubstorySoundtrackFromSpotify]);
 
 	return (
 		<SubstoryContext.Provider
@@ -339,6 +321,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				setSubpages,
 				openSubpageID,
 				setOpenSubpageID,
+				updateSubstorySoundtrackFromSpotify,
 			}}
 		>
 			{children}

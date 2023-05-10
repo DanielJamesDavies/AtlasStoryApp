@@ -3,6 +3,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Components
 import { IconBtn } from "../../../../components/IconBtn/IconBtn";
+import { BtnListItem } from "../../../../components/BtnListItem/BtnListItem";
 
 // Logic
 import { SubstorySubpagesBtnsLogic } from "./SubstorySubpagesBtnsLogic";
@@ -13,12 +14,11 @@ import { SubstorySubpagesBtnsLogic } from "./SubstorySubpagesBtnsLogic";
 
 // Styles
 import "./SubstorySubpagesBtns.css";
-import { BtnListItem } from "../../../../components/BtnListItem/BtnListItem";
 
 // Assets
 
 export const SubstorySubpagesBtns = () => {
-	const { isAuthorizedToEdit, subpages, openSubpageID, setOpenSubpageID, subpagesBtnsRef, scrollSubpageBtns } = SubstorySubpagesBtnsLogic();
+	const { isAuthorizedToEdit, subpages, openSubpageID, onClickSubpageBtn, subpagesBtnsRef, scrollSubpageBtns } = SubstorySubpagesBtnsLogic();
 
 	return (
 		<div className='substory-subpages-btns-container'>
@@ -36,7 +36,7 @@ export const SubstorySubpagesBtns = () => {
 							size='s'
 							value={subpage.name}
 							isActive={subpage.id === openSubpageID}
-							onClick={() => setOpenSubpageID(subpage.id)}
+							onClick={() => onClickSubpageBtn(subpage.id)}
 						/>
 					))}
 			</div>
