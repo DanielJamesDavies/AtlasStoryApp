@@ -42,7 +42,9 @@ export const AIToolsLogic = ({ type, context }) => {
 		const message = {
 			role: "user",
 			content:
-				"Rewrite the following text, delimited by triple backticks, to be more concise and more well-written. Text: ```" +
+				"Rewrite the following text, delimited by triple backticks, to be more concise and more well-written. " +
+				"Do not include triple backticks in your response. " +
+				"Text: ```" +
 				context.text +
 				"```",
 		};
@@ -63,7 +65,9 @@ export const AIToolsLogic = ({ type, context }) => {
 		const message = {
 			role: "user",
 			content:
-				"Summarize and extract relevant information from the following text, delimited by triple backticks, into a concise list using bullet points. Text: ```" +
+				"Summarize and extract relevant information from the following text, delimited by triple backticks, into a concise list using bullet points. " +
+				"Do not include triple backticks in your response. " +
+				"Text: ```" +
 				context.text +
 				"```",
 		};
