@@ -28,10 +28,10 @@ const LocationsProvider = ({ children, story_uid }) => {
 		},
 	];
 
-	const { location } = useContext(RoutesContext);
+	const { location, locationParams, changeLocation } = useContext(RoutesContext);
 	const { APIRequest } = useContext(APIContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon, locations, setLocations } = useContext(StoryContext);
-	const { getInitialMapLocationItem } = HierarchyFunctions();
+	const { getItemFromIdInHierarchy, getInitialMapLocationItem } = HierarchyFunctions();
 
 	const locationsMapRef = useRef();
 	const [playerApi, setPlayerApi] = useState(false);
@@ -79,6 +79,11 @@ const LocationsProvider = ({ children, story_uid }) => {
 
 	const [isDisplayingCreateHierarchyItemForm, setIsDisplayingCreateHierarchyItemForm] = useState(false);
 
+	const location_url_parameter = useRef(false);
+	useEffect(() => {
+		location_url_parameter.current = locationParams.find((e) => e.label === "l")?.value;
+	}, [locationParams]);
+
 	const curr_story_uid = useRef(false);
 	useEffect(() => {
 		async function getInitial() {
@@ -104,7 +109,20 @@ const LocationsProvider = ({ children, story_uid }) => {
 
 		function getInitialMapLocationId(newLocations) {
 			if (!story || !story?.data?.locationsHierarchy || story.data.locationsHierarchy.length === 0) return false;
-			const newCurrentMapLocationItem = getInitialMapLocationItem(story.data.locationsHierarchy, newLocations);
+
+			let newCurrentMapLocationItem = false;
+			if (location_url_parameter.current) {
+				newCurrentMapLocationItem = getItemFromIdInHierarchy(
+					location_url_parameter.current,
+					JSON.parse(JSON.stringify(story.data.locationsHierarchy))
+				);
+				if (newCurrentMapLocationItem?._id !== undefined) {
+					setCurrentMapLocationId(newCurrentMapLocationItem._id);
+					return true;
+				}
+			}
+
+			newCurrentMapLocationItem = getInitialMapLocationItem(story.data.locationsHierarchy, newLocations);
 			if (newCurrentMapLocationItem?._id === undefined) return false;
 			setCurrentMapLocationId(newCurrentMapLocationItem._id);
 		}
@@ -117,11 +135,26 @@ const LocationsProvider = ({ children, story_uid }) => {
 		}
 
 		getInitial();
-	}, [APIRequest, location, story_uid, curr_story_uid, story, setStory, setLocations, setCurrentMapLocationId, getInitialMapLocationItem]);
+	}, [
+		APIRequest,
+		location,
+		story_uid,
+		curr_story_uid,
+		story,
+		setStory,
+		setLocations,
+		setCurrentMapLocationId,
+		getItemFromIdInHierarchy,
+		getInitialMapLocationItem,
+		location_url_parameter,
+	]);
 
 	useEffect(() => {
 		setHoverMapLocationId(false);
-	}, [currentMapLocationId]);
+		const storyUid = document.location.pathname.split("/").filter((e) => e.length !== 0)[1];
+		const isOnLocations = document.location.pathname.split("/").filter((e) => e.length !== 0)[2] === "locations";
+		if (isOnLocations && currentMapLocationId) changeLocation("/s/" + storyUid + "/locations?l=" + currentMapLocationId);
+	}, [currentMapLocationId, changeLocation]);
 
 	const changeCameraRotation = useCallback(
 		(newRotation) => {
