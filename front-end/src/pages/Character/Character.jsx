@@ -40,7 +40,7 @@ export const Character = () => {
 			}
 			style={characterStyle ? characterStyle : {}}
 		>
-			<div className={character ? "character" : "character character-hidden"}>
+			<div className={character && characterStyle ? "character" : "character character-hidden"}>
 				<CharacterPrimary characterPrimaryRef={characterPrimaryRef} />
 				<div
 					className={

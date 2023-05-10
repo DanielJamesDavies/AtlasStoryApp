@@ -37,7 +37,7 @@ export const Substory = () => {
 			className={isOnOverviewSection ? "substory-container substory-container-is-on-overview" : "substory-container"}
 			style={substoryStyle ? substoryStyle : {}}
 		>
-			<div className={substory ? "substory" : "substory substory-hidden"}>
+			<div className={substory && substoryStyle ? "substory" : "substory substory-hidden"}>
 				<SubstoryPrimary substoryPrimaryTitleRef={substoryPrimaryTitleRef} />
 				<div
 					className={
