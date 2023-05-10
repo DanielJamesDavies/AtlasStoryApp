@@ -107,10 +107,13 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 					movingTime.current = 0;
 					rotatingTime.current = 0;
 
-					const sceneChangePlayerInitial = scenesChangePlayerInitial.current.find((e) => e.type === newLocation?.type);
-					if (sceneChangePlayerInitial) {
-						api.position.set(...sceneChangePlayerInitial?.position);
-						playerCameraRotation.current = sceneChangePlayerInitial?.rotation;
+					const scenesChangePlayerInitialItem = JSON.parse(
+						JSON.stringify(scenesChangePlayerInitial.current.find((e) => e.type === newLocation?.type))
+					);
+					if (scenesChangePlayerInitialItem) {
+						api.position.set(...scenesChangePlayerInitialItem?.position);
+						camera.rotation.set(...scenesChangePlayerInitialItem?.rotation);
+						playerCameraRotation.current = scenesChangePlayerInitialItem?.rotation;
 					}
 
 					setCurrentMapLocationId(JSON.parse(JSON.stringify(travellingToMapLocationId)));

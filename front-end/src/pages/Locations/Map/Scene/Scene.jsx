@@ -106,10 +106,12 @@ export const Scene = ({ setCursorPointer }) => {
 
 			if (currSceneLocationId.current !== location?._id) {
 				currSceneLocationId.current = location?._id;
-				const sceneChangePlayerInitial = scenesChangePlayerInitial.current.find((e) => e?.type === location?.type);
-				if (sceneChangePlayerInitial) {
-					playerApi.position.set(...sceneChangePlayerInitial?.position);
-					changeCameraRotation(sceneChangePlayerInitial?.rotation);
+				const scenesChangePlayerInitialItem = JSON.parse(
+					JSON.stringify(scenesChangePlayerInitial.current.find((e) => e.type === location?.type))
+				);
+				if (scenesChangePlayerInitialItem) {
+					playerApi.position.set(...scenesChangePlayerInitialItem?.position);
+					changeCameraRotation(scenesChangePlayerInitialItem?.rotation);
 				}
 			}
 
