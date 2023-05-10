@@ -5,14 +5,14 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { IconBtn } from "../../../../components/IconBtn/IconBtn";
 
 // Logic
-import { CharacterPrimaryVersionLogic } from "./CharacterPrimaryVersionLogic";
+import { CharacterPrimaryVersionLogic } from "./VersionLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterPrimaryVersion.css";
+import "./Version.css";
 
 // Assets
 

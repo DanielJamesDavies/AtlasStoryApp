@@ -16,7 +16,7 @@ import "./HierarchyListItem.css";
 // Assets
 
 export const HierarchyListItem = ({ itemsItem, item, locationTypes, toggleHierarchyItemIsChildrenVisible, isEditing, deleteHierarchyItem }) => {
-	const { selectedLocationId, currentMapLocationId, icon, onClickItem, onClickTravelToLocation } = HierarchyListItemLogic({
+	const { selectedLocationId, hoverMapLocationId, currentMapLocationId, icon, onClickItem, onClickTravelToLocation } = HierarchyListItemLogic({
 		item,
 		locationTypes,
 	});
@@ -27,6 +27,8 @@ export const HierarchyListItem = ({ itemsItem, item, locationTypes, toggleHierar
 			className={
 				item?._id !== undefined && selectedLocationId === item?._id
 					? "locations-hierarchy-list-item locations-hierarchy-list-item-active"
+					: hoverMapLocationId === item?._id
+					? "locations-hierarchy-list-item locations-hierarchy-list-item-hover"
 					: "locations-hierarchy-list-item"
 			}
 			onClick={onClickItem}

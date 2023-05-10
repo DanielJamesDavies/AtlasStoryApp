@@ -17,7 +17,8 @@
 	cursor: pointer;
 }
 
-.locations-hierarchy-list-item:hover {
+.locations-hierarchy-list-item:hover,
+.locations-hierarchy-list-item-hover {
 	background: var(--colour-grey-three);
 }
 
@@ -51,7 +52,8 @@
 	color: var(----text-colour-primary);
 }
 
-.locations-hierarchy-list-item:hover .locations-hierarchy-list-item-current-map-location {
+.locations-hierarchy-list-item:hover .locations-hierarchy-list-item-current-map-location,
+.locations-hierarchy-list-item-hover .locations-hierarchy-list-item-current-map-location {
 	opacity: 1;
 }
 

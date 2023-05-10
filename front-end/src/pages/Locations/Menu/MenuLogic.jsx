@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { FaFighterJet, FaSpaceShuttle } from "react-icons/fa";
 import { GiRabbit, GiSnail } from "react-icons/gi";
 
@@ -19,6 +19,20 @@ import { LocationsContext } from "../LocationsContext";
 export const MenuLogic = () => {
 	const { selectedLocationId, setSelectedLocationId, isDisplayingHierarchy, setIsDisplayingHierarchy, playerSpeed, setPlayerSpeed } =
 		useContext(LocationsContext);
+
+	const [locationsMenuContainerClassName, setLocationsMenuContainerClassName] = useState("locations-menu-container");
+
+	const getLocationsMenuContainerClassName = useCallback(() => {
+		let newLocationsMenuContainerClassName = "locations-menu-container";
+		if (isDisplayingHierarchy) newLocationsMenuContainerClassName += " locations-menu-container-is-displaying";
+		if (selectedLocationId !== false) newLocationsMenuContainerClassName += " locations-menu-container-selected-location";
+		setLocationsMenuContainerClassName(newLocationsMenuContainerClassName);
+	}, [isDisplayingHierarchy, selectedLocationId]);
+
+	useEffect(() => {
+		getLocationsMenuContainerClassName();
+	}, [getLocationsMenuContainerClassName, isDisplayingHierarchy, selectedLocationId]);
+
 	const [isDisplayingControlScheme, setIsDisplayingControlScheme] = useState(false);
 
 	function toggleIsDisplayingHierarchy() {
@@ -29,6 +43,7 @@ export const MenuLogic = () => {
 	const speedIcons = [<GiSnail />, <GiRabbit />, <FaFighterJet />, <FaSpaceShuttle />];
 
 	return {
+		locationsMenuContainerClassName,
 		selectedLocationId,
 		setSelectedLocationId,
 		isDisplayingHierarchy,

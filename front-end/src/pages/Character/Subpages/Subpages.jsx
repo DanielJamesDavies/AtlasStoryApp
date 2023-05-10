@@ -1,17 +1,17 @@
 // Packages
 
 // Components
-import { CharacterSubpagesBtns } from "./CharacterSubpagesBtns/CharacterSubpagesBtns";
+import { CharacterSubpagesBtns } from "./SubpagesBtns/SubpagesBtns";
 
 // Logic
-import { CharacterSubpagesLogic } from "./CharacterSubpagesLogic";
+import { CharacterSubpagesLogic } from "./SubpagesLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterSubpages.css";
+import "./Subpages.css";
 
 // Assets
 

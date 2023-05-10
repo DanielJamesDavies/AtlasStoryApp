@@ -4,14 +4,14 @@ import { FaChevronRight } from "react-icons/fa";
 // Components
 
 // Logic
-import { CharacterSectionSwitcherLogic } from "./CharacterSectionSwitcherLogic";
+import { CharacterSectionSwitcherLogic } from "./SectionSwitcherLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterSectionSwitcher.css";
+import "./SectionSwitcher.css";
 
 // Assets
 

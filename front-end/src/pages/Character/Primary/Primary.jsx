@@ -2,19 +2,19 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Components
-import { CharacterPrimaryName } from "./CharacterPrimaryName/CharacterPrimaryName";
-import { CharacterPrimaryType } from "./CharacterPrimaryType/CharacterPrimaryType";
-import { CharacterPrimaryVersion } from "./CharacterPrimaryVersion/CharacterPrimaryVersion";
+import { CharacterPrimaryName } from "./Name/Name";
+import { CharacterPrimaryType } from "./Type/Type";
+import { CharacterPrimaryVersion } from "./Version/Version";
 
 // Logic
-import { CharacterPrimaryLogic } from "./CharacterPrimaryLogic";
+import { CharacterPrimaryLogic } from "./PrimaryLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterPrimary.css";
+import "./Primary.css";
 
 // Assets
 

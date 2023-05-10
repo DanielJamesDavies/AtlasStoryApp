@@ -6,14 +6,14 @@ import { TextInput } from "../../../../components/TextInput/TextInput";
 import { ErrorMessage } from "../../../../components/ErrorMessage/ErrorMessage";
 
 // Logic
-import { CharacterPrimaryNameLogic } from "./CharacterPrimaryNameLogic";
+import { CharacterPrimaryNameLogic } from "./NameLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterPrimaryName.css";
+import "./Name.css";
 
 // Assets
 

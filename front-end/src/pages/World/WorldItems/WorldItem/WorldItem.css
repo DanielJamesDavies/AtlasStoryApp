@@ -15,6 +15,7 @@
 	justify-content: center;
 	align-items: center;
 
+	margin-top: -4px;
 	width: 100%;
 	height: 100%;
 	transition: 0.2s scale;
@@ -35,9 +36,9 @@
 	display: block;
 	content: "";
 	z-index: 1;
-	border-radius: 12px;
+	border-radius: 16px;
 	border-top-left-radius: 0;
-	border: 4px solid var(--colour-accent);
+	border: 6px solid var(--colour-accent);
 
 	width: 100%;
 	height: calc(100% - var(--frontFolderDown));
@@ -64,14 +65,14 @@
 .world-items-item-back-folder {
 	position: absolute;
 	top: 0;
-	left: -4px;
+	left: -6px;
 	display: block;
 	content: "";
 	border-radius: 24px;
 	border-top-right-radius: 0;
 
 	width: 48%;
-	height: 100%;
+	height: 64px;
 
 	background: var(--colour-accent);
 }
@@ -145,7 +146,7 @@
 
 @media (max-width: 680px) {
 	.world-items-item-container {
-		--frontFolderDown: 40px;
+		--frontFolderDown: 32px;
 		width: 95%;
 		height: 54vw;
 	}
@@ -165,7 +166,7 @@
 	.world-items-item-title {
 		position: relative;
 		z-index: 2;
-		margin-top: 10px;
+		margin-top: 6px;
 		margin-left: 24px;
 		font-size: 20px;
 	}

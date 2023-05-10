@@ -1,10 +1,10 @@
 // Packages
 
 // Components
-import { CharacterPrimary } from "./CharacterPrimary/CharacterPrimary";
-import { CharacterOverview } from "./CharacterOverview/CharacterOverview";
-import { CharacterSectionSwitcher } from "./CharacterSectionSwitcher/CharacterSectionSwitcher";
-import { CharacterSubpages } from "./CharacterSubpages/CharacterSubpages";
+import { CharacterPrimary } from "./Primary/Primary";
+import { CharacterOverview } from "./Overview/Overview";
+import { CharacterSectionSwitcher } from "./SectionSwitcher/SectionSwitcher";
+import { CharacterSubpages } from "./Subpages/Subpages";
 import { LoadingCircle } from "../../components/LoadingCircle/LoadingCircle";
 
 // Logic

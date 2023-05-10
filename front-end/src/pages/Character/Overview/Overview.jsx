@@ -1,18 +1,18 @@
 // Packages
 
 // Components
-import { CharacterOverviewSummaryItems } from "./CharacterOverviewSummaryItems/CharacterOverviewSummaryItems";
-import { CharacterOverviewDescription } from "./CharacterOverviewDescription/CharacterOverviewDescription";
+import { CharacterOverviewSummaryItems } from "./SummaryItems/SummaryItems";
+import { CharacterOverviewDescription } from "./Description/Description";
 
 // Logic
-import { CharacterOverviewLogic } from "./CharacterOverviewLogic";
+import { CharacterOverviewLogic } from "./OverviewLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterOverview.css";
+import "./Overview.css";
 
 // Assets
 import stars from "../../../content/stars.png";

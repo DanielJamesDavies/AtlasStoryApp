@@ -21,6 +21,7 @@ import { Details } from "./Details/Details";
 
 export const Menu = () => {
 	const {
+		locationsMenuContainerClassName,
 		selectedLocationId,
 		setSelectedLocationId,
 		isDisplayingHierarchy,
@@ -35,7 +36,7 @@ export const Menu = () => {
 
 	return (
 		<div
-			className={isDisplayingHierarchy ? "locations-menu-container locations-menu-container-is-displaying" : "locations-menu-container"}
+			className={locationsMenuContainerClassName}
 			onClick={() => {
 				if (selectedLocationId) {
 					setSelectedLocationId(false);

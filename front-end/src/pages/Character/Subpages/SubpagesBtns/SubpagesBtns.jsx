@@ -6,14 +6,14 @@ import { IconBtn } from "../../../../components/IconBtn/IconBtn";
 import { BtnListItem } from "../../../../components/BtnListItem/BtnListItem";
 
 // Logic
-import { CharacterSubpagesBtnsLogic } from "./CharacterSubpagesBtnsLogic";
+import { CharacterSubpagesBtnsLogic } from "./SubpagesBtnsLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterSubpagesBtns.css";
+import "./SubpagesBtns.css";
 
 // Assets
 

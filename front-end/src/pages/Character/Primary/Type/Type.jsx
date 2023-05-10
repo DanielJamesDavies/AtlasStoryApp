@@ -5,14 +5,14 @@ import { EditableContainer } from "../../../../components/EditableContainer/Edit
 import { DropdownContainer } from "../../../../components/DropdownContainer/DropdownContainer";
 
 // Logic
-import { CharacterPrimaryTypeLogic } from "./CharacterPrimaryTypeLogic";
+import { CharacterPrimaryTypeLogic } from "./TypeLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterPrimaryType.css";
+import "./Type.css";
 
 // Assets
 

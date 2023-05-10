@@ -15,7 +15,8 @@ import { LocationsContext } from "../../../../LocationsContext";
 // Assets
 
 export const HierarchyListItemLogic = ({ item, locationTypes }) => {
-	const { selectedLocationId, setSelectedLocationId, currentMapLocationId, setCurrentMapLocationId } = useContext(LocationsContext);
+	const { selectedLocationId, setSelectedLocationId, hoverMapLocationId, currentMapLocationId, setCurrentMapLocationId } =
+		useContext(LocationsContext);
 	const [icon, setIcon] = useState(null);
 
 	useEffect(() => {
@@ -69,5 +70,5 @@ export const HierarchyListItemLogic = ({ item, locationTypes }) => {
 		if (item?.type !== "reality") setCurrentMapLocationId(item._id);
 	}
 
-	return { selectedLocationId, currentMapLocationId, icon, onClickItem, onClickTravelToLocation };
+	return { selectedLocationId, hoverMapLocationId, currentMapLocationId, icon, onClickItem, onClickTravelToLocation };
 };

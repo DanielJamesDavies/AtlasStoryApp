@@ -6,7 +6,7 @@
 	padding: 16px;
 	z-index: 3;
 
-	width: calc(400px - (2 * 16px));
+	width: calc(100% - 8px - 46px - 2 * 16px);
 	height: var(--locationsHierarchyHeight);
 }
 
@@ -27,7 +27,7 @@
 }
 
 .locations-hierarchy-is-displaying-details {
-	--locationsHierarchyHeight: calc(var(--vh) * 0.4 - (2 * 16px));
+	--locationsHierarchyHeight: calc(var(--vh) * 0.25 - (2 * 16px));
 }
 
 .locations-hierarchy-mouse-over-map {

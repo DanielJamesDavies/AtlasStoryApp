@@ -9,14 +9,14 @@ import { TextInput } from "../../../../components/TextInput/TextInput";
 import { IconBtn } from "../../../../components/IconBtn/IconBtn";
 
 // Logic
-import { CharacterOverviewSummaryItemsLogic } from "./CharacterOverviewSummaryItemsLogic";
+import { CharacterOverviewSummaryItemsLogic } from "./SummaryItemsLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterOverviewSummaryItems.css";
+import "./SummaryItems.css";
 
 // Assets
 

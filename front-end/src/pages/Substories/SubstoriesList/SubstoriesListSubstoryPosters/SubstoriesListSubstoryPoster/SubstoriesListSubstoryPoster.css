@@ -6,7 +6,7 @@
 	--posterWidth: 340px;
 	--posterHeight: 510px;
 
-	margin: 0 12px;
+	margin: 0 16px;
 	margin-top: calc(24px + 4px);
 	margin-bottom: 12px;
 
@@ -214,8 +214,8 @@
 
 @media (max-width: 950px) {
 	.substories-list-substories-poster-container {
-		--posterWidth: 226px;
-		--posterHeight: 340px;
+		--posterWidth: calc(340 / 510 * (var(--vh) - var(--navbar-mobile-height) - 70px - 40px - 38px - 19px - 24px - 28px - 12px - 16px - 8px));
+		--posterHeight: calc(var(--vh) - var(--navbar-mobile-height) - 70px - 40px - 38px - 19px - 24px - 28px - 12px - 16px - 8px);
 
 		margin-left: 8px;
 		margin-right: 8px;

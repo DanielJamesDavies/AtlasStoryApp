@@ -6,14 +6,14 @@ import { Text } from "../../../../components/Text/Text";
 import { MultiLineTextInput } from "../../../../components/MultiLineTextInput/MultiLineTextInput";
 
 // Logic
-import { CharacterOverviewDescriptionLogic } from "./CharacterOverviewDescriptionLogic";
+import { CharacterOverviewDescriptionLogic } from "./DescriptionLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./CharacterOverviewDescription.css";
+import "./Description.css";
 
 // Assets
 
