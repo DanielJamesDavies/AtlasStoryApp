@@ -97,12 +97,13 @@ export const SubstoryLogic = () => {
 	const substoryPrimaryTitleRef = useRef();
 
 	return {
-		setSubstoryPrimaryPaddingTop,
+		substory,
 		substoryStyle,
 		isOnOverviewSection,
 		substoryContainerRef,
 		substoryOverviewContainerRef,
 		substorySubpagesContainerRef,
 		substoryPrimaryTitleRef,
+		setSubstoryPrimaryPaddingTop,
 	};
 };

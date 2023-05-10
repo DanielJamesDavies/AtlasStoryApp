@@ -241,8 +241,11 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const updateSubstorySoundtrackFromSpotify = useCallback(async () => {
 		const newSubstory = JSON.parse(JSON.stringify(substory));
 		const playlist_id = newSubstory?.data?.soundtrack?.playlist_id;
-		const old_tracks = newSubstory?.data?.soundtrack?.tracks;
-		if (!playlist_id || !old_tracks) return false;
+		if (!playlist_id) return false;
+
+		let old_tracks = JSON.parse(JSON.stringify(newSubstory))?.data?.soundtrack?.tracks;
+		if (substorySoundtrack) old_tracks = JSON.parse(JSON.stringify(substorySoundtrack))?.tracks;
+		if (!old_tracks) return false;
 
 		const response = await SpotifyRequest("/playlists/" + playlist_id, "GET");
 		if (!response || response?.errors) return false;
@@ -281,7 +284,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		);
 
 		setSubstorySoundtrack({ playlist_id, tracks });
-	}, [substory, SpotifyRequest]);
+	}, [substory, SpotifyRequest, substorySoundtrack]);
 
 	const old_spotify_tokens = useRef({});
 

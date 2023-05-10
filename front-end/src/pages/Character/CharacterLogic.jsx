@@ -122,6 +122,7 @@ export const CharacterLogic = () => {
 	}, [characterOverviewContainerRef, characterSubpagesContainerRef, isOnOverviewSection]);
 
 	return {
+		character,
 		characterStyle,
 		characterPrimaryRef,
 		isOnOverviewSection,

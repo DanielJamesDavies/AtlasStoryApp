@@ -21,6 +21,7 @@ import "./Substory.css";
 
 export const Substory = () => {
 	const {
+		substory,
 		substoryStyle,
 		isOnOverviewSection,
 		substoryContainerRef,
@@ -36,7 +37,7 @@ export const Substory = () => {
 			className={isOnOverviewSection ? "substory-container substory-container-is-on-overview" : "substory-container"}
 			style={substoryStyle ? substoryStyle : {}}
 		>
-			<div className={substoryStyle ? "substory" : "substory substory-hidden"}>
+			<div className={substory ? "substory" : "substory substory-hidden"}>
 				<SubstoryPrimary substoryPrimaryTitleRef={substoryPrimaryTitleRef} />
 				<div
 					className={

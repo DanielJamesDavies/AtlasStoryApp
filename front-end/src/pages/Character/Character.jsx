@@ -21,6 +21,7 @@ import "./Character.css";
 
 export const Character = () => {
 	const {
+		character,
 		characterStyle,
 		characterPrimaryRef,
 		isOnOverviewSection,
@@ -39,7 +40,7 @@ export const Character = () => {
 			}
 			style={characterStyle ? characterStyle : {}}
 		>
-			<div className={characterStyle ? "character" : "character character-hidden"}>
+			<div className={character ? "character" : "character character-hidden"}>
 				<CharacterPrimary characterPrimaryRef={characterPrimaryRef} />
 				<div
 					className={
