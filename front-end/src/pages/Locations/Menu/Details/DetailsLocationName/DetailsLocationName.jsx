@@ -25,6 +25,7 @@ export const DetailsLocationName = () => {
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertName}
 			onSave={saveName}
+			absolutePositionEditBtns={true}
 		>
 			<div className='locations-details-name'>
 				{locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.data?.name}

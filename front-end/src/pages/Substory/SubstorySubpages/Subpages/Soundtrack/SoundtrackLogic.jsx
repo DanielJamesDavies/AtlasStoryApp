@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 // Components
 
@@ -9,7 +9,6 @@ import { useContext, useRef } from "react";
 import { SubstoryContext } from "../../../SubstoryContext";
 import { APIContext } from "../../../../../context/APIContext";
 import { SpotifyContext } from "../../../../../context/SpotifyContext";
-import { useState } from "react";
 
 // Services
 
@@ -18,9 +17,30 @@ import { useState } from "react";
 // Assets
 
 export const SoundtrackLogic = () => {
-	const { isAuthorizedToEdit, story, substory, setSubstory, substorySoundtrack, setSubstorySoundtrack } = useContext(SubstoryContext);
+	const {
+		isAuthorizedToEdit,
+		story,
+		substory,
+		setSubstory,
+		openSubpageID,
+		substorySoundtrack,
+		setSubstorySoundtrack,
+		updateSubstorySoundtrackFromSpotify,
+	} = useContext(SubstoryContext);
 	const { APIRequest } = useContext(APIContext);
 	const { spotify_refresh_token } = useContext(SpotifyContext);
+
+	useEffect(() => {
+		const pathname = JSON.parse(JSON.stringify(document.location.pathname));
+		const interval = setInterval(() => {
+			if (pathname !== JSON.parse(JSON.stringify(document.location.pathname))) {
+				clearInterval(interval);
+				return false;
+			}
+			updateSubstorySoundtrackFromSpotify();
+		}, 5000);
+		return () => clearInterval(interval);
+	}, [openSubpageID, updateSubstorySoundtrackFromSpotify]);
 
 	async function revertSoundtrack() {
 		const response = await APIRequest("/substory/get-value/" + substory._id, "POST", {

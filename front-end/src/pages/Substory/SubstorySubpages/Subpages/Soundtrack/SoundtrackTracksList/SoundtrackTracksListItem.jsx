@@ -29,8 +29,11 @@ export const SoundtrackTracksListItem = ({ track, index, isEditing, changeTrackT
 				<div className='substory-subpage-soundtrack-track-artwork'>{!artwork ? null : <img src={artwork} alt='' />}</div>
 				<div className='substory-subpage-soundtrack-track-name-container'>
 					<div className='substory-subpage-soundtrack-track-name'>{track?.name}</div>
-					<div className='substory-subpage-soundtrack-track-artists'>{track?.artists}</div>
-					<div className='substory-subpage-soundtrack-track-album'>{track?.album}</div>
+					<div className='substory-subpage-soundtrack-track-sub-info'>
+						<div className='substory-subpage-soundtrack-track-artists'>{track?.artists}</div>
+						<div className='substory-subpage-soundtrack-track-sub-info-divider'>{!track?.artists || !track?.album ? null : "•"}</div>
+						<div className='substory-subpage-soundtrack-track-album'>{track?.album}</div>
+					</div>
 				</div>
 				<div className='substory-subpage-soundtrack-track-buttons-container'>
 					<IconBtn

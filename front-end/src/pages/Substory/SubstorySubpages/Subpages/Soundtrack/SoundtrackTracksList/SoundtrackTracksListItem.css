@@ -1,5 +1,5 @@
 .substory-subpage-soundtrack-track {
-	margin: 6px 0;
+	margin: 0;
 	width: 100%;
 }
 
@@ -7,9 +7,9 @@
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 6px;
-	padding: 6px 0;
+	padding: 7px 0;
 	border: 0;
-	border-radius: 8px;
+	border-radius: 4px;
 	outline: 0;
 
 	width: calc(50% - 6px);
@@ -17,8 +17,6 @@
 	background: var(--colour-grey-one);
 	color: var(--text-colour-primary);
 	text-align: left;
-	transition: background 0.1s;
-	cursor: pointer;
 }
 
 .substory-subpage-soundtrack-track:hover .substory-subpage-soundtrack-track-song {
@@ -33,7 +31,8 @@
 	display: inline-block;
 	vertical-align: middle;
 	flex-shrink: 0;
-	margin: 0 12px;
+	margin: 0 4px;
+	margin-right: 12px;
 	font-size: 14px;
 	font-weight: 400;
 	color: var(--text-colour-secondary);
@@ -42,12 +41,13 @@
 }
 
 .substory-subpage-soundtrack-track-artwork {
+	--artworkWidth: 40px;
+
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0 12px;
 	border-radius: 2px;
 
-	--artworkWidth: 48px;
 	min-width: var(--artworkWidth);
 	width: var(--artworkWidth);
 	min-height: var(--artworkWidth);
@@ -70,6 +70,17 @@
 
 .substory-subpage-soundtrack-track-name {
 	font-size: 13px;
+}
+
+.substory-subpage-soundtrack-track-sub-info {
+	display: flex;
+	gap: 0 4px;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.substory-subpage-soundtrack-track-sub-info-divider {
+	font-size: 8px;
 }
 
 .substory-subpage-soundtrack-track-artists {

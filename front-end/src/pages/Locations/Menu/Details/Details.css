@@ -18,18 +18,21 @@
 
 	display: block;
 	content: "";
+	border: 2px solid var(--colour-grey-two);
+	border-top: 0;
+	border-bottom: 0;
+	border-right: 0;
 
-	width: 100%;
+	width: calc(100% - 2px);
 	height: 100%;
 
-	background: var(--colour-grey-two);
-	opacity: 0.85;
+	background: var(--colour-grey-one);
 }
 
 .locations-details-container::after {
 	position: absolute;
 	z-index: -1;
-	top: 0;
+	top: -4px;
 	left: 0;
 	border-radius: 2px;
 
@@ -37,9 +40,9 @@
 	content: "";
 
 	width: 100%;
-	height: 1px;
+	height: 2px;
 
-	background: var(--colour-grey-four);
+	background: var(--colour-grey-two);
 }
 
 .locations-details {
