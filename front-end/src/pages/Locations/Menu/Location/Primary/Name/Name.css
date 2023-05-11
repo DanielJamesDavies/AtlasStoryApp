@@ -1,0 +1,16 @@
+.locations-location-name-container {
+	width: 100%;
+}
+
+.locations-location-name,
+.locations-location-name input {
+	--text-input-font-size: var(--font-size-p-l);
+	font-size: var(--font-size-p-l);
+	font-weight: 600;
+}
+
+.locations-location-name-container .locations-location-name {
+	display: flex;
+	align-items: center;
+	min-height: 26px;
+}

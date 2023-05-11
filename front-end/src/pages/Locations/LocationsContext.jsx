@@ -28,7 +28,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 		},
 	];
 
-	const { location, locationParams, changeLocation } = useContext(RoutesContext);
+	const { location, changeLocation } = useContext(RoutesContext);
 	const { APIRequest } = useContext(APIContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon, locations, setLocations } = useContext(StoryContext);
 	const { getItemFromIdInHierarchy, getInitialMapLocationItem } = HierarchyFunctions();
@@ -48,6 +48,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [playerSpeed, setPlayerSpeed] = useState(2);
 	const [isMouseOverMap, setIsMouseOverMap] = useState(false);
 	const [isMouseControllingPlayer, setIsMouseControllingPlayer] = useState(false);
+
+	const [openLocationSubpageID, setOpenLocationSubpageID] = useState("overview");
 
 	const scenesChangePlayerInitial = useRef([
 		{
@@ -79,10 +81,12 @@ const LocationsProvider = ({ children, story_uid }) => {
 
 	const [isDisplayingCreateHierarchyItemForm, setIsDisplayingCreateHierarchyItemForm] = useState(false);
 
-	const location_url_parameter = useRef(false);
+	const url_location = useRef(false);
 	useEffect(() => {
-		location_url_parameter.current = locationParams.find((e) => e.label === "l")?.value;
-	}, [locationParams]);
+		if (location.split("/").filter((e) => e.length !== 0).length > 3) {
+			url_location.current = location.split("/").filter((e) => e.length !== 0)[3];
+		}
+	}, [location]);
 
 	const curr_story_uid = useRef(false);
 	useEffect(() => {
@@ -111,9 +115,9 @@ const LocationsProvider = ({ children, story_uid }) => {
 			if (!story || !story?.data?.locationsHierarchy || story.data.locationsHierarchy.length === 0) return false;
 
 			let newCurrentMapLocationItem = false;
-			if (location_url_parameter.current) {
+			if (url_location.current) {
 				newCurrentMapLocationItem = getItemFromIdInHierarchy(
-					location_url_parameter.current,
+					url_location.current,
 					JSON.parse(JSON.stringify(story.data.locationsHierarchy))
 				);
 				if (newCurrentMapLocationItem?._id !== undefined) {
@@ -146,14 +150,14 @@ const LocationsProvider = ({ children, story_uid }) => {
 		setCurrentMapLocationId,
 		getItemFromIdInHierarchy,
 		getInitialMapLocationItem,
-		location_url_parameter,
+		url_location,
 	]);
 
 	useEffect(() => {
 		setHoverMapLocationId(false);
 		const storyUid = document.location.pathname.split("/").filter((e) => e.length !== 0)[1];
 		const isOnLocations = document.location.pathname.split("/").filter((e) => e.length !== 0)[2] === "locations";
-		if (isOnLocations && currentMapLocationId) changeLocation("/s/" + storyUid + "/locations?l=" + currentMapLocationId);
+		if (isOnLocations && currentMapLocationId) changeLocation("/s/" + storyUid + "/locations/" + currentMapLocationId);
 	}, [currentMapLocationId, changeLocation]);
 
 	const changeCameraRotation = useCallback(

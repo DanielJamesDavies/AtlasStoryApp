@@ -3,6 +3,7 @@ import { FaArrowRight, FaKeyboard, FaListUl } from "react-icons/fa";
 
 // Components
 import { Hierarchy } from "./Hierarchy/Hierarchy";
+import { LocationContainer } from "./Location/LocationContainer";
 import { ControlScheme } from "./ControlScheme/ControlScheme";
 import { Credits } from "./Credits/Credits.jsx";
 
@@ -15,7 +16,6 @@ import { MenuLogic } from "./MenuLogic";
 
 // Styles
 import "./Menu.css";
-import { Details } from "./Details/Details";
 
 // Assets
 
@@ -75,7 +75,7 @@ export const Menu = () => {
 			</div>
 			<ControlScheme isDisplayingControlScheme={isDisplayingControlScheme} />
 			<Hierarchy />
-			<Details />
+			<LocationContainer location_id={selectedLocationId} />
 		</div>
 	);
 };

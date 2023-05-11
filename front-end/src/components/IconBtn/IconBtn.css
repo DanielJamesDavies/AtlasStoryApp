@@ -63,11 +63,24 @@
 }
 
 .icon-btn-container-seamless .icon-btn {
-	min-width: 24px;
-	width: 24px;
-	min-height: 24px;
-	height: 24px;
+	--iconBtnWidth: 24px;
+	min-width: var(--iconBtnWidth);
+	width: var(--iconBtnWidth);
+	min-height: var(--iconBtnWidth);
+	height: var(--iconBtnWidth);
 	background: transparent;
+}
+
+.icon-btn-container-seamless.icon-btn-container-large .icon-btn {
+	--iconBtnWidth: 32px;
+}
+
+.icon-btn-container-seamless.icon-btn-container-small .icon-btn {
+	--iconBtnWidth: 18px;
+}
+
+.icon-btn-container-seamless.icon-btn-container-extra-small .icon-btn {
+	--iconBtnWidth: 16px;
 }
 
 .icon-btn-container-seamless .icon-btn:hover,
@@ -89,20 +102,6 @@
 .icon-btn-container-has-hover-icon .icon-btn:hover .icon-btn-hover-icon-container svg,
 .icon-btn-container-has-hover-icon .icon-btn:focus .icon-btn-hover-icon-container svg {
 	display: block;
-}
-
-.icon-btn-container-seamless.icon-btn-container-large .icon-btn {
-	min-width: 32px;
-	width: 32px;
-	min-height: 32px;
-	height: 32px;
-}
-
-.icon-btn-container-seamless.icon-btn-container-small .icon-btn {
-	min-width: 18px;
-	width: 18px;
-	min-height: 18px;
-	height: 18px;
 }
 
 .icon-btn-container-seamless svg {

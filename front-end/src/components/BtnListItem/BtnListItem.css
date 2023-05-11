@@ -67,6 +67,22 @@
 	font-size: 14px;
 }
 
+.btn-list-item-size-xs {
+	padding: 3px 11px;
+	border-width: 1px;
+	border-radius: 8px;
+	min-height: 22px;
+}
+
+.btn-list-item-size-xs .btn-list-item-value {
+	margin-top: 0;
+}
+
+.btn-list-item-size-xs .btn-list-item-value,
+.btn-list-item-size-xs .btn-list-item-value input {
+	font-size: 12px;
+}
+
 .btn-list-item-btns-container {
 	display: flex;
 	flex-direction: column;

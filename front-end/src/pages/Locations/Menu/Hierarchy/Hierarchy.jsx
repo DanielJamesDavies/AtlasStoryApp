@@ -24,8 +24,8 @@ export const Hierarchy = () => {
 			className={
 				selectedLocationId
 					? isMouseOverMap
-						? "locations-hierarchy locations-hierarchy-is-displaying-details locations-hierarchy-mouse-over-map"
-						: "locations-hierarchy locations-hierarchy-is-displaying-details"
+						? "locations-hierarchy locations-hierarchy-is-displaying-location locations-hierarchy-mouse-over-map"
+						: "locations-hierarchy locations-hierarchy-is-displaying-location"
 					: isMouseOverMap
 					? "locations-hierarchy locations-hierarchy-mouse-over-map"
 					: "locations-hierarchy"

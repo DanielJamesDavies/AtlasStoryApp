@@ -25,6 +25,9 @@ export const IconBtnLogic = ({ className, seamless, size, iconName, iconHover, i
 			if (iconHover) newClassName += " icon-btn-container-has-hover-icon";
 
 			switch (size) {
+				case "xs":
+					newClassName += " icon-btn-container-extra-small";
+					break;
 				case "s":
 					newClassName += " icon-btn-container-small";
 					break;

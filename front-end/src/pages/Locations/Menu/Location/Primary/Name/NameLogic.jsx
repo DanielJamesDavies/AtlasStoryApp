@@ -6,8 +6,8 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { LocationsContext } from "../../../LocationsContext";
-import { APIContext } from "../../../../../context/APIContext";
+import { LocationsContext } from "../../../../LocationsContext";
+import { APIContext } from "../../../../../../context/APIContext";
 
 // Services
 
@@ -15,20 +15,20 @@ import { APIContext } from "../../../../../context/APIContext";
 
 // Assets
 
-export const DetailsLocationRotationLogic = () => {
+export const LocationNameLogic = () => {
 	const { isAuthorizedToEdit, story, locations, setLocations, selectedLocationId } = useContext(LocationsContext);
 	const { APIRequest } = useContext(APIContext);
 
-	function changeRotation(e, newValue) {
+	function changeName(e) {
 		e.stopPropagation();
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].rotation = newValue;
+		newLocations[locationIndex].data.name = e.target.value;
 		setLocations(newLocations);
 	}
 
-	async function revertRotation(e) {
+	async function revertName(e) {
 		e.stopPropagation();
 		if (!story?._id) return false;
 
@@ -36,19 +36,19 @@ export const DetailsLocationRotationLogic = () => {
 
 		const story_response = await APIRequest("/location/get-value/" + newSelectedLocationId, "POST", {
 			story_id: story._id,
-			path: ["rotation"],
+			path: ["data", "name"],
 		});
 		if (!story_response || story_response?.errors || story_response?.data?.value === undefined) return false;
 
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].rotation = story_response?.data?.value;
+		newLocations[locationIndex].data.name = story_response?.data?.value;
 		setLocations(newLocations);
 
 		return true;
 	}
 
-	async function saveRotation(e) {
+	async function saveName(e) {
 		e.stopPropagation();
 		if (!story?._id) return false;
 
@@ -58,12 +58,12 @@ export const DetailsLocationRotationLogic = () => {
 
 		const response = await APIRequest("/location/" + newSelectedLocationId, "PATCH", {
 			story_id: story._id,
-			newValue: locations[locationIndex]?.rotation,
-			path: ["rotation"],
+			newValue: locations[locationIndex]?.data?.name,
+			path: ["data", "name"],
 		});
 		if (!response || response?.errors) return false;
 		return true;
 	}
 
-	return { isAuthorizedToEdit, locations, selectedLocationId, changeRotation, revertRotation, saveRotation };
+	return { isAuthorizedToEdit, locations, selectedLocationId, changeName, revertName, saveName };
 };

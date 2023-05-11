@@ -1,0 +1,32 @@
+.locations-location-title-container {
+	display: flex;
+	gap: 0 2px;
+	align-items: center;
+	margin-top: -2px;
+	margin-bottom: 2px;
+}
+
+.locations-location-title-container,
+.locations-location-title-close-btn .icon-btn {
+	color: var(--text-colour-tertiary);
+}
+
+.locations-location-title-label {
+	margin-top: 2px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.locations-location-title-close-btn {
+	margin-left: auto;
+}
+
+.locations-location-title-close-btn .icon-btn:hover {
+	color: var(--text-colour-primary);
+}
+
+@media (max-width: 768px) {
+	.locations-location-title-container {
+		margin-top: 2px;
+	}
+}

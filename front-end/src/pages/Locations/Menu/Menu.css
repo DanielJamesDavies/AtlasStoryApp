@@ -2,7 +2,7 @@
 	position: absolute;
 	z-index: 2;
 	right: -400px;
-	width: calc(400px + 8px + 46px);
+	width: calc(400px + 8px + 44px);
 	height: 100%;
 	transition: 0.2s;
 }
@@ -28,12 +28,14 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 12px;
+	padding: 10px;
+	border: 1px solid var(--colour-grey-four);
 	border-radius: 100%;
 
+	width: 22px;
 	height: 22px;
 
-	background: var(--colour-grey-three);
+	background: var(--colour-grey-one);
 	font-size: 22px;
 	cursor: pointer;
 	transition: 0.2s;
@@ -41,6 +43,10 @@
 
 .locations-menu-btn:hover {
 	background: var(--colour-grey-four);
+}
+
+.locations-menu-container:not(.locations-menu-container-is-displaying) .locations-menu-toggle-hierarchy-visible-btn {
+	font-size: 20px;
 }
 
 .locations-menu-speed-container {
@@ -55,8 +61,8 @@
 	justify-content: center;
 	align-items: center;
 	margin: -6px 0;
-	width: 46px;
-	height: 46px;
+	width: 44px;
+	height: 44px;
 	font-size: 32px;
 	background: transparent;
 	cursor: pointer;

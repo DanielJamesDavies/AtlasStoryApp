@@ -1,9 +1,9 @@
 // Packages
 
 // Components
-import { ColourPicker } from "../../../../../components/ColourPicker/ColourPicker";
-import { DropdownContainer } from "../../../../../components/DropdownContainer/DropdownContainer";
-import { ToggleInput } from "../../../../../components/ToggleInput/ToggleInput";
+import { ColourPicker } from "../../../../../../../../../components/ColourPicker/ColourPicker";
+import { DropdownContainer } from "../../../../../../../../../components/DropdownContainer/DropdownContainer";
+import { ToggleInput } from "../../../../../../../../../components/ToggleInput/ToggleInput";
 
 // Logic
 
@@ -12,11 +12,11 @@ import { ToggleInput } from "../../../../../components/ToggleInput/ToggleInput";
 // Services
 
 // Styles
-import "./DetailsLocationPath.css";
+import "./Path.css";
 
 // Assets
 
-export const DetailsLocationPath = ({
+export const LocationPath = ({
 	path,
 	index,
 	locations,

@@ -1,28 +1,29 @@
 // Packages
 
 // Components
-import { EditableContainer } from "../../../../../components/EditableContainer/EditableContainer";
-import { DetailsLocationPath } from "./DetailsLocationPath";
+import { EditableContainer } from "../../../../../../../../components/EditableContainer/EditableContainer";
+import { LocationPath } from "./Path/Path";
 
 // Logic
-import { DetailsLocationPathsLogic } from "./DetailsLocationPathsLogic";
+import { LocationPathsLogic } from "./PathsLogic";
 
 // Context
 
 // Services
-import { HierarchyFunctions } from "../../../HierarchyFunctions";
+import { HierarchyFunctions } from "../../../../../../HierarchyFunctions";
 
 // Styles
-import "./DetailsLocationPaths.css";
+import "./Paths.css";
 
 // Assets
 
-export const DetailsLocationPaths = () => {
+export const LocationPaths = () => {
 	const {
 		isAuthorizedToEdit,
+		location_id,
 		story,
 		locations,
-		selectedLocationId,
+		location,
 		changePathFrom,
 		changePathTo,
 		togglePathIsMajor,
@@ -30,10 +31,10 @@ export const DetailsLocationPaths = () => {
 		addPath,
 		revertPaths,
 		savePaths,
-	} = DetailsLocationPathsLogic();
+	} = LocationPathsLogic();
 	const { getItemFromIdInHierarchy } = HierarchyFunctions();
 
-	if (!["starCluster"].includes(locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.type)) return null;
+	if (!["starCluster"].includes(location?.type)) return null;
 	return (
 		<EditableContainer
 			className='locations-details-paths-container'
@@ -44,17 +45,17 @@ export const DetailsLocationPaths = () => {
 		>
 			<div className='locations-details-paths'>
 				<div className='locations-details-paths-title'>Paths</div>
-				{locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.paths?.length === 0 ? null : (
+				{location?.paths?.length === 0 ? null : (
 					<div className='locations-details-paths-list'>
 						{locations
-							.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))
+							.find((e) => JSON.stringify(e?._id) === JSON.stringify(location_id))
 							?.paths.map((path, index) => (
-								<DetailsLocationPath
+								<LocationPath
 									key={index}
 									path={path}
 									index={index}
 									locations={locations}
-									selectedLocationHierarchyItem={getItemFromIdInHierarchy(selectedLocationId, story?.data?.locationsHierarchy)}
+									selectedLocationHierarchyItem={getItemFromIdInHierarchy(location_id, story?.data?.locationsHierarchy)}
 									isEditing={false}
 								/>
 							))}
@@ -63,17 +64,17 @@ export const DetailsLocationPaths = () => {
 			</div>
 			<div className='locations-details-paths'>
 				<div className='locations-details-paths-title'>Paths</div>
-				{locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.paths?.length === 0 ? null : (
+				{location?.paths?.length === 0 ? null : (
 					<div className='locations-details-paths-list'>
 						{locations
-							.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))
+							.find((e) => JSON.stringify(e?._id) === JSON.stringify(location_id))
 							?.paths.map((path, index) => (
-								<DetailsLocationPath
+								<LocationPath
 									key={index}
 									path={path}
 									index={index}
 									locations={locations}
-									selectedLocationHierarchyItem={getItemFromIdInHierarchy(selectedLocationId, story?.data?.locationsHierarchy)}
+									selectedLocationHierarchyItem={getItemFromIdInHierarchy(location_id, story?.data?.locationsHierarchy)}
 									isEditing={true}
 									changePathFrom={changePathFrom}
 									changePathTo={changePathTo}

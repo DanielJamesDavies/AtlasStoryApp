@@ -6,7 +6,7 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { LocationsContext } from "../../../LocationsContext";
+import { LocationsContext } from "../../../../LocationsContext";
 
 // Services
 
@@ -14,7 +14,7 @@ import { LocationsContext } from "../../../LocationsContext";
 
 // Assets
 
-export const DetailsLocationTypeLogic = () => {
+export const LocationTypeLogic = () => {
 	const { locationTypes, locations, selectedLocationId } = useContext(LocationsContext);
 
 	return { locationTypes, locations, selectedLocationId };

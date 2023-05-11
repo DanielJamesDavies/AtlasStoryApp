@@ -1,9 +1,9 @@
-.locations-details-type {
+.locations-location-type {
 	display: flex;
 	padding: 6px 0;
 	font-size: var(--font-size-p-m);
 }
 
-.locations-details-type-value {
+.locations-location-type-value {
 	font-weight: 600;
 }
