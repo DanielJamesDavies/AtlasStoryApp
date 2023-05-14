@@ -1,8 +1,8 @@
 // Packages
 
 // Components
-import { SubstoryOverviewSummaryItems } from "./SubstoryOverviewSummaryItems";
-import { SubstoryOverviewDescription } from "./SubstoryOverviewDescription";
+import { SubstoryOverviewSummaryItems } from "./SummaryItems/SummaryItems";
+import { SubstoryOverviewDescription } from "./Description/Description";
 
 // Logic
 import { SubstoryOverviewLogic } from "./SubstoryOverviewLogic";

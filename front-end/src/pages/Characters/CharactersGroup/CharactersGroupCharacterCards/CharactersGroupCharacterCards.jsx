@@ -44,7 +44,12 @@ export const CharactersGroupCharacterCards = () => {
 						onDropItem={changeCharactersOrder}
 					>
 						{group?.data?.characters.map((character, index) => (
-							<DragDropItem key={index} index={index} className='characters-group-character-card-container'>
+							<DragDropItem
+								key={index}
+								index={index}
+								dragDropListId='characters-group-characters-cards'
+								className='characters-group-character-card-container'
+							>
 								<CharactersGroupCharacterCard characterID={character.character_id} />
 							</DragDropItem>
 						))}

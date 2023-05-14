@@ -28,25 +28,50 @@ export const CharactersGroupCharacterCardsLogic = () => {
 
 	// Reorder Characters
 	async function changeCharactersOrder(res) {
-		let newStory = JSON.parse(JSON.stringify(story));
-		let newGroups = JSON.parse(JSON.stringify(storyGroups));
-		const openGroup = newGroups.findIndex((e) => e._id === group._id);
-
-		if (openGroup === -1) return;
-		if (!newGroups[openGroup]?.data?.characters) return;
 		if (res.from === undefined || res.to === undefined) return;
 
-		const tempCharacter = newGroups[openGroup].data.characters.splice(res.from, 1)[0];
-		newGroups[openGroup].data.characters.splice(res.to, 0, tempCharacter);
+		let newStory = JSON.parse(JSON.stringify(story));
+		let newGroups = JSON.parse(JSON.stringify(storyGroups));
+		const openGroup = JSON.parse(JSON.stringify(newGroups.findIndex((e) => e._id === group._id)));
+		if (openGroup === -1) return;
+		if (!newGroups[openGroup]?.data?.characters) return;
 
-		setStoryGroups(newGroups);
-		changeGroup(newGroups[openGroup]._id, newGroups);
+		if (res.listId === undefined) {
+			const tempCharacter = newGroups[openGroup].data.characters.splice(res.from, 1)[0];
+			newGroups[openGroup].data.characters.splice(res.to, 0, tempCharacter);
 
-		await APIRequest("/group/" + newGroups[openGroup]._id, "PATCH", {
-			story_id: newStory._id,
-			path: ["data", "characters"],
-			newValue: newGroups[openGroup].data.characters,
-		});
+			setStoryGroups(newGroups);
+			changeGroup(newGroups[openGroup]._id, newGroups);
+
+			await APIRequest("/group/" + newGroups[openGroup]._id, "PATCH", {
+				story_id: newStory._id,
+				path: ["data", "characters"],
+				newValue: newGroups[openGroup].data.characters,
+			});
+		} else if (res.listId === "characters-groups-group-items") {
+			const tempCharacter = newGroups[openGroup].data.characters.splice(res.from, 1)[0];
+			newGroups[res.to].data.characters.push(tempCharacter);
+			setStoryGroups(newGroups);
+			changeGroup(newGroups[openGroup]._id, newGroups);
+
+			await APIRequest("/group/" + newGroups[openGroup]._id, "PATCH", {
+				story_id: newStory._id,
+				path: ["data", "characters"],
+				newValue: newGroups[openGroup].data.characters,
+			});
+
+			await APIRequest("/group/" + newGroups[res.to]._id, "PATCH", {
+				story_id: newStory._id,
+				path: ["data", "characters"],
+				newValue: newGroups[res.to].data.characters,
+			});
+
+			await APIRequest("/character/" + tempCharacter?.character_id, "PATCH", {
+				story_id: newStory._id,
+				path: ["group_id"],
+				newValue: newGroups[res.to]._id,
+			});
+		}
 	}
 
 	return { group, isReorderingCharacters, changeCharactersOrder };

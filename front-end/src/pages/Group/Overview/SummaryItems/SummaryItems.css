@@ -57,10 +57,6 @@
 	margin-bottom: 3px;
 }
 
-.group-overview-summary-item-label.text-input-container-empty .text-input {
-	height: 16px;
-}
-
 .group-overview-summary-item-label .text-input-label {
 	margin-top: -4px;
 	font-size: var(--font-size-p-s);

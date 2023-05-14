@@ -1,19 +1,19 @@
 // Packages
 
 // Components
-import { EditableContainer } from "../../../components/EditableContainer/EditableContainer";
-import { Text } from "../../../components/Text/Text";
-import { MultiLineTextInput } from "../../../components/MultiLineTextInput/MultiLineTextInput";
+import { EditableContainer } from "../../../../components/EditableContainer/EditableContainer";
+import { Text } from "../../../../components/Text/Text";
+import { MultiLineTextInput } from "../../../../components/MultiLineTextInput/MultiLineTextInput";
 
 // Logic
-import { SubstoryOverviewDescriptionLogic } from "./SubstoryOverviewDescriptionLogic";
+import { SubstoryOverviewDescriptionLogic } from "./DescriptionLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./SubstoryOverviewDescription.css";
+import "./Description.css";
 
 // Assets
 

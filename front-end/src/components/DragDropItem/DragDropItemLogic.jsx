@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from "react";
 export const DragDropItemLogic = ({
 	index,
 	orderIndex,
+	dragDropListId,
 	className,
 	inlineItems,
 	enableDragDrop,
@@ -152,8 +153,19 @@ export const DragDropItemLogic = ({
 	function onDragEnd(e) {
 		e.stopPropagation();
 		if (!enableDragDrop) return;
+
+		const elementsOver = document.elementsFromPoint(e.clientX, e.clientY);
+		const dragDropListIds = elementsOver.map((element) => element?.getAttribute("drag-drop-list-id")).filter((e) => e);
+		if (dragDropListIds?.length === 0 || dragDropListIds[0] === dragDropListId) {
+			onDropItem(currentDraggingItem === null ? {} : JSON.parse(JSON.stringify(changedOrder)));
+		} else {
+			const dragKey = parseInt(elementsOver.map((element) => element?.getAttribute("drag-key")).filter((e) => e));
+			if (dragKey !== undefined && !isNaN(dragKey)) {
+				onDropItem({ from: currentDraggingItem, to: dragKey, listId: dragDropListIds[0] });
+			}
+		}
+
 		setCurrentDraggingItem(null);
-		onDropItem(currentDraggingItem === null ? {} : JSON.parse(JSON.stringify(changedOrder)));
 		setChangedOrder(null);
 		setIsUsingTouch(false);
 	}

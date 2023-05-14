@@ -6,8 +6,8 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { SubstoryContext } from "../SubstoryContext";
-import { APIContext } from "../../../context/APIContext";
+import { SubstoryContext } from "../../SubstoryContext";
+import { APIContext } from "../../../../context/APIContext";
 
 // Services
 

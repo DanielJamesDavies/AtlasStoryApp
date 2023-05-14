@@ -16,6 +16,7 @@ export const DragDropItem = ({
 	children,
 	index,
 	orderIndex,
+	dragDropListId,
 	className,
 	inlineItems,
 	enableDragDrop,
@@ -32,6 +33,7 @@ export const DragDropItem = ({
 	const { dragDropItemClassName, dragDropItemRef, onDragStart, onDragEnd, onDragEnter } = DragDropItemLogic({
 		index,
 		orderIndex,
+		dragDropListId,
 		className,
 		inlineItems,
 		enableDragDrop,
@@ -49,6 +51,7 @@ export const DragDropItem = ({
 	return (
 		<div
 			ref={dragDropItemRef}
+			drag-drop-list-id={dragDropListId}
 			drag-key={index}
 			className={dragDropItemClassName}
 			onDragStart={onDragStart}

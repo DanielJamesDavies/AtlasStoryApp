@@ -87,7 +87,12 @@ export const CharactersGroups = () => {
 							onDropItem={changeGroupsOrder}
 						>
 							{story.data.groups.map((groupID, index) => (
-								<DragDropItem key={index} index={index} className='characters-groups-group-item-container'>
+								<DragDropItem
+									key={index}
+									index={index}
+									dragDropListId='characters-groups-group-items'
+									className='characters-groups-group-item-container'
+								>
 									<BtnListItem
 										value={storyGroups.find((e) => e._id === groupID)?.data?.name}
 										index={index}
