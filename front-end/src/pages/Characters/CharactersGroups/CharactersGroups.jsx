@@ -36,7 +36,16 @@ export const CharactersGroups = () => {
 	} = CharactersGroupsLogic();
 
 	return (
-		<div className='characters-groups-container'>
+		<div
+			className='characters-groups-container'
+			style={{
+				"--characters-groups-active-group-colour": !group?.data?.colour
+					? !story?.data?.colour
+						? "#0044ff"
+						: story?.data?.colour
+					: group?.data?.colour,
+			}}
+		>
 			<ContentItem className='characters-groups'>
 				<div className='characters-groups-primary'>
 					<div className='characters-groups-primary-title'>Groups</div>

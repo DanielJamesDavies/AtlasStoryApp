@@ -23,7 +23,16 @@ export const CharactersGroup = () => {
 	const { isAuthorizedToEdit, story, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters } = CharactersGroupLogic();
 
 	return (
-		<div className='characters-group-container'>
+		<div
+			className='characters-group-container'
+			style={{
+				"--characters-group-active-group-colour": !group?.data?.colour
+					? !story?.data?.colour
+						? "#0044ff"
+						: story?.data?.colour
+					: group?.data?.colour,
+			}}
+		>
 			<ContentItem className='characters-group'>
 				<div className='characters-group-primary'>
 					<div className='characters-group-primary-title'>{group?.data?.name}</div>

@@ -50,7 +50,7 @@
 }
 
 .characters-groups-group-item-container .btn-list-item-active {
-	background: var(--colour-accent);
+	background: var(--characters-groups-active-group-colour);
 	color: #fff;
 }
 

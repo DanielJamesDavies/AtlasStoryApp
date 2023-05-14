@@ -53,6 +53,7 @@ export const NavigationBarLogic = () => {
 					if (
 						(locationSplit.length === 3 && locationSplit[2] === "characters") ||
 						(locationSplit.length === 4 && locationSplit[2] === "c") ||
+						(locationSplit.length === 4 && locationSplit[2] === "g") ||
 						(locationSplit.length === 4 && locationSplit[2] === "characters" && locationSplit[3] === "notes")
 					) {
 						newBtnClassName += " navigation-bar-btn-active";
