@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect, useRef } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 import { APIContext } from "../../context/APIContext";
 import { RoutesContext } from "../../context/RoutesContext";
@@ -34,19 +34,28 @@ const CharactersProvider = ({ children, story_uid }) => {
 	const [selectedCharacterRelationshipsCharacterId, setSelectedCharacterRelationshipsCharacterId] = useState(false);
 	const [relationshipsFilters, setRelationshipsFilters] = useState(false);
 
-	const curr_story_uid = useRef(false);
 	useEffect(() => {
 		async function getInitial() {
 			if (!story_uid) return setStateToDefault();
-			if (curr_story_uid.current === story_uid) return;
 			if (!story || story.uid !== story_uid) return;
 
 			// Document Title
 			updateDocumentTitle();
 			setTimeout(() => updateDocumentTitle(), 1000);
 
-			if (storyGroups.length > 0) setGroup(storyGroups[0]);
-			if (storyCharacterTypes.length > 0) setCharacterType(storyCharacterTypes[0]);
+			if (storyGroups.length > 0) {
+				setGroup((oldGroup) => {
+					const currStoryIndex = storyGroups.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(oldGroup._id));
+					return storyGroups[currStoryIndex === -1 ? 0 : currStoryIndex];
+				});
+			}
+
+			if (storyCharacterTypes.length > 0) {
+				setCharacterType((oldCharacterType) => {
+					const currTypeIndex = storyCharacterTypes.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(oldCharacterType._id));
+					return storyCharacterTypes[currTypeIndex === -1 ? 0 : currTypeIndex];
+				});
+			}
 		}
 
 		function updateDocumentTitle() {
@@ -68,7 +77,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 		}
 
 		getInitial();
-	}, [location, story_uid, APIRequest, curr_story_uid, story, storyGroups, setGroup, storyCharacterTypes, setCharacterType]);
+	}, [location, story_uid, APIRequest, story, storyGroups, setGroup, storyCharacterTypes, setCharacterType]);
 
 	const [isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm] = useState(false);
 	const [isReorderingGroups, setIsReorderingGroups] = useState(false);
