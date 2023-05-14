@@ -1,0 +1,44 @@
+.group-subpage-settings-versions-container .label-value {
+	margin-top: 6px;
+}
+
+.group-subpage-settings-versions-item .content-item {
+	margin-left: 0;
+	margin-right: 0;
+	padding-top: 13px;
+}
+
+.group-subpage-settings-versions-container .editable-container-is-editing .group-subpage-settings-versions-item .content-item {
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.group-subpage-settings-versions-item,
+.group-subpage-settings-versions-item input {
+	font-size: 14px;
+}
+
+.group-subpage-settings-versions-item-title {
+	margin-top: -2px;
+}
+
+.editable-container-is-editing .group-subpage-settings-versions-item-title {
+	width: calc(100% - 32px);
+}
+
+.group-subpage-settings-versions-item .text-input-container {
+	margin-top: -2px;
+	height: 17px;
+}
+
+.group-subpage-settings-versions-item .text-input-container-empty .text-input-label {
+	padding: 0;
+}
+
+.drag-drop-item-enable-drag-drop.group-subpage-settings-versions-item {
+	animation: wiggle-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).group-subpage-settings-versions-item {
+	animation-delay: 0.1s;
+}

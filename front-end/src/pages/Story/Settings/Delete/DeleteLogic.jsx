@@ -17,7 +17,7 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const DeleteLogic = () => {
-	const { isAuthorizedToEdit, story, isDisplayingSettings } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, isDisplayingSettings, setIsDisplayingSettings } = useContext(StoryContext);
 	const { APIRequest, username } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 
@@ -31,6 +31,7 @@ export const DeleteLogic = () => {
 			if (response?.errors) setErrors(response.errors);
 			return false;
 		}
+		setIsDisplayingSettings(false);
 		changeLocation("/u/" + username);
 		return true;
 	}

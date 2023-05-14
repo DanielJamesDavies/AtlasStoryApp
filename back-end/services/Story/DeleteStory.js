@@ -1,11 +1,12 @@
 const jwt_decode = require("jwt-decode");
 
 const Story = require("../../models/Story");
+const StoryFollow = require("../../models/StoryFollow");
 const User = require("../../models/User");
 const Character = require("../../models/Character");
 const CharacterType = require("../../models/CharacterType");
 const Group = require("../../models/Group");
-const StoryFollow = require("../../models/StoryFollow");
+const Location = require("../../models/Location");
 
 const deleteImagesByKey = require("../Image/deleteImagesByKey");
 
@@ -50,6 +51,10 @@ module.exports = async (req, res) => {
 	const deleteStoryGroupsResult = await deleteStoryGroups(story._id);
 	if (deleteStoryGroupsResult?.errors) return res.status(200).send({ errors: deleteStoryGroupsResult.errors });
 
+	// Delete Locations
+	const deleteStoryLocationsResult = await deleteStoryLocations(story._id);
+	if (deleteStoryLocationsResult?.errors) return res.status(200).send({ errors: deleteStoryLocationsResult.errors });
+
 	// Delete Story
 	try {
 		const storyDeleteResult = await Story.deleteOne({ _id: story._id });
@@ -88,6 +93,15 @@ async function deleteStoryGroups(story_id) {
 		await Group.deleteMany({ story_id });
 	} catch (error) {
 		return { errors: [{ message: "Groups Could Not Be Deleted" }] };
+	}
+	return {};
+}
+
+async function deleteStoryLocations(story_id) {
+	try {
+		await Location.deleteMany({ story_id });
+	} catch (error) {
+		return { errors: [{ message: "Locations Could Not Be Deleted" }] };
 	}
 	return {};
 }

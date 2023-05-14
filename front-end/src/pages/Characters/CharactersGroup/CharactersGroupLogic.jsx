@@ -27,5 +27,5 @@ export const CharactersGroupLogic = () => {
 		setIsDisplayingCreateCharacterForm(true);
 	}
 
-	return { isAuthorizedToEdit, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters };
+	return { isAuthorizedToEdit, story, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters };
 };

@@ -105,6 +105,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				if (oldCharacter._id === character_response.data.character._id) return oldCharacter;
 				return character_response.data.character;
 			});
+			curr_character_uid.current = character_response.data.character?.uid;
 			return character_response.data.character;
 		}
 

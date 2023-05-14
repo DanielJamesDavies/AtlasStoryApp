@@ -1,0 +1,26 @@
+.group-subpage-settings-section-1 {
+	display: inline-block;
+	margin-right: -4px;
+	width: calc(45% + 4px);
+	vertical-align: top;
+}
+
+.group-subpage-settings-section-2 {
+	display: inline-block;
+	margin-left: -4px;
+	width: calc(55% + 4px);
+	vertical-align: top;
+}
+
+@media (max-width: 1100px) {
+	.group-subpage-settings-section-1,
+	.group-subpage-settings-section-2 {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+
+	.group-subpage-settings-section-2 {
+		margin-top: -8px;
+	}
+}

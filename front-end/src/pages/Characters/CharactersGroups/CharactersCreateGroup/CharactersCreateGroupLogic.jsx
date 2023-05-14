@@ -8,7 +8,6 @@ import { useContext, useState } from "react";
 // Context
 import { CharactersContext } from "../../CharactersContext";
 import { APIContext } from "../../../../context/APIContext";
-import { RoutesContext } from "../../../../context/RoutesContext";
 
 // Services
 
@@ -17,7 +16,8 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const CharactersCreateGroupLogic = () => {
-	const { story_uid, story, isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm } = useContext(CharactersContext);
+	const { story_uid, story, setStory, setStoryGroups, isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm } =
+		useContext(CharactersContext);
 
 	function closeCreateGroupForm() {
 		setIsDisplayingCreateGroupForm(false);
@@ -52,21 +52,38 @@ export const CharactersCreateGroupLogic = () => {
 	}
 
 	const { APIRequest } = useContext(APIContext);
-	const { changeLocation } = useContext(RoutesContext);
 	const [errors, setErrors] = useState([]);
 
 	async function submitCreateGroup() {
 		const currStory = JSON.parse(JSON.stringify(story));
-		if (!currStory?._id) return;
+		if (!currStory?._id) return false;
 
 		const response = await APIRequest("/group", "POST", {
 			story_id: currStory._id,
 			name: JSON.parse(JSON.stringify(groupName)),
 			uid: JSON.parse(JSON.stringify(groupUID)),
 		});
-		if (!response) return;
 		if (response?.errors) return setErrors(response.errors);
-		if (currStory?.uid && response?.data?.group_uid) changeLocation("/s/" + currStory.uid + "/g/" + response.data.group_uid);
+		if (!response || !response?.data?.group?._id) return false;
+
+		setIsDisplayingCreateGroupForm(false);
+		setGroupUIDSuggestions([]);
+		setGroupName("");
+		setGroupUID("");
+		setErrors([]);
+
+		setStory((oldStory) => {
+			let newStory = JSON.parse(JSON.stringify(oldStory));
+			if (!newStory.data.groups) newStory.data.groups = [];
+			newStory.data.groups.push(response?.data?.group?._id);
+			return newStory;
+		});
+
+		setStoryGroups((oldStoryGroups) => {
+			let newStoryGroups = JSON.parse(JSON.stringify(oldStoryGroups));
+			newStoryGroups.push(response?.data?.group);
+			return newStoryGroups;
+		});
 	}
 
 	return {

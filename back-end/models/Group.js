@@ -26,6 +26,78 @@ const GroupSchema = mongoose.Schema({
 				],
 				default: [],
 			},
+			summaryItems: {
+				type: [{ label: { type: String, default: "" }, text: { type: String, default: "" } }],
+				default: [],
+			},
+			colour: { type: String, default: "#0044ff" },
+			overviewBackground: {
+				type: mongoose.Schema.Types.ObjectId,
+				required: true,
+				auto: true,
+			},
+			images: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+			versions: {
+				type: [
+					{
+						_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
+						title: { type: String, default: "" },
+						description: { type: [String], default: [""] },
+						gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], default: [] },
+					},
+				],
+				default: [{ title: "Ver. 1" }],
+			},
+			miscellaneous: {
+				type: {
+					items: {
+						type: [
+							{
+								title: { type: String, default: "" },
+								text: { type: [String], default: [""] },
+								images: {
+									type: [
+										{
+											image: mongoose.Schema.Types.ObjectId,
+											caption: { type: String, default: "" },
+										},
+									],
+									default: [],
+								},
+							},
+						],
+						default: [],
+					},
+				},
+				default: {},
+			},
+			development: {
+				type: {
+					items: {
+						type: [
+							{
+								title: { type: String, default: "" },
+								text: { type: [String], default: [""] },
+								images: {
+									type: [
+										{
+											image: mongoose.Schema.Types.ObjectId,
+											caption: { type: String, default: "" },
+										},
+									],
+									default: [],
+								},
+							},
+						],
+						default: [],
+					},
+				},
+				default: {},
+			},
+			subpages: {
+				type: [{ id: { type: String }, isEnabled: { type: Boolean } }],
+				default: [],
+			},
 		},
 		default: {},
 	},

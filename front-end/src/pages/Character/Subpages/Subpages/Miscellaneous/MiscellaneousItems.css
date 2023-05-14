@@ -4,13 +4,13 @@
 	padding-right: 12px;
 
 	width: calc(100% - 12px);
-	max-height: calc(var(--characterSubpageMaxHeight) - 4px);
+	height: calc(var(--characterSubpageMaxHeight) - 4px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
 
 @media (max-width: 750px) {
 	.character-subpage-miscellaneous-items {
-		max-height: calc(var(--characterSubpageMaxHeight) - 4px);
+		height: calc(var(--characterSubpageMaxHeight) - 4px);
 	}
 }

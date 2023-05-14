@@ -1,0 +1,43 @@
+.group-subpages-btns-container {
+	display: flex;
+	align-items: center;
+	margin-bottom: 4px;
+	width: 100%;
+}
+
+.group-subpages-btns {
+	display: flex;
+	align-items: center;
+	width: calc(100% - 28px - 28px);
+	overflow-y: hidden;
+	overflow-x: overlay;
+	scroll-behavior: smooth;
+}
+
+.group-subpages-btns::-webkit-scrollbar {
+	height: 0;
+}
+
+.group-subpages-btn {
+	flex-shrink: 0;
+	margin: 0 4px;
+	border-radius: 32px;
+
+	min-width: fit-content;
+	width: calc((100% / 8) - 8px);
+}
+
+.group-subpages-btn .btn-list-item-value {
+	font-size: 13px;
+}
+
+.group-subpages-btns-is-authorized .group-subpages-btn {
+	width: calc((100% / 9) - 8px);
+}
+
+.group-subpages-btn.btn-list-item-active,
+.group-subpages-btn.btn-list-item-active:hover {
+	background: var(--groupColour);
+	border-color: var(--groupColour);
+	color: #fff;
+}

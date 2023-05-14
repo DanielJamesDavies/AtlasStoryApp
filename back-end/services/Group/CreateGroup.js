@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Story Could Not Be Saved" }] });
 	}
 
-	return res.status(200).send({ message: "Success", data: { group_uid: group.uid } });
+	return res.status(200).send({ message: "Success", data: { group } });
 };
 
 function validateGroup(group) {

@@ -1,0 +1,37 @@
+// Packages
+
+// Components
+import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
+import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
+import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
+import { TextInput } from "../../../../../../components/TextInput/TextInput";
+import { ErrorMessage } from "../../../../../../components/ErrorMessage/ErrorMessage";
+
+// Logic
+import { SettingsUIDLogic } from "./SettingsUIDLogic";
+
+// Context
+
+// Services
+
+// Styles
+
+// Assets
+
+export const SettingsUID = () => {
+	const { isAuthorizedToEdit, uid, changeUid, revertUid, saveUid, errors } = SettingsUIDLogic();
+
+	return (
+		<ContentItem hasBg={true} size='s'>
+			<LabelContainer label='Unique Identifier (UID)' isInline={true}>
+				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertUid} onSave={saveUid}>
+					<div>{uid}</div>
+					<div>
+						<TextInput seamless={true} value={uid} onChange={changeUid} autoResize={true} />
+						<ErrorMessage errors={errors} />
+					</div>
+				</EditableContainer>
+			</LabelContainer>
+		</ContentItem>
+	);
+};

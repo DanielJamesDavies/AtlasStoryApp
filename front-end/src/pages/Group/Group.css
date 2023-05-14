@@ -1,0 +1,125 @@
+.group-container {
+	position: relative;
+	z-index: 2;
+	margin: 0 auto;
+	padding: 0;
+	height: 100%;
+	overflow: hidden;
+}
+
+.group-container::before {
+	position: absolute;
+	z-index: -100;
+	top: -24px;
+	left: 0;
+	display: block;
+	content: "";
+	width: calc(100% + (7px));
+	height: calc(var(--groupPaddingTop) + 12px);
+	background: linear-gradient(0deg, var(--groupColour), var(--colour-grey-one));
+	opacity: 0.6;
+	transition: opacity 0.2s;
+}
+
+.theme-light .group-container::before {
+	top: calc(-24px + -96px);
+	height: calc(var(--groupPaddingTop) + 12px + 96px);
+	opacity: 1;
+}
+
+.group-container::after {
+	position: absolute;
+	z-index: -100;
+	top: calc(var(--groupPaddingTop) - 12px);
+	left: 0;
+	display: block;
+	content: "";
+	width: calc(100% + (7px));
+	height: calc(6px + 6px + 36px);
+	background: linear-gradient(180deg, var(--groupColour), var(--colour-grey-one));
+	opacity: 0.35;
+	transition: opacity 0.2s;
+}
+
+.theme-light .group-container::after {
+	opacity: 1;
+}
+
+.group-container-is-on-overview::before,
+.group-container-is-on-overview::after {
+	opacity: 0 !important;
+}
+
+.group {
+	margin: 0 auto;
+	padding: 0;
+	height: calc(100%);
+}
+
+.group *::-webkit-scrollbar {
+	width: 6px;
+	background: transparent;
+}
+
+.group *::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background: var(--groupColour);
+}
+
+.group-hidden {
+	display: none;
+}
+
+.group-loading-container {
+	position: absolute;
+	display: flex;
+	width: calc(100%);
+	height: var(--vh);
+	justify-content: center;
+	align-items: center;
+}
+
+.group-content-container {
+	display: flex;
+	height: 100%;
+	overflow: visible;
+	transition: transform 0.8s;
+}
+
+.group-content-container::-webkit-scrollbar {
+	display: none;
+}
+
+.group-content-container-is-on-subpages {
+	transform: translateX(calc(-1 * (100vw - var(--navbar-width) - 24px - 12px - 6px)));
+}
+
+@media (max-width: 750px) {
+	.group-container::before {
+		top: -24px;
+		height: calc(var(--groupPaddingTop) + 12px + 8px);
+	}
+
+	.theme-light .group-container::before {
+		top: calc(-24px - 96px);
+		height: calc(var(--groupPaddingTop) + 12px + 8px + 96px);
+	}
+
+	.group-container::after {
+		top: calc(var(--groupPaddingTop) - 4px);
+		height: calc(6px + 6px + 36px);
+	}
+
+	.group {
+		padding: 0;
+		height: 100%;
+	}
+
+	.group-content-container {
+		transition: transform 0.5s;
+	}
+
+	.group-content-container-is-on-subpages {
+		transform: translateX(calc(-1 * (100vw)));
+	}
+}

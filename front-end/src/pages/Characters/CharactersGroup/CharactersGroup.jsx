@@ -20,7 +20,7 @@ import "./CharactersGroup.css";
 // Assets
 
 export const CharactersGroup = () => {
-	const { isAuthorizedToEdit, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters } = CharactersGroupLogic();
+	const { isAuthorizedToEdit, story, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters } = CharactersGroupLogic();
 
 	return (
 		<div className='characters-group-container'>
@@ -66,7 +66,7 @@ export const CharactersGroup = () => {
 						)}
 					</div>
 				</div>
-				<CharactersGroupCharacterCards />
+				{story?.data?.groups?.length === 0 ? null : <CharactersGroupCharacterCards />}
 				<CharactersCreateCharacter />
 			</ContentItem>
 		</div>

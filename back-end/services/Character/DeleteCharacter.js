@@ -62,7 +62,7 @@ async function removeCharacterFromGroup(character_id, group_id) {
 
 	let newGroup = JSON.parse(JSON.stringify(oldGroup));
 	if (!newGroup?.data?.characters) newGroup.data.characters = [];
-	const characterIndex = newGroup.data.characters.findIndex((e) => e.character_id === character_id);
+	const characterIndex = newGroup.data.characters.findIndex((e) => JSON.stringify(e.character_id) === JSON.stringify(character_id));
 	if (characterIndex !== -1) newGroup.data.characters.splice(characterIndex, 1);
 
 	try {

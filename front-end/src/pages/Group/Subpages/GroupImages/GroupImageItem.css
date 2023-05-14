@@ -1,0 +1,42 @@
+.group-image-item-container {
+	margin: 4px 0;
+	width: 100%;
+}
+
+.drag-drop-item-enable-drag-drop.group-image-item-container {
+	animation: wiggle-large infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).group-image-item-container {
+	animation-delay: 0.1s;
+}
+
+.group-image-item {
+	position: relative;
+	width: 100%;
+}
+
+.group-image-item-image {
+	width: 100%;
+}
+
+.group-image-item-image img {
+	width: 100%;
+	max-height: max(18vw, 250px);
+	object-fit: contain;
+}
+
+.group-image-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	display: flex;
+	flex-direction: column;
+}
+
+@media (max-width: 1000px) {
+	.group-image-item-container {
+		margin: 4px;
+		width: calc(50% - 8px);
+	}
+}
