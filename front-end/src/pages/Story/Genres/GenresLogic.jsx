@@ -16,27 +16,8 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const GenresLogic = () => {
-	const { isAuthorizedToEdit, story, setStory } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyGenres, setStoryGenres } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
-
-	const [storyGenres, setStoryGenres] = useState(false);
-
-	useEffect(() => {
-		async function getStoryGenres() {
-			if (!story?.data?.genres) return false;
-
-			let newStoryGenres = await Promise.all(
-				story?.data?.genres.map(async (genreID) => {
-					const response = await APIRequest("/genre/" + genreID, "GET");
-					if (!response || response?.error || !response?.data?.genre) return false;
-					return response.data.genre;
-				})
-			);
-			newStoryGenres = newStoryGenres.filter((e) => e !== false);
-			setStoryGenres(newStoryGenres);
-		}
-		getStoryGenres();
-	}, [story, APIRequest]);
 
 	const [allGenres, setAllGenres] = useState([]);
 
@@ -90,10 +71,19 @@ export const GenresLogic = () => {
 	}
 
 	function addGenre(genre_id) {
+		const genre = allGenres.find((e) => e._id === genre_id);
+		if (!genre) return false;
+
 		setStory((oldStory) => {
 			let newStory = JSON.parse(JSON.stringify(oldStory));
 			newStory.data.genres.push(genre_id);
 			return newStory;
+		});
+
+		setStoryGenres((oldStoryGenres) => {
+			let newStoryGenres = JSON.parse(JSON.stringify(oldStoryGenres));
+			newStoryGenres.push(genre);
+			return newStoryGenres;
 		});
 	}
 
@@ -104,6 +94,14 @@ export const GenresLogic = () => {
 			if (genreIndex === -1) return newStory;
 			newStory.data.genres.splice(genreIndex, 1);
 			return newStory;
+		});
+
+		setStoryGenres((oldStoryGenres) => {
+			let newStoryGenres = JSON.parse(JSON.stringify(oldStoryGenres));
+			const genreIndex = newStoryGenres.findIndex((e) => e._id === genre_id);
+			if (genreIndex === -1) return newStoryGenres;
+			newStoryGenres.splice(genreIndex, 1);
+			return newStoryGenres;
 		});
 	}
 

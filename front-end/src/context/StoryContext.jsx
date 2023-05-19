@@ -22,6 +22,7 @@ const StoryProvider = ({ children }) => {
 	const [storyIcon, setStoryIcon] = useState(false);
 	const [storyBanner, setStoryBanner] = useState(false);
 	const [storyMembers, setStoryMembers] = useState([]);
+	const [storyGenres, setStoryGenres] = useState(false);
 	const [storyNotesImages, setStoryNotesImages] = useState([]);
 	const [storyGroups, setStoryGroups] = useState([]);
 	const [storyCharacters, setStoryCharacters] = useState([]);
@@ -48,6 +49,7 @@ const StoryProvider = ({ children }) => {
 			changeAccentHoverColour(newStory?.data?.colours?.accentHover);
 
 			getStoryMembers(newStory?.data?.members);
+			getStoryGenres(newStory?.data?.genres);
 			getStoryIcon(newStory?.data?.icon);
 			getStoryBanner(newStory?.data?.banner);
 			getStoryNotesImages(newStory?.data?.notes);
@@ -69,6 +71,7 @@ const StoryProvider = ({ children }) => {
 			setStoryIcon(false);
 			setStoryBanner(false);
 			setStoryMembers([]);
+			setStoryGenres(false);
 			setStoryGroups([]);
 			setStoryCharacters([]);
 			setStoryCharacterRelationships([]);
@@ -122,6 +125,20 @@ const StoryProvider = ({ children }) => {
 				nickname: member_response?.data?.user?.data?.nickname,
 				type: member.type,
 			};
+		}
+
+		async function getStoryGenres(genres) {
+			if (!genres) return false;
+
+			let newStoryGenres = await Promise.all(
+				genres.map(async (genreID) => {
+					const response = await APIRequest("/genre/" + genreID, "GET");
+					if (!response || response?.error || !response?.data?.genre) return false;
+					return response.data.genre;
+				})
+			);
+			newStoryGenres = newStoryGenres.filter((e) => e !== false);
+			setStoryGenres(newStoryGenres);
 		}
 
 		async function getStoryIcon(iconID) {
@@ -399,6 +416,7 @@ const StoryProvider = ({ children }) => {
 		story,
 		setStory,
 		setStoryMembers,
+		setStoryGenres,
 		setStoryIcon,
 		setStoryBanner,
 		setStoryGroups,
@@ -436,6 +454,8 @@ const StoryProvider = ({ children }) => {
 				setStoryBanner,
 				storyMembers,
 				setStoryMembers,
+				storyGenres,
+				setStoryGenres,
 				storyNotesImages,
 				setStoryNotesImages,
 				storyGroups,
