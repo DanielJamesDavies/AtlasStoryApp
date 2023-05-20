@@ -41,6 +41,7 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 		setTravellingToMapLocationId,
 		travellingToMapLocationForwardDelta,
 		scenesChangePlayerInitial,
+		mapObjectLocations,
 	} = useContext(LocationsContext);
 	const { getItemFromIdInHierarchy } = HierarchyFunctions();
 	const { coordToPosition } = MapFunctions();
@@ -97,8 +98,15 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 			} else {
 				const newLocationId = getItemFromIdInHierarchy(travellingToMapLocationId, story?.data?.locationsHierarchy)?._id;
 				const newLocation = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newLocationId));
-				let newPosition = newLocation?.position;
-				newPosition = coordToPosition(newPosition, { order: "yxz", multiplier: 0.05 });
+				const mapObjectLocation = mapObjectLocations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newLocationId))?.pos;
+				let newPosition = [0, 0, 0];
+				if (mapObjectLocation) {
+					newPosition = [mapObjectLocation.x, mapObjectLocation.y, mapObjectLocation.z];
+				} else {
+					newPosition = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newLocationId))?.position;
+					newPosition = coordToPosition(newPosition, { order: "yxz", multiplier: 0.05 });
+				}
+
 				camera.position.lerp(new Vector3(...newPosition), 0.1);
 
 				movingTime.current += delta;

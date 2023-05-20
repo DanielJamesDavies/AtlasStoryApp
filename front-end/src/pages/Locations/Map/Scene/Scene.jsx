@@ -21,7 +21,8 @@ import { HierarchyFunctions } from "../../HierarchyFunctions";
 // Assets
 
 export const Scene = ({ setCursorPointer }) => {
-	const { story, locations, currentMapLocationId, playerApi, changeCameraRotation, scenesChangePlayerInitial } = useContext(LocationsContext);
+	const { story, locations, currentMapLocationId, playerApi, changeCameraRotation, scenesChangePlayerInitial, setMapObjectLocations } =
+		useContext(LocationsContext);
 	const { getItemFromIdInHierarchy } = HierarchyFunctions();
 	const [scene, setScene] = useState(null);
 	const [hasInitializedScenes, setHasInitializedScenes] = useState(false);
@@ -106,6 +107,7 @@ export const Scene = ({ setCursorPointer }) => {
 
 			if (currSceneLocationId.current !== location?._id) {
 				currSceneLocationId.current = location?._id;
+				setMapObjectLocations([]);
 				const scenesChangePlayerInitialItem = JSON.parse(
 					JSON.stringify(scenesChangePlayerInitial.current.find((e) => e.type === location?.type))
 				);
@@ -136,6 +138,7 @@ export const Scene = ({ setCursorPointer }) => {
 		playerApi,
 		changeCameraRotation,
 		scenesChangePlayerInitial,
+		setMapObjectLocations,
 	]);
 
 	return scene;

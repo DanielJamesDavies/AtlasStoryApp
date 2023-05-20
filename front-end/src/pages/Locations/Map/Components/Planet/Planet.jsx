@@ -1,6 +1,6 @@
 // Packages
 import { useRef } from "react";
-import { TextureLoader } from "three";
+import { TextureLoader, Vector3 } from "three";
 import { useLoader, useFrame } from "@react-three/fiber";
 
 // Components
@@ -15,7 +15,7 @@ import { useLoader, useFrame } from "@react-three/fiber";
 
 // Assets
 
-export const Planet = ({ position, scale = 1, tilt, onClick }) => {
+export const Planet = ({ location_id, position, scale = 1, tilt, onClick, addToMapObjectLocations }) => {
 	const ref = useRef();
 	const cloudsRef = useRef();
 	const [earthDayMap, earthCloudsMap] = useLoader(TextureLoader, [
@@ -24,6 +24,8 @@ export const Planet = ({ position, scale = 1, tilt, onClick }) => {
 	]);
 
 	useFrame((_, delta) => {
+		if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
+
 		ref.current.rotation.x -= delta * 0.8 * Math.min(1 / (scale * scale), 3);
 		cloudsRef.current.rotation.x += delta * 0.15 * Math.min(1 / (scale * scale), 3);
 	});

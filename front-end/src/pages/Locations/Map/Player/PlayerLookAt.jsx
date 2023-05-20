@@ -1,6 +1,7 @@
 // Packages
 import { useContext, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { Vector3 } from "three";
 
 // Components
 
@@ -10,7 +11,6 @@ import { MapFunctions } from "../MapFunctions";
 
 // Context
 import { LocationsContext } from "../../LocationsContext";
-import { Vector3 } from "three";
 
 // Services
 
@@ -19,7 +19,8 @@ import { Vector3 } from "three";
 // Assets
 
 export const PlayerLookAt = () => {
-	const { story, locations, setPlayerLookAtObjectPosition, playerCamera, travellingToMapLocationId } = useContext(LocationsContext);
+	const { story, locations, setPlayerLookAtObjectPosition, playerCamera, travellingToMapLocationId, mapObjectLocations } =
+		useContext(LocationsContext);
 	const { getItemFromIdInHierarchy } = HierarchyFunctions();
 	const { coordToPosition } = MapFunctions();
 	const playerLookAt = useRef();
@@ -30,8 +31,14 @@ export const PlayerLookAt = () => {
 	useFrame(() => {
 		if (playerLookAt.current && travellingToMapLocationId) {
 			const newLocationId = getItemFromIdInHierarchy(travellingToMapLocationId, story?.data?.locationsHierarchy)?._id;
-			let newPosition = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newLocationId))?.position;
-			newPosition = coordToPosition(newPosition, { order: "yxz", multiplier: 0.05 });
+			const mapObjectLocation = mapObjectLocations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newLocationId))?.pos;
+			let newPosition = [0, 0, 0];
+			if (mapObjectLocation) {
+				newPosition = [mapObjectLocation.x, mapObjectLocation.y, mapObjectLocation.z];
+			} else {
+				newPosition = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newLocationId))?.position;
+				newPosition = coordToPosition(newPosition, { order: "yxz", multiplier: 0.05 });
+			}
 
 			if (isInitialFrame.current) {
 				const distance = Math.hypot(

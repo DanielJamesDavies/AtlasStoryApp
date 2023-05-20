@@ -49,6 +49,8 @@ export const HierarchyListItemLogic = ({ item, locationTypes }) => {
 		e.stopPropagation();
 		if (item?._id === undefined) return false;
 
+		console.log(item);
+
 		const maxDelta = 400;
 
 		clicks.current.push(Date.now());

@@ -1,6 +1,6 @@
 // Packages
 import { useRef } from "react";
-import { TextureLoader } from "three";
+import { TextureLoader, Vector3 } from "three";
 import { useLoader, useFrame } from "@react-three/fiber";
 
 // Components
@@ -15,11 +15,16 @@ import { useLoader, useFrame } from "@react-three/fiber";
 
 // Assets
 
-export const Moon = ({ position, scale = 1, tilt, onClick, onPointerOver, onPointerOut }) => {
+export const Moon = ({ location_id, position, scale = 1, tilt, onClick, onPointerOver, onPointerOut, addToMapObjectLocations }) => {
 	const ref = useRef();
+
 	const [starMap] = useLoader(TextureLoader, ["/Assets/Map/Moon1/2k_moon.jpg"]);
 
-	useFrame((_, delta) => (ref.current.rotation.x -= delta * 0.009 * Math.min(1 / (scale * scale), 3)));
+	useFrame((_, delta) => {
+		if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
+
+		ref.current.rotation.x -= delta * 0.009 * Math.min(1 / (scale * scale), 3);
+	});
 
 	return (
 		<group

@@ -28,6 +28,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 		setSelectedLocationId,
 		hoverMapLocationId,
 		setHoverMapLocationId,
+		addToMapObjectLocations,
 	} = useContext(LocationsContext);
 	const { coordToPosition } = MapFunctions();
 	const ref = useRef();
@@ -87,8 +88,8 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 
 				let forwardDelta = 0;
 				if (input_location?.type === "star") forwardDelta = -4.5;
-				if (input_location?.type === "planet") forwardDelta = -4.5;
-				if (input_location?.type === "moon") forwardDelta = -4.5;
+				if (input_location?.type === "planet") forwardDelta = -3.2;
+				if (input_location?.type === "moon") forwardDelta = -2;
 				changeCurrentMapLocationId(input_location?._id, forwardDelta);
 				break;
 			default:
@@ -129,9 +130,11 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 										onPointerOut={(e) => onPointerOut(e)}
 									>
 										<Star
+											location_id={childLocation?._id}
 											position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
 											scale={0.08}
 											onClick={(e) => onClickLocation(e, childLocation)}
+											addToMapObjectLocations={addToMapObjectLocations}
 										/>
 									</OutlineContainer>
 								)}
@@ -149,9 +152,11 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 										onPointerOut={(e) => onPointerOut(e)}
 									>
 										<Planet
+											location_id={childLocation?._id}
 											position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
 											scale={0.04}
 											onClick={(e) => onClickLocation(e, childLocation)}
+											addToMapObjectLocations={addToMapObjectLocations}
 										/>
 									</OutlineContainer>
 								)}
@@ -187,6 +192,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 															onPointerOut={() => onPointerOut()}
 														>
 															<Moon
+																location_id={child2Location?._id}
 																position={coordToPosition(child2Location?.position, {
 																	order: "yxz",
 																	multiplier: 0.05,
@@ -195,6 +201,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 																onClick={(e) => onClickLocation(e, child2Location)}
 																onPointerOver={(e) => onPointerOver(e, child2Location?._id)}
 																onPointerOut={(e) => onPointerOut(e)}
+																addToMapObjectLocations={addToMapObjectLocations}
 															/>
 														</OutlineContainer>
 													)}

@@ -48,8 +48,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [playerSpeed, setPlayerSpeed] = useState(2);
 	const [isMouseOverMap, setIsMouseOverMap] = useState(false);
 	const [isMouseControllingPlayer, setIsMouseControllingPlayer] = useState(false);
-
-	const [openLocationSubpageID, setOpenLocationSubpageID] = useState("overview");
+	const [mapObjectLocations, setMapObjectLocations] = useState([]);
 
 	const scenesChangePlayerInitial = useRef([
 		{
@@ -182,6 +181,22 @@ const LocationsProvider = ({ children, story_uid }) => {
 		setTravellingToMapLocationForwardDelta(forwardDelta === undefined ? 0 : forwardDelta);
 	}
 
+	const addToMapObjectLocations = useCallback(
+		(newMapObjectLocation) => {
+			setMapObjectLocations((oldMapObjectLocations) => {
+				let newMapObjectLocations = JSON.parse(JSON.stringify(oldMapObjectLocations));
+				const locationIndex = newMapObjectLocations.findIndex((e) => e._id === newMapObjectLocation._id);
+				if (locationIndex === -1) {
+					newMapObjectLocations.push(newMapObjectLocation);
+				} else {
+					newMapObjectLocations[locationIndex] = newMapObjectLocation;
+				}
+				return newMapObjectLocations;
+			});
+		},
+		[setMapObjectLocations]
+	);
+
 	return (
 		<LocationsContext.Provider
 			value={{
@@ -222,6 +237,9 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setIsMouseOverMap,
 				isMouseControllingPlayer,
 				setIsMouseControllingPlayer,
+				mapObjectLocations,
+				setMapObjectLocations,
+				addToMapObjectLocations,
 				scenesChangePlayerInitial,
 				isDisplayingCreateHierarchyItemForm,
 				setIsDisplayingCreateHierarchyItemForm,

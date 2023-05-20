@@ -38,13 +38,20 @@ export const HierarchyListLogic = () => {
 			setItems(newItems);
 		}
 
-		function getFlattenedItemsFromParent(item, level, isVisible) {
+		function getFlattenedItemsFromParent(item, parent_id, level, isVisible) {
 			let items = [
-				{ _id: item?._id, level, isVisible, isChildrenVisible: item?.isChildrenVisible, hasChildren: item?.children?.length !== 0 },
+				{
+					_id: item?._id,
+					parent_id,
+					level,
+					isVisible,
+					isChildrenVisible: item?.isChildrenVisible,
+					hasChildren: item?.children?.length !== 0,
+				},
 			];
 			if (item?.children) {
 				item.children.map((child) => {
-					items = items.concat(getFlattenedItemsFromParent(child, level + 1, isVisible ? item?.isChildrenVisible : false));
+					items = items.concat(getFlattenedItemsFromParent(child, item._id, level + 1, isVisible ? item?.isChildrenVisible : false));
 					return true;
 				});
 			}
