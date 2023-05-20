@@ -28,15 +28,15 @@ export const LocationPath = ({
 	changePathColour,
 }) => {
 	return (
-		<div className='locations-details-path'>
-			<div className='locations-details-path-labels'>
-				<div className='locations-details-path-label'>To</div>
-				<div className='locations-details-path-label'>From</div>
-				<div className='locations-details-path-label'>Is Major</div>
-				<div className='locations-details-path-label'>Colour</div>
+		<div className='locations-location-path'>
+			<div className='locations-location-path-labels'>
+				<div className='locations-location-path-label'>To</div>
+				<div className='locations-location-path-label'>From</div>
+				<div className='locations-location-path-label'>Is Major</div>
+				<div className='locations-location-path-label'>Colour</div>
 			</div>
-			<div className='locations-details-path-values'>
-				<div className='locations-details-path-value'>
+			<div className='locations-location-path-values'>
+				<div className='locations-location-path-value'>
 					<DropdownContainer
 						value={locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(path?.from))?.data?.name}
 						onChange={(optionIndex) =>
@@ -57,7 +57,7 @@ export const LocationPath = ({
 							  ))}
 					</DropdownContainer>
 				</div>
-				<div className='locations-details-path-value'>
+				<div className='locations-location-path-value'>
 					<DropdownContainer
 						value={locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(path?.to))?.data?.name}
 						onChange={(optionIndex) =>
@@ -78,10 +78,10 @@ export const LocationPath = ({
 							  ))}
 					</DropdownContainer>
 				</div>
-				<div className='locations-details-path-value'>
+				<div className='locations-location-path-value'>
 					<ToggleInput value={path?.isMajor} onToggle={(e) => togglePathIsMajor(e, index)} enableEdit={isEditing} />
 				</div>
-				<div className='locations-details-path-value'>
+				<div className='locations-location-path-value'>
 					<ColourPicker
 						value={path?.colour}
 						onChange={(colour) => changePathColour(colour, index)}

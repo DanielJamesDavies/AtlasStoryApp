@@ -12,7 +12,6 @@ import { LocationPaths } from "./Paths/Paths";
 // Services
 
 // Styles
-import "./Settings.css";
 
 // Assets
 

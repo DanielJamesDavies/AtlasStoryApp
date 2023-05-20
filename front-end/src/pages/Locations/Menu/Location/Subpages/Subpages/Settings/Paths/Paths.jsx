@@ -37,16 +37,16 @@ export const LocationPaths = () => {
 	if (!["starCluster"].includes(location?.type)) return null;
 	return (
 		<EditableContainer
-			className='locations-details-paths-container'
+			className='locations-location-paths-container'
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertPaths}
 			onSave={savePaths}
 			onAdd={addPath}
 		>
-			<div className='locations-details-paths'>
-				<div className='locations-details-paths-title'>Paths</div>
+			<div className='locations-location-paths'>
+				<div className='locations-location-paths-title'>Paths</div>
 				{location?.paths?.length === 0 ? null : (
-					<div className='locations-details-paths-list'>
+					<div className='locations-location-paths-list'>
 						{locations
 							.find((e) => JSON.stringify(e?._id) === JSON.stringify(location_id))
 							?.paths.map((path, index) => (
@@ -62,10 +62,10 @@ export const LocationPaths = () => {
 					</div>
 				)}
 			</div>
-			<div className='locations-details-paths'>
-				<div className='locations-details-paths-title'>Paths</div>
+			<div className='locations-location-paths'>
+				<div className='locations-location-paths-title'>Paths</div>
 				{location?.paths?.length === 0 ? null : (
-					<div className='locations-details-paths-list'>
+					<div className='locations-location-paths-list'>
 						{locations
 							.find((e) => JSON.stringify(e?._id) === JSON.stringify(location_id))
 							?.paths.map((path, index) => (

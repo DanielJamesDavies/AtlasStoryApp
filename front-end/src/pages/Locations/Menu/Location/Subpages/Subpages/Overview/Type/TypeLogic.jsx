@@ -6,7 +6,7 @@ import { useContext } from "react";
 // Logic
 
 // Context
-import { LocationsContext } from "../../../../LocationsContext";
+import { LocationsContext } from "../../../../../../LocationsContext";
 
 // Services
 

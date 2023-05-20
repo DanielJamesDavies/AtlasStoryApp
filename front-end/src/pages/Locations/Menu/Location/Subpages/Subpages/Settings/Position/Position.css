@@ -1,8 +1,8 @@
-.locations-details-position-container {
+.locations-location-position-container {
 	padding: 6px 0;
 }
 
-.locations-details-position-title {
+.locations-location-position-title {
 	font-size: var(--font-size-p-m);
 	font-weight: 600;
 }

@@ -1,13 +1,13 @@
-.locations-details-paths-container {
+.locations-location-paths-container {
 	padding: 8px 0;
 }
 
-.locations-details-paths-title {
+.locations-location-paths-title {
 	font-size: var(--font-size-p-m);
 	font-weight: 600;
 }
 
-.locations-details-paths-list {
+.locations-location-paths-list {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;

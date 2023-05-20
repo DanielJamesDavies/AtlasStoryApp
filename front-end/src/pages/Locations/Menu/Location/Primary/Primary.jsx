@@ -3,7 +3,6 @@
 // Components
 import { LocationTitle } from "./Title/Title";
 import { LocationName } from "./Name/Name";
-import { LocationType } from "./Type/Type";
 
 // Logic
 
@@ -21,7 +20,6 @@ export const LocationPrimary = () => {
 		<div className='locations-location-primary'>
 			<LocationTitle />
 			<LocationName />
-			<LocationType />
 		</div>
 	);
 };

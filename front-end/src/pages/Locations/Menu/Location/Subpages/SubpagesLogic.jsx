@@ -2,6 +2,7 @@
 import { useState, useContext, useEffect, useRef } from "react";
 
 // Components
+import { Overview } from "./Subpages/Overview/Overview";
 import { Settings } from "./Subpages/Settings/Settings";
 
 // Logic
@@ -35,6 +36,8 @@ export const LocationSubpagesLogic = () => {
 	useEffect(() => {
 		function getSubpage() {
 			switch (openSubpageID) {
+				case "overview":
+					return <Overview />;
 				case "settings":
 					return <Settings />;
 				default:

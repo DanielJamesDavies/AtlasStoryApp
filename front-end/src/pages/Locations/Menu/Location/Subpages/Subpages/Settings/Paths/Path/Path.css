@@ -1,4 +1,4 @@
-.locations-details-path {
+.locations-location-path {
 	display: flex;
 	gap: 6px;
 	padding: 8px;
@@ -7,34 +7,34 @@
 	background: var(--colour-grey-two);
 }
 
-.locations-details-path:last-child {
+.locations-location-path:last-child {
 	margin-bottom: 50%;
 }
 
-.locations-details-path-labels {
+.locations-location-path-labels {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
 	flex-shrink: 0;
 }
 
-.locations-details-path-label {
+.locations-location-path-label {
 	padding: 8px 12px;
 	border-radius: 4px;
 	background: var(--colour-grey-two);
 }
 
-.locations-details-path-values {
+.locations-location-path-values {
 	display: flex;
 	gap: 6px;
 	flex-direction: column;
 	width: 100%;
 }
 
-.locations-details-path-value .toggle-input-container {
+.locations-location-path-value .toggle-input-container {
 	padding: 0;
 }
 
-.locations-details-path-value .colour-picker {
+.locations-location-path-value .colour-picker {
 	padding-left: 8px;
 }

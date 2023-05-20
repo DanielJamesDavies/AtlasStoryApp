@@ -31,7 +31,7 @@ export const HierarchyListLogic = () => {
 			let newItems = [];
 
 			story?.data?.locationsHierarchy.map((item) => {
-				newItems = newItems.concat(getFlattenedItemsFromParent(item, 0, true));
+				newItems = newItems.concat(getFlattenedItemsFromParent(item, undefined, 0, true));
 				return true;
 			});
 
@@ -51,7 +51,7 @@ export const HierarchyListLogic = () => {
 			];
 			if (item?.children) {
 				item.children.map((child) => {
-					items = items.concat(getFlattenedItemsFromParent(child, item._id, level + 1, isVisible ? item?.isChildrenVisible : false));
+					items = items.concat(getFlattenedItemsFromParent(child, item?._id, level + 1, isVisible ? item?.isChildrenVisible : false));
 					return true;
 				});
 			}

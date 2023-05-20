@@ -22,17 +22,17 @@ export const LocationRotation = () => {
 	if (["reality", "starSystem", "star", "planet", "moon"].includes(location?.type)) return null;
 	return (
 		<EditableContainer
-			className='locations-details-rotation-container'
+			className='locations-location-rotation-container'
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertRotation}
 			onSave={saveRotation}
 		>
-			<div className='locations-details-rotation'>
-				<div className='locations-details-rotation-title'>Rotation</div>
+			<div className='locations-location-rotation'>
+				<div className='locations-location-rotation-title'>Rotation</div>
 				<CoordinatesInput value={location?.rotation} />
 			</div>
-			<div className='locations-details-rotation'>
-				<div className='locations-details-rotation-title'>Rotation</div>
+			<div className='locations-location-rotation'>
+				<div className='locations-location-rotation-title'>Rotation</div>
 				<CoordinatesInput value={location?.rotation} onChange={changeRotation} />
 			</div>
 		</EditableContainer>

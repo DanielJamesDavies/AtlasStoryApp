@@ -1,8 +1,8 @@
-.locations-details-rotation-container {
+.locations-location-rotation-container {
 	padding: 6px 0;
 }
 
-.locations-details-rotation-title {
+.locations-location-rotation-title {
 	font-size: var(--font-size-p-m);
 	font-weight: 600;
 }

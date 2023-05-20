@@ -1,0 +1,14 @@
+.locations-location-description {
+	margin: 8px 0;
+}
+
+.locations-location-description-label {
+	font-size: 13px;
+	font-weight: 400;
+}
+
+.locations-location-description .text-container {
+	display: flex;
+	align-items: last baseline;
+	min-height: 20px;
+}

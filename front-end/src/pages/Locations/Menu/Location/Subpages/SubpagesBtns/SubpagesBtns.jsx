@@ -31,16 +31,18 @@ export const LocationSubpagesBtns = () => {
 						: "locations-location-subpages-btns"
 				}
 			>
-				{subpages.map((subpage, index) => (
-					<BtnListItem
-						key={index}
-						className='locations-location-subpages-btn'
-						size='xs'
-						value={subpage.name}
-						isActive={subpage.id === openSubpageID}
-						onClick={() => setOpenSubpageID(subpage.id)}
-					/>
-				))}
+				{subpages
+					.filter((e) => (isAuthorizedToEdit ? true : e.id !== "settings"))
+					.map((subpage, index) => (
+						<BtnListItem
+							key={index}
+							className='locations-location-subpages-btn'
+							size='xs'
+							value={subpage.name}
+							isActive={subpage.id === openSubpageID}
+							onClick={() => setOpenSubpageID(subpage.id)}
+						/>
+					))}
 			</div>
 			<IconBtn icon={<FaChevronRight />} seamless={true} onClick={() => scrollSubpageBtns(1)} size='xs' />
 		</div>
