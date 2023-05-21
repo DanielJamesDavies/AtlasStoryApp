@@ -119,7 +119,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 							>
 								{childLocation?.type !== "star" ? null : (
 									<OutlineContainer
-										scale={0.08}
+										scale={childLocation?.scale / 18000000000}
 										thickness={2}
 										isDisplaying={
 											JSON.stringify(childLocation?._id) === JSON.stringify(selectedLocationId) ||
@@ -132,7 +132,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 										<Star
 											location_id={childLocation?._id}
 											position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
-											scale={0.08}
+											scale={childLocation?.scale / 18000000000}
 											onClick={(e) => onClickLocation(e, childLocation)}
 											addToMapObjectLocations={addToMapObjectLocations}
 										/>
@@ -140,8 +140,9 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 								)}
 								{childLocation?.type !== "planet" ? null : (
 									<OutlineContainer
-										scale={0.04}
+										scale={childLocation?.scale / 360000000}
 										thickness={1}
+										gap={1.05}
 										isDisplaying={
 											JSON.stringify(childLocation?._id) === JSON.stringify(selectedLocationId) ||
 											JSON.stringify(childLocation?._id) === JSON.stringify(hoverMapLocationId)
@@ -154,7 +155,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 										<Planet
 											location_id={childLocation?._id}
 											position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
-											scale={0.04}
+											scale={childLocation?.scale / 360000000}
 											onClick={(e) => onClickLocation(e, childLocation)}
 											addToMapObjectLocations={addToMapObjectLocations}
 										/>
@@ -177,8 +178,9 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 												>
 													{child2Location?.type !== "moon" ? null : (
 														<OutlineContainer
-															scale={0.013}
+															scale={child2Location?.scale / 275000000}
 															thickness={0.8}
+															gap={1.05}
 															isDisplaying={
 																JSON.stringify(child2Location?._id) === JSON.stringify(selectedLocationId) ||
 																JSON.stringify(child2Location?._id) === JSON.stringify(hoverMapLocationId)
@@ -197,7 +199,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 																	order: "yxz",
 																	multiplier: 0.05,
 																})}
-																scale={0.013}
+																scale={child2Location?.scale / 275000000}
 																onClick={(e) => onClickLocation(e, child2Location)}
 																onPointerOver={(e) => onPointerOver(e, child2Location?._id)}
 																onPointerOut={(e) => onPointerOut(e)}

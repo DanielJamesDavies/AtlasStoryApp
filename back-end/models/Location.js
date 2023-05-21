@@ -30,6 +30,7 @@ const LocationSchema = mongoose.Schema({
 		type: {
 			name: { type: String },
 			description: { type: [String], default: [""] },
+			scaleUnit: { type: String, required: true, default: "m" },
 		},
 	},
 });

@@ -8,7 +8,8 @@ const LocationProvider = ({ children, location_id }) => {
 	const { isAuthorizedToEdit, story, locations, setLocations } = useContext(StoryContext);
 
 	const subpages = [
-		{ id: "overview", name: "Overview" },
+		{ id: "description", name: "Description" },
+		{ id: "properties", name: "Properties" },
 		{ id: "gallery", name: "Gallery" },
 		{ id: "miscellaneous", name: "Miscellaneous" },
 		{ id: "development", name: "Development" },
@@ -16,7 +17,7 @@ const LocationProvider = ({ children, location_id }) => {
 	];
 
 	const [location, setLocation] = useState(false);
-	const [openSubpageID, setOpenSubpageID] = useState("overview");
+	const [openSubpageID, setOpenSubpageID] = useState("description");
 
 	const curr_location_id = useRef(false);
 	useEffect(() => {

@@ -26,11 +26,11 @@
 	border-radius: 32px;
 
 	min-width: fit-content;
-	width: calc(100% / 4 - 2 * 2px);
+	width: calc(100% / 5 - 2 * 2px);
 }
 
 .locations-location-subpages-btns-is-authorized .locations-location-subpages-btn {
-	width: calc(100% / 5 - 2 * 2px);
+	width: calc(100% / 6 - 2 * 2px);
 }
 
 .locations-location-subpages-btn.btn-list-item-active,
