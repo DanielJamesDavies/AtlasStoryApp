@@ -108,7 +108,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 								key={index}
 								apoapsis={index * 6}
 								periapsis={index * 4}
-								inclination={0}
+								inclination={childLocation?.inclination}
 								onClick={(e) => onClickLocation(e, childLocation)}
 								onPointerOver={(e) => onPointerOver(e, childLocation?._id)}
 								onPointerOut={(e) => onPointerOut(e)}
@@ -172,7 +172,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 													key={index}
 													apoapsis={index + 1}
 													periapsis={index + 1}
-													inclination={0}
+													inclination={child2Location?.inclination}
 													thickness={0.5}
 													onClick={(e) => onClickLocation(e, child2Location)}
 													onPointerOver={(e) => onPointerOver(e, child2Location?._id)}

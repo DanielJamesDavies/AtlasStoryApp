@@ -25,7 +25,7 @@ export const OrbitContainer = ({ children, apoapsis, periapsis, inclination, thi
 			if (!orbitChildrenContainerRef?.current) return false;
 			orbitChildrenContainerRef.current.position.z = apoapsis;
 			orbitRef.current.rotation.x = Math.random() * 360 * (Math.PI * 2);
-			orbitContainerRef.current.rotation.y = inclination * (Math.PI / 180);
+			orbitContainerRef.current.rotation.y = inclination * (Math.PI / 360);
 		}
 		translateOrbitChildrenContainer();
 	}, [orbitChildrenContainerRef, apoapsis, inclination]);

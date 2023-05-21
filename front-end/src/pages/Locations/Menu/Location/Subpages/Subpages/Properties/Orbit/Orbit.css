@@ -1,0 +1,12 @@
+.locations-location-orbit-container {
+	padding: 6px 12px;
+	padding-right: 0;
+}
+
+.locations-location-orbit-title {
+	margin: 0;
+	margin-left: -12px;
+	padding-bottom: 6px;
+	font-size: var(--font-size-p-m);
+	font-weight: 600;
+}

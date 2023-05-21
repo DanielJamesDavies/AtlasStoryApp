@@ -5,6 +5,7 @@ import { LocationType } from "./Type/Type";
 import { LocationScale } from "./Scale/Scale";
 import { LocationTilt } from "./Tilt/Tilt";
 import { LocationDayLength } from "./DayLength/DayLength";
+import { LocationOrbit } from "./Orbit/Orbit";
 
 // Logic
 
@@ -23,6 +24,7 @@ export const Properties = () => {
 			<LocationScale />
 			<LocationTilt />
 			<LocationDayLength />
+			<LocationOrbit />
 		</div>
 	);
 };

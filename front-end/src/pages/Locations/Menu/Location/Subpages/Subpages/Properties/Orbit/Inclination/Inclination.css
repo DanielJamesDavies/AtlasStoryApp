@@ -1,0 +1,25 @@
+.locations-location-inclination-container {
+	padding: 6px 0;
+}
+
+.locations-location-inclination-title {
+	font-size: var(--font-size-p-m);
+	font-weight: 600;
+}
+
+.locations-location-inclination-value {
+	margin-top: 4px;
+	font-size: var(--font-size-p-m);
+}
+
+.locations-location-inclination-value-edit-container {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.dropdown-container {
+	margin-bottom: -3px;
+	width: unset;
+	min-width: fit-content;
+}
