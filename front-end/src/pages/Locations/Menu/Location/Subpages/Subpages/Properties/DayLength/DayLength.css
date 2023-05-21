@@ -1,0 +1,25 @@
+.locations-location-day-length-container {
+	padding: 6px 0;
+}
+
+.locations-location-day-length-title {
+	font-size: var(--font-size-p-m);
+	font-weight: 600;
+}
+
+.locations-location-day-length-value {
+	margin-top: 4px;
+	font-size: var(--font-size-p-m);
+}
+
+.locations-location-day-length-value-edit-container {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.dropdown-container {
+	margin-bottom: -3px;
+	width: unset;
+	min-width: fit-content;
+}

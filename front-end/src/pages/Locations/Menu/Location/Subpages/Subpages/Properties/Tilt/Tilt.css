@@ -1,0 +1,25 @@
+.locations-location-tilt-container {
+	padding: 6px 0;
+}
+
+.locations-location-tilt-title {
+	font-size: var(--font-size-p-m);
+	font-weight: 600;
+}
+
+.locations-location-tilt-value {
+	margin-top: 4px;
+	font-size: var(--font-size-p-m);
+}
+
+.locations-location-tilt-value-edit-container {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.dropdown-container {
+	margin-bottom: -3px;
+	width: unset;
+	min-width: fit-content;
+}

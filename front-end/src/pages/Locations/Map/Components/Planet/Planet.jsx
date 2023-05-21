@@ -15,7 +15,7 @@ import { useLoader, useFrame } from "@react-three/fiber";
 
 // Assets
 
-export const Planet = ({ location_id, position, scale = 1, tilt, onClick, addToMapObjectLocations }) => {
+export const Planet = ({ location_id, position, scale = 1, tilt = 0, dayLength = 1, onClick, addToMapObjectLocations }) => {
 	const ref = useRef();
 	const cloudsRef = useRef();
 	const [earthDayMap, earthCloudsMap] = useLoader(TextureLoader, [
@@ -26,13 +26,13 @@ export const Planet = ({ location_id, position, scale = 1, tilt, onClick, addToM
 	useFrame((_, delta) => {
 		if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
 
-		ref.current.rotation.x -= delta * 0.8 * Math.min(1 / (scale * scale), 3);
-		cloudsRef.current.rotation.x += delta * 0.15 * Math.min(1 / (scale * scale), 3);
+		ref.current.rotation.x -= delta * 0.4 * Math.min(1 / (scale * scale), 3) * dayLength;
+		cloudsRef.current.rotation.x += delta * 0.15 * Math.min(1 / (scale * scale), 3) * dayLength;
 	});
 
 	return (
 		<group ref={ref} position={position} scale={scale} dispose={null} onClick={onClick === undefined ? null : (e) => onClick(e)}>
-			<group rotation={tilt === undefined ? [0, 0, 0] : tilt} scale={0.47}>
+			<group rotation={[0, tilt / 18.24 / Math.PI, 0]} scale={0.47}>
 				<mesh rotation={[0, 0, Math.PI / 2]}>
 					<sphereGeometry args={[21.5, 32, 16]} />
 					<meshStandardMaterial map={earthDayMap} />

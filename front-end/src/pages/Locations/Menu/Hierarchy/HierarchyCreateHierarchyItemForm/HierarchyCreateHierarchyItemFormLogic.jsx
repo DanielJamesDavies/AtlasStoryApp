@@ -91,13 +91,15 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 			return false;
 		}
 
+		const scale = locationTypes.find((e) => e.type === itemType)?.defaultScale;
+
 		// New Location
 		const newLocation = {
 			_id: new_id_response?.data?._id,
 			story_id: story?._id,
 			type: itemType,
 			position: [0, 0, 0],
-			scale: 1,
+			scale: scale ? scale : 1,
 			paths: [],
 			data: { name: itemName, description: [] },
 		};

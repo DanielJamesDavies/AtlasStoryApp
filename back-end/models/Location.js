@@ -14,6 +14,8 @@ const LocationSchema = mongoose.Schema({
 	position: { type: [Number], required: true, default: [0, 0, 0] },
 	rotation: { type: [Number], required: true, default: [0, 0, 0] },
 	scale: { type: Number, required: true, default: 1 },
+	tilt: { type: Number, required: true, default: 1 },
+	dayLength: { type: Number, required: true, default: 1 },
 	paths: {
 		type: [
 			{

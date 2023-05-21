@@ -47,7 +47,7 @@ export const Map = () => {
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 		>
-			<Canvas gl={{ powerPreference: "high-performance" }}>
+			<Canvas gl={{ powerPreference: "high-performance", antialias: false }}>
 				<Physics gravity={[0, 0, 0]}>
 					<Player isPlayerMovementEnabled={isPlayerMovementEnabled} setIsPlayerMovementEnabled={setIsPlayerMovementEnabled} />
 					<PlayerLookAt />

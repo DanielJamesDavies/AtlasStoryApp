@@ -3,6 +3,8 @@
 // Components
 import { LocationType } from "./Type/Type";
 import { LocationScale } from "./Scale/Scale";
+import { LocationTilt } from "./Tilt/Tilt";
+import { LocationDayLength } from "./DayLength/DayLength";
 
 // Logic
 
@@ -19,6 +21,8 @@ export const Properties = () => {
 		<div className='locations-location-subpage-properties'>
 			<LocationType />
 			<LocationScale />
+			<LocationTilt />
+			<LocationDayLength />
 		</div>
 	);
 };

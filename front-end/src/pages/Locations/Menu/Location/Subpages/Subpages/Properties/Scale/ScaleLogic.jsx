@@ -52,7 +52,6 @@ export const LocationScaleLogic = () => {
 		} else {
 			newLocation.scale = scaleUnits.current.find((e) => e.id === newLocation.data.scaleUnit).to_meters(parseFloat(e.target.value));
 		}
-		console.log(newLocation.scale);
 		changeLocation(newLocation);
 	}
 

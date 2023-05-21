@@ -156,6 +156,8 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 											location_id={childLocation?._id}
 											position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
 											scale={childLocation?.scale / 360000000}
+											tilt={childLocation?.tilt}
+											dayLength={childLocation?.dayLength}
 											onClick={(e) => onClickLocation(e, childLocation)}
 											addToMapObjectLocations={addToMapObjectLocations}
 										/>
@@ -200,6 +202,8 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 																	multiplier: 0.05,
 																})}
 																scale={child2Location?.scale / 275000000}
+																tilt={child2Location?.tilt}
+																dayLength={child2Location?.dayLength}
 																onClick={(e) => onClickLocation(e, child2Location)}
 																onPointerOver={(e) => onPointerOver(e, child2Location?._id)}
 																onPointerOut={(e) => onPointerOut(e)}
