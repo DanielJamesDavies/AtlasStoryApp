@@ -35,6 +35,7 @@ const LocationSchema = mongoose.Schema({
 			name: { type: String },
 			description: { type: [String], default: [""] },
 			scaleUnit: { type: String, required: true, default: "m" },
+			gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], default: [] },
 		},
 	},
 });

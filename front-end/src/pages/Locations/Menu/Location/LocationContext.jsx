@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 
 import { StoryContext } from "../../../../context/StoryContext";
+import { APIContext } from "../../../../context/APIContext";
 
 export const LocationContext = createContext();
 
 const LocationProvider = ({ children, location_id }) => {
 	const { isAuthorizedToEdit, story, locations, setLocations } = useContext(StoryContext);
+	const { APIRequest } = useContext(APIContext);
 
 	const subpages = [
 		{ id: "description", name: "Description" },
@@ -18,20 +20,47 @@ const LocationProvider = ({ children, location_id }) => {
 
 	const [location, setLocation] = useState(false);
 	const [openSubpageID, setOpenSubpageID] = useState("description");
+	const [locationImages, setLocationImages] = useState([]);
 
 	const curr_location_id = useRef(false);
 	useEffect(() => {
-		function getInitial() {
+		async function getInitial() {
 			if (curr_location_id.current === location_id) return false;
 			curr_location_id.current = location_id;
 
+			const newLocation = await getLocation();
+			getImages(newLocation);
+		}
+
+		async function getLocation() {
 			let newLocations = JSON.parse(JSON.stringify(locations));
 			const locationIndex = newLocations.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(location_id));
 			if (locationIndex === -1) return false;
-			setLocation(JSON.parse(JSON.stringify(newLocations[locationIndex])));
+			const newLocation = JSON.parse(JSON.stringify(newLocations[locationIndex]));
+			setLocation(newLocation);
+			return newLocation;
 		}
+
+		async function getImages(newLocation) {
+			let newImages = [];
+
+			if (newLocation?.data?.gallery) {
+				const galleryImages = await Promise.all(
+					newLocation?.data?.gallery.map(async (item) => {
+						const response = await APIRequest("/image/" + item.image, "GET");
+						if (response?.errors || !response?.data?.image?.image) return false;
+						return response?.data?.image;
+					})
+				);
+				newImages = newImages.concat(galleryImages.filter((e) => e));
+			}
+
+			setLocationImages(newImages);
+			return newImages;
+		}
+
 		getInitial();
-	}, [location_id, setLocation, locations]);
+	}, [location_id, setLocation, locations, APIRequest]);
 
 	function changeLocation(newLocation) {
 		let newLocations = JSON.parse(JSON.stringify(locations));
@@ -45,7 +74,19 @@ const LocationProvider = ({ children, location_id }) => {
 
 	return (
 		<LocationContext.Provider
-			value={{ location_id, isAuthorizedToEdit, story, locations, location, changeLocation, subpages, openSubpageID, setOpenSubpageID }}
+			value={{
+				location_id,
+				isAuthorizedToEdit,
+				story,
+				locations,
+				location,
+				changeLocation,
+				locationImages,
+				setLocationImages,
+				subpages,
+				openSubpageID,
+				setOpenSubpageID,
+			}}
 		>
 			{children}
 		</LocationContext.Provider>

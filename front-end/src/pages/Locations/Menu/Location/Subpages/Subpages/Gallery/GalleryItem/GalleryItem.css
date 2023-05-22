@@ -1,0 +1,68 @@
+.locations-location-gallery-items-container .drag-drop-item {
+	margin: 4px;
+	width: calc((100% / 2) - 8px);
+}
+
+.drag-drop-item .locations-location-gallery-item {
+	width: 100%;
+}
+
+.drag-drop-item-enable-drag-drop .locations-location-gallery-item {
+	animation: wiggle-large infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even) .locations-location-gallery-item {
+	animation-delay: 0.1s;
+}
+
+.locations-location-gallery-item {
+	position: relative;
+	margin: 4px;
+	width: calc((100% / 2) - 8px);
+}
+
+.locations-location-gallery-item img {
+	width: 100%;
+	max-height: max(18vw, 250px);
+	object-fit: contain;
+}
+
+.locations-location-gallery-item-placeholder {
+	position: relative;
+	min-height: 240px;
+}
+
+.locations-location-gallery-item-caption {
+	padding: 3px 8px;
+	border-radius: 4px;
+	width: fit-content;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+}
+
+.locations-location-gallery-item-caption,
+.locations-location-gallery-item-caption input {
+	font-size: 14px;
+	min-height: 20px;
+}
+
+.locations-location-gallery-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}
+
+@media (max-width: 1000px) {
+	.locations-location-gallery-item {
+		position: relative;
+		margin: 4px 0;
+		width: 100%;
+	}
+
+	.locations-location-gallery-items-container .drag-drop-item {
+		margin: 4px 0;
+		width: 100%;
+	}
+}

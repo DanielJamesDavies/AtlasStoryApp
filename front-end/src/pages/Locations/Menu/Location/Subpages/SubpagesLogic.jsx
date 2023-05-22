@@ -4,6 +4,7 @@ import { useState, useContext, useEffect, useRef } from "react";
 // Components
 import { Description } from "./Subpages/Description/Description";
 import { Properties } from "./Subpages/Properties/Properties";
+import { Gallery } from "./Subpages/Gallery/Gallery";
 import { Settings } from "./Subpages/Settings/Settings";
 
 // Logic
@@ -41,6 +42,8 @@ export const LocationSubpagesLogic = () => {
 					return <Description />;
 				case "properties":
 					return <Properties />;
+				case "gallery":
+					return <Gallery />;
 				case "settings":
 					return <Settings />;
 				default:

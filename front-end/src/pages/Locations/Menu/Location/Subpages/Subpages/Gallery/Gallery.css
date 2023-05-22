@@ -1,0 +1,21 @@
+.locations-location-gallery {
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+	height: 100%;
+}
+
+.locations-location-gallery-edit {
+	display: flex;
+	height: 100%;
+}
+
+.locations-location-gallery-items-container {
+	width: 100%;
+	height: 100%;
+}
+
+.locations-location-gallery-items {
+	display: flex;
+	flex-wrap: wrap;
+}
