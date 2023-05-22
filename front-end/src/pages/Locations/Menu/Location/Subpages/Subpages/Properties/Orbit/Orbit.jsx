@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { LocationPoints } from "./Points/Points";
 import { LocationInclination } from "./Inclination/Inclination";
 
 // Logic
@@ -22,6 +23,7 @@ export const LocationOrbit = () => {
 	return (
 		<div className='locations-location-orbit-container'>
 			<div className='locations-location-orbit-title'>Orbit</div>
+			<LocationPoints />
 			<LocationInclination />
 		</div>
 	);

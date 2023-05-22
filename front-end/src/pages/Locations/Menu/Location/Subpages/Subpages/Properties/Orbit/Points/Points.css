@@ -1,0 +1,19 @@
+.locations-location-points-container {
+	padding: 4px 0;
+}
+
+.locations-location-points-title {
+	font-size: var(--font-size-p-m);
+	font-weight: 600;
+}
+
+.locations-location-points-value {
+	margin-top: 4px;
+	font-size: var(--font-size-p-m);
+}
+
+.locations-location-points-value-edit-container {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}

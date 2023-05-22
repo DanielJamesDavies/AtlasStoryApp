@@ -11,26 +11,56 @@ export const LocationsContext = createContext();
 
 const LocationsProvider = ({ children, story_uid }) => {
 	const locationTypes = [
-		{ type: "reality", name: "Reality", icon: <FaDiceD6 />, possibleParents: ["reality"], defaultScale: 1 },
-		{ type: "universe", name: "Universe", icon: <FaGlobe />, possibleParents: ["reality"], defaultScale: 1 },
-		{ type: "galaxy", name: "Galaxy", icon: <FaBullseye />, possibleParents: ["reality", "universe"], defaultScale: 1 },
-		{ type: "starCluster", name: "Star Cluster", icon: <FaProjectDiagram />, possibleParents: ["reality", "galaxy"], defaultScale: 1 },
+		{ type: "reality", name: "Reality", icon: <FaDiceD6 />, possibleParents: ["reality"], defaultScale: 1, defaultPoints: [0, 0] },
+		{ type: "universe", name: "Universe", icon: <FaGlobe />, possibleParents: ["reality"], defaultScale: 1, defaultPoints: [0, 0] },
+		{ type: "galaxy", name: "Galaxy", icon: <FaBullseye />, possibleParents: ["reality", "universe"], defaultScale: 1, defaultPoints: [0, 0] },
+		{
+			type: "starCluster",
+			name: "Star Cluster",
+			icon: <FaProjectDiagram />,
+			possibleParents: ["reality", "galaxy"],
+			defaultScale: 1,
+			defaultPoints: [0, 0],
+		},
 		{
 			type: "starSystem",
 			name: "Star System",
 			icon: <FaDotCircle />,
 			possibleParents: ["reality", "starCluster"],
 			defaultScale: 149597870700 * 100000,
+			defaultPoints: [0, 0],
 		},
-		{ type: "star", name: "Star", icon: <FaSun />, possibleParents: ["reality", "starSystem"], defaultScale: 1392700000 },
-		{ type: "planet", name: "Planet", icon: <FaGlobeEurope />, possibleParents: ["reality", "starSystem"], defaultScale: 12742000 },
-		{ type: "moon", name: "Moon", icon: <FaMoon />, possibleParents: ["reality", "planet"], defaultScale: 3474800 },
+		{
+			type: "star",
+			name: "Star",
+			icon: <FaSun />,
+			possibleParents: ["reality", "starSystem"],
+			defaultScale: 1392700000,
+			defaultPoints: [0, 0],
+		},
+		{
+			type: "planet",
+			name: "Planet",
+			icon: <FaGlobeEurope />,
+			possibleParents: ["reality", "starSystem"],
+			defaultScale: 12742000,
+			defaultPoints: [149600000, 149600000],
+		},
+		{
+			type: "moon",
+			name: "Moon",
+			icon: <FaMoon />,
+			possibleParents: ["reality", "planet"],
+			defaultScale: 3474800,
+			defaultPoints: [384399, 384399],
+		},
 		{
 			type: "artificialSatellite",
 			name: "Artificial Satellite",
 			icon: <FaSatellite />,
 			possibleParents: ["reality", "planet", "moon"],
 			defaultScale: 1,
+			defaultPoints: [6738, 6738],
 		},
 		{
 			type: "surfaceLocation",
@@ -38,6 +68,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			icon: <FaMap />,
 			possibleParents: ["reality", "planet", "moon", "artificialSatellite", "surfaceLocation"],
 			defaultScale: 1,
+			defaultPoints: [0, 0],
 		},
 	];
 

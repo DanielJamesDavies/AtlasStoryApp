@@ -92,6 +92,7 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 		}
 
 		const scale = locationTypes.find((e) => e.type === itemType)?.defaultScale;
+		const points = locationTypes.find((e) => e.type === itemType)?.defaultPoints;
 
 		// New Location
 		const newLocation = {
@@ -100,6 +101,10 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 			type: itemType,
 			position: [0, 0, 0],
 			scale: scale ? scale : 1,
+			tilt: 0,
+			dayLength: 1,
+			points: points,
+			inclination: 0,
 			paths: [],
 			data: { name: itemName, description: [] },
 		};
