@@ -43,6 +43,7 @@ export const AIToolsLogic = ({ type, context }) => {
 			role: "user",
 			content:
 				"Rewrite the following text, delimited by triple backticks, to be more concise and more well-written. " +
+				"Make sure to use good grammar and spelling. Use any names of characters, locations, events, groups, etc, used in my text. " +
 				"Do not include triple backticks in your response. " +
 				"Text: ```" +
 				context.text +
@@ -66,6 +67,7 @@ export const AIToolsLogic = ({ type, context }) => {
 			role: "user",
 			content:
 				"Summarize and extract relevant information from the following text, delimited by triple backticks, into a concise list using bullet points. " +
+				"Make sure to use good grammar and spelling. Use any names of characters, locations, events, groups, etc, used in my text. " +
 				"Do not include triple backticks in your response. " +
 				"Text: ```" +
 				context.text +
