@@ -106,7 +106,7 @@ export const DevelopmentItem = ({
 							label='Development Item Title'
 							value={developmentItem?.title}
 							onChange={(e) => changeDevelopmentItemTitle(e, index)}
-							aiTools={true}
+							aiTools={false}
 						/>
 					</div>
 					<div className={devItemTextContainerClassName}>

@@ -40,7 +40,7 @@ export const PsychologyItem = ({ psychologyItem, index, isEditing, changePsychol
 						label='Psychology Item Title'
 						value={psychologyItem?.title}
 						onChange={(e) => changePsychologyItemTitle(e, index)}
-						aiTools={true}
+						aiTools={false}
 					/>
 					<MultiLineTextInput
 						className='character-subpage-psychology-item-text'

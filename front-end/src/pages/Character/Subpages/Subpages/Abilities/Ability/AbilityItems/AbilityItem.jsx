@@ -37,7 +37,7 @@ export const AbilityItem = ({ ability, changeAbility, abilityItem, index, isEdit
 							label='Ability Item Title'
 							value={abilityItem?.title}
 							onChange={changeAbilityItemTitle}
-							aiTools={true}
+							aiTools={false}
 						/>
 					)}
 

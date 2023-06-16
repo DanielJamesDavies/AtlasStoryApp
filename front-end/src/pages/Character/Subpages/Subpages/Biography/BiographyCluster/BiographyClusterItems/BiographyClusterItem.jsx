@@ -40,7 +40,7 @@ export const BiographyClusterItem = ({ biographyCluster, changeBiographyCluster,
 							label='Biography Cluster Item Title'
 							value={biographyClusterItem?.title}
 							onChange={changeBiographyClusterItemTitle}
-							aiTools={true}
+							aiTools={false}
 						/>
 					)}
 

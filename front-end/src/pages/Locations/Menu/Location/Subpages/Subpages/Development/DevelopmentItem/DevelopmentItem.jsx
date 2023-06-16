@@ -2,14 +2,14 @@
 import { FaImage, FaPlus, FaTimes } from "react-icons/fa";
 
 // Components
-import { DragDropContainer } from "../../../../../components/DragDropContainer/DragDropContainer";
-import { DragDropItem } from "../../../../../components/DragDropItem/DragDropItem";
-import { ContentItem } from "../../../../../components/ContentItem/ContentItem";
-import { Text } from "../../../../../components/Text/Text";
-import { TextInput } from "../../../../../components/TextInput/TextInput";
-import { MultiLineTextInput } from "../../../../../components/MultiLineTextInput/MultiLineTextInput";
-import { IconBtn } from "../../../../../components/IconBtn/IconBtn";
-import { LoadingCircle } from "../../../../../components/LoadingCircle/LoadingCircle";
+import { DragDropContainer } from "../../../../../../../../components/DragDropContainer/DragDropContainer";
+import { DragDropItem } from "../../../../../../../../components/DragDropItem/DragDropItem";
+import { ContentItem } from "../../../../../../../../components/ContentItem/ContentItem";
+import { Text } from "../../../../../../../../components/Text/Text";
+import { TextInput } from "../../../../../../../../components/TextInput/TextInput";
+import { MultiLineTextInput } from "../../../../../../../../components/MultiLineTextInput/MultiLineTextInput";
+import { IconBtn } from "../../../../../../../../components/IconBtn/IconBtn";
+import { LoadingCircle } from "../../../../../../../../components/LoadingCircle/LoadingCircle";
 
 // Logic
 import { DevelopmentItemLogic } from "./DevelopmentItemLogic";
@@ -31,11 +31,9 @@ export const DevelopmentItem = ({
 	changeDevelopmentItemText,
 	removeDevelopmentItem,
 	isReorderingDevelopmentItems,
-	characterImagesCurrDevItemIndex,
-	openCharacterImages,
 }) => {
 	const {
-		characterImages,
+		locationImages,
 		reorderDevelopmentItemImages,
 		changeDevelopmentItemImageCaption,
 		removeDevItemImage,
@@ -45,7 +43,6 @@ export const DevelopmentItem = ({
 	} = DevelopmentItemLogic({
 		developmentItem,
 		index,
-		characterImagesCurrDevItemIndex,
 		isEditing,
 	});
 
@@ -54,37 +51,37 @@ export const DevelopmentItem = ({
 			<div
 				className={
 					developmentItem?.text.join("").split(" ").join("").length !== 0 && developmentItem?.text.length === 1
-						? "character-subpage-development-item character-subpage-development-item-has-single-line-text"
-						: "character-subpage-development-item"
+						? "locations-location-development-item locations-location-development-item-has-single-line-text"
+						: "locations-location-development-item"
 				}
 			>
 				<ContentItem hasBg={true}>
-					<div className='character-subpage-development-item-title-container'>
-						<div className='character-subpage-development-item-title'>{developmentItem?.title}</div>
+					<div className='locations-location-development-item-title-container'>
+						<div className='locations-location-development-item-title'>{developmentItem?.title}</div>
 					</div>
 					{developmentItem?.text.join("").split(" ").join("").length === 0 ? null : (
 						<div className={devItemTextContainerClassName}>
-							<Text className='character-subpage-development-item-text-text' value={developmentItem?.text} />
+							<Text className='locations-location-development-item-text-text' value={developmentItem?.text} />
 						</div>
 					)}
 					{!developmentItem?.images || developmentItem?.images?.length === 0 ? null : (
 						<div className={devItemImagesContainerClassName}>
-							<div className='character-subpage-development-item-images'>
+							<div className='locations-location-development-item-images'>
 								{developmentItem.images.map((image, index) => (
-									<div key={index} className='character-subpage-development-item-image-item'>
-										{!characterImages.find((e) => e._id === image.image)?.image ? (
-											<div className='character-subpage-development-item-image-item-placeholder'>
+									<div key={index} className='locations-location-development-item-image-item'>
+										{!locationImages.find((e) => e._id === image.image)?.image ? (
+											<div className='locations-location-development-item-image-item-placeholder'>
 												<LoadingCircle center='true' />
 											</div>
 										) : (
 											<img
-												src={characterImages.find((e) => e._id === image.image).image}
+												src={locationImages.find((e) => e._id === image.image).image}
 												alt=''
 												onClick={() => onDevelopmentItemImageClick(index)}
 											/>
 										)}
 										{image.caption.split(" ").join("").length === 0 ? null : (
-											<div className='character-subpage-development-item-image-item-caption'>{image.caption}</div>
+											<div className='locations-location-development-item-image-item-caption'>{image.caption}</div>
 										)}
 									</div>
 								))}
@@ -96,22 +93,22 @@ export const DevelopmentItem = ({
 		);
 
 	return (
-		<div className='character-subpage-development-item'>
+		<div className='locations-location-development-item'>
 			<ContentItem hasBg={true}>
-				<div className='character-subpage-development-item-content'>
-					<div className='character-subpage-development-item-title-container'>
+				<div className='locations-location-development-item-content'>
+					<div className='locations-location-development-item-title-container'>
 						<TextInput
-							className='character-subpage-development-item-title'
+							className='locations-location-development-item-title'
 							seamless={true}
 							label='Development Item Title'
 							value={developmentItem?.title}
 							onChange={(e) => changeDevelopmentItemTitle(e, index)}
-							aiTools={false}
+							aiTools={true}
 						/>
 					</div>
 					<div className={devItemTextContainerClassName}>
 						<MultiLineTextInput
-							className='character-subpage-development-item-text'
+							className='locations-location-development-item-text'
 							seamless={true}
 							label='Development Item Text'
 							value={developmentItem?.text.join("\n")}
@@ -122,24 +119,24 @@ export const DevelopmentItem = ({
 					<div className={devItemImagesContainerClassName}>
 						{!developmentItem?.images || developmentItem?.images?.length === 0 ? null : (
 							<DragDropContainer
-								className='character-subpage-development-item-images'
+								className='locations-location-development-item-images'
 								enableDragDrop={isReorderingDevelopmentItems}
 								onDropItem={reorderDevelopmentItemImages}
 							>
 								{developmentItem.images.map((image, imageIndex) => (
-									<DragDropItem key={imageIndex} index={imageIndex} className='character-subpage-development-item-image-item'>
-										{!characterImages.find((e) => e._id === image.image)?.image ? null : (
-											<img src={characterImages.find((e) => e._id === image.image).image} alt='' />
+									<DragDropItem key={imageIndex} index={imageIndex} className='locations-location-development-item-image-item'>
+										{!locationImages.find((e) => e._id === image.image)?.image ? null : (
+											<img src={locationImages.find((e) => e._id === image.image).image} alt='' />
 										)}
 										<TextInput
-											className='character-subpage-development-item-image-item-caption'
+											className='locations-location-development-item-image-item-caption'
 											seamless={true}
 											autoResize={true}
 											label='Caption'
 											value={image.caption}
 											onChange={(e) => changeDevelopmentItemImageCaption(e, imageIndex)}
 										/>
-										<div className='character-subpage-development-item-image-item-btns-container'>
+										<div className='locations-location-development-item-image-item-btns-container'>
 											<IconBtn
 												icon={<FaTimes />}
 												iconName='remove'
@@ -154,15 +151,9 @@ export const DevelopmentItem = ({
 						)}
 					</div>
 				</div>
-				<div className='character-subpage-development-item-buttons-container'>
+				<div className='locations-location-development-item-buttons-container'>
 					<IconBtn icon={<FaTimes />} iconName='times' seamless={true} onClick={() => removeDevelopmentItem(index)} />
-					<IconBtn
-						icon={<FaImage />}
-						iconName='image'
-						iconSmall={<FaPlus />}
-						seamless={true}
-						onClick={() => openCharacterImages(index)}
-					/>
+					<IconBtn icon={<FaImage />} iconName='image' iconSmall={<FaPlus />} seamless={true} onClick={() => {}} />
 				</div>
 			</ContentItem>
 		</div>

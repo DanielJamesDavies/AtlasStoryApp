@@ -8,6 +8,7 @@
 .character-relationship-info-home-selected-character-relationship-item-content {
 	display: flex;
 	align-items: center;
+	gap: 4px;
 	width: 100%;
 }
 

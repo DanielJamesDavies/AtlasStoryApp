@@ -84,7 +84,7 @@ export const NotesListItem = ({ item, index, isEditing, isReorderingNotes }) => 
 					label='Note Title'
 					value={item?.title}
 					onChange={changeItemTitle}
-					aiTools={true}
+					aiTools={false}
 				/>
 				<MultiLineTextInput
 					className='notes-list-item-text'

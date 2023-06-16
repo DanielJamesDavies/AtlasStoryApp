@@ -40,7 +40,7 @@ export const Item = ({ item, index, changeItemTitle, changeItemDescription, remo
 						value={item?.title}
 						onChange={(e) => changeItemTitle(e, index)}
 						seamless={true}
-						aiTools={true}
+						aiTools={false}
 					/>
 					<MultiLineTextInput
 						className='character-subpage-relationships-relationship-item-text'

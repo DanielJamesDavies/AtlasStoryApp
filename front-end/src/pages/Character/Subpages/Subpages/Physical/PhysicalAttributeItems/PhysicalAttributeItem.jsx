@@ -74,7 +74,7 @@ export const PhysicalAttributeItem = ({
 						label='Physical Attribute Item Title'
 						value={physicalAttributeItem?.title}
 						onChange={(e) => changePhysicalAttributeItemTitle(e, index)}
-						aiTools={true}
+						aiTools={false}
 					/>
 					<MultiLineTextInput
 						className='character-subpage-physical-attribute-item-text'

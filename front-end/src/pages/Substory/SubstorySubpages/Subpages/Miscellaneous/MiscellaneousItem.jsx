@@ -106,7 +106,7 @@ export const MiscellaneousItem = ({
 							label='Miscellaneous Item Title'
 							value={miscellaneousItem?.title}
 							onChange={(e) => changeMiscellaneousItemTitle(e, index)}
-							aiTools={true}
+							aiTools={false}
 						/>
 					</div>
 					<div className={devItemTextContainerClassName}>

@@ -1,0 +1,187 @@
+.locations-location-development-item-container {
+	margin: 12px 0;
+}
+
+.locations-location-development-item-container .content-item {
+	margin-left: 0;
+	margin-right: 0;
+	padding-right: 8px;
+}
+
+.locations-location-development-item-has-single-line-text .content-item {
+	padding-bottom: 8px;
+}
+
+.locations-location-development-item-container:last-child {
+	padding-bottom: 8px;
+}
+
+.drag-drop-item-enable-drag-drop.locations-location-development-item-container {
+	animation: wiggle-very-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).locations-location-development-item-container {
+	animation-delay: 0.1s;
+}
+
+.locations-location-development-item-content {
+	display: inline-block;
+	width: calc(100% - 32px);
+	vertical-align: top;
+}
+
+.locations-location-development-item-text-container {
+	display: inline-block;
+	margin-right: 12px;
+	width: calc(55% - 12px);
+	vertical-align: top;
+}
+
+.locations-location-development-item-text-container-full-width {
+	margin-right: 0;
+	width: 100%;
+}
+
+.locations-location-development-item-text-container-no-width {
+	display: none !important;
+}
+
+.locations-location-development-item-images-container {
+	display: inline-block;
+	padding: 2px;
+	border-radius: 2px;
+	width: calc(45% - 4px);
+	vertical-align: top;
+}
+
+.locations-location-development-item-images-container-full-width {
+	width: calc(100% - 4px);
+}
+
+.locations-location-development-item-images-container-no-width {
+	display: none !important;
+}
+
+.locations-location-development-item-images-container-is-current {
+	animation: locations-location-development-item-images-container-is-current 1.5s infinite linear;
+}
+
+@keyframes locations-location-development-item-images-container-is-current {
+	0%,
+	100% {
+		background: var(--colour-grey-one);
+	}
+	35%,
+	65% {
+		background: var(--colour-grey-three);
+	}
+}
+
+.locations-location-development-item-images {
+	display: inline-flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.locations-location-development-item-image-item {
+	position: relative;
+	margin: 4px;
+	width: calc((100% / 3) - 8px);
+}
+
+.drag-drop-item-enable-drag-drop .locations-location-development-item-image-item {
+	-webkit-user-drag: element;
+}
+
+.locations-location-development-item-image-item img {
+	width: 100%;
+	max-height: max(18vw, 250px);
+	object-fit: contain;
+}
+
+.locations-location-development-item-image-item-placeholder {
+	position: relative;
+	min-height: 200px;
+}
+
+.locations-location-development-item .multi-line-text-input {
+	margin-bottom: -4px;
+}
+
+.locations-location-development-item-title {
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+.locations-location-development-item-title .text-input {
+	margin-top: -4px;
+}
+
+.locations-location-development-item-title,
+.locations-location-development-item-title input {
+	font-size: var(--font-size-p-m);
+	font-weight: 600;
+}
+
+.locations-location-development-item .text-input-container-empty {
+	height: var(--font-size-p-m-height);
+}
+
+.locations-location-development-item-text {
+	min-height: var(--font-size-p-m-height);
+}
+
+.locations-location-development-item-image-item-caption {
+	padding: 3px 8px;
+	border-radius: 4px;
+	width: fit-content;
+	max-width: calc(100% - 16px);
+	word-break: break-word;
+	overflow-wrap: anywhere;
+	background: var(--colour-grey-three);
+}
+
+.locations-location-development-item-image-item-caption,
+.locations-location-development-item-image-item-caption input {
+	font-size: 14px;
+	min-height: 20px;
+}
+
+.locations-location-development-item-image-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}
+
+.locations-location-development-item-buttons-container {
+	display: inline-flex;
+	flex-direction: column;
+	width: 32px;
+	gap: 8px 0;
+}
+
+@media (max-width: 1000px) {
+	.locations-location-development-item-container {
+		margin: 6px 0;
+		width: 100%;
+	}
+
+	.locations-location-development-item-text-container {
+		display: inline-block;
+		margin-right: 0;
+		width: 100%;
+	}
+
+	.locations-location-development-item-images-container {
+		display: inline-block;
+		margin-top: 12px;
+		padding: 2px;
+		border-radius: 2px;
+		width: calc(100% - 4px);
+		vertical-align: top;
+	}
+
+	.locations-location-development-item-image-item {
+		width: calc((100% / 2) - 8px);
+	}
+}

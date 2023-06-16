@@ -46,7 +46,7 @@ const AIProvider = ({ children }) => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					model: "gpt-3.5-turbo",
+					model: "gpt-3.5-turbo-0613",
 					messages: newMessages,
 					max_tokens: isNaN(parseInt(GPT_Max_Tokens)) ? 100 : GPT_Max_Tokens,
 					temperature,

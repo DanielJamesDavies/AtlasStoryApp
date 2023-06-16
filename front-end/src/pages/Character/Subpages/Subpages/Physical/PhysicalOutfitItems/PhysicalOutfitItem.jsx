@@ -74,7 +74,7 @@ export const PhysicalOutfitItem = ({
 						label='Physical Outfit Item Title'
 						value={physicalOutfitItem?.title}
 						onChange={(e) => changePhysicalOutfitItemTitle(e, index)}
-						aiTools={true}
+						aiTools={false}
 					/>
 					<MultiLineTextInput
 						className='character-subpage-physical-outfit-item-text'
