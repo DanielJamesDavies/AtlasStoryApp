@@ -94,6 +94,7 @@
 }
 
 .substory-subpage-soundtrack-track-text-container {
+	position: relative;
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 6px;
