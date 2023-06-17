@@ -7,7 +7,7 @@ export const UserContext = createContext();
 
 const UserProvider = ({ children, user_username }) => {
 	const { APIRequest, username, userProfilePicture, setUserProfilePicture, userBanner, setUserBanner } = useContext(APIContext);
-	const { location } = useContext(RoutesContext);
+	const { location, changeLocationParameters } = useContext(RoutesContext);
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
 	const [profilePicture, setProfilePicture] = useState(false);
 	const [user, setUser] = useState(false);
@@ -109,6 +109,10 @@ const UserProvider = ({ children, user_username }) => {
 		setBanner,
 		setUserBanner,
 	]);
+
+	useEffect(() => {
+		changeLocationParameters([]);
+	}, [changeLocationParameters]);
 
 	return (
 		<UserContext.Provider

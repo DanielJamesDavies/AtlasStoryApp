@@ -8,7 +8,7 @@ export const SubstoriesContext = createContext();
 
 const SubstoriesProvider = ({ children, story_uid }) => {
 	const { APIRequest } = useContext(APIContext);
-	const { location } = useContext(RoutesContext);
+	const { location, changeLocationParameters } = useContext(RoutesContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon, storySubstories, setStorySubstories } = useContext(StoryContext);
 
 	const curr_story_uid = useRef(false);
@@ -39,6 +39,10 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 	function toggleIsReorderingSubstories() {
 		setIsReorderingSubstories((oldIsReorderingSubstories) => !oldIsReorderingSubstories);
 	}
+
+	useEffect(() => {
+		changeLocationParameters([]);
+	}, [changeLocationParameters]);
 
 	return (
 		<SubstoriesContext.Provider

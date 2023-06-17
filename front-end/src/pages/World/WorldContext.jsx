@@ -6,7 +6,7 @@ import { StoryContext } from "../../context/StoryContext";
 export const WorldContext = createContext();
 
 const WorldProvider = ({ children, story_uid }) => {
-	const { location } = useContext(RoutesContext);
+	const { location, changeLocationParameters } = useContext(RoutesContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
 
 	const curr_story_uid = useRef(false);
@@ -31,6 +31,10 @@ const WorldProvider = ({ children, story_uid }) => {
 
 		getInitial();
 	}, [location, story_uid, curr_story_uid, story]);
+
+	useEffect(() => {
+		changeLocationParameters([]);
+	}, [changeLocationParameters]);
 
 	return (
 		<WorldContext.Provider

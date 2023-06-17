@@ -8,7 +8,7 @@ export const CharactersContext = createContext();
 
 const CharactersProvider = ({ children, story_uid }) => {
 	const { APIRequest } = useContext(APIContext);
-	const { location } = useContext(RoutesContext);
+	const { location, changeLocationParameters } = useContext(RoutesContext);
 	const {
 		isAuthorizedToEdit,
 		story,
@@ -111,6 +111,10 @@ const CharactersProvider = ({ children, story_uid }) => {
 		if (!newCharacterType) return setCharacterType(false);
 		setCharacterType(newCharacterType);
 	}
+
+	useEffect(() => {
+		changeLocationParameters([]);
+	}, [changeLocationParameters]);
 
 	return (
 		<CharactersContext.Provider

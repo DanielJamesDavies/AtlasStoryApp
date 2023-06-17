@@ -12,7 +12,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { APIRequest } = useContext(APIContext);
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
-	const { location } = useContext(RoutesContext);
+	const { location, locationParams, changeLocationParameters } = useContext(RoutesContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon, storyGroups, storyCharacters, storyCharacterTypes, storyCharacterRelationships } =
 		useContext(StoryContext);
 
@@ -321,6 +321,39 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		if (currentVersionIndex === -1 || currentVersionIndex === character.data.versions.length - 1) return;
 		setCharacterVersion(character?.data?.versions[currentVersionIndex + 1]);
 	}
+
+	const hasReadInitialLocationParameters = useRef(false);
+
+	useEffect(() => {
+		if (character) {
+			if (!hasReadInitialLocationParameters.current) {
+				if (locationParams.current.findIndex((e) => e.label === "subpage") !== -1) {
+					setIsOnOverviewSection(false);
+					setOpenSubpageID(locationParams.current.find((e) => e.label === "subpage").value);
+				}
+				if (locationParams.current.findIndex((e) => e.label === "version") !== -1) {
+					const characterVersionIndex = character.data.versions.findIndex(
+						(e) => e._id === locationParams.current.find((e) => e.label === "version").value
+					);
+					if (characterVersionIndex !== -1) changeCharacterVersion(character.data.versions[characterVersionIndex]);
+				}
+				setTimeout(() => (hasReadInitialLocationParameters.current = true), 500);
+			} else {
+				let newLocationParameters = [];
+				if (characterVersion?._id) newLocationParameters.push({ label: "version", value: characterVersion._id });
+				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
+				changeLocationParameters(newLocationParameters);
+			}
+		}
+	}, [
+		changeLocationParameters,
+		hasReadInitialLocationParameters,
+		locationParams,
+		isOnOverviewSection,
+		openSubpageID,
+		characterVersion,
+		character,
+	]);
 
 	return (
 		<CharacterContext.Provider

@@ -1,4 +1,5 @@
 // Packages
+import { useContext, useEffect } from "react";
 
 // Components
 import { Search } from "./Search/Search";
@@ -8,6 +9,7 @@ import { Genres } from "./Genres/Genres";
 // Logic
 
 // Context
+import { RoutesContext } from "../../context/RoutesContext";
 
 // Services
 
@@ -17,6 +19,12 @@ import "./Home.css";
 // Assets
 
 export const Home = () => {
+	const { changeLocationParameters } = useContext(RoutesContext);
+
+	useEffect(() => {
+		changeLocationParameters([]);
+	}, [changeLocationParameters]);
+
 	return (
 		<div className='home-container'>
 			<Search />

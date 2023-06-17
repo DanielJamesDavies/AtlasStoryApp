@@ -13,7 +13,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { APIRequest } = useContext(APIContext);
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
-	const { location } = useContext(RoutesContext);
+	const { location, locationParams, changeLocationParameters } = useContext(RoutesContext);
 	const { spotify_access_token, spotify_refresh_token, SpotifyRequest } = useContext(SpotifyContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
 
@@ -297,6 +297,24 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			updateSubstorySoundtrackFromSpotify();
 		}
 	}, [spotify_access_token, spotify_refresh_token, old_spotify_tokens, updateSubstorySoundtrackFromSpotify]);
+
+	const hasReadInitialLocationParameters = useRef(false);
+
+	useEffect(() => {
+		if (substory) {
+			if (!hasReadInitialLocationParameters.current) {
+				if (locationParams.current.findIndex((e) => e.label === "subpage") !== -1) {
+					setIsOnOverviewSection(false);
+					setOpenSubpageID(locationParams.current.find((e) => e.label === "subpage").value);
+				}
+				setTimeout(() => (hasReadInitialLocationParameters.current = true), 500);
+			} else {
+				let newLocationParameters = [];
+				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
+				changeLocationParameters(newLocationParameters);
+			}
+		}
+	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, substory]);
 
 	return (
 		<SubstoryContext.Provider

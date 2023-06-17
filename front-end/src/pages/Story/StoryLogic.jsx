@@ -17,7 +17,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const StoryLogic = () => {
 	const { isAuthorizedToEdit, story } = useContext(StoryContext);
-	const { location } = useContext(RoutesContext);
+	const { location, changeLocationParameters } = useContext(RoutesContext);
 
 	useEffect(() => {
 		function updateDocumentTitle() {
@@ -45,6 +45,10 @@ export const StoryLogic = () => {
 		}
 		getStoryStyles();
 	}, [story]);
+
+	useEffect(() => {
+		changeLocationParameters([]);
+	}, [changeLocationParameters]);
 
 	return { isAuthorizedToEdit, story, storyStyles };
 };
