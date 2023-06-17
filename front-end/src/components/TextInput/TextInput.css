@@ -215,3 +215,7 @@
 .text-input-ai-tools-container {
 	width: max(var(--textInputWidth), 200px);
 }
+
+.text-input-ai-tools-container .ai-tools-container-is-displaying {
+	margin-top: 2px;
+}

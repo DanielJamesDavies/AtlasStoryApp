@@ -21,7 +21,12 @@ export const AITools = ({ type, context, isDisplayingButtons }) => {
 		AIToolsLogic({ type, context });
 
 	return (
-		<div ref={aiToolsContainerRef} className='ai-tools-container'>
+		<div
+			ref={aiToolsContainerRef}
+			className={
+				isDisplayingButtons || gpt_messages.length !== 0 ? "ai-tools-container ai-tools-container-is-displaying" : "ai-tools-container"
+			}
+		>
 			<div className='ai-tools' style={aiToolsStyles} onClick={(e) => e.stopPropagation()}>
 				<div
 					className={

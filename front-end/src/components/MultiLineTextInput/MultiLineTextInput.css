@@ -201,3 +201,11 @@
 .multi-line-text-input-ai-tools-container {
 	width: max(var(--multiLineTextInputWidth), 200px);
 }
+
+.multi-line-text-input-ai-tools-container .ai-tools-container-is-displaying {
+	margin-top: 4px;
+}
+
+.multi-line-text-input-container-empty .multi-line-text-input-ai-tools-container {
+	display: none;
+}
