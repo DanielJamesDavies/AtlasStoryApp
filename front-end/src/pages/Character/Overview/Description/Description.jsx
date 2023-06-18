@@ -27,7 +27,8 @@ export const CharacterOverviewDescription = () => {
 			onRevert={revertDescription}
 			onSave={saveDescription}
 		>
-			{characterVersion?.description === undefined || characterVersion?.description.join("").split(" ").join("").length === 0 ? (
+			{!isAuthorizedToEdit &&
+			(characterVersion?.description === undefined || characterVersion?.description.join("").split(" ").join("").length === 0) ? (
 				<div />
 			) : (
 				<div className='character-overview-description'>

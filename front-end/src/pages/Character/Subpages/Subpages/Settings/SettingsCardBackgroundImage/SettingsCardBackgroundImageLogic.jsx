@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 // Context
 import { CharacterContext } from "../../../../CharacterContext";
 import { APIContext } from "../../../../../../context/APIContext";
+import { RecentDataContext } from "../../../../../../context/RecentDataContext";
 
 // Services
 
@@ -18,6 +19,7 @@ import { APIContext } from "../../../../../../context/APIContext";
 export const SettingsCardBackgroundImageLogic = () => {
 	const { isAuthorizedToEdit, story, character, characterCardBackground, setCharacterCardBackground } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
+	const { addImagesToRecentImages } = useContext(RecentDataContext);
 
 	const [errors, setErrors] = useState([]);
 
@@ -51,6 +53,9 @@ export const SettingsCardBackgroundImageLogic = () => {
 			if (response?.errors) setErrors(response.errors);
 			return false;
 		}
+
+		addImagesToRecentImages([response?.data?.image]);
+
 		return true;
 	}
 

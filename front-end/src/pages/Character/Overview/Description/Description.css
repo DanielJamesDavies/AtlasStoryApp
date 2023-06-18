@@ -1,9 +1,5 @@
 .character-overview-description-container {
-	margin-left: auto;
-	padding-right: 8px;
-	width: calc(50% - 180px);
-	max-width: 500px;
-	height: 100%;
+	width: 100%;
 }
 
 .character-overview-description {
@@ -19,12 +15,4 @@
 .character-overview-description-label {
 	font-size: 13px;
 	font-weight: 400;
-}
-
-@media (max-width: 1300px) {
-	.character-overview-description-container {
-		margin: 0 auto;
-		width: 100%;
-		max-height: unset;
-	}
 }

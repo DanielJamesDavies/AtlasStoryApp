@@ -1,9 +1,5 @@
 .substory-overview-description-container {
-	margin-left: auto;
-	padding-right: 8px;
-	width: calc(50% - 180px);
-	max-width: 500px;
-	height: 100%;
+	width: 100%;
 }
 
 .substory-overview-description {
@@ -19,13 +15,4 @@
 .substory-overview-description-label {
 	font-size: 13px;
 	font-weight: 400;
-}
-
-@media (max-width: 1300px) {
-	.substory-overview-description-container {
-		margin: 0 auto;
-		padding-right: 0;
-		width: 100%;
-		max-height: unset;
-	}
 }

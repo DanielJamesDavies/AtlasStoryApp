@@ -1,6 +1,12 @@
+.character-subpage-psychology-item-container {
+	flex-shrink: 0;
+	align-self: stretch;
+	width: calc(50% - 4px);
+}
+
 .character-subpage-psychology-item-container .content-item {
-	margin-left: 0;
-	margin-right: 0;
+	margin: 0;
+	height: 100%;
 }
 
 .character-subpage-psychology-item-container:last-child {
@@ -13,6 +19,10 @@
 
 .drag-drop-item-enable-drag-drop:nth-child(even).character-subpage-psychology-item-container {
 	animation-delay: 0.1s;
+}
+
+.character-subpage-psychology-item {
+	height: 100%;
 }
 
 .character-subpage-psychology-item-content {
@@ -29,26 +39,13 @@
 	margin-bottom: 3px;
 }
 
-.character-subpage-psychology-item-title .text-input-label ~ input {
-	margin-top: 2px;
-	height: 17px;
-}
-
-.character-subpage-psychology-item-title .text-input-label {
-	margin-top: -5px;
-	font-size: 15px;
-}
-
 .character-subpage-psychology-item-title,
 .character-subpage-psychology-item-title input {
+	--text-input-font-size: 14px;
 	font-size: 14px;
 	font-weight: 600;
 }
 
 .character-subpage-psychology-item-text {
 	min-height: 23px;
-}
-
-.character-subpage-psychology-item-text .multi-line-text-input-label {
-	font-size: 15px;
 }

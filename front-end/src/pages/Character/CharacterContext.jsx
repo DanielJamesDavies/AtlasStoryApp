@@ -20,6 +20,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 
 	const [character, setCharacter] = useState(false);
 
+	const [characterPrimaryImages, setCharacterPrimaryImages] = useState([]);
 	const [characterOverviewBackground, setCharacterOverviewBackground] = useState(false);
 	const [characterCardBackground, setCharacterCardBackground] = useState(false);
 	const [characterFaceImage, setCharacterFaceImage] = useState(false);
@@ -37,12 +38,12 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	const allSubpages = useMemo(
 		() => [
-			{ id: "gallery", name: "Gallery", isEnabled: true },
-			{ id: "psychology", name: "Psychology", isEnabled: true },
-			{ id: "biography", name: "Biography", isEnabled: true },
+			{ id: "physical", name: "Appearance", isEnabled: true },
+			{ id: "psychology", name: "Personality", isEnabled: true },
+			{ id: "biography", name: "Background", isEnabled: true },
 			{ id: "abilities", name: "Abilities & Equipment", isEnabled: true },
-			{ id: "physical", name: "Physical", isEnabled: true },
 			{ id: "relationships", name: "Relationships", isEnabled: true },
+			{ id: "gallery", name: "Gallery", isEnabled: true },
 			{ id: "miscellaneous", name: "Miscellaneous", isEnabled: true },
 			{ id: "development", name: "Development", isEnabled: true },
 			{ id: "settings", name: "Settings", isEnabled: true },
@@ -70,6 +71,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			setTimeout(() => updateDocumentTitle(newCharacter), 1000);
 
 			getCharacterSubpages(newCharacter?.data?.subpages, isAuthorizedToEdit);
+			getCharacterPrimaryImages(newCharacter?.data?.versions);
 			getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
 			getCharacterCardBackground(newCharacter?.data?.cardBackground);
 			getCharacterFaceImage(newCharacter?.data?.faceImage);
@@ -128,8 +130,37 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			});
 		}
 
+		async function getCharacterPrimaryImages(versions) {
+			if (!versions) return;
+
+			const primaryImages = await Promise.all(
+				versions.map(async (version) => {
+					const recentImage = recentImages.current.find((e) => e?._id === version?.primaryImage);
+					if (recentImage?.image) {
+						return { _id: version._id, image: recentImage };
+					} else {
+						const primary_image_response = await APIRequest("/image/" + version?.primaryImage, "GET");
+						if (primary_image_response?.errors || !primary_image_response?.data?.image?.image) {
+							return { _id: version._id, image: { _id: version?.primaryImage, image: "NO_IMAGE" } };
+						}
+						addImagesToRecentImages([primary_image_response?.data?.image]);
+						return { _id: version._id, image: primary_image_response?.data?.image };
+					}
+				})
+			);
+
+			setCharacterPrimaryImages(primaryImages);
+
+			return primaryImages;
+		}
+
 		async function getCharacterOverviewBackground(overviewBackgroundID) {
-			if (!overviewBackgroundID) return;
+			let currOverviewBackground = false;
+			setCharacterOverviewBackground((oldCharacterOverviewBackground) => {
+				currOverviewBackground = JSON.parse(JSON.stringify(oldCharacterOverviewBackground));
+				return oldCharacterOverviewBackground;
+			});
+			if (!overviewBackgroundID || currOverviewBackground) return;
 
 			let overviewBackground = false;
 
@@ -138,7 +169,10 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				overviewBackground = recentImage;
 			} else {
 				const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
-				if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) return false;
+				if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) {
+					setCharacterOverviewBackground("NO_IMAGE");
+					return false;
+				}
 				overviewBackground = overview_background_image_response?.data?.image;
 			}
 
@@ -229,6 +263,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		allSubpages,
 		setSubpages,
 		setOpenSubpageID,
+		setCharacterPrimaryImages,
 		setCharacterOverviewBackground,
 		setCharacterCardBackground,
 		setCharacterFaceImage,
@@ -369,6 +404,8 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				storyCharacterTypes,
 				storyGroups,
 				storyCharacters,
+				characterPrimaryImages,
+				setCharacterPrimaryImages,
 				characterOverviewBackground,
 				setCharacterOverviewBackground,
 				characterCardBackground,

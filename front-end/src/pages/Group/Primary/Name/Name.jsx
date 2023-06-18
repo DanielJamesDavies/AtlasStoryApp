@@ -17,8 +17,8 @@ import "./Name.css";
 
 // Assets
 
-export const GroupPrimaryName = () => {
-	const { isAuthorizedToEdit, group, primaryNameStyles, changeName, revertName, saveName, errors } = GroupPrimaryNameLogic();
+export const GroupPrimaryName = ({ primaryStoryStyles }) => {
+	const { isAuthorizedToEdit, group, changeName, revertName, saveName, errors } = GroupPrimaryNameLogic();
 
 	return (
 		<EditableContainer
@@ -27,20 +27,11 @@ export const GroupPrimaryName = () => {
 			onRevert={revertName}
 			onSave={saveName}
 			absolutePositionEditBtns={true}
-			isLight={primaryNameStyles?.color === "#fff"}
+			isLight={primaryStoryStyles["--text-colour-primary"] === "#fff"}
 		>
-			<div className='group-primary-name' style={primaryNameStyles}>
-				{group?.data?.name}
-			</div>
+			<div className='group-primary-name'>{group?.data?.name}</div>
 			<div>
-				<TextInput
-					className='group-primary-name'
-					seamless={true}
-					value={group?.data?.name}
-					onChange={changeName}
-					autoResize={true}
-					innerStyle={primaryNameStyles}
-				/>
+				<TextInput className='group-primary-name' seamless={true} value={group?.data?.name} onChange={changeName} autoResize={true} />
 				<ErrorMessage errors={errors} />
 			</div>
 		</EditableContainer>

@@ -14,8 +14,16 @@ import "./IconBtn.css";
 
 // Assets
 
-export const IconBtn = ({ className, seamless, size, icon, iconName, iconHover, iconSmall, onClick, label, isLight }) => {
-	const { iconBtnClassName, containerRef, labelRef, labelStyle } = IconBtnLogic({ className, seamless, size, iconName, iconHover, isLight });
+export const IconBtn = ({ className, seamless, size, icon, iconName, iconHover, iconSmall, onClick, label, labelAlignment, isLight }) => {
+	const { iconBtnClassName, containerRef, labelRef, labelStyle } = IconBtnLogic({
+		className,
+		seamless,
+		size,
+		iconName,
+		iconHover,
+		isLight,
+		labelAlignment,
+	});
 
 	return (
 		<div ref={containerRef} className={iconBtnClassName}>

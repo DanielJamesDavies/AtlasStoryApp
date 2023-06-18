@@ -1,6 +1,9 @@
 .group-overview-summary-items-container {
+	margin-left: auto;
+	padding-right: 8px;
 	width: calc(50% - 180px);
 	max-width: 500px;
+	height: 100%;
 }
 
 .group-overview-summary-item {
@@ -84,6 +87,7 @@
 @media (max-width: 1300px) {
 	.group-overview-summary-items-container {
 		margin: 0 auto;
+		padding-right: 0;
 		width: 100%;
 		max-height: unset;
 	}

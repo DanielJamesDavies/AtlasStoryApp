@@ -21,6 +21,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 
 	const [substory, setSubstory] = useState(false);
 
+	const [substoryPrimaryImage, setSubstoryPrimaryImage] = useState(false);
 	const [substoryOverviewBackground, setSubstoryOverviewBackground] = useState(false);
 	const [substoryPosterBackground, setSubstoryPosterBackground] = useState(false);
 	const [substoryImages, setSubstoryImages] = useState([]);
@@ -29,9 +30,9 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	const allSubpages = useMemo(
 		() => [
-			{ id: "gallery", name: "Gallery", isEnabled: true },
 			{ id: "plot", name: "Plot", isEnabled: true },
 			{ id: "soundtrack", name: "Soundtrack", isEnabled: true },
+			{ id: "gallery", name: "Gallery", isEnabled: true },
 			{ id: "miscellaneous", name: "Miscellaneous", isEnabled: true },
 			{ id: "development", name: "Development", isEnabled: true },
 			{ id: "settings", name: "Settings", isEnabled: true },
@@ -61,6 +62,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			}
 
 			getSubstorySubpages(newSubstory?.data?.subpages, isAuthorizedToEdit);
+			getSubstoryPrimaryImage(newSubstory?.data?.primaryImage);
 			getSubstoryOverviewBackground(newSubstory?.data?.overviewBackground);
 			getSubstoryPosterBackground(newSubstory?.data?.posterBackground);
 			getSubstoryImages(newSubstory?.data?.images);
@@ -106,6 +108,29 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			});
 		}
 
+		async function getSubstoryPrimaryImage(primaryImageID) {
+			if (!primaryImageID) return;
+
+			let primaryImage = false;
+
+			const recentImage = recentImages.current.find((e) => e?._id === primaryImageID);
+			if (recentImage?.image) {
+				primaryImage = recentImage;
+			} else {
+				const primary_image_response = await APIRequest("/image/" + primaryImageID, "GET");
+				if (primary_image_response?.errors || !primary_image_response?.data?.image?.image) {
+					setSubstoryOverviewBackground("NO_IMAGE");
+					return false;
+				}
+				primaryImage = primary_image_response?.data?.image;
+			}
+
+			addImagesToRecentImages([primaryImage]);
+
+			setSubstoryPrimaryImage(primaryImage.image);
+			return primaryImage.image;
+		}
+
 		async function getSubstoryOverviewBackground(overviewBackgroundID) {
 			if (!overviewBackgroundID) return;
 
@@ -116,7 +141,10 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				overviewBackground = recentImage;
 			} else {
 				const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
-				if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) return false;
+				if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) {
+					setSubstoryOverviewBackground("NO_IMAGE");
+					return false;
+				}
 				overviewBackground = overview_background_image_response?.data?.image;
 			}
 
@@ -230,6 +258,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		allSubpages,
 		setSubstory,
 		setOpenSubpageID,
+		setSubstoryPrimaryImage,
 		setSubstoryOverviewBackground,
 		setSubstoryPosterBackground,
 		setSubstoryImages,
@@ -327,6 +356,8 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				storyIcon,
 				substory,
 				setSubstory,
+				substoryPrimaryImage,
+				setSubstoryPrimaryImage,
 				substoryOverviewBackground,
 				setSubstoryOverviewBackground,
 				substoryPosterBackground,

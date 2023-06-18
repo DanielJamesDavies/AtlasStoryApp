@@ -24,7 +24,7 @@ export const ImageInput = ({ className, isCircular, value, onChange }) => {
 				<div className='image-input-value-icon'>
 					<FaImage />
 				</div>
-				{value ? <img src={value} alt='' /> : null}
+				{value && value !== "NO_IMAGE" ? <img src={value} alt='' /> : null}
 			</div>
 			<input ref={inputRef} type='file' accept='image/*' onChange={onInputChange} />
 		</div>

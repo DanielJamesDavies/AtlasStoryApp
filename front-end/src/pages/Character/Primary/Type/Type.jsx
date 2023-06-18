@@ -16,17 +16,9 @@ import "./Type.css";
 
 // Assets
 
-export const CharacterPrimaryType = () => {
-	const {
-		isAuthorizedToEdit,
-		story,
-		storyCharacterTypes,
-		characterType,
-		changeCharacterType,
-		revertCharacterType,
-		saveCharacterType,
-		primaryTypeIsLight,
-	} = CharacterPrimaryTypeLogic();
+export const CharacterPrimaryType = ({ primaryStoryStyles }) => {
+	const { isAuthorizedToEdit, story, storyCharacterTypes, characterType, changeCharacterType, revertCharacterType, saveCharacterType } =
+		CharacterPrimaryTypeLogic();
 
 	return (
 		<EditableContainer
@@ -35,7 +27,7 @@ export const CharacterPrimaryType = () => {
 			onRevert={revertCharacterType}
 			onSave={saveCharacterType}
 			absolutePositionEditBtns={true}
-			isLight={primaryTypeIsLight}
+			isLight={primaryStoryStyles["--text-colour-primary"] === "#fff"}
 		>
 			<div className='character-primary-type' style={characterType?.data?.colour ? { background: characterType.data.colour } : {}}>
 				<div className='character-primary-type-text'>{characterType?.data?.name}</div>

@@ -17,8 +17,8 @@ import "./SubstoryPrimaryTitle.css";
 
 // Assets
 
-export const SubstoryPrimaryTitle = ({ substoryPrimaryTitleRef }) => {
-	const { isAuthorizedToEdit, story, substory, primaryTitleStyles, changeTitle, revertTitle, saveTitle, errors } = SubstoryPrimaryTitleLogic();
+export const SubstoryPrimaryTitle = ({ substoryPrimaryTitleRef, primaryStoryStyles }) => {
+	const { isAuthorizedToEdit, story, substory, changeTitle, revertTitle, saveTitle, errors } = SubstoryPrimaryTitleLogic();
 
 	return (
 		<EditableContainer
@@ -27,14 +27,14 @@ export const SubstoryPrimaryTitle = ({ substoryPrimaryTitleRef }) => {
 			onRevert={revertTitle}
 			onSave={saveTitle}
 			absolutePositionEditBtns={true}
-			isLight={primaryTitleStyles?.color === "#fff"}
+			isLight={primaryStoryStyles["--text-colour-primary"] === "#fff"}
 		>
 			{!substory?.data?.isStoryTitleInTitle ? (
-				<div ref={substoryPrimaryTitleRef} className='substory-primary-title' style={primaryTitleStyles}>
+				<div ref={substoryPrimaryTitleRef} className='substory-primary-title'>
 					{substory?.data?.title}
 				</div>
 			) : (
-				<div ref={substoryPrimaryTitleRef} className='substory-primary-title' style={primaryTitleStyles}>
+				<div ref={substoryPrimaryTitleRef} className='substory-primary-title'>
 					{story?.data?.title + ": " + substory?.data?.title}
 				</div>
 			)}
@@ -45,7 +45,6 @@ export const SubstoryPrimaryTitle = ({ substoryPrimaryTitleRef }) => {
 					value={substory?.data?.title}
 					onChange={changeTitle}
 					autoResize={true}
-					innerStyle={primaryTitleStyles}
 				/>
 				<ErrorMessage errors={errors} />
 			</div>

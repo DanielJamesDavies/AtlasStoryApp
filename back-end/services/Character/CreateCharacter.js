@@ -11,6 +11,8 @@ module.exports = async (req, res) => {
 	let validateCharacterResult = await validateCharacter(req.body);
 	if (validateCharacterResult?.errors?.length > 0) return res.status(200).send({ errors: validateCharacterResult.errors });
 
+	const default_summary_items_labels = ["Full Name", "Alias", "Occupation", "Age", "First Appearance", "Affiliation", "Family"];
+
 	// New Character
 	const character = new Character({
 		_id: new mongoose.Types.ObjectId(),
@@ -18,7 +20,12 @@ module.exports = async (req, res) => {
 		group_id: req.body.group_id,
 		uid: req.body.uid,
 		isPrimaryCharacter: req.body.isPrimaryCharacter,
-		data: { name: req.body.name },
+		data: {
+			name: req.body.name,
+			summaryItems: default_summary_items_labels.map((label) => {
+				return { label, text: "" };
+			}),
+		},
 	});
 
 	const addCharacterToGroupResult = await addCharacterToGroup(character._id, req.body.group_id);

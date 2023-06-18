@@ -27,7 +27,8 @@ export const SubstoryOverviewDescription = () => {
 			onRevert={revertDescription}
 			onSave={saveDescription}
 		>
-			{substory?.data?.description === undefined || substory?.data?.description.join("").split(" ").join("").length === 0 ? (
+			{!isAuthorizedToEdit &&
+			(substory?.data?.description === undefined || substory?.data?.description.join("").split(" ").join("").length === 0) ? (
 				<div />
 			) : (
 				<div className='substory-overview-description'>

@@ -15,7 +15,8 @@ import { CharacterContext } from "./CharacterContext";
 // Assets
 
 export const CharacterLogic = () => {
-	const { character, isOnOverviewSection, setIsOnOverviewSection, setCharacterPaddingTop } = useContext(CharacterContext);
+	const { character, characterOverviewBackground, isOnOverviewSection, setIsOnOverviewSection, setCharacterPaddingTop } =
+		useContext(CharacterContext);
 	const [characterStyle, setCharacterStyle] = useState(false);
 	const characterPrimaryRef = useRef();
 
@@ -26,7 +27,6 @@ export const CharacterLogic = () => {
 			let newCharacterStyle = {};
 
 			newCharacterStyle["--characterColour"] = character?.data?.colour ? character.data.colour : "#0044ff";
-			newCharacterStyle["--characterGlowColour"] = getGlowColour(character?.data?.colour);
 
 			const primaryHeight = characterPrimaryRef?.current?.clientHeight;
 			if (primaryHeight !== undefined) {
@@ -39,16 +39,9 @@ export const CharacterLogic = () => {
 			setCharacterStyle((oldCharacterStyle) => {
 				if (!character?.data?.colour && oldCharacterStyle["--characterColour"] !== "#0044ff") {
 					newCharacterStyle["--characterColour"] = oldCharacterStyle["--characterColour"];
-					newCharacterStyle["--characterGlowColour"] = oldCharacterStyle["--characterGlowColour"];
 				}
 				return newCharacterStyle;
 			});
-		}
-
-		function getGlowColour(colour) {
-			if (!colour) return "rgba(0, 0, 0, 0)";
-			const newColour = "0x" + colour.substring(1).toUpperCase();
-			return "rgba(" + ((newColour >> 16) & 0xff) + ", " + ((newColour >> 8) & 0xff) + ", " + (newColour & 0xff) + ", 0.8)";
 		}
 
 		setTimeout(() => getCharacterStyle(), 100);
@@ -123,6 +116,7 @@ export const CharacterLogic = () => {
 
 	return {
 		character,
+		characterOverviewBackground,
 		characterStyle,
 		characterPrimaryRef,
 		isOnOverviewSection,

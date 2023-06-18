@@ -28,7 +28,7 @@ export const SettingsOverviewBackgroundImage = () => {
 			<LabelContainer className='group-subpage-settings-overview-background-container' label='Overview Background Image'>
 				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertOverviewBackground} onSave={saveOverviewBackground}>
 					<div className='group-subpage-settings-overview-background-image'>
-						{!groupOverviewBackground ? null : <img src={groupOverviewBackground} alt='' />}
+						{!groupOverviewBackground || groupOverviewBackground === "NO_IMAGE" ? null : <img src={groupOverviewBackground} alt='' />}
 					</div>
 					<div>
 						<div className='group-subpage-settings-overview-background-image'>

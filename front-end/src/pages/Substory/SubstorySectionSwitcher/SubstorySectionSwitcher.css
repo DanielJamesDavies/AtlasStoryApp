@@ -1,31 +1,28 @@
 .substory-section-switcher {
-	flex-shrink: 0;
-	display: inline-block;
-	position: relative;
-	padding: 0 6px;
-	padding-right: 12px;
-	width: 24px;
-	height: calc(100% - 48px - 59px - 48px);
+	position: absolute;
+	z-index: 2;
+	top: calc(100vh - 40px);
+	left: 0;
+	padding: 0;
+	width: 100%;
+	height: 40px;
+	transition: 0.2s;
+	opacity: 1;
 }
 
 .substory-section-switcher-on-subpages {
-	padding: 0 6px;
-	padding-left: 12px;
-}
-
-.substory-section-switcher-on-subpages .substory-section-switcher-btn {
-	transform: rotate(180deg);
+	opacity: 0;
+	pointer-events: none;
 }
 
 .substory-section-switcher-btn {
 	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
+	transform: rotate(90deg);
 	padding: 0;
 	border: 0;
 	width: 100%;
 	background: transparent;
-	color: #fff;
+	color: var(--text-colour-primary);
 	transition: transform 0.75s;
 	cursor: pointer;
 }
@@ -39,7 +36,7 @@
 	width: 100%;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 1300px) {
 	.substory-section-switcher {
 		display: none;
 	}

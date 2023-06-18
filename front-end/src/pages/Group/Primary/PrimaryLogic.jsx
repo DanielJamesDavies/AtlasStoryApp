@@ -7,6 +7,7 @@ import { useContext, useState, useRef, useEffect } from "react";
 
 // Context
 import { GroupContext } from "../GroupContext";
+import { AppContext } from "../../../context/AppContext";
 
 // Services
 import isLightBackground from "../../../services/IsLightBackground";
@@ -17,6 +18,7 @@ import isLightBackground from "../../../services/IsLightBackground";
 
 export const GroupPrimaryLogic = ({ groupPrimaryRef }) => {
 	const { story, storyIcon, isOnOverviewSection, groupOverviewBackground, setIsOnOverviewSection } = useContext(GroupContext);
+	const { uiTheme } = useContext(AppContext);
 	const [primaryStoryStyles, setPrimaryStoryStyles] = useState({});
 	const groupPrimaryVersionRef = useRef();
 
@@ -30,9 +32,22 @@ export const GroupPrimaryLogic = ({ groupPrimaryRef }) => {
 		}
 
 		async function getTextColour() {
-			if (!isOnOverviewSection || !groupOverviewBackground) return "#fff";
+			let text_colour = "#fff";
+			if (!isOnOverviewSection) return text_colour;
+			if (!groupOverviewBackground) {
+				switch (uiTheme) {
+					case "light":
+						text_colour = "#000";
+						break;
+					default:
+						text_colour = "#fff";
+						break;
+				}
+				return text_colour;
+			}
 			const isDarkName = await isLightBackground(groupOverviewBackground, [0, 40], [-1, 115]);
-			return isDarkName ? "#000" : "#fff";
+			text_colour = isDarkName ? "#000" : "#fff";
+			return text_colour;
 		}
 
 		function getHeight() {
@@ -42,7 +57,7 @@ export const GroupPrimaryLogic = ({ groupPrimaryRef }) => {
 		getPrimaryStyles();
 		window.addEventListener("resize", getPrimaryStyles);
 		return () => window.removeEventListener("resize", getPrimaryStyles);
-	}, [groupOverviewBackground, isOnOverviewSection, setPrimaryStoryStyles, groupPrimaryRef, groupPrimaryVersionRef]);
+	}, [groupOverviewBackground, isOnOverviewSection, setPrimaryStoryStyles, groupPrimaryRef, groupPrimaryVersionRef, uiTheme]);
 
 	function toOverviewSection() {
 		setIsOnOverviewSection(true);

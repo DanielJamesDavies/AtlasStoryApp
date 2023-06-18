@@ -20,8 +20,16 @@ import "./Group.css";
 // Assets
 
 export const Group = () => {
-	const { group, groupStyle, groupPrimaryRef, isOnOverviewSection, groupContainerRef, groupOverviewContainerRef, groupSubpagesContainerRef } =
-		GroupLogic();
+	const {
+		group,
+		groupStyle,
+		groupOverviewBackground,
+		groupPrimaryRef,
+		isOnOverviewSection,
+		groupContainerRef,
+		groupOverviewContainerRef,
+		groupSubpagesContainerRef,
+	} = GroupLogic();
 
 	return (
 		<div
@@ -29,7 +37,7 @@ export const Group = () => {
 			className={isOnOverviewSection ? "group-container group-container-is-on-overview" : "group-container group-container-is-on-subpages"}
 			style={groupStyle ? groupStyle : {}}
 		>
-			<div className={group && groupStyle ? "group" : "group group-hidden"}>
+			<div className={group && groupStyle && groupOverviewBackground ? "group" : "group group-hidden"}>
 				<GroupPrimary groupPrimaryRef={groupPrimaryRef} />
 				<div
 					className={

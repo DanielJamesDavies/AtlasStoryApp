@@ -1,6 +1,5 @@
 .substory-overview-summary-items-container {
-	width: calc(50% - 180px);
-	max-width: 500px;
+	width: 100%;
 }
 
 .substory-overview-summary-item {
@@ -79,12 +78,4 @@
 
 .drag-drop-item-enable-drag-drop:nth-child(even).substory-overview-summary-item {
 	animation-delay: 0.1s;
-}
-
-@media (max-width: 1300px) {
-	.substory-overview-summary-items-container {
-		margin: 0 auto;
-		width: 100%;
-		max-height: unset;
-	}
 }

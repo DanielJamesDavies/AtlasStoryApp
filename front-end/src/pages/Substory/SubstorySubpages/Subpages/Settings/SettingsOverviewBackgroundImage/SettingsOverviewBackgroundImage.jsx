@@ -26,7 +26,9 @@ export const SettingsOverviewBackgroundImage = () => {
 		<LabelContainer className='substory-subpage-settings-overview-background-container' label='Overview Background Image'>
 			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertOverviewBackground} onSave={saveOverviewBackground}>
 				<div className='substory-subpage-settings-overview-background-image'>
-					{!substoryOverviewBackground ? null : <img src={substoryOverviewBackground} alt='' />}
+					{!substoryOverviewBackground || substoryOverviewBackground === "NO_IMAGE" ? null : (
+						<img src={substoryOverviewBackground} alt='' />
+					)}
 				</div>
 				<div>
 					<div className='substory-subpage-settings-overview-background-image'>

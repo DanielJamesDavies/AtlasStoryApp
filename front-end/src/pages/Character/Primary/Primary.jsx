@@ -36,8 +36,8 @@ export const CharacterPrimary = ({ characterPrimaryRef }) => {
 					<div className='character-primary-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
 					<div className='character-primary-story-name'>{story?.data?.title}</div>
 				</div>
-				<CharacterPrimaryName />
-				<CharacterPrimaryType />
+				<CharacterPrimaryName primaryStoryStyles={primaryStoryStyles} />
+				<CharacterPrimaryType primaryStoryStyles={primaryStoryStyles} />
 				<CharacterPrimaryVersion characterPrimaryVersionRef={characterPrimaryVersionRef} />
 			</div>
 			<button

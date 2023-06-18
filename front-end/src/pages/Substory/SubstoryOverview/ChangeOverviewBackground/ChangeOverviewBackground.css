@@ -1,0 +1,9 @@
+.substory-overview-change-background {
+	position: absolute;
+	right: 0;
+	bottom: 32px;
+}
+
+.substory-overview-change-background input {
+	display: none;
+}

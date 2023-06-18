@@ -103,7 +103,7 @@ export const MiscellaneousItem = ({
 						<TextInput
 							className='substory-subpage-miscellaneous-item-title'
 							seamless={true}
-							label='Miscellaneous Item Title'
+							label='Title'
 							value={miscellaneousItem?.title}
 							onChange={(e) => changeMiscellaneousItemTitle(e, index)}
 							aiTools={false}
@@ -113,7 +113,7 @@ export const MiscellaneousItem = ({
 						<MultiLineTextInput
 							className='substory-subpage-miscellaneous-item-text'
 							seamless={true}
-							label='Miscellaneous Item Text'
+							label='Content'
 							value={miscellaneousItem?.text.join("\n")}
 							onChange={(e) => changeMiscellaneousItemText(e, index)}
 							aiTools={true}

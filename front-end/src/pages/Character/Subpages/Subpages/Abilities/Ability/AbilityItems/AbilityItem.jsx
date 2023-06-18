@@ -34,7 +34,7 @@ export const AbilityItem = ({ ability, changeAbility, abilityItem, index, isEdit
 						<TextInput
 							className='character-subpage-abilities-ability-item-title'
 							seamless={true}
-							label='Ability Item Title'
+							label='Title'
 							value={abilityItem?.title}
 							onChange={changeAbilityItemTitle}
 							aiTools={false}
@@ -48,7 +48,7 @@ export const AbilityItem = ({ ability, changeAbility, abilityItem, index, isEdit
 						<MultiLineTextInput
 							className='character-subpage-abilities-ability-item-text'
 							seamless={true}
-							label='Ability Item Text'
+							label='Content'
 							value={abilityItem?.text.join("\n")}
 							onChange={changeAbilityItemText}
 							aiTools={true}

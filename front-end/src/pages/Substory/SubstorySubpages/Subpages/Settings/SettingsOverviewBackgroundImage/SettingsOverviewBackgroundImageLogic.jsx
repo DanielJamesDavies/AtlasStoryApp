@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 // Context
 import { SubstoryContext } from "../../../../SubstoryContext";
 import { APIContext } from "../../../../../../context/APIContext";
+import { RecentDataContext } from "../../../../../../context/RecentDataContext";
 
 // Services
 
@@ -18,6 +19,7 @@ import { APIContext } from "../../../../../../context/APIContext";
 export const SettingsOverviewBackgroundImageLogic = () => {
 	const { isAuthorizedToEdit, story, substory, substoryOverviewBackground, setSubstoryOverviewBackground } = useContext(SubstoryContext);
 	const { APIRequest } = useContext(APIContext);
+	const { addImagesToRecentImages } = useContext(RecentDataContext);
 
 	const [errors, setErrors] = useState([]);
 
@@ -51,6 +53,9 @@ export const SettingsOverviewBackgroundImageLogic = () => {
 			if (response?.errors) setErrors(response.errors);
 			return false;
 		}
+
+		addImagesToRecentImages([response?.data?.image]);
+
 		return true;
 	}
 

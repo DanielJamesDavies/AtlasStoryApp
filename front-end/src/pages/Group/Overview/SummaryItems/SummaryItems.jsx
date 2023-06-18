@@ -47,8 +47,8 @@ export const GroupOverviewSummaryItems = () => {
 			<div className='group-overview-summary-items'>
 				{!group?.data?.summaryItems ? null : group.data.summaryItems.length === 0 && isAuthorizedToEdit ? (
 					<div className='group-overview-summary-item group-overview-summary-item-placeholder'>
-						<div className='group-overview-summary-item-label'>Label</div>
-						<div className='group-overview-summary-item-text'>Text</div>
+						<div className='group-overview-summary-item-label'>Title</div>
+						<div className='group-overview-summary-item-text'>Content</div>
 					</div>
 				) : (
 					group.data.summaryItems.map((summaryItem, index) => (
@@ -72,7 +72,7 @@ export const GroupOverviewSummaryItems = () => {
 									<TextInput
 										className='group-overview-summary-item-label'
 										seamless={true}
-										label='Label'
+										label='Title'
 										value={summaryItem.label}
 										onChange={(e) => changeSummaryItemLabel(e, index)}
 										isLightText={true}
@@ -81,7 +81,7 @@ export const GroupOverviewSummaryItems = () => {
 									<TextInput
 										className='group-overview-summary-item-value'
 										seamless={true}
-										label='Text'
+										label='Content'
 										value={summaryItem.text}
 										onChange={(e) => changeSummaryItemText(e, index)}
 										isLightText={true}

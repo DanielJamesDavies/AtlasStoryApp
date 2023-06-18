@@ -45,9 +45,10 @@ export const CharactersCreateGroup = () => {
 				<div className='characters-create-group-form-input-container'>
 					<TextInput label='Name' value={groupName} onChange={changeGroupName} isDark={true} />
 					<ErrorMessage errors={errors} attribute='name' />
+					<SuggestionsMessage suggestions={["Group 1", "Heros", "Protagonists"]} labelContext={"for Group Name"} />
 				</div>
 				<div className='characters-create-group-form-input-container'>
-					<TextInput label='Unique Identifier (UID)' value={groupUID} onChange={changeGroupUID} isDark={true} />
+					<TextInput label='Unique Identifier (Shows on URL)' value={groupUID} onChange={changeGroupUID} isDark={true} />
 					<ErrorMessage errors={errors} attribute='uid' />
 					<SuggestionsMessage suggestions={groupUIDSuggestions} labelContext={"for UID"} />
 					{groupUID.length === 0 ? null : (

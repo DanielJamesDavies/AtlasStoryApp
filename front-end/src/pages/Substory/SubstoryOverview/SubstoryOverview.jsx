@@ -1,8 +1,10 @@
 // Packages
 
 // Components
+import { SubstoryOverviewPrimaryImage } from "./PrimaryImage/PrimaryImage";
 import { SubstoryOverviewSummaryItems } from "./SummaryItems/SummaryItems";
 import { SubstoryOverviewDescription } from "./Description/Description";
+import { ChangeOverviewBackground } from "./ChangeOverviewBackground/ChangeOverviewBackground";
 
 // Logic
 import { SubstoryOverviewLogic } from "./SubstoryOverviewLogic";
@@ -15,7 +17,6 @@ import { SubstoryOverviewLogic } from "./SubstoryOverviewLogic";
 import "./SubstoryOverview.css";
 
 // Assets
-import stars from "../../../content/stars.png";
 
 export const SubstoryOverview = ({ innerRef }) => {
 	const { substoryOverviewBackground } = SubstoryOverviewLogic();
@@ -24,13 +25,25 @@ export const SubstoryOverview = ({ innerRef }) => {
 		<div className='substory-overview-container'>
 			<div ref={innerRef} className='substory-overview'>
 				<div className='substory-overview-content'>
-					<SubstoryOverviewSummaryItems />
-					<SubstoryOverviewDescription />
+					<div className='substory-overview-section-1'>
+						<SubstoryOverviewDescription />
+					</div>
+					<div className='substory-overview-section-2'>
+						<SubstoryOverviewPrimaryImage />
+						<SubstoryOverviewSummaryItems />
+					</div>
 				</div>
-				<div className='substory-overview-background'>
-					{!substoryOverviewBackground ? null : <img src={substoryOverviewBackground} alt='' />}
-					<div className='substory-overview-background-glow' />
-					<img className='substory-overview-background-stars' src={stars} alt='' />
+				<ChangeOverviewBackground />
+				<div
+					className={
+						!substoryOverviewBackground || substoryOverviewBackground === "NO_IMAGE"
+							? "substory-overview-background substory-overview-background-no-image"
+							: "substory-overview-background"
+					}
+				>
+					{!substoryOverviewBackground || substoryOverviewBackground === "NO_IMAGE" ? null : (
+						<img src={substoryOverviewBackground} alt='' />
+					)}
 				</div>
 			</div>
 		</div>

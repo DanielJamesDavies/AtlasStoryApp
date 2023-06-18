@@ -27,7 +27,8 @@ export const GroupOverviewDescription = () => {
 			onRevert={revertDescription}
 			onSave={saveDescription}
 		>
-			{groupVersion?.description === undefined || groupVersion?.description.join("").split(" ").join("").length === 0 ? (
+			{!isAuthorizedToEdit &&
+			(groupVersion?.description === undefined || groupVersion?.description.join("").split(" ").join("").length === 0) ? (
 				<div />
 			) : (
 				<div className='group-overview-description'>

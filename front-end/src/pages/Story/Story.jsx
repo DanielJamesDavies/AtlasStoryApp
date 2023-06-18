@@ -3,6 +3,7 @@
 // Components
 import { Banner } from "./Banner/Banner";
 import { Header } from "./Header/Header";
+import { NavigationBar } from "./NavigationBar/NavigationBar";
 import { Description } from "./Description/Description";
 import { Genres } from "./Genres/Genres";
 import { PrimaryCharacters } from "./PrimaryCharacters/PrimaryCharacters";
@@ -24,9 +25,10 @@ export const Story = () => {
 	const { isAuthorizedToEdit, story, storyStyles } = StoryLogic();
 
 	return (
-		<div className='story' style={storyStyles}>
+		<div className={!story ? "story story-loading" : "story"} style={storyStyles}>
 			<Banner />
 			<Header />
+			<NavigationBar />
 			<div className='story-content'>
 				{!isAuthorizedToEdit &&
 				(!story?.data?.genres || story?.data?.genres.length === 0) &&

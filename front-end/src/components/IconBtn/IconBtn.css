@@ -211,6 +211,15 @@
 	opacity: 1;
 }
 
+.icon-btn-container-left-label-align .icon-btn-label {
+	top: 50%;
+	transform: translateY(calc(-50% - 8px));
+	left: unset;
+	right: 250%;
+	width: max-content;
+	max-width: unset;
+}
+
 @media (max-width: 750px) {
 	.icon-btn-container-large .icon-btn-label {
 		margin-top: 16px;

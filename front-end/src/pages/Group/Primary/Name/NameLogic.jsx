@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 
 // Components
 
@@ -10,26 +10,14 @@ import { GroupContext } from "../../GroupContext";
 import { APIContext } from "../../../../context/APIContext";
 
 // Services
-import isLightBackground from "../../../../services/IsLightBackground";
 
 // Styles
 
 // Assets
 
 export const GroupPrimaryNameLogic = () => {
-	const { isAuthorizedToEdit, story, group, setGroup, groupOverviewBackground, isOnOverviewSection } = useContext(GroupContext);
+	const { isAuthorizedToEdit, story, group, setGroup } = useContext(GroupContext);
 	const { APIRequest } = useContext(APIContext);
-	const [primaryNameStyles, setPrimaryNameStyles] = useState({});
-
-	useEffect(() => {
-		async function getPrimaryNameStyles() {
-			if (!isOnOverviewSection) return setPrimaryNameStyles({});
-			if (!groupOverviewBackground) setPrimaryNameStyles({ color: "#fff" });
-			const isDarkName = await isLightBackground(groupOverviewBackground, [0, 40], [-1, 115]);
-			setPrimaryNameStyles({ color: isDarkName ? "#000" : "#fff" });
-		}
-		getPrimaryNameStyles();
-	}, [groupOverviewBackground, isOnOverviewSection, setPrimaryNameStyles]);
 
 	function changeName(e) {
 		setGroup((oldGroup) => {
@@ -72,5 +60,5 @@ export const GroupPrimaryNameLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, group, primaryNameStyles, changeName, revertName, saveName, errors };
+	return { isAuthorizedToEdit, group, changeName, revertName, saveName, errors };
 };

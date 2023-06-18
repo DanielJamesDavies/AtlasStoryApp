@@ -1,8 +1,10 @@
 // Packages
 
 // Components
+import { CharacterOverviewPrimaryImage } from "./PrimaryImage/PrimaryImage";
 import { CharacterOverviewSummaryItems } from "./SummaryItems/SummaryItems";
 import { CharacterOverviewDescription } from "./Description/Description";
+import { ChangeOverviewBackground } from "./ChangeOverviewBackground/ChangeOverviewBackground";
 
 // Logic
 import { CharacterOverviewLogic } from "./OverviewLogic";
@@ -15,7 +17,6 @@ import { CharacterOverviewLogic } from "./OverviewLogic";
 import "./Overview.css";
 
 // Assets
-import stars from "../../../content/stars.png";
 
 export const CharacterOverview = ({ innerRef }) => {
 	const { characterOverviewBackground } = CharacterOverviewLogic();
@@ -24,13 +25,25 @@ export const CharacterOverview = ({ innerRef }) => {
 		<div className='character-overview-container'>
 			<div ref={innerRef} className='character-overview'>
 				<div className='character-overview-content'>
-					<CharacterOverviewSummaryItems />
-					<CharacterOverviewDescription />
+					<div className='character-overview-content-section-1'>
+						<CharacterOverviewDescription />
+					</div>
+					<div className='character-overview-content-section-2'>
+						<CharacterOverviewPrimaryImage />
+						<CharacterOverviewSummaryItems />
+					</div>
 				</div>
-				<div className='character-overview-background'>
-					{!characterOverviewBackground ? null : <img src={characterOverviewBackground} alt='' />}
-					<div className='character-overview-background-glow' />
-					<img className='character-overview-background-stars' src={stars} alt='' />
+				<ChangeOverviewBackground />
+				<div
+					className={
+						!characterOverviewBackground || characterOverviewBackground === "NO_IMAGE"
+							? "character-overview-background character-overview-background-no-image"
+							: "character-overview-background"
+					}
+				>
+					{!characterOverviewBackground || characterOverviewBackground === "NO_IMAGE" ? null : (
+						<img src={characterOverviewBackground} alt='' />
+					)}
 				</div>
 			</div>
 		</div>

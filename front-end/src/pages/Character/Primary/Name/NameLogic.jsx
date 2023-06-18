@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 
 // Components
 
@@ -10,26 +10,14 @@ import { CharacterContext } from "../../CharacterContext";
 import { APIContext } from "../../../../context/APIContext";
 
 // Services
-import isLightBackground from "../../../../services/IsLightBackground";
 
 // Styles
 
 // Assets
 
 export const CharacterPrimaryNameLogic = () => {
-	const { isAuthorizedToEdit, story, character, setCharacter, characterOverviewBackground, isOnOverviewSection } = useContext(CharacterContext);
+	const { isAuthorizedToEdit, story, character, setCharacter } = useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
-	const [primaryNameStyles, setPrimaryNameStyles] = useState({});
-
-	useEffect(() => {
-		async function getPrimaryNameStyles() {
-			if (!isOnOverviewSection) return setPrimaryNameStyles({});
-			if (!characterOverviewBackground) setPrimaryNameStyles({ color: "#fff" });
-			const isDarkName = await isLightBackground(characterOverviewBackground, [0, 40], [-1, 115]);
-			setPrimaryNameStyles({ color: isDarkName ? "#000" : "#fff" });
-		}
-		getPrimaryNameStyles();
-	}, [characterOverviewBackground, isOnOverviewSection, setPrimaryNameStyles]);
 
 	function changeName(e) {
 		setCharacter((oldCharacter) => {
@@ -72,5 +60,5 @@ export const CharacterPrimaryNameLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, character, primaryNameStyles, changeName, revertName, saveName, errors };
+	return { isAuthorizedToEdit, character, changeName, revertName, saveName, errors };
 };

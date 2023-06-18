@@ -17,8 +17,8 @@ import "./Name.css";
 
 // Assets
 
-export const CharacterPrimaryName = () => {
-	const { isAuthorizedToEdit, character, primaryNameStyles, changeName, revertName, saveName, errors } = CharacterPrimaryNameLogic();
+export const CharacterPrimaryName = ({ primaryStoryStyles }) => {
+	const { isAuthorizedToEdit, character, changeName, revertName, saveName, errors } = CharacterPrimaryNameLogic();
 
 	return (
 		<EditableContainer
@@ -27,11 +27,9 @@ export const CharacterPrimaryName = () => {
 			onRevert={revertName}
 			onSave={saveName}
 			absolutePositionEditBtns={true}
-			isLight={primaryNameStyles?.color === "#fff"}
+			isLight={primaryStoryStyles["--text-colour-primary"] === "#fff"}
 		>
-			<div className='character-primary-name' style={primaryNameStyles}>
-				{character?.data?.name}
-			</div>
+			<div className='character-primary-name'>{character?.data?.name}</div>
 			<div>
 				<TextInput
 					className='character-primary-name'
@@ -39,7 +37,6 @@ export const CharacterPrimaryName = () => {
 					value={character?.data?.name}
 					onChange={changeName}
 					autoResize={true}
-					innerStyle={primaryNameStyles}
 				/>
 				<ErrorMessage errors={errors} />
 			</div>

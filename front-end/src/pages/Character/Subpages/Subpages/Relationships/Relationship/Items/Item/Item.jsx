@@ -36,7 +36,7 @@ export const Item = ({ item, index, changeItemTitle, changeItemDescription, remo
 				<div className='character-subpage-relationships-relationship-item-content'>
 					<TextInput
 						className='character-subpage-relationships-relationship-item-title'
-						label='Relationship Item Title'
+						label='Title'
 						value={item?.title}
 						onChange={(e) => changeItemTitle(e, index)}
 						seamless={true}
@@ -45,7 +45,7 @@ export const Item = ({ item, index, changeItemTitle, changeItemDescription, remo
 					<MultiLineTextInput
 						className='character-subpage-relationships-relationship-item-text'
 						seamless={true}
-						label='Relationship Item Text'
+						label='Content'
 						value={item?.text?.join("\n")}
 						onChange={(e) => changeItemDescription(e, index)}
 						aiTools={true}

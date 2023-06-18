@@ -17,20 +17,18 @@ import "./SubstoryPrimary.css";
 // Assets
 
 export const SubstoryPrimary = ({ substoryPrimaryTitleRef }) => {
-	const { story, storyIcon, primaryStoryNameStyles, toOverviewSection, toSubpagesSection } = SubstoryPrimaryLogic();
+	const { story, storyIcon, primaryStoryStyles, toOverviewSection, toSubpagesSection } = SubstoryPrimaryLogic();
 
 	return (
-		<div className='substory-primary-container'>
+		<div className='substory-primary-container' style={primaryStoryStyles}>
 			<button className='substory-primary-section-switcher-btn substory-primary-section-switcher-btn-to-overview' onClick={toOverviewSection}>
 				<FaChevronLeft />
 			</button>
 			<div className='substory-primary'>
-				<SubstoryPrimaryTitle substoryPrimaryTitleRef={substoryPrimaryTitleRef} />
+				<SubstoryPrimaryTitle substoryPrimaryTitleRef={substoryPrimaryTitleRef} primaryStoryStyles={primaryStoryStyles} />
 				<div className='substory-primary-story'>
 					<div className='substory-primary-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
-					<div className='substory-primary-story-name' style={primaryStoryNameStyles}>
-						{story?.data?.title}
-					</div>
+					<div className='substory-primary-story-name'>{story?.data?.title}</div>
 				</div>
 			</div>
 			<button className='substory-primary-section-switcher-btn substory-primary-section-switcher-btn-to-subpages' onClick={toSubpagesSection}>

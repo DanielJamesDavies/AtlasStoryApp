@@ -7,6 +7,7 @@ import { useContext, useState, useEffect } from "react";
 
 // Context
 import { SubstoryContext } from "../SubstoryContext";
+import { AppContext } from "../../../context/AppContext";
 
 // Services
 import isLightBackground from "../../../services/IsLightBackground";
@@ -17,17 +18,36 @@ import isLightBackground from "../../../services/IsLightBackground";
 
 export const SubstoryPrimaryLogic = () => {
 	const { story, storyIcon, isOnOverviewSection, setIsOnOverviewSection, substoryOverviewBackground } = useContext(SubstoryContext);
+	const { uiTheme } = useContext(AppContext);
 
-	const [primaryStoryNameStyles, setPrimaryStoryNameStyles] = useState({});
+	const [primaryStoryStyles, setPrimaryStoryStyles] = useState({});
 	useEffect(() => {
-		async function getPrimaryNameStyles() {
-			if (!isOnOverviewSection) return setPrimaryStoryNameStyles({});
-			if (!substoryOverviewBackground) setPrimaryStoryNameStyles({ color: "#fff" });
+		async function getTextColour() {
+			let text_colour = "#fff";
+			if (!isOnOverviewSection) return text_colour;
+			if (!substoryOverviewBackground) {
+				switch (uiTheme) {
+					case "light":
+						text_colour = "#000";
+						break;
+					default:
+						text_colour = "#fff";
+						break;
+				}
+				return text_colour;
+			}
 			const isDarkName = await isLightBackground(substoryOverviewBackground, [0, 40], [-1, 115]);
-			setPrimaryStoryNameStyles({ color: isDarkName ? "#000" : "#fff" });
+			text_colour = isDarkName ? "#000" : "#fff";
+			return text_colour;
 		}
-		getPrimaryNameStyles();
-	}, [substoryOverviewBackground, isOnOverviewSection, setPrimaryStoryNameStyles]);
+
+		async function getPrimaryStyles() {
+			let newPrimaryStoryStyles = {};
+			newPrimaryStoryStyles["--text-colour-primary"] = await getTextColour();
+			setPrimaryStoryStyles(newPrimaryStoryStyles);
+		}
+		getPrimaryStyles();
+	}, [substoryOverviewBackground, isOnOverviewSection, setPrimaryStoryStyles, uiTheme]);
 
 	function toOverviewSection() {
 		setIsOnOverviewSection(true);
@@ -37,5 +57,5 @@ export const SubstoryPrimaryLogic = () => {
 		setIsOnOverviewSection(false);
 	}
 
-	return { story, storyIcon, primaryStoryNameStyles, toOverviewSection, toSubpagesSection };
+	return { story, storyIcon, primaryStoryStyles, toOverviewSection, toSubpagesSection };
 };

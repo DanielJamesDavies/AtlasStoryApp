@@ -12,6 +12,7 @@
 	transition: 0.5s color;
 	word-break: break-word;
 	overflow-wrap: anywhere;
+	color: var(--text-colour-primary);
 }
 
 .editable-container-is-editing.substory-primary-title-container {

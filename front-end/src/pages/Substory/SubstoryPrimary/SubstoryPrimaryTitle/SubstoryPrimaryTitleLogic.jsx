@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 
 // Components
 
@@ -10,26 +10,14 @@ import { SubstoryContext } from "../../SubstoryContext";
 import { APIContext } from "../../../../context/APIContext";
 
 // Services
-import isLightBackground from "../../../../services/IsLightBackground";
 
 // Styles
 
 // Assets
 
 export const SubstoryPrimaryTitleLogic = () => {
-	const { isAuthorizedToEdit, story, substory, setSubstory, substoryOverviewBackground, isOnOverviewSection } = useContext(SubstoryContext);
+	const { isAuthorizedToEdit, story, substory, setSubstory } = useContext(SubstoryContext);
 	const { APIRequest } = useContext(APIContext);
-	const [primaryTitleStyles, setPrimaryTitleStyles] = useState({});
-
-	useEffect(() => {
-		async function getPrimaryTitleStyles() {
-			if (!isOnOverviewSection) return setPrimaryTitleStyles({});
-			if (!substoryOverviewBackground) setPrimaryTitleStyles({ color: "#fff" });
-			const isDarkTitle = await isLightBackground(substoryOverviewBackground, [0, 40], [-1, 115]);
-			setPrimaryTitleStyles({ color: isDarkTitle ? "#000" : "#fff" });
-		}
-		getPrimaryTitleStyles();
-	}, [substoryOverviewBackground, isOnOverviewSection, setPrimaryTitleStyles]);
 
 	function changeTitle(e) {
 		setSubstory((oldSubstory) => {
@@ -72,5 +60,5 @@ export const SubstoryPrimaryTitleLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, story, substory, primaryTitleStyles, changeTitle, revertTitle, saveTitle, errors };
+	return { isAuthorizedToEdit, story, substory, changeTitle, revertTitle, saveTitle, errors };
 };

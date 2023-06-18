@@ -32,7 +32,7 @@ export const GroupPrimary = ({ groupPrimaryRef }) => {
 					<div className='group-primary-story-icon'>{!storyIcon ? null : <img src={storyIcon} alt='' />}</div>
 					<div className='group-primary-story-name'>{story?.data?.title}</div>
 				</div>
-				<GroupPrimaryName />
+				<GroupPrimaryName primaryStoryStyles={primaryStoryStyles} />
 				<GroupPrimaryVersion groupPrimaryVersionRef={groupPrimaryVersionRef} />
 			</div>
 			<button className='group-primary-section-switcher-btn group-primary-section-switcher-btn-to-subpages' onClick={toSubpagesSection}>

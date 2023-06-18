@@ -1,9 +1,6 @@
 .group-overview-description-container {
-	margin-left: auto;
-	padding-right: 8px;
 	width: calc(50% - 180px);
 	max-width: 500px;
-	height: 100%;
 }
 
 .group-overview-description {
@@ -24,6 +21,7 @@
 @media (max-width: 1300px) {
 	.group-overview-description-container {
 		margin: 0 auto;
+		margin-bottom: 24px;
 		width: 100%;
 		max-height: unset;
 	}

@@ -21,7 +21,7 @@ export const SubstoriesTitleLogic = () => {
 
 	function goToSubstoriesNotes(e) {
 		e.preventDefault();
-		if (story?.uid) changeLocation("/s/" + story.uid + "/substories/notes", e.button === 1);
+		if (story?.uid) changeLocation("/s/" + story.uid + "/plots/notes", e.button === 1);
 	}
 	return { story, storyIcon, goToSubstoriesNotes };
 };

@@ -37,7 +37,7 @@ export const PsychologyItem = ({ psychologyItem, index, isEditing, changePsychol
 					<TextInput
 						className='character-subpage-psychology-item-title'
 						seamless={true}
-						label='Psychology Item Title'
+						label='Title'
 						value={psychologyItem?.title}
 						onChange={(e) => changePsychologyItemTitle(e, index)}
 						aiTools={false}
@@ -45,7 +45,7 @@ export const PsychologyItem = ({ psychologyItem, index, isEditing, changePsychol
 					<MultiLineTextInput
 						className='character-subpage-psychology-item-text'
 						seamless={true}
-						label='Psychology Item Text'
+						label='Content'
 						value={psychologyItem?.text?.join("\n")}
 						onChange={(e) => changePsychologyItemText(e, index)}
 						aiTools={true}

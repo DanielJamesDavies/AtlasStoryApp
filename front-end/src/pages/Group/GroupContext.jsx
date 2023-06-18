@@ -119,7 +119,10 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 				overviewBackground = recentImage;
 			} else {
 				const overview_background_image_response = await APIRequest("/image/" + overviewBackgroundID, "GET");
-				if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) return false;
+				if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) {
+					setGroupOverviewBackground("NO_IMAGE");
+					return false;
+				}
 				overviewBackground = overview_background_image_response?.data?.image;
 			}
 

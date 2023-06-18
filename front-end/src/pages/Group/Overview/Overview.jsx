@@ -3,6 +3,7 @@
 // Components
 import { GroupOverviewSummaryItems } from "./SummaryItems/SummaryItems";
 import { GroupOverviewDescription } from "./Description/Description";
+import { ChangeOverviewBackground } from "./ChangeOverviewBackground/ChangeOverviewBackground";
 
 // Logic
 import { GroupOverviewLogic } from "./OverviewLogic";
@@ -15,7 +16,6 @@ import { GroupOverviewLogic } from "./OverviewLogic";
 import "./Overview.css";
 
 // Assets
-import stars from "../../../content/stars.png";
 
 export const GroupOverview = ({ innerRef }) => {
 	const { groupOverviewBackground } = GroupOverviewLogic();
@@ -24,13 +24,18 @@ export const GroupOverview = ({ innerRef }) => {
 		<div className='group-overview-container'>
 			<div ref={innerRef} className='group-overview'>
 				<div className='group-overview-content'>
-					<GroupOverviewSummaryItems />
 					<GroupOverviewDescription />
+					<GroupOverviewSummaryItems />
 				</div>
-				<div className='group-overview-background'>
-					{!groupOverviewBackground ? null : <img src={groupOverviewBackground} alt='' />}
-					<div className='group-overview-background-glow' />
-					<img className='group-overview-background-stars' src={stars} alt='' />
+				<ChangeOverviewBackground />
+				<div
+					className={
+						!groupOverviewBackground || groupOverviewBackground === "NO_IMAGE"
+							? "group-overview-background group-overview-background-no-image"
+							: "group-overview-background"
+					}
+				>
+					{!groupOverviewBackground || groupOverviewBackground === "NO_IMAGE" ? null : <img src={groupOverviewBackground} alt='' />}
 				</div>
 			</div>
 		</div>

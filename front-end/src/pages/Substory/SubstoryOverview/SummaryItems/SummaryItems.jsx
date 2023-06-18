@@ -47,8 +47,8 @@ export const SubstoryOverviewSummaryItems = () => {
 			<div className='substory-overview-summary-items'>
 				{!substory?.data?.summaryItems ? null : substory.data.summaryItems.length === 0 && isAuthorizedToEdit ? (
 					<div className='substory-overview-summary-item substory-overview-summary-item-placeholder'>
-						<div className='substory-overview-summary-item-label'>Label</div>
-						<div className='substory-overview-summary-item-text'>Text</div>
+						<div className='substory-overview-summary-item-label'>Title</div>
+						<div className='substory-overview-summary-item-text'>Content</div>
 					</div>
 				) : (
 					substory.data.summaryItems.map((summaryItem, index) => (
@@ -72,7 +72,7 @@ export const SubstoryOverviewSummaryItems = () => {
 									<TextInput
 										className='substory-overview-summary-item-label'
 										seamless={true}
-										label='Label'
+										label='Title'
 										value={summaryItem.label}
 										onChange={(e) => changeSummaryItemLabel(e, index)}
 										isLightText={true}
@@ -81,7 +81,7 @@ export const SubstoryOverviewSummaryItems = () => {
 									<TextInput
 										className='substory-overview-summary-item-value'
 										seamless={true}
-										label='Text'
+										label='Content'
 										value={summaryItem.text}
 										onChange={(e) => changeSummaryItemText(e, index)}
 										isLightText={true}

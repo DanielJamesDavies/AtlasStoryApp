@@ -1,5 +1,5 @@
 // Packages
-import { FaTrash } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 
 // Components
 import { EditableContainer } from "../../../../components/EditableContainer/EditableContainer";
@@ -47,8 +47,8 @@ export const CharacterOverviewSummaryItems = () => {
 			<div className='character-overview-summary-items'>
 				{!character?.data?.summaryItems ? null : character.data.summaryItems.length === 0 && isAuthorizedToEdit ? (
 					<div className='character-overview-summary-item character-overview-summary-item-placeholder'>
-						<div className='character-overview-summary-item-label'>Label</div>
-						<div className='character-overview-summary-item-text'>Text</div>
+						<div className='character-overview-summary-item-label'>Title</div>
+						<div className='character-overview-summary-item-text'>Content</div>
 					</div>
 				) : (
 					character.data.summaryItems.map((summaryItem, index) => (
@@ -72,7 +72,7 @@ export const CharacterOverviewSummaryItems = () => {
 									<TextInput
 										className='character-overview-summary-item-label'
 										seamless={true}
-										label='Label'
+										label='Title'
 										value={summaryItem.label}
 										onChange={(e) => changeSummaryItemLabel(e, index)}
 										isLightText={true}
@@ -81,7 +81,7 @@ export const CharacterOverviewSummaryItems = () => {
 									<TextInput
 										className='character-overview-summary-item-value'
 										seamless={true}
-										label='Text'
+										label='Content'
 										value={summaryItem.text}
 										onChange={(e) => changeSummaryItemText(e, index)}
 										isLightText={true}
@@ -89,8 +89,8 @@ export const CharacterOverviewSummaryItems = () => {
 									/>
 								</div>
 								<IconBtn
-									icon={<FaTrash />}
-									iconName='trash'
+									icon={<FaTimes />}
+									iconName='times'
 									seamless={true}
 									size='s'
 									onClick={() => removeSummaryItem(index)}

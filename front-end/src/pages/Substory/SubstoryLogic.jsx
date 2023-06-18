@@ -15,7 +15,7 @@ import { SubstoryContext } from "./SubstoryContext";
 // Assets
 
 export const SubstoryLogic = () => {
-	const { substory, isOnOverviewSection, setIsOnOverviewSection } = useContext(SubstoryContext);
+	const { substory, substoryOverviewBackground, isOnOverviewSection, setIsOnOverviewSection } = useContext(SubstoryContext);
 	const [substoryPrimaryPaddingTop, setSubstoryPrimaryPaddingTop] = useState(false);
 	const [substoryStyle, setSubstoryStyle] = useState(false);
 
@@ -98,6 +98,7 @@ export const SubstoryLogic = () => {
 
 	return {
 		substory,
+		substoryOverviewBackground,
 		substoryStyle,
 		isOnOverviewSection,
 		substoryContainerRef,

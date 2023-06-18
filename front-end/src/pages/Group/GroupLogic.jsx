@@ -15,7 +15,7 @@ import { GroupContext } from "./GroupContext";
 // Assets
 
 export const GroupLogic = () => {
-	const { group, isOnOverviewSection, setIsOnOverviewSection, setGroupPaddingTop } = useContext(GroupContext);
+	const { group, groupOverviewBackground, isOnOverviewSection, setIsOnOverviewSection, setGroupPaddingTop } = useContext(GroupContext);
 	const [groupStyle, setGroupStyle] = useState(false);
 	const groupPrimaryRef = useRef();
 
@@ -120,6 +120,7 @@ export const GroupLogic = () => {
 
 	return {
 		group,
+		groupOverviewBackground,
 		groupStyle,
 		groupPrimaryRef,
 		isOnOverviewSection,

@@ -81,7 +81,7 @@ export const NotesListItem = ({ item, index, isEditing, isReorderingNotes }) => 
 				<TextInput
 					className='notes-list-item-title'
 					seamless={true}
-					label='Note Title'
+					label='Title'
 					value={item?.title}
 					onChange={changeItemTitle}
 					aiTools={false}
@@ -89,7 +89,7 @@ export const NotesListItem = ({ item, index, isEditing, isReorderingNotes }) => 
 				<MultiLineTextInput
 					className='notes-list-item-text'
 					seamless={true}
-					label='Note Text'
+					label='Content'
 					value={item?.text?.join("\n")}
 					onChange={changeItemText}
 					aiTools={true}

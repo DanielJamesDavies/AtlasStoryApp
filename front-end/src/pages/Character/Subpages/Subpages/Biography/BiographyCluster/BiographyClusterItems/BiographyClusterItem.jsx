@@ -37,7 +37,7 @@ export const BiographyClusterItem = ({ biographyCluster, changeBiographyCluster,
 						<TextInput
 							className='character-subpage-biography-cluster-item-title'
 							seamless={true}
-							label='Biography Cluster Item Title'
+							label='Title'
 							value={biographyClusterItem?.title}
 							onChange={changeBiographyClusterItemTitle}
 							aiTools={false}
@@ -50,7 +50,7 @@ export const BiographyClusterItem = ({ biographyCluster, changeBiographyCluster,
 						<MultiLineTextInput
 							className='character-subpage-biography-cluster-item-text'
 							seamless={true}
-							label='Biography Cluster Item Text'
+							label='Content'
 							value={biographyClusterItem?.text?.join("\n")}
 							onChange={changeBiographyClusterItemText}
 							aiTools={true}

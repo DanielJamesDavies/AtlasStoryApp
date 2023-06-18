@@ -13,7 +13,7 @@ import { useEffect, useLayoutEffect, useState, useRef } from "react";
 
 // Assets
 
-export const IconBtnLogic = ({ className, seamless, size, iconName, iconHover, isLight }) => {
+export const IconBtnLogic = ({ className, seamless, size, iconName, iconHover, isLight, labelAlignment }) => {
 	const [iconBtnClassName, setIconBtnClassName] = useState("icon-btn-container-hidden");
 
 	useEffect(() => {
@@ -38,13 +38,15 @@ export const IconBtnLogic = ({ className, seamless, size, iconName, iconHover, i
 					break;
 			}
 
+			if (labelAlignment) newClassName += ` icon-btn-container-${labelAlignment}-label-align`;
+
 			if (iconName) newClassName += ` icon-btn-container-${iconName}-icon`;
 
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}
 		setIconBtnClassName(getIconBtnClassName());
-	}, [setIconBtnClassName, className, seamless, size, iconName, iconHover, isLight]);
+	}, [setIconBtnClassName, className, seamless, size, iconName, iconHover, isLight, labelAlignment]);
 
 	const containerRef = useRef();
 	const labelRef = useRef();

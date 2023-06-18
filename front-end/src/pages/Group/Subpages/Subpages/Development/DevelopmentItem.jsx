@@ -103,7 +103,7 @@ export const DevelopmentItem = ({
 						<TextInput
 							className='group-subpage-development-item-title'
 							seamless={true}
-							label='Development Item Title'
+							label='Title'
 							value={developmentItem?.title}
 							onChange={(e) => changeDevelopmentItemTitle(e, index)}
 							aiTools={true}
@@ -113,7 +113,7 @@ export const DevelopmentItem = ({
 						<MultiLineTextInput
 							className='group-subpage-development-item-text'
 							seamless={true}
-							label='Development Item Text'
+							label='Content'
 							value={developmentItem?.text.join("\n")}
 							onChange={(e) => changeDevelopmentItemText(e, index)}
 							aiTools={true}
