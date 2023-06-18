@@ -8,6 +8,7 @@ import { useContext } from "react";
 // Context
 import { CharacterContext } from "../../CharacterContext";
 import { APIContext } from "../../../../context/APIContext";
+import { LightboxContext } from "../../../../context/LightboxContext";
 
 // Services
 
@@ -19,6 +20,12 @@ export const CharacterOverviewPrimaryImageLogic = () => {
 	const { isAuthorizedToEdit, story, character, characterVersion, characterPrimaryImages, setCharacterPrimaryImages } =
 		useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
+	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
+
+	function onPrimaryImageClick() {
+		setLightboxImageIDs([characterVersion?.primaryImage]);
+		setLightboxIndex(0);
+	}
 
 	async function changePrimaryImage(image) {
 		let newCharacterPrimaryImages = JSON.parse(JSON.stringify(characterPrimaryImages));
@@ -75,6 +82,7 @@ export const CharacterOverviewPrimaryImageLogic = () => {
 		isAuthorizedToEdit,
 		characterVersion,
 		characterPrimaryImages,
+		onPrimaryImageClick,
 		changePrimaryImage,
 		revertPrimaryImage,
 		savePrimaryImage,

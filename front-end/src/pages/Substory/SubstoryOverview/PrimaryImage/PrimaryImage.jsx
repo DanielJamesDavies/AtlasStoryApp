@@ -20,6 +20,7 @@ export const SubstoryOverviewPrimaryImage = () => {
 	const { isAuthorizedToEdit, substoryPrimaryImage, changePrimaryImage, revertPrimaryImage, savePrimaryImage } =
 		SubstoryOverviewPrimaryImageLogic();
 
+	if (!isAuthorizedToEdit && (!substoryPrimaryImage || substoryPrimaryImage === "NO_IMAGE")) return null;
 	return (
 		<EditableContainer
 			className={
@@ -31,7 +32,9 @@ export const SubstoryOverviewPrimaryImage = () => {
 			onRevert={revertPrimaryImage}
 			onSave={savePrimaryImage}
 		>
-			<div className='substory-overview-primary-image'>{!substoryPrimaryImage ? null : <img src={substoryPrimaryImage} alt='' />}</div>
+			<div className='substory-overview-primary-image'>
+				{!substoryPrimaryImage || substoryPrimaryImage === "NO_IMAGE" ? null : <img src={substoryPrimaryImage} alt='' />}
+			</div>
 			<div className='substory-overview-primary-image'>
 				<ImageInput value={substoryPrimaryImage} onChange={changePrimaryImage} />
 			</div>

@@ -7,7 +7,11 @@
 	height: 100%;
 }
 
-.character-overview-primary-image-container-no-image .character-overview-primary-image {
+.editable-container:not(.editable-container-is-editing).character-overview-primary-image-container-no-image {
+	margin-bottom: 12px;
+}
+
+.editable-container-is-editing.character-overview-primary-image-container-no-image .character-overview-primary-image {
 	height: 250px;
 	background: linear-gradient(180deg, var(--colour-grey-one), var(--colour-grey-three));
 }

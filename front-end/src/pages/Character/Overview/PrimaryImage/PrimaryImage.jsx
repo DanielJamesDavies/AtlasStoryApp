@@ -17,9 +17,22 @@ import "./PrimaryImage.css";
 // Assets
 
 export const CharacterOverviewPrimaryImage = () => {
-	const { isAuthorizedToEdit, characterVersion, characterPrimaryImages, changePrimaryImage, revertPrimaryImage, savePrimaryImage } =
-		CharacterOverviewPrimaryImageLogic();
+	const {
+		isAuthorizedToEdit,
+		characterVersion,
+		characterPrimaryImages,
+		onPrimaryImageClick,
+		changePrimaryImage,
+		revertPrimaryImage,
+		savePrimaryImage,
+	} = CharacterOverviewPrimaryImageLogic();
 
+	if (
+		!isAuthorizedToEdit &&
+		(!characterPrimaryImages.find((e) => e?._id === characterVersion?._id)?.image?.image ||
+			characterPrimaryImages.find((e) => e?._id === characterVersion?._id)?.image?.image === "NO_IMAGE")
+	)
+		return null;
 	return (
 		<EditableContainer
 			className={
@@ -35,7 +48,12 @@ export const CharacterOverviewPrimaryImage = () => {
 			<div className='character-overview-primary-image'>
 				{!characterPrimaryImages.find((e) => e?._id === characterVersion?._id)?.image?.image ||
 				characterPrimaryImages.find((e) => e?._id === characterVersion?._id)?.image?.image === "NO_IMAGE" ? null : (
-					<img src={characterPrimaryImages.find((e) => e?._id === characterVersion?._id)?.image?.image} alt='' />
+					<img
+						className='lightbox-openable-image'
+						src={characterPrimaryImages.find((e) => e?._id === characterVersion?._id)?.image?.image}
+						alt=''
+						onClick={() => onPrimaryImageClick()}
+					/>
 				)}
 			</div>
 			<div className='character-overview-primary-image'>
