@@ -134,14 +134,14 @@ export const RoutesLogic = () => {
 								if (locationSplit.length > 3)
 									setRenderComponent(<GroupContainer story_uid={locationSplit[1]} group_uid={locationSplit[3]} />);
 								break;
-							case "substories":
+							case "plots":
 								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
 									setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid={locationSplit[2]} />);
 									break;
 								}
 								setRenderComponent(<SubstoriesContainer story_uid={locationSplit[1]} />);
 								break;
-							case "s":
+							case "p":
 								if (locationSplit.length > 3)
 									setRenderComponent(<SubstoryContainer story_uid={locationSplit[1]} substory_uid={locationSplit[3]} />);
 								break;

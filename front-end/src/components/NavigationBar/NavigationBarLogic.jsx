@@ -59,11 +59,11 @@ export const NavigationBarLogic = () => {
 						newBtnClassName += " navigation-bar-btn-active";
 					}
 					break;
-				case "substories":
+				case "plots":
 					if (
-						(locationSplit.length === 3 && locationSplit[2] === "substories") ||
-						(locationSplit.length === 4 && locationSplit[2] === "s") ||
-						(locationSplit.length === 4 && locationSplit[2] === "substories" && locationSplit[3] === "notes")
+						(locationSplit.length === 3 && locationSplit[2] === "plots") ||
+						(locationSplit.length === 4 && locationSplit[2] === "p") ||
+						(locationSplit.length === 4 && locationSplit[2] === "plots" && locationSplit[3] === "notes")
 					) {
 						newBtnClassName += " navigation-bar-btn-active";
 					}
@@ -115,7 +115,7 @@ export const NavigationBarLogic = () => {
 
 	function navigateToSubstories(e) {
 		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
-		changeLocation("/s/" + location.split("/")[2] + "/substories", e.button === 1);
+		changeLocation("/s/" + location.split("/")[2] + "/plots", e.button === 1);
 	}
 
 	function navigateToWorld(e) {

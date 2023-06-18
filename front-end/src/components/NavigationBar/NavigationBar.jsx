@@ -67,10 +67,10 @@ export const NavigationBar = () => {
 						<div className='navigation-bar-btn-label'>Characters</div>
 					</div>
 					<div className='navigation-bar-btn-container navigation-bar-btn-container-story'>
-						<button className={getBtnClassName("substories", false)} onClick={navigateToSubstories} onAuxClick={navigateToSubstories}>
+						<button className={getBtnClassName("plots", false)} onClick={navigateToSubstories} onAuxClick={navigateToSubstories}>
 							<FaBookOpen />
 						</button>
-						<div className='navigation-bar-btn-label'>Substories</div>
+						<div className='navigation-bar-btn-label'>Plots</div>
 					</div>
 					<div className='navigation-bar-btn-container navigation-bar-btn-container-story'>
 						<button className={getBtnClassName("world", false)} onClick={navigateToWorld} onAuxClick={navigateToWorld}>

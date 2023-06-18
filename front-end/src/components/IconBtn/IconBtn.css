@@ -120,6 +120,10 @@
 	width: 85%;
 }
 
+.icon-btn-container-seamless.icon-btn-container-arrows-alt-icon svg {
+	width: 92%;
+}
+
 .icon-btn-small-icon-container {
 	position: absolute;
 	z-index: 2;
@@ -203,7 +207,7 @@
 }
 
 .icon-btn-container:hover .icon-btn-label {
-	transition-delay: 0.7s;
+	transition-delay: 0.3s;
 	opacity: 1;
 }
 

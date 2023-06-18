@@ -28,7 +28,7 @@ export const SubstoriesTitle = () => {
 				<>
 					<div className='substories-title-story-title'>{story?.data?.title}</div>
 					<div className='substories-title-divider'>|</div>
-					<div className='substories-title-substories-label'>Substories</div>
+					<div className='substories-title-substories-label'>Plots</div>
 				</>
 			)}
 			<div className='substories-title-notes-btn-container'>

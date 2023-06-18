@@ -27,40 +27,33 @@ const RoutesProvider = ({ children }) => {
 		locationParams.current = newParameters;
 	}, [routerLocation, setLocation, setParameters, locationParams]);
 
-	const updateRouterLocation = useCallback(
-		(input_location, input_params) => {
-			const newLocation = JSON.parse(JSON.stringify(input_location));
-			const newParameters = JSON.parse(JSON.stringify(input_params));
-			routerNavigate(
-				newLocation + (newParameters.length === 0 ? "" : "?" + newParameters.map(({ label, value }) => `${label}=${value}`).join("&"))
-			);
-		},
-		[routerNavigate]
-	);
+	const getNewURL = useCallback((newLocation, newParameters) => {
+		return newLocation + (newParameters.length === 0 ? "" : "?" + newParameters.map(({ label, value }) => `${label}=${value}`).join("&"));
+	}, []);
 
 	const changeLocation = useCallback(
 		async (newLocation, openInNewWindow, reload) => {
 			if (openInNewWindow) return window.open(domain + newLocation, "_blank");
 			if (reload) {
 				routerNavigate("");
-				setTimeout(() => updateRouterLocation(newLocation, parameters), 100);
+				setTimeout(() => routerNavigate(getNewURL(newLocation, parameters)), 100);
 			} else {
-				updateRouterLocation(newLocation, parameters);
+				routerNavigate(getNewURL(newLocation, parameters));
 			}
 			setLocation(newLocation);
-			updateRouterLocation(newLocation, parameters);
+			window.history.replaceState("", "", getNewURL(newLocation, parameters));
 		},
-		[domain, routerNavigate, updateRouterLocation, parameters]
+		[domain, routerNavigate, parameters, getNewURL]
 	);
 
 	const changeLocationParameters = useCallback(
 		async (inputParameters) => {
 			const newParameters = JSON.parse(JSON.stringify(inputParameters));
 			setParameters(newParameters);
-			updateRouterLocation(location, newParameters);
 			locationParams.current = JSON.parse(JSON.stringify(newParameters));
+			window.history.replaceState("", "", getNewURL(location, newParameters));
 		},
-		[setParameters, updateRouterLocation, location, locationParams]
+		[setParameters, location, locationParams, getNewURL]
 	);
 
 	return (

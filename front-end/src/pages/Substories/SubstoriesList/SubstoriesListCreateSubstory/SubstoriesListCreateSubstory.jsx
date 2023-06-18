@@ -37,7 +37,7 @@ export const SubstoriesListCreateSubstory = () => {
 	return (
 		<PopUpContainer
 			className='substories-create-substory-container'
-			title='Create Substory'
+			title='Create Plot'
 			isDisplaying={isDisplayingCreateSubstoryForm}
 			onClosePopUp={closeCreateSubstoryForm}
 		>
@@ -60,7 +60,7 @@ export const SubstoriesListCreateSubstory = () => {
 				</div>
 				<ErrorMessage errors={errors} />
 				<div className='substories-create-substory-form-submit-container'>
-					<SubmitBtn label='Create Substory' onSubmit={submitCreateSubstory} />
+					<SubmitBtn label='Create Plot' onSubmit={submitCreateSubstory} />
 				</div>
 			</div>
 		</PopUpContainer>

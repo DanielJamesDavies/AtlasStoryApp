@@ -38,25 +38,7 @@ export const IconBtnLogic = ({ className, seamless, size, iconName, iconHover, i
 					break;
 			}
 
-			switch (iconName) {
-				case "plus":
-					newClassName += " icon-btn-container-plus-icon";
-					break;
-				case "user-plus":
-					newClassName += " icon-btn-container-user-plus-icon";
-					break;
-				case "sort":
-					newClassName += " icon-btn-container-sort-icon";
-					break;
-				case "times":
-					newClassName += " icon-btn-container-times-icon";
-					break;
-				case "trash":
-					newClassName += " icon-btn-container-trash-icon";
-					break;
-				default:
-					break;
-			}
+			if (iconName) newClassName += ` icon-btn-container-${iconName}-icon`;
 
 			if (className) newClassName += " " + className;
 			return newClassName;

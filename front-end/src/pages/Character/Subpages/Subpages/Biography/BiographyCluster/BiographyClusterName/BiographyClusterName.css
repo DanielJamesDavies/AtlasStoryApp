@@ -8,6 +8,7 @@
 
 .character-subpage-abilities-biography-cluster-name,
 .character-subpage-abilities-biography-cluster-name input {
+	--text-input-font-size: 20px;
 	font-size: 20px;
 	font-weight: 600;
 }

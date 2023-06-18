@@ -31,7 +31,7 @@ export const SubstoriesListSubstoryPosterLogic = ({ substoryID }) => {
 	function navigateToSubstory(e) {
 		if (e.button === 2) return;
 		e.preventDefault();
-		if (story?.uid && substory?.uid) changeLocation("/s/" + story.uid + "/s/" + substory.uid, e.button === 1);
+		if (story?.uid && substory?.uid) changeLocation("/s/" + story.uid + "/p/" + substory.uid, e.button === 1);
 	}
 
 	function onSubstoryMouseDown(e) {

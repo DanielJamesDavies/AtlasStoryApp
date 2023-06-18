@@ -37,7 +37,7 @@ export const CharactersCreateGroup = () => {
 	return (
 		<PopUpContainer
 			className='characters-create-group-container'
-			title='Create Group'
+			title='Create Group of Characters'
 			isDisplaying={isDisplayingCreateGroupForm}
 			onClosePopUp={closeCreateGroupForm}
 		>
