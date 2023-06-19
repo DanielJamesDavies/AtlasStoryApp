@@ -17,7 +17,7 @@ async function getImageFromFile(file) {
 }
 
 async function resizeBase64Image(base64, attempt) {
-	const maxFileSizeInKBs = 250;
+	const maxFileSizeInKBs = 500;
 
 	if (attempt > 40) return false;
 
