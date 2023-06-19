@@ -54,7 +54,7 @@ async function resizeBase64Image(base64, attempt) {
 					quality = 10 / attempt;
 				}
 			}
-			let newBase64 = canvas.toDataURL("image/jpeg", quality);
+			let newBase64 = canvas.toDataURL("image/webp", quality);
 
 			if (getBase64FileSize(newBase64) / 1000 > maxFileSizeInKBs)
 				newBase64 = resizeBase64Image(base64, attempt === undefined ? 2 : attempt + 1);
