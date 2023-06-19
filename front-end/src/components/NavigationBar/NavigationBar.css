@@ -32,8 +32,13 @@
 	color: var(--navigationbarbtn-colour);
 	font-size: 22px;
 	text-align: center;
-	transition: 0.2s;
+	transition: color, background 0.2s;
 	cursor: pointer;
+}
+
+.navigation-bar-btn:hover,
+.navigation-bar-btn:hover img {
+	background: var(--colour-grey-three);
 }
 
 .navigation-bar-btn::before {
@@ -45,7 +50,7 @@
 	transform: translateY(-50%);
 	width: 3px;
 	height: 28px;
-	transition: 0.2s;
+	transition: background 0.2s;
 }
 
 .navigation-bar-btn:hover::before {
@@ -81,17 +86,16 @@
 	object-fit: cover;
 }
 
-.navigation-bar-btn:hover,
-.navigation-bar-btn:hover img {
-	background: var(--colour-grey-three);
-}
-
 .navigation-bar-btn svg {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 100%;
+}
+
+.navigation-bar-btn-viewer-mode {
+	font-size: 18px;
 }
 
 .navigation-bar-btn-user-placeholder {
@@ -127,7 +131,7 @@
 
 .navigation-bar-btn-container:hover .navigation-bar-btn-label {
 	opacity: 1;
-	transition-delay: 1s;
+	transition-delay: 0.4s;
 }
 
 @media (max-width: 750px) {

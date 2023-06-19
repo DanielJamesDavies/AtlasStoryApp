@@ -16,7 +16,9 @@ const StoryProvider = ({ children }) => {
 	const curr_story_uid = useRef(false);
 	const curr_location = useRef(false);
 
+	const [isActuallyAuthorizedToEdit, setIsActuallyAuthorizedToEdit] = useState(false);
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
+	const isInEditorMode = useRef(true);
 	const [isFollowingStory, setIsFollowingStory] = useState(false);
 	const [story, setStory] = useState(false);
 	const [storyIcon, setStoryIcon] = useState(false);
@@ -65,6 +67,7 @@ const StoryProvider = ({ children }) => {
 
 		function setStateToDefault() {
 			curr_story_uid.current = false;
+			setIsActuallyAuthorizedToEdit(false);
 			setIsAuthorizedToEdit(false);
 			setIsFollowingStory(false);
 			setStory(false);
@@ -103,7 +106,8 @@ const StoryProvider = ({ children }) => {
 				].filter((e) => newStory.data.notes.findIndex((e2) => e2.uid === e.uid) === -1)
 			);
 			setStory(newStory);
-			setIsAuthorizedToEdit(response?.data?.isAuthorizedToEdit);
+			setIsAuthorizedToEdit(isInEditorMode.current ? response?.data?.isAuthorizedToEdit : false);
+			setIsActuallyAuthorizedToEdit(response?.data?.isAuthorizedToEdit);
 			setIsFollowingStory(response?.data?.isFollowingStory);
 			return response.data.story;
 		}
@@ -442,8 +446,10 @@ const StoryProvider = ({ children }) => {
 	return (
 		<StoryContext.Provider
 			value={{
+				isActuallyAuthorizedToEdit,
 				isAuthorizedToEdit,
 				setIsAuthorizedToEdit,
+				isInEditorMode,
 				isFollowingStory,
 				setIsFollowingStory,
 				story,

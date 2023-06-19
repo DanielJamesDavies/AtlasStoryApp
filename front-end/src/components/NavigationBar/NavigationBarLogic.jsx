@@ -18,7 +18,7 @@ export const NavigationBarLogic = () => {
 	const [isOnStory, setIsOnStory] = useState(false);
 	const { username, userProfilePicture } = useContext(APIContext);
 	const { location, changeLocation } = useContext(RoutesContext);
-	const { storyIcon } = useContext(StoryContext);
+	const { isActuallyAuthorizedToEdit, isAuthorizedToEdit, setIsAuthorizedToEdit, isInEditorMode, storyIcon } = useContext(StoryContext);
 
 	useEffect(() => {
 		setIsOnStory(location.split("/")[1] === "s");
@@ -123,7 +123,16 @@ export const NavigationBarLogic = () => {
 		changeLocation("/s/" + location.split("/")[2] + "/world", e.button === 1);
 	}
 
+	function toggleIsAuthorizedToEdit() {
+		setIsAuthorizedToEdit((e) => {
+			isInEditorMode.current = !e;
+			return !e;
+		});
+	}
+
 	return {
+		isActuallyAuthorizedToEdit,
+		isAuthorizedToEdit,
 		isOnStory,
 		userProfilePicture,
 		storyIcon,
@@ -134,5 +143,6 @@ export const NavigationBarLogic = () => {
 		navigateToCharacters,
 		navigateToSubstories,
 		navigateToWorld,
+		toggleIsAuthorizedToEdit,
 	};
 };

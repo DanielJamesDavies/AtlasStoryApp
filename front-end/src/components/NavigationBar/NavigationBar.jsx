@@ -1,5 +1,5 @@
 // Packages
-import { FaUser, FaHome, FaBookOpen, FaGlobeEurope, FaBook } from "react-icons/fa";
+import { FaUser, FaHome, FaBookOpen, FaGlobeEurope, FaBook, FaMountain, FaPencilAlt } from "react-icons/fa";
 
 // Components
 
@@ -15,9 +15,11 @@ import "./NavigationBar.css";
 
 export const NavigationBar = () => {
 	const {
+		isActuallyAuthorizedToEdit,
+		isAuthorizedToEdit,
 		isOnStory,
-		storyIcon,
 		userProfilePicture,
+		storyIcon,
 		getBtnClassName,
 		navigateToProfile,
 		navigateToHome,
@@ -25,6 +27,7 @@ export const NavigationBar = () => {
 		navigateToCharacters,
 		navigateToSubstories,
 		navigateToWorld,
+		toggleIsAuthorizedToEdit,
 	} = NavigationBarLogic();
 
 	return (
@@ -78,6 +81,22 @@ export const NavigationBar = () => {
 						</button>
 						<div className='navigation-bar-btn-label'>World</div>
 					</div>
+					{!isActuallyAuthorizedToEdit ? null : (
+						<div className='navigation-bar-btn-container navigation-bar-btn-container-story'>
+							<button
+								className={
+									isAuthorizedToEdit
+										? "navigation-bar-btn navigation-bar-btn-viewer-mode"
+										: "navigation-bar-btn navigation-bar-btn-editor-mode"
+								}
+								onClick={() => toggleIsAuthorizedToEdit()}
+								onAuxClick={() => toggleIsAuthorizedToEdit()}
+							>
+								{isAuthorizedToEdit ? <FaMountain /> : <FaPencilAlt />}
+							</button>
+							<div className='navigation-bar-btn-label'>Viewer Mode</div>
+						</div>
+					)}
 				</>
 			)}
 		</div>
