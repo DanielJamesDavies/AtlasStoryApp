@@ -72,11 +72,22 @@
 
 .character-loading-container {
 	position: absolute;
+	z-index: 1000;
 	display: flex;
 	width: calc(100%);
 	height: var(--vh);
 	justify-content: center;
 	align-items: center;
+	background: var(--colour-grey-one);
+	transition: opacity 0.2s;
+	transition-delay: 0.5s;
+	opacity: 1;
+}
+
+.character-loading-container-hidden {
+	opacity: 0;
+	user-select: none;
+	pointer-events: none;
 }
 
 .character-content-container {

@@ -41,6 +41,15 @@ export const Character = () => {
 			}
 			style={characterStyle ? characterStyle : {}}
 		>
+			<div
+				className={
+					character && characterStyle && characterOverviewBackground
+						? "character-loading-container character-loading-container-hidden"
+						: "character-loading-container"
+				}
+			>
+				<LoadingCircle size='l' />
+			</div>
 			<div className={character && characterStyle && characterOverviewBackground ? "character" : "character character-hidden"}>
 				<CharacterPrimary characterPrimaryRef={characterPrimaryRef} />
 				<div
@@ -54,9 +63,6 @@ export const Character = () => {
 					<CharacterSectionSwitcher />
 					<CharacterSubpages innerRef={characterSubpagesContainerRef} />
 				</div>
-			</div>
-			<div className='character-loading-container'>
-				<LoadingCircle size='l' />
 			</div>
 		</div>
 	);

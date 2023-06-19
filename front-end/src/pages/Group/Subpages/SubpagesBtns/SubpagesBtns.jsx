@@ -22,7 +22,9 @@ export const GroupSubpagesBtns = () => {
 
 	return (
 		<div className='group-subpages-btns-container'>
-			<IconBtn icon={<FaChevronLeft />} seamless={true} onClick={() => scrollSubpageBtns(-1)} />
+			<div className='group-subpages-btn-scroll-btn'>
+				<IconBtn icon={<FaChevronLeft />} seamless={true} onClick={() => scrollSubpageBtns(-1)} />
+			</div>
 			<div
 				ref={subpagesBtnsRef}
 				className={isAuthorizedToEdit ? "group-subpages-btns group-subpages-btns-is-authorized" : "group-subpages-btns"}
@@ -40,7 +42,9 @@ export const GroupSubpagesBtns = () => {
 						/>
 					))}
 			</div>
-			<IconBtn icon={<FaChevronRight />} seamless={true} onClick={() => scrollSubpageBtns(1)} />
+			<div className='group-subpages-btn-scroll-btn'>
+				<IconBtn icon={<FaChevronRight />} seamless={true} onClick={() => scrollSubpageBtns(1)} />
+			</div>
 		</div>
 	);
 };

@@ -38,6 +38,15 @@ export const Substory = () => {
 			className={isOnOverviewSection ? "substory-container substory-container-is-on-overview" : "substory-container"}
 			style={substoryStyle ? substoryStyle : {}}
 		>
+			<div
+				className={
+					substory && substoryStyle && substoryOverviewBackground
+						? "substory-loading-container substory-loading-container-hidden"
+						: "substory-loading-container"
+				}
+			>
+				<LoadingCircle size='l' />
+			</div>
 			<div className={substory && substoryStyle && substoryOverviewBackground ? "substory" : "substory substory-hidden"}>
 				<SubstoryPrimary substoryPrimaryTitleRef={substoryPrimaryTitleRef} />
 				<div
@@ -55,9 +64,6 @@ export const Substory = () => {
 						setSubstoryPrimaryPaddingTop={setSubstoryPrimaryPaddingTop}
 					/>
 				</div>
-			</div>
-			<div className='substory-loading-container'>
-				<LoadingCircle size='l' />
 			</div>
 		</div>
 	);

@@ -58,6 +58,11 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef, setSubstoryPrim
 		setTimeout(() => getSubpagesContainerStyles(), 100);
 		setTimeout(() => getSubpagesContainerStyles(), 200);
 		setTimeout(() => getSubpagesContainerStyles(), 400);
+		setTimeout(() => getSubpagesContainerStyles(), 800);
+		setTimeout(() => getSubpagesContainerStyles(), 1200);
+		setTimeout(() => getSubpagesContainerStyles(), 1600);
+		setTimeout(() => getSubpagesContainerStyles(), 2400);
+		setTimeout(() => getSubpagesContainerStyles(), 3600);
 		window.addEventListener("resize", getSubpagesContainerStyles);
 		return () => {
 			window.removeEventListener("resize", getSubpagesContainerStyles);

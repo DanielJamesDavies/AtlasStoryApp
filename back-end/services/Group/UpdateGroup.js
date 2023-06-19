@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const Group = require("../../models/Group");
 const Image = require("../../models/Image");
 

@@ -1,14 +1,20 @@
 .group-subpages-btns-container {
 	display: flex;
+	flex-direction: column;
+	gap: 12px;
 	align-items: center;
-	margin-bottom: 4px;
-	width: 100%;
+	align-items: flex-start;
+	margin-top: 12px;
+	margin-left: calc(8px + 8px);
+	margin-right: 8px;
+	width: max-content;
 }
 
 .group-subpages-btns {
 	display: flex;
-	align-items: center;
-	width: calc(100% - 28px - 28px);
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 6px;
 	overflow-y: hidden;
 	overflow-x: overlay;
 	scroll-behavior: smooth;
@@ -20,11 +26,12 @@
 
 .group-subpages-btn {
 	flex-shrink: 0;
-	margin: 0 4px;
+	margin: 0;
+	padding-right: 28px;
 	border-radius: 32px;
 
-	min-width: fit-content;
-	width: calc((100% / 8) - 8px);
+	min-width: calc((100%) - 8px);
+	width: calc((100%) - 8px);
 }
 
 .group-subpages-btn .btn-list-item-value {
@@ -40,4 +47,31 @@
 	background: var(--groupColour);
 	border-color: var(--groupColour);
 	color: #fff;
+}
+
+.group-subpages-btn-scroll-btn {
+	display: none;
+}
+
+@media (max-width: 750px) {
+	.group-subpages-btns-container {
+		margin: 0;
+		gap: 0;
+		flex-direction: row;
+		width: 100%;
+	}
+
+	.group-subpages-btns {
+		width: calc(100% - 28px - 28px);
+		flex-direction: row;
+	}
+
+	.group-subpages-btn {
+		min-width: fit-content;
+		width: calc((100% / 8) - 8px);
+	}
+
+	.group-subpages-btn-scroll-btn {
+		display: block;
+	}
 }

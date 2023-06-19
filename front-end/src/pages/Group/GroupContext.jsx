@@ -12,7 +12,7 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 	const { APIRequest } = useContext(APIContext);
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
-	const { location } = useContext(RoutesContext);
+	const { location, locationParams, changeLocationParameters } = useContext(RoutesContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon, storyGroups } = useContext(StoryContext);
 
 	const [failure, setFailure] = useState(false);
@@ -202,6 +202,31 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 		if (currentVersionIndex === -1 || currentVersionIndex === group.data.versions.length - 1) return;
 		setGroupVersion(group?.data?.versions[currentVersionIndex + 1]);
 	}
+
+	const hasReadInitialLocationParameters = useRef(false);
+
+	useEffect(() => {
+		if (group) {
+			if (!hasReadInitialLocationParameters.current) {
+				if (locationParams.current.findIndex((e) => e.label === "subpage") !== -1) {
+					setIsOnOverviewSection(false);
+					setOpenSubpageID(locationParams.current.find((e) => e.label === "subpage").value);
+				}
+				if (locationParams.current.findIndex((e) => e.label === "version") !== -1) {
+					const groupVersionIndex = group.data.versions.findIndex(
+						(e) => e._id === locationParams.current.find((e) => e.label === "version").value
+					);
+					if (groupVersionIndex !== -1) changeGroupVersion(JSON.parse(JSON.stringify(group.data.versions[groupVersionIndex])));
+				}
+				setTimeout(() => (hasReadInitialLocationParameters.current = true), 500);
+			} else {
+				let newLocationParameters = [];
+				if (groupVersion?._id) newLocationParameters.push({ label: "version", value: groupVersion._id });
+				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
+				changeLocationParameters(newLocationParameters);
+			}
+		}
+	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, groupVersion, group]);
 
 	return (
 		<GroupContext.Provider

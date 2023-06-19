@@ -22,7 +22,9 @@ export const SubstorySubpagesBtns = () => {
 
 	return (
 		<div className='substory-subpages-btns-container'>
-			<IconBtn icon={<FaChevronLeft />} seamless={true} onClick={() => scrollSubpageBtns(-1)} />
+			<div className='substory-subpages-btn-scroll-btn'>
+				<IconBtn icon={<FaChevronLeft />} seamless={true} onClick={() => scrollSubpageBtns(-1)} />
+			</div>
 			<div
 				ref={subpagesBtnsRef}
 				className={isAuthorizedToEdit ? "substory-subpages-btns substory-subpages-btns-is-authorized" : "substory-subpages-btns"}
@@ -40,7 +42,9 @@ export const SubstorySubpagesBtns = () => {
 						/>
 					))}
 			</div>
-			<IconBtn icon={<FaChevronRight />} seamless={true} onClick={() => scrollSubpageBtns(1)} />
+			<div className='substory-subpages-btn-scroll-btn'>
+				<IconBtn icon={<FaChevronRight />} seamless={true} onClick={() => scrollSubpageBtns(1)} />
+			</div>
 		</div>
 	);
 };

@@ -37,6 +37,15 @@ export const Group = () => {
 			className={isOnOverviewSection ? "group-container group-container-is-on-overview" : "group-container group-container-is-on-subpages"}
 			style={groupStyle ? groupStyle : {}}
 		>
+			<div
+				className={
+					group && groupStyle && groupOverviewBackground
+						? "group-loading-container group-loading-container-hidden"
+						: "group-loading-container"
+				}
+			>
+				<LoadingCircle size='l' />
+			</div>
 			<div className={group && groupStyle && groupOverviewBackground ? "group" : "group group-hidden"}>
 				<GroupPrimary groupPrimaryRef={groupPrimaryRef} />
 				<div
@@ -50,9 +59,6 @@ export const Group = () => {
 					<GroupSectionSwitcher />
 					<GroupSubpages innerRef={groupSubpagesContainerRef} />
 				</div>
-			</div>
-			<div className='group-loading-container'>
-				<LoadingCircle size='l' />
 			</div>
 		</div>
 	);
