@@ -111,6 +111,7 @@
 	}
 
 	.substory-content-container {
+		flex-direction: row;
 		transition: transform 0.5s;
 	}
 

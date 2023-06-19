@@ -51,6 +51,9 @@ export const CharacterLogic = () => {
 		setTimeout(() => getCharacterStyle(), 800);
 		setTimeout(() => getCharacterStyle(), 1000);
 		setTimeout(() => getCharacterStyle(), 1200);
+		setTimeout(() => getCharacterStyle(), 1800);
+		setTimeout(() => getCharacterStyle(), 2400);
+		setTimeout(() => getCharacterStyle(), 3600);
 		window.addEventListener("resize", getCharacterStyle);
 		return () => {
 			window.removeEventListener("resize", getCharacterStyle);

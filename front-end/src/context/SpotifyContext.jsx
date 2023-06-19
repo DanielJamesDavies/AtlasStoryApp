@@ -113,7 +113,7 @@ const SpofityProvider = ({ children }) => {
 						"*"
 					);
 
-				setTimeout(() => changeLocation(previous_location), 50);
+				setTimeout(() => changeLocation(decodeURIComponent(previous_location)), 50);
 			}
 		}
 
