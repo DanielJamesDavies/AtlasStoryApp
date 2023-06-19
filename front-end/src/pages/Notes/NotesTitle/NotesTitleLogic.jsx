@@ -26,8 +26,8 @@ export const NotesTitleLogic = () => {
 				case "characters":
 					newNotesTitleLabel = "Characters";
 					break;
-				case "substories":
-					newNotesTitleLabel = "Substories";
+				case "plots":
+					newNotesTitleLabel = "Plots";
 					break;
 				case "world":
 					newNotesTitleLabel = "World";
