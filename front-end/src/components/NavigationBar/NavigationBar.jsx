@@ -94,7 +94,7 @@ export const NavigationBar = () => {
 							>
 								{isAuthorizedToEdit ? <FaMountain /> : <FaPencilAlt />}
 							</button>
-							<div className='navigation-bar-btn-label'>Viewer Mode</div>
+							<div className='navigation-bar-btn-label'>{isAuthorizedToEdit ? "Viewer" : "Editor"} Mode</div>
 						</div>
 					)}
 				</>
