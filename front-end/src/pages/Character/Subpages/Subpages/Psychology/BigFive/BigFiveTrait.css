@@ -1,11 +1,10 @@
 .character-subpage-psychology-big-five-trait-container {
 	flex-shrink: 0;
-	width: calc(50% - 4px);
+	width: 100%;
 }
 
 .character-subpage-psychology-big-five-trait-container .content-item {
-	margin-left: 0;
-	margin-right: 0;
+	margin: 0;
 }
 
 .character-subpage-psychology-big-five-trait-name {

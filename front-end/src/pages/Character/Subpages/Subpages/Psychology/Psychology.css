@@ -1,5 +1,14 @@
-.character-subpage-psychology-section-2 {
-	margin: 24px 0;
+.character-subpage-psychology-big-five-visible {
+	display: flex;
+	gap: 16px;
+}
+
+.character-subpage-psychology-big-five-visible .character-subpage-psychology-section-1 {
+	max-width: calc(100% - 650px);
+}
+
+.character-subpage-psychology-big-five-visible .character-subpage-psychology-section-2 {
+	max-width: 650px;
 }
 
 @media (max-width: 1100px) {
@@ -8,9 +17,15 @@
 		margin: 0;
 		padding: 0;
 		width: 100%;
+		max-width: unset !important;
 	}
 
 	.character-subpage-psychology-section-2 {
 		margin: 24px 0;
+	}
+
+	.character-subpage-psychology-big-five-visible {
+		flex-direction: column;
+		gap: 0;
 	}
 }

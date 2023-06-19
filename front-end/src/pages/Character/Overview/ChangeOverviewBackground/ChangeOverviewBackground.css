@@ -7,3 +7,9 @@
 .character-overview-change-background input {
 	display: none;
 }
+
+@media (max-width: 750px) {
+	.character-overview-change-background {
+		display: none;
+	}
+}

@@ -4,6 +4,10 @@
 	width: calc(50% - 4px);
 }
 
+.character-subpage-psychology-big-five-visible .character-subpage-psychology-item-container {
+	width: 100%;
+}
+
 .character-subpage-psychology-item-container .content-item {
 	margin: 0;
 	height: 100%;
