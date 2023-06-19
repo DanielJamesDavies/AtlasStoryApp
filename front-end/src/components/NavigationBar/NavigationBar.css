@@ -95,7 +95,11 @@
 }
 
 .navigation-bar-btn-viewer-mode {
-	font-size: 18px;
+	font-size: 17px;
+}
+
+.navigation-bar-btn-editor-mode {
+	font-size: 20px;
 }
 
 .navigation-bar-btn-user-placeholder {

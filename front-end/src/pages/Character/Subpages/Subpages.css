@@ -23,7 +23,7 @@
 	--characterSubpageMaxHeight: calc(var(--vh) - var(--characterPaddingTop) - 4px - 24px);
 	padding: 12px 8px;
 	width: calc(100% - 16px);
-	min-height: calc(100% - 24px - 36px);
+	min-height: calc(100% - 2 * 12px);
 	max-height: var(--characterSubpageMaxHeight);
 	overflow-y: overlay;
 }

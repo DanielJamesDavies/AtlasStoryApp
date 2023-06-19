@@ -43,6 +43,7 @@ const GroupSchema = mongoose.Schema({
 						_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 						title: { type: String, default: "" },
 						description: { type: [String], default: [""] },
+						primaryImage: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 						gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], default: [] },
 					},
 				],

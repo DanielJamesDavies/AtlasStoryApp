@@ -46,6 +46,10 @@
 	color: var(--text-colour-primary);
 }
 
+.character-primary-name-and-type-container {
+	display: flex;
+}
+
 .character-primary-section-switcher-btn {
 	position: relative;
 	display: none;
@@ -96,6 +100,12 @@
 
 	.character-primary-story {
 		display: none;
+	}
+
+	.character-primary-name-and-type-container {
+		flex-direction: column;
+		min-width: 50vw;
+		width: max-content;
 	}
 
 	.character-primary-section-switcher-btn {

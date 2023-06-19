@@ -1,0 +1,26 @@
+.substory-subpage-profile {
+	display: flex;
+	gap: 8px;
+	overflow-x: hidden;
+}
+
+.substory-subpage-profile-section-1 {
+	width: 100%;
+	max-width: calc(100% - 500px);
+}
+
+.substory-subpage-profile-section-2 {
+	width: 100%;
+	max-width: 500px;
+}
+
+@media (max-width: 750px) {
+	.substory-subpage-profile {
+		flex-direction: column-reverse;
+	}
+
+	.substory-subpage-profile-section-1,
+	.substory-subpage-profile-section-2 {
+		max-width: unset;
+	}
+}

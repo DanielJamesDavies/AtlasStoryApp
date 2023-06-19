@@ -33,7 +33,7 @@ export const CharacterSubpagesBtnsLogic = () => {
 
 	function scrollSubpageBtns(direction) {
 		if (!subpagesBtnsRef?.current) return;
-		subpagesBtnsRef.current.scrollLeft += 120 * direction;
+		subpagesBtnsRef.current.scrollLeft += 180 * direction;
 	}
 
 	return { isAuthorizedToEdit, subpages, openSubpageID, setOpenSubpageID, subpagesBtnsRef, scrollSubpageBtns };

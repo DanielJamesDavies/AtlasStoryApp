@@ -11,6 +11,10 @@
 	vertical-align: top;
 }
 
+.substory-container-is-authorized .substory-overview-container {
+	display: none;
+}
+
 .substory-overview {
 	height: 100%;
 	overflow-y: overlay;

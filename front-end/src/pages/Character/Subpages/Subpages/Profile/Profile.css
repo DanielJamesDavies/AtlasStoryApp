@@ -1,0 +1,26 @@
+.character-subpage-profile {
+	display: flex;
+	gap: 8px;
+	overflow-x: hidden;
+}
+
+.character-subpage-profile-section-1 {
+	width: 100%;
+	max-width: calc(100% - 500px);
+}
+
+.character-subpage-profile-section-2 {
+	width: 100%;
+	max-width: 500px;
+}
+
+@media (max-width: 750px) {
+	.character-subpage-profile {
+		flex-direction: column-reverse;
+	}
+
+	.character-subpage-profile-section-1,
+	.character-subpage-profile-section-2 {
+		max-width: unset;
+	}
+}

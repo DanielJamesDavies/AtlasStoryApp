@@ -15,7 +15,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location, locationParams, changeLocationParameters } = useContext(RoutesContext);
 	const { spotify_access_token, spotify_refresh_token, SpotifyRequest } = useContext(SpotifyContext);
-	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
+	const { isAuthorizedToEdit, isInEditorMode, story, setStory, storyIcon } = useContext(StoryContext);
 
 	const [failure, setFailure] = useState(false);
 
@@ -30,6 +30,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	const allSubpages = useMemo(
 		() => [
+			{ id: "profile", name: "Profile", isEnabled: true },
 			{ id: "plot", name: "Plot", isEnabled: true },
 			{ id: "soundtrack", name: "Soundtrack", isEnabled: true },
 			{ id: "gallery", name: "Gallery", isEnabled: true },
@@ -40,7 +41,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		[]
 	);
 	const [subpages, setSubpages] = useState([]);
-	const [openSubpageID, setOpenSubpageID] = useState(false);
+	const [openSubpageID, setOpenSubpageID] = useState(isAuthorizedToEdit ? "profile" : "plot");
 
 	const curr_story_uid = useRef(false);
 	const curr_substory_uid = useRef(false);
@@ -339,11 +340,15 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				setTimeout(() => (hasReadInitialLocationParameters.current = true), 500);
 			} else {
 				let newLocationParameters = [];
-				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
+				if (!isOnOverviewSection || isInEditorMode.current) newLocationParameters.push({ label: "subpage", value: openSubpageID });
 				changeLocationParameters(newLocationParameters);
 			}
 		}
-	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, substory]);
+	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, substory, isInEditorMode]);
+
+	useEffect(() => {
+		setOpenSubpageID(isAuthorizedToEdit ? "profile" : "plot");
+	}, [isAuthorizedToEdit, setOpenSubpageID]);
 
 	return (
 		<SubstoryContext.Provider

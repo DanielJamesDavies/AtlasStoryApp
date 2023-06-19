@@ -1,0 +1,24 @@
+.character-profile-primary-image {
+	display: block;
+	margin-top: 6px;
+	margin-bottom: 12px;
+	border-radius: 4px 4px 0 0;
+	width: 100%;
+	height: 100%;
+}
+
+.editable-container:not(.editable-container-is-editing).character-profile-primary-image-container-no-image {
+	margin-bottom: 12px;
+}
+
+.editable-container-is-editing.character-profile-primary-image-container-no-image .character-profile-primary-image {
+	height: 250px;
+	background: linear-gradient(180deg, var(--colour-grey-one), var(--colour-grey-three));
+}
+
+.character-profile-primary-image img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}

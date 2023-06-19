@@ -48,6 +48,7 @@ export const PhysicalAttributeItem = ({
 								<div key={imageIndex} className='character-subpage-physical-attribute-item-image-item'>
 									{!characterImages.find((e) => e._id === image.image)?.image ? null : (
 										<img
+											className='lightbox-openable-image'
 											src={characterImages.find((e) => e._id === image.image).image}
 											alt=''
 											onClick={() => onPhysicalItemImageClick("attributes", index, imageIndex)}

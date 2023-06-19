@@ -13,12 +13,13 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 	const { APIRequest } = useContext(APIContext);
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location, locationParams, changeLocationParameters } = useContext(RoutesContext);
-	const { isAuthorizedToEdit, story, setStory, storyIcon, storyGroups } = useContext(StoryContext);
+	const { isAuthorizedToEdit, isInEditorMode, story, setStory, storyIcon, storyGroups } = useContext(StoryContext);
 
 	const [failure, setFailure] = useState(false);
 
 	const [group, setGroup] = useState(false);
 
+	const [groupPrimaryImages, setGroupPrimaryImages] = useState([]);
 	const [groupOverviewBackground, setGroupOverviewBackground] = useState(false);
 	const [groupImages, setGroupImages] = useState([]);
 
@@ -27,6 +28,7 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	const allSubpages = useMemo(
 		() => [
+			{ id: "profile", name: "Profile", isEnabled: true },
 			{ id: "gallery", name: "Gallery", isEnabled: true },
 			{ id: "miscellaneous", name: "Miscellaneous", isEnabled: true },
 			{ id: "development", name: "Development", isEnabled: true },
@@ -35,7 +37,7 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 		[]
 	);
 	const [subpages, setSubpages] = useState([]);
-	const [openSubpageID, setOpenSubpageID] = useState(false);
+	const [openSubpageID, setOpenSubpageID] = useState(isAuthorizedToEdit ? "profile" : "gallery");
 	const [groupPaddingTop, setGroupPaddingTop] = useState(0);
 
 	const curr_story_uid = useRef(false);
@@ -55,6 +57,7 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 			setTimeout(() => updateDocumentTitle(newGroup), 1000);
 
 			getGroupSubpages(newGroup?.data?.subpages, isAuthorizedToEdit);
+			getGroupPrimaryImages(newGroup?.data?.versions);
 			getGroupOverviewBackground(newGroup?.data?.overviewBackground);
 			getGroupImages(newGroup?.data?.images);
 
@@ -107,6 +110,30 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 				if (oldOpenSubpageID !== false) return oldOpenSubpageID;
 				return newSubpages.filter((e) => (isAuthorizedToEdit ? e?.isEnabled : e?.isEnabled && e?.id !== "settings"))[0]?.id;
 			});
+		}
+
+		async function getGroupPrimaryImages(versions) {
+			if (!versions) return;
+
+			const primaryImages = await Promise.all(
+				versions.map(async (version) => {
+					const recentImage = recentImages.current.find((e) => e?._id === version?.primaryImage);
+					if (recentImage?.image) {
+						return { _id: version._id, image: recentImage };
+					} else {
+						const primary_image_response = await APIRequest("/image/" + version?.primaryImage, "GET");
+						if (primary_image_response?.errors || !primary_image_response?.data?.image?.image) {
+							return { _id: version._id, image: { _id: version?.primaryImage, image: "NO_IMAGE" } };
+						}
+						addImagesToRecentImages([primary_image_response?.data?.image]);
+						return { _id: version._id, image: primary_image_response?.data?.image };
+					}
+				})
+			);
+
+			setGroupPrimaryImages(primaryImages);
+
+			return primaryImages;
 		}
 
 		async function getGroupOverviewBackground(overviewBackgroundID) {
@@ -222,11 +249,24 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 			} else {
 				let newLocationParameters = [];
 				if (groupVersion?._id) newLocationParameters.push({ label: "version", value: groupVersion._id });
-				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
+				if (!isOnOverviewSection || isInEditorMode.current) newLocationParameters.push({ label: "subpage", value: openSubpageID });
 				changeLocationParameters(newLocationParameters);
 			}
 		}
-	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, groupVersion, group]);
+	}, [
+		changeLocationParameters,
+		hasReadInitialLocationParameters,
+		locationParams,
+		isOnOverviewSection,
+		openSubpageID,
+		groupVersion,
+		group,
+		isInEditorMode,
+	]);
+
+	useEffect(() => {
+		setOpenSubpageID(isAuthorizedToEdit ? "profile" : "gallery");
+	}, [isAuthorizedToEdit, setOpenSubpageID]);
 
 	return (
 		<GroupContext.Provider
@@ -240,6 +280,8 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 				group,
 				setGroup,
 				storyGroups,
+				groupPrimaryImages,
+				setGroupPrimaryImages,
 				groupOverviewBackground,
 				setGroupOverviewBackground,
 				groupImages,

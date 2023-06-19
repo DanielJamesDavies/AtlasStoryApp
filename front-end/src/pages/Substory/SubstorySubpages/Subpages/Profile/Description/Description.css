@@ -1,0 +1,26 @@
+.substory-profile-description-container {
+	width: 100%;
+}
+
+.substory-profile-description {
+	margin: 0;
+	padding: 8px 12px;
+	border-radius: 8px;
+	width: calc(100% - 24px);
+	background: var(--colour-grey-two);
+	color: #fff;
+	text-align: left;
+}
+
+.substory-profile-description-label {
+	margin-bottom: 6px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+@media (max-width: 750px) {
+	.substory-profile-description-container {
+		padding: 0 6px;
+		width: calc(100% - 4px);
+	}
+}

@@ -96,8 +96,8 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 
 	return (
 		<div className='substory-subpage-plot-items-container' ref={plotItemsContainerRef}>
-			<div className='substory-subpage-plot-items-name'>{cluster.groups.find((e) => e._id === groupID)?.name}</div>
-			<div className='substory-subpage-plot-items-description'>{cluster.groups.find((e) => e._id === groupID)?.description}</div>
+			<div className='substory-subpage-plot-items-name'>{cluster?.groups.find((e) => e._id === groupID)?.name}</div>
+			<div className='substory-subpage-plot-items-description'>{cluster?.groups.find((e) => e._id === groupID)?.description}</div>
 			<EditableContainer
 				className='substory-subpage-plot-items-list-container'
 				isAuthorizedToEdit={isAuthorizedToEdit}

@@ -2,6 +2,7 @@
 import { useState, useContext, useEffect, useRef } from "react";
 
 // Components
+import { Profile } from "./Subpages/Profile/Profile";
 import { Gallery } from "./Subpages/Gallery/Gallery";
 import { Miscellaneous } from "./Subpages/Miscellaneous/Miscellaneous";
 import { Development } from "./Subpages/Development/Development";
@@ -38,6 +39,8 @@ export const GroupSubpagesLogic = () => {
 	useEffect(() => {
 		function getSubpage() {
 			switch (openSubpageID) {
+				case "profile":
+					return <Profile />;
 				case "gallery":
 					return <Gallery />;
 				case "miscellaneous":

@@ -2,6 +2,7 @@
 import { useState, useContext, useEffect, useLayoutEffect, useRef } from "react";
 
 // Components
+import { Profile } from "./Subpages/Profile/Profile";
 import { Gallery } from "./Subpages/Gallery/Gallery";
 import { Plot } from "./Subpages/Plot/Plot";
 import { Soundtrack } from "./Subpages/Soundtrack/Soundtrack";
@@ -74,6 +75,8 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef, setSubstoryPrim
 	useEffect(() => {
 		function getSubpage() {
 			switch (openSubpageID) {
+				case "profile":
+					return <Profile />;
 				case "gallery":
 					return <Gallery />;
 				case "plot":

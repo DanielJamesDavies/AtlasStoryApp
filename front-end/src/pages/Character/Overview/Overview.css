@@ -11,6 +11,10 @@
 	vertical-align: top;
 }
 
+.character-container-is-authorized .character-overview-container {
+	display: none;
+}
+
 .character-overview {
 	padding-right: 8px;
 	height: 100%;

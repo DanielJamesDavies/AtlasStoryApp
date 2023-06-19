@@ -2,6 +2,7 @@
 import { useState, useContext, useEffect, useRef } from "react";
 
 // Components
+import { Profile } from "./Subpages/Profile/Profile";
 import { Gallery } from "./Subpages/Gallery/Gallery";
 import { Psychology } from "./Subpages/Psychology/Psychology";
 import { Biography } from "./Subpages/Biography/Biography";
@@ -43,6 +44,8 @@ export const CharacterSubpagesLogic = () => {
 	useEffect(() => {
 		function getSubpage() {
 			switch (openSubpageID) {
+				case "profile":
+					return <Profile />;
 				case "gallery":
 					return <Gallery />;
 				case "psychology":

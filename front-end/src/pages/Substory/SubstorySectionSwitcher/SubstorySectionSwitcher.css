@@ -10,6 +10,10 @@
 	opacity: 1;
 }
 
+.substory-container-is-authorized .substory-section-switcher {
+	display: none;
+}
+
 .substory-section-switcher-on-subpages {
 	opacity: 0;
 	pointer-events: none;

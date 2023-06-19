@@ -11,6 +11,10 @@
 	vertical-align: top;
 }
 
+.group-container-is-authorized .group-overview-container {
+	display: none;
+}
+
 .group-overview {
 	padding-right: 8px;
 	height: 100%;

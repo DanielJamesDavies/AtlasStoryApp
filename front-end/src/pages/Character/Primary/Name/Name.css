@@ -24,6 +24,7 @@
 	}
 
 	.editable-container-is-authorized.character-primary-name-container {
+		min-width: fit-content;
 		max-width: calc(100% - 146px);
 	}
 
