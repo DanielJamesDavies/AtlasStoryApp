@@ -1,6 +1,6 @@
 .character-subpage-relationships {
 	position: relative;
-	max-height: calc(var(--vh) - var(--characterPaddingTop) - 36px - 24px);
+	max-height: calc(var(--vh) - var(--characterPaddingTop) - 24px);
 	overflow-x: hidden;
 }
 

@@ -16,6 +16,7 @@ import { CharactersContext } from "../CharactersContext";
 
 export const CharactersRelationshipsLogic = () => {
 	const {
+		isAuthorizedToEdit,
 		storyGroups,
 		storyCharacters,
 		storyCharacterRelationships,
@@ -90,6 +91,14 @@ export const CharactersRelationshipsLogic = () => {
 						const newCharacter = storyCharacters.find((e) => e?._id === character?.character_id);
 						if (!newCharacter) return false;
 						if (!relationshipsFilters?.groups?.includes(newCharacter?.group_id)) return false;
+						if (
+							storyCharacterRelationships.filter(
+								(r) =>
+									r.character_ids.includes(newCharacter?._id) &&
+									relationshipsFilters?.relationshipTypes?.includes(r?.relationship_type)
+							).length === 0
+						)
+							return false;
 						return newCharacter;
 					})
 				)
@@ -108,8 +117,10 @@ export const CharactersRelationshipsLogic = () => {
 	}
 
 	return {
+		isAuthorizedToEdit,
 		storyGroups,
 		storyCharacters,
+		characterRelationshipsCharacters,
 		charactersRelationshipChartRef,
 		charactersRelationshipChartWidth,
 		charactersRelationshipChartItemWidth,

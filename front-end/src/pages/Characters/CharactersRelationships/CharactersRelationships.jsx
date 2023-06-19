@@ -21,8 +21,10 @@ import "./CharactersRelationships.css";
 
 export const CharactersRelationships = () => {
 	const {
+		isAuthorizedToEdit,
 		storyGroups,
 		storyCharacters,
+		characterRelationshipsCharacters,
 		charactersRelationshipChartRef,
 		charactersRelationshipChartWidth,
 		charactersRelationshipChartItemWidth,
@@ -30,6 +32,7 @@ export const CharactersRelationships = () => {
 		toggleIsDisplayingInfo,
 	} = CharactersRelationshipsLogic();
 
+	if (!isAuthorizedToEdit && characterRelationshipsCharacters.length === 0) return null;
 	return (
 		<div
 			className='characters-relationship-container'

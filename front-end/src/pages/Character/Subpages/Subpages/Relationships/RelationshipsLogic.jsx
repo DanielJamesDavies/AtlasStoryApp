@@ -95,6 +95,15 @@ export const RelationshipsLogic = () => {
 						let newCharacter = storyCharacters.find((e) => e?._id === character?.character_id);
 						if (!newCharacter) return false;
 						if (!relationshipsFilters?.groups?.includes(newCharacter?.group_id)) return false;
+						if (
+							characterRelationships.filter(
+								(r) =>
+									newCharacter?.uid === character_uid ||
+									(r.character_ids.includes(newCharacter?._id) &&
+										relationshipsFilters?.relationshipTypes?.includes(r?.relationship_type))
+							).length === 0
+						)
+							return false;
 						return newCharacter;
 					})
 				)
