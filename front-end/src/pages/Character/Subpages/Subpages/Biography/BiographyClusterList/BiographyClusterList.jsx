@@ -57,6 +57,7 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 									isActive={biologyCluster._id === currBiographyCluster._id}
 									hasFoundActive={currBiographyCluster?._id !== undefined}
 									onClick={() => onClickBiographyCluster(biologyCluster)}
+									size='s'
 								/>
 							</div>
 						))}
@@ -77,6 +78,7 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 								hasFoundActive={currBiographyCluster?._id !== undefined}
 								onClick={() => onClickBiographyCluster(biologyCluster)}
 								onRemove={(e) => removeBiographyCluster(e, index)}
+								size='s'
 							/>
 						</DragDropItem>
 					))}

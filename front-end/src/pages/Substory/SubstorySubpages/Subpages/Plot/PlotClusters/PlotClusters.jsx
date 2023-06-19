@@ -59,6 +59,7 @@ export const PlotClusters = ({ currCluster, switchCluster, isDisplayingClusters,
 									index={index}
 									isActive={cluster._id === currCluster._id}
 									onClick={() => onClickCluster(cluster)}
+									size='s'
 								/>
 							</div>
 						))}
@@ -81,6 +82,7 @@ export const PlotClusters = ({ currCluster, switchCluster, isDisplayingClusters,
 									onClick={() => onClickCluster(cluster)}
 									onChange={(e) => changeClusterName(e, cluster)}
 									onRemove={(e) => removeCluster(e, cluster)}
+									size='s'
 								/>
 							</DragDropItem>
 						))}

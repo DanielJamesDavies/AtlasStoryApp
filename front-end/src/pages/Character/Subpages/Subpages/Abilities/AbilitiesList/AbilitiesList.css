@@ -12,6 +12,15 @@
 	overflow-x: hidden;
 }
 
+.character-subpage-abilities-list-item-container:first-child,
+.character-subpage-abilities-list-item-container:first-child .btn-list-item {
+	margin-top: 0;
+}
+
+.character-subpage-abilities-list-item-container .btn-list-item {
+	border-radius: 32px;
+}
+
 .character-subpage-abilities-list-item-container .btn-list-item-active {
 	position: relative;
 	background: var(--characterColour);

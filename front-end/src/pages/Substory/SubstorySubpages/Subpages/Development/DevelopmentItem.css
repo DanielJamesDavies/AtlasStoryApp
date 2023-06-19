@@ -2,6 +2,11 @@
 	margin: 12px 0;
 }
 
+.substory-subpage-development-item-container:first-child,
+.substory-subpage-development-item-container:first-child .content-item {
+	margin-top: 0;
+}
+
 .substory-subpage-development-item-container .content-item {
 	margin-left: 0;
 	margin-right: 0;

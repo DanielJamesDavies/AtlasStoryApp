@@ -55,6 +55,7 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 									isActive={ability._id === currAbility._id}
 									hasFoundActive={currAbility?._id !== undefined}
 									onClick={() => onClickAbility(ability)}
+									size='s'
 								/>
 							</div>
 						))}
@@ -75,6 +76,7 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 								hasFoundActive={currAbility?._id !== undefined}
 								onClick={() => onClickAbility(ability)}
 								onRemove={(e) => removeAbility(e, index)}
+								size='s'
 							/>
 						</DragDropItem>
 					))}

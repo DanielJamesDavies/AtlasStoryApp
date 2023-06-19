@@ -14,6 +14,15 @@
 	overflow-x: hidden;
 }
 
+.substory-subpage-plot-clusters-list-item-container:first-child,
+.substory-subpage-plot-clusters-list-item-container:first-child .btn-list-item {
+	margin-top: 0;
+}
+
+.substory-subpage-plot-clusters-list-item-container .btn-list-item {
+	border-radius: 32px;
+}
+
 .substory-subpage-plot-clusters-list-item-container .btn-list-item-active,
 .substory-subpage-plot-clusters-list-item-container .btn-list-item-active:hover {
 	background: var(--substoryColour);
