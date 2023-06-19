@@ -83,6 +83,7 @@ const CharacterSchema = mongoose.Schema({
 
 									default: {},
 								},
+								isBigFiveVisible: { type: Boolean, default: true },
 							},
 							default: {},
 						},

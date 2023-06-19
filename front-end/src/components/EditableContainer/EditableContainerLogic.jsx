@@ -20,6 +20,7 @@ export const EditableContainerLogic = ({
 	absolutePositionEditBtns,
 	isAuthorizedToEdit,
 	onClose,
+	onHide,
 	onAdd,
 	onRemove,
 	onDefault,
@@ -97,6 +98,12 @@ export const EditableContainerLogic = ({
 		setIsEditing(false);
 	}
 
+	async function onHideBtnClick(e) {
+		e.stopPropagation();
+		const success = await onHide();
+		if (success) setIsEditing(false);
+	}
+
 	async function onAddBtnClick(e) {
 		e.stopPropagation();
 		const add_success = await onAdd();
@@ -148,6 +155,7 @@ export const EditableContainerLogic = ({
 		onCloseBtnClick,
 		onEditBtnClick,
 		onViewBtnClick,
+		onHideBtnClick,
 		onAddBtnClick,
 		onRemoveBtnClick,
 		onDefaultBtnClick,

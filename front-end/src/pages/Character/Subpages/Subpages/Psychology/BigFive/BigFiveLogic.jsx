@@ -62,6 +62,44 @@ export const BigFiveLogic = () => {
 		},
 	];
 
+	async function showBigFive() {
+		if (!character?._id) return;
+
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		newCharacterVersion.psychology.isBigFiveVisible = true;
+		changeCharacterVersion(newCharacterVersion);
+
+		const response = await APIRequest("/character/" + character._id, "PATCH", {
+			story_id: story._id,
+			path: ["data", "versions", characterVersion._id, "psychology", "isBigFiveVisible"],
+			newValue: true,
+		});
+		if (!response || response?.errors) {
+			if (response?.errors) setErrors(response.errors);
+			return false;
+		}
+		return true;
+	}
+
+	async function hideBigFive() {
+		if (!character?._id) return;
+
+		let newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		newCharacterVersion.psychology.isBigFiveVisible = false;
+		changeCharacterVersion(newCharacterVersion);
+
+		const response = await APIRequest("/character/" + character._id, "PATCH", {
+			story_id: story._id,
+			path: ["data", "versions", characterVersion._id, "psychology", "isBigFiveVisible"],
+			newValue: false,
+		});
+		if (!response || response?.errors) {
+			if (response?.errors) setErrors(response.errors);
+			return false;
+		}
+		return true;
+	}
+
 	const [errors, setErrors] = useState([]);
 
 	async function revertBigFive() {
@@ -100,5 +138,16 @@ export const BigFiveLogic = () => {
 		e.stopPropagation();
 	}
 
-	return { isAuthorizedToEdit, bigFiveTraits, revertBigFive, saveBigFive, errors, bigFiveRef, onBigFiveContainerScroll };
+	return {
+		isAuthorizedToEdit,
+		characterVersion,
+		bigFiveTraits,
+		showBigFive,
+		hideBigFive,
+		revertBigFive,
+		saveBigFive,
+		errors,
+		bigFiveRef,
+		onBigFiveContainerScroll,
+	};
 };

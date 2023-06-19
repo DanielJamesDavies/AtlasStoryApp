@@ -1,5 +1,5 @@
 // Packages
-import { FaCog, FaMountain, FaPencilAlt, FaPlus, FaSave, FaSort, FaTimes, FaUndoAlt } from "react-icons/fa";
+import { FaCog, FaEyeSlash, FaMountain, FaPencilAlt, FaPlus, FaSave, FaSort, FaTimes, FaUndoAlt } from "react-icons/fa";
 
 // Components
 
@@ -23,6 +23,7 @@ export const EditableContainer = ({
 	absolutePositionEditBtns,
 	isAuthorizedToEdit,
 	onClose,
+	onHide,
 	onAdd,
 	onRemove,
 	onDefault,
@@ -42,6 +43,7 @@ export const EditableContainer = ({
 		onCloseBtnClick,
 		onEditBtnClick,
 		onViewBtnClick,
+		onHideBtnClick,
 		onAddBtnClick,
 		onRemoveBtnClick,
 		onDefaultBtnClick,
@@ -55,6 +57,7 @@ export const EditableContainer = ({
 		absolutePositionEditBtns,
 		isAuthorizedToEdit,
 		onClose,
+		onHide,
 		onAdd,
 		onRemove,
 		onDefault,
@@ -88,6 +91,11 @@ export const EditableContainer = ({
 					<button className='editable-container-edit-btn' onClick={onViewBtnClick}>
 						<FaMountain />
 					</button>
+					{onHide === undefined ? null : (
+						<button className='editable-container-edit-btn editable-container-edit-btn-hide' onClick={onHideBtnClick}>
+							<FaEyeSlash />
+						</button>
+					)}
 					{onAdd === undefined ? null : (
 						<button className='editable-container-edit-btn editable-container-edit-btn-add' onClick={onAddBtnClick}>
 							<FaPlus />

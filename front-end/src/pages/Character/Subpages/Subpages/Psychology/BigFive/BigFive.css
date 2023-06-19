@@ -15,6 +15,22 @@
 	overflow-x: hidden;
 }
 
+.character-subpage-psychology-big-five-show-container {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-left: 8px;
+	font-weight: 600;
+	color: var(--text-colour-primary);
+	transition: 0.2s;
+	cursor: pointer;
+	width: max-content;
+}
+
+.character-subpage-psychology-big-five-show-container:hover {
+	color: var(--text-colour-tertiary);
+}
+
 @media (max-width: 750px) {
 	.character-subpage-psychology-big-five-traits-container {
 		max-height: none;
