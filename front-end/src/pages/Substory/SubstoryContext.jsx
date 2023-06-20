@@ -96,6 +96,8 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				if (newSubpage) {
 					newSubpage.isEnabled = substorySubpages[i]?.isEnabled;
 					newSubpages.push(newSubpage);
+				} else {
+					newSubpages.push(substorySubpages[i]);
 				}
 			}
 

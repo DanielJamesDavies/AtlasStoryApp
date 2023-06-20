@@ -30,7 +30,11 @@ export const GroupSubpagesBtns = () => {
 				className={isAuthorizedToEdit ? "group-subpages-btns group-subpages-btns-is-authorized" : "group-subpages-btns"}
 			>
 				{subpages
-					.filter((e) => (isAuthorizedToEdit ? e.isEnabled : !["profile", "settings"].includes(e?.id) && e.isEnabled))
+					.filter((e) =>
+						isAuthorizedToEdit
+							? e.isEnabled && e?.isSaved !== false
+							: !["settings"].includes(e?.id) && e.isEnabled && e?.isSaved !== false
+					)
 					.map((subpage, index) => (
 						<BtnListItem
 							key={index}

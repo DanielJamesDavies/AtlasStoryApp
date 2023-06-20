@@ -1,4 +1,5 @@
 // Packages
+import { FaTimes } from "react-icons/fa";
 
 // Components
 import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
@@ -8,6 +9,8 @@ import { DragDropContainer } from "../../../../../../components/DragDropContaine
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
 import { ToggleInput } from "../../../../../../components/ToggleInput/ToggleInput";
 import { ErrorMessage } from "../../../../../../components/ErrorMessage/ErrorMessage";
+import { TextInput } from "../../../../../../components/TextInput/TextInput";
+import { IconBtn } from "../../../../../../components/IconBtn/IconBtn";
 
 // Logic
 import { SettingsSubpagesLogic } from "./SettingsSubpagesLogic";
@@ -18,9 +21,6 @@ import { SettingsSubpagesLogic } from "./SettingsSubpagesLogic";
 
 // Styles
 import "./SettingsSubpages.css";
-import { TextInput } from "../../../../../../components/TextInput/TextInput";
-import { IconBtn } from "../../../../../../components/IconBtn/IconBtn";
-import { FaTimes } from "react-icons/fa";
 
 // Assets
 

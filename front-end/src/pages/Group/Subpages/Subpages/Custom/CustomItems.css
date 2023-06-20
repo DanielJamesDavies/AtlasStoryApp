@@ -1,0 +1,16 @@
+.group-subpage-custom-items {
+	display: inline-block;
+	flex-flow: column wrap;
+	padding-right: 12px;
+
+	width: calc(100% - 12px);
+	height: calc(var(--groupSubpageMaxHeight) - 4px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+@media (max-width: 750px) {
+	.group-subpage-custom-items {
+		height: calc(var(--groupSubpageMaxHeight) - 4px);
+	}
+}

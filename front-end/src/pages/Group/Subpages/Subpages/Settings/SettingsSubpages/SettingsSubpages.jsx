@@ -1,4 +1,5 @@
 // Packages
+import { FaTimes } from "react-icons/fa";
 
 // Components
 import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
@@ -8,6 +9,8 @@ import { DragDropContainer } from "../../../../../../components/DragDropContaine
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
 import { ToggleInput } from "../../../../../../components/ToggleInput/ToggleInput";
 import { ErrorMessage } from "../../../../../../components/ErrorMessage/ErrorMessage";
+import { TextInput } from "../../../../../../components/TextInput/TextInput";
+import { IconBtn } from "../../../../../../components/IconBtn/IconBtn";
 
 // Logic
 import { SettingsSubpagesLogic } from "./SettingsSubpagesLogic";
@@ -29,6 +32,9 @@ export const SettingsSubpages = () => {
 		isReorderingSubpages,
 		toggleIsReorderingSubpages,
 		changeSubpagesOrder,
+		addCustomSubpage,
+		removeCustomSubpage,
+		changeCustomSubpageName,
 		revertSubpages,
 		saveSubpages,
 		errors,
@@ -39,6 +45,7 @@ export const SettingsSubpages = () => {
 			<LabelContainer label='Subpages' className='group-subpage-settings-subpage-container'>
 				<EditableContainer
 					isAuthorizedToEdit={isAuthorizedToEdit}
+					onAdd={addCustomSubpage}
 					onReorder={toggleIsReorderingSubpages}
 					onRevert={revertSubpages}
 					onSave={saveSubpages}
@@ -65,7 +72,18 @@ export const SettingsSubpages = () => {
 									.map((subpage, index) => (
 										<DragDropItem key={index} index={index} className='group-subpage-settings-subpages-item'>
 											<ContentItem hasBg={true} backgroundColour='grey3'>
-												<div className='group-subpage-settings-subpages-item-name'>{subpage.name}</div>
+												{subpage?.isCustom ? (
+													<div className='group-subpage-settings-subpages-item-name'>
+														<TextInput
+															value={subpage.name}
+															onChange={(e) => changeCustomSubpageName(e, subpage.id)}
+															seamless={true}
+															autoSize={true}
+														/>
+													</div>
+												) : (
+													<div className='group-subpage-settings-subpages-item-name'>{subpage.name}</div>
+												)}
 												<ToggleInput
 													className
 													label
@@ -73,6 +91,15 @@ export const SettingsSubpages = () => {
 													onToggle={() => toggleEnableSubpage(index)}
 													enableEdit={!isReorderingSubpages}
 												/>
+												{!subpage?.isCustom ? null : (
+													<IconBtn
+														icon={<FaTimes />}
+														iconName='times'
+														seamless={true}
+														size='s'
+														onClick={() => removeCustomSubpage(subpage.id)}
+													/>
+												)}
 											</ContentItem>
 										</DragDropItem>
 									))}

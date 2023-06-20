@@ -100,6 +100,8 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 				if (newSubpage) {
 					newSubpage.isEnabled = groupSubpages[i]?.isEnabled;
 					newSubpages.push(newSubpage);
+				} else {
+					newSubpages.push(groupSubpages[i]);
 				}
 			}
 			newSubpages = newSubpages.concat(allSubpages.filter((e) => newSubpages.findIndex((e2) => e2.id === e.id) === -1));

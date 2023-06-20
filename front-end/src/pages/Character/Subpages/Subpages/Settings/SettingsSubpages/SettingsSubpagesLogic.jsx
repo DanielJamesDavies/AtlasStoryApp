@@ -126,12 +126,12 @@ export const SettingsSubpagesLogic = () => {
 		if (!character?._id || !story?._id) return;
 
 		let newSubpages = JSON.parse(JSON.stringify(subpages));
-		newSubpages = newSubpages.filter((e) => e.id !== "settings");
 		newSubpages = newSubpages.map((newSubpage) => {
 			delete newSubpage.isSaved;
 			return newSubpage;
 		});
 		setSubpages(newSubpages);
+		newSubpages = newSubpages.filter((e) => e.id !== "settings");
 
 		let newCharacter = JSON.parse(JSON.stringify(character));
 		newCharacter.data.custom_subpages = newCharacter.data.custom_subpages.map((newSubpage) => {
