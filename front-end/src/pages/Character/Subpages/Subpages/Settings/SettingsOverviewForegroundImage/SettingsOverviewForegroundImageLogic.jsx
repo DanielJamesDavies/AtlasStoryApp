@@ -55,6 +55,12 @@ export const SettingsOverviewForegroundImageLogic = () => {
 		changeCharacterVersion(newCharacterVersion);
 	}
 
+	function changeOverviewForegroundScale(e) {
+		const newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		newCharacterVersion.overviewForeground.scale = e.target.value;
+		changeCharacterVersion(newCharacterVersion);
+	}
+
 	function removeOverviewForeground() {
 		changeOverviewForeground(undefined);
 	}
@@ -86,6 +92,10 @@ export const SettingsOverviewForegroundImageLogic = () => {
 		)
 			return false;
 
+		const newCharacterVersion = JSON.parse(JSON.stringify(characterVersion));
+		newCharacterVersion.overviewForeground.scale = parseFloat(newCharacterVersion.overviewForeground.scale);
+		changeCharacterVersion(newCharacterVersion);
+
 		const character_response = await APIRequest("/character/" + character._id, "PATCH", {
 			story_id: story._id,
 			path: ["data", "versions", characterVersion._id, "overviewForeground"],
@@ -110,6 +120,7 @@ export const SettingsOverviewForegroundImageLogic = () => {
 		changeOverviewForeground,
 		changeOverviewForegroundAlignment,
 		changeOverviewForegroundPosition,
+		changeOverviewForegroundScale,
 		removeOverviewForeground,
 		revertOverviewForeground,
 		saveOverviewForeground,

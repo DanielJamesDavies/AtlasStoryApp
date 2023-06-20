@@ -28,6 +28,7 @@ export const SettingsOverviewForegroundImage = () => {
 		changeOverviewForeground,
 		changeOverviewForegroundAlignment,
 		changeOverviewForegroundPosition,
+		changeOverviewForegroundScale,
 		removeOverviewForeground,
 		revertOverviewForeground,
 		saveOverviewForeground,
@@ -75,6 +76,9 @@ export const SettingsOverviewForegroundImage = () => {
 						</LabelContainer>
 						<LabelContainer label='Position' isInline={true}>
 							<CoordinatesInput value={characterVersion?.overviewForeground?.position} onChange={changeOverviewForegroundPosition} />
+						</LabelContainer>
+						<LabelContainer label='Scale' isInline={true}>
+							<CoordinatesInput value={[characterVersion?.overviewForeground?.scale]} onChange={changeOverviewForegroundScale} />
 						</LabelContainer>
 					</div>
 				</EditableContainer>

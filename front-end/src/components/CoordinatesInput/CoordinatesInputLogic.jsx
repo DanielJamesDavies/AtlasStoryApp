@@ -51,10 +51,10 @@ export const CoordinatesInputLogic = ({ className, value, onChange }) => {
 		} else if (e.target.value === "-") {
 			newValue[index] = "-";
 		} else if (e.target.value[0] === "-") {
-			newValue[index] = -1 * parseInt(e.target.value.split("-")[1]);
-			console.log(-1 * parseInt(e.target.value.split("-")[1]));
+			newValue[index] = -1 * parseFloat(e.target.value.split("-")[1]);
+			console.log(-1 * parseFloat(e.target.value.split("-")[1]));
 		} else {
-			newValue[index] = parseInt(e.target.value);
+			newValue[index] = parseFloat(e.target.value);
 		}
 		if (JSON.stringify(value) === JSON.stringify(newValue)) return false;
 		await onChange(e, newValue);
