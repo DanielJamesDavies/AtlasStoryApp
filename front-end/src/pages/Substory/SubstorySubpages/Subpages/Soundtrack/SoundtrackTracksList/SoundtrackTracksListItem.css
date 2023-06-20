@@ -114,6 +114,11 @@
 	margin-top: 2px;
 }
 
+.substory-subpage-soundtrack-track-text-container .multi-line-text-input,
+.substory-subpage-soundtrack-track-text-container textarea {
+	min-height: 40px;
+}
+
 .substory-subpage-soundtrack-track-buttons-container {
 	display: none;
 	width: 32px;
