@@ -8,6 +8,7 @@ import { SettingsPrimaryCharacter } from "./SettingsPrimaryCharacter/SettingsPri
 import { SettingsVersions } from "./SettingsVersions/SettingsVersions";
 import { SettingsSubpages } from "./SettingsSubpages/SettingsSubpages";
 import { SettingsOverviewBackgroundImage } from "./SettingsOverviewBackgroundImage/SettingsOverviewBackgroundImage";
+import { SettingsOverviewForegroundImage } from "./SettingsOverviewForegroundImage/SettingsOverviewForegroundImage";
 import { SettingsCardBackgroundImage } from "./SettingsCardBackgroundImage/SettingsCardBackgroundImage";
 import { SettingsFaceImage } from "./SettingsFaceImage/SettingsFaceImage";
 import { SettingsDelete } from "./SettingsDelete/SettingsDelete";
@@ -33,9 +34,11 @@ export const Settings = () => {
 				<SettingsPrimaryCharacter />
 				<SettingsVersions />
 				<SettingsSubpages />
+				<SettingsDelete />
 			</div>
 			<div className='character-subpage-settings-section-2'>
 				<SettingsOverviewBackgroundImage />
+				<SettingsOverviewForegroundImage />
 				<SettingsCardBackgroundImage />
 				<SettingsFaceImage />
 				<SettingsDelete />

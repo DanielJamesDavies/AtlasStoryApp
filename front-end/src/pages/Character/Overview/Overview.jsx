@@ -19,7 +19,7 @@ import "./Overview.css";
 // Assets
 
 export const CharacterOverview = ({ innerRef }) => {
-	const { characterOverviewBackground } = CharacterOverviewLogic();
+	const { characterOverviewBackground, characterVersion, characterOverviewForegrounds } = CharacterOverviewLogic();
 
 	return (
 		<div className='character-overview-container'>
@@ -34,6 +34,33 @@ export const CharacterOverview = ({ innerRef }) => {
 					</div>
 				</div>
 				<ChangeOverviewBackground />
+				<div
+					className={
+						!characterOverviewForegrounds.find((e) => e?._id === characterVersion?._id)?.image?.image ||
+						characterOverviewForegrounds.find((e) => e?._id === characterVersion?._id)?.image?.image === "NO_IMAGE"
+							? "character-overview-foreground-container character-overview-foreground-container-no-image"
+							: "character-overview-foreground-container"
+					}
+				>
+					<div
+						className={
+							"character-overview-foreground character-overview-foreground-alignment-" +
+							characterVersion?.overviewForeground?.alignment
+						}
+					>
+						{!characterOverviewForegrounds.find((e) => e?._id === characterVersion?._id)?.image?.image ||
+						characterOverviewForegrounds.find((e) => e?._id === characterVersion?._id)?.image?.image === "NO_IMAGE" ? null : (
+							<img
+								src={characterOverviewForegrounds.find((e) => e?._id === characterVersion?._id)?.image?.image}
+								alt=''
+								style={{
+									scale: characterVersion?.overviewForeground?.scale.toString(),
+									transform: `translate(${characterVersion?.overviewForeground?.position.join("px, ")}px)`,
+								}}
+							/>
+						)}
+					</div>
+				</div>
 				<div
 					className={
 						!characterOverviewBackground || characterOverviewBackground === "NO_IMAGE"

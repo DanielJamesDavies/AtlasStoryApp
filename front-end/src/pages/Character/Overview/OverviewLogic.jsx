@@ -15,7 +15,7 @@ import { CharacterContext } from "../CharacterContext";
 // Assets
 
 export const CharacterOverviewLogic = () => {
-	const { characterOverviewBackground } = useContext(CharacterContext);
+	const { characterOverviewBackground, characterVersion, characterOverviewForegrounds } = useContext(CharacterContext);
 
-	return { characterOverviewBackground };
+	return { characterOverviewBackground, characterVersion, characterOverviewForegrounds };
 };

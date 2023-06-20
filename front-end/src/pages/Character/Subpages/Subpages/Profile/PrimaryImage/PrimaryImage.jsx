@@ -23,6 +23,7 @@ export const CharacterProfilePrimaryImage = () => {
 		characterPrimaryImages,
 		onPrimaryImageClick,
 		changePrimaryImage,
+		removePrimaryImage,
 		revertPrimaryImage,
 		savePrimaryImage,
 	} = CharacterProfilePrimaryImageLogic();
@@ -42,6 +43,7 @@ export const CharacterProfilePrimaryImage = () => {
 					: "character-profile-primary-image-container"
 			}
 			isAuthorizedToEdit={isAuthorizedToEdit}
+			onRemove={removePrimaryImage}
 			onRevert={revertPrimaryImage}
 			onSave={savePrimaryImage}
 		>

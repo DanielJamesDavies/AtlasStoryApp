@@ -21,7 +21,7 @@ export const SettingsDelete = () => {
 	const { isAuthorizedToEdit, deleteCharacter, errors } = SettingsDeleteLogic();
 
 	return (
-		<ContentItem hasBg={true} size='s'>
+		<ContentItem hasBg={true} size='s' className='character-settings-delete-container'>
 			<LabelContainer label='Delete Character' isInline={true}>
 				<ConfirmDelete onDelete={deleteCharacter} seamless={true} isAuthorizedToEdit={isAuthorizedToEdit} labelContext='this character' />
 				<ErrorMessage errors={errors} />

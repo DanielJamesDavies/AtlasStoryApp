@@ -31,6 +31,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 
 	const [characterPrimaryImages, setCharacterPrimaryImages] = useState([]);
 	const [characterOverviewBackground, setCharacterOverviewBackground] = useState(false);
+	const [characterOverviewForegrounds, setCharacterOverviewForegrounds] = useState([]);
 	const [characterCardBackground, setCharacterCardBackground] = useState(false);
 	const [characterFaceImage, setCharacterFaceImage] = useState(false);
 	const [characterImages, setCharacterImages] = useState([]);
@@ -83,6 +84,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			getCharacterSubpages(newCharacter?.data?.subpages, isAuthorizedToEdit);
 			getCharacterPrimaryImages(newCharacter?.data?.versions);
 			getCharacterOverviewBackground(newCharacter?.data?.overviewBackground);
+			getCharacterOverviewForegrounds(newCharacter?.data?.versions);
 			getCharacterCardBackground(newCharacter?.data?.cardBackground);
 			getCharacterFaceImage(newCharacter?.data?.faceImage);
 			getCharacterImages(newCharacter?.data?.images);
@@ -191,6 +193,30 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 
 			setCharacterOverviewBackground(overviewBackground.image);
 			return overviewBackground.image;
+		}
+
+		async function getCharacterOverviewForegrounds(versions) {
+			if (!versions) return;
+
+			const overviewForegrounds = await Promise.all(
+				versions.map(async (version) => {
+					const recentImage = recentImages.current.find((e) => e?._id === version?.overviewForeground?.image);
+					if (recentImage?.image) {
+						return { _id: version._id, image: recentImage };
+					} else {
+						const primary_image_response = await APIRequest("/image/" + version?.overviewForeground?.image, "GET");
+						if (primary_image_response?.errors || !primary_image_response?.data?.image?.image) {
+							return { _id: version._id, image: { _id: version?.overviewForeground?.image, image: "NO_IMAGE" } };
+						}
+						addImagesToRecentImages([primary_image_response?.data?.image]);
+						return { _id: version._id, image: primary_image_response?.data?.image };
+					}
+				})
+			);
+
+			setCharacterOverviewForegrounds(overviewForegrounds);
+
+			return overviewForegrounds;
 		}
 
 		async function getCharacterCardBackground(cardBackgroundID) {
@@ -424,6 +450,8 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				setCharacterPrimaryImages,
 				characterOverviewBackground,
 				setCharacterOverviewBackground,
+				characterOverviewForegrounds,
+				setCharacterOverviewForegrounds,
 				characterCardBackground,
 				setCharacterCardBackground,
 				characterFaceImage,

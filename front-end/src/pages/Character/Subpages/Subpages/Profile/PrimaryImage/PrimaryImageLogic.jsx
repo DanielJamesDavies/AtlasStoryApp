@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { CharacterContext } from "../../../../CharacterContext";
 import { APIContext } from "../../../../../../context/APIContext";
 import { LightboxContext } from "../../../../../../context/LightboxContext";
+import { RecentDataContext } from "../../../../../../context/RecentDataContext";
 
 // Services
 
@@ -21,6 +22,7 @@ export const CharacterProfilePrimaryImageLogic = () => {
 		useContext(CharacterContext);
 	const { APIRequest } = useContext(APIContext);
 	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
+	const { addImagesToRecentImages } = useContext(RecentDataContext);
 
 	function onPrimaryImageClick() {
 		setLightboxImageIDs([characterVersion?.primaryImage]);
@@ -33,9 +35,16 @@ export const CharacterProfilePrimaryImageLogic = () => {
 			(e) => JSON.stringify(e._id) === JSON.stringify(characterVersion._id)
 		);
 		if (newCharacterPrimaryImagesIndex === -1) return false;
-		if (newCharacterPrimaryImages[newCharacterPrimaryImagesIndex]?.image?.image)
+		if (
+			newCharacterPrimaryImages[newCharacterPrimaryImagesIndex]?.image?.image ||
+			newCharacterPrimaryImages[newCharacterPrimaryImagesIndex]?.image?.image === undefined
+		)
 			newCharacterPrimaryImages[newCharacterPrimaryImagesIndex].image.image = image;
 		setCharacterPrimaryImages(newCharacterPrimaryImages);
+	}
+
+	function removePrimaryImage() {
+		changePrimaryImage(undefined);
 	}
 
 	async function revertPrimaryImage() {
@@ -75,6 +84,7 @@ export const CharacterProfilePrimaryImageLogic = () => {
 			character_id: character._id,
 		});
 		if (!response || response?.errors) return false;
+		addImagesToRecentImages([response?.data?.image]);
 		return true;
 	}
 
@@ -84,6 +94,7 @@ export const CharacterProfilePrimaryImageLogic = () => {
 		characterPrimaryImages,
 		onPrimaryImageClick,
 		changePrimaryImage,
+		removePrimaryImage,
 		revertPrimaryImage,
 		savePrimaryImage,
 	};

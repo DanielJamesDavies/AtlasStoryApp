@@ -53,6 +53,15 @@ const CharacterSchema = mongoose.Schema({
 						_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 						title: { type: String, default: "" },
 						description: { type: [String], default: [""] },
+						overviewForeground: {
+							type: {
+								image: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
+								alignment: { type: String, default: "center" },
+								position: { type: [Number], default: [0, 0] },
+								scale: { type: Number, default: 1 },
+							},
+							default: {},
+						},
 						primaryImage: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 						gallery: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], default: [] },
 						psychology: {
