@@ -20,12 +20,18 @@ import "./SettingsFaceImage.css";
 // Assets
 
 export const SettingsFaceImage = () => {
-	const { isAuthorizedToEdit, characterFaceImage, changeFaceImage, revertFaceImage, saveFaceImage, errors } = SettingsFaceImageLogic();
+	const { isAuthorizedToEdit, characterFaceImage, changeFaceImage, removeFaceImage, revertFaceImage, saveFaceImage, errors } =
+		SettingsFaceImageLogic();
 
 	return (
 		<ContentItem hasBg={true} size='s'>
 			<LabelContainer className='character-subpage-settings-face-image-container' label='Face Image'>
-				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertFaceImage} onSave={saveFaceImage}>
+				<EditableContainer
+					isAuthorizedToEdit={isAuthorizedToEdit}
+					onRemove={removeFaceImage}
+					onRevert={revertFaceImage}
+					onSave={saveFaceImage}
+				>
 					<div className='character-subpage-settings-face-image-image'>
 						{!characterFaceImage ? null : <img src={characterFaceImage} alt='' />}
 					</div>

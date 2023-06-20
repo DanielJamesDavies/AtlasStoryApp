@@ -27,6 +27,10 @@ export const SettingsOverviewBackgroundImageLogic = () => {
 		setCharacterOverviewBackground(image);
 	}
 
+	function removeOverviewBackground() {
+		setCharacterOverviewBackground("NO_IMAGE");
+	}
+
 	async function revertOverviewBackground() {
 		setErrors([]);
 		const response = await APIRequest("/image/" + character?.data?.overviewBackground, "GET");
@@ -57,5 +61,13 @@ export const SettingsOverviewBackgroundImageLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, characterOverviewBackground, changeOverviewBackground, revertOverviewBackground, saveOverviewBackground, errors };
+	return {
+		isAuthorizedToEdit,
+		characterOverviewBackground,
+		changeOverviewBackground,
+		removeOverviewBackground,
+		revertOverviewBackground,
+		saveOverviewBackground,
+		errors,
+	};
 };

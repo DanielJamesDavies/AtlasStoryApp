@@ -7,8 +7,10 @@ module.exports = async (req, res) => {
 	if (typeof req?.body?.newValue !== "string" && req?.body?.newValue !== undefined)
 		return res.status(200).send({ errors: [{ message: "Invalid New Value" }] });
 
-	const imageValidationResult = validateImage(req.body.newValue);
-	if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
+	if (req?.body?.newValue !== "NO_IMAGE") {
+		const imageValidationResult = validateImage(req.body.newValue);
+		if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
+	}
 
 	const oldImage = await Image.findById(req.params.id)
 		.exec()

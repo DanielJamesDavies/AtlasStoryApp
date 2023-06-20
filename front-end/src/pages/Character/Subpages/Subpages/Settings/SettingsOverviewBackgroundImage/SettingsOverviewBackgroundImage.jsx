@@ -20,13 +20,25 @@ import "./SettingsOverviewBackgroundImage.css";
 // Assets
 
 export const SettingsOverviewBackgroundImage = () => {
-	const { isAuthorizedToEdit, characterOverviewBackground, changeOverviewBackground, revertOverviewBackground, saveOverviewBackground, errors } =
-		SettingsOverviewBackgroundImageLogic();
+	const {
+		isAuthorizedToEdit,
+		characterOverviewBackground,
+		changeOverviewBackground,
+		removeOverviewBackground,
+		revertOverviewBackground,
+		saveOverviewBackground,
+		errors,
+	} = SettingsOverviewBackgroundImageLogic();
 
 	return (
 		<ContentItem hasBg={true} size='s'>
 			<LabelContainer className='character-subpage-settings-overview-background-container' label='Overview Background Image'>
-				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertOverviewBackground} onSave={saveOverviewBackground}>
+				<EditableContainer
+					isAuthorizedToEdit={isAuthorizedToEdit}
+					onRemove={removeOverviewBackground}
+					onRevert={revertOverviewBackground}
+					onSave={saveOverviewBackground}
+				>
 					<div className='character-subpage-settings-overview-background-image'>
 						{!characterOverviewBackground || characterOverviewBackground === "NO_IMAGE" ? null : (
 							<img src={characterOverviewBackground} alt='' />

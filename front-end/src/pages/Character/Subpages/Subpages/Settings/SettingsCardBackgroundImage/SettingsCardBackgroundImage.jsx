@@ -20,13 +20,25 @@ import "./SettingsCardBackgroundImage.css";
 // Assets
 
 export const SettingsCardBackgroundImage = () => {
-	const { isAuthorizedToEdit, characterCardBackground, changeCardBackground, revertCardBackground, saveCardBackground, errors } =
-		SettingsCardBackgroundImageLogic();
+	const {
+		isAuthorizedToEdit,
+		characterCardBackground,
+		changeCardBackground,
+		removeCardBackground,
+		revertCardBackground,
+		saveCardBackground,
+		errors,
+	} = SettingsCardBackgroundImageLogic();
 
 	return (
 		<ContentItem hasBg={true} size='s'>
 			<LabelContainer className='character-subpage-settings-card-background-container' label='Card Background Image'>
-				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertCardBackground} onSave={saveCardBackground}>
+				<EditableContainer
+					isAuthorizedToEdit={isAuthorizedToEdit}
+					onRemove={removeCardBackground}
+					onRevert={revertCardBackground}
+					onSave={saveCardBackground}
+				>
 					<div className='character-subpage-settings-card-background-image'>
 						{!characterCardBackground ? null : <img src={characterCardBackground} alt='' />}
 					</div>

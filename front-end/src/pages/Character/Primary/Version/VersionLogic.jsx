@@ -29,6 +29,11 @@ export const CharacterPrimaryVersionLogic = () => {
 		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 80);
 		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 120);
 		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 160);
+		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 320);
+		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 480);
+		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 1000);
+		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 2000);
+		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 3000);
 	}, [setPrimaryVersionStyle, primaryVersionWidthRef, character, characterVersion]);
 
 	return {

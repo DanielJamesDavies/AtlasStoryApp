@@ -27,6 +27,10 @@ export const SettingsCardBackgroundImageLogic = () => {
 		setCharacterCardBackground(image);
 	}
 
+	function removeCardBackground() {
+		changeCardBackground(undefined);
+	}
+
 	async function revertCardBackground() {
 		setErrors([]);
 		const response = await APIRequest("/image/" + character?.data?.cardBackground, "GET");
@@ -59,5 +63,13 @@ export const SettingsCardBackgroundImageLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, characterCardBackground, changeCardBackground, revertCardBackground, saveCardBackground, errors };
+	return {
+		isAuthorizedToEdit,
+		characterCardBackground,
+		changeCardBackground,
+		removeCardBackground,
+		revertCardBackground,
+		saveCardBackground,
+		errors,
+	};
 };

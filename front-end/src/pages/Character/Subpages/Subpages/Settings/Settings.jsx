@@ -37,8 +37,8 @@ export const Settings = () => {
 				<SettingsDelete />
 			</div>
 			<div className='character-subpage-settings-section-2'>
-				<SettingsOverviewBackgroundImage />
 				<SettingsOverviewForegroundImage />
+				<SettingsOverviewBackgroundImage />
 				<SettingsCardBackgroundImage />
 				<SettingsFaceImage />
 				<SettingsDelete />

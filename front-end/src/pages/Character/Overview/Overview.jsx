@@ -55,16 +55,20 @@ export const CharacterOverview = ({ innerRef }) => {
 								alt=''
 								style={{
 									transform: `translate(${characterVersion?.overviewForeground?.position.join("px, ")}px)`,
-									height:
+									height: isNaN(
 										overviewForegroundSizeRef?.current?.clientHeight *
-										parseFloat(characterVersion?.overviewForeground?.scale * ((window.innerHeight + 200) / 1300)),
-									maxWidth:
-										overviewForegroundSizeRef?.current?.clientWidth * parseFloat(characterVersion?.overviewForeground?.scale),
+											parseFloat(characterVersion?.overviewForeground?.scale * ((window.innerHeight + 200) / 1300))
+									)
+										? "0px"
+										: overviewForegroundSizeRef?.current?.clientHeight *
+										  parseFloat(characterVersion?.overviewForeground?.scale * ((window.innerHeight + 200) / 1300)),
+									maxWidth: isNaN(
+										overviewForegroundSizeRef?.current?.clientWidth * parseFloat(characterVersion?.overviewForeground?.scale)
+									)
+										? "0px"
+										: overviewForegroundSizeRef?.current?.clientWidth * parseFloat(characterVersion?.overviewForeground?.scale),
 								}}
 							/>
-						)}
-						{console.log(
-							`"${overviewForegroundSizeRef?.current?.clientWidth * parseFloat(characterVersion?.overviewForeground?.scale)}px"`
 						)}
 						{!characterOverviewForegrounds.find((e) => e?._id === characterVersion?._id)?.image?.image ||
 						characterOverviewForegrounds.find((e) => e?._id === characterVersion?._id)?.image?.image === "NO_IMAGE" ? null : (

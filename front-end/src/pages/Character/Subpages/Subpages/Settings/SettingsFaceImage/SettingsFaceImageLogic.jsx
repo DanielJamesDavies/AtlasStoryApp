@@ -27,6 +27,10 @@ export const SettingsFaceImageLogic = () => {
 		setCharacterFaceImage(image);
 	}
 
+	function removeFaceImage() {
+		changeFaceImage(undefined);
+	}
+
 	async function revertFaceImage() {
 		setErrors([]);
 		const response = await APIRequest("/image/" + character?.data?.faceImage, "GET");
@@ -57,5 +61,5 @@ export const SettingsFaceImageLogic = () => {
 		return true;
 	}
 
-	return { isAuthorizedToEdit, characterFaceImage, changeFaceImage, revertFaceImage, saveFaceImage, errors };
+	return { isAuthorizedToEdit, characterFaceImage, changeFaceImage, removeFaceImage, revertFaceImage, saveFaceImage, errors };
 };
