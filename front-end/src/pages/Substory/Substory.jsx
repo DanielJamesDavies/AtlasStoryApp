@@ -21,7 +21,6 @@ import "./Substory.css";
 
 export const Substory = () => {
 	const {
-		isAuthorizedToEdit,
 		substory,
 		substoryOverviewBackground,
 		substoryStyle,
@@ -36,13 +35,7 @@ export const Substory = () => {
 	return (
 		<div
 			ref={substoryContainerRef}
-			className={
-				isAuthorizedToEdit
-					? "substory-container substory-container-is-authorized"
-					: isOnOverviewSection
-					? "substory-container substory-container-is-on-overview"
-					: "substory-container"
-			}
+			className={isOnOverviewSection ? "substory-container substory-container-is-on-overview" : "substory-container"}
 			style={substoryStyle ? substoryStyle : {}}
 		>
 			<div

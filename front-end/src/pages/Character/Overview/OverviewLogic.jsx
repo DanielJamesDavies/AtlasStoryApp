@@ -1,5 +1,5 @@
 // Packages
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 
 // Components
 
@@ -16,6 +16,7 @@ import { CharacterContext } from "../CharacterContext";
 
 export const CharacterOverviewLogic = () => {
 	const { characterOverviewBackground, characterVersion, characterOverviewForegrounds } = useContext(CharacterContext);
+	const overviewForegroundSizeRef = useRef();
 
-	return { characterOverviewBackground, characterVersion, characterOverviewForegrounds };
+	return { characterOverviewBackground, characterVersion, characterOverviewForegrounds, overviewForegroundSizeRef };
 };

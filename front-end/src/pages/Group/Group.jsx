@@ -21,7 +21,6 @@ import "./Group.css";
 
 export const Group = () => {
 	const {
-		isAuthorizedToEdit,
 		group,
 		groupStyle,
 		groupOverviewBackground,
@@ -35,13 +34,7 @@ export const Group = () => {
 	return (
 		<div
 			ref={groupContainerRef}
-			className={
-				isAuthorizedToEdit
-					? "group-container group-container-is-authorized"
-					: isOnOverviewSection
-					? "group-container group-container-is-on-overview"
-					: "group-container group-container-is-on-subpages"
-			}
+			className={isOnOverviewSection ? "group-container group-container-is-on-overview" : "group-container group-container-is-on-subpages"}
 			style={groupStyle ? groupStyle : {}}
 		>
 			<div

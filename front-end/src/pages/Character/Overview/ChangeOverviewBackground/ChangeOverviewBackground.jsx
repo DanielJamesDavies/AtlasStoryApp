@@ -17,7 +17,7 @@ import "./ChangeOverviewBackground.css";
 // Assets
 
 export const ChangeOverviewBackground = () => {
-	const { isAuthorizedToEdit, inputRef, changeOverviewBackground } = ChangeOverviewBackgroundLogic();
+	const { isAuthorizedToEdit, onClickChangeOverviewBackground } = ChangeOverviewBackgroundLogic();
 
 	if (!isAuthorizedToEdit) return false;
 	return (
@@ -26,11 +26,10 @@ export const ChangeOverviewBackground = () => {
 				icon={<FaImage />}
 				iconName='image'
 				seamless={true}
-				label='Change Overview Background'
+				label='Change Overview Images'
 				labelAlignment='left'
-				onClick={() => inputRef.current.click()}
+				onClick={() => onClickChangeOverviewBackground()}
 			/>
-			<input ref={inputRef} type='file' accept='image/*' onChange={changeOverviewBackground} />
 		</div>
 	);
 };

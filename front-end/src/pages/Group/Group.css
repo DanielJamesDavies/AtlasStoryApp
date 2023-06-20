@@ -107,10 +107,6 @@
 	transform: translateY(calc(-1 * 100vh));
 }
 
-.group-container-is-authorized .group-content-container {
-	transform: translateY(0);
-}
-
 @media (max-width: 750px) {
 	.group-container::before {
 		top: -24px;

@@ -15,8 +15,7 @@ import { GroupContext } from "./GroupContext";
 // Assets
 
 export const GroupLogic = () => {
-	const { isAuthorizedToEdit, group, groupOverviewBackground, isOnOverviewSection, setIsOnOverviewSection, setGroupPaddingTop } =
-		useContext(GroupContext);
+	const { group, groupOverviewBackground, isOnOverviewSection, setIsOnOverviewSection, setGroupPaddingTop } = useContext(GroupContext);
 	const [groupStyle, setGroupStyle] = useState(false);
 	const groupPrimaryRef = useRef();
 
@@ -71,8 +70,7 @@ export const GroupLogic = () => {
 
 	const touchStartCoords = useRef({ x: 0, y: 0 });
 	useEffect(() => {
-		const onWheel = (e) =>
-			!group || !groupStyle || e?.ctrlKey ? null : setIsOnOverviewSection(isAuthorizedToEdit ? true : Math.sign(e?.deltaY) === -1);
+		const onWheel = (e) => (!group || !groupStyle || e?.ctrlKey ? null : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1));
 		const onTouchStart = (e) => {
 			touchStartCoords.current = { x: e.touches[0].pageX, y: e.touches[0].pageY };
 		};
@@ -81,7 +79,7 @@ export const GroupLogic = () => {
 			if (Math.abs(touchStartCoords.current.y - touchMoveCoords.y) > 24) return (touchStartCoords.current = { x: 0, y: 0 });
 			const deltaX = touchStartCoords.current.x - touchMoveCoords.x;
 			if (Math.abs(deltaX) < window.innerWidth * 0.15) return;
-			setIsOnOverviewSection(isAuthorizedToEdit ? true : Math.sign(deltaX) === -1);
+			setIsOnOverviewSection(Math.sign(deltaX) === -1);
 			touchStartCoords.current = { x: 0, y: 0 };
 		};
 
@@ -94,7 +92,7 @@ export const GroupLogic = () => {
 			groupContainerRefCurrent?.removeEventListener("touchstart", onTouchStart);
 			groupContainerRefCurrent?.removeEventListener("touchmove", onTouchMove);
 		};
-	}, [group, groupStyle, groupContainerRef, setIsOnOverviewSection, isAuthorizedToEdit]);
+	}, [group, groupStyle, groupContainerRef, setIsOnOverviewSection]);
 
 	useEffect(() => {
 		const onOverviewWheel = (e) => {
@@ -121,7 +119,6 @@ export const GroupLogic = () => {
 	}, [groupOverviewContainerRef, groupSubpagesContainerRef, isOnOverviewSection]);
 
 	return {
-		isAuthorizedToEdit,
 		group,
 		groupOverviewBackground,
 		groupStyle,

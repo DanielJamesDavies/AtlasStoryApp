@@ -21,7 +21,6 @@ import "./Character.css";
 
 export const Character = () => {
 	const {
-		isAuthorizedToEdit,
 		character,
 		characterOverviewBackground,
 		characterStyle,
@@ -36,9 +35,7 @@ export const Character = () => {
 		<div
 			ref={characterContainerRef}
 			className={
-				isAuthorizedToEdit
-					? "character-container character-container-is-authorized"
-					: isOnOverviewSection
+				isOnOverviewSection
 					? "character-container character-container-is-on-overview"
 					: "character-container character-container-is-on-subpages"
 			}

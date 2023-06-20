@@ -13,17 +13,8 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const { APIRequest } = useContext(APIContext);
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location, locationParams, changeLocationParameters } = useContext(RoutesContext);
-	const {
-		isAuthorizedToEdit,
-		isInEditorMode,
-		story,
-		setStory,
-		storyIcon,
-		storyGroups,
-		storyCharacters,
-		storyCharacterTypes,
-		storyCharacterRelationships,
-	} = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, storyGroups, storyCharacters, storyCharacterTypes, storyCharacterRelationships } =
+		useContext(StoryContext);
 
 	const [failure, setFailure] = useState(false);
 
@@ -48,7 +39,6 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	const allSubpages = useMemo(
 		() => [
-			{ id: "profile", name: "Profile", isEnabled: true },
 			{ id: "physical", name: "Appearance", isEnabled: true },
 			{ id: "psychology", name: "Personality", isEnabled: true },
 			{ id: "biography", name: "Background", isEnabled: true },
@@ -62,7 +52,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		[]
 	);
 	const [subpages, setSubpages] = useState([]);
-	const [openSubpageID, setOpenSubpageID] = useState(isAuthorizedToEdit ? "profile" : "physical");
+	const [openSubpageID, setOpenSubpageID] = useState(false);
 	const [characterPaddingTop, setCharacterPaddingTop] = useState(0);
 
 	const curr_story_uid = useRef(false);
@@ -413,7 +403,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 			} else {
 				let newLocationParameters = [];
 				if (characterVersion?._id) newLocationParameters.push({ label: "version", value: characterVersion._id });
-				if (!isOnOverviewSection || isInEditorMode.current) newLocationParameters.push({ label: "subpage", value: openSubpageID });
+				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
 				changeLocationParameters(newLocationParameters);
 			}
 		}
@@ -425,12 +415,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		openSubpageID,
 		characterVersion,
 		character,
-		isInEditorMode,
 	]);
-
-	useEffect(() => {
-		setOpenSubpageID(isAuthorizedToEdit ? "profile" : "physical");
-	}, [isAuthorizedToEdit, setOpenSubpageID]);
 
 	return (
 		<CharacterContext.Provider

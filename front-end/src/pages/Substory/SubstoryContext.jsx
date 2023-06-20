@@ -30,7 +30,6 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	const allSubpages = useMemo(
 		() => [
-			{ id: "profile", name: "Profile", isEnabled: true },
 			{ id: "plot", name: "Plot", isEnabled: true },
 			{ id: "soundtrack", name: "Soundtrack", isEnabled: true },
 			{ id: "gallery", name: "Gallery", isEnabled: true },
@@ -41,7 +40,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 		[]
 	);
 	const [subpages, setSubpages] = useState([]);
-	const [openSubpageID, setOpenSubpageID] = useState(isAuthorizedToEdit ? "profile" : "plot");
+	const [openSubpageID, setOpenSubpageID] = useState(false);
 
 	const curr_story_uid = useRef(false);
 	const curr_substory_uid = useRef(false);
@@ -345,10 +344,6 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 			}
 		}
 	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, substory, isInEditorMode]);
-
-	useEffect(() => {
-		setOpenSubpageID(isAuthorizedToEdit ? "profile" : "plot");
-	}, [isAuthorizedToEdit, setOpenSubpageID]);
 
 	return (
 		<SubstoryContext.Provider

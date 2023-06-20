@@ -15,7 +15,7 @@ import { SubstoryContext } from "./SubstoryContext";
 // Assets
 
 export const SubstoryLogic = () => {
-	const { isAuthorizedToEdit, substory, substoryOverviewBackground, isOnOverviewSection, setIsOnOverviewSection } = useContext(SubstoryContext);
+	const { substory, substoryOverviewBackground, isOnOverviewSection, setIsOnOverviewSection } = useContext(SubstoryContext);
 	const [substoryPrimaryPaddingTop, setSubstoryPrimaryPaddingTop] = useState(false);
 	const [substoryStyle, setSubstoryStyle] = useState(false);
 
@@ -46,8 +46,7 @@ export const SubstoryLogic = () => {
 
 	const touchStartCoords = useRef({ x: 0, y: 0 });
 	useEffect(() => {
-		const onWheel = (e) =>
-			!substory || !substoryStyle || e?.ctrlKey ? null : setIsOnOverviewSection(isAuthorizedToEdit ? true : Math.sign(e?.deltaY) === -1);
+		const onWheel = (e) => (!substory || !substoryStyle || e?.ctrlKey ? null : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1));
 		const onTouchStart = (e) => {
 			touchStartCoords.current = { x: e.touches[0].pageX, y: e.touches[0].pageY };
 		};
@@ -56,7 +55,7 @@ export const SubstoryLogic = () => {
 			if (Math.abs(touchStartCoords.current.y - touchMoveCoords.y) > 24) return (touchStartCoords.current = { x: 0, y: 0 });
 			const deltaX = touchStartCoords.current.x - touchMoveCoords.x;
 			if (Math.abs(deltaX) < window.innerWidth * 0.15) return;
-			setIsOnOverviewSection(isAuthorizedToEdit ? true : Math.sign(deltaX) === -1);
+			setIsOnOverviewSection(Math.sign(deltaX) === -1);
 			touchStartCoords.current = { x: 0, y: 0 };
 		};
 
@@ -69,7 +68,7 @@ export const SubstoryLogic = () => {
 			substoryContainerRefCurrent?.removeEventListener("touchstart", onTouchStart);
 			substoryContainerRefCurrent?.removeEventListener("touchmove", onTouchMove);
 		};
-	}, [substory, substoryStyle, substoryContainerRef, setIsOnOverviewSection, isAuthorizedToEdit]);
+	}, [substory, substoryStyle, substoryContainerRef, setIsOnOverviewSection]);
 
 	useEffect(() => {
 		const onOverviewWheel = (e) => {
@@ -98,7 +97,6 @@ export const SubstoryLogic = () => {
 	const substoryPrimaryTitleRef = useRef();
 
 	return {
-		isAuthorizedToEdit,
 		substory,
 		substoryOverviewBackground,
 		substoryStyle,

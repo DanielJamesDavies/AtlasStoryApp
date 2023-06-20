@@ -19,7 +19,7 @@ import "./Overview.css";
 // Assets
 
 export const CharacterOverview = ({ innerRef }) => {
-	const { characterOverviewBackground, characterVersion, characterOverviewForegrounds } = CharacterOverviewLogic();
+	const { characterOverviewBackground, characterVersion, characterOverviewForegrounds, overviewForegroundSizeRef } = CharacterOverviewLogic();
 
 	return (
 		<div className='character-overview-container'>
@@ -54,10 +54,28 @@ export const CharacterOverview = ({ innerRef }) => {
 								src={characterOverviewForegrounds.find((e) => e?._id === characterVersion?._id)?.image?.image}
 								alt=''
 								style={{
-									scale: characterVersion?.overviewForeground?.scale.toString(),
 									transform: `translate(${characterVersion?.overviewForeground?.position.join("px, ")}px)`,
+									height:
+										overviewForegroundSizeRef?.current?.clientHeight *
+										parseFloat(characterVersion?.overviewForeground?.scale * ((window.innerHeight + 200) / 1300)),
+									maxWidth:
+										overviewForegroundSizeRef?.current?.clientWidth * parseFloat(characterVersion?.overviewForeground?.scale),
 								}}
 							/>
+						)}
+						{console.log(
+							`"${overviewForegroundSizeRef?.current?.clientWidth * parseFloat(characterVersion?.overviewForeground?.scale)}px"`
+						)}
+						{!characterOverviewForegrounds.find((e) => e?._id === characterVersion?._id)?.image?.image ||
+						characterOverviewForegrounds.find((e) => e?._id === characterVersion?._id)?.image?.image === "NO_IMAGE" ? null : (
+							<div style={{ scale: characterVersion?.overviewForeground?.scale }}>
+								<img
+									ref={overviewForegroundSizeRef}
+									className='character-overview-foreground-image-size'
+									src={characterOverviewForegrounds.find((e) => e?._id === characterVersion?._id)?.image?.image}
+									alt=''
+								/>
+							</div>
 						)}
 					</div>
 				</div>

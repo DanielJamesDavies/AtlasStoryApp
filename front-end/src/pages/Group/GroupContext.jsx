@@ -28,7 +28,6 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	const allSubpages = useMemo(
 		() => [
-			{ id: "profile", name: "Profile", isEnabled: true },
 			{ id: "gallery", name: "Gallery", isEnabled: true },
 			{ id: "miscellaneous", name: "Miscellaneous", isEnabled: true },
 			{ id: "development", name: "Development", isEnabled: true },
@@ -37,7 +36,7 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 		[]
 	);
 	const [subpages, setSubpages] = useState([]);
-	const [openSubpageID, setOpenSubpageID] = useState(isAuthorizedToEdit ? "profile" : "gallery");
+	const [openSubpageID, setOpenSubpageID] = useState(false);
 	const [groupPaddingTop, setGroupPaddingTop] = useState(0);
 
 	const curr_story_uid = useRef(false);
@@ -263,10 +262,6 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 		group,
 		isInEditorMode,
 	]);
-
-	useEffect(() => {
-		setOpenSubpageID(isAuthorizedToEdit ? "profile" : "gallery");
-	}, [isAuthorizedToEdit, setOpenSubpageID]);
 
 	return (
 		<GroupContext.Provider

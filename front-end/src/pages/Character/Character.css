@@ -107,10 +107,6 @@
 	transform: translateY(calc(-1 * 100vh));
 }
 
-.character-container-is-authorized .character-content-container-is-on-subpages {
-	transform: translateY(0);
-}
-
 @media (max-width: 750px) {
 	.character-container::before {
 		top: -24px;
