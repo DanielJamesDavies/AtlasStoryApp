@@ -121,6 +121,8 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				if (newSubpage) {
 					newSubpage.isEnabled = characterSubpages[i]?.isEnabled;
 					newSubpages.push(newSubpage);
+				} else {
+					newSubpages.push(characterSubpages[i]);
 				}
 			}
 			newSubpages = newSubpages.concat(allSubpages.filter((e) => newSubpages.findIndex((e2) => e2.id === e.id) === -1));

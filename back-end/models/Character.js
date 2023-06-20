@@ -272,8 +272,49 @@ const CharacterSchema = mongoose.Schema({
 				},
 				default: {},
 			},
+			custom_subpages: {
+				type: [
+					{
+						type: {
+							id: {
+								type: mongoose.Schema.Types.ObjectId,
+								required: true,
+								auto: true,
+							},
+							name: { type: String, default: "Custom Subpage" },
+							items: {
+								type: [
+									{
+										title: { type: String, default: "" },
+										text: { type: [String], default: [""] },
+										images: {
+											type: [
+												{
+													image: mongoose.Schema.Types.ObjectId,
+													caption: { type: String, default: "" },
+												},
+											],
+											default: [],
+										},
+									},
+								],
+								default: [],
+							},
+						},
+						default: {},
+					},
+				],
+				default: [],
+			},
 			subpages: {
-				type: [{ id: { type: String }, isEnabled: { type: Boolean } }],
+				type: [
+					{
+						id: { type: String },
+						name: { type: String },
+						isEnabled: { type: Boolean, default: true },
+						isCustom: { type: Boolean, default: false },
+					},
+				],
 				default: [],
 			},
 		},

@@ -23,6 +23,7 @@
 
 .character-subpage-settings-subpages-item-name {
 	margin-top: -2px;
+	width: calc(100% - 70px - 26px - 8px);
 }
 
 .character-subpage-settings-subpages-item .toggle-input-container {
@@ -44,4 +45,9 @@
 
 .drag-drop-item-enable-drag-drop:nth-child(even).character-subpage-settings-subpages-item {
 	animation-delay: 0.1s;
+}
+
+.character-subpage-settings-subpages-item .icon-btn {
+	margin-top: -1px;
+	margin-left: 8px;
 }

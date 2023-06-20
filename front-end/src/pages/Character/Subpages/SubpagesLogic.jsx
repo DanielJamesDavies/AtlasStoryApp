@@ -11,6 +11,7 @@ import { Relationships } from "./Subpages/Relationships/Relationships";
 import { Miscellaneous } from "./Subpages/Miscellaneous/Miscellaneous";
 import { Development } from "./Subpages/Development/Development";
 import { Settings } from "./Subpages/Settings/Settings";
+import { Custom } from "./Subpages/Custom/Custom";
 
 // Logic
 
@@ -62,7 +63,7 @@ export const CharacterSubpagesLogic = () => {
 				case "settings":
 					return <Settings />;
 				default:
-					return null;
+					return <Custom />;
 			}
 		}
 		setSubpage(getSubpage());

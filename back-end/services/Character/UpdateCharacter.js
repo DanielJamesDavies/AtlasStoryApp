@@ -200,6 +200,12 @@ module.exports = async (req, res) => {
 				}
 
 				newCharacter = ChangeValueInNestedObject(newCharacter, newPath, req?.body?.newValue);
+			} else if (req.body.path.length > 2 && req.body.path[0] === "data" && req.body.path[1] === "custom_subpages") {
+				let newPath = JSON.parse(JSON.stringify(req.body.path));
+				const customSubpageIndex = newCharacter.data.custom_subpages.findIndex((e) => JSON.stringify(e.id) === JSON.stringify(newPath[2]));
+				if (customSubpageIndex === -1) break;
+				newPath[2] = customSubpageIndex;
+				newCharacter = ChangeValueInNestedObject(newCharacter, newPath, req?.body?.newValue);
 			} else {
 				newCharacter = ChangeValueInNestedObject(newCharacter, req?.body?.path, req?.body?.newValue);
 			}
