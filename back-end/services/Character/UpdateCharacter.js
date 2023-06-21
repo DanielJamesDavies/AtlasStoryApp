@@ -89,6 +89,26 @@ module.exports = async (req, res) => {
 			newCharacter = JSON.parse(JSON.stringify(newCharacter));
 
 			break;
+		case JSON.stringify(["data", "custom_subpages"]):
+			let newCustomSubpages = req.body.newValue;
+
+			newCustomSubpages = newCustomSubpages.map((custom_subpage) => {
+				const customSubpageIndex = newCharacter.data.custom_subpages.findIndex((e) => e.id === custom_subpage.id);
+				if (customSubpageIndex === -1) {
+					if (!custom_subpage.id) custom_subpage.id = new mongoose.Types.ObjectId();
+				} else {
+					const tempSubpage = custom_subpage;
+					custom_subpage = newCharacter.data.custom_subpages[customSubpageIndex];
+					custom_subpage.name = tempSubpage.name;
+				}
+				return custom_subpage;
+			});
+
+			newCharacter.data.custom_subpages = newCustomSubpages;
+			newCharacter = new Character(newCharacter);
+			newCharacter = JSON.parse(JSON.stringify(newCharacter));
+
+			break;
 		case JSON.stringify(["data", "images"]):
 			const oldImages = newCharacter.data.images;
 			const newImages = req.body.newValue.character_images;

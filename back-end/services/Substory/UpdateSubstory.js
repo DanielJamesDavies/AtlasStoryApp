@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const Substory = require("../../models/Substory");
 const Image = require("../../models/Image");
 
@@ -92,6 +94,26 @@ module.exports = async (req, res) => {
 			});
 			if (newSubstory.data.plot.clusters.findIndex((e) => e.isAll === true) === -1)
 				newSubstory.data.plot.clusters.splice(0, 0, { isAll: true, name: "All Plot Items" });
+
+			break;
+		case JSON.stringify(["data", "custom_subpages"]):
+			let newCustomSubpages = req.body.newValue;
+
+			newCustomSubpages = newCustomSubpages.map((custom_subpage) => {
+				const customSubpageIndex = newSubstory.data.custom_subpages.findIndex((e) => e.id === custom_subpage.id);
+				if (customSubpageIndex === -1) {
+					if (!custom_subpage.id) custom_subpage.id = new mongoose.Types.ObjectId();
+				} else {
+					const tempSubpage = custom_subpage;
+					custom_subpage = newSubstory.data.custom_subpages[customSubpageIndex];
+					custom_subpage.name = tempSubpage.name;
+				}
+				return custom_subpage;
+			});
+
+			newSubstory.data.custom_subpages = newCustomSubpages;
+			newSubstory = new Substory(newSubstory);
+			newSubstory = JSON.parse(JSON.stringify(newSubstory));
 
 			break;
 		default:

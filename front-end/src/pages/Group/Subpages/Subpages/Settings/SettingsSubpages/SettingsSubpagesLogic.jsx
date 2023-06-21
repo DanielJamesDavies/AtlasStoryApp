@@ -116,6 +116,22 @@ export const SettingsSubpagesLogic = () => {
 
 		setSubpages(newSubpages);
 
+		const custom_subpages_response = await APIRequest("/group/get-value/" + group._id, "POST", {
+			story_id: story._id,
+			path: ["data", "custom_subpages"],
+		});
+		if (!custom_subpages_response || custom_subpages_response?.errors || custom_subpages_response?.data?.value === undefined) return false;
+
+		let newGroup = JSON.parse(JSON.stringify(group));
+		newGroup.data.custom_subpages = custom_subpages_response?.data?.value.map((custom_subpage) => {
+			const curr_custom_subpage_index = newGroup.data.custom_subpages.findIndex((e) => e.id === custom_subpage.id);
+			if (curr_custom_subpage_index === -1) return custom_subpage;
+			let newCustomSubpage = newGroup.data.custom_subpages[curr_custom_subpage_index];
+			newCustomSubpage.name = custom_subpage.name;
+			return newCustomSubpage;
+		});
+		setGroup(newGroup);
+
 		return true;
 	}
 

@@ -96,25 +96,43 @@ export const SettingsSubpagesLogic = () => {
 
 	async function revertSubpages() {
 		setErrors([]);
-		const response = await APIRequest("/character/get-value/" + character._id, "POST", {
+		const subpages_response = await APIRequest("/character/get-value/" + character._id, "POST", {
 			story_id: story._id,
 			path: ["data", "subpages"],
 		});
-		if (!response || response?.errors || response?.data?.value === undefined) return false;
+		if (!subpages_response || subpages_response?.errors || subpages_response?.data?.value === undefined) return false;
 
 		let newSubpages = [];
 
-		for (let i = 0; i < response.data.value.length; i++) {
-			let newSubpage = allSubpages.find((e) => e.id === response.data.value[i].id);
+		for (let i = 0; i < subpages_response.data.value.length; i++) {
+			let newSubpage = allSubpages.find((e) => e.id === subpages_response.data.value[i].id);
 			if (newSubpage) {
-				newSubpage.isEnabled = response.data.value[i]?.isEnabled;
+				newSubpage.isEnabled = subpages_response.data.value[i]?.isEnabled;
 				newSubpages.push(newSubpage);
+			} else {
+				newSubpages.push(subpages_response.data.value[i]);
 			}
 		}
 
 		newSubpages = newSubpages.concat(allSubpages.filter((e) => newSubpages.findIndex((e2) => e2.id === e.id) === -1));
 
 		setSubpages(newSubpages);
+
+		const custom_subpages_response = await APIRequest("/character/get-value/" + character._id, "POST", {
+			story_id: story._id,
+			path: ["data", "custom_subpages"],
+		});
+		if (!custom_subpages_response || custom_subpages_response?.errors || custom_subpages_response?.data?.value === undefined) return false;
+
+		let newCharacter = JSON.parse(JSON.stringify(character));
+		newCharacter.data.custom_subpages = custom_subpages_response?.data?.value.map((custom_subpage) => {
+			const curr_custom_subpage_index = newCharacter.data.custom_subpages.findIndex((e) => e.id === custom_subpage.id);
+			if (curr_custom_subpage_index === -1) return custom_subpage;
+			let newCustomSubpage = newCharacter.data.custom_subpages[curr_custom_subpage_index];
+			newCustomSubpage.name = custom_subpage.name;
+			return newCustomSubpage;
+		});
+		setCharacter(newCharacter);
 
 		return true;
 	}
