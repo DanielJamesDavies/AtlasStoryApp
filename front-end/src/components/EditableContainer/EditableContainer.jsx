@@ -34,6 +34,7 @@ export const EditableContainer = ({
 	onScroll,
 	isLight,
 	higherEditBtns,
+	controlScrollDepth,
 }) => {
 	const {
 		isEditing,
@@ -68,6 +69,7 @@ export const EditableContainer = ({
 		onScroll,
 		isLight,
 		higherEditBtns,
+		controlScrollDepth,
 	});
 
 	return (

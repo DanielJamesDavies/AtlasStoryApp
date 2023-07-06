@@ -51,6 +51,7 @@ export const DevelopmentItems = () => {
 			onRevert={revertDevelopmentItems}
 			onSave={saveDevelopmentItems}
 			onScroll={onDevelopmentItemsContainerScroll}
+			controlScrollDepth={[1, 2]}
 		>
 			<div ref={developmentItemsRef} className='group-subpage-development-items'>
 				{group?.data?.development?.items?.map((developmentItem, index) => (

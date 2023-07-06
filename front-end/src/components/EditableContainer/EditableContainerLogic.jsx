@@ -31,6 +31,7 @@ export const EditableContainerLogic = ({
 	onScroll,
 	isLight,
 	higherEditBtns,
+	controlScrollDepth,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -88,14 +89,34 @@ export const EditableContainerLogic = ({
 		await onClose();
 	}
 
+	function changeContentScrollTop(scrollTop, depth) {
+		switch (depth) {
+			case 0:
+				editableContainerRef.current.children[0].scrollTop = scrollTop;
+				break;
+			case 1:
+				editableContainerRef.current.children[0].children[0].scrollTop = scrollTop;
+				break;
+			case 2:
+				editableContainerRef.current.children[0].children[0].children[0].scrollTop = scrollTop;
+				break;
+			default:
+				editableContainerRef.current.children[0].children[0].scrollTop = scrollTop;
+		}
+	}
+
 	function onEditBtnClick(e) {
 		e.stopPropagation();
+		const prevScrollTop = JSON.parse(JSON.stringify(editableContainerRef.current.children[0].children[0]?.scrollTop));
 		setIsEditing(true);
+		setTimeout(() => changeContentScrollTop(prevScrollTop, controlScrollDepth === undefined ? 1 : controlScrollDepth[1]), 5);
 	}
 
 	function onViewBtnClick(e) {
 		e.stopPropagation();
+		const prevScrollTop = JSON.parse(JSON.stringify(editableContainerRef.current.children[0].children[0].children[0]?.scrollTop));
 		setIsEditing(false);
+		setTimeout(() => changeContentScrollTop(prevScrollTop, controlScrollDepth === undefined ? 1 : controlScrollDepth[0]), 5);
 	}
 
 	async function onHideBtnClick(e) {

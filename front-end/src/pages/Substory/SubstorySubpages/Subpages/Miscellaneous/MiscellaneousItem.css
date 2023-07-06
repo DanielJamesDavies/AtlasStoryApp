@@ -18,7 +18,11 @@
 }
 
 .substory-subpage-miscellaneous-item-container:last-child {
-	padding-bottom: 8px;
+	padding-bottom: calc(var(--vh) * 0.5);
+}
+
+.substory-subpage-miscellaneous-items .drag-drop-scroll-bottom {
+	padding-bottom: calc(var(--vh) * 0.5 + 48px);
 }
 
 .drag-drop-item-enable-drag-drop.substory-subpage-miscellaneous-item-container {

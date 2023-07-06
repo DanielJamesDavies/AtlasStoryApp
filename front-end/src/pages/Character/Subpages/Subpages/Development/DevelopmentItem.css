@@ -18,7 +18,11 @@
 }
 
 .character-subpage-development-item-container:last-child {
-	padding-bottom: 8px;
+	padding-bottom: calc(var(--vh) * 0.5);
+}
+
+.character-subpage-development-items .drag-drop-scroll-bottom {
+	padding-bottom: calc(var(--vh) * 0.5 + 48px);
 }
 
 .drag-drop-item-enable-drag-drop.character-subpage-development-item-container {

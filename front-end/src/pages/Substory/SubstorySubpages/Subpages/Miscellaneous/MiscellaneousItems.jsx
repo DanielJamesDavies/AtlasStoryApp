@@ -51,6 +51,7 @@ export const MiscellaneousItems = () => {
 			onRevert={revertMiscellaneousItems}
 			onSave={saveMiscellaneousItems}
 			onScroll={onMiscellaneousItemsContainerScroll}
+			controlScrollDepth={[1, 2]}
 		>
 			<div ref={miscellaneousItemsRef} className='substory-subpage-miscellaneous-items'>
 				{substory?.data?.miscellaneous?.items?.map((miscellaneousItem, index) => (

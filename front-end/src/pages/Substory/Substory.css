@@ -61,7 +61,7 @@
 
 .substory *::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--characterColour);
+	background: var(--substoryColour);
 }
 
 .substory-hidden {
