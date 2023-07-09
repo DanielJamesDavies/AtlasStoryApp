@@ -21,7 +21,7 @@
 	padding-bottom: calc(var(--vh) * 0.5);
 }
 
-.substory-subpage-miscellaneous-items .drag-drop-scroll-bottom {
+.substory-subpage-miscellaneous-items-container.editable-container-is-editing > .substory-subpage-miscellaneous-item-container:nth-last-child(2) {
 	padding-bottom: calc(var(--vh) * 0.5 + 48px);
 }
 

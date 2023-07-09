@@ -21,7 +21,7 @@
 	padding-bottom: calc(var(--vh) * 0.5);
 }
 
-.character-subpage-development-items .drag-drop-scroll-bottom {
+.character-subpage-development-items-container.editable-container-is-editing .character-subpage-development-items > :nth-last-child(2) {
 	padding-bottom: calc(var(--vh) * 0.5 + 48px);
 }
 
