@@ -17,6 +17,7 @@
 	overflow-y: hidden;
 	overflow-x: overlay;
 	scroll-behavior: smooth;
+	padding-right: 8px;
 }
 
 .character-subpages-btns::-webkit-scrollbar {
@@ -29,8 +30,8 @@
 	padding-right: 28px;
 	border-radius: 14px;
 
-	min-width: calc((100%) - 8px);
-	width: calc((100%) - 8px);
+	min-width: 100%;
+	width: max-content;
 }
 
 .character-subpages-btn .btn-list-item-value {
@@ -38,10 +39,6 @@
 	white-space: pre-wrap;
 	word-break: break-word;
 	overflow-wrap: anywhere;
-}
-
-.character-subpages-btns-is-authorized .character-subpages-btn {
-	width: calc((100% / 9) - 8px);
 }
 
 .character-subpages-btn.btn-list-item-active,
@@ -71,6 +68,10 @@
 	.character-subpages-btn {
 		min-width: fit-content;
 		width: calc((100% / 8) - 8px);
+	}
+
+	.character-subpages-btns-is-authorized .character-subpages-btn {
+		width: calc((100% / 9) - 8px);
 	}
 
 	.character-subpages-btn-scroll-btn {
