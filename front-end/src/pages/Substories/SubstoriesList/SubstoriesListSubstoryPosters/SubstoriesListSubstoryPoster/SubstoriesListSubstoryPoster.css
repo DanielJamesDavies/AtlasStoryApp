@@ -19,6 +19,12 @@
 	margin-top: 16px;
 }
 
+@media (max-width: 768px) {
+	.substories-list-substories-poster-container:hover {
+		margin-top: calc(24px + 4px);
+	}
+}
+
 .substories-list-substories-poster,
 .substories-list-substories-poster-placeholder {
 	flex-shrink: 0;
