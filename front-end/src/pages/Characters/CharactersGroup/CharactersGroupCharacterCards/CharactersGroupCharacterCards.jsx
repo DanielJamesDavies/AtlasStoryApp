@@ -36,7 +36,7 @@ export const CharactersGroupCharacterCards = () => {
 					</div>
 				</div>
 			) : (
-				<CarouselContainer speed={1.25} fallback={true} scrollStartOnDataChange={group?._id}>
+				<CarouselContainer speed={1.25} fallback={true} scrollStartOnDataChange={group?._id} disableOnMobile={true}>
 					<DragDropContainer
 						className='characters-group-characters-cards'
 						inlineItems={true}

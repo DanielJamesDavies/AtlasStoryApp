@@ -24,7 +24,7 @@ export const SubstoriesListSubstoryPosters = () => {
 	return (
 		<div className='substories-list-substories-posters-container'>
 			{!story?.data?.substories ? null : (
-				<CarouselContainer speed={1.25} fallback={true} scrollStartOnDataChange={story?._id}>
+				<CarouselContainer speed={1.25} fallback={true} scrollStartOnDataChange={story?._id} disableOnMobile={true}>
 					<DragDropContainer
 						className='substories-list-substories-posters'
 						inlineItems={true}

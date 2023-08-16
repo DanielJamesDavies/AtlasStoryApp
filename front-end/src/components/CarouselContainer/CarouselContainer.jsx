@@ -14,11 +14,12 @@ import "./CarouselContainer.css";
 
 // Assets
 
-export const CarouselContainer = ({ children, className, speed, fallback, scrollStartOnDataChange }) => {
+export const CarouselContainer = ({ children, className, speed, fallback, scrollStartOnDataChange, disableOnMobile }) => {
 	const { carouselClassName, carouselContentRef, scrollCarousel } = CarouselContainerLogic({
 		className,
 		speed,
 		scrollStartOnDataChange,
+		disableOnMobile,
 	});
 
 	return (

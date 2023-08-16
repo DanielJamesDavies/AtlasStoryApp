@@ -13,17 +13,18 @@ import { useEffect, useRef, useState } from "react";
 
 // Assets
 
-export const CarouselContainerLogic = ({ className, speed, scrollStartOnDataChange }) => {
+export const CarouselContainerLogic = ({ className, speed, scrollStartOnDataChange, disableOnMobile }) => {
 	const [carouselClassName, setCarouselClassName] = useState(className ? "carousel-container" + className : "carousel-container");
 
 	useEffect(() => {
 		function getCarouselClassName() {
 			let newClassName = "carousel-container";
 			if (className) newClassName += " " + className;
+			if (disableOnMobile) newClassName += " carousel-container-disabled-on-mobile";
 			setCarouselClassName(newClassName);
 		}
 		getCarouselClassName();
-	}, [setCarouselClassName, className]);
+	}, [setCarouselClassName, className, disableOnMobile]);
 
 	const carouselContentRef = useRef();
 	const [carouselContentScrollInterval, setCarouselContentScrollInterval] = useState(false);
