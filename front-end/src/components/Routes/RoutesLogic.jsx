@@ -36,7 +36,7 @@ import { AppContext } from "../../context/AppContext";
 export const RoutesLogic = () => {
 	const { location, changeLocation } = useContext(RoutesContext);
 	const { APIRequest, user_id, setUserID, username, setUsername, setUserProfilePicture, setUserBanner } = useContext(APIContext);
-	const { changeAccentColour, changeAccentHoverColour, setUITheme, setFontSize } = useContext(AppContext);
+	const { changeAccentColour, changeAccentHoverColour, setUITheme } = useContext(AppContext);
 
 	const contentContainerRef = useRef();
 	const [renderComponent, setRenderComponent] = useState(null);
@@ -189,7 +189,6 @@ export const RoutesLogic = () => {
 			if (user?._id && user._id !== user_id) setUserID(user._id);
 			if (user?.username && user.username !== username) setUsername(user.username);
 			if (user?.data?.uiTheme) setUITheme(user.data.uiTheme);
-			if (user?.data?.fontSize) setFontSize(user.data.fontSize);
 
 			getUserProfilePicture(user?.data?.profilePicture);
 			getUserBanner(user?.data?.banner);
@@ -214,7 +213,7 @@ export const RoutesLogic = () => {
 		}
 
 		getUser();
-	}, [APIRequest, user_id, setUserID, username, setUsername, setUITheme, setFontSize, setUserProfilePicture, setUserBanner]);
+	}, [APIRequest, user_id, setUserID, username, setUsername, setUITheme, setUserProfilePicture, setUserBanner]);
 
 	useEffect(() => {
 		contentContainerRef.current.scrollTop = 0;

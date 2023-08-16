@@ -18,6 +18,9 @@ const AppProvider = ({ children }) => {
 		if (username === false) {
 			setUITheme("dim");
 			setFontSize("m");
+		} else {
+			const font_size = localStorage.getItem("atlas_font_size");
+			if (font_size) setFontSize(font_size);
 		}
 	}, [username, setUITheme, setFontSize]);
 

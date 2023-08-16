@@ -7,7 +7,6 @@ import { useContext, useState } from "react";
 
 // Context
 import { AppContext } from "../../../../context/AppContext";
-import { APIContext } from "../../../../context/APIContext";
 
 // Services
 
@@ -17,7 +16,6 @@ import { APIContext } from "../../../../context/APIContext";
 
 export const FontSizeLogic = () => {
 	const { fontSize, setFontSize } = useContext(AppContext);
-	const { APIRequest } = useContext(APIContext);
 
 	const fontSizes = [
 		{ id: "xs", label: "Extra Small" },
@@ -31,8 +29,7 @@ export const FontSizeLogic = () => {
 		setErrors([]);
 		const newFontSizeID = fontSizes[index]?.id;
 		setFontSize(newFontSizeID);
-		const response = await APIRequest("/user/", "PATCH", { path: ["data", "fontSize"], newValue: newFontSizeID });
-		if (response?.errors) return setErrors(response.errors);
+		localStorage.setItem("atlas_font_size", newFontSizeID);
 	}
 
 	return { fontSize, changeFontSize, fontSizes, errors };
