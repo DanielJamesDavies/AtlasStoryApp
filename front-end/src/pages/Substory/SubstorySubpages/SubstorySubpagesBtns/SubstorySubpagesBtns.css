@@ -57,6 +57,7 @@
 		margin: 0;
 		gap: 0;
 		flex-direction: row;
+		align-items: center;
 		width: 100%;
 	}
 
@@ -66,6 +67,7 @@
 	}
 
 	.substory-subpages-btn {
+		padding-right: 15px;
 		min-width: fit-content;
 		width: calc((100% / 8) - 8px);
 	}

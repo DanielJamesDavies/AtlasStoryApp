@@ -50,7 +50,7 @@ export const GroupLogic = () => {
 			const newColour = "0x" + colour.substring(1).toUpperCase();
 			return "rgba(" + ((newColour >> 16) & 0xff) + ", " + ((newColour >> 8) & 0xff) + ", " + (newColour & 0xff) + ", 0.8)";
 		}
-
+		getGroupStyle();
 		setTimeout(() => getGroupStyle(), 100);
 		setTimeout(() => getGroupStyle(), 200);
 		setTimeout(() => getGroupStyle(), 400);
@@ -58,6 +58,8 @@ export const GroupLogic = () => {
 		setTimeout(() => getGroupStyle(), 800);
 		setTimeout(() => getGroupStyle(), 1000);
 		setTimeout(() => getGroupStyle(), 1200);
+		setTimeout(() => getGroupStyle(), 2000);
+		setTimeout(() => getGroupStyle(), 3000);
 		window.addEventListener("resize", getGroupStyle);
 		return () => {
 			window.removeEventListener("resize", getGroupStyle);
