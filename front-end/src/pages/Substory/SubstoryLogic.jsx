@@ -37,18 +37,7 @@ export const SubstoryLogic = () => {
 
 			setSubstoryStyle(newSubstoryStyle);
 		}
-		getSubstoryStyle();
-		setTimeout(() => getSubstoryStyle(), 100);
-		setTimeout(() => getSubstoryStyle(), 200);
-		setTimeout(() => getSubstoryStyle(), 400);
-		setTimeout(() => getSubstoryStyle(), 600);
-		setTimeout(() => getSubstoryStyle(), 800);
-		setTimeout(() => getSubstoryStyle(), 1000);
-		setTimeout(() => getSubstoryStyle(), 1200);
-		setTimeout(() => getSubstoryStyle(), 1800);
-		setTimeout(() => getSubstoryStyle(), 2000);
-		setTimeout(() => getSubstoryStyle(), 3000);
-		setTimeout(() => getSubstoryStyle(), 4000);
+		setTimeout(() => getSubstoryStyle(), 20);
 	}, [setSubstoryStyle, substory, substoryPrimaryPaddingTop]);
 
 	const substoryContainerRef = useRef();

@@ -41,6 +41,10 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef, setSubstoryPrim
 		function getSubpagesContainerStyles() {
 			let newSubpagesContainerStyles = {};
 			const primaryTitleHeight = substoryPrimaryTitleRef?.current?.clientHeight;
+			if (primaryTitleHeight === 0) {
+				setTimeout(() => getSubpagesContainerStyles(), 2);
+				return false;
+			}
 			if (primaryTitleHeight === undefined) return setSubpagesContainerStyles(newSubpagesContainerStyles);
 
 			newSubpagesContainerStyles.paddingTop = 32 + 6 * 2 + primaryTitleHeight + 10 + "px";
@@ -56,14 +60,7 @@ export const SubstorySubpagesLogic = ({ substoryPrimaryTitleRef, setSubstoryPrim
 
 			setSubpagesContainerStyles(newSubpagesContainerStyles);
 		}
-		setTimeout(() => getSubpagesContainerStyles(), 100);
-		setTimeout(() => getSubpagesContainerStyles(), 200);
-		setTimeout(() => getSubpagesContainerStyles(), 400);
-		setTimeout(() => getSubpagesContainerStyles(), 800);
-		setTimeout(() => getSubpagesContainerStyles(), 1200);
-		setTimeout(() => getSubpagesContainerStyles(), 1600);
-		setTimeout(() => getSubpagesContainerStyles(), 2400);
-		setTimeout(() => getSubpagesContainerStyles(), 3600);
+		setTimeout(() => getSubpagesContainerStyles(), 2);
 		window.addEventListener("resize", getSubpagesContainerStyles);
 		return () => {
 			window.removeEventListener("resize", getSubpagesContainerStyles);

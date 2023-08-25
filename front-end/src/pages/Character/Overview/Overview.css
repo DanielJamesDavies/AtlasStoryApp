@@ -54,7 +54,7 @@
 	z-index: -2;
 	top: 50%;
 	left: 50%;
-	transform: translate(calc(-50% + ((var(--navbar-width)) / 2) - 14px), calc(-50%));
+	transform: translate(calc(-50% + ((var(--navbar-width)) / 2) - 23px), calc(-50%));
 	width: calc(100vw - var(--navbar-width));
 	height: var(--vh);
 	overflow: hidden;

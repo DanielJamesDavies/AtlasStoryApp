@@ -29,7 +29,9 @@ export const CharacterLogic = () => {
 			newCharacterStyle["--characterColour"] = character?.data?.colour ? character.data.colour : "#0044ff";
 
 			const primaryHeight = characterPrimaryRef?.current?.clientHeight;
-			if (primaryHeight !== undefined) {
+			if (!primaryHeight) {
+				setTimeout(() => getCharacterStyle(), 2);
+			} else {
 				let characterPaddingTop = primaryHeight + 10;
 				if (window?.innerWidth !== undefined && window?.innerWidth <= 700) characterPaddingTop = 6 + primaryHeight + 12;
 				newCharacterStyle["--characterPaddingTop"] = characterPaddingTop + "px";
@@ -43,18 +45,7 @@ export const CharacterLogic = () => {
 				return newCharacterStyle;
 			});
 		}
-		getCharacterStyle();
-		setTimeout(() => getCharacterStyle(), 100);
-		setTimeout(() => getCharacterStyle(), 200);
-		setTimeout(() => getCharacterStyle(), 400);
-		setTimeout(() => getCharacterStyle(), 600);
-		setTimeout(() => getCharacterStyle(), 800);
-		setTimeout(() => getCharacterStyle(), 1000);
-		setTimeout(() => getCharacterStyle(), 1200);
-		setTimeout(() => getCharacterStyle(), 1800);
-		setTimeout(() => getCharacterStyle(), 2000);
-		setTimeout(() => getCharacterStyle(), 3000);
-		setTimeout(() => getCharacterStyle(), 4000);
+		setTimeout(() => getCharacterStyle(), 2);
 		window.addEventListener("resize", getCharacterStyle);
 		return () => {
 			window.removeEventListener("resize", getCharacterStyle);
