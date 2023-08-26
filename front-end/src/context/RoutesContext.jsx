@@ -33,15 +33,16 @@ const RoutesProvider = ({ children }) => {
 
 	const changeLocation = useCallback(
 		async (newLocation, openInNewWindow, reload) => {
+			const new_parameters = JSON.parse(JSON.stringify(parameters)).filter((e) => e.label.length !== 0 && e.value.length !== 0);
 			if (openInNewWindow) return window.open(domain + newLocation, "_blank");
 			if (reload) {
 				routerNavigate("");
-				setTimeout(() => routerNavigate(getNewURL(newLocation, parameters)), 100);
+				setTimeout(() => routerNavigate(getNewURL(newLocation, new_parameters)), 100);
 			} else {
-				routerNavigate(getNewURL(newLocation, parameters));
+				routerNavigate(getNewURL(newLocation, new_parameters));
 			}
 			setLocation(newLocation);
-			window.history.replaceState("", "", getNewURL(newLocation, parameters));
+			window.history.replaceState("", "", getNewURL(newLocation, new_parameters));
 		},
 		[domain, routerNavigate, parameters, getNewURL]
 	);
@@ -56,8 +57,19 @@ const RoutesProvider = ({ children }) => {
 		[setParameters, location, locationParams, getNewURL]
 	);
 
+	const changeLocationAndParameters = useCallback(
+		async (newLocation, inputParameters) => {
+			const newParameters = JSON.parse(JSON.stringify(inputParameters));
+			setLocation(newLocation);
+			setParameters(newParameters);
+			locationParams.current = JSON.parse(JSON.stringify(newParameters));
+			window.history.replaceState("", "", getNewURL(newLocation, newParameters));
+		},
+		[getNewURL]
+	);
+
 	return (
-		<RoutesContext.Provider value={{ domain, location, locationParams, changeLocation, changeLocationParameters }}>
+		<RoutesContext.Provider value={{ domain, location, locationParams, changeLocation, changeLocationParameters, changeLocationAndParameters }}>
 			{children}
 		</RoutesContext.Provider>
 	);

@@ -7,7 +7,7 @@ export const SpotifyContext = createContext();
 
 const SpofityProvider = ({ children }) => {
 	const { APIRequest } = useContext(APIContext);
-	const { changeLocation } = useContext(RoutesContext);
+	const { locationParams, changeLocationAndParameters } = useContext(RoutesContext);
 	const redirect_uri = process.env.NODE_ENV === "development" ? "http://localhost:3000/spotify" : "https://www.atlas-story.app/spotify";
 	const scope = "user-read-private user-read-playback-state user-modify-playback-state playlist-read-private";
 	const [spotify_access_token, setSpotifyAccessToken] = useState(false);
@@ -113,14 +113,14 @@ const SpofityProvider = ({ children }) => {
 						"*"
 					);
 
-				setTimeout(() => changeLocation(decodeURIComponent(previous_location)), 50);
+				const new_parameters = locationParams.current.filter((e) => !["code", "state"].includes(e.label));
+				setTimeout(() => changeLocationAndParameters(decodeURIComponent(previous_location), new_parameters), 50);
 			}
 		}
 
 		authorizeSpotify();
 	}, [
 		APIRequest,
-		changeLocation,
 		redirect_uri,
 		scope,
 		isAuthorized,
@@ -130,6 +130,8 @@ const SpofityProvider = ({ children }) => {
 		setConnectDeviceToSpotify,
 		hasAttemptedAuthorization,
 		attempts,
+		locationParams,
+		changeLocationAndParameters,
 	]);
 
 	const spotifyAuthorizationTimeout = useRef(null);

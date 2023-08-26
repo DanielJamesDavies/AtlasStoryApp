@@ -196,11 +196,15 @@ const LocationsProvider = ({ children, story_uid }) => {
 		url_location,
 	]);
 
+	const prev_map_location_id = useRef(false);
 	useEffect(() => {
-		setHoverMapLocationId(false);
-		const storyUid = document.location.pathname.split("/").filter((e) => e.length !== 0)[1];
-		const isOnLocations = document.location.pathname.split("/").filter((e) => e.length !== 0)[2] === "locations";
-		if (isOnLocations && currentMapLocationId) changeLocation("/s/" + storyUid + "/locations/" + currentMapLocationId);
+		if (JSON.stringify(prev_map_location_id.current) !== JSON.stringify(currentMapLocationId)) {
+			prev_map_location_id.current = JSON.parse(JSON.stringify(currentMapLocationId));
+			setHoverMapLocationId(false);
+			const storyUid = document.location.pathname.split("/").filter((e) => e.length !== 0)[1];
+			const isOnLocations = document.location.pathname.split("/").filter((e) => e.length !== 0)[2] === "locations";
+			if (isOnLocations && currentMapLocationId) changeLocation("/s/" + storyUid + "/locations/" + currentMapLocationId);
+		}
 	}, [currentMapLocationId, changeLocation]);
 
 	const changeCameraRotation = useCallback(
