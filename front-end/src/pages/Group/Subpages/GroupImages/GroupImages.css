@@ -1,6 +1,6 @@
 .group-images-container-container {
+	transform: translateY(var(--vh));
 	width: calc(100vw - var(--navbar-width));
-	transform: translateX(calc(100vw - var(--navbar-width) - 24px - 12px - 6px));
 }
 
 .group-images-container {

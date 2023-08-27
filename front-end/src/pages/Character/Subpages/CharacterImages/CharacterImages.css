@@ -1,6 +1,6 @@
 .character-images-container-container {
+	transform: translateY(var(--vh));
 	width: calc(100vw - var(--navbar-width));
-	transform: translateX(calc(100vw - var(--navbar-width) - 24px - 12px - 6px));
 }
 
 .character-images-container {
