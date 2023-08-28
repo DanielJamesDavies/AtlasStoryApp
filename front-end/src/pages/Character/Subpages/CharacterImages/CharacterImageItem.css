@@ -1,6 +1,6 @@
 .character-image-item-container {
-	margin: 4px 0;
-	width: 100%;
+	margin: 4px;
+	width: calc(100% / 4 - 8px);
 }
 
 .drag-drop-item-enable-drag-drop.character-image-item-container {
@@ -34,7 +34,14 @@
 	flex-direction: column;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
+	.character-image-item-container {
+		margin: 4px;
+		width: calc(100% / 3 - 8px);
+	}
+}
+
+@media (max-width: 900px) {
 	.character-image-item-container {
 		margin: 4px;
 		width: calc(50% - 8px);

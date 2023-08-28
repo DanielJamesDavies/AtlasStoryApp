@@ -53,6 +53,10 @@
 	width: 100%;
 }
 
+.character-images-container-container .pop-up-content-container {
+	max-width: 1400px;
+}
+
 .character-images-container {
 	width: 100% !important;
 }
