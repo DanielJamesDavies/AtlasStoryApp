@@ -153,6 +153,10 @@ export const RoutesLogic = () => {
 								setRenderComponent(<WorldContainer story_uid={locationSplit[1]} />);
 								break;
 							case "locations":
+								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
+									setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid={locationSplit[2]} />);
+									break;
+								}
 								setRenderComponent(<LocationsContainer story_uid={locationSplit[1]} />);
 								break;
 							case "notes":

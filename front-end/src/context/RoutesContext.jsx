@@ -7,11 +7,13 @@ const RoutesProvider = ({ children }) => {
 	const domain = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://www.atlas-story.app";
 	const [location, setLocation] = useState("/");
 	const [parameters, setParameters] = useState([]);
+	const locationPath = useRef("");
 	const locationParams = useRef([]);
 	const routerLocation = useLocation();
 	const routerNavigate = useNavigate();
 
 	useEffect(() => {
+		locationPath.current = routerLocation.pathname;
 		setLocation(routerLocation.pathname);
 
 		const newParameters = routerLocation.search
@@ -25,7 +27,7 @@ const RoutesProvider = ({ children }) => {
 			});
 		setParameters(newParameters);
 		locationParams.current = newParameters;
-	}, [routerLocation, setLocation, setParameters, locationParams]);
+	}, [routerLocation, setLocation, locationPath, setParameters, locationParams]);
 
 	const getNewURL = useCallback((newLocation, newParameters) => {
 		return newLocation + (newParameters.length === 0 ? "" : "?" + newParameters.map(({ label, value }) => `${label}=${value}`).join("&"));
@@ -41,10 +43,11 @@ const RoutesProvider = ({ children }) => {
 			} else {
 				routerNavigate(getNewURL(newLocation, new_parameters));
 			}
+			locationPath.current = newLocation;
 			setLocation(newLocation);
 			window.history.replaceState("", "", getNewURL(newLocation, new_parameters));
 		},
-		[domain, routerNavigate, parameters, getNewURL]
+		[domain, routerNavigate, locationPath, parameters, getNewURL]
 	);
 
 	const changeLocationParameters = useCallback(
@@ -60,16 +63,19 @@ const RoutesProvider = ({ children }) => {
 	const changeLocationAndParameters = useCallback(
 		async (newLocation, inputParameters) => {
 			const newParameters = JSON.parse(JSON.stringify(inputParameters));
+			locationPath.current = newLocation;
 			setLocation(newLocation);
 			setParameters(newParameters);
 			locationParams.current = JSON.parse(JSON.stringify(newParameters));
 			window.history.replaceState("", "", getNewURL(newLocation, newParameters));
 		},
-		[getNewURL]
+		[getNewURL, locationPath]
 	);
 
 	return (
-		<RoutesContext.Provider value={{ domain, location, locationParams, changeLocation, changeLocationParameters, changeLocationAndParameters }}>
+		<RoutesContext.Provider
+			value={{ domain, location, locationPath, locationParams, changeLocation, changeLocationParameters, changeLocationAndParameters }}
+		>
 			{children}
 		</RoutesContext.Provider>
 	);

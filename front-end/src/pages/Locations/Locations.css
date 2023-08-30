@@ -1,7 +1,16 @@
 .locations {
+	margin: 0 auto;
+	padding: 0 24px;
+	padding-bottom: 48px;
+	max-width: 1900px;
+}
+
+.locations-is-on-map {
 	position: relative;
 	margin: 0;
+	padding: 0;
 	width: 100%;
+	max-width: unset;
 	height: 100%;
 }
 
@@ -28,5 +37,108 @@
 		opacity: 0;
 		pointer-events: none;
 		user-select: none;
+	}
+}
+
+.locations-loading-loading-circle-container {
+	animation: locations-loading-loading-circle-container 0.6s linear 1;
+	animation-fill-mode: forwards;
+}
+
+@keyframes locations-loading-loading-circle-container {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.locations-map-btn {
+	--borderWidth: 5px;
+	position: relative;
+	z-index: 2;
+	border: solid var(--borderWidth) var(--colour-accent);
+	border-radius: 16px;
+	width: 100%;
+	height: 250px;
+	background: transparent;
+	cursor: pointer;
+	color: var(--text-colour-primary);
+	transition: 0.2s;
+	overflow: hidden;
+}
+
+.locations-map-btn::after {
+	display: block;
+	content: "";
+	position: absolute;
+	z-index: 3;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: solid var(--borderWidth) var(--colour-accent);
+	border-radius: 16px;
+	width: 100%;
+	height: 100%;
+}
+
+.locations-map-btn:hover,
+.locations-map-btn:hover::after {
+	border-color: var(--colour-accent-hover);
+}
+
+.locations-map-btn svg {
+	font-size: 48px;
+}
+
+.locations-map-btn img {
+	position: absolute;
+	z-index: -2;
+	bottom: -10vw;
+	left: 50%;
+	transform: translateX(-50%);
+	border-radius: 16px;
+	width: calc(100% + 5px);
+	min-height: calc(100% + 5px);
+	filter: blur(3px) brightness(50%);
+	transition: filter 0.2s;
+}
+
+.locations-map-btn:hover img {
+	filter: blur(0px) brightness(60%);
+}
+
+.locations-map-btn-label {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 16px;
+}
+
+.locations-map-btn-label-text {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+@media (max-width: 750px) {
+	.locations {
+		padding: 0 8px;
+	}
+
+	.locations-is-on-map {
+		padding: 0;
+	}
+
+	.locations-map-btn {
+		--borderWidth: 5px;
+		height: max(28vw, 175px);
+	}
+
+	.locations-map-btn img {
+		filter: blur(0px) brightness(60%);
 	}
 }

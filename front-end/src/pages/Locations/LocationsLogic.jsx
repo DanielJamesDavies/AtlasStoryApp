@@ -7,6 +7,7 @@ import { useContext } from "react";
 
 // Context
 import { StoryContext } from "../../context/StoryContext";
+import { LocationsContext } from "./LocationsContext";
 
 // Services
 
@@ -16,6 +17,7 @@ import { StoryContext } from "../../context/StoryContext";
 
 export const LocationsLogic = () => {
 	const { story, locations } = useContext(StoryContext);
+	const { isOnMap, setIsOnMap } = useContext(LocationsContext);
 
-	return { story, locations };
+	return { story, locations, isOnMap, setIsOnMap };
 };

@@ -11,9 +11,33 @@ export const LocationsContext = createContext();
 
 const LocationsProvider = ({ children, story_uid }) => {
 	const locationTypes = [
-		{ type: "reality", name: "Reality", icon: <FaDiceD6 />, possibleParents: ["reality"], defaultScale: 1, defaultPoints: [0, 0] },
-		{ type: "universe", name: "Universe", icon: <FaGlobe />, possibleParents: ["reality"], defaultScale: 1, defaultPoints: [0, 0] },
-		{ type: "galaxy", name: "Galaxy", icon: <FaBullseye />, possibleParents: ["reality", "universe"], defaultScale: 1, defaultPoints: [0, 0] },
+		{
+			type: "reality",
+			name: "Reality",
+			icon: <FaDiceD6 />,
+			possibleParents: ["reality"],
+			defaultScale: 1,
+			defaultPoints: [0, 0],
+			hasMapScene: false,
+		},
+		{
+			type: "universe",
+			name: "Universe",
+			icon: <FaGlobe />,
+			possibleParents: ["reality"],
+			defaultScale: 1,
+			defaultPoints: [0, 0],
+			hasMapScene: false,
+		},
+		{
+			type: "galaxy",
+			name: "Galaxy",
+			icon: <FaBullseye />,
+			possibleParents: ["reality", "universe"],
+			defaultScale: 1,
+			defaultPoints: [0, 0],
+			hasMapScene: false,
+		},
 		{
 			type: "starCluster",
 			name: "Star Cluster",
@@ -21,6 +45,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			possibleParents: ["reality", "galaxy"],
 			defaultScale: 1,
 			defaultPoints: [0, 0],
+			hasMapScene: true,
 		},
 		{
 			type: "starSystem",
@@ -29,6 +54,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			possibleParents: ["reality", "starCluster"],
 			defaultScale: 149597870700 * 100000,
 			defaultPoints: [0, 0],
+			hasMapScene: true,
 		},
 		{
 			type: "star",
@@ -37,6 +63,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			possibleParents: ["reality", "starSystem"],
 			defaultScale: 1392700000,
 			defaultPoints: [0, 0],
+			hasMapScene: true,
 		},
 		{
 			type: "planet",
@@ -45,6 +72,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			possibleParents: ["reality", "starSystem"],
 			defaultScale: 12742000,
 			defaultPoints: [149600000, 149600000],
+			hasMapScene: true,
 		},
 		{
 			type: "moon",
@@ -53,6 +81,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			possibleParents: ["reality", "planet"],
 			defaultScale: 3474800,
 			defaultPoints: [384399, 384399],
+			hasMapScene: true,
 		},
 		{
 			type: "artificialSatellite",
@@ -61,6 +90,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			possibleParents: ["reality", "planet", "moon"],
 			defaultScale: 1,
 			defaultPoints: [6738, 6738],
+			hasMapScene: false,
 		},
 		{
 			type: "surfaceLocation",
@@ -69,13 +99,16 @@ const LocationsProvider = ({ children, story_uid }) => {
 			possibleParents: ["reality", "planet", "moon", "artificialSatellite", "surfaceLocation"],
 			defaultScale: 1,
 			defaultPoints: [0, 0],
+			hasMapScene: false,
 		},
 	];
 
-	const { location, changeLocation } = useContext(RoutesContext);
+	const { location, changeLocation, locationPath } = useContext(RoutesContext);
 	const { APIRequest } = useContext(APIContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon, locations, setLocations } = useContext(StoryContext);
 	const { getItemFromIdInHierarchy, getInitialMapLocationItem } = HierarchyFunctions();
+
+	const [isOnMap, setIsOnMap] = useState(false);
 
 	const locationsMapRef = useRef();
 	const [playerApi, setPlayerApi] = useState(false);
@@ -198,14 +231,14 @@ const LocationsProvider = ({ children, story_uid }) => {
 
 	const prev_map_location_id = useRef(false);
 	useEffect(() => {
-		if (JSON.stringify(prev_map_location_id.current) !== JSON.stringify(currentMapLocationId)) {
+		if (isOnMap && JSON.stringify(prev_map_location_id.current) !== JSON.stringify(currentMapLocationId)) {
 			prev_map_location_id.current = JSON.parse(JSON.stringify(currentMapLocationId));
 			setHoverMapLocationId(false);
 			const storyUid = document.location.pathname.split("/").filter((e) => e.length !== 0)[1];
 			const isOnLocations = document.location.pathname.split("/").filter((e) => e.length !== 0)[2] === "locations";
 			if (isOnLocations && currentMapLocationId) changeLocation("/s/" + storyUid + "/locations/" + currentMapLocationId);
 		}
-	}, [currentMapLocationId, changeLocation]);
+	}, [isOnMap, currentMapLocationId, changeLocation]);
 
 	const changeCameraRotation = useCallback(
 		(newRotation) => {
@@ -245,6 +278,12 @@ const LocationsProvider = ({ children, story_uid }) => {
 		[setMapObjectLocations]
 	);
 
+	useEffect(() => {
+		if (locationPath.current.split("/").filter((e) => e.length !== 0).length === 4) {
+			setIsOnMap(true);
+		}
+	}, [locationPath, setIsOnMap]);
+
 	return (
 		<LocationsContext.Provider
 			value={{
@@ -256,6 +295,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				storyIcon,
 				locations,
 				setLocations,
+				isOnMap,
+				setIsOnMap,
 				locationsMapRef,
 				playerApi,
 				setPlayerApi,

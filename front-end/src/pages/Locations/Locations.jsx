@@ -1,7 +1,10 @@
 // Packages
+import { FaMap } from "react-icons/fa";
 
 // Components
 import { LoadingCircle } from "../../components/LoadingCircle/LoadingCircle";
+import { LocationsTitle } from "./LocationsTitle/LocationsTitle";
+import { LocationsList } from "./LocationsList/LocationsList";
 import { Menu } from "./Menu/Menu";
 import { Map } from "./Map/Map";
 import { MapLocationStatus } from "./MapLocationStatus/MapLocationStatus";
@@ -17,9 +20,10 @@ import { LocationsLogic } from "./LocationsLogic";
 import "./Locations.css";
 
 // Assets
+import MapBtnBackground from "../../content/map-btn-background.png";
 
 export const Locations = () => {
-	const { story, locations } = LocationsLogic();
+	const { story, locations, isOnMap, setIsOnMap } = LocationsLogic();
 
 	if (!story || !locations)
 		return (
@@ -30,16 +34,31 @@ export const Locations = () => {
 			</div>
 		);
 
+	if (isOnMap)
+		return (
+			<div className='locations locations-is-on-map'>
+				<div className='locations-loading-container locations-loading-container-fade'>
+					<div className='locations-loading-loading-circle-container'>
+						<LoadingCircle center={true} />
+					</div>
+				</div>
+				<Menu />
+				<Map />
+				<MapLocationStatus />
+			</div>
+		);
+
 	return (
 		<div className='locations'>
-			<div className='locations-loading-container locations-loading-container-fade'>
-				<div>
-					<LoadingCircle center={true} />
+			<LocationsTitle />
+			<button className='locations-map-btn' onClick={() => setIsOnMap(true)}>
+				<div className='locations-map-btn-label'>
+					<FaMap />
+					<div className='locations-map-btn-label-text'>Map</div>
 				</div>
-			</div>
-			<Menu />
-			<Map />
-			<MapLocationStatus />
+				<img src={MapBtnBackground} alt='' />
+			</button>
+			<LocationsList />
 		</div>
 	);
 };
