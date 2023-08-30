@@ -61,7 +61,10 @@ const RoutesProvider = ({ children }) => {
 	);
 
 	const changeLocationAndParameters = useCallback(
-		async (newLocation, inputParameters) => {
+		async (newLocation, inputParameters, openInNewWindow) => {
+			if (openInNewWindow) {
+				return window.open(domain + newLocation + "?" + inputParameters.map((e) => e?.label + "=" + e?.value).join("&"), "_blank");
+			}
 			const newParameters = JSON.parse(JSON.stringify(inputParameters));
 			locationPath.current = newLocation;
 			setLocation(newLocation);
@@ -69,7 +72,7 @@ const RoutesProvider = ({ children }) => {
 			locationParams.current = JSON.parse(JSON.stringify(newParameters));
 			window.history.replaceState("", "", getNewURL(newLocation, newParameters));
 		},
-		[getNewURL, locationPath]
+		[getNewURL, locationPath, domain]
 	);
 
 	return (

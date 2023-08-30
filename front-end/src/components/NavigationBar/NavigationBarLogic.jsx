@@ -75,7 +75,8 @@ export const NavigationBarLogic = () => {
 						(locationSplit.length === 3 && locationSplit[2] === "locations") ||
 						(locationSplit.length === 3 && locationSplit[2] === "events") ||
 						(locationSplit.length === 3 && locationSplit[2] === "objects") ||
-						(locationSplit.length === 3 && locationSplit[2] === "lore")
+						(locationSplit.length === 3 && locationSplit[2] === "lore") ||
+						(locationSplit.length === 4 && locationSplit[2] === "l")
 					) {
 						newBtnClassName += " navigation-bar-btn-active";
 					}

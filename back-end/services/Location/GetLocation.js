@@ -2,6 +2,15 @@ const Location = require("../../models/Location");
 const Story = require("../../models/Story");
 
 module.exports = async (req, res) => {
+	if (req.query?.uid && req.query?.story_id) {
+		let location = await Location.findOne({ uid: req.query.uid, story_id: req.query.story_id })
+			.exec()
+			.catch(() => false);
+		if (!location) return res.status(200).send({ errors: [{ message: "Location Not Found" }] });
+
+		return res.status(200).send({ message: "Success", data: { location } });
+	}
+
 	let story = false;
 
 	if (req?.query?.story_id) {

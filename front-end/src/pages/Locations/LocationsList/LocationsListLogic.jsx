@@ -8,6 +8,7 @@ import Fuse from "fuse.js";
 
 // Context
 import { LocationsContext } from "../LocationsContext";
+import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
 
@@ -16,7 +17,8 @@ import { LocationsContext } from "../LocationsContext";
 // Assets
 
 export const LocationsListLogic = () => {
-	const { locations, locationTypes, setIsOnMap, changeCurrentMapLocationId } = useContext(LocationsContext);
+	const { story_uid, locations, locationTypes } = useContext(LocationsContext);
+	const { changeLocation } = useContext(RoutesContext);
 	const [searchedLocations, setSearchedLocations] = useState([]);
 	const [searchValue, setSearchValue] = useState("");
 
@@ -24,9 +26,9 @@ export const LocationsListLogic = () => {
 		if (searchValue.length === 0) {
 			setSearchedLocations(locations);
 		} else {
-			const fuse = new Fuse(locations, { keys: ["data.name"] });
+			const fuse = new Fuse(locations, { keys: ["data.name"], findAllMatches: true, threshold: 1 });
 			const newSearchedLocations = fuse.search(searchValue);
-			setSearchedLocations(newSearchedLocations.map((e) => e?.item));
+			setSearchedLocations(newSearchedLocations.map((e) => e?.item).slice(0, 6));
 		}
 	}, [locations, searchValue]);
 
@@ -37,9 +39,8 @@ export const LocationsListLogic = () => {
 	useEffect(() => updateSearchedLocations(), [locations, searchValue, updateSearchedLocations]);
 
 	function onClickLocation(location) {
-		if (locationTypes.find((e) => e.type === location?.type)?.hasMapScene) {
-			setIsOnMap(true);
-			changeCurrentMapLocationId(location?._id);
+		if (story_uid && location?.uid) {
+			changeLocation("/s/" + story_uid + "/l/" + location?.uid);
 		}
 	}
 

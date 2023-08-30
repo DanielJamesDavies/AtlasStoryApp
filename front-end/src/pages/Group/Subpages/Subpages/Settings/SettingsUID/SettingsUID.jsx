@@ -15,6 +15,7 @@ import { SettingsUIDLogic } from "./SettingsUIDLogic";
 // Services
 
 // Styles
+import "./SettingsUID.css";
 
 // Assets
 
@@ -26,9 +27,12 @@ export const SettingsUID = () => {
 			<LabelContainer label='Unique Identifier (UID)' isInline={true}>
 				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertUid} onSave={saveUid}>
 					<div>{uid}</div>
-					<div>
-						<TextInput seamless={true} value={uid} onChange={changeUid} autoResize={true} />
+					<div className='group-settings-uid-editing'>
+						<div className='group-settings-uid-editing-input'>
+							<TextInput seamless={true} value={uid} onChange={changeUid} autoResize={true} />
+						</div>
 						<ErrorMessage errors={errors} />
+						<ErrorMessage errors={errors} attribute='uid' />
 					</div>
 				</EditableContainer>
 			</LabelContainer>

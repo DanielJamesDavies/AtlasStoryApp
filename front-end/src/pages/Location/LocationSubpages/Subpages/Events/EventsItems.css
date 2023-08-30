@@ -1,0 +1,15 @@
+.location-subpage-events-items {
+	display: inline-block;
+	flex-flow: column wrap;
+	padding-right: 12px;
+	width: calc(100% - 12px);
+	max-height: calc(100vh - 48px - 59px - 24px - 36px - 24px - 16px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+@media (max-width: 750px) {
+	.location-subpage-events-items {
+		max-height: calc(var(--vh) - var(--navbar-mobile-height) - var(--locationPrimaryPaddingTop) - 36px - 12px);
+	}
+}

@@ -287,6 +287,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	return (
 		<LocationsContext.Provider
 			value={{
+				story_uid,
 				locationTypes,
 				isAuthorizedToEdit,
 				story,

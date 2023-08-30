@@ -1,0 +1,20 @@
+.location-subpage-settings-section-1 {
+	display: inline-block;
+	width: 45%;
+	vertical-align: top;
+}
+
+.location-subpage-settings-section-2 {
+	display: inline-block;
+	width: 55%;
+	vertical-align: top;
+}
+
+@media (max-width: 1100px) {
+	.location-subpage-settings-section-1,
+	.location-subpage-settings-section-2 {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+}

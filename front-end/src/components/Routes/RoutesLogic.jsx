@@ -18,6 +18,7 @@ import { SubstoriesContainer } from "../../pages/Substories/SubstoriesContainer"
 import { SubstoryContainer } from "../../pages/Substory/SubstoryContainer";
 import { WorldContainer } from "../../pages/World/WorldContainer";
 import { LocationsContainer } from "../../pages/Locations/LocationsContainer";
+import { LocationContainer } from "../../pages/Location/LocationContainer";
 import { NotesContainer } from "../../pages/Notes/NotesContainer";
 
 // Logic
@@ -153,11 +154,16 @@ export const RoutesLogic = () => {
 								setRenderComponent(<WorldContainer story_uid={locationSplit[1]} />);
 								break;
 							case "locations":
+							case "map":
 								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
 									setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid={locationSplit[2]} />);
 									break;
 								}
 								setRenderComponent(<LocationsContainer story_uid={locationSplit[1]} />);
+								break;
+							case "l":
+								if (locationSplit.length > 3)
+									setRenderComponent(<LocationContainer story_uid={locationSplit[1]} location_uid={locationSplit[3]} />);
 								break;
 							case "notes":
 								setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid='all' />);

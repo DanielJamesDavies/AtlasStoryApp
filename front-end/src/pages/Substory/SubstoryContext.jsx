@@ -15,7 +15,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location, locationParams, changeLocationParameters } = useContext(RoutesContext);
 	const { spotify_access_token, spotify_refresh_token, SpotifyRequest } = useContext(SpotifyContext);
-	const { isAuthorizedToEdit, isInEditorMode, story, setStory, storyIcon } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
 
 	const [failure, setFailure] = useState(false);
 
@@ -341,11 +341,11 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				setTimeout(() => (hasReadInitialLocationParameters.current = true), 500);
 			} else {
 				let newLocationParameters = [];
-				if (!isOnOverviewSection || isInEditorMode.current) newLocationParameters.push({ label: "subpage", value: openSubpageID });
+				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
 				changeLocationParameters(newLocationParameters);
 			}
 		}
-	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, substory, isInEditorMode]);
+	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, substory]);
 
 	return (
 		<SubstoryContext.Provider

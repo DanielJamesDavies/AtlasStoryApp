@@ -1,0 +1,42 @@
+.location-subpage-settings-subpages-container .label-value {
+	margin-top: 6px;
+}
+
+.location-subpage-settings-subpages-item .content-item {
+	display: flex;
+	align-items: center;
+	margin-left: 0;
+	margin-right: 0;
+	padding-top: 5px;
+	padding-bottom: 4px;
+}
+
+.location-subpage-settings-subpages-item,
+.location-subpage-settings-subpages-item input {
+	font-size: 14px;
+}
+
+.location-subpage-settings-subpages-item-name {
+	margin-top: -2px;
+}
+
+.location-subpage-settings-subpages-item .toggle-input-container {
+	margin-left: auto;
+}
+
+.location-subpage-settings-subpages-item .text-input-container {
+	margin-top: -2px;
+	height: 17px;
+}
+
+.location-subpage-settings-subpages-item .text-input-container-empty .text-input-label {
+	padding: 0;
+}
+
+.drag-drop-item-enable-drag-drop.location-subpage-settings-subpages-item {
+	animation: wiggle-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).location-subpage-settings-subpages-item {
+	animation-delay: 0.1s;
+}

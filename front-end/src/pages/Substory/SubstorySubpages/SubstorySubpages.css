@@ -2,12 +2,12 @@
 	position: relative;
 	flex-shrink: 0;
 	display: inline-block;
-	padding-top: var(--substoryPaddingTop);
+	padding-top: var(--substoryPrimaryPaddingTop);
 	padding-left: 0;
 	padding-right: 16px;
 
 	width: calc(100vw - var(--navbar-width) - 6px - 24px - 12px - 16px);
-	height: calc(100% - var(--substoryPaddingTop));
+	height: calc(100% - var(--substoryPrimaryPaddingTop));
 	overflow: visible;
 
 	vertical-align: top;
@@ -20,7 +20,7 @@
 }
 
 .substory-subpage-container {
-	--substorySubpageMaxHeight: calc(var(--vh) - var(--substoryPaddingTop) - 4px - 24px);
+	--substorySubpageMaxHeight: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 4px - 24px);
 	padding: 12px 8px;
 	width: calc(100% - 16px);
 	min-height: calc(100% - 24px - 36px);
@@ -30,12 +30,12 @@
 
 @media (max-width: 750px) {
 	.substory-subpages-container {
-		padding-top: var(--substoryPaddingTop);
+		padding-top: var(--substoryPrimaryPaddingTop);
 		padding-left: 6px;
 		padding-right: 6px;
 
 		width: calc(100vw - 12px);
-		height: calc(100% - var(--substoryPaddingTop));
+		height: calc(100% - var(--substoryPrimaryPaddingTop));
 	}
 
 	.substory-subpages {
@@ -43,7 +43,7 @@
 	}
 
 	.substory-subpage-container {
-		--substorySubpageMaxHeight: calc(var(--vh) - var(--navbar-mobile-height) - var(--substoryPaddingTop) - 32px - 4px - 8px);
+		--substorySubpageMaxHeight: calc(var(--vh) - var(--navbar-mobile-height) - var(--substoryPrimaryPaddingTop) - 32px - 4px - 8px);
 		padding: 4px 8px;
 		width: calc(100% - 16px);
 		min-height: calc(100% - 8px - 36px);

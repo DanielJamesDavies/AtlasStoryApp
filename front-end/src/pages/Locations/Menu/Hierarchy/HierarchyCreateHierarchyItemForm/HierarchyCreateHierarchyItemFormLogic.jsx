@@ -18,6 +18,7 @@ import { APIContext } from "../../../../../context/APIContext";
 
 export const HierarchyCreateHierarchyItemFormLogic = () => {
 	const {
+		story_uid,
 		isDisplayingCreateHierarchyItemForm,
 		setIsDisplayingCreateHierarchyItemForm,
 		locationTypes,
@@ -31,6 +32,7 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [itemName, setItemName] = useState("");
+	const [itemUid, setItemUid] = useState("");
 	const [itemType, setItemType] = useState("Unselected");
 	const [itemParent, setItemParent] = useState("Unselected");
 	const [parentOptions, setParentOptions] = useState([]);
@@ -43,6 +45,32 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 		if (isSubmitting) return false;
 
 		setItemName(e.target.value);
+	}
+
+	const [uidErrors, setUidErrors] = useState([]);
+
+	function changeItemUid(e) {
+		if (isSubmitting) return false;
+
+		setItemUid(e.target.value);
+		updateItemUIDSuggestions(e.target.value);
+	}
+
+	const [itemUIDSuggestions, setItemUIDSuggestions] = useState([]);
+
+	function updateItemUIDSuggestions(newName) {
+		let newItemUIDSuggestions = [];
+
+		newItemUIDSuggestions.push(newName.toLowerCase().split(" ").join(""));
+
+		const newNameSplitBySpace = newName.split(" ");
+		if (newNameSplitBySpace.length > 1) newItemUIDSuggestions.push(newNameSplitBySpace.join("-").toLowerCase());
+
+		if (newName.toLowerCase() !== newName) newItemUIDSuggestions.push(newName.split(" ").join(""));
+
+		if (newNameSplitBySpace.length > 1 && newName.toLowerCase() !== newName) newItemUIDSuggestions.push(newNameSplitBySpace.join("-"));
+
+		setItemUIDSuggestions(newItemUIDSuggestions);
 	}
 
 	function changeItemType(index) {
@@ -98,6 +126,7 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 		const newLocation = {
 			_id: new_id_response?.data?._id,
 			story_id: story?._id,
+			uid: itemUid,
 			type: itemType,
 			position: [0, 0, 0],
 			scale: scale ? scale : 1,
@@ -122,7 +151,6 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 		} else {
 			const parentPath = getPathToItemInHierarchy(itemParent, newHierarchy);
 			const parentHierarchyItem = getItemInHierarchyFromPath(parentPath, newHierarchy);
-			console.log(itemParent, parentPath, parentHierarchyItem);
 			parentHierarchyItem.children.push(newHierarchyItem);
 			newHierarchy = changeItemInHierarchy(parentPath, parentHierarchyItem, newHierarchy);
 		}
@@ -138,10 +166,13 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 	}
 
 	return {
+		story_uid,
 		isDisplayingCreateHierarchyItemForm,
 		closeCreateHierarchyItemForm,
 		itemName,
 		changeItemName,
+		itemUid,
+		changeItemUid,
 		locationTypes,
 		itemType,
 		changeItemType,
@@ -149,5 +180,7 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 		itemParent,
 		changeItemParent,
 		submitCreateHierarchyItem,
+		uidErrors,
+		itemUIDSuggestions,
 	};
 };

@@ -5,6 +5,9 @@ import { PopUpContainer } from "../../../../../components/PopUpContainer/PopUpCo
 import { TextInput } from "../../../../../components/TextInput/TextInput";
 import { DropdownContainer } from "../../../../../components/DropdownContainer/DropdownContainer";
 import { SubmitBtn } from "../../../../../components/SubmitBtn/SubmitBtn";
+import { SuggestionsMessage } from "../../../../../components/SuggestionsMessage/SuggestionsMessage";
+import { URLPreviewMessage } from "../../../../../components/URLPreviewMessage/URLPreviewMessage";
+import { ErrorMessage } from "../../../../../components/ErrorMessage/ErrorMessage";
 
 // Logic
 import { HierarchyCreateHierarchyItemFormLogic } from "./HierarchyCreateHierarchyItemFormLogic";
@@ -20,10 +23,13 @@ import "./HierarchyCreateHierarchyItemForm.css";
 
 export const HierarchyCreateHierarchyItemForm = () => {
 	const {
+		story_uid,
 		isDisplayingCreateHierarchyItemForm,
 		closeCreateHierarchyItemForm,
 		itemName,
 		changeItemName,
+		itemUid,
+		changeItemUid,
 		locationTypes,
 		itemType,
 		changeItemType,
@@ -31,6 +37,8 @@ export const HierarchyCreateHierarchyItemForm = () => {
 		itemParent,
 		changeItemParent,
 		submitCreateHierarchyItem,
+		uidErrors,
+		itemUIDSuggestions,
 	} = HierarchyCreateHierarchyItemFormLogic();
 
 	return (
@@ -43,6 +51,17 @@ export const HierarchyCreateHierarchyItemForm = () => {
 			<div className='locations-hierarchy-create-hierarchy-item-form'>
 				<div className='locations-hierarchy-create-hierarchy-item-form-input-container'>
 					<TextInput label='Name' value={itemName} onChange={changeItemName} isDark={true} />
+				</div>
+				<div className='locations-hierarchy-create-hierarchy-item-form-input-container'>
+					<TextInput label='UID' value={itemUid} onChange={changeItemUid} isDark={true} />
+					<ErrorMessage errors={uidErrors} />
+					<SuggestionsMessage suggestions={itemUIDSuggestions} labelContext={"for UID"} />
+					{itemUid.length === 0 ? null : (
+						<URLPreviewMessage
+							path={"s/" + story_uid + "/c/" + itemUid}
+							label='With this UID, your location will be accessable on the following URL:'
+						/>
+					)}
 				</div>
 
 				<div className='locations-hierarchy-create-hierarchy-item-form-input-container'>

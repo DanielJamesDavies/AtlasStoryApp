@@ -13,7 +13,7 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 	const { APIRequest } = useContext(APIContext);
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { location, locationParams, changeLocationParameters } = useContext(RoutesContext);
-	const { isAuthorizedToEdit, isInEditorMode, story, setStory, storyIcon, storyGroups } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, storyGroups } = useContext(StoryContext);
 
 	const [failure, setFailure] = useState(false);
 
@@ -250,20 +250,11 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 			} else {
 				let newLocationParameters = [];
 				if (groupVersion?._id) newLocationParameters.push({ label: "version", value: groupVersion._id });
-				if (!isOnOverviewSection || isInEditorMode.current) newLocationParameters.push({ label: "subpage", value: openSubpageID });
+				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
 				changeLocationParameters(newLocationParameters);
 			}
 		}
-	}, [
-		changeLocationParameters,
-		hasReadInitialLocationParameters,
-		locationParams,
-		isOnOverviewSection,
-		openSubpageID,
-		groupVersion,
-		group,
-		isInEditorMode,
-	]);
+	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, groupVersion, group]);
 
 	return (
 		<GroupContext.Provider

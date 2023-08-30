@@ -1,6 +1,7 @@
 // Packages
 
 // Components
+import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { ImageInput } from "../../../../../../components/ImageInput/ImageInput";
@@ -23,20 +24,22 @@ export const SettingsOverviewBackgroundImage = () => {
 		SettingsOverviewBackgroundImageLogic();
 
 	return (
-		<LabelContainer className='substory-subpage-settings-overview-background-container' label='Overview Background Image'>
-			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertOverviewBackground} onSave={saveOverviewBackground}>
-				<div className='substory-subpage-settings-overview-background-image'>
-					{!substoryOverviewBackground || substoryOverviewBackground === "NO_IMAGE" ? null : (
-						<img src={substoryOverviewBackground} alt='' />
-					)}
-				</div>
-				<div>
+		<ContentItem hasBg={true} size='s'>
+			<LabelContainer className='substory-subpage-settings-overview-background-container' label='Overview Background Image'>
+				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertOverviewBackground} onSave={saveOverviewBackground}>
 					<div className='substory-subpage-settings-overview-background-image'>
-						<ImageInput value={substoryOverviewBackground} onChange={changeOverviewBackground} />
+						{!substoryOverviewBackground || substoryOverviewBackground === "NO_IMAGE" ? null : (
+							<img src={substoryOverviewBackground} alt='' />
+						)}
 					</div>
-					<ErrorMessage errors={errors} />
-				</div>
-			</EditableContainer>
-		</LabelContainer>
+					<div>
+						<div className='substory-subpage-settings-overview-background-image'>
+							<ImageInput value={substoryOverviewBackground} onChange={changeOverviewBackground} />
+						</div>
+						<ErrorMessage errors={errors} />
+					</div>
+				</EditableContainer>
+			</LabelContainer>
+		</ContentItem>
 	);
 };

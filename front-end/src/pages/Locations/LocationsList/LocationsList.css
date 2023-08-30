@@ -10,6 +10,8 @@
 	flex-direction: column;
 	margin-top: 4px;
 	padding: 4px;
+	max-height: calc(var(--vh) - 494px);
+	overflow: auto;
 }
 
 .locations-list-item {
@@ -48,4 +50,10 @@
 
 .locations-list-item-type-text {
 	font-size: var(--font-size-p-m);
+}
+
+@media (max-width: 750px) {
+	.locations-list-items {
+		max-height: calc(var(--vh) - 222px - max(28vw, 175px));
+	}
 }

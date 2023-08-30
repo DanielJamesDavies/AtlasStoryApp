@@ -1,6 +1,6 @@
 // Packages
 import { useContext } from "react";
-import { FaUser, FaBookOpen, FaGlobeEurope, FaCalendarAlt, FaGlobe, FaLandmark, FaSpaceShuttle } from "react-icons/fa";
+import { FaUser, FaBookOpen, FaGlobeEurope, FaCalendarAlt, FaGlobe, FaLandmark, FaSpaceShuttle, FaMap } from "react-icons/fa";
 
 // Components
 
@@ -23,6 +23,7 @@ export const NavigationBarLogic = () => {
 		{ title: "Plots", icon: <FaBookOpen />, path: "/plots" },
 		{ title: "World", icon: <FaGlobeEurope />, path: "/world" },
 		{ title: "Locations", icon: <FaGlobe />, path: "/locations" },
+		{ title: "Map", icon: <FaMap />, path: "/map" },
 		{ title: "Events", icon: <FaCalendarAlt />, path: "/events" },
 		{ title: "Objects", icon: <FaSpaceShuttle />, path: "/objects" },
 		{ title: "Lore", icon: <FaLandmark />, path: "/lore" },

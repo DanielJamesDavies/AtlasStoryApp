@@ -25,7 +25,7 @@
 }
 
 .locations-loading-container-fade {
-	animation: locations-loading-container-fade 0.2s linear 1.5s 1;
+	animation: locations-loading-container-fade 0.2s linear 1.75s 1;
 	animation-fill-mode: forwards;
 }
 

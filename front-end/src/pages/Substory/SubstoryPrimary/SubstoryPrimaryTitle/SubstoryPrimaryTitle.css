@@ -15,11 +15,6 @@
 	color: var(--text-colour-primary);
 }
 
-.editable-container-is-editing.substory-primary-title-container {
-	margin-top: -4px;
-	margin-bottom: 1px;
-}
-
 @media (max-width: 750px) {
 	.substory-primary-title-container {
 		margin-bottom: 4px;
@@ -29,10 +24,5 @@
 	.substory-primary-title,
 	.substory-primary-title input {
 		font-size: 26px;
-	}
-
-	.editable-container-is-editing.substory-primary-title-container {
-		margin-top: -2px;
-		margin-bottom: 4px;
 	}
 }

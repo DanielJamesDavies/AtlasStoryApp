@@ -4,4 +4,5 @@
 	padding-top: 6px;
 	text-align: right;
 	color: var(--colour-red);
+	font-size: var(--font-size-p-m);
 }
