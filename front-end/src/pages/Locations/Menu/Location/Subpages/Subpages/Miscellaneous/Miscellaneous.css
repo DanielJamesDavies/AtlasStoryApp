@@ -1,0 +1,16 @@
+.locations-location-miscellaneous-items {
+	display: inline-block;
+	flex-flow: column wrap;
+	padding-right: 12px;
+
+	width: calc(100% - 12px);
+	height: calc(var(--characterSubpageMaxHeight) - 4px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+@media (max-width: 750px) {
+	.locations-location-miscellaneous-items {
+		height: calc(var(--characterSubpageMaxHeight) - 4px);
+	}
+}

@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 
-import { StoryContext } from "../../../../context/StoryContext";
+import { LocationsContext } from "../../LocationsContext";
 import { APIContext } from "../../../../context/APIContext";
 
 export const LocationContext = createContext();
 
 const LocationProvider = ({ children, location_id }) => {
-	const { isAuthorizedToEdit, story, locations, setLocations } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, locations, setLocations, selectedLocationId } = useContext(LocationsContext);
 	const { APIRequest } = useContext(APIContext);
 
 	const subpages = [
@@ -62,16 +62,6 @@ const LocationProvider = ({ children, location_id }) => {
 		getInitial();
 	}, [location_id, setLocation, locations, APIRequest]);
 
-	function changeLocation(newLocation) {
-		let newLocations = JSON.parse(JSON.stringify(locations));
-		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e._id) === JSON.stringify(location_id));
-		if (locationIndex === -1) return false;
-		newLocations[locationIndex] = newLocation;
-		setLocations(newLocations);
-
-		setLocation(newLocation);
-	}
-
 	return (
 		<LocationContext.Provider
 			value={{
@@ -80,7 +70,7 @@ const LocationProvider = ({ children, location_id }) => {
 				story,
 				locations,
 				location,
-				changeLocation,
+				setLocation,
 				locationImages,
 				setLocationImages,
 				subpages,
