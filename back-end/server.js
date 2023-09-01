@@ -42,7 +42,7 @@ app.use("*", (req, res, next) => {
 	if (emailTransporter) req.emailTransporter = emailTransporter;
 	if (isEmailTransporterVerified) req.isEmailTransporterVerified = isEmailTransporterVerified;
 	req.cookieOptions = {
-		httpOnly: false,
+		httpOnly: true,
 		secure: process.env.NODE_ENV !== "development",
 		sameSite: process.env.NODE_ENV === "development" ? "strict" : "none",
 		expires: new Date(Math.floor(Date.now()) + 60 * 60 * 24 * 365 * 2 * 1000),
