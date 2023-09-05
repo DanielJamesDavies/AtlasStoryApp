@@ -3,7 +3,7 @@
 	flex-flow: column wrap;
 	padding-right: 12px;
 	width: calc(100% - 12px);
-	max-height: calc(100vh - 48px - 59px - 24px - 36px - 24px - 16px);
+	max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 32px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }

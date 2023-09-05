@@ -14,7 +14,7 @@
 	height: 100%;
 	padding-right: 8px;
 	width: calc(100% - 8px);
-	max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 32px - 4px - 12px - 12px);
+	max-height: calc(var(--vh) - var(--substoryPrimaryPaddingTop) - 28px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
