@@ -43,8 +43,7 @@
 
 .location-subpages-btn.btn-list-item-active,
 .location-subpages-btn.btn-list-item-active:hover {
-	background: var(--locationColour);
-	border-color: var(--locationColour);
+	background: linear-gradient(0deg, var(--locationColour), var(--locationColourTint));
 	color: #fff;
 }
 

@@ -33,6 +33,7 @@ export const CharactersGroups = () => {
 		isReorderingGroups,
 		toggleIsReorderingGroups,
 		changeGroupsOrder,
+		activeGroupColourTint,
 	} = CharactersGroupsLogic();
 
 	return (
@@ -44,6 +45,11 @@ export const CharactersGroups = () => {
 						? "#0044ff"
 						: story?.data?.colour
 					: group?.data?.colour,
+				"--characters-groups-active-group-colour-tint": !activeGroupColourTint
+					? !story?.data?.colour
+						? "#0044ff"
+						: story?.data?.colour
+					: activeGroupColourTint,
 			}}
 		>
 			<ContentItem className='characters-groups'>

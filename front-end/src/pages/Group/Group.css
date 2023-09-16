@@ -63,7 +63,7 @@
 
 .group *::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--groupColour);
+	background: linear-gradient(0deg, var(--groupColour), var(--groupColourTint));
 }
 
 .group-hidden {

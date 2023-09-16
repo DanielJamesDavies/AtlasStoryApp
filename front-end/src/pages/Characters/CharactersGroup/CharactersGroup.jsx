@@ -20,7 +20,8 @@ import "./CharactersGroup.css";
 // Assets
 
 export const CharactersGroup = () => {
-	const { isAuthorizedToEdit, story, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters } = CharactersGroupLogic();
+	const { isAuthorizedToEdit, story, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters, activeGroupColourTint } =
+		CharactersGroupLogic();
 
 	return (
 		<div
@@ -31,6 +32,11 @@ export const CharactersGroup = () => {
 						? "#0044ff"
 						: story?.data?.colour
 					: group?.data?.colour,
+				"--characters-group-active-group-colour-tint": !activeGroupColourTint
+					? !story?.data?.colour
+						? "#0044ff"
+						: story?.data?.colour
+					: activeGroupColourTint,
 			}}
 		>
 			<ContentItem className='characters-group'>

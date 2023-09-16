@@ -10,7 +10,7 @@
 	margin-bottom: 8px;
 	padding: 8px 12px;
 	border-radius: 8px;
-	background: var(--groupColour);
+	background: linear-gradient(0deg, var(--groupColour), var(--groupColourTint) 130%);
 	text-align: left;
 	color: #fff;
 }

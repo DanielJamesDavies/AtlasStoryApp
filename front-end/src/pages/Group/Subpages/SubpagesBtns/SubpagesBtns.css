@@ -43,8 +43,7 @@
 
 .group-subpages-btn.btn-list-item-active,
 .group-subpages-btn.btn-list-item-active:hover {
-	background: var(--groupColour);
-	border-color: var(--groupColour);
+	background: linear-gradient(0deg, var(--groupColour), var(--groupColourTint));
 	color: #fff;
 }
 

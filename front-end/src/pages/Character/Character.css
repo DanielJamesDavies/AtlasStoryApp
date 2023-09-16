@@ -63,7 +63,7 @@
 
 .character *::-webkit-scrollbar-thumb {
 	border-radius: 4px;
-	background: var(--characterColour);
+	background: linear-gradient(0deg, var(--characterColour), var(--characterColourTint));
 }
 
 .character-hidden {

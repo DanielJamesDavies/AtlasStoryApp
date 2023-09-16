@@ -1,5 +1,7 @@
 // Packages
-import { FaUser, FaHome, FaBookOpen, FaGlobeEurope, FaBook, FaMountain, FaPencilAlt } from "react-icons/fa";
+import { FaBook, FaMountain, FaPencilAlt } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookOpen, faGlobeEurope, faHouse, faUser } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 
@@ -44,7 +46,7 @@ export const NavigationBar = () => {
 			</div>
 			<div className='navigation-bar-btn-container'>
 				<button className={getBtnClassName("home", false)} onClick={navigateToHome} onAuxClick={navigateToHome}>
-					<FaHome />
+					<FontAwesomeIcon icon={faHouse} />
 				</button>
 				<div className='navigation-bar-btn-label'>Home</div>
 			</div>
@@ -65,19 +67,19 @@ export const NavigationBar = () => {
 					</div>
 					<div className='navigation-bar-btn-container navigation-bar-btn-container-story'>
 						<button className={getBtnClassName("characters", false)} onClick={navigateToCharacters} onAuxClick={navigateToCharacters}>
-							<FaUser />
+							<FontAwesomeIcon icon={faUser} />
 						</button>
 						<div className='navigation-bar-btn-label'>Characters</div>
 					</div>
 					<div className='navigation-bar-btn-container navigation-bar-btn-container-story'>
 						<button className={getBtnClassName("plots", false)} onClick={navigateToSubstories} onAuxClick={navigateToSubstories}>
-							<FaBookOpen />
+							<FontAwesomeIcon icon={faBookOpen} />
 						</button>
 						<div className='navigation-bar-btn-label'>Plots</div>
 					</div>
 					<div className='navigation-bar-btn-container navigation-bar-btn-container-story'>
 						<button className={getBtnClassName("world", false)} onClick={navigateToWorld} onAuxClick={navigateToWorld}>
-							<FaGlobeEurope />
+							<FontAwesomeIcon icon={faGlobeEurope} />
 						</button>
 						<div className='navigation-bar-btn-label'>World</div>
 					</div>

@@ -1,4 +1,7 @@
 .characters-character-type-name-container {
+	padding-top: 2px;
+	padding-left: 6px;
+	box-sizing: border-box;
 	width: 100%;
 }
 
@@ -9,7 +12,6 @@
 .characters-character-type-primary-name {
 	margin-top: -1px;
 	margin-bottom: 1px;
-	margin-left: 6px;
 	width: 100%;
 }
 

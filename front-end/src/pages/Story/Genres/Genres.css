@@ -61,7 +61,7 @@
 }
 
 .story-genres-item-active {
-	background: var(--storyColour);
+	background: linear-gradient(0deg, var(--storyColour), var(--storyColourTint));
 	color: #fff;
 }
 

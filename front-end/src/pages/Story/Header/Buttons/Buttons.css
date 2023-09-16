@@ -43,7 +43,7 @@
 }
 
 .story-header-follow-btn-is-following {
-	background: var(--storyColour);
+	background: linear-gradient(0deg, var(--storyColour), var(--storyColourTint));
 	color: #fff;
 }
 

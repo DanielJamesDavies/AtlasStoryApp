@@ -61,11 +61,25 @@
 	width: 100%;
 	height: 100%;
 	background: var(--characters-group-active-group-colour);
+	background: linear-gradient(0deg, var(--characters-group-active-group-colour), var(--characters-group-active-group-colour-tint));
 	transition: 0.2s;
 }
 
 .characters-group-primary-open-group-btn:hover::before {
-	filter: brightness(1.3) hue-rotate(-15deg);
+	opacity: 0.3;
+}
+
+.characters-group-primary-open-group-btn::after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -2;
+	display: block;
+	border-radius: inherit;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background: var(--characters-group-active-group-colour-tint);
 }
 
 .characters-group-primary-modify-btn {

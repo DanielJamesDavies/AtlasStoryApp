@@ -17,11 +17,11 @@ import isValidHexColour from "../../../../services/IsValidHexColour";
 // Assets
 
 export const CharactersCharacterTypeColourLogic = () => {
-	const { isAuthorizedToEdit, story, setCharacterTypes, characterType, setCharacterType } = useContext(CharactersContext);
+	const { isAuthorizedToEdit, story, setStoryCharacterTypes, characterType, setCharacterType } = useContext(CharactersContext);
 	const { APIRequest } = useContext(APIContext);
 
 	function changeCharacterTypeColour(colour) {
-		setCharacterTypes((oldCharacterTypes) => {
+		setStoryCharacterTypes((oldCharacterTypes) => {
 			let newCharacterTypes = JSON.parse(JSON.stringify(oldCharacterTypes));
 			const characterTypeIndex = newCharacterTypes.findIndex((e) => e._id === characterType._id);
 			if (characterTypeIndex === -1) return newCharacterTypes;
@@ -40,7 +40,7 @@ export const CharactersCharacterTypeColourLogic = () => {
 		});
 		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
-		setCharacterTypes((oldCharacterTypes) => {
+		setStoryCharacterTypes((oldCharacterTypes) => {
 			let newCharacterTypes = JSON.parse(JSON.stringify(oldCharacterTypes));
 			const characterTypeIndex = newCharacterTypes.findIndex((e) => e._id === characterType._id);
 			if (characterTypeIndex === -1) return newCharacterTypes;

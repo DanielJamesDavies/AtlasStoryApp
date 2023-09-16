@@ -7,7 +7,7 @@
 	padding: 8px 12px;
 	border-radius: 8px;
 	width: calc(100% - 24px);
-	background: var(--substoryColour);
+	background: linear-gradient(0deg, var(--substoryColour), var(--substoryColourTint));
 	color: #fff;
 	text-align: left;
 }

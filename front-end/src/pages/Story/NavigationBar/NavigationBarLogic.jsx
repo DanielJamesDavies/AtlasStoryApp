@@ -1,6 +1,7 @@
 // Packages
 import { useContext } from "react";
-import { FaUser, FaBookOpen, FaGlobeEurope, FaCalendarAlt, FaGlobe, FaLandmark, FaSpaceShuttle, FaMap } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookOpen, faGlobeEurope, faUser, faSpaceShuttle, faCalendarAlt, faGlobe, faLandmark, faMap } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 
@@ -19,14 +20,14 @@ export const NavigationBarLogic = () => {
 	const { location, changeLocation } = useContext(RoutesContext);
 
 	const pages = [
-		{ title: "Characters", icon: <FaUser />, path: "/characters" },
-		{ title: "Plots", icon: <FaBookOpen />, path: "/plots" },
-		{ title: "World", icon: <FaGlobeEurope />, path: "/world" },
-		{ title: "Locations", icon: <FaGlobe />, path: "/locations" },
-		{ title: "Map", icon: <FaMap />, path: "/map" },
-		{ title: "Events", icon: <FaCalendarAlt />, path: "/events" },
-		{ title: "Objects", icon: <FaSpaceShuttle />, path: "/objects" },
-		{ title: "Lore", icon: <FaLandmark />, path: "/lore" },
+		{ title: "Characters", icon: <FontAwesomeIcon icon={faUser} />, path: "/characters" },
+		{ title: "Plots", icon: <FontAwesomeIcon icon={faBookOpen} />, path: "/plots" },
+		{ title: "World", icon: <FontAwesomeIcon icon={faGlobeEurope} />, path: "/world" },
+		{ title: "Locations", icon: <FontAwesomeIcon icon={faGlobe} />, path: "/locations" },
+		{ title: "Map", icon: <FontAwesomeIcon icon={faMap} />, path: "/map" },
+		{ title: "Events", icon: <FontAwesomeIcon icon={faCalendarAlt} />, path: "/events" },
+		{ title: "Objects", icon: <FontAwesomeIcon icon={faSpaceShuttle} />, path: "/objects" },
+		{ title: "Lore", icon: <FontAwesomeIcon icon={faLandmark} />, path: "/lore" },
 	];
 
 	function goToPage(e, page_path) {

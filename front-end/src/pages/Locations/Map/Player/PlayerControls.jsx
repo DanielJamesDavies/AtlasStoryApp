@@ -259,7 +259,7 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled, setIsPlayerMov
 		locationsMapRefCurrent.addEventListener("mousemove", onMouseMove);
 		locationsMapRefCurrent?.addEventListener("mouseup", onMouseUp);
 		locationsMapRefCurrent?.addEventListener("mouseleave", onMouseUp);
-		locationsMapRefCurrent?.addEventListener("wheel", onWheel);
+		locationsMapRefCurrent?.addEventListener("wheel", onWheel, { passive: false });
 
 		locationsMapRefCurrent.addEventListener("gesturestart", onGesture);
 		locationsMapRefCurrent.addEventListener("gesturechange", onGesture);

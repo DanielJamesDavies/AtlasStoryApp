@@ -43,8 +43,7 @@
 
 .character-subpages-btn.btn-list-item-active,
 .character-subpages-btn.btn-list-item-active:hover {
-	background: var(--characterColour);
-	border-color: var(--characterColour);
+	background: linear-gradient(0deg, var(--characterColour), var(--characterColourTint));
 	color: #fff;
 }
 

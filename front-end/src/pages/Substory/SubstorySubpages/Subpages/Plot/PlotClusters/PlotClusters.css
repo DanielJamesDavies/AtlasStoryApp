@@ -25,8 +25,7 @@
 
 .substory-subpage-plot-clusters-list-item-container .btn-list-item-active,
 .substory-subpage-plot-clusters-list-item-container .btn-list-item-active:hover {
-	background: var(--substoryColour);
-	border-color: var(--substoryColour);
+	background: linear-gradient(0deg, var(--substoryColour), var(--substoryColourTint));
 	color: #fff;
 }
 

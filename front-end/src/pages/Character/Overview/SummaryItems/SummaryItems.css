@@ -6,7 +6,7 @@
 	margin-bottom: 8px;
 	padding: 8px 12px;
 	border-radius: 8px;
-	background: var(--characterColour);
+	background: linear-gradient(0deg, var(--characterColour), var(--characterColourTint) 130%);
 	text-align: left;
 	color: #fff;
 }

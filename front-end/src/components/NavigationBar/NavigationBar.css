@@ -23,7 +23,7 @@
 	padding: 0;
 	border: 2px solid var(--colour-grey-two);
 	border: 0;
-	border-radius: 18px;
+	border-radius: 16px;
 
 	width: 44px;
 	height: 44px;
@@ -34,6 +34,10 @@
 	text-align: center;
 	transition: color, background 0.2s;
 	cursor: pointer;
+}
+
+.navigation-bar-btn svg {
+	transition: color 0.2s;
 }
 
 .navigation-bar-btn:hover,

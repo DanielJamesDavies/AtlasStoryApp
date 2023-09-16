@@ -23,8 +23,7 @@
 
 .character-subpage-biography-cluster-list-item-container .btn-list-item-active {
 	position: relative;
-	background: var(--characterColour);
-	border-color: var(--characterColour);
+	background: linear-gradient(0deg, var(--characterColour), var(--characterColourTint));
 	color: #fff;
 }
 

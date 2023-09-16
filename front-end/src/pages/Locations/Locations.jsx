@@ -1,5 +1,6 @@
 // Packages
-import { FaMap } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMap } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 import { LoadingCircle } from "../../components/LoadingCircle/LoadingCircle";
@@ -53,7 +54,7 @@ export const Locations = () => {
 			<LocationsTitle />
 			<button className='locations-map-btn' onClick={() => setIsOnMap(true)}>
 				<div className='locations-map-btn-label'>
-					<FaMap />
+					<FontAwesomeIcon icon={faMap} />
 					<div className='locations-map-btn-label-text'>Map</div>
 				</div>
 				<img src={MapBtnBackground} alt='' />
