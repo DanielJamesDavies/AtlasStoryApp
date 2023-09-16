@@ -10,6 +10,7 @@ import { CharactersContext } from "../../../CharactersContext";
 import { RoutesContext } from "../../../../../context/RoutesContext";
 
 // Services
+import getColourTint from "../../../../../services/GetColourTint";
 
 // Styles
 
@@ -46,7 +47,15 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 	const [cardStyles, setCardStyles] = useState({});
 
 	useEffect(() => {
-		setCardStyles({ "--characterColour": character?.data?.colour ? character.data.colour : "#0044ff" });
+		let newCardStyles = {};
+		if (character?.data?.colour) {
+			newCardStyles["--characterColour"] = character.data.colour;
+			newCardStyles["--characterColourTint"] = getColourTint(character.data.colour);
+		} else {
+			newCardStyles["--characterColour"] = "#0044ff";
+			newCardStyles["--characterColourTint"] = "#0044ff";
+		}
+		setCardStyles(newCardStyles);
 	}, [character, setCardStyles]);
 
 	return {

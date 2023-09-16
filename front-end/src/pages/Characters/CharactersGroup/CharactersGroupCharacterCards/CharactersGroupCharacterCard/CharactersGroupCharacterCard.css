@@ -19,15 +19,23 @@
 	margin: 0 4px;
 }
 
+.characters-group-character-card-wrapper {
+	position: relative;
+	z-index: 1;
+	margin: 4px;
+	padding: 2px;
+	border-radius: 16px;
+	background: linear-gradient(180deg, var(--characterColour), var(--characterColourTint));
+}
+
 .characters-group-character-card {
 	flex-shrink: 0;
 	position: relative;
 	z-index: 1;
 	display: inline-block;
 	margin: 4px;
-	border: 6px solid var(--colour-accent);
-	border-color: var(--characterColour);
-	border-radius: 16px;
+	border: 0;
+	border-radius: 12px;
 
 	width: 412px;
 	height: 585px;

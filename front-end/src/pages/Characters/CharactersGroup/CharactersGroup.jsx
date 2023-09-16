@@ -20,18 +20,26 @@ import "./CharactersGroup.css";
 // Assets
 
 export const CharactersGroup = () => {
-	const { isAuthorizedToEdit, story, group, navigateToGroup, openCreateCharacterForm, toggleIsReorderingCharacters, activeGroupColourTint } =
-		CharactersGroupLogic();
+	const {
+		isAuthorizedToEdit,
+		story,
+		group,
+		navigateToGroup,
+		openCreateCharacterForm,
+		toggleIsReorderingCharacters,
+		activeGroupColour,
+		activeGroupColourTint,
+	} = CharactersGroupLogic();
 
 	return (
 		<div
 			className='characters-group-container'
 			style={{
-				"--characters-group-active-group-colour": !group?.data?.colour
+				"--characters-group-active-group-colour": !activeGroupColour
 					? !story?.data?.colour
 						? "#0044ff"
 						: story?.data?.colour
-					: group?.data?.colour,
+					: activeGroupColour,
 				"--characters-group-active-group-colour-tint": !activeGroupColourTint
 					? !story?.data?.colour
 						? "#0044ff"

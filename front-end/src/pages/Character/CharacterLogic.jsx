@@ -9,6 +9,7 @@ import { useContext, useState, useEffect, useRef } from "react";
 import { CharacterContext } from "./CharacterContext";
 
 // Services
+import getColourWithTint from "../../services/GetColourWithTint";
 
 // Styles
 
@@ -21,17 +22,6 @@ export const CharacterLogic = () => {
 	const characterPrimaryRef = useRef();
 
 	useEffect(() => {
-		function getColourTint(hex, amount) {
-			let [r, g, b] = hex.match(/.{2}/g);
-
-			r = Math.max(Math.min(255, parseInt(r, 16) + amount), 0).toString(16);
-			if (parseInt(r, 16) + amount > 255) amount *= 0.5;
-			g = Math.max(Math.min(255, parseInt(g, 16) + amount), 0).toString(16);
-			b = Math.max(Math.min(255, parseInt(b, 16) + amount), 0).toString(16);
-
-			return `#${(r.length < 2 ? "0" : "") + r}${(g.length < 2 ? "0" : "") + g}${(b.length < 2 ? "0" : "") + b}`;
-		}
-
 		function getCharacterStyle() {
 			if (!character) return false;
 
@@ -51,26 +41,18 @@ export const CharacterLogic = () => {
 
 			if (character?.data?.colour) {
 				try {
-					let bigint = parseInt(character?.data?.colour.substring(1), 16);
-					let r = (bigint >> 16) & 255;
-					let g = (bigint >> 8) & 255;
-					let b = bigint & 255;
-					const brightness = (r + g + b) / 3;
-					const new_hex = getColourTint(character?.data?.colour.substring(1), brightness > 128 ? -28 : 60);
-					newCharacterStyle["--characterColourTint"] = new_hex;
+					const colours = getColourWithTint(character?.data?.colour);
+					newCharacterStyle["--characterColour"] = colours[0];
+					newCharacterStyle["--characterColourTint"] = colours[1];
 				} catch {
+					newCharacterStyle["--characterColour"] = character?.data?.colour;
 					newCharacterStyle["--characterColourTint"] = character?.data?.colour;
 				}
 			} else {
 				newCharacterStyle["--characterColourTint"] = "#0044ff";
 			}
 
-			setCharacterStyle((oldCharacterStyle) => {
-				if (!character?.data?.colour && oldCharacterStyle["--characterColour"] !== "#0044ff") {
-					newCharacterStyle["--characterColour"] = oldCharacterStyle["--characterColour"];
-				}
-				return newCharacterStyle;
-			});
+			setCharacterStyle(newCharacterStyle);
 		}
 		setTimeout(() => getCharacterStyle(), 2);
 		window.addEventListener("resize", getCharacterStyle);

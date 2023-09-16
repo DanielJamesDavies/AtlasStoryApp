@@ -21,39 +21,40 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 
 	if (!character) return <div className='characters-group-character-card-placeholder' />;
 	return (
-		<div
-			className='characters-group-character-card drag-drop-item-content'
-			onClick={navigateToCharacter}
-			onAuxClick={navigateToCharacter}
-			onMouseDown={onCharacterCardMouseDown}
-			style={cardStyles}
-		>
-			<div className='characters-group-character-card-content'>
-				<div className='characters-group-character-card-top-container'>
-					<div className='characters-group-character-card-top-name'>{character?.data?.name}</div>
-					<div
-						className='characters-group-character-card-character-type'
-						style={characterType?.data?.colour ? { background: characterType.data.colour } : {}}
-					>
-						<div className='characters-group-character-card-character-type-text'>{characterType?.data?.name}</div>
+		<div className='characters-group-character-card-wrapper' style={cardStyles}>
+			<div
+				className='characters-group-character-card drag-drop-item-content'
+				onClick={navigateToCharacter}
+				onAuxClick={navigateToCharacter}
+				onMouseDown={onCharacterCardMouseDown}
+			>
+				<div className='characters-group-character-card-content'>
+					<div className='characters-group-character-card-top-container'>
+						<div className='characters-group-character-card-top-name'>{character?.data?.name}</div>
+						<div
+							className='characters-group-character-card-character-type'
+							style={characterType?.data?.colour ? { background: characterType.data.colour } : {}}
+						>
+							<div className='characters-group-character-card-character-type-text'>{characterType?.data?.name}</div>
+						</div>
+					</div>
+					<div className='characters-group-character-card-summary-item-container'>
+						{!character?.data?.summaryItems
+							? null
+							: character.data.summaryItems.map((summaryItem, index) => (
+									<div key={index} className='characters-group-character-card-summary-item'>
+										<div className='characters-group-character-card-summary-item-label'>{summaryItem.label}</div>
+										<div className='characters-group-character-card-summary-item-text'>{summaryItem.text}</div>
+									</div>
+							  ))}
 					</div>
 				</div>
-				<div className='characters-group-character-card-summary-item-container'>
-					{!character?.data?.summaryItems
-						? null
-						: character.data.summaryItems.map((summaryItem, index) => (
-								<div key={index} className='characters-group-character-card-summary-item'>
-									<div className='characters-group-character-card-summary-item-label'>{summaryItem.label}</div>
-									<div className='characters-group-character-card-summary-item-text'>{summaryItem.text}</div>
-								</div>
-						  ))}
-				</div>
+				{!character?.data?.cardBackground?.image ? null : (
+					<div className='characters-group-character-card-background'>
+						<img src={character.data.cardBackground.image} alt='' />
+					</div>
+				)}
 			</div>
-			{!character?.data?.cardBackground?.image ? null : (
-				<div className='characters-group-character-card-background'>
-					<img src={character.data.cardBackground.image} alt='' />
-				</div>
-			)}
 		</div>
 	);
 };
