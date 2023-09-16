@@ -144,6 +144,7 @@
 
 	background: var(--colour-blue);
 	background: var(--characterColour);
+	background: linear-gradient(0deg, var(--characterColourGradient1), var(--characterColourGradient2) 130%);
 	color: #fff;
 	text-align: left;
 }

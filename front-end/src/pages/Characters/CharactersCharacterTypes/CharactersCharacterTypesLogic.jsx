@@ -1,5 +1,5 @@
 // Packages
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Components
 
@@ -10,6 +10,7 @@ import { CharactersContext } from "../CharactersContext";
 import { APIContext } from "../../../context/APIContext";
 
 // Services
+import getColourWithTint from "../../../services/GetColourWithTint";
 
 // Styles
 
@@ -28,6 +29,16 @@ export const CharactersCharacterTypesLogic = () => {
 		toggleIsReorderingCharacterTypes,
 	} = useContext(CharactersContext);
 	const { APIRequest } = useContext(APIContext);
+
+	const [activeTypeColours, setActiveTypeColours] = useState(["#0044ff", "#0044ff"]);
+
+	useEffect(() => {
+		if (characterType?.data?.colour) {
+			setActiveTypeColours(getColourWithTint(characterType?.data?.colour));
+		} else {
+			setActiveTypeColours(["#0044ff", "#0044ff"]);
+		}
+	}, [characterType, setActiveTypeColours]);
 
 	function openCreateCharacterTypeForm() {
 		setIsDisplayingCreateCharacterTypeForm(true);
@@ -58,5 +69,6 @@ export const CharactersCharacterTypesLogic = () => {
 		isReorderingCharacterTypes,
 		toggleIsReorderingCharacterTypes,
 		changeCharacterTypesOrder,
+		activeTypeColours,
 	};
 };

@@ -10,6 +10,8 @@ import { StoryContext } from "../../../../../context/StoryContext";
 import { RoutesContext } from "../../../../../context/RoutesContext";
 
 // Services
+import getColourTint from "../../../../../services/GetColourTint";
+import getColourWithTint from "../../../../../services/GetColourWithTint";
 
 // Styles
 
@@ -36,7 +38,21 @@ export const CharacterCardLogic = ({ character }) => {
 
 	const [cardStyles, setCardStyles] = useState({});
 	useEffect(() => {
-		setCardStyles({ "--characterColour": character?.data?.colour ? character.data.colour : "#0044ff" });
+		let newCardStyles = {};
+		if (character?.data?.colour) {
+			newCardStyles["--characterColour"] = character.data.colour;
+			newCardStyles["--characterColourTint"] = getColourTint(character.data.colour);
+
+			const colours = getColourWithTint(character.data.colour);
+			newCardStyles["--characterColourGradient1"] = colours[0];
+			newCardStyles["--characterColourGradient2"] = colours[1];
+		} else {
+			newCardStyles["--characterColour"] = "#0044ff";
+			newCardStyles["--characterColourTint"] = "#0044ff";
+			newCardStyles["--characterColourGradient1"] = "#0044ff";
+			newCardStyles["--characterColourGradient2"] = "#0044ff";
+		}
+		setCardStyles(newCardStyles);
 	}, [character, setCardStyles]);
 
 	return { characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles };

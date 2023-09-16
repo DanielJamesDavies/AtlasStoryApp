@@ -21,9 +21,9 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 
 	if (!character) return <div className='characters-group-character-card-placeholder' />;
 	return (
-		<div className='characters-group-character-card-wrapper' style={cardStyles}>
+		<div className='characters-group-character-card-wrapper drag-drop-item-content' style={cardStyles}>
 			<div
-				className='characters-group-character-card drag-drop-item-content'
+				className='characters-group-character-card'
 				onClick={navigateToCharacter}
 				onAuxClick={navigateToCharacter}
 				onMouseDown={onCharacterCardMouseDown}

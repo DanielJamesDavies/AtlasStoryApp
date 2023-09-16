@@ -136,6 +136,7 @@
 	width: calc(100% - 24px);
 
 	background: var(--characterColour);
+	background: linear-gradient(0deg, var(--characterColourGradient1), var(--characterColourGradient2) 130%);
 	color: #fff;
 	text-align: left;
 }
@@ -148,6 +149,13 @@
 .story-primary-character-card-summary-item-text {
 	font-size: 12px;
 	font-weight: 600;
+}
+
+.font-size-s .story-primary-character-card-summary-item-label,
+.font-size-s .story-primary-character-card-summary-item-text,
+.font-size-xs .story-primary-character-card-summary-item-label,
+.font-size-xs .story-primary-character-card-summary-item-text {
+	font-size: 11px;
 }
 
 .story-primary-character-card-background {

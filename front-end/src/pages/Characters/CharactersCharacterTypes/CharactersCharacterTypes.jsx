@@ -33,11 +33,18 @@ export const CharactersCharacterTypes = () => {
 		isReorderingCharacterTypes,
 		toggleIsReorderingCharacterTypes,
 		changeCharacterTypesOrder,
+		activeTypeColours,
 	} = CharactersCharacterTypesLogic();
 
 	if (!isAuthorizedToEdit && (!story?.data?.characterTypes || story?.data?.characterTypes.length === 0)) return null;
 	return (
-		<div className='characters-character-types-container'>
+		<div
+			className='characters-character-types-container'
+			style={{
+				"--charactersCharacterTypeActiveColourGradient1": activeTypeColours[0],
+				"--charactersCharacterTypeActiveColourGradient2": activeTypeColours[1],
+			}}
+		>
 			<ContentItem className='characters-character-types'>
 				<div className='characters-character-types-primary'>
 					<div className='characters-character-types-primary-title'>Character Types</div>
