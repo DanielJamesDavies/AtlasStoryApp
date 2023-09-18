@@ -14,8 +14,9 @@ import { LocationsContext } from "../../LocationsContext";
 
 // Assets
 
-export const PlayerControls = ({ camera, isPlayerMovementEnabled, setIsPlayerMovementEnabled, isPlayerViewControlEnabled }) => {
+export const PlayerControls = ({ camera, isPlayerMovementEnabled, setIsPlayerMovementEnabled, isPlayerViewControlEnabled, setIsPlayerViewControlEnabled }) => {
 	const {
+		currentMapLocationId,
 		travellingToMapLocationId,
 		setPlayerCamera,
 		playerCameraRotation,
@@ -40,6 +41,10 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled, setIsPlayerMov
 
 	const isMouseDown = useRef(false);
 	const maxSpeed = useRef(4);
+
+	useEffect(() => {
+		setIsPlayerViewControlEnabled(true);
+	}, [currentMapLocationId, setIsPlayerViewControlEnabled])
 
 	useEffect(() => {
 		camera.fov = 80;
@@ -101,17 +106,55 @@ export const PlayerControls = ({ camera, isPlayerMovementEnabled, setIsPlayerMov
 		[isMouseDown, locationsMapRef, resetPlayerActions, setIsMouseControllingPlayer, isPlayerViewControlEnabled]
 	);
 
+	function isUsingTrackPad(e) {
+		if (e.wheelDeltaY) {
+		  if (Math.abs(e.wheelDeltaY) !== 120) return true;
+		} else if (e.deltaMode === 0) {
+		  return true;
+		}
+		return false;
+	}
+
+	const prev_wheel_timestamp = useRef(false);
+	
 	const onWheel = useCallback(
 		(e) => {
+			e.preventDefault();
 			if (!isPlayerMovementEnabled) return false;
 
-			setPlayerSpeed((oldPlayerSpeed) => {
-				let newPlayerSpeed = JSON.parse(JSON.stringify(oldPlayerSpeed));
-				newPlayerSpeed += -Math.sign(e.deltaY);
-				return newPlayerSpeed < 1 ? 1 : newPlayerSpeed > maxSpeed.current ? maxSpeed.current : newPlayerSpeed;
-			});
+			if (isUsingTrackPad(e)) {
+				if (prev_wheel_timestamp.current === false || e?.timeStamp - prev_wheel_timestamp.current > 150) {
+					let actionKey = false;
+					if (e?.wheelDelta > 0) actionKey = "forward";
+					if (e?.wheelDelta < 0) actionKey = "backward";
+
+					if (actionKey && !playerActions[actionKey]) {
+						setPlayerActions((oldPlayerActions) => {
+							let newPlayerActions = JSON.parse(JSON.stringify(oldPlayerActions));
+							Object.keys(newPlayerActions).map((key) => newPlayerActions[key] = false);
+							if (actionKey === "forward" && oldPlayerActions?.backward) return newPlayerActions;
+							newPlayerActions[actionKey] = true;
+							return newPlayerActions;
+						});
+					} else if (playerActions[actionKey]) {
+						setPlayerSpeed((oldPlayerSpeed) => {
+							let newPlayerSpeed = JSON.parse(JSON.stringify(oldPlayerSpeed));
+							newPlayerSpeed += 1;
+							return newPlayerSpeed < 1 ? 1 : newPlayerSpeed > maxSpeed.current ? maxSpeed.current : newPlayerSpeed;
+						});
+					}
+				}
+
+				prev_wheel_timestamp.current = e?.timeStamp;
+			} else {
+				setPlayerSpeed((oldPlayerSpeed) => {
+					let newPlayerSpeed = JSON.parse(JSON.stringify(oldPlayerSpeed));
+					newPlayerSpeed += -Math.sign(e.deltaY);
+					return newPlayerSpeed < 1 ? 1 : newPlayerSpeed > maxSpeed.current ? maxSpeed.current : newPlayerSpeed;
+				});
+			}
 		},
-		[setPlayerSpeed, isPlayerMovementEnabled, maxSpeed]
+		[setPlayerSpeed, isPlayerMovementEnabled, maxSpeed, playerActions, setPlayerActions, prev_wheel_timestamp]
 	);
 
 	const onKeyDown = useCallback(

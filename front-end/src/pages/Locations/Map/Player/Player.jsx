@@ -29,6 +29,7 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 		isPlayerMovementEnabled,
 		setIsPlayerMovementEnabled,
 		isPlayerViewControlEnabled,
+		setIsPlayerViewControlEnabled,
 	});
 	const {
 		story,
