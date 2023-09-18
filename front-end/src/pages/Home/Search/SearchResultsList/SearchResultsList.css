@@ -1,10 +1,11 @@
 .home-search-results-list-container {
-	margin-top: 4px;
-	padding: 6px 12px;
+	margin-top: 6px;
+	padding: 12px;
+	padding-bottom: 2px;
 	border-radius: 8px;
 	width: calc(100% - 24px);
 	text-align: center;
-	background: var(--colour-grey-one);
+	background: var(--colour-grey-two);
 }
 
 .home-search-results-list-title {
