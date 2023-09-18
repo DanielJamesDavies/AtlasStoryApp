@@ -19,14 +19,14 @@ import getColourWithTint from "../../../../../services/GetColourWithTint";
 
 export const CharacterCardLogic = ({ character }) => {
 	const { changeLocation } = useContext(RoutesContext);
-	const { story, characterTypes } = useContext(StoryContext);
+	const { story, storyCharacterTypes } = useContext(StoryContext);
 
 	const [characterType, setCharacterType] = useState(false);
 
 	useEffect(() => {
-		const newCharacterType = characterTypes?.find((e) => e._id === character?.character_type_id);
+		const newCharacterType = storyCharacterTypes?.find((e) => e._id === character?.character_type_id);
 		setCharacterType(newCharacterType === undefined ? false : newCharacterType);
-	}, [character, characterTypes, setCharacterType]);
+	}, [character, storyCharacterTypes, setCharacterType]);
 
 	function navigateToCharacter(e) {
 		if (story?.uid && character?.uid) changeLocation("/s/" + story.uid + "/c/" + character.uid, e.button === 1);
@@ -52,8 +52,13 @@ export const CharacterCardLogic = ({ character }) => {
 			newCardStyles["--characterColourGradient1"] = "#0044ff";
 			newCardStyles["--characterColourGradient2"] = "#0044ff";
 		}
+		if (characterType?.data?.colour) {
+			const type_colours = getColourWithTint(characterType?.data?.colour);
+			newCardStyles["--characterTypeColourGradient1"] = type_colours[0];
+			newCardStyles["--characterTypeColourGradient2"] = type_colours[1];
+		}
 		setCardStyles(newCardStyles);
-	}, [character, setCardStyles]);
+	}, [character, characterType, setCardStyles]);
 
 	return { characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles };
 };

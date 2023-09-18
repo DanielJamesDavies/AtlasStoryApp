@@ -62,8 +62,13 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 			newCardStyles["--characterColourGradient1"] = "#0044ff";
 			newCardStyles["--characterColourGradient2"] = "#0044ff";
 		}
+		if (characterType?.data?.colour) {
+			const type_colours = getColourWithTint(characterType?.data?.colour);
+			newCardStyles["--characterTypeColourGradient1"] = type_colours[0];
+			newCardStyles["--characterTypeColourGradient2"] = type_colours[1];
+		}
 		setCardStyles(newCardStyles);
-	}, [character, setCardStyles]);
+	}, [character, characterType, setCardStyles]);
 
 	return {
 		character,

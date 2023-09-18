@@ -26,16 +26,17 @@
 	width: 96px;
 	height: 36px;
 
-	background: var(--colour-grey-three);
-	color: #fff;
+	background: #fff;
+	color: #444;
 	text-align: center;
 	font-weight: 600;
 	cursor: pointer;
-	transition: 0.1s;
+	transition: 0.2s;
 }
 
 .story-header-follow-btn:hover {
-	background: var(--colour-grey-four);
+	background: var(--storyColour);
+	color: #fff;
 }
 
 .story-header-is-authorized .story-header-follow-btn {
@@ -48,7 +49,7 @@
 }
 
 .story-header-follow-btn-is-following:hover {
-	background: var(--colour-red);
+	background: linear-gradient(0deg, var(--colour-red), var(--colour-red-tint));
 	color: #fff;
 }
 

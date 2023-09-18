@@ -31,10 +31,7 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 				<div className='characters-group-character-card-content'>
 					<div className='characters-group-character-card-top-container'>
 						<div className='characters-group-character-card-top-name'>{character?.data?.name}</div>
-						<div
-							className='characters-group-character-card-character-type'
-							style={characterType?.data?.colour ? { background: characterType.data.colour } : {}}
-						>
+						<div className='characters-group-character-card-character-type'>
 							<div className='characters-group-character-card-character-type-text'>{characterType?.data?.name}</div>
 						</div>
 					</div>

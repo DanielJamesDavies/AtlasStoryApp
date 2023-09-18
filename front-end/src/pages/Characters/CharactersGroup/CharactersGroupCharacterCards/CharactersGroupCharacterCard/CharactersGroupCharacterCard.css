@@ -118,6 +118,7 @@
 	font-size: 13px;
 	font-weight: 600;
 	color: #fff;
+	background: linear-gradient(0deg, var(--characterTypeColourGradient1), var(--characterTypeColourGradient2));
 }
 
 .characters-group-character-card-summary-item-container {
