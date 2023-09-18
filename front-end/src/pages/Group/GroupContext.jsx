@@ -253,8 +253,19 @@ const GroupProvider = ({ children, story_uid, group_uid }) => {
 				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
 				changeLocationParameters(newLocationParameters);
 			}
+			if (group?.data?.name && story?.data?.title)
+				setTimeout(() => (document.title = group?.data?.name + " | " + story?.data?.title + " | Group | Atlas Story App"), 100);
 		}
-	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, groupVersion, group]);
+	}, [
+		changeLocationParameters,
+		hasReadInitialLocationParameters,
+		locationParams,
+		isOnOverviewSection,
+		openSubpageID,
+		groupVersion,
+		group,
+		story,
+	]);
 
 	return (
 		<GroupContext.Provider

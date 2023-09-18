@@ -84,7 +84,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 
 		function updateDocumentTitle(newCharacter) {
 			if (newCharacter?.data?.name && story?.data?.title) {
-				document.title = newCharacter?.data?.name + " | " + story?.data?.title + " | Characters | Atlas Story App";
+				document.title = newCharacter?.data?.name + " | " + story?.data?.title + " | Character | Atlas Story App";
 			} else {
 				document.title = "https://www.atlas-story.app" + location;
 			}
@@ -408,6 +408,8 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
 				changeLocationParameters(newLocationParameters);
 			}
+			if (character?.data?.name && story?.data?.title)
+				setTimeout(() => (document.title = character?.data?.name + " | " + story?.data?.title + " | Character | Atlas Story App"), 100);
 		}
 	}, [
 		changeLocationParameters,
@@ -417,6 +419,7 @@ const CharacterProvider = ({ children, story_uid, character_uid }) => {
 		openSubpageID,
 		characterVersion,
 		character,
+		story,
 	]);
 
 	return (

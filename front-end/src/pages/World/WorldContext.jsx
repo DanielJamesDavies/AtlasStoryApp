@@ -18,7 +18,15 @@ const WorldProvider = ({ children, story_uid }) => {
 
 			// Document Title
 			updateDocumentTitle();
-			setTimeout(() => updateDocumentTitle(), 1000);
+			setTimeout(() => {
+				if (window.location.pathname.split("/").filter((e) => e.length !== 0)[2] === "world") updateDocumentTitle();
+			}, 500);
+			setTimeout(() => {
+				if (window.location.pathname.split("/").filter((e) => e.length !== 0)[2] === "world") updateDocumentTitle();
+			}, 750);
+			setTimeout(() => {
+				if (window.location.pathname.split("/").filter((e) => e.length !== 0)[2] === "world") updateDocumentTitle();
+			}, 1000);
 		}
 
 		function updateDocumentTitle() {

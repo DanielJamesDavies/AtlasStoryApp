@@ -56,7 +56,7 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 
 			// Document Title
 			if (story?.data?.title && newSubstory?.data?.title) {
-				document.title = newSubstory?.data?.title + " | " + story?.data?.title + " | Substory | Atlas Story App";
+				document.title = newSubstory?.data?.title + " | " + story?.data?.title + " | Plot | Atlas Story App";
 			} else {
 				document.title = "https://www.atlas-story.app" + location;
 			}
@@ -344,8 +344,10 @@ const SubstoryProvider = ({ children, story_uid, substory_uid }) => {
 				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
 				changeLocationParameters(newLocationParameters);
 			}
+			if (substory?.data?.title && story?.data?.title)
+				setTimeout(() => (document.title = substory?.data?.title + " | " + story?.data?.title + " | Plot | Atlas Story App"), 100);
 		}
-	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, substory]);
+	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, substory, story]);
 
 	return (
 		<SubstoryContext.Provider

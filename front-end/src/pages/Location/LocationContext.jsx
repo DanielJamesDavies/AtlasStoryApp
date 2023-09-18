@@ -212,8 +212,10 @@ const LocationProvider = ({ children, story_uid, location_uid }) => {
 				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
 				changeLocationParameters(newLocationParameters);
 			}
+			if (location?.data?.name && story?.data?.title)
+				setTimeout(() => (document.title = location?.data?.name + " | " + story?.data?.title + " | Location | Atlas Story App"), 100);
 		}
-	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, location]);
+	}, [changeLocationParameters, hasReadInitialLocationParameters, locationParams, isOnOverviewSection, openSubpageID, location, story]);
 
 	return (
 		<LocationContext.Provider
