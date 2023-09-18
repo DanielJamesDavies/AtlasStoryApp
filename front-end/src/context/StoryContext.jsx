@@ -5,6 +5,8 @@ import { APIContext } from "./APIContext";
 import { RecentDataContext } from "./RecentDataContext";
 import { RoutesContext } from "./RoutesContext";
 
+import getColourTint from "../services/GetColourTint";
+
 export const StoryContext = createContext();
 
 const StoryProvider = ({ children }) => {
@@ -48,7 +50,7 @@ const StoryProvider = ({ children }) => {
 			if (!newStory) return;
 
 			changeAccentColour(newStory?.data?.colours?.accent);
-			changeAccentHoverColour(newStory?.data?.colours?.accentHover);
+			changeAccentHoverColour(getColourTint(newStory?.data?.colours?.accent));
 
 			getStoryMembers(newStory?.data?.members);
 			getStoryGenres(newStory?.data?.genres);
@@ -441,7 +443,7 @@ const StoryProvider = ({ children }) => {
 
 	function updateStoryColours(newColours) {
 		changeAccentColour(newColours?.accent);
-		changeAccentHoverColour(newColours?.accentHover);
+		changeAccentHoverColour(getColourTint(newColours?.accent));
 	}
 
 	return (

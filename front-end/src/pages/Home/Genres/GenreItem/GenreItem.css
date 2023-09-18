@@ -20,12 +20,12 @@
 }
 
 .home-genres-list-item-favourited {
-	background: var(--colour-blue);
+	background: linear-gradient(0deg, var(--colour-blue), var(--colour-blue-tint));
 	color: #fff;
 }
 
 .home-genres-list-item-favourited:hover {
-	background: var(--colour-blue-two);
+	background: linear-gradient(0deg, var(--colour-blue-tint), var(--colour-blue-tint));
 }
 
 .home-genres-list-item-title {

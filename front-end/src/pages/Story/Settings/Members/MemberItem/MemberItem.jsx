@@ -20,7 +20,7 @@ import "./MemberItem.css";
 export const MemberItem = ({ member, index, memberType, memberTypes, changeMemberType, isEditing, isOwner, removeMember }) => {
 	if (!member) return null;
 	return (
-		<ContentItem hasBg={true} margin='none' backgroundColour='grey4'>
+		<ContentItem hasBg={true} margin='none' backgroundColour='grey3'>
 			<div className='story-settings-member'>
 				<div className='story-settings-member-profile-picture-container'>
 					{!member?.profilePicture ? null : <img src={member?.profilePicture} alt='' />}

@@ -35,6 +35,10 @@
 	max-width: 50%;
 }
 
+.label-container-is-bold .label-label {
+	font-weight: 600 !important;
+}
+
 .label-value {
 	display: flex;
 	margin: 0;

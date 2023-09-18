@@ -14,8 +14,8 @@ import "./LabelContainer.css";
 
 // Assets
 
-export const LabelContainer = ({ children, label, className, isInline }) => {
-	const { labelContainerClassName, labelLabelRef, labelValueStyle } = LabelContainerLogic({ label, className, isInline });
+export const LabelContainer = ({ children, label, className, isInline, isBold }) => {
+	const { labelContainerClassName, labelLabelRef, labelValueStyle } = LabelContainerLogic({ label, className, isInline, isBold });
 
 	return (
 		<div className={labelContainerClassName}>

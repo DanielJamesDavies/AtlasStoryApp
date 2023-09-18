@@ -18,17 +18,7 @@ import { ColoursLogic } from "./ColoursLogic";
 // Assets
 
 export const Colours = () => {
-	const {
-		isAuthorizedToEdit,
-		story,
-		changeAccentColour,
-		revertAccentColour,
-		saveAccentColour,
-		changeAccentHoverColour,
-		revertAccentHoverColour,
-		saveAccentHoverColour,
-		errors,
-	} = ColoursLogic();
+	const { isAuthorizedToEdit, story, changeAccentColour, revertAccentColour, saveAccentColour, errors } = ColoursLogic();
 
 	return (
 		<div>
@@ -38,7 +28,7 @@ export const Colours = () => {
 				onRevert={revertAccentColour}
 				onSave={saveAccentColour}
 			>
-				<LabelContainer label='Accent Colour' isInline={true}>
+				<LabelContainer label='Accent Colour' isInline={true} isBold={true}>
 					<ColourPicker
 						value={story?.data?.colours?.accent}
 						onChange={changeAccentColour}
@@ -46,7 +36,7 @@ export const Colours = () => {
 						horizontalAlignment='right'
 					/>
 				</LabelContainer>
-				<LabelContainer label='Accent Colour' isInline={true}>
+				<LabelContainer label='Accent Colour' isInline={true} isBold={true}>
 					<ColourPicker
 						value={story?.data?.colours?.accent}
 						onChange={changeAccentColour}
@@ -58,7 +48,7 @@ export const Colours = () => {
 				</LabelContainer>
 			</EditableContainer>
 
-			<EditableContainer
+			{/* <EditableContainer
 				className='story-settings-input-container'
 				isAuthorizedToEdit={isAuthorizedToEdit}
 				onRevert={revertAccentHoverColour}
@@ -82,7 +72,7 @@ export const Colours = () => {
 					/>
 					<ErrorMessage errors={errors} />
 				</LabelContainer>
-			</EditableContainer>
+			</EditableContainer> */}
 		</div>
 	);
 };

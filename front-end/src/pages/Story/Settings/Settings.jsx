@@ -36,6 +36,10 @@ export const Settings = () => {
 					<UID />
 				</div>
 				<div className='story-settings-section-container'>
+					{/* <div className='story-settings-section-label'>Colours</div> */}
+					<Colours />
+				</div>
+				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Private Story</div>
 					<Private />
 				</div>
@@ -46,10 +50,6 @@ export const Settings = () => {
 				{/* <div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Cover</div>
 				</div> */}
-				<div className='story-settings-section-container'>
-					<div className='story-settings-section-label'>Colours</div>
-					<Colours />
-				</div>
 				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Delete Story</div>
 					<Delete />

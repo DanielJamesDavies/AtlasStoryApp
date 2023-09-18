@@ -1,0 +1,11 @@
+.story-settings-uid-container {
+	font-size: 16px;
+}
+
+.editable-container-is-editing.story-settings-uid-container .text-input-container {
+	margin-top: 2px;
+}
+
+.story-settings-uid-container .story-settings-input-value {
+	--text-input-font-size: 16px;
+}

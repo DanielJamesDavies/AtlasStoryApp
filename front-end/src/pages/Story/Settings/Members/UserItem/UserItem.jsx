@@ -20,7 +20,7 @@ export const UserItem = ({ user, addMember }) => {
 	if (!user) return null;
 	return (
 		<div className='story-settings-members-user-item-container'>
-			<ContentItem margin='none' hasBg={true} backgroundColour='grey4'>
+			<ContentItem margin='none' hasBg={true} backgroundColour='grey3'>
 				<div className='story-settings-members-user-item'>
 					<div className='story-settings-members-user-item-profile-picture-container'>
 						{!user?.data?.profilePicture?.image ? null : <img src={user.data.profilePicture.image} alt='' />}

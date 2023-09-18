@@ -52,7 +52,7 @@ export const Members = () => {
 							<LoadingCircle size='s' center={true} />
 						</div>
 					) : (
-						<ContentItem className='story-settings-members-list-container' hasBg={true} margin='none' backgroundColour='grey3'>
+						<div className='story-settings-members-list-container'>
 							<div className='story-settings-members-list'>
 								{story?.data?.members?.map((member, index) => (
 									<div key={index} className='story-settings-member-item-container'>
@@ -64,7 +64,7 @@ export const Members = () => {
 									</div>
 								))}
 							</div>
-						</ContentItem>
+						</div>
 					)}
 				</div>
 				<div>
@@ -75,7 +75,7 @@ export const Members = () => {
 								<LoadingCircle size='s' center={true} />
 							</div>
 						) : (
-							<ContentItem className='story-settings-members-list-container' hasBg={true} margin='none' backgroundColour='grey3'>
+							<ContentItem className='story-settings-members-list-container' hasBg={true} margin='none' backgroundColour='grey2'>
 								<div className='story-settings-members-list'>
 									{story?.data?.members?.map((member, index) => (
 										<div key={index} className='story-settings-member-item-container'>
