@@ -1,0 +1,23 @@
+.lore-create-lore-item-form-input-container {
+	margin: 12px 0;
+}
+
+.lore-create-lore-item-form-submit-container {
+	margin-top: 20px;
+	margin-bottom: 4px;
+	text-align: right;
+}
+
+.lore-create-lore-item-form-submit-btn-text {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 14px;
+}
+
+.lore-create-lore-item-form-submit-btn-icon {
+	display: inline-block;
+	margin-top: 1px;
+	margin-left: 8px;
+	vertical-align: middle;
+	font-size: 15px;
+}

@@ -5,6 +5,14 @@
 	cursor: pointer;
 }
 
+.drag-drop-item-enable-drag-drop .objects-list-item {
+	animation: wiggle-medium infinite 0.75s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even) .objects-list-item {
+	animation-delay: 0.1s;
+}
+
 .objects-list-item-image-container {
 	padding-top: 6px;
 	padding-bottom: 0px;

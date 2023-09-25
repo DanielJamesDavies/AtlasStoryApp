@@ -21,7 +21,7 @@ export const LoreTitleLogic = () => {
 
 	function goToLoreNotes(e) {
 		e.preventDefault();
-		if (story?.uid) changeLocation("/s/" + story.uid + "/lore/notes", e.button === 1);
+		if (story?.uid) changeLocation("/s/" + story.uid + "/world-building/notes", e.button === 1);
 	}
 
 	return { story, storyIcon, goToLoreNotes };

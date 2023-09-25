@@ -1,0 +1,23 @@
+.objects-create-object-form-input-container {
+	margin: 12px 0;
+}
+
+.objects-create-object-form-submit-container {
+	margin-top: 20px;
+	margin-bottom: 4px;
+	text-align: right;
+}
+
+.objects-create-object-form-submit-btn-text {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 14px;
+}
+
+.objects-create-object-form-submit-btn-icon {
+	display: inline-block;
+	margin-top: 1px;
+	margin-left: 8px;
+	vertical-align: middle;
+	font-size: 15px;
+}

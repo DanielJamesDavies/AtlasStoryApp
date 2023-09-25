@@ -22,7 +22,7 @@ export const LoreListItemLogic = ({ lore_item }) => {
 	function onClick(e) {
 		if (e.button === 2) return;
 		e.preventDefault();
-		if (story?.uid && lore_item?.uid) changeLocation("/s/" + story.uid + "/li/" + lore_item.uid, e.button === 1);
+		if (story?.uid && lore_item?.uid) changeLocation("/s/" + story.uid + "/w/" + lore_item.uid, e.button === 1);
 	}
 
 	return { onClick };

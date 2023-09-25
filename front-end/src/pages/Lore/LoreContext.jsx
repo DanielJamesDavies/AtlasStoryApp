@@ -55,6 +55,12 @@ const LoreProvider = ({ children, story_uid }) => {
 		changeLocationParameters([]);
 	}, [changeLocationParameters]);
 
+	const [isDisplayingCreateLoreItemForm, setIsDisplayingCreateLoreItemForm] = useState(false);
+	const [isReorderingLore, setIsReorderingLore] = useState(false);
+	function toggleIsReorderingLore() {
+		setIsReorderingLore((oldIsReorderingLore) => !oldIsReorderingLore);
+	}
+
 	return (
 		<LoreContext.Provider
 			value={{
@@ -63,6 +69,11 @@ const LoreProvider = ({ children, story_uid }) => {
 				setStory,
 				storyIcon,
 				lore,
+				isDisplayingCreateLoreItemForm,
+				setIsDisplayingCreateLoreItemForm,
+				isReorderingLore,
+				setIsReorderingLore,
+				toggleIsReorderingLore,
 			}}
 		>
 			{children}

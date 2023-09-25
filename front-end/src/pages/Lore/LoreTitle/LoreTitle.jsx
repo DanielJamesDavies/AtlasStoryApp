@@ -28,7 +28,7 @@ export const LoreTitle = () => {
 				<>
 					<div className='lore-title-story-title'>{story?.data?.title}</div>
 					<div className='lore-title-divider'>|</div>
-					<div className='lore-title-lore-label'>Lore</div>
+					<div className='lore-title-lore-label'>World Building</div>
 				</>
 			)}
 			<div className='lore-title-notes-btn-container'>

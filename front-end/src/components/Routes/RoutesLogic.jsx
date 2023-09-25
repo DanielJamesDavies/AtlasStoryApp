@@ -223,22 +223,22 @@ export const RoutesLogic = () => {
 										/>
 									);
 								break;
-							case "lore":
+							case "world-building":
 								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
 									setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid={locationSplit[2]} />);
 									break;
 								}
 								setRenderComponent(<LoreContainer story_uid={locationSplit[1]} />);
 								break;
-							case "li":
+							case "w":
 								if (locationSplit.length > 3)
 									setRenderComponent(
 										<UnitPageContainer
 											story_uid={locationSplit[1]}
 											unit_uid={locationSplit[3]}
 											unit_type='lore'
-											unit_type_title='Lore Item'
-											type_url_key='li'
+											unit_type_title='World Item'
+											type_url_key='w'
 										/>
 									);
 								break;

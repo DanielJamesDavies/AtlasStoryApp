@@ -55,6 +55,12 @@ const ObjectsProvider = ({ children, story_uid }) => {
 		changeLocationParameters([]);
 	}, [changeLocationParameters]);
 
+	const [isDisplayingCreateObjectForm, setIsDisplayingCreateObjectForm] = useState(false);
+	const [isReorderingObjects, setIsReorderingObjects] = useState(false);
+	function toggleIsReorderingObjects() {
+		setIsReorderingObjects((oldIsReorderingObjects) => !oldIsReorderingObjects);
+	}
+
 	return (
 		<ObjectsContext.Provider
 			value={{
@@ -63,6 +69,11 @@ const ObjectsProvider = ({ children, story_uid }) => {
 				setStory,
 				storyIcon,
 				objects,
+				isDisplayingCreateObjectForm,
+				setIsDisplayingCreateObjectForm,
+				isReorderingObjects,
+				setIsReorderingObjects,
+				toggleIsReorderingObjects,
 			}}
 		>
 			{children}

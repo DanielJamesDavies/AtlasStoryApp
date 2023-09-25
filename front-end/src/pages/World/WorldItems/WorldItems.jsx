@@ -21,7 +21,7 @@ export const WorldItems = () => {
 		{ id: "locations", title: "Locations", icon: <FontAwesomeIcon icon={faGlobe} />, link: "locations" },
 		{ id: "events", title: "Events", icon: <FontAwesomeIcon icon={faCalendarAlt} />, link: "events" },
 		{ id: "objects", title: "Objects", icon: <FontAwesomeIcon icon={faSpaceShuttle} />, link: "objects" },
-		{ id: "lore", title: "Lore", icon: <FontAwesomeIcon icon={faLandmark} />, link: "lore" },
+		{ id: "world-building", title: "World Building", icon: <FontAwesomeIcon icon={faLandmark} />, link: "world-building" },
 	];
 
 	return (
