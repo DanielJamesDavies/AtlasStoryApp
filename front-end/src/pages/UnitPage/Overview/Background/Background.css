@@ -1,0 +1,130 @@
+.unit-page-overview-background {
+	position: absolute;
+	z-index: -2;
+	top: 50%;
+	left: 50%;
+	transform: translate(calc(-50% + ((var(--navbar-width)) / 2) - 23px), calc(-50%));
+	width: calc(100vw - var(--navbar-width));
+	height: var(--vh);
+	overflow: hidden;
+	transition: opacity 0.4s;
+	transition-delay: 0.2s;
+}
+
+.unit-page-overview-background-no-image {
+	background: linear-gradient(180deg, var(--colour-grey-one), var(--colour-grey-two) 15%, var(--unitColour));
+	opacity: 0.7;
+}
+
+.unit-page-content-container-is-on-subpages .unit-page-overview-background {
+	opacity: 0;
+}
+
+.unit-page-overview-background img {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.unit-page-overview-foreground-container {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	width: calc(100vw - var(--navbar-width));
+	height: var(--vh);
+	overflow: hidden;
+	transition: opacity 0.4s;
+	transition-delay: 0.2s;
+}
+
+.unit-page-overview-foreground-container-no-image {
+	display: none;
+}
+
+.unit-page-overview-foreground-alignment-top-left {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.unit-page-overview-foreground-alignment-top {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.unit-page-overview-foreground-alignment-top-right {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.unit-page-overview-foreground-alignment-center-left {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+
+.unit-page-overview-foreground-alignment-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.unit-page-overview-foreground-alignment-center-right {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+}
+
+.unit-page-overview-foreground-alignment-bottom-left {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.unit-page-overview-foreground-alignment-bottom {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.unit-page-overview-foreground-alignment-bottom-right {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.unit-page-overview-foreground-image-size {
+	position: absolute;
+	width: fit-content;
+	height: fit-content;
+	opacity: 0;
+	pointer-events: none;
+	user-select: none;
+}
+
+@media (max-width: 750px) {
+	.unit-page-overview-background {
+		width: 100vw;
+		transform: translate(calc(-50%), calc(-50% + (var(--navbar-mobile-height)) / 2));
+		transition: opacity 0.2s;
+		transition-delay: 0.1s;
+	}
+
+	.unit-page-overview-foreground-container {
+		width: 100vw;
+		height: calc(var(--vh) - var(--navbar-mobile-height));
+		top: 0;
+		left: 0;
+		transition: opacity 0.2s;
+		transition-delay: 0.1s;
+	}
+}

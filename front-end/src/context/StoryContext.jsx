@@ -353,7 +353,7 @@ const StoryProvider = ({ children }) => {
 			let newSubstories = await Promise.all(
 				substoryIDs.map(async (substoryID) => {
 					if (!substoryID) return false;
-					const substory_response = await APIRequest("/substory/" + substoryID + "?story_uid=" + story_uid, "GET");
+					const substory_response = await APIRequest("/plot/" + substoryID + "?story_uid=" + story_uid, "GET");
 					if (substory_response?.errors || !substory_response?.data?.substory) return false;
 
 					let newSubstory = JSON.parse(JSON.stringify(substory_response.data.substory));

@@ -1,0 +1,23 @@
+.unit-page-subpage-abilities-ability-statistics-container {
+	display: inline-flex;
+	align-items: flex-start;
+	margin: 0;
+	margin-top: 2px;
+	margin-bottom: 12px;
+	width: 100%;
+}
+
+.unit-page-subpage-abilities-ability-statistics {
+	width: 100%;
+}
+
+.unit-page-subpage-abilities-ability-statistics .content-item {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.unit-page-subpage-abilities-ability-statistics-title {
+	margin-bottom: 3px;
+	font-size: 14px;
+	font-weight: 600;
+}

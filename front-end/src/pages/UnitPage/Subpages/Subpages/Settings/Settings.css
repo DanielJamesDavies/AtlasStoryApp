@@ -1,0 +1,38 @@
+.unit-page-subpage-settings-section-1 {
+	display: inline-block;
+	margin-right: -4px;
+	width: calc(45% + 4px);
+	vertical-align: top;
+}
+
+.unit-page-subpage-settings-section-2 {
+	display: inline-block;
+	margin-left: -4px;
+	width: calc(55% + 4px);
+	vertical-align: top;
+}
+
+.unit-page-subpage-settings-section-2 .unit-page-settings-delete-container {
+	display: none;
+}
+
+@media (max-width: 1100px) {
+	.unit-page-subpage-settings-section-1,
+	.unit-page-subpage-settings-section-2 {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+
+	.unit-page-subpage-settings-section-2 {
+		margin-top: -8px;
+	}
+
+	.unit-page-subpage-settings-section-1 .unit-page-settings-delete-container {
+		display: none;
+	}
+
+	.unit-page-subpage-settings-section-2 .unit-page-settings-delete-container {
+		display: block;
+	}
+}

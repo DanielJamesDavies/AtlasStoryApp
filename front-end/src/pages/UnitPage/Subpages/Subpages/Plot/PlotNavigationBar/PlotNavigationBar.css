@@ -1,0 +1,39 @@
+.unit-page-subpage-plot-navigation-bar {
+	display: none;
+	margin-bottom: 8px;
+	margin-left: -4px;
+	width: calc(100% + 8px);
+}
+
+.unit-page-subpage-plot-navigation-bar-btn {
+	display: inline-block;
+	margin: 6px 4px;
+	padding: 10px 16px;
+	border: 0;
+	border-radius: 22px;
+
+	min-height: 19px;
+
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+	font-size: 15px;
+	text-align: left;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.unit-page-subpage-plot-navigation-bar-btn:hover {
+	background: var(--colour-grey-four);
+}
+
+.unit-page-subpage-plot-navigation-bar-btn-active,
+.unit-page-subpage-plot-navigation-bar-btn-active:hover {
+	background: var(--unitColour);
+	color: #fff;
+}
+
+@media (max-width: 1200px) {
+	.unit-page-subpage-plot-navigation-bar {
+		display: block;
+	}
+}

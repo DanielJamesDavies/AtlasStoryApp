@@ -1,0 +1,17 @@
+.unit-page-subpage-abilities-ability-statistics-chart-container {
+	display: inline-block;
+	width: 50%;
+	max-width: 348px;
+	vertical-align: top;
+}
+
+.unit-page-subpage-abilities-ability-statistics-chart {
+	margin-top: -32px;
+	margin-bottom: -32px;
+}
+
+@media (max-width: 750px) {
+	.unit-page-subpage-abilities-ability-statistics-chart-container {
+		width: 100%;
+	}
+}

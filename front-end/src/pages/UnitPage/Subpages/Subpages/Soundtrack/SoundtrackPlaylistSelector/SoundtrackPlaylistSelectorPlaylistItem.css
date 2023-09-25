@@ -1,0 +1,40 @@
+.unit-page-subpage-soundtrack-playlist-selector-playlist-item {
+	display: flex;
+	align-items: center;
+	margin: 4px 0;
+	padding: 8px 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.unit-page-subpage-soundtrack-playlist-selector-playlist-item:hover {
+	background: var(--colour-grey-four);
+}
+
+.unit-page-subpage-soundtrack-playlist-selector-playlist-item:focus {
+	outline: 0;
+	background: var(--colour-grey-five);
+}
+
+.unit-page-subpage-soundtrack-playlist-selector-playlist-item-photo {
+	--photoWidth: 48px;
+	min-width: var(--photoWidth);
+	width: var(--photoWidth);
+	min-height: var(--photoWidth);
+	height: var(--photoWidth);
+	background: var(--colour-grey-two);
+}
+
+.unit-page-subpage-soundtrack-playlist-selector-playlist-item-photo img {
+	min-width: 100%;
+	width: 100%;
+	min-height: 100%;
+	height: 100%;
+}
+
+.unit-page-subpage-soundtrack-playlist-selector-playlist-item-name {
+	margin-left: 16px;
+	font-size: 15px;
+	font-weight: 600;
+}

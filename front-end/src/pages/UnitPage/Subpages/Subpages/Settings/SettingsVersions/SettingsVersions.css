@@ -1,0 +1,44 @@
+.unit-page-subpage-settings-versions-container .label-value {
+	margin-top: 6px;
+}
+
+.unit-page-subpage-settings-versions-item .content-item {
+	margin-left: 0;
+	margin-right: 0;
+	padding-top: 13px;
+}
+
+.unit-page-subpage-settings-versions-container .editable-container-is-editing .unit-page-subpage-settings-versions-item .content-item {
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.unit-page-subpage-settings-versions-item,
+.unit-page-subpage-settings-versions-item input {
+	font-size: 14px;
+}
+
+.unit-page-subpage-settings-versions-item-title {
+	margin-top: -2px;
+}
+
+.editable-container-is-editing .unit-page-subpage-settings-versions-item-title {
+	width: calc(100% - 32px);
+}
+
+.unit-page-subpage-settings-versions-item .text-input-container {
+	margin-top: -2px;
+	height: 17px;
+}
+
+.unit-page-subpage-settings-versions-item .text-input-container-empty .text-input-label {
+	padding: 0;
+}
+
+.drag-drop-item-enable-drag-drop.unit-page-subpage-settings-versions-item {
+	animation: wiggle-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).unit-page-subpage-settings-versions-item {
+	animation-delay: 0.1s;
+}

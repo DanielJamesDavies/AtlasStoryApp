@@ -1,0 +1,19 @@
+.unit-page-subpage-soundtrack {
+	padding-right: 12px;
+
+	width: calc(100% - 12px);
+	max-height: calc(var(--vh) - var(--unitPagePrimaryPaddingTop) - 28px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+@media (max-width: 750px) {
+	.unit-page-subpage-soundtrack {
+		padding-right: 12px;
+
+		width: calc(100% - 12px);
+		max-height: calc(var(--vh) - var(--navbar-mobile-height) - var(--unitPagePrimaryPaddingTop) - 36px - 8px);
+		overflow-y: overlay;
+		overflow-x: hidden;
+	}
+}

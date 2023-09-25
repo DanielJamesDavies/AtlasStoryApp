@@ -1,0 +1,48 @@
+.unit-page-subpage-biography-cluster-list {
+	display: inline-block;
+	margin-right: 24px;
+	width: 260px;
+	vertical-align: top;
+}
+
+.unit-page-subpage-biography-cluster-list-items {
+	padding-right: 8px;
+	max-height: var(--unitPageSubpageMaxHeight);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+.unit-page-subpage-biography-cluster-list-item-container:first-child,
+.unit-page-subpage-biography-cluster-list-item-container:first-child .btn-list-item {
+	margin-top: 0;
+}
+
+.unit-page-subpage-biography-cluster-list-item-container .btn-list-item {
+	border-radius: 32px;
+}
+
+.unit-page-subpage-biography-cluster-list-item-container .btn-list-item-active {
+	position: relative;
+	background: linear-gradient(0deg, var(--unitColour), var(--unitColourTint));
+	color: #fff;
+}
+
+.drag-drop-item-enable-drag-drop.unit-page-subpage-biography-cluster-list-item-container .btn-list-item {
+	animation: wiggle-medium infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).unit-page-subpage-biography-cluster-list-item-container .btn-list-item {
+	animation-delay: 0.1s;
+}
+
+@media (max-width: 750px) {
+	.unit-page-subpage-biography-cluster-list {
+		margin-right: 0;
+		width: 100%;
+	}
+
+	.unit-page-subpage-biography-cluster-list-items {
+		max-height: 100%;
+		overflow-y: hidden;
+	}
+}

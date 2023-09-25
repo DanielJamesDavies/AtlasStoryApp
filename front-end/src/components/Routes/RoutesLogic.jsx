@@ -11,14 +11,11 @@ import { Verify } from "../../pages/Verify/Verify";
 import { UserContainer } from "../../pages/User/UserContainer";
 import { Home } from "../../pages/Home/Home";
 import { Story } from "../../pages/Story/Story";
+import { UnitPageContainer } from "../../pages/UnitPage/UnitPageContainer";
 import { CharactersContainer } from "../../pages/Characters/CharactersContainer";
-import { CharacterContainer } from "../../pages/Character/CharacterContainer";
-import { GroupContainer } from "../../pages/Group/GroupContainer";
 import { SubstoriesContainer } from "../../pages/Substories/SubstoriesContainer";
-import { SubstoryContainer } from "../../pages/Substory/SubstoryContainer";
 import { WorldContainer } from "../../pages/World/WorldContainer";
 import { LocationsContainer } from "../../pages/Locations/LocationsContainer";
-import { LocationContainer } from "../../pages/Location/LocationContainer";
 import { NotesContainer } from "../../pages/Notes/NotesContainer";
 
 // Logic
@@ -129,11 +126,27 @@ export const RoutesLogic = () => {
 								break;
 							case "c":
 								if (locationSplit.length > 3)
-									setRenderComponent(<CharacterContainer story_uid={locationSplit[1]} character_uid={locationSplit[3]} />);
+									setRenderComponent(
+										<UnitPageContainer
+											story_uid={locationSplit[1]}
+											unit_uid={locationSplit[3]}
+											unit_type='character'
+											unit_type_title='Character'
+											type_url_key='c'
+										/>
+									);
 								break;
 							case "g":
 								if (locationSplit.length > 3)
-									setRenderComponent(<GroupContainer story_uid={locationSplit[1]} group_uid={locationSplit[3]} />);
+									setRenderComponent(
+										<UnitPageContainer
+											story_uid={locationSplit[1]}
+											unit_uid={locationSplit[3]}
+											unit_type='group'
+											unit_type_title='Group'
+											type_url_key='g'
+										/>
+									);
 								break;
 							case "plots":
 								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
@@ -144,7 +157,15 @@ export const RoutesLogic = () => {
 								break;
 							case "p":
 								if (locationSplit.length > 3)
-									setRenderComponent(<SubstoryContainer story_uid={locationSplit[1]} substory_uid={locationSplit[3]} />);
+									setRenderComponent(
+										<UnitPageContainer
+											story_uid={locationSplit[1]}
+											unit_uid={locationSplit[3]}
+											unit_type='plot'
+											unit_type_title='Plot'
+											type_url_key='p'
+										/>
+									);
 								break;
 							case "world":
 								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
@@ -163,7 +184,15 @@ export const RoutesLogic = () => {
 								break;
 							case "l":
 								if (locationSplit.length > 3)
-									setRenderComponent(<LocationContainer story_uid={locationSplit[1]} location_uid={locationSplit[3]} />);
+									setRenderComponent(
+										<UnitPageContainer
+											story_uid={locationSplit[1]}
+											unit_uid={locationSplit[3]}
+											unit_type='location'
+											unit_type_title='Location'
+											type_url_key='l'
+										/>
+									);
 								break;
 							case "notes":
 								setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid='all' />);

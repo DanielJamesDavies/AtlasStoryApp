@@ -13,6 +13,18 @@ module.exports = async (req, res) => {
 
 	let story = false;
 
+	if (req.query?.uid && req.query?.story_uid) {
+		story = await Story.findOne({ uid: req.query?.story_uid });
+		if (!story) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
+
+		let location = await Location.findOne({ uid: req.query.uid, story_id: story?._id })
+			.exec()
+			.catch(() => false);
+		if (!location) return res.status(200).send({ errors: [{ message: "Location Not Found" }] });
+
+		return res.status(200).send({ message: "Success", data: { location } });
+	}
+
 	if (req?.query?.story_id) {
 		story = await Story.findOne({ _id: req.query.story_id })
 			.exec()

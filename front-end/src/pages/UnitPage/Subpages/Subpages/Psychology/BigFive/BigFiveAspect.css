@@ -1,0 +1,28 @@
+.unit-page-subpage-psychology-big-five-aspect-container {
+	width: 100%;
+}
+
+.unit-page-subpage-psychology-big-five-aspect-container:first-child {
+	margin-right: 24px;
+}
+
+.unit-page-subpage-psychology-big-five-aspect-text-container {
+	display: flex;
+	align-items: center;
+}
+
+.unit-page-subpage-psychology-big-five-aspect-name {
+	font-size: var(--font-size-p-m);
+}
+
+.unit-page-subpage-psychology-big-five-aspect-value-percentile {
+	margin-left: auto;
+	font-size: var(--font-size-p-s);
+	font-weight: 600;
+}
+
+.unit-page-subpage-psychology-big-five-aspect-value-text {
+	text-align: right;
+	font-size: var(--font-size-p-s);
+	font-weight: 500;
+}

@@ -1,0 +1,92 @@
+.unit-page-subpage-abilities-ability-statistics-values-container {
+	display: inline-block;
+	margin-right: 24px;
+	width: calc(50% - 24px);
+	max-width: 240px;
+	vertical-align: top;
+}
+
+.unit-page-subpage-abilities-ability-statistics-values {
+	width: 100%;
+}
+
+.unit-page-subpage-abilities-ability-statistics-value-container {
+	display: flex;
+	align-items: center;
+}
+
+.unit-page-subpage-abilities-ability-statistics-value {
+	display: flex;
+	align-items: center;
+	margin: 3px 0;
+	margin-right: 12px;
+	width: 100%;
+}
+
+.unit-page-subpage-abilities-ability-statistics-value-label,
+.unit-page-subpage-abilities-ability-statistics-value-label input {
+	font-size: 13px;
+	font-weight: 300;
+}
+
+.unit-page-subpage-abilities-ability-statistics-value-value {
+	margin-left: auto;
+	padding: 1px 12px;
+	border-radius: 32px;
+	background: var(--unitColour);
+}
+
+.unit-page-subpage-abilities-ability-statistics-value-value,
+.unit-page-subpage-abilities-ability-statistics-value-value input {
+	text-align: center;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.editable-container-is-editing .drag-drop-item-enable-drag-drop.unit-page-subpage-abilities-ability-statistics-value-container {
+	animation: wiggle-small infinite 0.5s linear;
+}
+
+.editable-container-is-editing .drag-drop-item-enable-drag-drop:nth-child(even).unit-page-subpage-abilities-ability-statistics-value-container {
+	animation-delay: 0.1s;
+}
+
+.unit-page-subpage-abilities-ability-statistics-value-container .icon-btn {
+	margin-top: -6px;
+}
+
+.unit-page-subpage-abilities-ability-statistics-max-value-container {
+	display: flex;
+	margin: 6px 0;
+	align-items: center;
+	width: 100%;
+}
+
+.unit-page-subpage-abilities-ability-statistics-max-value-label {
+	width: 100%;
+	font-size: 14px;
+}
+
+.unit-page-subpage-abilities-ability-statistics-value-value {
+	margin-left: auto;
+	margin-right: 5px;
+	width: fit-content;
+}
+
+.unit-page-subpage-abilities-ability-statistics-max-value-value {
+	width: fit-content;
+}
+
+.unit-page-subpage-abilities-ability-statistics-max-value-value,
+.unit-page-subpage-abilities-ability-statistics-max-value-value input {
+	text-align: right;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+@media (max-width: 750px) {
+	.unit-page-subpage-abilities-ability-statistics-values-container {
+		margin-right: 0;
+		width: 100%;
+	}
+}

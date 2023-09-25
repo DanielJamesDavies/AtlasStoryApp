@@ -1,0 +1,86 @@
+.unit-page-subpage-plot-item-add-to-group-menu-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 2;
+	padding: 10px 16px;
+	width: 200px;
+	border-radius: 2px;
+	background: var(--colour-grey-three);
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-container-hidden {
+	opacity: 0;
+	pointer-events: none;
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-title-container {
+	display: flex;
+	align-items: center;
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-title {
+	margin-right: auto;
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-slides-container {
+	width: 100%;
+	overflow: hidden;
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-slides {
+	display: flex;
+	overflow: visible;
+	width: 100%;
+	transition: 0.2s;
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-slide {
+	flex-shrink: 0;
+	width: 100%;
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-slides-container-1 .unit-page-subpage-plot-item-add-to-group-menu-slides {
+	transform: translateX(-100%);
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-suggestion-container {
+	display: flex;
+	align-items: center;
+	height: 32px;
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-suggestion {
+	font-size: 14px;
+}
+
+.icon-btn-container ~ .unit-page-subpage-plot-item-add-to-group-menu-suggestion {
+	margin-left: 8px;
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-slide-btn {
+	display: flex;
+	margin: 5px 0;
+	padding: 5px 15px;
+	border: 0;
+	border-radius: 6px;
+
+	width: 100%;
+
+	background: var(--colour-grey-four);
+	color: var(--text-colour-primary);
+	font-size: 14px;
+	text-align: left;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-slide-btn:hover {
+	background: var(--colour-grey-five);
+}
+
+.unit-page-subpage-plot-item-add-to-group-menu-slide-btn-active,
+.unit-page-subpage-plot-item-add-to-group-menu-slide-btn-active:hover {
+	background: var(--unitColour);
+	color: #fff;
+}

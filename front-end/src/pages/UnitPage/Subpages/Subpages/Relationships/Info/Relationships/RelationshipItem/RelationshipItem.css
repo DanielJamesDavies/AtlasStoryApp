@@ -1,0 +1,83 @@
+.unit-page-relationship-info-home-selected-unit-page-relationship-item {
+	display: flex;
+	align-items: center;
+	margin: 4px 0;
+	padding: 6px 12px !important;
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-content {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	width: 100%;
+}
+
+.editable-container-is-editing .unit-page-relationship-info-home-selected-unit-page-relationship-item-content {
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-second-unit-page-name-container {
+	flex-shrink: 1;
+	margin-right: 12px;
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-second-unit-page-name-container {
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-second-unit-page-name-container .dropdown-value {
+	text-align: left;
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-second-unit-page-name-container {
+	position: relative;
+	text-align: left;
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-relationship-type-container {
+	position: relative;
+	margin-left: auto;
+}
+
+.editable-container-is-editing .unit-page-relationship-info-home-selected-unit-page-relationship-item-relationship-type-container {
+	margin-top: 4px;
+	margin-left: 0;
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-relationship-type-container .dropdown-value {
+	text-align: right;
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-relationship-type {
+	border-radius: 4px;
+
+	width: fit-content;
+
+	text-align: right;
+	font-size: 13px;
+	white-space: pre-wrap;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-second-unit-page-name-container .dropdown-value-container,
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-relationship-type-container .dropdown-value-container {
+	background: var(--colour-grey-four);
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-second-unit-page-name-container .dropdown-value,
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-relationship-type-container .dropdown-value {
+	font-size: 13px;
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-buttons-container {
+	flex-shrink: 0;
+	margin-left: auto;
+	padding-left: 8px;
+}
+
+.unit-page-relationship-info-home-selected-unit-page-relationship-item-buttons-container .icon-btn-container:last-child {
+	margin-right: 0;
+}

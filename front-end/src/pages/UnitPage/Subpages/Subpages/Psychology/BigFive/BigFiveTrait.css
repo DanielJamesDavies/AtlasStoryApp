@@ -1,0 +1,26 @@
+.unit-page-subpage-psychology-big-five-trait-container {
+	flex-shrink: 0;
+	width: 100%;
+}
+
+.unit-page-subpage-psychology-big-five-trait-container .content-item {
+	margin: 0;
+}
+
+.unit-page-subpage-psychology-big-five-trait-name {
+	margin-bottom: 8px;
+	font-size: var(--font-size-h2);
+	font-weight: 600;
+}
+
+.unit-page-subpage-psychology-big-five-trait-aspects-container {
+	display: flex;
+	width: 100%;
+}
+
+@media (max-width: 750px) {
+	.unit-page-subpage-psychology-big-five-trait-aspects-container {
+		flex-direction: column;
+		gap: 16px 0;
+	}
+}

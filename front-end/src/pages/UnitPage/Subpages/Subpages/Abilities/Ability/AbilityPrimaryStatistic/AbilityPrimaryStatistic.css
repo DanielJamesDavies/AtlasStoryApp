@@ -1,0 +1,63 @@
+.unit-page-subpage-abilities-ability-primary-statistic-container {
+	display: flex;
+	align-items: flex-start;
+	margin: 0;
+	margin-top: 12px;
+	width: fit-content;
+}
+
+.unit-page-subpage-abilities-ability-primary-statistic-container-empty {
+	margin: 0;
+}
+
+.unit-page-subpage-abilities-ability-primary-statistic-container-empty.editable-container-is-authorized {
+	margin-top: -4px;
+	margin-bottom: 32px;
+}
+
+.unit-page-subpage-abilities-ability-primary-statistic {
+	display: flex;
+	align-items: center;
+}
+
+.unit-page-subpage-abilities-ability-primary-statistic-label {
+	margin-right: 16px;
+}
+
+.unit-page-subpage-abilities-ability-primary-statistic-label,
+.unit-page-subpage-abilities-ability-primary-statistic-label input {
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.unit-page-subpage-abilities-ability-primary-statistic-value {
+	border-radius: 32px;
+	padding: 5px 12px;
+	background: var(--unitColour);
+}
+
+.unit-page-subpage-abilities-ability-primary-statistic-value,
+.unit-page-subpage-abilities-ability-primary-statistic-value input {
+	font-size: 14px;
+	font-weight: 600;
+	color: #fff;
+}
+
+.unit-page-subpage-abilities-ability-primary-statistic-value-symbol {
+	padding: 0 12px;
+}
+
+.unit-page-subpage-abilities-ability-primary-statistic-value-symbol,
+.unit-page-subpage-abilities-ability-primary-statistic-value-symbol input {
+	font-size: 26px;
+}
+
+@media (max-width: 750px) {
+	.editable-container-is-editing .unit-page-subpage-abilities-ability-primary-statistic {
+		flex-direction: column;
+	}
+
+	.editable-container-is-editing .unit-page-subpage-abilities-ability-primary-statistic-value {
+		width: calc(100% - 24px);
+	}
+}

@@ -1,0 +1,21 @@
+.unit-page-subpage-abilities-ability-name-container {
+	display: flex;
+	align-items: flex-start;
+	margin: 0;
+	margin-bottom: 8px;
+
+	width: fit-content;
+}
+
+.unit-page-subpage-abilities-ability-name,
+.unit-page-subpage-abilities-ability-name input {
+	--text-input-font-size: 18px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+@media (max-width: 750px) {
+	.unit-page-subpage-abilities-ability-name-container {
+		margin: 8px 6px;
+	}
+}

@@ -1,0 +1,16 @@
+.unit-page-subpage-biography-cluster {
+	display: inline-block;
+	padding-right: 8px;
+	width: calc(100% - 310px - 24px - 8px);
+	height: var(--unitPageSubpageMaxHeight);
+	overflow-y: overlay;
+	overflow-x: hidden;
+	vertical-align: top;
+}
+
+@media (max-width: 750px) {
+	.unit-page-subpage-biography-cluster {
+		width: calc(100% - 8px);
+		height: calc(var(--unitPageSubpageMaxHeight) - 48px);
+	}
+}

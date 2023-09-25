@@ -1,0 +1,112 @@
+.unit-page-primary-container {
+	position: absolute;
+	z-index: 10;
+	margin: 0;
+	margin-bottom: 10px;
+	padding: 0 24px;
+	padding-top: calc(28px + 4px * 2);
+	width: calc(100vw - var(--navbar-width) - 48px);
+	height: 59px;
+	align-items: center;
+}
+
+.unit-page-primary {
+	position: relative;
+	display: flex;
+}
+
+.unit-page-primary-name-and-type-container {
+	display: flex;
+}
+
+.unit-page-primary-section-switcher-btn {
+	position: relative;
+	display: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--text-colour-primary);
+	font-size: 32px;
+	width: 17px;
+	height: 32px;
+	animation: none;
+}
+
+.unit-page-primary-section-switcher-btn-to-subpages {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.unit-page-primary-section-switcher-btn svg {
+	position: absolute;
+	top: 50%;
+	left: -8px;
+	transform: translateY(-50%);
+}
+
+@media (max-width: 750px) {
+	.unit-page-primary-container {
+		margin: 6px 0;
+		margin-bottom: 12px;
+		padding: 0 6px;
+		width: calc(100vw - 12px);
+		height: fit-content;
+	}
+
+	.unit-page-primary {
+		display: inline-flex;
+		align-items: flex-start;
+		flex-direction: column;
+		width: calc(100% - 17px - 10px);
+		vertical-align: middle;
+	}
+
+	.unit-page-primary-name-and-story-container {
+		width: 100%;
+	}
+
+	.unit-page-primary-name-and-type-container {
+		flex-direction: column;
+		min-width: 50vw;
+		width: max-content;
+	}
+
+	.unit-page-primary-section-switcher-btn {
+		display: inline-block;
+		width: 0;
+		max-width: 0;
+		opacity: 0;
+		pointer-events: none;
+		transition: 0.3s linear;
+		vertical-align: middle;
+	}
+
+	.unit-page-container-is-on-subpages .unit-page-primary-section-switcher-btn-to-overview {
+		display: inline-block;
+		margin-right: 10px;
+		animation: unit-page-primary-section-switcher-btn 0.3s 1 linear;
+		animation-fill-mode: forwards;
+	}
+
+	.unit-page-container-is-on-overview .unit-page-primary-section-switcher-btn-to-subpages {
+		display: inline-block;
+		margin-left: 10px;
+		animation: unit-page-primary-section-switcher-btn 0.3s 1 linear;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes unit-page-primary-section-switcher-btn {
+		0% {
+			width: 0;
+			opacity: 0;
+		}
+		100% {
+			width: 17px;
+			max-width: 17px;
+			opacity: 1;
+			pointer-events: all;
+		}
+	}
+}

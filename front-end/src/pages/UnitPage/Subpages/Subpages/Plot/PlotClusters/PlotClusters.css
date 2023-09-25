@@ -1,0 +1,63 @@
+.unit-page-subpage-plot-clusters-container {
+	display: inline-block;
+	margin-right: 24px;
+
+	width: 272px;
+
+	vertical-align: top;
+}
+
+.unit-page-subpage-plot-clusters {
+	padding-right: 12px;
+	max-height: calc(var(--vh) - var(--unitPagePrimaryPaddingTop) - 36px - 24px - 6px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+.unit-page-subpage-plot-clusters-list-item-container:first-child,
+.unit-page-subpage-plot-clusters-list-item-container:first-child .btn-list-item {
+	margin-top: 0;
+}
+
+.unit-page-subpage-plot-clusters-list-item-container .btn-list-item {
+	border-radius: 32px;
+}
+
+.unit-page-subpage-plot-clusters-list-item-container .btn-list-item-active,
+.unit-page-subpage-plot-clusters-list-item-container .btn-list-item-active:hover {
+	background: linear-gradient(0deg, var(--unitColour), var(--unitColourTint));
+	color: #fff;
+}
+
+.drag-drop-item-enable-drag-drop.unit-page-subpage-plot-clusters-list-item-container .btn-list-item {
+	animation: wiggle-medium infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).unit-page-subpage-plot-clusters-list-item-container .btn-list-item {
+	animation-delay: 0.1s;
+}
+
+@media (max-width: 1200px) {
+	.unit-page-subpage-plot-clusters-container {
+		position: absolute;
+		z-index: 1000;
+		background: var(--colour-grey-one);
+		top: 51px;
+		margin-right: 0;
+		padding: 0;
+		width: 100%;
+		height: 0;
+		overflow: hidden;
+		opacity: 0;
+		transition: 0.2s;
+	}
+
+	.unit-page-subpage-plot-clusters-container-displaying {
+		height: calc(var(--vh) - var(--unitPagePrimaryPaddingTop) - 36px - 6px - 29px);
+		opacity: 1;
+	}
+
+	.unit-page-subpage-plot-clusters {
+		max-height: calc(var(--vh) - var(--unitPagePrimaryPaddingTop) - 36px - 6px - 51px - 76px);
+	}
+}

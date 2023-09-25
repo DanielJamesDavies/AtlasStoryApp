@@ -1,0 +1,53 @@
+.unit-page-subpage-settings-subpages-container .label-value {
+	margin-top: 6px;
+}
+
+.unit-page-subpage-settings-subpages-item .content-item {
+	display: flex;
+	align-items: center;
+	margin-left: 0;
+	margin-right: 0;
+	padding-top: 5px;
+	padding-bottom: 4px;
+}
+
+.unit-page-subpage-settings-subpages-container .editable-container-is-editing .unit-page-subpage-settings-subpages-item .content-item {
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.unit-page-subpage-settings-subpages-item,
+.unit-page-subpage-settings-subpages-item input {
+	font-size: 14px;
+}
+
+.unit-page-subpage-settings-subpages-item-name {
+	margin-top: -2px;
+	width: calc(100% - 70px - 26px - 8px);
+}
+
+.unit-page-subpage-settings-subpages-item .toggle-input-container {
+	margin-left: auto;
+}
+
+.unit-page-subpage-settings-subpages-item .text-input-container {
+	margin-top: -2px;
+	height: 17px;
+}
+
+.unit-page-subpage-settings-subpages-item .text-input-container-empty .text-input-label {
+	padding: 0;
+}
+
+.drag-drop-item-enable-drag-drop.unit-page-subpage-settings-subpages-item {
+	animation: wiggle-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).unit-page-subpage-settings-subpages-item {
+	animation-delay: 0.1s;
+}
+
+.unit-page-subpage-settings-subpages-item .icon-btn {
+	margin-top: -1px;
+	margin-left: 8px;
+}

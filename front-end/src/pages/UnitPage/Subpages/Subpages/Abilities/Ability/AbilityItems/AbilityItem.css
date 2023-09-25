@@ -1,0 +1,36 @@
+.unit-page-subpage-abilities-ability-item-container .content-item {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.drag-drop-item-enable-drag-drop.unit-page-subpage-abilities-ability-item-container {
+	animation: wiggle-very-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).unit-page-subpage-abilities-ability-item-container {
+	animation-delay: 0.1s;
+}
+
+.editable-container-is-editing .unit-page-subpage-abilities-ability-item-content {
+	display: inline-block;
+	width: calc(100% - 24px - 8px);
+	vertical-align: top;
+}
+
+.text-input-container.unit-page-subpage-abilities-ability-item-title {
+	height: 17px;
+}
+
+.unit-page-subpage-abilities-ability-item-title .text-input-label {
+	padding-top: 0;
+}
+
+.unit-page-subpage-abilities-ability-item-title {
+	margin-bottom: 4px;
+}
+
+.unit-page-subpage-abilities-ability-item-title,
+.unit-page-subpage-abilities-ability-item-title input {
+	font-size: 14px;
+	font-weight: 600;
+}

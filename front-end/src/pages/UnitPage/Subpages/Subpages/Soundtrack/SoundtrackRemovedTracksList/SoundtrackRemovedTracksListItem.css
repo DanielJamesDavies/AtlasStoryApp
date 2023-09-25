@@ -1,0 +1,100 @@
+.unit-page-subpage-soundtrack-removed-track {
+	margin: 6px 0;
+	width: 100%;
+}
+
+.unit-page-subpage-soundtrack-removed-track-song {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 6px;
+	padding: 6px 12px;
+	border: 0;
+	border-radius: 8px;
+
+	width: calc(50% - 6px);
+
+	background: var(--colour-grey-one);
+	color: var(--text-colour-primary);
+	text-align: left;
+	transition: background 0.1s;
+	cursor: pointer;
+}
+
+.unit-page-subpage-soundtrack-removed-track:hover .unit-page-subpage-soundtrack-removed-track-song {
+	background: var(--colour-grey-three);
+}
+
+.unit-page-subpage-soundtrack-removed-track-song:focus {
+	background: var(--colour-grey-four) !important;
+}
+
+.unit-page-subpage-soundtrack-removed-track-artwork {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 12px;
+	border-radius: 2px;
+
+	--artworkWidth: 48px;
+	min-width: var(--artworkWidth);
+	width: var(--artworkWidth);
+	min-height: var(--artworkWidth);
+	height: var(--artworkWidth);
+	background: var(--colour-grey-two);
+}
+
+.unit-page-subpage-soundtrack-removed-track-artwork img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.unit-page-subpage-soundtrack-removed-track-name-container {
+	display: inline-block;
+	vertical-align: middle;
+	width: calc(100% - 12px - 50px - 12px - 1px);
+}
+
+.unit-page-subpage-soundtrack-removed-track-name {
+	font-size: 13px;
+}
+
+.unit-page-subpage-soundtrack-removed-track-artists {
+	font-size: 11px;
+	color: var(--text-colour-tertiary);
+}
+
+.unit-page-subpage-soundtrack-removed-track-album {
+	font-size: 11px;
+	color: var(--text-colour-tertiary);
+}
+
+.unit-page-subpage-soundtrack-removed-track-text-container {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 6px;
+
+	width: calc(50% - 6px);
+	max-width: 750px;
+
+	opacity: 0.85;
+	transition: opacity 0.1s;
+}
+
+.unit-page-subpage-soundtrack-removed-track-is-editing .unit-page-subpage-soundtrack-removed-track-text-container {
+	width: calc(50% - 6px - 29px - 6px);
+}
+
+.unit-page-subpage-soundtrack-removed-track:hover .unit-page-subpage-soundtrack-removed-track-text-container {
+	opacity: 1;
+}
+
+.unit-page-subpage-soundtrack-removed-track-text-container .text-container {
+	margin-top: 2px;
+}
+
+.unit-page-subpage-soundtrack-removed-track-buttons-container {
+	display: inline-block;
+	margin-left: 6px;
+	vertical-align: top;
+}

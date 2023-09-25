@@ -1,0 +1,26 @@
+.unit-page-subpage-soundtrack-open-playlist-selector-btn-container {
+	display: flex;
+	justify-content: right;
+	width: 100%;
+}
+
+.unit-page-subpage-soundtrack-open-playlist-selector-btn {
+	margin: 6px;
+	padding: 6px 12px;
+	border: 0;
+	border-radius: 8px;
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+	transition: background 0.2s;
+	cursor: pointer;
+}
+
+.unit-page-subpage-soundtrack-open-playlist-selector-btn:hover {
+	background: var(--colour-grey-four);
+}
+
+@media (max-width: 750px) {
+	.unit-page-subpage-soundtrack-open-playlist-selector-btn {
+		font-size: 15px;
+	}
+}

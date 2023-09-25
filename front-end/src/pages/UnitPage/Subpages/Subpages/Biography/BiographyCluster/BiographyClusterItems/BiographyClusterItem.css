@@ -1,0 +1,58 @@
+.unit-page-subpage-biography-cluster-item-container {
+	position: relative;
+}
+
+.unit-page-subpage-biography-cluster-item .content-item {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.unit-page-subpage-biography-cluster-item-container:last-child {
+	padding-bottom: 8px;
+}
+
+.drag-drop-item-enable-drag-drop.unit-page-subpage-biography-cluster-item-container {
+	animation: wiggle-very-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).unit-page-subpage-biography-cluster-item-container {
+	animation-delay: 0.1s;
+}
+
+.editable-container-is-editing .unit-page-subpage-biography-cluster-item-content {
+	display: inline-block;
+	width: calc(100% - 24px - 8px);
+	vertical-align: top;
+}
+
+.unit-page-subpage-biography-cluster-item-title {
+	margin-bottom: 4px;
+}
+
+.unit-page-subpage-biography-cluster-item-title,
+.unit-page-subpage-biography-cluster-item-title input {
+	font-size: var(--font-size-p-m);
+	font-weight: 600;
+}
+
+.unit-page-subpage-biography-cluster-item-title {
+	margin-bottom: 0;
+}
+
+.editable-container-is-editing .unit-page-subpage-biography-cluster-item-text {
+	margin-top: -4px;
+}
+
+.unit-page-subpage-biography-cluster-item-title .text-input-label ~ input {
+	height: 17px;
+}
+
+.unit-page-subpage-biography-cluster-item-title .text-input-label {
+	margin-top: -5px;
+}
+
+.unit-page-subpage-biography-cluster-item .text-input-container-empty {
+	margin-top: 3px;
+	margin-bottom: 4px;
+	height: 17px;
+}

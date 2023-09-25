@@ -1,0 +1,18 @@
+.unit-page-overview-description-container {
+	width: 100%;
+}
+
+.unit-page-overview-description {
+	margin: 0;
+	padding: 8px 12px;
+	border-radius: 8px;
+	width: calc(100% - 24px);
+	background: linear-gradient(0deg, var(--unitColour), var(--unitColourTint));
+	color: #fff;
+	text-align: left;
+}
+
+.unit-page-overview-description-label {
+	font-size: 13px;
+	font-weight: 400;
+}
