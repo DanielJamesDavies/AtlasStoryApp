@@ -46,6 +46,7 @@
 .unit-page-subpage-gallery-item-caption,
 .unit-page-subpage-gallery-item-caption input {
 	font-size: 14px;
+	--text-input-font-size: 14px;
 	min-height: 20px;
 }
 

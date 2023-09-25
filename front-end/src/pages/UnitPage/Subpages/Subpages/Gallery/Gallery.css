@@ -2,11 +2,12 @@
 	display: inline-block;
 	vertical-align: top;
 	width: 100%;
-	height: 100%;
+	height: var(--unitPageSubpageMaxHeight);
 }
 
 .unit-page-subpage-gallery-edit {
 	display: flex;
+	height: var(--unitPageSubpageMaxHeight);
 }
 
 .unit-page-subpage-gallery-items-container {
@@ -14,6 +15,7 @@
 	height: 100%;
 	padding-right: 8px;
 	width: calc(100% - 8px);
+	height: 100%;
 	max-height: calc(var(--vh) - var(--characterPaddingTop) - 32px - 4px - 12px - 12px);
 	overflow-y: overlay;
 	overflow-x: hidden;

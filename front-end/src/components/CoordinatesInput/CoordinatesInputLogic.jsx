@@ -46,16 +46,15 @@ export const CoordinatesInputLogic = ({ className, value, onChange }) => {
 	async function onCoordinateChange(e, index) {
 		if (onChange === undefined) return false;
 		let newValue = JSON.parse(JSON.stringify(value));
-		if (e.target.value === "") {
-			newValue[index] = "";
-		} else if (e.target.value === "-") {
-			newValue[index] = "-";
-		} else if (e.target.value[0] === "-") {
-			newValue[index] = -1 * parseFloat(e.target.value.split("-")[1]);
-			console.log(-1 * parseFloat(e.target.value.split("-")[1]));
-		} else {
+		try {
 			newValue[index] = parseFloat(e.target.value);
-		}
+		} catch {}
+
+		if (e.target.value === "") newValue[index] = "";
+		if (e.target.value === "-") newValue[index] = "-";
+		if (e.target.value[0] === "-") newValue[index] = -1 * parseFloat(e.target.value.split("-")[1]);
+		if (e.target.value[e.target.value.length - 1] === ".") newValue[index] = parseFloat(e.target.value).toString() + ".";
+
 		if (JSON.stringify(value) === JSON.stringify(newValue)) return false;
 		await onChange(e, newValue);
 	}

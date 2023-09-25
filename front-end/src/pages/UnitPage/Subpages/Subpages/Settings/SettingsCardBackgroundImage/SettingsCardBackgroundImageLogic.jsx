@@ -17,14 +17,14 @@ import { RecentDataContext } from "../../../../../../context/RecentDataContext";
 // Assets
 
 export const SettingsCardBackgroundImageLogic = () => {
-	const { unit_type, isAuthorizedToEdit, story, unit, characterCardBackground, setUnitCardBackground } = useContext(UnitPageContext);
+	const { unit_type, isAuthorizedToEdit, story, unit, characterCardBackground, setCharacterCardBackground } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 	const { addImagesToRecentImages } = useContext(RecentDataContext);
 
 	const [errors, setErrors] = useState([]);
 
 	function changeCardBackground(image) {
-		setUnitCardBackground(image);
+		setCharacterCardBackground(image);
 	}
 
 	function removeCardBackground() {
@@ -35,7 +35,7 @@ export const SettingsCardBackgroundImageLogic = () => {
 		setErrors([]);
 		const response = await APIRequest("/image/" + unit?.data?.cardBackground, "GET");
 		if (!response || response?.errors || !response?.data?.image?.image) return false;
-		setUnitCardBackground(response.data.image.image);
+		setCharacterCardBackground(response.data.image.image);
 		return true;
 	}
 
