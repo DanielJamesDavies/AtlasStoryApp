@@ -30,23 +30,21 @@ export const Name = ({ primaryStoryStyles }) => {
 			isLight={primaryStoryStyles["--text-colour-primary"] === "#fff"}
 		>
 			<>
-				{unit_type === "plot" ? (
+				{["plot"].includes(unit_type) ? (
 					!unit?.data?.isStoryTitleInTitle ? (
 						<div className='unit-page-primary-title'>{unit?.data?.title}</div>
 					) : (
 						<div className='unit-page-primary-title'>{story?.data?.title + ": " + unit?.data?.title}</div>
 					)
 				) : (
-					<div className='unit-page-primary-name'>
-						{["character", "group", "location"].includes(unit_type) ? unit?.data?.name : unit?.data?.title}
-					</div>
+					<div className='unit-page-primary-name'>{["plot"].includes(unit_type) ? unit?.data?.title : unit?.data?.name}</div>
 				)}
 			</>
 			<div>
 				<TextInput
 					className='unit-page-primary-name'
 					seamless={true}
-					value={["character", "group", "location"].includes(unit_type) ? unit?.data?.name : unit?.data?.title}
+					value={["plot"].includes(unit_type) ? unit?.data?.title : unit?.data?.name}
 					onChange={changeName}
 					autoResize={true}
 				/>

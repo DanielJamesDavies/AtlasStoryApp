@@ -42,14 +42,19 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			{ id: "biography", name: "Background", isEnabled: true, unit_types: ["character"] },
 			{ id: "abilities", name: "Abilities & Equipment", isEnabled: true, unit_types: ["character"] },
 			{ id: "relationships", name: "Relationships", isEnabled: true, unit_types: ["character"] },
-			{ id: "details", name: "Details", isEnabled: true, unit_types: ["location"] },
-			{ id: "events", name: "Events", isEnabled: true, unit_types: ["location"] },
+			{ id: "details", name: "Details", isEnabled: true, unit_types: ["location", "object", "lore"] },
+			{ id: "events", name: "Events", isEnabled: true, unit_types: ["location", "lore"] },
 			{ id: "plot", name: "Plot", isEnabled: true, unit_types: ["plot"] },
 			{ id: "soundtrack", name: "Soundtrack", isEnabled: true, unit_types: ["plot"] },
-			{ id: "gallery", name: "Gallery", isEnabled: true, unit_types: ["character", "plot", "group", "location"] },
-			{ id: "miscellaneous", name: "Miscellaneous", isEnabled: true, unit_types: ["character", "plot", "group", "location"] },
-			{ id: "development", name: "Development", isEnabled: true, unit_types: ["character", "plot", "group", "location"] },
-			{ id: "settings", name: "Settings", isEnabled: true, unit_types: ["character", "plot", "group", "location"] },
+			{ id: "gallery", name: "Gallery", isEnabled: true, unit_types: ["character", "plot", "group", "location", "object", "lore"] },
+			{
+				id: "miscellaneous",
+				name: "Miscellaneous",
+				isEnabled: true,
+				unit_types: ["character", "plot", "group", "location", "object", "lore"],
+			},
+			{ id: "development", name: "Development", isEnabled: true, unit_types: ["character", "plot", "group", "location", "object", "lore"] },
+			{ id: "settings", name: "Settings", isEnabled: true, unit_types: ["character", "plot", "group", "location", "object", "lore"] },
 		],
 		[]
 	);
@@ -102,8 +107,10 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			if (currUnitUid.current === unit_uid || isGettingUnit.current) return false;
 			const newUnit = await getUnit();
 			if (!newUnit) return false;
-			if (["character", "group"].includes(unit_type) && newUnit?.data?.versions[0]) setUnitVersion(newUnit.data.versions[0]);
-			getUnitPrimaryImages(newUnit?.data?.versions);
+			if (["character", "group"].includes(unit_type) && newUnit?.data?.versions[0]) {
+				setUnitVersion(newUnit.data.versions[0]);
+				getUnitPrimaryImages(newUnit?.data?.versions);
+			}
 			getUnitOverviewBackground(newUnit?.data?.overviewBackground);
 			getUnitOverviewForegrounds(newUnit?.data?.versions);
 			getUnitImages(newUnit?.data?.images);

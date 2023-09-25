@@ -106,6 +106,9 @@ const StoryProvider = ({ children }) => {
 					{ uid: "substories", items: [] },
 					{ uid: "world", items: [] },
 					{ uid: "locations", items: [] },
+					{ uid: "events", items: [] },
+					{ uid: "objects", items: [] },
+					{ uid: "lore", items: [] },
 				].filter((e) => newStory.data.notes.findIndex((e2) => e2.uid === e.uid) === -1)
 			);
 			setStory(newStory);

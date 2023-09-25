@@ -39,6 +39,15 @@ const NotesProvider = ({ children, story_uid, notes_uid }) => {
 					case "locations":
 						newDocumentTitle += "Locations ";
 						break;
+					case "events":
+						newDocumentTitle += "Events ";
+						break;
+					case "objects":
+						newDocumentTitle += "Objects ";
+						break;
+					case "lore":
+						newDocumentTitle += "Lore ";
+						break;
 					default:
 						break;
 				}

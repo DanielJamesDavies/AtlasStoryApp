@@ -16,6 +16,9 @@ import { CharactersContainer } from "../../pages/Characters/CharactersContainer"
 import { SubstoriesContainer } from "../../pages/Substories/SubstoriesContainer";
 import { WorldContainer } from "../../pages/World/WorldContainer";
 import { LocationsContainer } from "../../pages/Locations/LocationsContainer";
+import { EventsContainer } from "../../pages/Events/EventsContainer";
+import { ObjectsContainer } from "../../pages/Objects/ObjectsContainer";
+import { LoreContainer } from "../../pages/Lore/LoreContainer";
 import { NotesContainer } from "../../pages/Notes/NotesContainer";
 
 // Logic
@@ -191,6 +194,51 @@ export const RoutesLogic = () => {
 											unit_type='location'
 											unit_type_title='Location'
 											type_url_key='l'
+										/>
+									);
+								break;
+							case "events":
+								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
+									setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid={locationSplit[2]} />);
+									break;
+								}
+								setRenderComponent(<EventsContainer story_uid={locationSplit[1]} />);
+								break;
+							case "objects":
+								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
+									setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid={locationSplit[2]} />);
+									break;
+								}
+								setRenderComponent(<ObjectsContainer story_uid={locationSplit[1]} />);
+								break;
+							case "o":
+								if (locationSplit.length > 3)
+									setRenderComponent(
+										<UnitPageContainer
+											story_uid={locationSplit[1]}
+											unit_uid={locationSplit[3]}
+											unit_type='object'
+											unit_type_title='Object'
+											type_url_key='o'
+										/>
+									);
+								break;
+							case "lore":
+								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
+									setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid={locationSplit[2]} />);
+									break;
+								}
+								setRenderComponent(<LoreContainer story_uid={locationSplit[1]} />);
+								break;
+							case "li":
+								if (locationSplit.length > 3)
+									setRenderComponent(
+										<UnitPageContainer
+											story_uid={locationSplit[1]}
+											unit_uid={locationSplit[3]}
+											unit_type='lore'
+											unit_type_title='Lore Item'
+											type_url_key='li'
 										/>
 									);
 								break;

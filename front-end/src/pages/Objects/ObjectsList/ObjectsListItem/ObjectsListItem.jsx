@@ -1,0 +1,33 @@
+// Packages
+
+// Components
+
+// Logic
+import { ObjectsListItemLogic } from "./ObjectsListItemLogic";
+
+// Context
+
+// Services
+
+// Styles
+import "./ObjectsListItem.css";
+
+// Assets
+
+export const ObjectsListItem = ({ object, objectImage }) => {
+	const { onClick } = ObjectsListItemLogic({ object });
+
+	return (
+		<div
+			className='objects-list-item'
+			style={object?.data?.colour ? { "--objectColour": object?.data?.colour } : { "--objectColour": "#0044ff" }}
+			onClick={onClick}
+			onAuxClick={onClick}
+		>
+			<div className='objects-list-item-image-container'>
+				<div className='objects-list-item-image'>{!objectImage ? null : <img src={objectImage} alt='' />}</div>
+			</div>
+			<div className='objects-list-item-name'>{object?.data?.name}</div>
+		</div>
+	);
+};

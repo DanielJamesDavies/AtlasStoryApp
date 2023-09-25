@@ -35,7 +35,7 @@ export const UnitImagesLogic = () => {
 
 	const addImageInputRef = useRef();
 
-	async function onAddImageTounitImages(e) {
+	async function onAddImageToUnitImages(e) {
 		const image = await getImageFromFile(e.target.files[0]);
 		addImageInputRef.current.value = [];
 		if (image?.error || !image?.data) return false;
@@ -52,10 +52,10 @@ export const UnitImagesLogic = () => {
 			return newUnit;
 		});
 
-		setUnitImages((oldunitImages) => {
-			let newunitImages = JSON.parse(JSON.stringify(oldunitImages));
-			newunitImages.push({ _id: new_id_response.data._id, image: image.data, isUnsaved: true });
-			return newunitImages;
+		setUnitImages((oldUnitImages) => {
+			let newUnitImages = JSON.parse(JSON.stringify(oldUnitImages));
+			newUnitImages.push({ _id: new_id_response.data._id, image: image.data, isUnsaved: true });
+			return newUnitImages;
 		});
 
 		return true;
@@ -84,7 +84,7 @@ export const UnitImagesLogic = () => {
 		setIsReorderingunitImages((oldIsReorderingunitImages) => !oldIsReorderingunitImages);
 	}
 
-	function reorderunitImages(res) {
+	function reorderUnitImages(res) {
 		if (res.from === undefined || res.to === undefined) return false;
 		setUnit((oldUnit) => {
 			let newUnit = JSON.parse(JSON.stringify(oldUnit));
@@ -94,7 +94,7 @@ export const UnitImagesLogic = () => {
 		});
 	}
 
-	async function revertunitImages() {
+	async function revertUnitImages() {
 		const response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", {
 			story_id: story._id,
 			path: ["data", "images"],
@@ -113,7 +113,7 @@ export const UnitImagesLogic = () => {
 		return true;
 	}
 
-	async function saveunitImages() {
+	async function saveUnitImages() {
 		if (!unit?._id) return;
 		let newValue = { images: unitImages };
 		newValue[unit_type + "_images"] = unit.data.images;
@@ -138,21 +138,25 @@ export const UnitImagesLogic = () => {
 			setUnit((oldUnit) => {
 				let newUnit = JSON.parse(JSON.stringify(oldUnit));
 				newUnit.data.images = response.data[unit_type].data.images;
-				newUnit.data.versions = newUnit.data.versions.map((version) => {
-					version.gallery = version.gallery.filter(
-						(galleryItem) => newUnit.data.images.findIndex((e) => JSON.stringify(e) === JSON.stringify(galleryItem.image)) !== -1
-					);
-					return version;
-				});
+				if (newUnit?.data?.versions) {
+					newUnit.data.versions = newUnit.data.versions.map((version) => {
+						version.gallery = version.gallery.filter(
+							(galleryItem) => newUnit.data.images.findIndex((e) => JSON.stringify(e) === JSON.stringify(galleryItem.image)) !== -1
+						);
+						return version;
+					});
+				}
 				return newUnit;
 			});
 
 			let newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
-			newUnitVersion.gallery = newUnitVersion.gallery.filter(
-				(galleryItem) =>
-					response.data[unit_type].data.images.findIndex((e) => JSON.stringify(e) === JSON.stringify(galleryItem.image)) !== -1
-			);
-			changeUnitVersion(newUnitVersion);
+			if (newUnitVersion) {
+				newUnitVersion.gallery = newUnitVersion.gallery.filter(
+					(galleryItem) =>
+						response.data[unit_type].data.images.findIndex((e) => JSON.stringify(e) === JSON.stringify(galleryItem.image)) !== -1
+				);
+				changeUnitVersion(newUnitVersion);
+			}
 		}
 
 		return true;
@@ -163,12 +167,12 @@ export const UnitImagesLogic = () => {
 		unit,
 		unitImagesContainerRef,
 		addImageInputRef,
-		onAddImageTounitImages,
+		onAddImageToUnitImages,
 		removeUnitImage,
 		isReorderingunitImages,
 		toggleIsReorderingunitImages,
-		reorderunitImages,
-		revertunitImages,
-		saveunitImages,
+		reorderUnitImages,
+		revertUnitImages,
+		saveUnitImages,
 	};
 };

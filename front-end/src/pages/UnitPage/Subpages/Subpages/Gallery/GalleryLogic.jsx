@@ -62,7 +62,7 @@ export const GalleryLogic = () => {
 			changeUnitVersion(newUnitVersion);
 		} else {
 			let newUnit = JSON.parse(JSON.stringify(unit));
-			const tempItem = newUnit.gallery.splice(res.from, 1)[0];
+			const tempItem = newUnit.data.gallery.splice(res.from, 1)[0];
 			newUnit.data.gallery.splice(res.to, 0, tempItem);
 			setUnit(newUnit);
 		}

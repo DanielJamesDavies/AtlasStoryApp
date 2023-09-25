@@ -65,6 +65,8 @@ app.use("/api/character-type", require("./routes/CharacterTypeRoute"));
 app.use("/api/character-relationship", require("./routes/CharacterRelationshipRoute"));
 app.use("/api/plot", require("./routes/PlotRoute"));
 app.use("/api/location", require("./routes/LocationRoute"));
+app.use("/api/object", require("./routes/ObjectRoute"));
+app.use("/api/lore", require("./routes/LoreRoute"));
 app.use("/api/spotify", require("./routes/SpotifyRoute"));
 app.use("/api/image", require("./routes/ImageRoute"));
 

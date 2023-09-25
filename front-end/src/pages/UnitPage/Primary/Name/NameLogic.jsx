@@ -23,28 +23,24 @@ export const NameLogic = () => {
 		setUnit((oldUnit) => {
 			let newUnit = JSON.parse(JSON.stringify(oldUnit));
 			switch (unit_type) {
-				case "character":
-				case "group":
-				case "location":
-					newUnit.data.name = e.target.value;
+				case "plot":
+					newUnit.data.title = e.target.value;
 					break;
 				default:
-					newUnit.data.title = e.target.value;
+					newUnit.data.name = e.target.value;
 			}
 			return newUnit;
 		});
 	}
 
 	async function revertName() {
-		let path = ["data", "title"];
+		let path = ["data", "name"];
 		switch (unit_type) {
-			case "character":
-			case "group":
-			case "location":
-				path = ["data", "name"];
+			case "plot":
+				path = ["data", "title"];
 				break;
 			default:
-				path = ["data", "title"];
+				path = ["data", "name"];
 		}
 
 		const response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", { story_id: story._id, path });
@@ -53,13 +49,11 @@ export const NameLogic = () => {
 		setUnit((oldUnit) => {
 			let newUnit = JSON.parse(JSON.stringify(oldUnit));
 			switch (unit_type) {
-				case "character":
-				case "group":
-				case "location":
-					newUnit.data.name = response.data.value;
+				case "plot":
+					newUnit.data.title = response.data.value;
 					break;
 				default:
-					newUnit.data.title = response.data.value;
+					newUnit.data.name = response.data.value;
 			}
 			return newUnit;
 		});
@@ -73,18 +67,16 @@ export const NameLogic = () => {
 		setErrors([]);
 		if (!unit?._id) return;
 
-		let path = ["data", "title"];
+		let path = ["data", "name"];
 		let newValue = false;
 		switch (unit_type) {
-			case "character":
-			case "group":
-			case "location":
-				path = ["data", "name"];
-				newValue = unit.data.name;
-				break;
-			default:
+			case "plot":
 				path = ["data", "title"];
 				newValue = unit.data.title;
+				break;
+			default:
+				path = ["data", "name"];
+				newValue = unit.data.name;
 		}
 
 		const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", { story_id: story._id, path, newValue });

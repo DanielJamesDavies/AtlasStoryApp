@@ -1,0 +1,98 @@
+.lore-title {
+	position: relative;
+	display: flex;
+	align-items: center;
+	margin-bottom: 24px;
+	padding: 14px 12px;
+	padding-bottom: calc(14px + 1px);
+	border-radius: 4px;
+	width: calc(100% - 24px);
+}
+
+.lore-title::after {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	display: block;
+	content: "";
+	border-radius: 4px;
+	width: 100%;
+	height: 1px;
+	background: var(--colour-grey-five);
+}
+
+.lore-title-story-icon {
+	display: inline-block;
+	margin: 0 24px;
+	margin-left: 0;
+	border-radius: 100%;
+	min-width: 65px;
+	width: 65px;
+	min-height: 65px;
+	height: 65px;
+	vertical-align: middle;
+}
+
+.lore-title-story-icon-placeholder {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	background: var(--colour-grey-three);
+}
+
+.lore-title-story-icon img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	lore_item-fit: cover;
+}
+
+.lore-title-story-title {
+	margin-top: -1px;
+	margin-bottom: 2px;
+	font-size: 34px;
+	font-weight: 600;
+}
+
+.lore-title-divider {
+	margin: 0 16px;
+	margin-top: -1px;
+	font-size: 24px;
+}
+
+.lore-title-lore-label {
+	font-size: 22px;
+	font-weight: 400;
+}
+
+.lore-title-notes-btn-container {
+	margin-left: auto;
+}
+
+@media (max-width: 750px) {
+	.lore-title {
+		margin-bottom: 12px;
+		padding: 14px 6px;
+		padding-bottom: calc(14px + 2px);
+		width: calc(100% - 12px);
+	}
+
+	.lore-title-story-icon {
+		display: none;
+	}
+
+	.lore-title-story-title {
+		margin: 0;
+		font-size: 22px;
+	}
+
+	.lore-title-divider {
+		margin: 0 8px;
+		font-size: 18px;
+	}
+
+	.lore-title-lore-label {
+		font-size: 18px;
+	}
+}

@@ -1,0 +1,18 @@
+.lore-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.lore-list-loading-container {
+	position: relative;
+	margin: 0 auto;
+	width: fit-content;
+	height: min(300px, 50vh);
+}
+
+@media (max-width: 400px) {
+	.lore-list {
+		justify-content: center;
+	}
+}

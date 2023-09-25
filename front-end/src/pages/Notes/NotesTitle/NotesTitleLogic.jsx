@@ -35,6 +35,15 @@ export const NotesTitleLogic = () => {
 				case "locations":
 					newNotesTitleLabel = "Locations";
 					break;
+				case "events":
+					newNotesTitleLabel = "Events";
+					break;
+				case "objects":
+					newNotesTitleLabel = "Objects";
+					break;
+				case "lore":
+					newNotesTitleLabel = "Lore";
+					break;
 				default:
 					break;
 			}
