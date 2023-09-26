@@ -33,14 +33,14 @@ module.exports = async (req, res) => {
 			if (uidUsed)
 				return res
 					.status(200)
-					.send({ errors: [{ attribute: "uid", message: "This UID is being used by another lore_item. Please enter a different UID" }] });
+					.send({ errors: [{ attribute: "uid", message: "This UID is being used by another lore item. Please enter a different UID" }] });
 
 			newLoreItem.uid = newUID;
 
 			break;
 		case JSON.stringify(["data", "images"]):
 			const oldImages = newLoreItem.data.images;
-			const newImages = req.body.newValue.lore_item_images;
+			const newImages = req.body.newValue.lore_images;
 
 			// Remove Removed Images
 			await Promise.all(
