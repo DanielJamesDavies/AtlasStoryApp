@@ -32,6 +32,7 @@
 	.unit-page-primary-name,
 	.unit-page-primary-name input {
 		font-size: 26px;
+		--text-input-font-size: 26px;
 		word-wrap: break-word;
 	}
 
