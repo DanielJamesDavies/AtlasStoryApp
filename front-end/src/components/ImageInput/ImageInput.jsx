@@ -15,8 +15,8 @@ import "./ImageInput.css";
 
 // Assets
 
-export const ImageInput = ({ className, isCircular, value, onChange }) => {
-	const { inputRef, imageInputClassName, onInputChange } = ImageInputLogic({ className, isCircular, onChange });
+export const ImageInput = ({ className, isCircular, value, onChange, maxFileSizeInKBs }) => {
+	const { inputRef, imageInputClassName, onInputChange } = ImageInputLogic({ className, isCircular, onChange, maxFileSizeInKBs });
 
 	return (
 		<div className={imageInputClassName}>

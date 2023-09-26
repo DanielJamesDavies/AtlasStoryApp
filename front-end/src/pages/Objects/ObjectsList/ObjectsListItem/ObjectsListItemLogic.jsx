@@ -16,7 +16,7 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const ObjectsListItemLogic = ({ object }) => {
-	const { story } = useContext(ObjectsContext);
+	const { story, objectsImages } = useContext(ObjectsContext);
 	const { changeLocation } = useContext(RoutesContext);
 
 	function onClick(e) {
@@ -25,5 +25,5 @@ export const ObjectsListItemLogic = ({ object }) => {
 		if (story?.uid && object?.uid) changeLocation("/s/" + story.uid + "/o/" + object.uid, e.button === 1);
 	}
 
-	return { onClick };
+	return { objectsImages, onClick };
 };

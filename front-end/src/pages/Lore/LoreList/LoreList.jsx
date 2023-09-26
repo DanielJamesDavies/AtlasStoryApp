@@ -21,11 +21,11 @@ import "./LoreList.css";
 // Assets
 
 export const LoreList = () => {
-	const { story, lore, isReorderingLore, changeLoreOrder } = LoreListLogic();
+	const { story, lore, loreImages, isReorderingLore, changeLoreOrder } = LoreListLogic();
 
 	return (
 		<div className='lore-list-container'>
-			{!lore ? (
+			{!lore || loreImages === false ? (
 				<div className='lore-list-loading-container'>
 					<LoadingCircle center={true} />
 				</div>

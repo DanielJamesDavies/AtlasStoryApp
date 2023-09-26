@@ -13,6 +13,7 @@ import { SettingsOverviewBackgroundImage } from "./SettingsOverviewBackgroundIma
 import { SettingsOverviewForegroundImage } from "./SettingsOverviewForegroundImage/SettingsOverviewForegroundImage";
 import { SettingsCardBackgroundImage } from "./SettingsCardBackgroundImage/SettingsCardBackgroundImage";
 import { SettingsFaceImage } from "./SettingsFaceImage/SettingsFaceImage";
+import { SettingsListImage } from "./SettingsListImage/SettingsListImage";
 import { SettingsDelete } from "./SettingsDelete/SettingsDelete";
 
 // Logic
@@ -45,6 +46,7 @@ export const Settings = () => {
 				<SettingsOverviewBackgroundImage />
 				<SettingsCardBackgroundImage />
 				<SettingsFaceImage />
+				<SettingsListImage />
 				<SettingsDelete />
 			</div>
 		</div>

@@ -15,7 +15,7 @@ import "./LoreListItem.css";
 // Assets
 
 export const LoreListItem = ({ lore_item, lore_itemImage }) => {
-	const { onClick } = LoreListItemLogic({ lore_item });
+	const { loreImages, onClick } = LoreListItemLogic({ lore_item });
 
 	return (
 		<div
@@ -25,7 +25,12 @@ export const LoreListItem = ({ lore_item, lore_itemImage }) => {
 			onAuxClick={onClick}
 		>
 			<div className='lore-list-item-image-container'>
-				<div className='lore-list-item-image'>{!lore_itemImage ? null : <img src={lore_itemImage} alt='' />}</div>
+				<div className='lore-list-item-image'>
+					{loreImages === false ? null : !loreImages.find((e) => JSON.stringify(e._id) === JSON.stringify(lore_item?.data?.listImage))
+							?.image ? null : (
+						<img src={loreImages.find((e) => JSON.stringify(e._id) === JSON.stringify(lore_item?.data?.listImage))?.image} alt='' />
+					)}
+				</div>
 			</div>
 			<div className='lore-list-item-name'>{lore_item?.data?.name}</div>
 		</div>

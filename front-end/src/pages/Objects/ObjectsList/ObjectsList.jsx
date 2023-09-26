@@ -21,11 +21,11 @@ import "./ObjectsList.css";
 // Assets
 
 export const ObjectsList = () => {
-	const { story, objects, isReorderingObjects, changeObjectsOrder } = ObjectsListLogic();
+	const { story, objects, objectsImages, isReorderingObjects, changeObjectsOrder } = ObjectsListLogic();
 
 	return (
 		<div className='objects-list-container'>
-			{!objects ? (
+			{!objects || objectsImages === false ? (
 				<div className='objects-list-loading-container'>
 					<LoadingCircle center={true} />
 				</div>

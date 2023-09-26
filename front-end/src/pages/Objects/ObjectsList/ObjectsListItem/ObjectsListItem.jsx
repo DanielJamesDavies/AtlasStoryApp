@@ -14,8 +14,8 @@ import "./ObjectsListItem.css";
 
 // Assets
 
-export const ObjectsListItem = ({ object, objectImage }) => {
-	const { onClick } = ObjectsListItemLogic({ object });
+export const ObjectsListItem = ({ object }) => {
+	const { objectsImages, onClick } = ObjectsListItemLogic({ object });
 
 	return (
 		<div
@@ -25,7 +25,12 @@ export const ObjectsListItem = ({ object, objectImage }) => {
 			onAuxClick={onClick}
 		>
 			<div className='objects-list-item-image-container'>
-				<div className='objects-list-item-image'>{!objectImage ? null : <img src={objectImage} alt='' />}</div>
+				<div className='objects-list-item-image'>
+					{objectsImages === false ? null : !objectsImages.find((e) => JSON.stringify(e._id) === JSON.stringify(object?.data?.listImage))
+							?.image ? null : (
+						<img src={objectsImages.find((e) => JSON.stringify(e._id) === JSON.stringify(object?.data?.listImage))?.image} alt='' />
+					)}
+				</div>
 			</div>
 			<div className='objects-list-item-name'>{object?.data?.name}</div>
 		</div>

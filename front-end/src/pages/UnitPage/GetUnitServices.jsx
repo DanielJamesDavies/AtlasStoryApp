@@ -23,6 +23,8 @@ export const GetUnitServices = ({
 	setUnitImages,
 	unitSoundtrack,
 	setUnitSoundtrack,
+	unitListImage,
+	setUnitListImage,
 	unitPagePrimaryRef,
 	allSubpages,
 	setSubpages,
@@ -163,7 +165,7 @@ export const GetUnitServices = ({
 	// Get Overview Foregrounds
 	const getUnitOverviewForegrounds = useCallback(
 		async (versions) => {
-			if (!versions) return;
+			if (!versions) return setUnitOverviewForegrounds([]);
 
 			const overviewForegrounds = await Promise.all(
 				versions.map(async (version) => {
@@ -212,6 +214,39 @@ export const GetUnitServices = ({
 			setUnitImages(newUnitImages);
 		},
 		[setUnitImages, APIRequest, recentImages, addImagesToRecentImages]
+	);
+
+	// Get Unit List Image
+	const getUnitListImage = useCallback(
+		async (unitListImageID) => {
+			let currUnitListImage = false;
+			setUnitListImage((oldUnitListImage) => {
+				currUnitListImage = JSON.parse(JSON.stringify(oldUnitListImage));
+				return oldUnitListImage;
+			});
+			if (!unitListImageID || currUnitListImage) return;
+
+			let unitListImage = false;
+
+			const recentImage = recentImages.current.find((e) => e?._id === unitListImageID);
+			if (recentImage?.image) {
+				unitListImage = recentImage;
+			} else {
+				const overview_background_image_response = await APIRequest("/image/" + unitListImageID, "GET");
+				if (overview_background_image_response?.errors || !overview_background_image_response?.data?.image?.image) {
+					setUnitListImage("NO_IMAGE");
+					return false;
+				}
+				unitListImage = overview_background_image_response?.data?.image;
+			}
+
+			addImagesToRecentImages([unitListImage]);
+
+			setUnitListImage(unitListImage.image);
+
+			return unitListImage.image;
+		},
+		[setUnitListImage, APIRequest, recentImages, addImagesToRecentImages]
 	);
 
 	// Get Character Card Background
@@ -404,6 +439,7 @@ export const GetUnitServices = ({
 		getUnitImages,
 		getUnitSubpages,
 		getCharacterRelationships,
+		getUnitListImage,
 		getUnitSoundtrack,
 		getCharacterCardBackground,
 		getCharacterFaceImage,

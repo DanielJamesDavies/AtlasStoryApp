@@ -11,6 +11,7 @@ const LoreProvider = ({ children, story_uid }) => {
 	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 	const [lore, setLore] = useState(false);
+	const [loreImages, setLoreImages] = useState(false);
 
 	const curr_story_uid = useRef(false);
 	useEffect(() => {
@@ -31,7 +32,8 @@ const LoreProvider = ({ children, story_uid }) => {
 				if (window.location.pathname.split("/").filter((e) => e.length !== 0)[2] === "lore") updateDocumentTitle();
 			}, 1000);
 
-			getLore();
+			const newLore = await getLore();
+			getLoreImages(newLore?.map((lore_item) => lore_item?.data?.listImage));
 		}
 
 		function updateDocumentTitle() {
@@ -46,6 +48,23 @@ const LoreProvider = ({ children, story_uid }) => {
 			const response = await APIRequest("/lore?story_uid=" + story_uid, "GET");
 			if (!response || response?.error || !response?.data?.lore) return false;
 			setLore(response?.data?.lore);
+			return response?.data?.lore;
+		}
+
+		async function getLoreImages(image_ids) {
+			if (!image_ids) return setLoreImages([]);
+
+			const newObjectImages = await Promise.all(
+				image_ids.map(async (image_id) => {
+					if (!image_id) return false;
+
+					const lore_item_image_response = await APIRequest("/image/" + image_id, "GET");
+					if (lore_item_image_response?.errors || !lore_item_image_response?.data?.image?.image) return false;
+					return lore_item_image_response.data.image;
+				})
+			);
+
+			setLoreImages(newObjectImages.filter((e) => e !== false));
 		}
 
 		getInitial();
@@ -69,6 +88,7 @@ const LoreProvider = ({ children, story_uid }) => {
 				setStory,
 				storyIcon,
 				lore,
+				loreImages,
 				isDisplayingCreateLoreItemForm,
 				setIsDisplayingCreateLoreItemForm,
 				isReorderingLore,

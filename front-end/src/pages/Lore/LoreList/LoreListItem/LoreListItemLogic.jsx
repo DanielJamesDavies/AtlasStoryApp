@@ -16,7 +16,7 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const LoreListItemLogic = ({ lore_item }) => {
-	const { story } = useContext(LoreContext);
+	const { story, loreImages } = useContext(LoreContext);
 	const { changeLocation } = useContext(RoutesContext);
 
 	function onClick(e) {
@@ -25,5 +25,5 @@ export const LoreListItemLogic = ({ lore_item }) => {
 		if (story?.uid && lore_item?.uid) changeLocation("/s/" + story.uid + "/w/" + lore_item.uid, e.button === 1);
 	}
 
-	return { onClick };
+	return { loreImages, onClick };
 };

@@ -11,6 +11,7 @@ const ObjectsProvider = ({ children, story_uid }) => {
 	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 	const [objects, setObjects] = useState(false);
+	const [objectsImages, setObjectsImages] = useState(false);
 
 	const curr_story_uid = useRef(false);
 	useEffect(() => {
@@ -31,7 +32,8 @@ const ObjectsProvider = ({ children, story_uid }) => {
 				if (window.location.pathname.split("/").filter((e) => e.length !== 0)[2] === "objects") updateDocumentTitle();
 			}, 1000);
 
-			getObjects();
+			const newObjects = await getObjects();
+			getObjectsImages(newObjects?.map((object) => object?.data?.listImage));
 		}
 
 		function updateDocumentTitle() {
@@ -46,6 +48,23 @@ const ObjectsProvider = ({ children, story_uid }) => {
 			const response = await APIRequest("/object?story_uid=" + story_uid, "GET");
 			if (!response || response?.error || !response?.data?.objects) return false;
 			setObjects(response?.data?.objects);
+			return response?.data?.objects;
+		}
+
+		async function getObjectsImages(image_ids) {
+			if (!image_ids) return setObjectsImages([]);
+
+			const newObjectImages = await Promise.all(
+				image_ids.map(async (image_id) => {
+					if (!image_id) return false;
+
+					const object_image_response = await APIRequest("/image/" + image_id, "GET");
+					if (object_image_response?.errors || !object_image_response?.data?.image?.image) return false;
+					return object_image_response.data.image;
+				})
+			);
+
+			setObjectsImages(newObjectImages.filter((e) => e !== false));
 		}
 
 		getInitial();
@@ -69,6 +88,7 @@ const ObjectsProvider = ({ children, story_uid }) => {
 				setStory,
 				storyIcon,
 				objects,
+				objectsImages,
 				isDisplayingCreateObjectForm,
 				setIsDisplayingCreateObjectForm,
 				isReorderingObjects,

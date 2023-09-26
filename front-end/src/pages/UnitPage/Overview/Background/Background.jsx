@@ -17,6 +17,7 @@ import "./Background.css";
 export const Background = () => {
 	const { unit_type, unitOverviewForegrounds, unitOverviewBackground, unitVersion, overviewForegroundSizeRef } = BackgroundLogic();
 
+	if (unitOverviewForegrounds === false) return null;
 	return (
 		<>
 			{!["character"].includes(unit_type) ? null : (

@@ -1,11 +1,13 @@
-async function getImageFromFile(file) {
+async function getImageFromFile(file, options) {
+	const { maxFileSizeInKBs } = options;
+	if (maxFileSizeInKBs === undefined) maxFileSizeInKBs = 500;
 	return await new Promise((resolve) => {
 		const fr = new FileReader();
 
 		fr.readAsDataURL(file);
 
 		fr.onload = async () => {
-			const newImage = await resizeBase64Image(fr.result);
+			const newImage = await resizeBase64Image(fr.result, maxFileSizeInKBs);
 			if (newImage === false) resolve({ error: "Image Too Large." });
 			resolve({ data: newImage });
 		};
@@ -16,9 +18,7 @@ async function getImageFromFile(file) {
 	});
 }
 
-async function resizeBase64Image(base64, attempt) {
-	const maxFileSizeInKBs = 500;
-
+async function resizeBase64Image(base64, maxFileSizeInKBs, attempt) {
 	if (attempt > 40) return false;
 
 	return await new Promise((resolve) => {
@@ -57,7 +57,7 @@ async function resizeBase64Image(base64, attempt) {
 			let newBase64 = canvas.toDataURL("image/webp", quality);
 
 			if (getBase64FileSize(newBase64) / 1000 > maxFileSizeInKBs)
-				newBase64 = resizeBase64Image(base64, attempt === undefined ? 2 : attempt + 1);
+				newBase64 = resizeBase64Image(base64, maxFileSizeInKBs, attempt === undefined ? 2 : attempt + 1);
 
 			resolve(newBase64);
 		};

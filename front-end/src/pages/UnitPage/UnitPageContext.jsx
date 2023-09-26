@@ -18,9 +18,10 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 	const [unitVersion, setUnitVersion] = useState(false);
 	const [unitPrimaryImages, setUnitPrimaryImages] = useState([]);
 	const [unitOverviewBackground, setUnitOverviewBackground] = useState(false);
-	const [unitOverviewForegrounds, setUnitOverviewForegrounds] = useState([]);
+	const [unitOverviewForegrounds, setUnitOverviewForegrounds] = useState(false);
 	const [unitImages, setUnitImages] = useState([]);
 	const [unitSoundtrack, setUnitSoundtrack] = useState(false);
+	const [unitListImage, setUnitListImage] = useState(false);
 
 	const [characterCardBackground, setCharacterCardBackground] = useState(false);
 	const [characterFaceImage, setCharacterFaceImage] = useState(false);
@@ -71,6 +72,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		getUnitSubpages,
 		getCharacterRelationships,
 		getUnitSoundtrack,
+		getUnitListImage,
 		getCharacterCardBackground,
 		getCharacterFaceImage,
 	} = GetUnitServices({
@@ -90,6 +92,8 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		setUnitImages,
 		unitSoundtrack,
 		setUnitSoundtrack,
+		unitListImage,
+		setUnitListImage,
 		unitPagePrimaryRef,
 		allSubpages,
 		setSubpages,
@@ -115,6 +119,9 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			getUnitOverviewForegrounds(newUnit?.data?.versions);
 			getUnitImages(newUnit?.data?.images);
 			getUnitSubpages(newUnit?.data?.subpages);
+			if (["object", "lore"].includes(unit_type)) {
+				getUnitListImage(newUnit?.data?.listImage);
+			}
 			if (unit_type === "character") {
 				getCharacterCardBackground(newUnit?.data?.cardBackground);
 				getCharacterFaceImage(newUnit?.data?.faceImage);
@@ -131,6 +138,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		getUnitOverviewForegrounds,
 		getUnitImages,
 		getUnitSubpages,
+		getUnitListImage,
 		getCharacterRelationships,
 		getCharacterCardBackground,
 		getCharacterFaceImage,
@@ -234,6 +242,8 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				setUnitImages,
 				unitSoundtrack,
 				setUnitSoundtrack,
+				unitListImage,
+				setUnitListImage,
 				characterCardBackground,
 				setCharacterCardBackground,
 				characterFaceImage,
