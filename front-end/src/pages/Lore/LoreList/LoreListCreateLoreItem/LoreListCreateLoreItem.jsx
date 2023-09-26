@@ -37,7 +37,7 @@ export const LoreListCreateLoreItem = () => {
 	return (
 		<PopUpContainer
 			className='lore-create-lore-item-container'
-			title='Create Lore Item'
+			title='Create World Item'
 			isDisplaying={isDisplayingCreateLoreItemForm}
 			onClosePopUp={closeCreateLoreItemForm}
 		>
@@ -60,7 +60,7 @@ export const LoreListCreateLoreItem = () => {
 				</div>
 				<ErrorMessage errors={errors} />
 				<div className='lore-create-lore-item-form-submit-container'>
-					<SubmitBtn label='Create Lore Item' onSubmit={submitCreateLoreItem} />
+					<SubmitBtn label='Create World Item' onSubmit={submitCreateLoreItem} />
 				</div>
 			</div>
 		</PopUpContainer>
