@@ -38,7 +38,7 @@ export const SettingsListImage = () => {
 					</div>
 					<div>
 						<div className='unit-page-subpage-settings-list-image-image'>
-							<ImageInput value={unitListImage} onChange={changeListImage} maxFileSizeInKBs={100} />
+							<ImageInput value={unitListImage} onChange={changeListImage} maxFileSizeInKBs={50} />
 						</div>
 						<ErrorMessage errors={errors} />
 					</div>

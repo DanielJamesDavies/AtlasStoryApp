@@ -38,7 +38,7 @@ export const ImageInputLogic = ({ className, isCircular, onChange, maxFileSizeIn
 	}, [setImageInputClassName, className, isCircular]);
 
 	async function onInputChange(e) {
-		const image = await getImageFromFile(e.target.files[0], { maxFileSizeInKBs });
+		const image = await getImageFromFile(e.target.files[0], { maxFileSizeInKBs: maxFileSizeInKBs });
 		inputRef.current.value = [];
 		if (image?.error || !image?.data) return await onChange(false);
 		await onChange(image.data);

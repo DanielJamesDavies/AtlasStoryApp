@@ -1,6 +1,7 @@
 async function getImageFromFile(file, options) {
-	const { maxFileSizeInKBs } = options;
+	let maxFileSizeInKBs = options?.maxFileSizeInKBs;
 	if (maxFileSizeInKBs === undefined) maxFileSizeInKBs = 500;
+
 	return await new Promise((resolve) => {
 		const fr = new FileReader();
 
