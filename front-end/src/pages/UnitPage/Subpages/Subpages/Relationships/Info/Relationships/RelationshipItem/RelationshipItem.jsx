@@ -18,9 +18,9 @@ import "./RelationshipItem.css";
 
 // Assets
 
-export const RelationshipItem = ({ relationship, isEditing, selectedCharacterRelationships }) => {
+export const RelationshipItem = ({ relationship, isEditing, selectedRelationships }) => {
 	const { story, storyGroups, storyCharacters, secondCharacter, changeRelationshipSecondCharacter, changeRelationshipType, removeRelationship } =
-		RelationshipItemLogic({ relationship, selectedCharacterRelationships });
+		RelationshipItemLogic({ relationship, selectedRelationships });
 
 	return (
 		<ContentItem
@@ -41,11 +41,11 @@ export const RelationshipItem = ({ relationship, isEditing, selectedCharacterRel
 					) : (
 						<DropdownContainer value={secondCharacter?.data?.name} onChange={changeRelationshipSecondCharacter} noBackground={true}>
 							{storyGroups
-								.map((group) =>
+								?.map((group) =>
 									group?.data?.characters
 										.filter(
 											(character) =>
-												selectedCharacterRelationships
+												selectedRelationships
 													.filter((e) => !e?.isRemoved)
 													.findIndex((relationship) => relationship.character_ids.includes(character?.character_id)) ===
 												-1

@@ -21,7 +21,7 @@ export const CharactersRelationshipsInfoSelectedCharacterLogic = () => {
 		story,
 		storyCharacters,
 		storyCharacterRelationships,
-		setCharacterRelationships,
+		setStoryCharacterRelationships,
 		characterRelationshipsAddedIds,
 		setCharacterRelationshipsAddedIds,
 		characterRelationshipsRemovedIds,
@@ -72,7 +72,7 @@ export const CharactersRelationshipsInfoSelectedCharacterLogic = () => {
 			return relationship;
 		});
 
-		setCharacterRelationships(newCharacterRelationships);
+		setStoryCharacterRelationships(newCharacterRelationships);
 
 		return true;
 	}
@@ -151,7 +151,7 @@ export const CharactersRelationshipsInfoSelectedCharacterLogic = () => {
 
 		let newCharacterRelationships = JSON.parse(JSON.stringify(storyCharacterRelationships));
 		newCharacterRelationships.push({ _id: newId, character_ids: [newSelectedCharacterRelationshipsCharacterId], relationship_type: undefined });
-		setCharacterRelationships(newCharacterRelationships);
+		setStoryCharacterRelationships(newCharacterRelationships);
 
 		setCharacterRelationshipsAddedIds((oldCharacterRelationshipsAddedIds) => {
 			let newCharacterRelationshipsAddedIds = JSON.parse(JSON.stringify(oldCharacterRelationshipsAddedIds));

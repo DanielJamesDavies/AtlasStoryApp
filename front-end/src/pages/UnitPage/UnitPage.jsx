@@ -23,6 +23,7 @@ export const UnitPage = () => {
 	const {
 		unit,
 		unitOverviewBackground,
+		unitOverviewForegrounds,
 		unitPageStyle,
 		isOnOverviewSection,
 		unitPageContainerRef,
@@ -42,14 +43,30 @@ export const UnitPage = () => {
 		>
 			<div
 				className={
-					unit && unitPageStyle && unitOverviewBackground
+					unit &&
+					unitPageStyle &&
+					unitOverviewBackground &&
+					(unit?.data?.versions?.map((e) => e?.overviewForeground !== undefined)?.filter((e) => e !== undefined)?.length === 0
+						? false
+						: unitOverviewForegrounds.length !== 0)
 						? "unit-page-loading-container unit-page-loading-container-hidden"
 						: "unit-page-loading-container"
 				}
 			>
 				<LoadingCircle size='l' />
 			</div>
-			<div className={unit && unitPageStyle && unitOverviewBackground ? "unit-page" : "unit-page unit-page-hidden"}>
+			<div
+				className={
+					unit &&
+					unitPageStyle &&
+					unitOverviewBackground &&
+					(unit?.data?.versions?.map((e) => e?.overviewForeground !== undefined)?.filter((e) => e !== undefined)?.length === 0
+						? false
+						: unitOverviewForegrounds.length !== 0)
+						? "unit-page"
+						: "unit-page unit-page-hidden"
+				}
+			>
 				<Primary />
 				<div
 					className={

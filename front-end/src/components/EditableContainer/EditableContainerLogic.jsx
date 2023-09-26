@@ -107,16 +107,24 @@ export const EditableContainerLogic = ({
 
 	function onEditBtnClick(e) {
 		e.stopPropagation();
-		const prevScrollTop = JSON.parse(JSON.stringify(editableContainerRef.current.children[0].children[0]?.scrollTop));
-		setIsEditing(true);
-		setTimeout(() => changeContentScrollTop(prevScrollTop, controlScrollDepth === undefined ? 1 : controlScrollDepth[1]), 5);
+		try {
+			const prevScrollTop = JSON.parse(JSON.stringify(editableContainerRef.current.children[0].children[0]?.scrollTop));
+			setIsEditing(true);
+			setTimeout(() => changeContentScrollTop(prevScrollTop, controlScrollDepth === undefined ? 1 : controlScrollDepth[1]), 5);
+		} catch {
+			setIsEditing(true);
+		}
 	}
 
 	function onViewBtnClick(e) {
 		e.stopPropagation();
-		const prevScrollTop = JSON.parse(JSON.stringify(editableContainerRef.current.children[0].children[0].children[0]?.scrollTop));
-		setIsEditing(false);
-		setTimeout(() => changeContentScrollTop(prevScrollTop, controlScrollDepth === undefined ? 1 : controlScrollDepth[0]), 5);
+		try {
+			const prevScrollTop = JSON.parse(JSON.stringify(editableContainerRef.current?.children[0]?.children[0]?.children[0]?.scrollTop));
+			setIsEditing(false);
+			setTimeout(() => changeContentScrollTop(prevScrollTop, controlScrollDepth === undefined ? 1 : controlScrollDepth[0]), 5);
+		} catch {
+			setIsEditing(false);
+		}
 	}
 
 	async function onHideBtnClick(e) {

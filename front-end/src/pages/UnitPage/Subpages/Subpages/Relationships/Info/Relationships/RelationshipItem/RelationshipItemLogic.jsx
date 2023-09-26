@@ -37,9 +37,9 @@ export const RelationshipItemLogic = ({ relationship, selectedRelationships }) =
 						(character) =>
 							selectedRelationships
 								.filter((e) => !e?.isRemoved)
-								.findIndex((relationship) => relationship.character_ids.includes(unit?.character_id)) === -1
+								.findIndex((relationship) => relationship.character_ids.includes(character?.character_id)) === -1
 					)
-					.map((character) => storyCharacters.find((e) => e._id === unit?.character_id)?._id)
+					.map((character) => storyCharacters.find((e) => e._id === character?.character_id)?._id)
 			)
 			.flat(1)
 			.filter((e) => e);

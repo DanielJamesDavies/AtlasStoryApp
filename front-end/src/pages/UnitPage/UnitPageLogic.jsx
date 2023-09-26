@@ -15,7 +15,8 @@ import { UnitPageContext } from "./UnitPageContext";
 // Assets
 
 export const UnitPageLogic = () => {
-	const { unit, unitPageStyle, unitOverviewBackground, isOnOverviewSection, setIsOnOverviewSection } = useContext(UnitPageContext);
+	const { unit, unitPageStyle, unitOverviewBackground, unitOverviewForegrounds, isOnOverviewSection, setIsOnOverviewSection } =
+		useContext(UnitPageContext);
 
 	const unitPageContainerRef = useRef();
 	const unitOverviewContainerRef = useRef();
@@ -74,6 +75,7 @@ export const UnitPageLogic = () => {
 	return {
 		unit,
 		unitOverviewBackground,
+		unitOverviewForegrounds,
 		unitPageStyle,
 		isOnOverviewSection,
 		unitPageContainerRef,
