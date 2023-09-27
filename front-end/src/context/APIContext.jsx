@@ -8,6 +8,7 @@ const APIProvider = ({ children }) => {
 	const [userProfilePicture, setUserProfilePicture] = useState(false);
 	const [userBanner, setUserBanner] = useState(false);
 	const [cookiesConsent, setCookiesConsent] = useState(false);
+	const [showCookiesConsentPopUp, setShowCookiesConsentPopUp] = useState(false);
 
 	const APIRequest = useCallback(
 		async (path, method, body) => {
@@ -29,14 +30,17 @@ const APIProvider = ({ children }) => {
 
 				const responseData = await response.json();
 
-				if (responseData?.cookiesConsent !== undefined) setCookiesConsent(responseData?.cookiesConsent);
+				if (responseData?.cookiesConsent !== undefined) {
+					setCookiesConsent(responseData?.cookiesConsent);
+					if(responseData?.cookiesConsent === false) setShowCookiesConsentPopUp(true);
+				}
 
 				return responseData;
 			} catch (e) {
 				return { errors: [{ message: "Failed to Send Request to Server" }] };
 			}
 		},
-		[setCookiesConsent]
+		[setCookiesConsent, setShowCookiesConsentPopUp]
 	);
 
 	return (
@@ -53,6 +57,8 @@ const APIProvider = ({ children }) => {
 				setUserBanner,
 				cookiesConsent,
 				setCookiesConsent,
+				showCookiesConsentPopUp,
+				setShowCookiesConsentPopUp,
 			}}
 		>
 			{children}
