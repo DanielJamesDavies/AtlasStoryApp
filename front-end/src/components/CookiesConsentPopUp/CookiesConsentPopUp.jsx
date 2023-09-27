@@ -30,7 +30,7 @@ export const CookiesConsentPopUp = () => {
 				</div>
 				<div className='cookies-consent-pop-up-buttons-container'>
 					<button className='cookies-consent-pop-up-btn cookies-consent-pop-up-btn-accept' onClick={acceptCookies}>
-						Accept
+						Accept Neccessary
 					</button>
 					<button className='cookies-consent-pop-up-btn cookies-consent-pop-up-btn-reject' onClick={rejectCookies}>
 						Reject
