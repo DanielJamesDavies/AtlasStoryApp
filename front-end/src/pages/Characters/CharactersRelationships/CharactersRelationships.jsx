@@ -33,6 +33,7 @@ export const CharactersRelationships = () => {
 	} = CharactersRelationshipsLogic();
 
 	if (!isAuthorizedToEdit && characterRelationshipsCharacters.length === 0) return null;
+	if (storyCharacters.length === 0) return null;
 	return (
 		<div
 			className='characters-relationship-container'

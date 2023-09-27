@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 // Components
 
@@ -17,6 +17,7 @@ import { CharactersContext } from "../CharactersContext";
 export const CharactersRelationshipsLogic = () => {
 	const {
 		isAuthorizedToEdit,
+		story,
 		storyGroups,
 		storyCharacters,
 		storyCharacterRelationships,
@@ -73,42 +74,51 @@ export const CharactersRelationshipsLogic = () => {
 		return () => window.removeEventListener("resize", updateChartStyles);
 	}, [setCharactersRelationshipChartWidth, charactersRelationshipChartRef, characterRelationshipsCharacters]);
 
-	useEffect(() => {
-		function getCharacterRelationshipsCharacters() {
-			if (
-				!storyGroups ||
-				storyGroups.length === 0 ||
-				!storyCharacters ||
-				storyCharacters.length === 0 ||
-				!storyCharacterRelationships ||
-				relationshipsFilters === false
+	const getCharacterRelationshipsCharacters = useCallback(() => {
+		if (
+			!storyGroups ||
+			storyGroups.length === 0 ||
+			!storyCharacters ||
+			storyCharacters.length === 0 ||
+			!storyCharacterRelationships ||
+			relationshipsFilters === false
+		)
+			return false;
+
+		let newCharacterRelationshipsCharacters = storyGroups
+			.map((group) =>
+				group?.data?.characters.map((character) => {
+					const newCharacter = storyCharacters.find((e) => e?._id === character?.character_id);
+					if (!newCharacter) return false;
+					if (!relationshipsFilters?.groups?.includes(newCharacter?.group_id)) return false;
+					if (
+						story?.data?.characterRelationshipTypes?.length !== 0 &&
+						storyCharacterRelationships.filter(
+							(r) =>
+								r.character_ids.includes(newCharacter?._id) &&
+								relationshipsFilters?.relationshipTypes?.includes(r?.relationship_type)
+						).length === 0
+					)
+						return false;
+					return newCharacter;
+				})
 			)
-				return false;
+			.flat(1)
+			.filter((e) => e !== false);
 
-			let newCharacterRelationshipsCharacters = storyGroups
-				.map((group) =>
-					group?.data?.characters.map((character) => {
-						const newCharacter = storyCharacters.find((e) => e?._id === character?.character_id);
-						if (!newCharacter) return false;
-						if (!relationshipsFilters?.groups?.includes(newCharacter?.group_id)) return false;
-						if (
-							storyCharacterRelationships.filter(
-								(r) =>
-									r.character_ids.includes(newCharacter?._id) &&
-									relationshipsFilters?.relationshipTypes?.includes(r?.relationship_type)
-							).length === 0
-						)
-							return false;
-						return newCharacter;
-					})
-				)
-				.flat(1)
-				.filter((e) => e !== false);
+		setCharacterRelationshipsCharacters(newCharacterRelationshipsCharacters);
+	}, [story, setCharacterRelationshipsCharacters, storyCharacterRelationships, relationshipsFilters, storyGroups, storyCharacters]);
 
-			setCharacterRelationshipsCharacters(newCharacterRelationshipsCharacters);
-		}
+	useEffect(() => {
 		getCharacterRelationshipsCharacters();
-	}, [setCharacterRelationshipsCharacters, storyCharacterRelationships, relationshipsFilters, storyGroups, storyCharacters]);
+	}, [
+		getCharacterRelationshipsCharacters,
+		setCharacterRelationshipsCharacters,
+		storyCharacterRelationships,
+		relationshipsFilters,
+		storyGroups,
+		storyCharacters,
+	]);
 
 	const [isDisplayingInfo, setIsDisplayingInfo] = useState(false);
 

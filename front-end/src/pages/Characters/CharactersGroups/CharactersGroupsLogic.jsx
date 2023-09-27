@@ -29,7 +29,7 @@ export const CharactersGroupsLogic = () => {
 		isReorderingGroups,
 		toggleIsReorderingGroups,
 	} = useContext(CharactersContext);
-	const { APIRequest } = useContext(APIContext);
+	const { authorized_user_id, APIRequest } = useContext(APIContext);
 
 	function openCreateGroupForm() {
 		setIsDisplayingCreateGroupForm(true);
@@ -73,6 +73,7 @@ export const CharactersGroupsLogic = () => {
 
 	return {
 		isAuthorizedToEdit,
+		authorized_user_id,
 		story,
 		storyGroups,
 		group,

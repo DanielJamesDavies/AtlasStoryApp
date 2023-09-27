@@ -6,6 +6,10 @@
 	vertical-align: top;
 }
 
+.characters-groups-container-no-groups {
+	width: 100%;
+}
+
 .characters-groups-primary {
 	display: flex;
 	align-items: center;
@@ -31,6 +35,14 @@
 
 .characters-groups-primary-modify-btn:last-child {
 	margin-right: 0;
+}
+
+.characters-groups-add-first-group-container {
+	height: 635px;
+}
+
+.characters-groups-add-first-character-container .first-add-btn {
+	border-radius: 5px;
 }
 
 .characters-groups-group-items-container {
@@ -157,6 +169,10 @@
 
 	.characters-groups-group-items-container {
 		min-height: 46px;
+	}
+
+	.characters-groups-add-first-group-container {
+		height: 150px;
 	}
 }
 

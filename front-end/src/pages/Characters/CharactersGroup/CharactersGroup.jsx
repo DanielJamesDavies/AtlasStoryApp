@@ -6,6 +6,7 @@ import { CharactersGroupCharacterCards } from "./CharactersGroupCharacterCards/C
 import { CharactersCreateCharacter } from "./CharactersCreateCharacter/CharactersCreateCharacter";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 import { ContentItem } from "../../../components/ContentItem/ContentItem";
+import { FirstAddButton } from "../../../components/FirstAddButton/FirstAddButton";
 
 // Logic
 import { CharactersGroupLogic } from "./CharactersGroupLogic";
@@ -22,6 +23,7 @@ import "./CharactersGroup.css";
 export const CharactersGroup = () => {
 	const {
 		isAuthorizedToEdit,
+		authorized_user_id,
 		story,
 		group,
 		navigateToGroup,
@@ -33,7 +35,11 @@ export const CharactersGroup = () => {
 
 	return (
 		<div
-			className='characters-group-container'
+			className={
+				story?.data?.groups?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1
+					? "characters-group-container characters-group-container-no-groups"
+					: "characters-group-container"
+			}
 			style={{
 				"--characters-group-active-group-colour": !activeGroupColour
 					? !story?.data?.colour
@@ -89,7 +95,15 @@ export const CharactersGroup = () => {
 						)}
 					</div>
 				</div>
-				{story?.data?.groups?.length === 0 ? null : <CharactersGroupCharacterCards />}
+				{story?.data?.groups?.length !== 0 &&
+				group?.data?.characters?.length === 0 &&
+				story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+					<div className='characters-group-add-first-character-container'>
+						<FirstAddButton label='Create Character' onClick={openCreateCharacterForm} />
+					</div>
+				) : story?.data?.groups?.length === 0 ? null : (
+					<CharactersGroupCharacterCards />
+				)}
 				<CharactersCreateCharacter />
 			</ContentItem>
 		</div>

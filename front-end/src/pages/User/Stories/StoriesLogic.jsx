@@ -16,7 +16,7 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const StoriesLogic = () => {
-	const { isAuthorizedToEdit, user, setUser, stories, setIsDisplayingCreateStoryForm } = useContext(UserContext);
+	const { isAuthorizedToEdit, authorized_username, user, setUser, stories, setIsDisplayingCreateStoryForm } = useContext(UserContext);
 	const { APIRequest } = useContext(APIContext);
 
 	function openCreateStoryForm() {
@@ -46,5 +46,14 @@ export const StoriesLogic = () => {
 		});
 	}
 
-	return { isAuthorizedToEdit, user, stories, openCreateStoryForm, isReorderingStories, toggleIsReorderingStories, changeStoriesOrder };
+	return {
+		isAuthorizedToEdit,
+		authorized_username,
+		user,
+		stories,
+		openCreateStoryForm,
+		isReorderingStories,
+		toggleIsReorderingStories,
+		changeStoriesOrder,
+	};
 };

@@ -43,6 +43,7 @@ const APIProvider = ({ children }) => {
 		<APIContext.Provider
 			value={{
 				APIRequest,
+				authorized_user_id: user_id,
 				user_id,
 				setUserID,
 				username,

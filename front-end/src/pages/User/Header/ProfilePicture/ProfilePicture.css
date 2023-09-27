@@ -32,6 +32,10 @@
 	object-fit: cover;
 }
 
+.user-header-profile-picture .first-add-btn {
+	border-radius: 100%;
+}
+
 @media (max-width: 750px) {
 	.user-header-profile-picture-container {
 		--profilePictureWidth: 70px;

@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 
 // Components
 
@@ -11,17 +11,34 @@ import { APIContext } from "../../../../context/APIContext";
 import { LightboxContext } from "../../../../context/LightboxContext";
 
 // Services
+import getImageFromFile from "../../../../services/GetImageFromFile";
 
 // Styles
 
 // Assets
 
 export const ProfilePictureLogic = () => {
-	const { isAuthorizedToEdit, user, profilePicture, setProfilePicture } = useContext(UserContext);
+	const { isAuthorizedToEdit, authorized_username, user, profilePicture, setProfilePicture } = useContext(UserContext);
 	const { APIRequest, setUserProfilePicture } = useContext(APIContext);
 	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
+	const firstProfilePictureInputRef = useRef();
 
 	const [errors, setErrors] = useState([]);
+
+	async function addFirstProfilePicture(e) {
+		if (!user?.data?.profilePicture) return false;
+		const image = await getImageFromFile(e.target.files[0]);
+		firstProfilePictureInputRef.current.value = [];
+		if (image?.error || !image?.data) return setErrors([{ message: image?.error }]);
+		setErrors([]);
+		setProfilePicture(image.data);
+		const response = await APIRequest("/image/" + user.data.profilePicture, "PATCH", { newValue: image.data });
+		if (!response || response?.errors) {
+			if (response?.errors) setErrors(response.errors);
+			return false;
+		}
+		return true;
+	}
 
 	async function changeProfilePicture(image) {
 		setErrors([]);
@@ -54,5 +71,17 @@ export const ProfilePictureLogic = () => {
 		setLightboxIndex(0);
 	}
 
-	return { isAuthorizedToEdit, profilePicture, changeProfilePicture, revertProfilePicture, saveProfilePicture, onClickProfilePicture, errors };
+	return {
+		isAuthorizedToEdit,
+		authorized_username,
+		user,
+		profilePicture,
+		firstProfilePictureInputRef,
+		addFirstProfilePicture,
+		changeProfilePicture,
+		revertProfilePicture,
+		saveProfilePicture,
+		onClickProfilePicture,
+		errors,
+	};
 };

@@ -11,6 +11,7 @@ import { CharactersContext } from "../CharactersContext";
 
 // Services
 import getColourWithTint from "../../../services/GetColourWithTint";
+import { APIContext } from "../../../context/APIContext";
 
 // Styles
 
@@ -19,6 +20,7 @@ import getColourWithTint from "../../../services/GetColourWithTint";
 export const CharactersGroupLogic = () => {
 	const { changeLocation } = useContext(RoutesContext);
 	const { isAuthorizedToEdit, story, group, setIsDisplayingCreateCharacterForm, toggleIsReorderingCharacters } = useContext(CharactersContext);
+	const { authorized_user_id } = useContext(APIContext);
 
 	function navigateToGroup(e) {
 		if (story?.uid && group?.uid) changeLocation("/s/" + story.uid + "/g/" + group.uid, e.button === 1);
@@ -46,6 +48,7 @@ export const CharactersGroupLogic = () => {
 
 	return {
 		isAuthorizedToEdit,
+		authorized_user_id,
 		story,
 		group,
 		navigateToGroup,

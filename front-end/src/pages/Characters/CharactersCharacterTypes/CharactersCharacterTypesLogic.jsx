@@ -28,7 +28,7 @@ export const CharactersCharacterTypesLogic = () => {
 		isReorderingCharacterTypes,
 		toggleIsReorderingCharacterTypes,
 	} = useContext(CharactersContext);
-	const { APIRequest } = useContext(APIContext);
+	const { APIRequest, authorized_user_id } = useContext(APIContext);
 
 	const [activeTypeColours, setActiveTypeColours] = useState(["#0044ff", "#0044ff"]);
 
@@ -61,6 +61,7 @@ export const CharactersCharacterTypesLogic = () => {
 
 	return {
 		isAuthorizedToEdit,
+		authorized_user_id,
 		story,
 		storyCharacterTypes,
 		characterType,

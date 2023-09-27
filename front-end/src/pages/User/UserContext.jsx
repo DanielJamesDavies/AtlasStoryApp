@@ -66,7 +66,7 @@ const UserProvider = ({ children, user_username }) => {
 			if (!profilePictureID) return;
 			if (newUsername === username) setProfilePicture(authorized_user_images?.current?.profilePicture);
 			const response = await APIRequest("/image/" + profilePictureID, "GET");
-			if (response?.error || !response?.data?.image?.image) return setProfilePicture(false);
+			if (response?.error || !response?.data?.image?.image) return setProfilePicture("NO_IMAGE");
 			setProfilePicture(response.data.image.image);
 			if (newUsername === username) setUserProfilePicture(response.data.image.image);
 		}
@@ -75,7 +75,7 @@ const UserProvider = ({ children, user_username }) => {
 			if (!bannerID) return;
 			if (newUsername === username) setBanner(authorized_user_images?.current?.banner);
 			const response = await APIRequest("/image/" + bannerID, "GET");
-			if (response?.error || !response?.data?.image?.image) return setBanner(false);
+			if (response?.error || !response?.data?.image?.image) return setBanner("NO_IMAGE");
 			setBanner(response.data.image.image);
 			if (newUsername === username) setUserBanner(response.data.image.image);
 		}
@@ -117,6 +117,7 @@ const UserProvider = ({ children, user_username }) => {
 	return (
 		<UserContext.Provider
 			value={{
+				authorized_username: username,
 				user_username,
 				isAuthorizedToEdit,
 				setIsAuthorizedToEdit,

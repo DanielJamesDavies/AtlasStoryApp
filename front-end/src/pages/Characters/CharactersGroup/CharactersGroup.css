@@ -8,6 +8,10 @@
 	vertical-align: top;
 }
 
+.characters-group-container-no-groups {
+	display: none;
+}
+
 .characters-group-primary {
 	display: flex;
 	align-items: center;
@@ -95,6 +99,15 @@
 	align-items: center;
 }
 
+.characters-group-add-first-character-container {
+	margin-top: 12px;
+	height: calc(635px - 12px);
+}
+
+.characters-group-add-first-character-container .first-add-btn {
+	border-radius: 5px;
+}
+
 @media (max-width: 950px) {
 	.characters-group-container {
 		margin: 0;
@@ -131,5 +144,9 @@
 
 	.characters-group-primary-modify-btn:last-child {
 		margin-right: 8px;
+	}
+
+	.characters-group-add-first-character-container {
+		height: 150px;
 	}
 }

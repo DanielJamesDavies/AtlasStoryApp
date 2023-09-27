@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 
 // Components
 
@@ -11,17 +11,34 @@ import { APIContext } from "../../../context/APIContext";
 import { LightboxContext } from "../../../context/LightboxContext";
 
 // Services
+import getImageFromFile from "../../../services/GetImageFromFile";
 
 // Styles
 
 // Assets
 
 export const BannerLogic = () => {
-	const { isAuthorizedToEdit, user, banner, setBanner } = useContext(UserContext);
+	const { isAuthorizedToEdit, authorized_username, user, banner, setBanner } = useContext(UserContext);
 	const { APIRequest } = useContext(APIContext);
 	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
+	const firstBannerInputRef = useRef();
 
 	const [errors, setErrors] = useState([]);
+
+	async function addFirstBanner(e) {
+		if (!user?.data?.banner) return false;
+		const image = await getImageFromFile(e.target.files[0]);
+		firstBannerInputRef.current.value = [];
+		if (image?.error || !image?.data) return setErrors([{ message: image?.error }]);
+		setErrors([]);
+		setBanner(image.data);
+		const response = await APIRequest("/image/" + user.data.banner, "PATCH", { newValue: image.data });
+		if (!response || response?.errors) {
+			if (response?.errors) setErrors(response.errors);
+			return false;
+		}
+		return true;
+	}
 
 	async function changeBanner(image) {
 		setErrors([]);
@@ -53,5 +70,17 @@ export const BannerLogic = () => {
 		setLightboxIndex(0);
 	}
 
-	return { isAuthorizedToEdit, banner, changeBanner, revertBanner, saveBanner, onClickBanner, errors };
+	return {
+		isAuthorizedToEdit,
+		authorized_username,
+		user,
+		banner,
+		addFirstBanner,
+		changeBanner,
+		revertBanner,
+		saveBanner,
+		onClickBanner,
+		errors,
+		firstBannerInputRef,
+	};
 };

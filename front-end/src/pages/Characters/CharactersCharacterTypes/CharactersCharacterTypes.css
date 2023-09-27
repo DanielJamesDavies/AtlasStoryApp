@@ -7,6 +7,10 @@
 	vertical-align: top;
 }
 
+.characters-character-types-container-no-types {
+	width: 100%;
+}
+
 .characters-character-types-primary {
 	display: flex;
 	align-items: center;
@@ -94,6 +98,10 @@
 
 .drag-drop-item-enable-drag-drop:nth-child(even).characters-character-types-character-type-item-container .btn-list-item {
 	animation-delay: 0.1s;
+}
+
+.characters-character-types-add-first-group-container {
+	height: calc(200px + (var(--vh) / 2));
 }
 
 @media (max-width: 950px) {

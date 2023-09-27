@@ -19,12 +19,14 @@ import { CharactersGroupsLogic } from "./CharactersGroupsLogic";
 
 // Styles
 import "./CharactersGroups.css";
+import { FirstAddButton } from "../../../components/FirstAddButton/FirstAddButton";
 
 // Assets
 
 export const CharactersGroups = () => {
 	const {
 		isAuthorizedToEdit,
+		authorized_user_id,
 		story,
 		storyGroups,
 		group,
@@ -39,7 +41,11 @@ export const CharactersGroups = () => {
 
 	return (
 		<div
-			className='characters-groups-container'
+			className={
+				story?.data?.groups?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1
+					? "characters-groups-container characters-groups-container-no-groups"
+					: "characters-groups-container"
+			}
 			style={{
 				"--characters-groups-active-group-colour": !activeGroupColour
 					? !story?.data?.colour
@@ -77,7 +83,11 @@ export const CharactersGroups = () => {
 						</div>
 					)}
 				</div>
-				{!story?.data?.groups || !storyGroups ? (
+				{story?.data?.groups?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+					<div className='characters-groups-add-first-group-container'>
+						<FirstAddButton label='Create Character Group' onClick={openCreateGroupForm} />
+					</div>
+				) : !story?.data?.groups || !storyGroups ? (
 					<div className='characters-groups-group-items-container characters-groups-group-items-container-placeholder'>
 						<BtnListItem />
 						<BtnListItem />

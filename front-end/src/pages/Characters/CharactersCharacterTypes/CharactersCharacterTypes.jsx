@@ -9,6 +9,7 @@ import { BtnListContainer } from "../../../components/BtnListContainer/BtnListCo
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { BtnListItem } from "../../../components/BtnListItem/BtnListItem";
+import { FirstAddButton } from "../../../components/FirstAddButton/FirstAddButton";
 
 // Logic
 import { CharactersCharacterTypesLogic } from "./CharactersCharacterTypesLogic";
@@ -25,6 +26,7 @@ import "./CharactersCharacterTypes.css";
 export const CharactersCharacterTypes = () => {
 	const {
 		isAuthorizedToEdit,
+		authorized_user_id,
 		story,
 		storyCharacterTypes,
 		characterType,
@@ -39,7 +41,11 @@ export const CharactersCharacterTypes = () => {
 	if (!isAuthorizedToEdit && (!story?.data?.characterTypes || story?.data?.characterTypes.length === 0)) return null;
 	return (
 		<div
-			className='characters-character-types-container'
+			className={
+				story?.data?.characterTypes?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1
+					? "characters-character-types-container characters-character-types-container-no-types"
+					: "characters-character-types-container"
+			}
 			style={{
 				"--charactersCharacterTypeActiveColourGradient1": activeTypeColours[0],
 				"--charactersCharacterTypeActiveColourGradient2": activeTypeColours[1],
@@ -69,7 +75,11 @@ export const CharactersCharacterTypes = () => {
 						</div>
 					)}
 				</div>
-				{!story?.data?.characterTypes || !storyCharacterTypes ? (
+				{story?.data?.characterTypes?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+					<div className='characters-character-types-add-first-group-container'>
+						<FirstAddButton label='Create Character Type' onClick={openCreateCharacterTypeForm} />
+					</div>
+				) : !story?.data?.characterTypes || !storyCharacterTypes ? (
 					<div className='characters-character-types-character-type-items-container'>
 						<BtnListItem />
 						<BtnListItem />

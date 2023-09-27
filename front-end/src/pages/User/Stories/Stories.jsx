@@ -7,6 +7,7 @@ import { IconBtn } from "../../../components/IconBtn/IconBtn";
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { StoryItem } from "../../../components/StoryItem/StoryItem";
+import { FirstAddButton } from "../../../components/FirstAddButton/FirstAddButton";
 
 // Logic
 import { StoriesLogic } from "./StoriesLogic";
@@ -21,8 +22,16 @@ import "./Stories.css";
 // Assets
 
 export const Stories = () => {
-	const { isAuthorizedToEdit, user, stories, openCreateStoryForm, isReorderingStories, toggleIsReorderingStories, changeStoriesOrder } =
-		StoriesLogic();
+	const {
+		isAuthorizedToEdit,
+		authorized_username,
+		user,
+		stories,
+		openCreateStoryForm,
+		isReorderingStories,
+		toggleIsReorderingStories,
+		changeStoriesOrder,
+	} = StoriesLogic();
 
 	return (
 		<div className='user-stories'>
@@ -50,7 +59,11 @@ export const Stories = () => {
 					</div>
 				)}
 			</div>
-			{!stories || !user?.data?.stories ? null : (
+			{user?.data?.stories?.length === 0 && authorized_username === user?.username ? (
+				<div className='user-stories-add-first-story-container'>
+					<FirstAddButton label='Create a New Story' onClick={openCreateStoryForm} />
+				</div>
+			) : !stories || !user?.data?.stories ? null : (
 				<DragDropContainer
 					className='user-stories-story-items-container'
 					inlineItems={true}
