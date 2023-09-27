@@ -14,6 +14,11 @@ const UserSchema = mongoose.Schema({
 		min: 1,
 		max: 255,
 	},
+	isPrivate: {
+		type: Boolean,
+		required: true,
+		default: false	
+	},
 	data: {
 		nickname: {
 			type: String,

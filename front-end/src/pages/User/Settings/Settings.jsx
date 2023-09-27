@@ -4,6 +4,7 @@
 import { Username } from "./Username/Username";
 import { Password } from "./Password/Password";
 import { Email } from "./Email/Email";
+import { IsPrivate } from "./IsPrivate/IsPrivate";
 import { Theme } from "./Theme/Theme";
 import { FontSize } from "./FontSize/FontSize";
 import { ConnectToSpotify } from "./ConnectToSpotify/ConnectToSpotify";
@@ -47,6 +48,10 @@ export const Settings = () => {
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Email</div>
 					<Email />
+				</div>
+				<div className='user-settings-section-container'>
+					<div className='user-settings-section-label'>Private Account</div>
+					<IsPrivate />
 				</div>
 				<div className='user-settings-section-container'>
 					<div className='user-settings-section-label'>Theme</div>

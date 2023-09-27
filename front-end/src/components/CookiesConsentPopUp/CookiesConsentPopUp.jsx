@@ -15,10 +15,10 @@ import "./CookiesConsentPopUp.css";
 // Assets
 
 export const CookiesConsentPopUp = () => {
-	const { showPopUp, acceptCookies, rejectCookies, isShowingWhatFor, showWhatFor, hideWhatFor } = CookiesConsentPopUpLogic();
+	const { showCookiesConsentPopUp, acceptCookies, rejectCookies, isShowingWhatFor, showWhatFor, hideWhatFor } = CookiesConsentPopUpLogic();
 
 	return (
-		<div className={showPopUp ? "cookies-consent-pop-up" : "cookies-consent-pop-up cookies-consent-pop-up-hide"}>
+		<div className={showCookiesConsentPopUp ? "cookies-consent-pop-up" : "cookies-consent-pop-up cookies-consent-pop-up-hide"}>
 			<div className='cookies-consent-pop-up-background' />
 			<div className='cookies-consent-pop-up-form'>
 				<div className='cookies-consent-pop-up-title'>Cookies Policy</div>
@@ -30,7 +30,7 @@ export const CookiesConsentPopUp = () => {
 				</div>
 				<div className='cookies-consent-pop-up-buttons-container'>
 					<button className='cookies-consent-pop-up-btn cookies-consent-pop-up-btn-accept' onClick={acceptCookies}>
-						Accept
+						Accept Neccessary
 					</button>
 					<button className='cookies-consent-pop-up-btn cookies-consent-pop-up-btn-reject' onClick={rejectCookies}>
 						Reject

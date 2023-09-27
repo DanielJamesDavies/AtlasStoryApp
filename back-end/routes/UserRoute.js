@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Authenticate = require("../services/TokenAuthentication");
 const CookieConsentAuthentication = require("../services/CookiesConsent/CookieConsentAuthentication");
+const IsUserAccessable = require("../services/User/IsUserAccessable");
 
 const GetUser = require("../services/User/GetUser");
 const GetAuthenticatedUser = require("../services/User/GetAuthenticatedUser");
@@ -16,9 +17,9 @@ const LogOutUser = require("../services/User/LogOutUser");
 const UpdateUser = require("../services/User/UpdateUser");
 const DeleteUser = require("../services/User/DeleteUser");
 
-router.get("/", GetUser);
+router.get("/", IsUserAccessable, GetUser);
 router.get("/me", CookieConsentAuthentication, GetAuthenticatedUser);
-router.get("/:id", GetUserByID);
+router.get("/:id", IsUserAccessable, GetUserByID);
 router.post("/", CookieConsentAuthentication, CreateNewUser);
 router.post("/verify", VerifyUser);
 router.post("/forgot-password", CreateForgotPasswordVerification);
