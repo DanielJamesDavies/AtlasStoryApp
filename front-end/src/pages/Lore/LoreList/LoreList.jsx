@@ -7,6 +7,7 @@ import { LoreListCreateLoreItem } from "./LoreListCreateLoreItem/LoreListCreateL
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
+import { FirstAddButton } from "../../../components/FirstAddButton/FirstAddButton";
 
 // Logic
 import { LoreListLogic } from "./LoreListLogic";
@@ -21,7 +22,7 @@ import "./LoreList.css";
 // Assets
 
 export const LoreList = () => {
-	const { story, lore, loreImages, isReorderingLore, changeLoreOrder } = LoreListLogic();
+	const { authorized_user_id, story, lore, loreImages, isReorderingLore, changeLoreOrder, setIsDisplayingCreateLoreItemForm } = LoreListLogic();
 
 	return (
 		<div className='lore-list-container'>
@@ -33,13 +34,19 @@ export const LoreList = () => {
 				<>
 					<LoreListPrimary />
 					<LoreListCreateLoreItem />
-					<DragDropContainer className='lore-list' inlineItems={true} enableDragDrop={isReorderingLore} onDropItem={changeLoreOrder}>
-						{story?.data?.lore.map((lore_item_id, index) => (
-							<DragDropItem key={index} index={index} className='lore-list-item-container'>
-								<LoreListItem lore_item={lore.find((e) => e._id === lore_item_id)} />
-							</DragDropItem>
-						))}
-					</DragDropContainer>
+					{story?.data?.lore?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+						<div className='lore-list-add-first-container'>
+							<FirstAddButton label='Create World Item' onClick={() => setIsDisplayingCreateLoreItemForm(true)} />
+						</div>
+					) : (
+						<DragDropContainer className='lore-list' inlineItems={true} enableDragDrop={isReorderingLore} onDropItem={changeLoreOrder}>
+							{story?.data?.lore.map((lore_item_id, index) => (
+								<DragDropItem key={index} index={index} className='lore-list-item-container'>
+									<LoreListItem lore_item={lore.find((e) => e._id === lore_item_id)} />
+								</DragDropItem>
+							))}
+						</DragDropContainer>
+					)}
 				</>
 			)}
 		</div>

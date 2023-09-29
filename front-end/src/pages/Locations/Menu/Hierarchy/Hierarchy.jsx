@@ -2,7 +2,6 @@
 
 // Components
 import { HierarchyList } from "./HierarchyList/HierarchyList";
-import { HierarchyCreateHierarchyItemForm } from "./HierarchyCreateHierarchyItemForm/HierarchyCreateHierarchyItemForm";
 
 // Logic
 import { HierarchyLogic } from "./HierarchyLogic";
@@ -37,7 +36,6 @@ export const Hierarchy = () => {
 		>
 			<div className='locations-hierarchy-title'>Hierarchy</div>
 			<HierarchyList />
-			<HierarchyCreateHierarchyItemForm />
 		</div>
 	);
 };

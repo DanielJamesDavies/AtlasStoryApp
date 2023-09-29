@@ -1,8 +1,8 @@
-.locations-hierarchy-create-hierarchy-item-form-input-container {
+.locations-create-location-form-input-container {
 	margin: 12px 0;
 }
 
-.locations-hierarchy-create-hierarchy-item-form-subtitle {
+.locations-create-location-form-subtitle {
 	margin: 0;
 	margin-bottom: 6px;
 	font-size: var(--font-size-p-s);
@@ -10,18 +10,18 @@
 	color: var(--text-colour-secondary);
 }
 
-.locations-hierarchy-create-hierarchy-item-form-submit-container {
+.locations-create-location-form-submit-container {
 	margin-top: 20px;
 	text-align: right;
 }
 
-.locations-hierarchy-create-hierarchy-item-form-submit-btn-text {
+.locations-create-location-form-submit-btn-text {
 	display: inline-block;
 	vertical-align: middle;
 	font-size: 14px;
 }
 
-.locations-hierarchy-create-hierarchy-item-form-submit-btn-icon {
+.locations-create-location-form-submit-btn-icon {
 	display: inline-block;
 	margin-top: 1px;
 	margin-left: 8px;

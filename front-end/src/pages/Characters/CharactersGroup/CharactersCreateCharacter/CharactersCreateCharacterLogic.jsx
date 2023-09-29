@@ -61,6 +61,7 @@ export const CharactersCreateCharacterLogic = () => {
 	const [errors, setErrors] = useState([]);
 
 	async function submitCreateCharacter() {
+		setErrors([]);
 		const currStory = JSON.parse(JSON.stringify(story));
 		const currGroup = JSON.parse(JSON.stringify(group));
 		if (!currStory?._id || !currGroup?._id) return;

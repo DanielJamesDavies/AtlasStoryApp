@@ -16,8 +16,8 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const LoreListLogic = () => {
-	const { story, setStory, lore, loreImages, isReorderingLore } = useContext(LoreContext);
-	const { APIRequest } = useContext(APIContext);
+	const { story, setStory, lore, loreImages, isReorderingLore, setIsDisplayingCreateLoreItemForm } = useContext(LoreContext);
+	const { authorized_user_id, APIRequest } = useContext(APIContext);
 
 	async function changeLoreOrder(res) {
 		if (res.from === undefined || res.to === undefined) return;
@@ -34,5 +34,5 @@ export const LoreListLogic = () => {
 		});
 	}
 
-	return { story, lore, loreImages, isReorderingLore, changeLoreOrder };
+	return { authorized_user_id, story, lore, loreImages, isReorderingLore, changeLoreOrder, setIsDisplayingCreateLoreItemForm };
 };

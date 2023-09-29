@@ -4,6 +4,7 @@
 import { DragDropContainer } from "../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../components/DragDropItem/DragDropItem";
 import { CarouselContainer } from "../../../../components/CarouselContainer/CarouselContainer";
+import { FirstAddButton } from "../../../../components/FirstAddButton/FirstAddButton";
 import { SubstoriesListSubstoryPoster } from "./SubstoriesListSubstoryPoster/SubstoriesListSubstoryPoster";
 
 // Logic
@@ -19,11 +20,16 @@ import "./SubstoriesListSubstoryPosters.css";
 // Assets
 
 export const SubstoriesListSubstoryPosters = () => {
-	const { story, isReorderingSubstories, changeSubstoriesOrder } = SubstoriesListSubstoryPostersLogic();
+	const { authorized_user_id, story, isReorderingSubstories, changeSubstoriesOrder, setIsDisplayingCreateSubstoryForm } =
+		SubstoriesListSubstoryPostersLogic();
 
 	return (
 		<div className='substories-list-substories-posters-container'>
-			{!story?.data?.substories ? null : (
+			{story?.data?.substories?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+				<div className='substories-list-substories-posters-add-first-container'>
+					<FirstAddButton label='Create Plot' onClick={() => setIsDisplayingCreateSubstoryForm(true)} />
+				</div>
+			) : !story?.data?.substories ? null : (
 				<CarouselContainer speed={1.25} fallback={true} scrollStartOnDataChange={story?._id} disableOnMobile={true}>
 					<DragDropContainer
 						className='substories-list-substories-posters'

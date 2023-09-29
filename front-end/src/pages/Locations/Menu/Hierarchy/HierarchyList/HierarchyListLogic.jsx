@@ -17,7 +17,7 @@ import { APIContext } from "../../../../../context/APIContext";
 // Assets
 
 export const HierarchyListLogic = () => {
-	const { locationTypes, isAuthorizedToEdit, story, changeStoryHierarchy, locations, setLocations, setIsDisplayingCreateHierarchyItemForm } =
+	const { locationTypes, isAuthorizedToEdit, story, changeStoryHierarchy, locations, setLocations, setIsDisplayingCreateLocationForm } =
 		useContext(LocationsContext);
 	const { APIRequest } = useContext(APIContext);
 	const { getPathToItemInHierarchy, getItemInHierarchyFromPath, changeItemInHierarchy } = HierarchyFunctions();
@@ -194,7 +194,7 @@ export const HierarchyListLogic = () => {
 	}
 
 	function openCreateHierarchyItemForm() {
-		setIsDisplayingCreateHierarchyItemForm(true);
+		setIsDisplayingCreateLocationForm(true);
 	}
 
 	function deleteHierarchyItem(itemId) {

@@ -9,6 +9,7 @@ import { LocationsList } from "./LocationsList/LocationsList";
 import { Menu } from "./Menu/Menu";
 import { Map } from "./Map/Map";
 import { MapLocationStatus } from "./MapLocationStatus/MapLocationStatus";
+import { CreateLocationForm } from "./CreateLocationForm/CreateLocationForm";
 
 // Logic
 import { LocationsLogic } from "./LocationsLogic";
@@ -46,6 +47,7 @@ export const Locations = () => {
 				<Menu />
 				<Map />
 				<MapLocationStatus />
+				<CreateLocationForm />
 			</div>
 		);
 
@@ -60,6 +62,7 @@ export const Locations = () => {
 				<img src={MapBtnBackground} alt='' />
 			</button>
 			<LocationsList />
+			<CreateLocationForm />
 		</div>
 	);
 };

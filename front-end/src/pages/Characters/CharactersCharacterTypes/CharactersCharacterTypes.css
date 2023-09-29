@@ -104,6 +104,10 @@
 	height: calc(200px + (var(--vh) / 2));
 }
 
+.characters-character-types-add-first-group-container .first-add-btn {
+	border-radius: 5px;
+}
+
 @media (max-width: 950px) {
 	.characters-character-types-container {
 		width: 100%;

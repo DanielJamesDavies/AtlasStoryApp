@@ -16,8 +16,8 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const ObjectsListLogic = () => {
-	const { story, setStory, objects, objectsImages, isReorderingObjects } = useContext(ObjectsContext);
-	const { APIRequest } = useContext(APIContext);
+	const { story, setStory, objects, objectsImages, isReorderingObjects, setIsDisplayingCreateObjectForm } = useContext(ObjectsContext);
+	const { authorized_user_id, APIRequest } = useContext(APIContext);
 
 	async function changeObjectsOrder(res) {
 		if (res.from === undefined || res.to === undefined) return;
@@ -34,5 +34,5 @@ export const ObjectsListLogic = () => {
 		});
 	}
 
-	return { story, objects, objectsImages, isReorderingObjects, changeObjectsOrder };
+	return { authorized_user_id, story, objects, objectsImages, isReorderingObjects, changeObjectsOrder, setIsDisplayingCreateObjectForm };
 };

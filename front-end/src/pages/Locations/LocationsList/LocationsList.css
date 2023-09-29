@@ -5,6 +5,16 @@
 	margin-top: 24px;
 }
 
+.locations-list-primary {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.locations-list-primary .search-input-container {
+	width: 100%;
+}
+
 .locations-list-items {
 	display: flex;
 	flex-direction: column;

@@ -7,6 +7,7 @@ import { ObjectsListCreateObject } from "./ObjectsListCreateObject/ObjectsListCr
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
+import { FirstAddButton } from "../../../components/FirstAddButton/FirstAddButton";
 
 // Logic
 import { ObjectsListLogic } from "./ObjectsListLogic";
@@ -21,7 +22,8 @@ import "./ObjectsList.css";
 // Assets
 
 export const ObjectsList = () => {
-	const { story, objects, objectsImages, isReorderingObjects, changeObjectsOrder } = ObjectsListLogic();
+	const { authorized_user_id, story, objects, objectsImages, isReorderingObjects, changeObjectsOrder, setIsDisplayingCreateObjectForm } =
+		ObjectsListLogic();
 
 	return (
 		<div className='objects-list-container'>
@@ -33,18 +35,24 @@ export const ObjectsList = () => {
 				<>
 					<ObjectsListPrimary />
 					<ObjectsListCreateObject />
-					<DragDropContainer
-						className='objects-list'
-						inlineItems={true}
-						enableDragDrop={isReorderingObjects}
-						onDropItem={changeObjectsOrder}
-					>
-						{story?.data?.objects.map((object_id, index) => (
-							<DragDropItem key={index} index={index} className='lore-list-item-container'>
-								<ObjectsListItem object={objects.find((e) => e._id === object_id)} />
-							</DragDropItem>
-						))}
-					</DragDropContainer>
+					{story?.data?.objects?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+						<div className='objects-list-add-first-container'>
+							<FirstAddButton label='Create Object' onClick={() => setIsDisplayingCreateObjectForm(true)} />
+						</div>
+					) : (
+						<DragDropContainer
+							className='objects-list'
+							inlineItems={true}
+							enableDragDrop={isReorderingObjects}
+							onDropItem={changeObjectsOrder}
+						>
+							{story?.data?.objects.map((object_id, index) => (
+								<DragDropItem key={index} index={index} className='lore-list-item-container'>
+									<ObjectsListItem object={objects.find((e) => e._id === object_id)} />
+								</DragDropItem>
+							))}
+						</DragDropContainer>
+					)}
 				</>
 			)}
 		</div>

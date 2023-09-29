@@ -4,11 +4,11 @@ import { useContext, useEffect, useState } from "react";
 // Components
 
 // Logic
-import { HierarchyFunctions } from "../../../HierarchyFunctions";
+import { HierarchyFunctions } from "../HierarchyFunctions";
 
 // Context
-import { LocationsContext } from "../../../LocationsContext";
-import { APIContext } from "../../../../../context/APIContext";
+import { LocationsContext } from "../LocationsContext";
+import { APIContext } from "../../../context/APIContext";
 
 // Services
 
@@ -16,11 +16,11 @@ import { APIContext } from "../../../../../context/APIContext";
 
 // Assets
 
-export const HierarchyCreateHierarchyItemFormLogic = () => {
+export const CreateLocationFormLogic = () => {
 	const {
 		story_uid,
-		isDisplayingCreateHierarchyItemForm,
-		setIsDisplayingCreateHierarchyItemForm,
+		isDisplayingCreateLocationForm,
+		setIsDisplayingCreateLocationForm,
 		locationTypes,
 		story,
 		changeStoryHierarchy,
@@ -38,7 +38,7 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 	const [parentOptions, setParentOptions] = useState([]);
 
 	function closeCreateHierarchyItemForm() {
-		setIsDisplayingCreateHierarchyItemForm(false);
+		setIsDisplayingCreateLocationForm(false);
 	}
 
 	function changeItemName(e) {
@@ -47,7 +47,7 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 		setItemName(e.target.value);
 	}
 
-	const [uidErrors, setUidErrors] = useState([]);
+	const [errors, setErrors] = useState([]);
 
 	function changeItemUid(e) {
 		if (isSubmitting) return false;
@@ -105,6 +105,7 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 	}
 
 	async function submitCreateHierarchyItem() {
+		setErrors([]);
 		if (itemType === "Unselected") return false;
 		if (itemParent === "Unselected") return false;
 
@@ -167,7 +168,7 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 
 	return {
 		story_uid,
-		isDisplayingCreateHierarchyItemForm,
+		isDisplayingCreateLocationForm,
 		closeCreateHierarchyItemForm,
 		itemName,
 		changeItemName,
@@ -180,7 +181,7 @@ export const HierarchyCreateHierarchyItemFormLogic = () => {
 		itemParent,
 		changeItemParent,
 		submitCreateHierarchyItem,
-		uidErrors,
+		errors,
 		itemUIDSuggestions,
 	};
 };

@@ -16,8 +16,9 @@ import { APIContext } from "../../../../context/APIContext";
 // Assets
 
 export const SubstoriesListSubstoryPostersLogic = () => {
-	const { story, setStory, substoriesPosterBackgrounds, isReorderingSubstories } = useContext(SubstoriesContext);
-	const { APIRequest } = useContext(APIContext);
+	const { story, setStory, substoriesPosterBackgrounds, isReorderingSubstories, setIsDisplayingCreateSubstoryForm } =
+		useContext(SubstoriesContext);
+	const { authorized_user_id, APIRequest } = useContext(APIContext);
 
 	// Reorder Substories
 	async function changeSubstoriesOrder(res) {
@@ -37,5 +38,12 @@ export const SubstoriesListSubstoryPostersLogic = () => {
 		});
 	}
 
-	return { story, substoriesPosterBackgrounds, isReorderingSubstories, changeSubstoriesOrder };
+	return {
+		authorized_user_id,
+		story,
+		substoriesPosterBackgrounds,
+		isReorderingSubstories,
+		changeSubstoriesOrder,
+		setIsDisplayingCreateSubstoryForm,
+	};
 };

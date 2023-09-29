@@ -17,6 +17,15 @@
 	margin-top: -48px;
 }
 
+.substories-list-substories-posters-add-first-container {
+	padding-top: 32px;
+	height: min(max(60vh, 200px), 550px);
+}
+
+.substories-list-substories-posters-add-first-container .first-add-btn {
+	border-radius: 5px;
+}
+
 @media (max-width: 750px) {
 	.substories-list-substories-posters-container {
 		margin-left: 0;

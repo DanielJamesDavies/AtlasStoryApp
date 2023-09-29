@@ -9,6 +9,7 @@ import Fuse from "fuse.js";
 // Context
 import { LocationsContext } from "../LocationsContext";
 import { RoutesContext } from "../../../context/RoutesContext";
+import { APIContext } from "../../../context/APIContext";
 
 // Services
 
@@ -17,8 +18,9 @@ import { RoutesContext } from "../../../context/RoutesContext";
 // Assets
 
 export const LocationsListLogic = () => {
-	const { story_uid, locations, locationTypes } = useContext(LocationsContext);
+	const { story_uid, story, locations, locationTypes, setIsDisplayingCreateLocationForm } = useContext(LocationsContext);
 	const { changeLocation } = useContext(RoutesContext);
+	const { authorized_user_id } = useContext(APIContext);
 	const [searchedLocations, setSearchedLocations] = useState([]);
 	const [searchValue, setSearchValue] = useState("");
 
@@ -44,5 +46,15 @@ export const LocationsListLogic = () => {
 		}
 	}
 
-	return { locationTypes, searchedLocations, searchValue, changeSearchValue, onClickLocation };
+	return {
+		authorized_user_id,
+		story,
+		locations,
+		locationTypes,
+		searchedLocations,
+		searchValue,
+		changeSearchValue,
+		onClickLocation,
+		setIsDisplayingCreateLocationForm,
+	};
 };

@@ -155,7 +155,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 		},
 	]);
 
-	const [isDisplayingCreateHierarchyItemForm, setIsDisplayingCreateHierarchyItemForm] = useState(false);
+	const [isDisplayingCreateLocationForm, setIsDisplayingCreateLocationForm] = useState(false);
 
 	const url_location = useRef(false);
 	useEffect(() => {
@@ -331,8 +331,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setMapObjectLocations,
 				addToMapObjectLocations,
 				scenesChangePlayerInitial,
-				isDisplayingCreateHierarchyItemForm,
-				setIsDisplayingCreateHierarchyItemForm,
+				isDisplayingCreateLocationForm,
+				setIsDisplayingCreateLocationForm,
 			}}
 		>
 			{children}
