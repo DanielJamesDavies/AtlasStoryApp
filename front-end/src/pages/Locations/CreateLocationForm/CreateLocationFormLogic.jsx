@@ -9,6 +9,7 @@ import { HierarchyFunctions } from "../HierarchyFunctions";
 // Context
 import { LocationsContext } from "../LocationsContext";
 import { APIContext } from "../../../context/APIContext";
+import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
 
@@ -28,6 +29,7 @@ export const CreateLocationFormLogic = () => {
 		setLocations,
 	} = useContext(LocationsContext);
 	const { APIRequest } = useContext(APIContext);
+	const { changeLocation } = useContext(RoutesContext);
 	const { getPathToItemInHierarchy, getItemInHierarchyFromPath, changeItemInHierarchy } = HierarchyFunctions();
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,6 +47,7 @@ export const CreateLocationFormLogic = () => {
 		if (isSubmitting) return false;
 
 		setItemName(e.target.value);
+		updateItemUIDSuggestions(e.target.value);
 	}
 
 	const [errors, setErrors] = useState([]);
@@ -53,7 +56,6 @@ export const CreateLocationFormLogic = () => {
 		if (isSubmitting) return false;
 
 		setItemUid(e.target.value);
-		updateItemUIDSuggestions(e.target.value);
 	}
 
 	const [itemUIDSuggestions, setItemUIDSuggestions] = useState([]);
@@ -156,6 +158,19 @@ export const CreateLocationFormLogic = () => {
 			newHierarchy = changeItemInHierarchy(parentPath, parentHierarchyItem, newHierarchy);
 		}
 		changeStoryHierarchy(newHierarchy);
+
+		const response = await APIRequest("/location", "POST", {
+			_id: newLocation._id,
+			story_id: newLocation.story_id,
+			name: newLocation?.data?.name,
+			uid: newLocation?.uid,
+			type: newLocation?.type,
+			item_parent: itemParent,
+		});
+		if (!response) return;
+		console.log(response?.errors);
+		if (response?.errors) return setErrors(response.errors);
+		if (story?.uid) changeLocation("/s/" + story.uid + "/l/" + newLocation?.uid);
 
 		// Close Form
 		setItemName("");

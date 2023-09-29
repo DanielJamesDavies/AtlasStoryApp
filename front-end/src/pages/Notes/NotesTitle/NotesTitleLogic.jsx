@@ -41,8 +41,8 @@ export const NotesTitleLogic = () => {
 				case "objects":
 					newNotesTitleLabel = "Objects";
 					break;
-				case "lore":
-					newNotesTitleLabel = "Lore";
+				case "world-building":
+					newNotesTitleLabel = "World Building";
 					break;
 				default:
 					break;

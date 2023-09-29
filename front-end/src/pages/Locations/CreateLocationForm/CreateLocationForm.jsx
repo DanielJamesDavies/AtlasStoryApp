@@ -61,6 +61,7 @@ export const CreateLocationForm = () => {
 							label='With this UID, your location will be accessable on the following URL:'
 						/>
 					)}
+					<ErrorMessage attribute='uid' errors={errors} />
 				</div>
 
 				<div className='locations-create-location-form-input-container'>

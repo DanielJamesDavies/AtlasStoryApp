@@ -17,9 +17,18 @@ import "./AITools.css";
 // Assets
 
 export const AITools = ({ type, context, isDisplayingButtons }) => {
-	const { aiToolsContainerRef, aiToolsStyles, gpt_messages, onImproveBtnClick, onSummarizeBtnClick, clearGptMessages, onCopyBtnClick } =
-		AIToolsLogic({ type, context });
+	const {
+		GPT_API_Key,
+		aiToolsContainerRef,
+		aiToolsStyles,
+		gpt_messages,
+		onImproveBtnClick,
+		onSummarizeBtnClick,
+		clearGptMessages,
+		onCopyBtnClick,
+	} = AIToolsLogic({ type, context });
 
+	if (!GPT_API_Key || GPT_API_Key.trim().length === 0) return null;
 	return (
 		<div
 			ref={aiToolsContainerRef}

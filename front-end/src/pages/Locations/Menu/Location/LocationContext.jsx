@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 
 import { LocationsContext } from "../../LocationsContext";
 import { APIContext } from "../../../../context/APIContext";
@@ -62,6 +62,20 @@ const LocationProvider = ({ children, location_id }) => {
 		getInitial();
 	}, [location_id, setLocation, locations, APIRequest]);
 
+	const changeLocation = useCallback(
+		(newLocation) => {
+			setLocation(newLocation);
+			setLocations((oldLocations) => {
+				let newLocations = JSON.parse(JSON.stringify(oldLocations));
+				const locationIndex = newLocations.findIndex((e) => e._id === selectedLocationId);
+				if (locationIndex === -1) return newLocations;
+				newLocations[locationIndex] = JSON.parse(JSON.stringify(newLocation));
+				return newLocations;
+			});
+		},
+		[setLocation, setLocations, selectedLocationId]
+	);
+
 	return (
 		<LocationContext.Provider
 			value={{
@@ -71,6 +85,7 @@ const LocationProvider = ({ children, location_id }) => {
 				locations,
 				location,
 				setLocation,
+				changeLocation,
 				locationImages,
 				setLocationImages,
 				subpages,

@@ -45,8 +45,8 @@ const NotesProvider = ({ children, story_uid, notes_uid }) => {
 					case "objects":
 						newDocumentTitle += "Objects ";
 						break;
-					case "lore":
-						newDocumentTitle += "Lore ";
+					case "world-building":
+						newDocumentTitle += "World Building ";
 						break;
 					default:
 						break;

@@ -109,16 +109,16 @@ export const Scene = ({ setCursorPointer }) => {
 				currSceneLocationId.current = location?._id;
 				setMapObjectLocations([]);
 				const scenesChangePlayerInitialItem = JSON.parse(
-					JSON.stringify(scenesChangePlayerInitial.current.find((e) => e.type === location?.type))
+					JSON.stringify(scenesChangePlayerInitial?.current?.find((e) => e?.type === location?.type) || {})
 				);
-				if (scenesChangePlayerInitialItem) {
+				if (scenesChangePlayerInitialItem?.position && scenesChangePlayerInitialItem?.rotation) {
 					playerApi.position.set(...scenesChangePlayerInitialItem?.position);
 					changeCameraRotation(scenesChangePlayerInitialItem?.rotation);
 				}
 			}
 
 			const newScene = scenes.current.find((e) => e?.type === location?.type);
-			if (!newScene?.scene) return false;
+			if (!newScene?.scene) return setScene(null);
 
 			setScene(
 				<newScene.scene location={location} locations={locations} hierarchyItem={hierarchyItem} setCursorPointer={setCursorPointer} />

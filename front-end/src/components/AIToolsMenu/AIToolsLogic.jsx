@@ -15,7 +15,7 @@ import { AIContext } from "../../context/AIContext";
 // Assets
 
 export const AIToolsLogic = ({ type, context }) => {
-	const { AI_GPT_Request } = useContext(AIContext);
+	const { GPT_API_Key, AI_GPT_Request } = useContext(AIContext);
 
 	const aiToolsContainerRef = useRef();
 	const [aiToolsStyles, setAiToolsStyles] = useState({});
@@ -89,5 +89,14 @@ export const AIToolsLogic = ({ type, context }) => {
 		navigator.clipboard.writeText(text);
 	}
 
-	return { aiToolsContainerRef, aiToolsStyles, gpt_messages, onImproveBtnClick, onSummarizeBtnClick, clearGptMessages, onCopyBtnClick };
+	return {
+		GPT_API_Key,
+		aiToolsContainerRef,
+		aiToolsStyles,
+		gpt_messages,
+		onImproveBtnClick,
+		onSummarizeBtnClick,
+		clearGptMessages,
+		onCopyBtnClick,
+	};
 };
