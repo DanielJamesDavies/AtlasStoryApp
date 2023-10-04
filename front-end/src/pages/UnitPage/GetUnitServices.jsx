@@ -23,7 +23,6 @@ export const GetUnitServices = ({
 	setUnitImages,
 	unitSoundtrack,
 	setUnitSoundtrack,
-	unitListImage,
 	setUnitListImage,
 	unitPagePrimaryRef,
 	allSubpages,
@@ -32,9 +31,11 @@ export const GetUnitServices = ({
 	setCharacterCardBackground,
 	setCharacterFaceImage,
 	storyCharacters,
+	characterRelationships,
 	setCharacterRelationships,
 	setCharacterRelationshipsCharacters,
 	storyCharacterRelationships,
+	storyGroups,
 }) => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { APIRequest } = useContext(APIContext);
@@ -343,19 +344,33 @@ export const GetUnitServices = ({
 		if (storyCharacters.length === 0) return false;
 		if (!unit?._id) return false;
 		if (curr_character_relationships_characters_character_uid.current === unit.uid) return false;
+
+		if (!storyCharacters || storyCharacters.length === 0 || !characterRelationships) return false;
 		curr_character_relationships_characters_character_uid.current = unit.uid;
 
-		const characterIndex = storyCharacters.findIndex((e) => e.uid === unit.uid);
-		const firstNewCharacterRelationshipsCharacters = JSON.parse(JSON.stringify(storyCharacters)).slice(characterIndex);
-		const lastNewCharacterRelationshipsCharacters = JSON.parse(JSON.stringify(storyCharacters)).slice(0, characterIndex);
-		const newCharacterRelationshipsCharacters = firstNewCharacterRelationshipsCharacters.concat(lastNewCharacterRelationshipsCharacters);
+		let newRelationshipsCharacters = storyGroups
+			.map((group) =>
+				group?.data?.characters.map((character) => {
+					let newCharacter = storyCharacters.find((e) => e?._id === character?.character_id);
+					if (!newCharacter) return false;
+					if (
+						characterRelationships.filter((r) => newCharacter?.uid === unit_uid || r.character_ids.includes(newCharacter?._id))
+							.length === 0
+					)
+						return false;
+					return newCharacter;
+				})
+			)
+			.flat(1)
+			.filter((e) => e !== false);
 
-		if (newCharacterRelationshipsCharacters.length === 0) curr_character_relationships_characters_character_uid.current = false;
-		setCharacterRelationshipsCharacters((oldCharacterRelationshipsCharacters) => {
-			if (newCharacterRelationshipsCharacters.length === 0) return oldCharacterRelationshipsCharacters;
-			return newCharacterRelationshipsCharacters;
-		});
-	}, [setCharacterRelationshipsCharacters, unit, storyCharacters]);
+		const characterIndex = newRelationshipsCharacters.findIndex((e) => e.uid === unit_uid);
+		const firstNewRelationshipsCharacters = JSON.parse(JSON.stringify(newRelationshipsCharacters)).slice(characterIndex);
+		const lastNewRelationshipsCharacters = JSON.parse(JSON.stringify(newRelationshipsCharacters)).slice(0, characterIndex);
+		newRelationshipsCharacters = firstNewRelationshipsCharacters.concat(lastNewRelationshipsCharacters);
+
+		setCharacterRelationshipsCharacters(newRelationshipsCharacters);
+	}, [setCharacterRelationshipsCharacters, unit, storyCharacters, characterRelationships, storyGroups, unit_uid]);
 
 	useEffect(() => {
 		if (["character"].includes(unit_type)) {

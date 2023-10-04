@@ -33,7 +33,7 @@ export const RelationshipsLogic = () => {
 	const [characterRelationshipsChartItemWidth, setUnitRelationshipsChartItemWidth] = useState(78);
 
 	useLayoutEffect(() => {
-		function getCharacterItemTransform(index, newCharactersRelationshipChartWidth) {
+		function getCharacterItemTransform(index, newRelationshipsChartWidth) {
 			let modifier = 7;
 			if (window.innerWidth <= 1200) modifier = 6;
 			if (window.innerWidth <= 1100) modifier = 4;
@@ -41,8 +41,8 @@ export const RelationshipsLogic = () => {
 			if (window.innerWidth <= 375) modifier = 42 / characterRelationshipsCharacters?.length;
 			if (window.innerWidth <= 300) modifier = 0;
 			const angle = (index / (characterRelationshipsCharacters?.length + modifier)) * Math.PI * 2;
-			const x = (newCharactersRelationshipChartWidth / 2) * Math.sin(angle);
-			const y = -1 * (newCharactersRelationshipChartWidth / 2) * Math.cos(angle);
+			const x = (newRelationshipsChartWidth / 2) * Math.sin(angle);
+			const y = -1 * (newRelationshipsChartWidth / 2) * Math.cos(angle);
 			return [x, y];
 		}
 
@@ -71,7 +71,7 @@ export const RelationshipsLogic = () => {
 			const newChartItemWidth = Math.min(Math.hypot(Math.abs(y2 - y1), Math.abs(x2 - x1)), 80);
 			setUnitRelationshipsChartItemWidth(newChartItemWidth);
 		}
-		setTimeout(() => updateChartStyles(), 400);
+		updateChartStyles();
 		window.addEventListener("resize", updateChartStyles);
 		return () => window.removeEventListener("resize", updateChartStyles);
 	}, [

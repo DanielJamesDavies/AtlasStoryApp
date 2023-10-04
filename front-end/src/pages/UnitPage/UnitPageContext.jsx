@@ -101,9 +101,11 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		setCharacterCardBackground,
 		setCharacterFaceImage,
 		storyCharacters,
+		characterRelationships,
 		setCharacterRelationships,
 		setCharacterRelationshipsCharacters,
 		storyCharacterRelationships,
+		storyGroups,
 	});
 
 	useEffect(() => {
