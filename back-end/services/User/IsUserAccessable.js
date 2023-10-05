@@ -12,25 +12,30 @@ module.exports = async (req, res, next) => {
 
 	let user = false;
 	if (req?.query?.username) {
-		user = await User.findOne({username: req.query.username})
-		.exec()
-		.catch(() => false);
+		user = await User.findOne({ username: req.query.username })
+			.exec()
+			.catch(() => false);
 	} else if (req?.params?.id) {
 		user = await User.findById(req.params.id)
-		.exec()
-		.catch(() => false);
+			.exec()
+			.catch(() => false);
 	} else {
 		return next();
 	}
-	
+
 	if (!user || !user?._id) return res.status(200).send({ errors: [{ message: "Could Not Find User" }] });
 	if (JSON.stringify(user?._id) === JSON.stringify(user_id)) return next();
-	if (user?.isPrivate === false) return next();
 
-	const userBlock = UserBlock.findOne({ blocked_user_id: user_id, user_id: user?._id });
+	const userBlock = await UserBlock.findOne({ blocked_user_id: user_id, user_id: user?._id })
+		.exec()
+		.catch(() => false);
 	if (userBlock?._id) return res.status(200).send({ errors: [{ message: "You have been blocked by this user" }] });
 
-	const userFollow = UserFollow.findOne({following_id: user_id, follower_id: user?._id });
+	if (user?.isPrivate === false) return next();
+
+	const userFollow = await UserFollow.findOne({ following_id: user_id, follower_id: user?._id })
+		.exec()
+		.catch(() => false);
 	if (!userFollow?._id) return res.status(200).send({ errors: [{ message: "Not Following Private User" }] });
 	if (userFollow?.status !== "confirmed") return res.status(200).send({ errors: [{ message: "Not Following Private User" }] });
 	return next();

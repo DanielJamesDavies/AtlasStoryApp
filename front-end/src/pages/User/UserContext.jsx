@@ -15,6 +15,9 @@ const UserProvider = ({ children, user_username }) => {
 	const [stories, setStories] = useState(false);
 	const [isDisplayingSettings, setIsDisplayingSettings] = useState(false);
 	const [isDisplayingCreateStoryForm, setIsDisplayingCreateStoryForm] = useState(false);
+	const [isFollowingUser, setIsFollowingUser] = useState(false);
+	const [hasBlockedUser, setHasBlockedUser] = useState(false);
+	const [hasBeenBlockedByUser, setHasBeenBlockedByUser] = useState(false);
 
 	const curr_username = useRef(false);
 	const authorized_user_images = useRef({ profilePicture: userProfilePicture, banner: userBanner });
@@ -23,6 +26,8 @@ const UserProvider = ({ children, user_username }) => {
 			if (!user_username) return setStateToDefault();
 			if (curr_username.current === user_username) return;
 
+			getIsFollowingUser(user_username);
+			getUserBlockedStatus(user_username);
 			const newUser = await getUser();
 
 			// Document Title
@@ -93,6 +98,21 @@ const UserProvider = ({ children, user_username }) => {
 			return storyResponse.data.story;
 		}
 
+		async function getIsFollowingUser(user_username) {
+			if (user_username === username) return false;
+			let response = await APIRequest("/user-follow?username=" + user_username, "GET");
+			if (response?.error || response?.data?.isFollowing === undefined) return false;
+			setIsFollowingUser(response?.data?.isFollowing);
+		}
+
+		async function getUserBlockedStatus(user_username) {
+			if (user_username === username) return false;
+			let response = await APIRequest("/user-block?username=" + user_username, "GET");
+			if (response?.error) return false;
+			setHasBlockedUser(response?.data?.hasBlockedUser);
+			setHasBeenBlockedByUser(response?.data?.hasBeenBlockedByUser);
+		}
+
 		getInitial();
 	}, [
 		location,
@@ -108,6 +128,9 @@ const UserProvider = ({ children, user_username }) => {
 		setUserProfilePicture,
 		setBanner,
 		setUserBanner,
+		setIsFollowingUser,
+		setHasBlockedUser,
+		setHasBeenBlockedByUser,
 	]);
 
 	useEffect(() => {
@@ -133,6 +156,11 @@ const UserProvider = ({ children, user_username }) => {
 				setIsDisplayingSettings,
 				isDisplayingCreateStoryForm,
 				setIsDisplayingCreateStoryForm,
+				isFollowingUser,
+				setIsFollowingUser,
+				hasBlockedUser,
+				setHasBlockedUser,
+				hasBeenBlockedByUser,
 			}}
 		>
 			{children}

@@ -26,13 +26,13 @@
 	padding: 12px;
 	border-radius: 4px;
 	width: 140px;
-	background: var(--colour-grey-three);
+	background: linear-gradient(0deg, var(--colour-grey-two) -30%, var(--colour-grey-three));
 	transition: 0.2s;
 	user-select: none;
 }
 
 .story-navigation-bar-item:hover {
-	background: var(--colour-grey-four);
+	background: linear-gradient(0deg, var(--colour-grey-two) -30%, var(--colour-grey-four));
 	cursor: pointer;
 }
 

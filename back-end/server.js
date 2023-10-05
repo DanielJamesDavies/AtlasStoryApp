@@ -55,6 +55,8 @@ app.use("*", (req, res, next) => {
 app.use("/api/new-id", require("./routes/NewIdRoute"));
 app.use("/api/cookies-consent", require("./routes/CookiesConsentRoute"));
 app.use("/api/user", require("./routes/UserRoute"));
+app.use("/api/user-follow", require("./routes/UserFollowRoute"));
+app.use("/api/user-block", require("./routes/UserBlockRoute"));
 app.use("/api/search", require("./routes/SearchRoute"));
 app.use("/api/story", require("./routes/StoryRoute"));
 app.use("/api/story-follow", require("./routes/StoryFollowRoute"));

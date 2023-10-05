@@ -17,7 +17,8 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const ButtonsLogic = () => {
-	const { isAuthorizedToEdit, setIsDisplayingSettings } = useContext(UserContext);
+	const { isAuthorizedToEdit, user, setIsDisplayingSettings, isFollowingUser, setIsFollowingUser, hasBlockedUser, setHasBlockedUser } =
+		useContext(UserContext);
 	const { APIRequest, setUsername } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 
@@ -31,5 +32,31 @@ export const ButtonsLogic = () => {
 		changeLocation("/login");
 	}
 
-	return { isAuthorizedToEdit, openSettings, logOut };
+	async function followUser() {
+		if (!user?._id) return false;
+		if (!isFollowingUser) {
+			let response = await APIRequest("/user-follow/" + user?._id, "POST");
+			if (!response || response?.errors || !response?.data?.userFollow?._id) return false;
+			setIsFollowingUser(true);
+		} else {
+			let response = await APIRequest("/user-follow/" + user?._id, "DELETE");
+			if (!response || response?.errors) return false;
+			setIsFollowingUser(false);
+		}
+	}
+
+	async function blockUser() {
+		if (!user?._id) return false;
+		if (!hasBlockedUser) {
+			let response = await APIRequest("/user-block/" + user?._id, "POST");
+			if (!response || response?.errors || !response?.data?.userBlock?._id) return false;
+			setHasBlockedUser(true);
+		} else {
+			let response = await APIRequest("/user-block/" + user?._id, "DELETE");
+			if (!response || response?.errors) return false;
+			setHasBlockedUser(false);
+		}
+	}
+
+	return { isAuthorizedToEdit, user, openSettings, logOut, followUser, blockUser, isFollowingUser, hasBlockedUser };
 };
