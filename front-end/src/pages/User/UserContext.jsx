@@ -16,6 +16,7 @@ const UserProvider = ({ children, user_username }) => {
 	const [isDisplayingSettings, setIsDisplayingSettings] = useState(false);
 	const [isDisplayingCreateStoryForm, setIsDisplayingCreateStoryForm] = useState(false);
 	const [isFollowingUser, setIsFollowingUser] = useState(false);
+	const [isUserPrivate, setIsUserPrivate] = useState(false);
 	const [hasBlockedUser, setHasBlockedUser] = useState(false);
 	const [hasBeenBlockedByUser, setHasBeenBlockedByUser] = useState(false);
 
@@ -24,7 +25,8 @@ const UserProvider = ({ children, user_username }) => {
 	useEffect(() => {
 		async function getInitial() {
 			if (!user_username) return setStateToDefault();
-			if (curr_username.current === user_username) return;
+			if (curr_username.current === user_username) return false;
+			setStateToDefault();
 
 			getIsFollowingUser(user_username);
 			getUserBlockedStatus(user_username);
@@ -53,12 +55,17 @@ const UserProvider = ({ children, user_username }) => {
 			setProfilePicture(false);
 			setBanner(false);
 			setStories(false);
+			setIsUserPrivate(false);
+			setHasBlockedUser(false);
+			setHasBeenBlockedByUser(false);
 		}
 
 		async function getUser() {
-			const response = await APIRequest("/user?username=" + user_username, "GET");
+			const url_username = window.location.href.split("?")[0].split("/").pop();
+			const response = await APIRequest("/user?username=" + url_username, "GET");
 			if (!response || response?.error || !response?.data?.user) {
 				setStateToDefault();
+				setIsUserPrivate(response?.errors?.filter((e) => e.message === "Not Following Private User")?.length !== 0);
 				return false;
 			}
 			curr_username.current = response?.data?.user?.username;
@@ -131,6 +138,7 @@ const UserProvider = ({ children, user_username }) => {
 		setIsFollowingUser,
 		setHasBlockedUser,
 		setHasBeenBlockedByUser,
+		setIsUserPrivate,
 	]);
 
 	useEffect(() => {
@@ -158,6 +166,8 @@ const UserProvider = ({ children, user_username }) => {
 				setIsDisplayingCreateStoryForm,
 				isFollowingUser,
 				setIsFollowingUser,
+				isUserPrivate,
+				setIsUserPrivate,
 				hasBlockedUser,
 				setHasBlockedUser,
 				hasBeenBlockedByUser,

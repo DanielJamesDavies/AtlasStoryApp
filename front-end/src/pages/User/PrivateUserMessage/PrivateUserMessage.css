@@ -1,0 +1,47 @@
+.user-private-message-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 24px;
+	height: max(300px, 25vh);
+}
+
+.user-private-message {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.user-private-follow-btn {
+	margin: 0 6px;
+	border: 0;
+	border-radius: 32px;
+
+	width: 170px;
+	height: 36px;
+
+	background: linear-gradient(180deg, #fff, #fff);
+	color: #444;
+	text-align: center;
+	font-weight: 600;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.user-private-follow-btn:hover {
+	background: linear-gradient(180deg, var(--colour-blue-tint), var(--colour-blue));
+	color: #fff;
+}
+
+.user-private-follow-request-sent {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--colour-green);
+}
+
+.user-private-follow-request-sent svg {
+	font-size: 28px;
+}
