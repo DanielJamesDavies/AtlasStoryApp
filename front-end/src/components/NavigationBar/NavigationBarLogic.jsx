@@ -73,6 +73,7 @@ export const NavigationBarLogic = () => {
 						(locationSplit.length === 3 && locationSplit[2] === "world") ||
 						(locationSplit.length === 4 && locationSplit[2] === "world" && locationSplit[3] === "notes") ||
 						(locationSplit.length === 3 && locationSplit[2] === "locations") ||
+						(locationSplit.length === 4 && locationSplit[2] === "locations") ||
 						(locationSplit.length === 3 && locationSplit[2] === "events") ||
 						(locationSplit.length === 3 && locationSplit[2] === "objects") ||
 						(locationSplit.length === 3 && locationSplit[2] === "world-building") ||

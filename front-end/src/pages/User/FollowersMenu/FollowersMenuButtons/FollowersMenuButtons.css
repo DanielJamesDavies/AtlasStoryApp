@@ -11,6 +11,7 @@
 	border: 0;
 	background: transparent;
 	color: var(--text-colour-tertiary);
+	font-size: var(--font-size-p-m);
 	cursor: pointer;
 	transition: 0.1s;
 }

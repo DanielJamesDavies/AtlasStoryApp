@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
 				.exec()
 				.catch(() => false);
 
-			if (user?.isPrivate) {
+			if (user?.isPrivate && JSON.stringify(user?._id) !== JSON.stringify(auth_user_id)) {
 				const authUserFollow = await UserFollow.findOne({ following_id: userFollow?.follower_id, follower_id: auth_user_id })
 					.exec()
 					.catch(() => false);
