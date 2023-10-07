@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 			.exec()
 			.catch(() => false);
 	} else if (req?.query?.username) {
-		following_user = await User.findOne({ username })
+		following_user = await User.findOne({ username: req?.query?.username })
 			.exec()
 			.catch(() => false);
 

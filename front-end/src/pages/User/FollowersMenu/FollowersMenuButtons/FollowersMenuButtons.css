@@ -1,0 +1,31 @@
+.user-followers-menu-subpage-buttons {
+	display: flex;
+	gap: 4px;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 250px;
+	padding-bottom: 16px;
+}
+
+.user-followers-menu-subpage-btn {
+	border: 0;
+	background: transparent;
+	color: var(--text-colour-tertiary);
+	cursor: pointer;
+	transition: 0.1s;
+}
+
+.user-followers-menu-subpage-btn:hover {
+	color: var(--text-colour-secondary);
+}
+
+.user-followers-menu-subpage-btn-active,
+.user-followers-menu-subpage-btn-active:hover {
+	color: var(--text-colour-primary);
+}
+
+.user-followers-menu-subpage-btn-hidden {
+	opacity: 0;
+	user-select: none;
+	pointer-events: none;
+}

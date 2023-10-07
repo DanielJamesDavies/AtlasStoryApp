@@ -22,5 +22,8 @@ module.exports = async (req, res) => {
 		.exec()
 		.catch(() => false);
 
-	return res.status(200).send({ message: "Success", data: { isFollowing: userFollow?.status === "confirmed" ? true : false } });
+	return res.status(200).send({
+		message: "Success",
+		data: { isFollowing: userFollow?.status === "confirmed" ? true : false, isPending: userFollow?.status === "pending" ? true : false },
+	});
 };

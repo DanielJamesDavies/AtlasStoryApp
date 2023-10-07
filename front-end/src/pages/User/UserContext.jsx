@@ -17,8 +17,13 @@ const UserProvider = ({ children, user_username }) => {
 	const [isDisplayingCreateStoryForm, setIsDisplayingCreateStoryForm] = useState(false);
 	const [isFollowingUser, setIsFollowingUser] = useState(false);
 	const [isUserPrivate, setIsUserPrivate] = useState(false);
+	const [hasSentFollowRequest, setHasSentFollowRequest] = useState(false);
 	const [hasBlockedUser, setHasBlockedUser] = useState(false);
 	const [hasBeenBlockedByUser, setHasBeenBlockedByUser] = useState(false);
+	const [userFollowing, setUserFollowing] = useState(false);
+	const [userFollowers, setUserFollowers] = useState(false);
+	const [isDisplayingFollowersMenu, setIsDisplayingFollowersMenu] = useState(false);
+	const [followersMenuSubpage, setFollowersMenuSubpage] = useState("following");
 
 	const curr_username = useRef(false);
 	const authorized_user_images = useRef({ profilePicture: userProfilePicture, banner: userBanner });
@@ -39,6 +44,8 @@ const UserProvider = ({ children, user_username }) => {
 			getUserProfilePicture(newUser?.data?.profilePicture, newUser.username);
 			getUserBanner(newUser?.data?.banner, newUser.username);
 			getStories(newUser?.data?.stories);
+			getUserFollowing(newUser?._id);
+			getUserFollowers(newUser?._id);
 		}
 
 		function updateDocumentTitle(newUser) {
@@ -58,6 +65,9 @@ const UserProvider = ({ children, user_username }) => {
 			setIsUserPrivate(false);
 			setHasBlockedUser(false);
 			setHasBeenBlockedByUser(false);
+			setUserFollowing(false);
+			setUserFollowers(false);
+			setIsDisplayingFollowersMenu(false);
 		}
 
 		async function getUser() {
@@ -65,7 +75,12 @@ const UserProvider = ({ children, user_username }) => {
 			const response = await APIRequest("/user?username=" + url_username, "GET");
 			if (!response || response?.error || !response?.data?.user) {
 				setStateToDefault();
-				setIsUserPrivate(response?.errors?.filter((e) => e.message === "Not Following Private User")?.length !== 0);
+				setIsUserPrivate(
+					response?.errors?.filter(
+						(e) => e.message === "Not Following Private User" || e.message === "Private User Follow Request Pending"
+					)?.length !== 0
+				);
+				setHasSentFollowRequest(response?.errors?.filter((e) => e.message === "Private User Follow Request Pending")?.length !== 0);
 				return false;
 			}
 			curr_username.current = response?.data?.user?.username;
@@ -120,6 +135,18 @@ const UserProvider = ({ children, user_username }) => {
 			setHasBeenBlockedByUser(response?.data?.hasBeenBlockedByUser);
 		}
 
+		async function getUserFollowing(user_id) {
+			let response = await APIRequest("/user-follow/following/" + user_id, "GET");
+			if (response?.error) return false;
+			setUserFollowing(response?.data?.following);
+		}
+
+		async function getUserFollowers(user_id) {
+			let response = await APIRequest("/user-follow/followers/" + user_id, "GET");
+			if (response?.error) return false;
+			setUserFollowers(response?.data?.followers);
+		}
+
 		getInitial();
 	}, [
 		location,
@@ -168,9 +195,19 @@ const UserProvider = ({ children, user_username }) => {
 				setIsFollowingUser,
 				isUserPrivate,
 				setIsUserPrivate,
+				hasSentFollowRequest,
+				setHasSentFollowRequest,
 				hasBlockedUser,
 				setHasBlockedUser,
 				hasBeenBlockedByUser,
+				userFollowing,
+				setUserFollowing,
+				userFollowers,
+				setUserFollowers,
+				isDisplayingFollowersMenu,
+				setIsDisplayingFollowersMenu,
+				followersMenuSubpage,
+				setFollowersMenuSubpage,
 			}}
 		>
 			{children}

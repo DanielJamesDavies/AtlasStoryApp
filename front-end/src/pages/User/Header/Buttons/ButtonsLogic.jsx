@@ -17,8 +17,19 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const ButtonsLogic = () => {
-	const { isAuthorizedToEdit, user, setIsDisplayingSettings, isFollowingUser, setIsFollowingUser, hasBlockedUser, setHasBlockedUser } =
-		useContext(UserContext);
+	const {
+		isAuthorizedToEdit,
+		user,
+		setIsDisplayingSettings,
+		isFollowingUser,
+		setIsFollowingUser,
+		hasBlockedUser,
+		setHasBlockedUser,
+		userFollowing,
+		userFollowers,
+		setIsDisplayingFollowersMenu,
+		setFollowersMenuSubpage,
+	} = useContext(UserContext);
 	const { APIRequest, setUsername } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 
@@ -58,5 +69,28 @@ export const ButtonsLogic = () => {
 		}
 	}
 
-	return { isAuthorizedToEdit, user, openSettings, logOut, followUser, blockUser, isFollowingUser, hasBlockedUser };
+	function openFollowing() {
+		setIsDisplayingFollowersMenu(true);
+		setFollowersMenuSubpage("following");
+	}
+
+	function openFollowers() {
+		setIsDisplayingFollowersMenu(true);
+		setFollowersMenuSubpage("followers");
+	}
+
+	return {
+		isAuthorizedToEdit,
+		user,
+		userFollowing,
+		userFollowers,
+		openSettings,
+		logOut,
+		followUser,
+		blockUser,
+		isFollowingUser,
+		hasBlockedUser,
+		openFollowing,
+		openFollowers,
+	};
 };

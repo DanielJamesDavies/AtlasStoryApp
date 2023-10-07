@@ -33,10 +33,11 @@ module.exports = async (req, res, next) => {
 
 	if (user?.isPrivate === false) return next();
 
-	const userFollow = await UserFollow.findOne({ following_id: user_id, follower_id: user?._id })
+	const userFollow = await UserFollow.findOne({ following_id: user?._id, follower_id: user_id })
 		.exec()
 		.catch(() => false);
 	if (!userFollow?._id) return res.status(200).send({ errors: [{ message: "Not Following Private User" }] });
+	if (userFollow?.status === "pending") return res.status(200).send({ errors: [{ message: "Private User Follow Request Pending" }] });
 	if (userFollow?.status !== "confirmed") return res.status(200).send({ errors: [{ message: "Not Following Private User" }] });
 	return next();
 };

@@ -110,6 +110,30 @@
 	fill: #fff;
 }
 
+.user-header-followers-btn {
+	margin: 0 6px;
+	border: 0;
+	background: transparent;
+	color: #aaa;
+	transition: 0.1s;
+	cursor: pointer;
+}
+
+.user-header-followers-btn:hover {
+	color: #fff;
+}
+
+.user-header-followers-btn span {
+	margin-right: 1px;
+	font-weight: 600;
+	color: #fff;
+}
+
+.user-header-followers-btn-container {
+	display: inline-block;
+	margin-right: 4px;
+}
+
 @media (max-width: 750px) {
 	.user-header-btn {
 		margin: 2px 8px;

@@ -8,6 +8,7 @@ import { Header } from "./Header/Header";
 import { PrivateUserMessage } from "./PrivateUserMessage/PrivateUserMessage";
 import { BlockedMessage } from "./BlockedMessage/BlockedMessage";
 import { Stories } from "./Stories/Stories";
+import { FollowersMenu } from "./FollowersMenu/FollowersMenu";
 import { Settings } from "./Settings/Settings";
 
 // Context
@@ -27,6 +28,7 @@ export const User = () => {
 			<PrivateUserMessage />
 			<BlockedMessage />
 			<Stories />
+			<FollowersMenu />
 			<Settings />
 		</div>
 	);

@@ -1,0 +1,89 @@
+.user-followers-menu-list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	height: 100vh;
+	max-height: 500px;
+	overflow-y: overlay;
+}
+
+.user-followers-menu-list-item {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	cursor: pointer;
+}
+
+.user-followers-menu-list-item-profile-picture {
+	border-radius: 100%;
+	width: 38px;
+	height: 38px;
+	background: var(--colour-grey-three);
+	filter: brightness(0.8);
+}
+
+.user-followers-menu-list-item-profile-picture img {
+	border-radius: inherit;
+	width: inherit;
+	height: inherit;
+	object-fit: cover;
+}
+
+.user-followers-menu-list-item:hover .user-followers-menu-list-item-profile-picture {
+	filter: brightness(1);
+}
+
+.user-followers-menu-list-item-names {
+	color: var(--text-colour-secondary);
+	transition: 0.1s;
+}
+
+.user-followers-menu-list-item:hover .user-followers-menu-list-item-names {
+	color: var(--text-colour-primary);
+}
+
+.user-followers-menu-list-item-nickname {
+	font-size: var(--font-size-p-m);
+	font-weight: 600;
+}
+
+.user-followers-menu-list-item-username {
+	font-size: var(--font-size-p-s);
+}
+
+.user-followers-menu-list-item-unfollow-btn,
+.user-followers-menu-list-item-accept-follow-btn,
+.user-followers-menu-list-item-deny-follow-btn,
+.user-followers-menu-list-item-cancel-follow-btn {
+	margin-left: auto;
+	padding: 4px 8px;
+	border: 0;
+	border-radius: 4px;
+	background: transparent;
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+	transition: 0.1s;
+	cursor: pointer;
+}
+
+.user-followers-menu-list-item-unfollow-btn:hover,
+.user-followers-menu-list-item-deny-follow-btn:hover,
+.user-followers-menu-list-item-cancel-follow-btn:hover {
+	background: var(--colour-red);
+}
+
+.user-followers-menu-list-item-accept-follow-btn:hover {
+	background: var(--colour-blue);
+}
+
+.user-followers-menu-list-item-deny-follow-btn,
+.user-followers-menu-list-item-cancel-follow-btn {
+	margin-left: 0;
+}
+
+.user-followers-menu-list-item-follow-request-symbol {
+	margin-bottom: -4px;
+	margin-left: auto;
+	font-size: 20px;
+	color: var(--text-colour-secondary);
+}
