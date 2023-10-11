@@ -112,6 +112,7 @@ const StorySchema = mongoose.Schema({
 			},
 			substories: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			locationsHierarchy: { type: Object, default: [] },
+			events: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			objects: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			lore: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 		},

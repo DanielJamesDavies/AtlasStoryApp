@@ -204,6 +204,18 @@ export const RoutesLogic = () => {
 								}
 								setRenderComponent(<EventsContainer story_uid={locationSplit[1]} />);
 								break;
+							case "e":
+								if (locationSplit.length > 3)
+									setRenderComponent(
+										<UnitPageContainer
+											story_uid={locationSplit[1]}
+											unit_uid={locationSplit[3]}
+											unit_type='event'
+											unit_type_title='Event'
+											type_url_key='e'
+										/>
+									);
+								break;
 							case "objects":
 								if (locationSplit.length > 3 && locationSplit[3] === "notes") {
 									setRenderComponent(<NotesContainer story_uid={locationSplit[1]} notes_uid={locationSplit[2]} />);
