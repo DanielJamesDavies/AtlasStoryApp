@@ -29,6 +29,7 @@ export const TextInputLogic = (props) => {
 	);
 	const DynamicIconComponent = props.icon;
 	const [selection, setSelection] = useState([-1, -1]);
+	const [isSelectingAll, setIsSelectingAll] = useState(false);
 
 	const [isHidden, setIsHidden] = useState(true);
 	function toggleIsHidden(e) {
@@ -133,7 +134,33 @@ export const TextInputLogic = (props) => {
 	}, [inputRef, focused]);
 
 	function onKeyDown(e) {
-		if (e.code === "Enter") props.onKeyEnter();
+		if (e.code === "Enter" && props?.onKeyEnter) props.onKeyEnter();
+
+		if (e?.ctrlKey && e.code === "KeyA" && props?.hideValue) {
+			setSelection([0, props?.value?.length - 1]);
+			inputRef.current.setSelectionRange(0, props?.value?.length - 1, "forward");
+			setIsSelectingAll(true);
+		} else {
+			if (isSelectingAll) {
+				setTimeout(() => {
+					setIsSelectingAll(false);
+					setSelection([-1, -1]);
+					inputRef.current.setSelectionRange(-1, -1, "none");
+				}, 2);
+			}
+		}
+
+		if (
+			JSON.stringify(selection) !== JSON.stringify([-1, -1]) &&
+			selection[1] === -1 &&
+			!["ControlLeft", "ControlRight", "ShiftLeft", "ShiftRight", "Tab", "CapsLock", "Escape", "Enter"].includes(e.code)
+		) {
+			if (e.code === "ArrowLeft" && selection[0] !== 0) {
+				setSelection([selection[0] - 1, -1]);
+			} else {
+				setSelection([selection[0] + 1, -1]);
+			}
+		}
 	}
 
 	const [inputContainerStyles, setInputContainerStyles] = useState({});
@@ -167,6 +194,7 @@ export const TextInputLogic = (props) => {
 	function onMouseEnterHiddenCharacter(e, index) {
 		e.stopPropagation();
 		if (e?.buttons !== 1) return false;
+		setFocused(true);
 		const newSelection = [selection[0], index];
 		setSelection(newSelection);
 		inputRef.current.setSelectionRange(

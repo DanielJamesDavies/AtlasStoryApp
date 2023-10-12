@@ -1,0 +1,15 @@
+.settings-subpage-buttons {
+	width: 100%;
+	max-width: 300px;
+}
+
+.settings-subpage-buttons .btn-list-item-active {
+	background: var(--colour-blue);
+	color: #fff;
+}
+
+@media (max-width: 750px) {
+	.settings-subpage-buttons {
+		max-width: unset;
+	}
+}

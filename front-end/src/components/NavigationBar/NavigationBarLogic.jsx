@@ -32,7 +32,10 @@ export const NavigationBarLogic = () => {
 			const locationSplit = location.split("/").filter((e) => e !== "");
 			switch (btnName) {
 				case "user":
-					if (locationSplit.length === 2 && locationSplit[0] === "u" && locationSplit[1] === username) {
+					if (
+						(locationSplit.length === 2 && locationSplit[0] === "u" && locationSplit[1] === username) ||
+						(locationSplit.length === 1 && locationSplit[0] === "settings")
+					) {
 						newBtnClassName += " navigation-bar-btn-active";
 					}
 					break;

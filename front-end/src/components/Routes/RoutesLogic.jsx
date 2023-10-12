@@ -9,6 +9,7 @@ import { ChangeForgottenPassword } from "../../pages/ChangeForgottenPassword/Cha
 import { Register } from "../../pages/Register/Register";
 import { Verify } from "../../pages/Verify/Verify";
 import { UserContainer } from "../../pages/User/UserContainer";
+import { SettingsContainer } from "../../pages/Settings/SettingsContainer";
 import { Home } from "../../pages/Home/Home";
 import { Story } from "../../pages/Story/Story";
 import { UnitPageContainer } from "../../pages/UnitPage/UnitPageContainer";
@@ -110,6 +111,11 @@ export const RoutesLogic = () => {
 					changeAccentColour("default");
 					changeAccentHoverColour("default");
 					setRenderComponent(<UserContainer user_username={locationSplit[1]} />);
+					break;
+				case "settings":
+					changeAccentColour("default");
+					changeAccentHoverColour("default");
+					setRenderComponent(<SettingsContainer />);
 					break;
 				case "home":
 					changeAccentColour("default");

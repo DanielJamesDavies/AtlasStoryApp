@@ -12,15 +12,17 @@ import "./ToggleInput.css";
 
 // Assets
 
-export const ToggleInput = ({ className, label, value, onToggle, enableEdit }) => {
+export const ToggleInput = ({ className, label, labels, value, onToggle, enableEdit }) => {
 	const { toggleInputContainerClassName } = ToggleInputLogic({ className, enableEdit });
 
 	return (
 		<div className={toggleInputContainerClassName}>
 			{label === undefined ? null : <div className='toggle-input-label'>{label}</div>}
+			{labels === undefined ? null : <div className='toggle-input-label'>{labels[0]}</div>}
 			<div className={value ? "toggle-input toggle-input-active" : "toggle-input"} onClick={!enableEdit ? () => {} : onToggle}>
 				<span className='toggle-input-slider' />
 			</div>
+			{labels === undefined ? null : <div className='toggle-input-label toggle-input-labels-second'>{labels[1]}</div>}
 		</div>
 	);
 };

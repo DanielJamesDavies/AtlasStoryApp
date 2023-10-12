@@ -17,7 +17,7 @@ import "./Followers.css";
 export const Followers = () => {
 	const { user, userFollowing, userFollowers, openFollowing, openFollowers } = FollowersLogic();
 
-	if (!user?._id || userFollowing === false || userFollowers === false) return null;
+	if (!user?._id || userFollowing === false || userFollowers === false) return <div className='user-header-followers-buttons-container'></div>;
 	return (
 		<div className='user-header-followers-buttons-container'>
 			<button className='user-header-followers-btn' onClick={openFollowing}>

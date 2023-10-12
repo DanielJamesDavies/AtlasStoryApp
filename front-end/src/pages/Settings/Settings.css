@@ -1,0 +1,57 @@
+.settings {
+	position: relative;
+	margin: 0 auto;
+	padding: 6px 48px;
+	max-width: 1550px;
+	height: calc(100% - 12px - 6px);
+}
+
+.settings-title {
+	margin-top: 12px;
+	margin-bottom: 24px;
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.settings-content {
+	display: flex;
+	gap: 24px;
+}
+
+.settings-item {
+	padding: 8px 16px !important;
+}
+
+.settings-item-title {
+	font-weight: 600;
+}
+
+.settings-loading-container {
+	position: absolute;
+	z-index: 1000;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	background: var(--colour-grey-one);
+	animation: fade-out 0.1s 1;
+	animation-fill-mode: forwards;
+	animation-delay: 0.2s;
+}
+
+@media (max-width: 750px) {
+	.settings {
+		padding: 6px;
+	}
+
+	.settings-title {
+		margin-bottom: 12px;
+	}
+
+	.settings-content {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+}

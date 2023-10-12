@@ -1,4 +1,5 @@
 .text-input-container {
+	position: relative;
 	display: inline-block;
 	width: 100%;
 	--text-input-font-size: var(--font-size-p-m);
@@ -103,16 +104,20 @@
 }
 
 .text-input-container-seamless.text-input-container-empty .text-input-label {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
 	display: block;
-	margin-top: 2px;
-	margin-bottom: -3px;
+	/* margin-top: 2px;
+	margin-bottom: -3px; */
 	margin-left: 0;
 	font-size: var(--text-input-font-size);
 }
 
-.text-input-container-seamless.text-input-container-empty .text-input-input {
+/* .text-input-container-seamless.text-input-container-empty .text-input-input {
 	margin-top: calc(-1 * var(--input-height) - 2px + 7px);
-}
+} */
 
 .text-input-container-seamless .text-input {
 	margin-top: -1px;
@@ -130,6 +135,37 @@
 	opacity: 0;
 	user-select: none;
 	pointer-events: none;
+}
+
+.text-input-container-seamless.text-input-container-empty.text-input-container-hide-value::before {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	display: block;
+	content: "";
+	width: 1px;
+	height: var(--text-input-font-size);
+	background: var(--text-colour-primary);
+	animation: text-input-container-hide-value-cursor-line-blink 1s infinite;
+}
+
+@keyframes text-input-container-hide-value-cursor-line-blink {
+	0% {
+		opacity: 0;
+	}
+	39% {
+		opacity: 0;
+	}
+	40% {
+		opacity: 1;
+	}
+	99% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }
 
 .text-input-hidden-characters {

@@ -17,13 +17,12 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const ButtonsLogic = () => {
-	const { isAuthorizedToEdit, user, setIsDisplayingSettings, isFollowingUser, setIsFollowingUser, hasBlockedUser, setHasBlockedUser } =
-		useContext(UserContext);
+	const { isAuthorizedToEdit, user, isFollowingUser, setIsFollowingUser, hasBlockedUser, setHasBlockedUser } = useContext(UserContext);
 	const { APIRequest, setUsername } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 
 	function openSettings() {
-		setIsDisplayingSettings(true);
+		changeLocation("/settings");
 	}
 
 	async function logOut() {

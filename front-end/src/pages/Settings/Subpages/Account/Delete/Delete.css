@@ -1,0 +1,12 @@
+.user-settings-confirm-delete {
+	margin-top: 0 !important;
+	text-align: left !important;
+}
+
+.user-settings-confirm-delete .confirm-delete-btn {
+	margin-left: 2px;
+}
+
+.user-settings-confirm-delete.confirm-delete-container-is-confirming .confirm-delete-btn {
+	margin-left: 12px;
+}

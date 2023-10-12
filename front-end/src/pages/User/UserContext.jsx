@@ -13,7 +13,6 @@ const UserProvider = ({ children, user_username }) => {
 	const [user, setUser] = useState(false);
 	const [banner, setBanner] = useState(false);
 	const [stories, setStories] = useState(false);
-	const [isDisplayingSettings, setIsDisplayingSettings] = useState(false);
 	const [isDisplayingCreateStoryForm, setIsDisplayingCreateStoryForm] = useState(false);
 	const [isFollowingUser, setIsFollowingUser] = useState(false);
 	const [isUserPrivate, setIsUserPrivate] = useState(false);
@@ -187,8 +186,6 @@ const UserProvider = ({ children, user_username }) => {
 				setBanner,
 				stories,
 				setStories,
-				isDisplayingSettings,
-				setIsDisplayingSettings,
 				isDisplayingCreateStoryForm,
 				setIsDisplayingCreateStoryForm,
 				isFollowingUser,

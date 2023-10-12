@@ -9,6 +9,11 @@
 	vertical-align: middle;
 }
 
+.toggle-input-labels-second {
+	margin-left: 12px;
+	margin-right: 0;
+}
+
 .toggle-input {
 	position: relative;
 	display: inline-block;

@@ -80,9 +80,17 @@ export const TextInput = (props) => {
 										<div
 											key={index}
 											className={
-												selection[0] === index && selection[1] === -1
+												selection[0] === -1 &&
+												selection[1] === -1 &&
+												props?.value.toString()?.split("").concat([""]).length - 1 === index &&
+												focused
 													? "text-input-hidden-character text-input-hidden-character-single-selected"
-													: selection[1] !== -1 && index >= Math.min(...selection) && index <= Math.max(...selection)
+													: selection[0] === index && selection[1] === -1 && focused
+													? "text-input-hidden-character text-input-hidden-character-single-selected"
+													: selection[1] !== -1 &&
+													  index >= Math.min(...selection) &&
+													  index <= Math.max(...selection) &&
+													  focused
 													? "text-input-hidden-character text-input-hidden-character-selected"
 													: "text-input-hidden-character"
 											}

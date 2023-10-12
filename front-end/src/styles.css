@@ -176,6 +176,17 @@ img {
 	background: var(--colour-grey-one);
 }
 
+@keyframes fade-out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		pointer-events: none;
+		user-select: none;
+	}
+}
+
 @keyframes wiggle-very-small {
 	0%,
 	100% {

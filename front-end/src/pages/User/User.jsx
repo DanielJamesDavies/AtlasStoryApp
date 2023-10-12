@@ -9,7 +9,6 @@ import { PrivateUserMessage } from "./PrivateUserMessage/PrivateUserMessage";
 import { BlockedMessage } from "./BlockedMessage/BlockedMessage";
 import { Stories } from "./Stories/Stories";
 import { FollowersMenu } from "./FollowersMenu/FollowersMenu";
-import { Settings } from "./Settings/Settings";
 
 // Context
 
@@ -29,7 +28,6 @@ export const User = () => {
 			<BlockedMessage />
 			<Stories />
 			<FollowersMenu />
-			<Settings />
 		</div>
 	);
 };
