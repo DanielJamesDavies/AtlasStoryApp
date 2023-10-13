@@ -1,5 +1,5 @@
 // Packages
-import { FaPlus, FaSort, FaBookOpen } from "react-icons/fa";
+import { FaPlus, FaSort } from "react-icons/fa";
 
 // Components
 import { IconBtn } from "../../../../components/IconBtn/IconBtn";
@@ -33,9 +33,8 @@ export const ObjectsListPrimary = () => {
 						<IconBtn
 							className='objects-list-primary-modify-btn'
 							seamless={true}
-							icon={<FaBookOpen />}
-							iconName='book-open'
-							iconSmall={<FaPlus />}
+							icon={<FaPlus />}
+							iconName='plus'
 							onClick={openCreateObjectForm}
 							label='Create Object'
 						/>

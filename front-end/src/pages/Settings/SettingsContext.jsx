@@ -11,6 +11,7 @@ const SettingsProvider = ({ children }) => {
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
 	const [user, setUser] = useState(false);
 	const [openSubpageID, setOpenSubpageID] = useState("account");
+	const [blockedUsers, setBlockedUsers] = useState([]);
 
 	const curr_username = useRef(false);
 	useEffect(() => {
@@ -19,6 +20,7 @@ const SettingsProvider = ({ children }) => {
 			if (curr_username.current === username) return false;
 			setStateToDefault();
 
+			getBlockedUsers();
 			const newUser = await getUser();
 
 			// Document Title
@@ -51,8 +53,16 @@ const SettingsProvider = ({ children }) => {
 			return response?.data?.user;
 		}
 
+		async function getBlockedUsers() {
+			const response = await APIRequest("/user-block", "GET");
+			if (!response || response?.error || !response?.data?.blockedUsers) {
+				return false;
+			}
+			setBlockedUsers(response?.data?.blockedUsers);
+		}
+
 		getInitial();
-	}, [location, username, curr_username, APIRequest, setIsAuthorizedToEdit, user, setUser]);
+	}, [location, username, curr_username, APIRequest, setIsAuthorizedToEdit, user, setUser, setBlockedUsers]);
 
 	useEffect(() => {
 		changeLocationParameters([]);
@@ -69,6 +79,8 @@ const SettingsProvider = ({ children }) => {
 				setUser,
 				openSubpageID,
 				setOpenSubpageID,
+				blockedUsers,
+				setBlockedUsers,
 			}}
 		>
 			{children}

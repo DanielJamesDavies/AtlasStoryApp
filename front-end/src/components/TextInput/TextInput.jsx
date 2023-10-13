@@ -26,6 +26,7 @@ export const TextInput = (props) => {
 		DynamicIconComponent,
 		selectAll,
 		onClickContainer,
+		onClickWrapper,
 		onInputContainerFocus,
 		onInputContainerBlur,
 		isHidden,
@@ -44,7 +45,7 @@ export const TextInput = (props) => {
 				{props.icon ? <DynamicIconComponent /> : null}
 				<span onClick={selectAll}>{props.label}</span>
 			</div>
-			<div className='text-input'>
+			<div ref={props?.innerRef} className='text-input' onClick={onClickWrapper}>
 				<input
 					ref={inputRef}
 					className='text-input-input'

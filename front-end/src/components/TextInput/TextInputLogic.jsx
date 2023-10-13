@@ -91,6 +91,10 @@ export const TextInputLogic = (props) => {
 		if (e?.detail === 1 && inputRef && inputRef.current) inputRef.current.focus();
 	}
 
+	function onClickWrapper(e) {
+		if (e?.detail === 1 && inputRef && inputRef.current) inputRef.current.focus();
+	}
+
 	function onInputContainerFocus() {
 		setFocused(true);
 	}
@@ -135,6 +139,7 @@ export const TextInputLogic = (props) => {
 
 	function onKeyDown(e) {
 		if (e.code === "Enter" && props?.onKeyEnter) props.onKeyEnter();
+		if (props?.onKeyDown) props.onKeyDown(e);
 
 		if (e?.ctrlKey && e.code === "KeyA" && props?.hideValue) {
 			setSelection([0, props?.value?.length - 1]);
@@ -213,6 +218,7 @@ export const TextInputLogic = (props) => {
 		DynamicIconComponent,
 		selectAll,
 		onClickContainer,
+		onClickWrapper,
 		onInputContainerFocus,
 		onInputContainerBlur,
 		isHidden,

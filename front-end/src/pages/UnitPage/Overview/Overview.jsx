@@ -4,10 +4,10 @@
 import { Background } from "./Background/Background";
 import { Description } from "./Description/Description";
 import { PrimaryImage } from "./PrimaryImage/PrimaryImage";
+import { Date } from "./Date/Date";
 import { SummaryItems } from "./SummaryItems/SummaryItems";
 
 // Logic
-import { OverviewLogic } from "./OverviewLogic";
 
 // Context
 
@@ -19,8 +19,6 @@ import "./Overview.css";
 // Assets
 
 export const Overview = ({ innerRef }) => {
-	OverviewLogic();
-
 	return (
 		<div className='unit-page-overview-container'>
 			<div ref={innerRef} className='unit-page-overview'>
@@ -30,6 +28,7 @@ export const Overview = ({ innerRef }) => {
 					</div>
 					<div className='unit-page-overview-content-section-2'>
 						<PrimaryImage />
+						<Date />
 						<SummaryItems />
 					</div>
 				</div>

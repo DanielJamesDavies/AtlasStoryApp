@@ -1,0 +1,73 @@
+.unit-page-overview-date-container {
+	width: 100%;
+}
+
+.unit-page-overview-date {
+	margin-bottom: 8px;
+	padding: 8px 12px;
+	border-radius: 8px;
+	background: linear-gradient(0deg, var(--unitColour), var(--unitColourTint) 130%);
+	text-align: left;
+	color: #fff;
+}
+
+.editable-container-is-editing .unit-page-overview-date {
+	padding: 4px 12px;
+	padding-bottom: 5px;
+}
+
+.unit-page-overview-date-title {
+	font-weight: 600;
+	font-size: var(--font-size-p-m);
+}
+
+.unit-page-overview-date-text {
+	font-size: var(--font-size-p-m);
+}
+
+.unit-page-overview-date-input-container {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.unit-page-overview-date-input-container input {
+	flex-shrink: 1;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	width: fit-content;
+	color: #fff;
+	font-size: var(--font-size-p-m);
+}
+
+.unit-page-overview-date-input-container input:focus {
+	outline: none;
+}
+
+.unit-page-overview-date-input-time-wrapper {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	width: 100%;
+}
+
+.unit-page-overview-date-input-time-wrapper input {
+	width: 2ch;
+}
+
+.unit-page-overview-date-input-time-wrapper input:nth-child(3) {
+	width: 100%;
+}
+
+.unit-page-overview-date-input-label {
+	font-size: var(--font-size-p-m);
+	font-weight: 600;
+}
+
+.unit-page-overview-date-input,
+.unit-page-overview-date-input input {
+	font-size: var(--font-size-p-m);
+	min-height: var(--font-size-p-m-height);
+}

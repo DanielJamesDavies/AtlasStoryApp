@@ -6,9 +6,9 @@ import { useContext, useState } from "react";
 // Logic
 
 // Context
-import { EventsContext } from "../../EventsContext";
-import { APIContext } from "../../../../context/APIContext";
-import { RoutesContext } from "../../../../context/RoutesContext";
+import { EventsContext } from "../EventsContext";
+import { APIContext } from "../../../context/APIContext";
+import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
 
@@ -16,7 +16,7 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 
 // Assets
 
-export const EventsListCreateEventLogic = () => {
+export const EventsCreateEventLogic = () => {
 	const { story_uid, story, isDisplayingCreateEventForm, setIsDisplayingCreateEventForm } = useContext(EventsContext);
 
 	function closeCreateEventForm() {

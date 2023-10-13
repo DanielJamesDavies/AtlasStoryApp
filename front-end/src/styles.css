@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Palatino+Linotype&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
 
 :root {
 	--colour-white: #ffffff;
@@ -174,6 +175,19 @@ img {
 
 ::-webkit-scrollbar-corner {
 	background: var(--colour-grey-one);
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+		pointer-events: none;
+		user-select: none;
+	}
+	100% {
+		opacity: 1;
+		pointer-events: all;
+		user-select: all;
+	}
 }
 
 @keyframes fade-out {

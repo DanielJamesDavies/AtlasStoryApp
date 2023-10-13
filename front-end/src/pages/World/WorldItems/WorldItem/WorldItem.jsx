@@ -18,7 +18,7 @@ export const WorldItem = ({ item }) => {
 	const { onClick, onMouseDown } = WorldItemLogic({ item });
 
 	return (
-		<div className='world-items-item-container' onClick={onClick} onMouseDown={onMouseDown}>
+		<div className='world-items-item-container' onClick={onClick} onAuxClick={onClick} onMouseDown={onMouseDown}>
 			<div className='world-items-item'>
 				<div className='world-items-item-front-folder'></div>
 				<div className='world-items-item-back-folder'>

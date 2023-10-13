@@ -21,6 +21,7 @@ export const SubpageButtonsLogic = () => {
 		{ id: "security&privacy", name: "Security & Privacy" },
 		{ id: "appearance", name: "Appearance" },
 		{ id: "connections", name: "Connections" },
+		{ id: "blocked", name: "Blocked" },
 		{ id: "cookies", name: "Cookies" },
 	];
 

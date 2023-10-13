@@ -5,6 +5,7 @@ import { SettingsUID } from "./SettingsUID/SettingsUID";
 import { SettingsGroup } from "./SettingsGroup/SettingsGroup";
 import { SettingsColour } from "./SettingsColour/SettingsColour";
 import { SettingsPrimaryCharacter } from "./SettingsPrimaryCharacter/SettingsPrimaryCharacter";
+import { SettingsMajorEvent } from "./SettingsMajorEvent/SettingsMajorEvent";
 import { SettingsTitleOnPoster } from "./SettingsTitleOnPoster/SettingsTitleOnPoster";
 import { SettingsStoryTitleInTitle } from "./SettingsStoryTitleInTitle/SettingsStoryTitleInTitle";
 import { SettingsVersions } from "./SettingsVersions/SettingsVersions";
@@ -35,6 +36,7 @@ export const Settings = () => {
 				<SettingsGroup />
 				<SettingsColour />
 				<SettingsPrimaryCharacter />
+				<SettingsMajorEvent />
 				<SettingsTitleOnPoster />
 				<SettingsStoryTitleInTitle />
 				<SettingsVersions />

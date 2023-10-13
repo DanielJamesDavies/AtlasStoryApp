@@ -1,26 +1,26 @@
 // Packages
 
 // Components
-import { PopUpContainer } from "../../../../components/PopUpContainer/PopUpContainer";
-import { TextInput } from "../../../../components/TextInput/TextInput";
-import { ErrorMessage } from "../../../../components/ErrorMessage/ErrorMessage";
-import { SuggestionsMessage } from "../../../../components/SuggestionsMessage/SuggestionsMessage";
-import { URLPreviewMessage } from "../../../../components/URLPreviewMessage/URLPreviewMessage";
-import { SubmitBtn } from "../../../../components/SubmitBtn/SubmitBtn";
+import { PopUpContainer } from "../../../components/PopUpContainer/PopUpContainer";
+import { TextInput } from "../../../components/TextInput/TextInput";
+import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
+import { SuggestionsMessage } from "../../../components/SuggestionsMessage/SuggestionsMessage";
+import { URLPreviewMessage } from "../../../components/URLPreviewMessage/URLPreviewMessage";
+import { SubmitBtn } from "../../../components/SubmitBtn/SubmitBtn";
 
 // Logic
-import { EventsListCreateEventLogic } from "./EventsListCreateEventLogic";
+import { EventsCreateEventLogic } from "./EventsCreateEventLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./EventsListCreateEvent.css";
+import "./EventsCreateEvent.css";
 
 // Assets
 
-export const EventsListCreateEvent = () => {
+export const EventsCreateEvent = () => {
 	const {
 		story_uid,
 		isDisplayingCreateEventForm,
@@ -32,7 +32,7 @@ export const EventsListCreateEvent = () => {
 		eventUIDSuggestions,
 		errors,
 		submitCreateEvent,
-	} = EventsListCreateEventLogic();
+	} = EventsCreateEventLogic();
 
 	return (
 		<PopUpContainer

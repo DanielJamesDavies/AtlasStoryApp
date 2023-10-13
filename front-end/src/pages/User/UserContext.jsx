@@ -128,7 +128,7 @@ const UserProvider = ({ children, user_username }) => {
 
 		async function getUserBlockedStatus(user_username) {
 			if (user_username === username) return false;
-			let response = await APIRequest("/user-block?username=" + user_username, "GET");
+			let response = await APIRequest("/user-block/status?username=" + user_username, "GET");
 			if (response?.error) return false;
 			setHasBlockedUser(response?.data?.hasBlockedUser);
 			setHasBeenBlockedByUser(response?.data?.hasBeenBlockedByUser);

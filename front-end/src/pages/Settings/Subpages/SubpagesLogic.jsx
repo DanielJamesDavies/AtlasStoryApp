@@ -6,6 +6,7 @@ import { Account } from "./Account/Account";
 import { SecurityPrivacy } from "./SecurityPrivacy/SecurityPrivacy";
 import { Appearance } from "./Appearance/Appearance";
 import { Connections } from "./Connections/Connections";
+import { Blocked } from "./Blocked/Blocked";
 import { Cookies } from "./Cookies/Cookies";
 
 // Logic
@@ -36,6 +37,9 @@ export const SubpagesLogic = () => {
 				break;
 			case "connections":
 				setSubpage(<Connections />);
+				break;
+			case "blocked":
+				setSubpage(<Blocked />);
 				break;
 			case "cookies":
 				setSubpage(<Cookies />);

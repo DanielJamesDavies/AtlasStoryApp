@@ -9,7 +9,7 @@ export const EventsContext = createContext();
 const EventsProvider = ({ children, story_uid }) => {
 	const { location, changeLocationParameters } = useContext(RoutesContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
-	const { APIRequest } = useContext(APIContext);
+	const { user_id, APIRequest } = useContext(APIContext);
 	const [events, setEvents] = useState(false);
 	const [eventsImages, setEventsImages] = useState(false);
 
@@ -75,14 +75,11 @@ const EventsProvider = ({ children, story_uid }) => {
 	}, [changeLocationParameters]);
 
 	const [isDisplayingCreateEventForm, setIsDisplayingCreateEventForm] = useState(false);
-	const [isReorderingEvents, setIsReorderingEvents] = useState(false);
-	function toggleIsReorderingEvents() {
-		setIsReorderingEvents((oldIsReorderingEvents) => !oldIsReorderingEvents);
-	}
 
 	return (
 		<EventsContext.Provider
 			value={{
+				authorized_user_id: user_id,
 				isAuthorizedToEdit,
 				story,
 				setStory,
@@ -91,9 +88,6 @@ const EventsProvider = ({ children, story_uid }) => {
 				eventsImages,
 				isDisplayingCreateEventForm,
 				setIsDisplayingCreateEventForm,
-				isReorderingEvents,
-				setIsReorderingEvents,
-				toggleIsReorderingEvents,
 			}}
 		>
 			{children}
