@@ -57,7 +57,7 @@
 	min-width: 100%;
 	width: max-content;
 	height: 100%;
-	background: url("../../../content/timeline3.png");
+	background: url("../../../content/timeline.png");
 	background-repeat: repeat-x;
 	background-size: var(--timelineWidth);
 	background-position: 0 center;
@@ -74,7 +74,7 @@
 	min-width: 100%;
 	width: max-content;
 	height: 100%;
-	background: url("../../../content/timeline3.png");
+	background: url("../../../content/timeline.png");
 	background-repeat: repeat-x;
 	background-size: var(--timelineWidth);
 	background-position: 0 center;
