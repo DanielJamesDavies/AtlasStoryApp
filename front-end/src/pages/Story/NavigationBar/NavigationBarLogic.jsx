@@ -1,7 +1,7 @@
 // Packages
 import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookOpen, faGlobeEurope, faUser, faSpaceShuttle, faCalendarAlt, faGlobe, faLandmark, faMap } from "@fortawesome/free-solid-svg-icons";
+import { faBookOpen, faGlobeEurope, faUser, faSpaceShuttle, faClock, faGlobe, faLandmark, faMap } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 
@@ -25,7 +25,7 @@ export const NavigationBarLogic = () => {
 		{ title: "World", icon: <FontAwesomeIcon icon={faGlobeEurope} />, path: "/world" },
 		{ title: "Locations", icon: <FontAwesomeIcon icon={faGlobe} />, path: "/locations" },
 		{ title: "Map", icon: <FontAwesomeIcon icon={faMap} />, path: "/map" },
-		{ title: "Events", icon: <FontAwesomeIcon icon={faCalendarAlt} />, path: "/events" },
+		{ title: "Events", icon: <FontAwesomeIcon icon={faClock} />, path: "/events" },
 		{ title: "Objects", icon: <FontAwesomeIcon icon={faSpaceShuttle} />, path: "/objects" },
 		{ title: "World Building", icon: <FontAwesomeIcon icon={faLandmark} />, path: "/world-building" },
 	];

@@ -1,6 +1,6 @@
 // Packages
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpaceShuttle, faCalendarAlt, faGlobe, faLandmark } from "@fortawesome/free-solid-svg-icons";
+import { faSpaceShuttle, faGlobe, faLandmark, faClock } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 import { WorldItem } from "./WorldItem/WorldItem";
@@ -19,7 +19,7 @@ import "./WorldItems.css";
 export const WorldItems = () => {
 	const items = [
 		{ id: "locations", title: "Locations", icon: <FontAwesomeIcon icon={faGlobe} />, link: "locations" },
-		{ id: "events", title: "Events", icon: <FontAwesomeIcon icon={faCalendarAlt} />, link: "events" },
+		{ id: "events", title: "Events", icon: <FontAwesomeIcon icon={faClock} />, link: "events" },
 		{ id: "objects", title: "Objects", icon: <FontAwesomeIcon icon={faSpaceShuttle} />, link: "objects" },
 		{ id: "world-building", title: "World Building", icon: <FontAwesomeIcon icon={faLandmark} />, link: "world-building" },
 	];
