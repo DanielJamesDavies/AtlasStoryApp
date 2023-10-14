@@ -35,7 +35,7 @@
 	display: flex;
 	justify-content: space-between;
 	box-sizing: border-box;
-	width: 300%;
+	width: 400%;
 	font-family: "Playfair Display", serif;
 	opacity: 0.1;
 	animation: events-primary-roman-numerals-slide 40s infinite linear;
@@ -43,10 +43,10 @@
 
 @keyframes events-primary-roman-numerals-slide {
 	0% {
-		transform: translate3d(-66.66%, 0, 0);
+		transform: translate3d(-50%, 0, 0);
 	}
 	100% {
-		transform: translate3d(-33.33%, 0, 0);
+		transform: translate3d(-25%, 0, 0);
 	}
 }
 
@@ -75,7 +75,6 @@
 
 @media (max-width: 950px) {
 	.events-primary {
-		display: flex;
 		padding-right: 0;
 
 		width: 100%;
@@ -107,6 +106,7 @@
 	}
 
 	.events-primary-roman-numerals {
-		opacity: 0.15;
+		opacity: 0.3;
+		animation-delay: -5s;
 	}
 }

@@ -26,6 +26,7 @@ export const EventsPrimary = () => {
 					{romanNumeralHours
 						?.concat(romanNumeralHours)
 						?.concat(romanNumeralHours)
+						?.concat(romanNumeralHours)
 						?.concat([""])
 						?.map((hour, index) => (
 							<div key={index}>{hour}</div>
