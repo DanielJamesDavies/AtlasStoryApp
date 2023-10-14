@@ -18,13 +18,15 @@ import "./Banner.css";
 // Assets
 
 export const Banner = () => {
-	const { isAuthorizedToEdit, storyBanner, changeStoryBanner, errors, revertStoryBanner, saveStoryBanner, onClickBanner } = BannerLogic();
+	const { isAuthorizedToEdit, storyBanner, changeStoryBanner, removeStoryBanner, errors, revertStoryBanner, saveStoryBanner, onClickBanner } =
+		BannerLogic();
 
 	return (
 		<EditableContainer
 			className='story-banner-container'
 			isMediaContent={true}
 			isAuthorizedToEdit={isAuthorizedToEdit}
+			onRemove={removeStoryBanner}
 			onRevert={revertStoryBanner}
 			onSave={saveStoryBanner}
 		>

@@ -25,6 +25,10 @@ export const OrbitContainer = ({ children, points = [0, 0], inclination, thickne
 	const [radius, setRadius] = useState(Math.min(...points) + Math.abs(points[0] - points[1]) / 2);
 
 	useEffect(() => {
+		orbitRef.current.rotation.x = (Math.floor(Math.random() * 100) / 100) * Math.PI * 2;
+	}, [orbitRef]);
+
+	useEffect(() => {
 		setApoapsis(Math.max(...points));
 		setPeriapsis(Math.min(...points));
 		setSemiMajorAxis(Math.min(...points) + Math.abs(points[0] - points[1]) / 2);
@@ -43,7 +47,7 @@ export const OrbitContainer = ({ children, points = [0, 0], inclination, thickne
 
 	useFrame((_, delta) => {
 		if (radius === 0) return false;
-		const speed = 0.032;
+		const speed = 0.005; // 0.032;
 		orbitRef.current.rotation.x -= (delta + 1 / (radius + 0.5)) * speed;
 
 		let newRadius = Math.min(...points) + Math.abs(points[0] - points[1]) / 2;

@@ -28,6 +28,11 @@ export const BannerLogic = () => {
 		setStoryBanner(image);
 	}
 
+	function removeStoryBanner() {
+		setErrors([]);
+		setStoryBanner(undefined);
+	}
+
 	async function revertStoryBanner() {
 		setErrors([]);
 		if (!story?.data?.banner) return false;
@@ -58,5 +63,5 @@ export const BannerLogic = () => {
 		setLightboxIndex(0);
 	}
 
-	return { isAuthorizedToEdit, storyBanner, changeStoryBanner, errors, revertStoryBanner, saveStoryBanner, onClickBanner };
+	return { isAuthorizedToEdit, storyBanner, changeStoryBanner, removeStoryBanner, errors, revertStoryBanner, saveStoryBanner, onClickBanner };
 };

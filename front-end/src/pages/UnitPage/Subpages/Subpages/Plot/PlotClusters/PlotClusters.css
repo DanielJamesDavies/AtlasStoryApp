@@ -9,7 +9,7 @@
 
 .unit-page-subpage-plot-clusters {
 	padding-right: 12px;
-	max-height: calc(var(--vh) - var(--unitPagePrimaryPaddingTop) - 36px - 24px - 6px);
+	max-height: calc(var(--vh) - var(--unitPagePaddingTop) - 36px - 24px - 6px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
@@ -53,11 +53,11 @@
 	}
 
 	.unit-page-subpage-plot-clusters-container-displaying {
-		height: calc(var(--vh) - var(--unitPagePrimaryPaddingTop) - 36px - 6px - 29px);
+		height: calc(var(--vh) - var(--unitPagePaddingTop) - 36px - 6px - 29px);
 		opacity: 1;
 	}
 
 	.unit-page-subpage-plot-clusters {
-		max-height: calc(var(--vh) - var(--unitPagePrimaryPaddingTop) - 36px - 6px - 51px - 76px);
+		max-height: calc(var(--vh) - var(--unitPagePaddingTop) - 36px - 6px - 51px - 76px);
 	}
 }

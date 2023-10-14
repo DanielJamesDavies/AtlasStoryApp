@@ -45,6 +45,11 @@ export const BannerLogic = () => {
 		setBanner(image);
 	}
 
+	async function removeBanner() {
+		setErrors([]);
+		setBanner(undefined);
+	}
+
 	async function revertBanner() {
 		setErrors([]);
 		if (!user?.data?.banner) return false;
@@ -77,6 +82,7 @@ export const BannerLogic = () => {
 		banner,
 		addFirstBanner,
 		changeBanner,
+		removeBanner,
 		revertBanner,
 		saveBanner,
 		onClickBanner,

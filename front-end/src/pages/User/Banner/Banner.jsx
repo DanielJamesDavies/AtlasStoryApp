@@ -26,6 +26,7 @@ export const Banner = () => {
 		banner,
 		addFirstBanner,
 		changeBanner,
+		removeBanner,
 		revertBanner,
 		saveBanner,
 		onClickBanner,
@@ -45,6 +46,7 @@ export const Banner = () => {
 			className='user-banner-container'
 			isMediaContent={true}
 			isAuthorizedToEdit={isAuthorizedToEdit}
+			onRemove={removeBanner}
 			onRevert={revertBanner}
 			onSave={saveBanner}
 		>
