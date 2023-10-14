@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 
 // Components
 
@@ -17,7 +17,8 @@ import { RecentDataContext } from "../../../../../../context/RecentDataContext";
 // Assets
 
 export const SettingsCardBackgroundImageLogic = () => {
-	const { unit_type, isAuthorizedToEdit, story, unit, characterCardBackground, setCharacterCardBackground } = useContext(UnitPageContext);
+	const { unit_type, isAuthorizedToEdit, story, unit, setUnit, characterCardBackground, setCharacterCardBackground } =
+		useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 	const { addImagesToRecentImages } = useContext(RecentDataContext);
 
@@ -29,6 +30,24 @@ export const SettingsCardBackgroundImageLogic = () => {
 
 	function removeCardBackground() {
 		changeCardBackground(undefined);
+	}
+
+	function changeCardBackgroundAlignment(e, alignment) {
+		const newUnit = JSON.parse(JSON.stringify(unit));
+		newUnit.data.cardBackgroundProperties.alignment = alignment;
+		setUnit(newUnit);
+	}
+
+	function changeCardBackgroundPosition(e, position) {
+		const newUnit = JSON.parse(JSON.stringify(unit));
+		newUnit.data.cardBackgroundProperties.position = position;
+		setUnit(newUnit);
+	}
+
+	function changeCardBackgroundScale(e) {
+		const newUnit = JSON.parse(JSON.stringify(unit));
+		newUnit.data.cardBackgroundProperties.scale = e.target.value;
+		setUnit(newUnit);
 	}
 
 	async function revertCardBackground() {
@@ -48,6 +67,14 @@ export const SettingsCardBackgroundImageLogic = () => {
 			story_id: story._id,
 			unit_id: unit._id,
 		});
+
+		await APIRequest("/" + unit_type + "/" + unit?._id, "PATCH", {
+			path: ["data", "cardBackgroundProperties"],
+			newValue: unit?.data?.cardBackgroundProperties,
+			story_id: story._id,
+			unit_id: unit._id,
+		});
+
 		const response = await APIRequest("/image/" + unit?.data?.cardBackground, "PATCH", {
 			newValue: characterCardBackground,
 			story_id: story._id,
@@ -63,14 +90,21 @@ export const SettingsCardBackgroundImageLogic = () => {
 		return true;
 	}
 
+	const cardBackgroundSizeRef = useRef();
+
 	return {
 		unit_type,
 		isAuthorizedToEdit,
+		unit,
 		characterCardBackground,
 		changeCardBackground,
 		removeCardBackground,
+		changeCardBackgroundAlignment,
+		changeCardBackgroundPosition,
+		changeCardBackgroundScale,
 		revertCardBackground,
 		saveCardBackground,
 		errors,
+		cardBackgroundSizeRef,
 	};
 };

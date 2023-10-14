@@ -6,6 +6,7 @@ import { EditableContainer } from "../../../../../../components/EditableContaine
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { ImageInput } from "../../../../../../components/ImageInput/ImageInput";
 import { AlignmentInput } from "../../../../../../components/AlignmentInput/AlignmentInput";
+import { CoordinatesInput } from "../../../../../../components/CoordinatesInput/CoordinatesInput";
 
 // Logic
 import { SettingsOverviewForegroundImageLogic } from "./SettingsOverviewForegroundImageLogic";
@@ -16,7 +17,6 @@ import { SettingsOverviewForegroundImageLogic } from "./SettingsOverviewForegrou
 
 // Styles
 import "./SettingsOverviewForegroundImage.css";
-import { CoordinatesInput } from "../../../../../../components/CoordinatesInput/CoordinatesInput";
 
 // Assets
 
@@ -35,7 +35,7 @@ export const SettingsOverviewForegroundImage = () => {
 		saveOverviewForeground,
 	} = SettingsOverviewForegroundImageLogic();
 
-	if (!["character", "group"].includes(unit_type)) return null;
+	if (!["character", "group"].includes(unit_type) || unitOverviewForegrounds === false) return null;
 	return (
 		<ContentItem hasBg={true} size='s'>
 			<LabelContainer
@@ -50,27 +50,27 @@ export const SettingsOverviewForegroundImage = () => {
 				>
 					<div
 						className={
-							!unitOverviewForegrounds.find((e) => e?._id === unitVersion?._id)?.image?.image ||
-							unitOverviewForegrounds.find((e) => e?._id === unitVersion?._id)?.image?.image === "NO_IMAGE"
+							!unitOverviewForegrounds?.find((e) => e?._id === unitVersion?._id)?.image?.image ||
+							unitOverviewForegrounds?.find((e) => e?._id === unitVersion?._id)?.image?.image === "NO_IMAGE"
 								? "unit-page-subpage-settings-overview-foreground-image unit-page-subpage-settings-overview-foreground-image-no-image"
 								: "unit-page-subpage-settings-overview-foreground-image"
 						}
 					>
-						{!unitOverviewForegrounds.find((e) => e?._id === unitVersion?._id)?.image?.image ||
-						unitOverviewForegrounds.find((e) => e?._id === unitVersion?._id)?.image?.image === "NO_IMAGE" ? null : (
-							<img src={unitOverviewForegrounds.find((e) => e?._id === unitVersion?._id)?.image?.image} alt='' />
+						{!unitOverviewForegrounds?.find((e) => e?._id === unitVersion?._id)?.image?.image ||
+						unitOverviewForegrounds?.find((e) => e?._id === unitVersion?._id)?.image?.image === "NO_IMAGE" ? null : (
+							<img src={unitOverviewForegrounds?.find((e) => e?._id === unitVersion?._id)?.image?.image} alt='' />
 						)}
 					</div>
 					<div
 						className={
-							!unitOverviewForegrounds.find((e) => e?._id === unitVersion?._id)?.image?.image ||
-							unitOverviewForegrounds.find((e) => e?._id === unitVersion?._id)?.image?.image === "NO_IMAGE"
+							!unitOverviewForegrounds?.find((e) => e?._id === unitVersion?._id)?.image?.image ||
+							unitOverviewForegrounds?.find((e) => e?._id === unitVersion?._id)?.image?.image === "NO_IMAGE"
 								? "unit-page-subpage-settings-overview-foreground-image unit-page-subpage-settings-overview-foreground-image-no-image"
 								: "unit-page-subpage-settings-overview-foreground-image"
 						}
 					>
 						<ImageInput
-							value={unitOverviewForegrounds.find((e) => e?._id === unitVersion?._id)?.image?.image}
+							value={unitOverviewForegrounds?.find((e) => e?._id === unitVersion?._id)?.image?.image}
 							onChange={changeOverviewForeground}
 						/>
 						<LabelContainer label='Alignment' isInline={true}>

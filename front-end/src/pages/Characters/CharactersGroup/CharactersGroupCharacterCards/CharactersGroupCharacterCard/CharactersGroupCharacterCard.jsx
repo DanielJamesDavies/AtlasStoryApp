@@ -15,9 +15,10 @@ import "./CharactersGroupCharacterCard.css";
 // Assets
 
 export const CharactersGroupCharacterCard = ({ characterID }) => {
-	const { character, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles } = CharactersGroupCharacterCardLogic({
-		characterID,
-	});
+	const { character, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles, cardBackgroundSizeRef } =
+		CharactersGroupCharacterCardLogic({
+			characterID,
+		});
 
 	if (!character) return <div className='characters-group-character-card-placeholder' />;
 	return (
@@ -46,9 +47,34 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 							  ))}
 					</div>
 				</div>
-				{!character?.data?.cardBackground?.image ? null : (
+				{/* {!character?.data?.cardBackground?.image ? null : (
 					<div className='characters-group-character-card-background'>
 						<img src={character.data.cardBackground.image} alt='' />
+					</div>
+				)} */}
+				{!character?.data?.cardBackground?.image ? null : (
+					<div ref={cardBackgroundSizeRef} className='characters-group-character-card-background-container'>
+						<div
+							className={
+								"characters-group-character-card-background-alignment characters-group-character-card-background-alignment-" +
+								character?.data?.cardBackgroundProperties?.alignment
+							}
+						>
+							<div
+								className='characters-group-character-card-background'
+								style={{
+									transform: `translate(${character?.data?.cardBackgroundProperties?.position.join("px, ")}px)`,
+									width: isNaN(
+										cardBackgroundSizeRef?.current?.clientWidth * parseFloat(character?.data?.cardBackgroundProperties?.scale)
+									)
+										? "100%"
+										: cardBackgroundSizeRef?.current?.clientWidth *
+										  parseFloat(character?.data?.cardBackgroundProperties?.scale),
+								}}
+							>
+								<img src={character.data.cardBackground.image} alt='' />
+							</div>
+						</div>
 					</div>
 				)}
 			</div>

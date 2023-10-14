@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 
 // Components
 
@@ -70,11 +70,14 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 		setCardStyles(newCardStyles);
 	}, [character, characterType, setCardStyles]);
 
+	const cardBackgroundSizeRef = useRef();
+
 	return {
 		character,
 		characterType,
 		navigateToCharacter,
 		onCharacterCardMouseDown,
 		cardStyles,
+		cardBackgroundSizeRef,
 	};
 };

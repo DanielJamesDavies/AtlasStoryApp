@@ -6,6 +6,8 @@ import { EditableContainer } from "../../../../../../components/EditableContaine
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { ImageInput } from "../../../../../../components/ImageInput/ImageInput";
 import { ErrorMessage } from "../../../../../../components/ErrorMessage/ErrorMessage";
+import { AlignmentInput } from "../../../../../../components/AlignmentInput/AlignmentInput";
+import { CoordinatesInput } from "../../../../../../components/CoordinatesInput/CoordinatesInput";
 
 // Logic
 import { SettingsCardBackgroundImageLogic } from "./SettingsCardBackgroundImageLogic";
@@ -23,12 +25,17 @@ export const SettingsCardBackgroundImage = () => {
 	const {
 		unit_type,
 		isAuthorizedToEdit,
+		unit,
 		characterCardBackground,
 		changeCardBackground,
 		removeCardBackground,
+		changeCardBackgroundAlignment,
+		changeCardBackgroundPosition,
+		changeCardBackgroundScale,
 		revertCardBackground,
 		saveCardBackground,
 		errors,
+		cardBackgroundSizeRef,
 	} = SettingsCardBackgroundImageLogic();
 
 	if (!["character"].includes(unit_type)) return null;
@@ -42,11 +49,68 @@ export const SettingsCardBackgroundImage = () => {
 					onSave={saveCardBackground}
 				>
 					<div className='unit-page-subpage-settings-card-background-image'>
-						{!characterCardBackground ? null : <img src={characterCardBackground} alt='' />}
+						<div ref={cardBackgroundSizeRef} className='unit-page-subpage-settings-card-background-image-image-container'>
+							<div
+								className={
+									"unit-page-subpage-settings-card-background-image-image-alignment unit-page-subpage-settings-card-background-image-image-alignment-" +
+									unit?.data?.cardBackgroundProperties?.alignment
+								}
+							>
+								{!characterCardBackground ? null : (
+									<div
+										className='unit-page-subpage-settings-card-background-image-image'
+										style={{
+											transform: `translate(${unit?.data?.cardBackgroundProperties?.position.join("px, ")}px)`,
+											width: isNaN(
+												cardBackgroundSizeRef?.current?.clientWidth *
+													parseFloat(unit?.data?.cardBackgroundProperties?.scale)
+											)
+												? "100%"
+												: cardBackgroundSizeRef?.current?.clientWidth *
+												  parseFloat(unit?.data?.cardBackgroundProperties?.scale),
+										}}
+									>
+										<img src={characterCardBackground} alt='' />
+									</div>
+								)}
+							</div>
+						</div>
 					</div>
 					<div>
 						<div className='unit-page-subpage-settings-card-background-image'>
-							<ImageInput value={characterCardBackground} onChange={changeCardBackground} />
+							<div ref={cardBackgroundSizeRef} className='unit-page-subpage-settings-card-background-image-image-container'>
+								<div
+									className={
+										"unit-page-subpage-settings-card-background-image-image-alignment unit-page-subpage-settings-card-background-image-image-alignment-" +
+										unit?.data?.cardBackgroundProperties?.alignment
+									}
+								>
+									<div
+										className='unit-page-subpage-settings-card-background-image-image'
+										style={{
+											transform: `translate(${unit?.data?.cardBackgroundProperties?.position.join("px, ")}px)`,
+											width: isNaN(
+												cardBackgroundSizeRef?.current?.clientWidth *
+													parseFloat(unit?.data?.cardBackgroundProperties?.scale)
+											)
+												? "100%"
+												: cardBackgroundSizeRef?.current?.clientWidth *
+												  parseFloat(unit?.data?.cardBackgroundProperties?.scale),
+										}}
+									>
+										<ImageInput value={characterCardBackground} onChange={changeCardBackground} />
+									</div>
+								</div>
+							</div>
+							<LabelContainer label='Alignment' isInline={true}>
+								<AlignmentInput value={unit?.data?.cardBackgroundProperties?.alignment} onChange={changeCardBackgroundAlignment} />
+							</LabelContainer>
+							<LabelContainer label='Position' isInline={true}>
+								<CoordinatesInput value={unit?.data?.cardBackgroundProperties?.position} onChange={changeCardBackgroundPosition} />
+							</LabelContainer>
+							<LabelContainer label='Scale' isInline={true}>
+								<CoordinatesInput value={[unit?.data?.cardBackgroundProperties?.scale]} onChange={changeCardBackgroundScale} />
+							</LabelContainer>
 						</div>
 						<ErrorMessage errors={errors} />
 					</div>

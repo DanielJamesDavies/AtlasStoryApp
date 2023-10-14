@@ -36,6 +36,14 @@ const CharacterSchema = mongoose.Schema({
 				required: true,
 				auto: true,
 			},
+			cardBackgroundProperties: {
+				type: {
+					alignment: { type: String, default: "center" },
+					position: { type: [Number], default: [0, 0] },
+					scale: { type: Number, default: 1 },
+				},
+				default: {},
+			},
 			faceImage: {
 				type: mongoose.Schema.Types.ObjectId,
 				required: true,
