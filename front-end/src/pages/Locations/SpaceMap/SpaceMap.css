@@ -1,0 +1,24 @@
+.locations-map {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: #000000;
+}
+
+.locations-map-loading-circle-container {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
+
+	background: #000000;
+	animation: fade-out 0.5s 1;
+	animation-fill-mode: forwards;
+	animation-delay: 1.2s;
+}

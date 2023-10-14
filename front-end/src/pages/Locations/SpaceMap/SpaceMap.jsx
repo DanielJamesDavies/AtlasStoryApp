@@ -5,22 +5,23 @@ import { Physics } from "@react-three/cannon";
 
 // Components
 import { Player } from "./Player/Player";
+import { PlayerLookAt } from "./Player/PlayerLookAt";
 import { Scene } from "./Scene/Scene";
 
 // Logic
-import { MapLogic } from "./MapLogic";
+import { SpaceMapLogic } from "./SpaceMapLogic";
 
 // Context
 
 // Services
 
 // Styles
-import "./Map.css";
-import { PlayerLookAt } from "./Player/PlayerLookAt";
+import "./SpaceMap.css";
+import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
 
 // Assets
 
-export const Map = () => {
+export const SpaceMap = () => {
 	const {
 		locationsMapRef,
 		onMouseEnter,
@@ -31,7 +32,7 @@ export const Map = () => {
 		isPlayerMovementEnabled,
 		setIsPlayerMovementEnabled,
 		setCursorPointer,
-	} = MapLogic();
+	} = SpaceMapLogic();
 
 	return (
 		<div
@@ -47,6 +48,9 @@ export const Map = () => {
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 		>
+			<div className='locations-map-loading-circle-container'>
+				<LoadingCircle center={true} />
+			</div>
 			<Canvas gl={{ powerPreference: "high-performance", antialias: false }}>
 				<Physics gravity={[0, 0, 0]}>
 					<Player isPlayerMovementEnabled={isPlayerMovementEnabled} setIsPlayerMovementEnabled={setIsPlayerMovementEnabled} />

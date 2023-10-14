@@ -7,7 +7,7 @@ import { LoadingCircle } from "../../components/LoadingCircle/LoadingCircle";
 import { LocationsTitle } from "./LocationsTitle/LocationsTitle";
 import { LocationsList } from "./LocationsList/LocationsList";
 import { Menu } from "./Menu/Menu";
-import { Map } from "./Map/Map";
+import { SpaceMap } from "./SpaceMap/SpaceMap";
 import { MapLocationStatus } from "./MapLocationStatus/MapLocationStatus";
 import { CreateLocationForm } from "./CreateLocationForm/CreateLocationForm";
 
@@ -25,7 +25,7 @@ import "./Locations.css";
 import MapBtnBackground from "../../content/map-btn-background.png";
 
 export const Locations = () => {
-	const { story, locations, isOnMap, setIsOnMap } = LocationsLogic();
+	const { story, locations, isOnMap, setIsOnMap, isOnSpaceMap } = LocationsLogic();
 
 	if (!story || !locations)
 		return (
@@ -45,7 +45,7 @@ export const Locations = () => {
 					</div>
 				</div>
 				<Menu />
-				<Map />
+				{isOnSpaceMap ? <SpaceMap /> : null}
 				<MapLocationStatus />
 				<CreateLocationForm />
 			</div>

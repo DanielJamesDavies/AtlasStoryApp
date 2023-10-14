@@ -1,5 +1,5 @@
 // Packages
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TextureLoader, Vector3 } from "three";
 import { useLoader, useFrame } from "@react-three/fiber";
 
@@ -22,16 +22,21 @@ export const Planet = ({ location_id, position, scale = 1, tilt = 0, dayLength =
 		"/Assets/Map/Earth/2k_earth_daymap.jpg",
 		"/Assets/Map/Earth/2k_earth_clouds.jpg",
 	]);
+	const [new_scale, setNewScale] = useState(0);
+
+	useEffect(() => {
+		setNewScale(Math.min(Math.max(scale, 0.001), 0.05));
+	}, [scale, setNewScale]);
 
 	useFrame((_, delta) => {
 		if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
 
-		ref.current.rotation.x -= delta * 0.4 * Math.min(1 / (scale * scale), 3) * dayLength;
-		cloudsRef.current.rotation.x += delta * 0.15 * Math.min(1 / (scale * scale), 3) * dayLength;
+		ref.current.rotation.x -= delta * 0.4 * Math.min(1 / (new_scale * new_scale), 3) * dayLength;
+		cloudsRef.current.rotation.x += delta * 0.15 * Math.min(1 / (new_scale * new_scale), 3) * dayLength;
 	});
 
 	return (
-		<group ref={ref} position={position} scale={scale} dispose={null} onClick={onClick === undefined ? null : (e) => onClick(e)}>
+		<group ref={ref} position={position} scale={new_scale} dispose={null} onClick={onClick === undefined ? null : (e) => onClick(e)}>
 			<group rotation={[0, tilt / 18.24 / Math.PI, 0]} scale={0.47}>
 				<mesh rotation={[0, 0, Math.PI / 2]}>
 					<sphereGeometry args={[21.5, 32, 16]} />

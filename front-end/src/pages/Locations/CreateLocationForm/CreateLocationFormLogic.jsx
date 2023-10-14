@@ -168,7 +168,6 @@ export const CreateLocationFormLogic = () => {
 			item_parent: itemParent,
 		});
 		if (!response) return;
-		console.log(response?.errors);
 		if (response?.errors) return setErrors(response.errors);
 		if (story?.uid) changeLocation("/s/" + story.uid + "/l/" + newLocation?.uid);
 

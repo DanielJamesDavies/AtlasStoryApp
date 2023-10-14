@@ -11,11 +11,10 @@ import { LocationsContext } from "../LocationsContext";
 // Services
 
 // Styles
-import "./Map.css";
 
 // Assets
 
-export const MapLogic = () => {
+export const SpaceMapLogic = () => {
 	const {
 		locationsMapRef,
 		travellingToMapLocationId,

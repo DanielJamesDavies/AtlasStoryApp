@@ -18,7 +18,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const LocationsLogic = () => {
 	const { story, locations } = useContext(StoryContext);
-	const { isOnMap, setIsOnMap } = useContext(LocationsContext);
+	const { isOnMap, setIsOnMap, isOnSpaceMap } = useContext(LocationsContext);
 	const { locationPath, changeLocation } = useContext(RoutesContext);
 
 	useEffect(() => {
@@ -36,5 +36,5 @@ export const LocationsLogic = () => {
 		}
 	}, [locationPath, changeLocation, setIsOnMap]);
 
-	return { story, locations, isOnMap, setIsOnMap };
+	return { story, locations, isOnMap, setIsOnMap, isOnSpaceMap };
 };

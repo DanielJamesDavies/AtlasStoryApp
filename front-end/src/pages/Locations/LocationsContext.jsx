@@ -109,6 +109,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const { getItemFromIdInHierarchy, getInitialMapLocationItem } = HierarchyFunctions();
 
 	const [isOnMap, setIsOnMap] = useState(false);
+	const [isOnSpaceMap, setIsOnSpaceMap] = useState(true);
 
 	const locationsMapRef = useRef();
 	const [playerApi, setPlayerApi] = useState(false);
@@ -240,6 +241,32 @@ const LocationsProvider = ({ children, story_uid }) => {
 		}
 	}, [isOnMap, currentMapLocationId, changeLocation]);
 
+	useEffect(() => {
+		if (locationPath.current.split("/").filter((e) => e.length !== 0).length === 4) {
+			setIsOnMap(true);
+		}
+	}, [locationPath, setIsOnMap]);
+
+	const hasGotIsOnSpaceMapForLocation = useRef(false);
+	useEffect(() => {
+		const location_id = locationPath.current
+			.split("/")
+			.filter((e) => e.length !== 0)
+			.at(-1);
+		if (hasGotIsOnSpaceMapForLocation?.current !== location_id && locationPath.current.split("/").filter((e) => e.length !== 0).length === 4) {
+			if (locations?.length !== 0 && story?.data?.locationsHierarchy?.length !== 0) hasGotIsOnSpaceMapForLocation.current = location_id;
+			if (location_id) {
+				const curr_location_type = locations.find((e) => e?._id === location_id)?.type;
+				if (curr_location_type === "surfaceLocation") return setIsOnSpaceMap(false);
+				setIsOnSpaceMap(true);
+			}
+		}
+	}, [locationPath, setIsOnSpaceMap, story, locations]);
+
+	useEffect(() => {
+		setIsOnSpaceMap(true);
+	}, [isOnMap, setIsOnSpaceMap]);
+
 	const changeCameraRotation = useCallback(
 		(newRotation) => {
 			if (!newRotation) return false;
@@ -278,12 +305,6 @@ const LocationsProvider = ({ children, story_uid }) => {
 		[setMapObjectLocations]
 	);
 
-	useEffect(() => {
-		if (locationPath.current.split("/").filter((e) => e.length !== 0).length === 4) {
-			setIsOnMap(true);
-		}
-	}, [locationPath, setIsOnMap]);
-
 	return (
 		<LocationsContext.Provider
 			value={{
@@ -298,6 +319,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setLocations,
 				isOnMap,
 				setIsOnMap,
+				isOnSpaceMap,
+				setIsOnSpaceMap,
 				locationsMapRef,
 				playerApi,
 				setPlayerApi,

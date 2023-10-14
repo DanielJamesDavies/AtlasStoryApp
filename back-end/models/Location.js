@@ -40,6 +40,12 @@ const LocationSchema = mongoose.Schema({
 			colour: { type: String, default: "#0044ff" },
 			description: { type: [String], default: [""] },
 			scaleUnit: { type: String, required: true, default: "m" },
+			borders: { type: [[[Number]]], default: [] },
+			mapImage: {
+				type: mongoose.Schema.Types.ObjectId,
+				required: true,
+				auto: true,
+			},
 			overviewBackground: {
 				type: mongoose.Schema.Types.ObjectId,
 				required: true,
