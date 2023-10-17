@@ -12,6 +12,7 @@ import { SettingsVersions } from "./SettingsVersions/SettingsVersions";
 import { SettingsSubpages } from "./SettingsSubpages/SettingsSubpages";
 import { SettingsOverviewBackgroundImage } from "./SettingsOverviewBackgroundImage/SettingsOverviewBackgroundImage";
 import { SettingsOverviewForegroundImage } from "./SettingsOverviewForegroundImage/SettingsOverviewForegroundImage";
+import { SettingsMapImage } from "./SettingsMapImage/SettingsMapImage";
 import { SettingsCardBackgroundImage } from "./SettingsCardBackgroundImage/SettingsCardBackgroundImage";
 import { SettingsFaceImage } from "./SettingsFaceImage/SettingsFaceImage";
 import { SettingsListImage } from "./SettingsListImage/SettingsListImage";
@@ -46,6 +47,7 @@ export const Settings = () => {
 			<div className='unit-page-subpage-settings-section-2'>
 				<SettingsOverviewForegroundImage />
 				<SettingsOverviewBackgroundImage />
+				<SettingsMapImage />
 				<SettingsCardBackgroundImage />
 				<SettingsFaceImage />
 				<SettingsListImage />

@@ -32,6 +32,8 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 	const [selectedCharacterRelationshipsCharacterId, setSelectedCharacterRelationshipsCharacterId] = useState(false);
 	const [relationshipsFilters, setRelationshipsFilters] = useState(false);
 
+	const [locationMapImage, setLocationMapImage] = useState(false);
+
 	const [unitPageStyle, setUnitPageStyle] = useState(false);
 	const [unitPagePaddingTop, setUnitPagePaddingTop] = useState(false);
 	const unitPagePrimaryRef = useRef();
@@ -85,6 +87,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		getUnitListImage,
 		getCharacterCardBackground,
 		getCharacterFaceImage,
+		getLocationMapImage,
 	} = GetUnitServices({
 		story_uid,
 		unit_uid,
@@ -116,6 +119,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		setCharacterRelationshipsCharacters,
 		storyCharacterRelationships,
 		storyGroups,
+		setLocationMapImage,
 	});
 
 	useEffect(() => {
@@ -138,6 +142,9 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				getCharacterCardBackground(newUnit?.data?.cardBackground);
 				getCharacterFaceImage(newUnit?.data?.faceImage);
 			}
+			if (unit_type === "location") {
+				getLocationMapImage(newUnit?.data?.mapImage);
+			}
 		}
 		getInitial();
 	}, [
@@ -154,6 +161,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		getCharacterRelationships,
 		getCharacterCardBackground,
 		getCharacterFaceImage,
+		getLocationMapImage,
 	]);
 
 	function decrementUnitVersion() {
@@ -272,6 +280,8 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				setSelectedCharacterRelationshipsCharacterId,
 				relationshipsFilters,
 				setRelationshipsFilters,
+				locationMapImage,
+				setLocationMapImage,
 				unitPageStyle,
 				setUnitPageStyle,
 				unitPagePaddingTop,

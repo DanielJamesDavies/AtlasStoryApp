@@ -36,6 +36,7 @@ export const GetUnitServices = ({
 	setCharacterRelationshipsCharacters,
 	storyCharacterRelationships,
 	storyGroups,
+	setLocationMapImage,
 }) => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { APIRequest } = useContext(APIContext);
@@ -298,6 +299,30 @@ export const GetUnitServices = ({
 		[APIRequest, recentImages, addImagesToRecentImages, setCharacterFaceImage]
 	);
 
+	// Get Location Map Image
+	const getLocationMapImage = useCallback(
+		async (mapImageID) => {
+			if (!mapImageID) return;
+
+			let mapImage = false;
+
+			const recentImage = recentImages.current.find((e) => e?._id === mapImageID);
+			if (recentImage?.image) {
+				mapImage = recentImage;
+			} else {
+				const map_image_response = await APIRequest("/image/" + mapImageID, "GET");
+				if (map_image_response?.errors || !map_image_response?.data?.image?.image) return false;
+				mapImage = map_image_response?.data?.image;
+			}
+
+			addImagesToRecentImages([mapImage]);
+
+			setLocationMapImage(mapImage.image);
+			return mapImage.image;
+		},
+		[APIRequest, recentImages, addImagesToRecentImages, setLocationMapImage]
+	);
+
 	// Get Unit Subpages
 	const getUnitSubpages = useCallback(
 		async (unitSubpages) => {
@@ -458,5 +483,6 @@ export const GetUnitServices = ({
 		getUnitSoundtrack,
 		getCharacterCardBackground,
 		getCharacterFaceImage,
+		getLocationMapImage,
 	};
 };

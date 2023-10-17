@@ -16,8 +16,17 @@ import { HierarchyFunctions } from "../HierarchyFunctions";
 // Assets
 
 export const MapLocationStatusLogic = () => {
-	const { story, locations, locationTypes, currentMapLocationId, setCurrentMapLocationId, selectedLocationId, hoverMapLocationId } =
-		useContext(LocationsContext);
+	const {
+		story,
+		locations,
+		locationTypes,
+		currentMapLocationId,
+		setCurrentMapLocationId,
+		selectedLocationId,
+		hoverMapLocationId,
+		isOnSpaceMap,
+		setIsOnSpaceMap,
+	} = useContext(LocationsContext);
 	const { getPathToItemInHierarchy, getItemInHierarchyFromPath } = HierarchyFunctions();
 
 	const [statusPath, setStatusPath] = useState([]);
@@ -58,6 +67,11 @@ export const MapLocationStatusLogic = () => {
 
 		const newItemLocation = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newItem?._id));
 		if (["reality"].includes(newItemLocation?.type)) return false;
+
+		const curr_location = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(currentMapLocationId));
+		if (!["surfaceLocation"].includes(curr_location?.type) && !isOnSpaceMap) {
+			return setIsOnSpaceMap(true);
+		}
 
 		setCurrentMapLocationId(newItem?._id);
 	}

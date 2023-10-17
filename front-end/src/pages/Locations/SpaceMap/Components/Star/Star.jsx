@@ -23,8 +23,8 @@ export const Star = ({ location_id, position, scale = 1, onClick, onPointerOver,
 	useFrame((_, delta) => {
 		if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
 
-		const speed = 0.1;
-		ref.current.rotation.x -= delta * Math.min(1 / (scale * scale), 3) * speed;
+		const rotation_speed = 0.02;
+		ref.current.rotation.x -= delta * Math.min(1 / (scale * scale), 3) * rotation_speed;
 	});
 
 	return (

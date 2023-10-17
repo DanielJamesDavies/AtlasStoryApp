@@ -146,7 +146,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 		},
 		{
 			type: "planet",
-			position: [-10.5, -2.5, 20],
+			position_old: [-10.5, -2.5, 10],
+			position: [0.3, -0.1, 1.2],
 			rotation: [7 * (Math.PI / 180), 330 * (Math.PI / 180), Math.PI / 2],
 		},
 		{

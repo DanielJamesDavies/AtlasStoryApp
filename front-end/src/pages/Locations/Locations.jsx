@@ -8,6 +8,7 @@ import { LocationsTitle } from "./LocationsTitle/LocationsTitle";
 import { LocationsList } from "./LocationsList/LocationsList";
 import { Menu } from "./Menu/Menu";
 import { SpaceMap } from "./SpaceMap/SpaceMap";
+import { SurfaceMap } from "./SurfaceMap/SurfaceMap";
 import { MapLocationStatus } from "./MapLocationStatus/MapLocationStatus";
 import { CreateLocationForm } from "./CreateLocationForm/CreateLocationForm";
 
@@ -45,7 +46,7 @@ export const Locations = () => {
 					</div>
 				</div>
 				<Menu />
-				{isOnSpaceMap ? <SpaceMap /> : null}
+				{isOnSpaceMap ? <SpaceMap /> : <SurfaceMap />}
 				<MapLocationStatus />
 				<CreateLocationForm />
 			</div>

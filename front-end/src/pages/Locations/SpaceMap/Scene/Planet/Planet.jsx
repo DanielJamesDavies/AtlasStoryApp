@@ -17,7 +17,7 @@ import { LocationsContext } from "../../../LocationsContext";
 // Assets
 
 export const Planet = ({ location, setCursorPointer }) => {
-	const { setIsDisplayingHierarchy, setSelectedLocationId, setHoverMapLocationId } = useContext(LocationsContext);
+	const { setIsDisplayingHierarchy, setSelectedLocationId, setHoverMapLocationId, setIsOnSpaceMap } = useContext(LocationsContext);
 	const { coordToPosition } = MapFunctions();
 	const ref = useRef();
 	const [isHovering, setIsHovering] = useState(false);
@@ -38,11 +38,47 @@ export const Planet = ({ location, setCursorPointer }) => {
 		setCursorPointer(isHovering);
 	}, [setCursorPointer, isHovering]);
 
+	const clicks = useRef([]);
+	const clickTimeout = useRef(false);
+
 	function onClickLocation(e, input_location) {
 		e.stopPropagation();
 
-		setIsDisplayingHierarchy(true);
-		setSelectedLocationId(input_location?._id);
+		const maxDelta = 400;
+
+		clicks.current.push(Date.now());
+		clicks.current = getNewClicks(clicks.current, maxDelta);
+		switch (clicks.current.length) {
+			case 1:
+				clickTimeout.current = setTimeout(() => {
+					setIsDisplayingHierarchy(true);
+					setSelectedLocationId(input_location?._id);
+				}, maxDelta);
+				break;
+			case 2:
+				clearTimeout(clickTimeout.current);
+				setIsDisplayingHierarchy(false);
+				setSelectedLocationId(false);
+
+				setIsOnSpaceMap(false);
+				break;
+			default:
+				break;
+		}
+	}
+
+	function getNewClicks(oldClicks, maxDelta) {
+		let newClicks = JSON.parse(JSON.stringify(oldClicks));
+
+		let startIndex = 0;
+		newClicks.map((curr_click, index) => {
+			if (index === newClicks.length - 1) return false;
+			const next_click = newClicks[index + 1];
+			if (next_click - curr_click > maxDelta) startIndex = index + 1;
+			return true;
+		});
+
+		return newClicks.filter((_, index) => index >= startIndex);
 	}
 
 	return (
