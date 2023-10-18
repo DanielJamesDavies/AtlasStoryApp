@@ -22,7 +22,7 @@ export const DateLogic = () => {
 	function changeDate(e, key, time_index) {
 		setUnit((oldUnit) => {
 			let newUnit = JSON.parse(JSON.stringify(oldUnit));
-			if (e.target.value.length > 2) return newUnit;
+			if (e.target.value.length > 2 && key === "time") return newUnit;
 			if (key === "time") {
 				if (time_index === 0) {
 					newUnit.data.date.time = e.target.value + ":" + newUnit.data.date[key].split(":")[1];
