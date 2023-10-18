@@ -28,14 +28,13 @@ export const SurfaceMap = () => {
 			) : (
 				<div ref={surfaceMapImageContainerRef} className='locations-surface-map-image-container'>
 					<div
-					 ref={surfaceMapImageRef}
 						className={
 							isImagePixelated
 								? "locations-surface-map-image locations-surface-map-image-is-pixelated"
 								: "locations-surface-map-image"
 						}
 					>
-						<img src={locationMapImage} alt='' />
+						<img ref={surfaceMapImageRef} src={locationMapImage} alt='' />
 					</div>
 				</div>
 			)}

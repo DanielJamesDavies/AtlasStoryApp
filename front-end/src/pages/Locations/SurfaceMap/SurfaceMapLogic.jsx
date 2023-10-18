@@ -37,18 +37,21 @@ export const SurfaceMapLogic = () => {
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
 
 		const imageContainerWidthDelta = ((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
-		const max_pointX = (surfaceMapImageRef?.current?.clientWidth * zoom.current) + imageContainerWidthDelta - window.innerWidth;
+		const max_pointX = surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth;
 
 		const imageContainerHeightDelta = ((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 		const max_pointY = (surfaceMapImageRef?.current?.clientHeight * zoom.current) + imageContainerHeightDelta - window.innerHeight;
 
+		const max_mobile_width = 750;
+		// X Bounds
 		if (pointX.current > 68) pointX.current = 68;
-		if (window.innerWidth <= 768 && pointX.current > -imageContainerWidthDelta) pointX.current = -imageContainerWidthDelta;
+		if (window.innerWidth <= max_mobile_width && pointX.current > -imageContainerWidthDelta) pointX.current = -imageContainerWidthDelta;
 		if (pointX.current < -max_pointX) pointX.current = -max_pointX;
 
+		// Y Bounds
 		if (pointY.current > -imageContainerHeightDelta) pointY.current = -imageContainerHeightDelta;
-		if (pointY.current < -max_pointY && window.innerWidth > 768) pointY.current = -max_pointY;
-		if (window.innerWidth <= 768 && pointY.current < -max_pointY - 58) pointY.current = -max_pointY - 58;
+		if (pointY.current < -max_pointY && window.innerWidth > max_mobile_width) pointY.current = -max_pointY;
+		if (window.innerWidth <= max_mobile_width && pointY.current < -max_pointY - 58) pointY.current = -max_pointY - 58;
 	}, []);
 
 	const currentLocationId = useRef(false);
