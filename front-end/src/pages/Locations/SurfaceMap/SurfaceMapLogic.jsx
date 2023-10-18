@@ -22,6 +22,7 @@ export const SurfaceMapLogic = () => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const [locationMapImage, setLocationMapImage] = useState(false);
 	const [isImagePixelated, setIsImagePixelated] = useState(false);
+	const [isPanning, setIsPanning] = useState(false);
 
 	const surfaceMapImageContainerRef = useRef();
 	const surfaceMapImageRef = useRef();
@@ -30,24 +31,34 @@ export const SurfaceMapLogic = () => {
 	var pointX = useRef(0);
 	var pointY = useRef(0);
 	var startPos = useRef({ x: 0, y: 0 });
+	var lastWindowWidth = useRef(0);
+
+	useEffect(() => {
+		lastWindowWidth.current = window.innerWidth;
+	}, [lastWindowWidth]);
 
 	const updatePointsForBounds = useCallback(() => {
+		const max_mobile_width = 750;
+
 		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
 		const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
 
-		const imageContainerWidthDelta = ((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
-		const max_pointX = (surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth) + (imageContainerWidthDelta * zoom.current) / 4;
+		const imageContainerWidthDelta =
+			((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
+		const max_pointX =
+			window.innerWidth > max_mobile_width
+				? surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth
+				: surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth + imageContainerWidthDelta;
 
-		const imageContainerHeightDelta = ((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
-		const max_pointY = (surfaceMapImageRef?.current?.clientHeight * zoom.current) + imageContainerHeightDelta - window.innerHeight;
+		const imageContainerHeightDelta =
+			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+		const max_pointY = surfaceMapImageRef?.current?.clientHeight * zoom.current + imageContainerHeightDelta - window.innerHeight;
 
-		const max_mobile_width = 750;
 		// X Bounds
 		if (pointX.current > 68) pointX.current = 68;
 		if (window.innerWidth <= max_mobile_width && pointX.current > -imageContainerWidthDelta) pointX.current = -imageContainerWidthDelta;
 		if (pointX.current < -max_pointX) pointX.current = -max_pointX;
-		if (imageContainerWidthDelta !== 0 && pointX.current < 0 && window.innerWidth > max_mobile_width) pointX.current = 0;
 
 		// Y Bounds
 		if (pointY.current > -imageContainerHeightDelta) pointY.current = -imageContainerHeightDelta;
@@ -81,7 +92,8 @@ export const SurfaceMapLogic = () => {
 					const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
 					zoom.current = Math.max(width_zoom, height_zoom);
 					pointX.current = -(surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current;
-					pointY.current = -((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+					pointY.current =
+						-((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 					updatePointsForBounds();
 					surfaceMapImageContainerRef.current.style.transform =
 						"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
@@ -90,17 +102,37 @@ export const SurfaceMapLogic = () => {
 			setLocationMapImage(mapImage?.image);
 		}
 		getLocationMapImage();
-	}, [locations, currentMapLocationId, setLocationMapImage, currentLocationId, APIRequest, recentImages, addImagesToRecentImages, surfaceMapImageRef, updatePointsForBounds]);
+	}, [
+		locations,
+		currentMapLocationId,
+		setLocationMapImage,
+		currentLocationId,
+		APIRequest,
+		recentImages,
+		addImagesToRecentImages,
+		surfaceMapImageRef,
+		updatePointsForBounds,
+	]);
 
 	window.addEventListener("resize", () => {
+		zoom.current *= lastWindowWidth.current / window.innerWidth;
 		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
 		const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
-		pointY.current = -((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 		updatePointsForBounds();
-		surfaceMapImageContainerRef.current.style.transform =
-			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-	})
+		if (surfaceMapImageContainerRef.current?.style) {
+			surfaceMapImageContainerRef.current.style.transform =
+				"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
+		} else {
+			setTimeout(() => {
+				if (surfaceMapImageContainerRef.current?.style) {
+					surfaceMapImageContainerRef.current.style.transform =
+						"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
+				}
+			}, 2);
+		}
+		lastWindowWidth.current = window.innerWidth;
+	});
 
 	useEffect(() => {
 		zoom.current = 1;
@@ -127,17 +159,19 @@ export const SurfaceMapLogic = () => {
 				surfaceMapImageContainerRefCurrent.removeEventListener("wheel", imageSurfaceMapOnWheel);
 			}
 		};
-	// eslint-disable-next-line
+		// eslint-disable-next-line
 	}, [surfaceMapImageContainerRef, locationMapImage, zoom, panning, pointX, pointY]);
 
 	function imageSurfaceMapOnMouseDown(e) {
 		e.preventDefault();
 		startPos = { x: e.clientX - pointX.current, y: e.clientY - pointY.current };
 		panning.current = true;
+		setIsPanning(true);
 	}
 
 	function imageSurfaceMapOnMouseUp() {
 		panning.current = false;
+		setIsPanning(false);
 	}
 
 	function imageSurfaceMapOnMouseMove(e) {
@@ -158,6 +192,7 @@ export const SurfaceMapLogic = () => {
 
 		const prev_pointX = JSON.parse(JSON.stringify(pointX.current));
 		const prev_pointY = JSON.parse(JSON.stringify(pointY.current));
+		const prev_zoom = JSON.parse(JSON.stringify(zoom.current));
 
 		let xs = (e.clientX - pointX.current) / zoom.current;
 		let ys = (e.clientY - pointY.current) / zoom.current;
@@ -183,11 +218,15 @@ export const SurfaceMapLogic = () => {
 			pointX.current = e.clientX - xs * zoom.current;
 			pointY.current = e.clientY - ys * zoom.current;
 		}
-		
+
 		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
 		const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
 
-		if (zoom.current === Math.max(width_zoom, height_zoom)) {
+		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
+
+		updatePointsForBounds();
+
+		if (zoom.current === Math.max(width_zoom, height_zoom) && prev_zoom <= zoom.current) {
 			pointX.current = prev_pointX;
 			pointY.current = prev_pointY;
 		}
@@ -265,7 +304,7 @@ export const SurfaceMapLogic = () => {
 
 			zoom.current -= diffDist * zoom.current * 0.006;
 			setIsImagePixelated(zoom.current > 3);
-			
+
 			const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
 			const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
 
@@ -298,5 +337,37 @@ export const SurfaceMapLogic = () => {
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
 	}
 
-	return { surfaceMapContainerRef, surfaceMapImageContainerRef, surfaceMapImageRef, locationMapImage, onTouchStart, onTouchMove, isImagePixelated };
+	var movementInterval = useRef(false);
+	function enterMovementBox(delta_x, delta_y) {
+		movementInterval.current = setInterval(() => {
+			const max_zoom_multiplier = 15;
+			pointX.current += -delta_x * Math.min(max_zoom_multiplier, zoom.current * 1.5);
+			pointY.current += -delta_y * Math.min(max_zoom_multiplier, zoom.current * 1.5);
+
+			updatePointsForBounds();
+
+			surfaceMapImageContainerRef.current.style.transform =
+				"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
+		}, 1);
+	}
+
+	function leaveMovementBox() {
+		if (movementInterval.current !== false) {
+			clearInterval(movementInterval.current);
+			movementInterval.current = false;
+		}
+	}
+
+	return {
+		surfaceMapContainerRef,
+		surfaceMapImageContainerRef,
+		surfaceMapImageRef,
+		locationMapImage,
+		onTouchStart,
+		onTouchMove,
+		isImagePixelated,
+		enterMovementBox,
+		leaveMovementBox,
+		isPanning,
+	};
 };

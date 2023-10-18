@@ -37,7 +37,12 @@ export const SettingsMapImage = () => {
 						{!locationMapImage || locationMapImage === "NO_IMAGE" ? null : <img src={locationMapImage} alt='' />}
 					</div>
 					<div>
-						<div className='unit-page-subpage-settings-map-image-image'>
+						<div
+							className={
+								"unit-page-subpage-settings-map-image-image" +
+								(!locationMapImage || locationMapImage === "NO_IMAGE" ? " unit-page-subpage-settings-map-image-image-no-image" : "")
+							}
+						>
 							<ImageInput value={locationMapImage} onChange={changeMapImage} />
 						</div>
 						<ErrorMessage errors={errors} />

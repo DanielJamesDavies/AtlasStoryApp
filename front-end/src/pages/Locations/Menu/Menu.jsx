@@ -32,6 +32,7 @@ export const Menu = () => {
 		playerSpeed,
 		setPlayerSpeed,
 		speedIcons,
+		isOnSpaceMap,
 	} = MenuLogic();
 
 	return (
@@ -45,22 +46,24 @@ export const Menu = () => {
 				}
 			}}
 		>
-			<Credits />
+			{!isOnSpaceMap ? null : <Credits />}
 			<div className='locations-menu-buttons' onClick={(e) => e.stopPropagation()}>
-				<div className='locations-menu-speed-container'>
-					{speedIcons.map((icon, index) => (
-						<div
-							key={index}
-							className={playerSpeed === index + 1 ? "locations-menu-speed locations-menu-speed-active" : "locations-menu-speed"}
-							onClick={() => setPlayerSpeed(index + 1)}
-						>
-							{icon}
-						</div>
-					))}
-				</div>
+				{!isOnSpaceMap ? null : (
+					<div className='locations-menu-speed-container'>
+						{speedIcons.map((icon, index) => (
+							<div
+								key={index}
+								className={playerSpeed === index + 1 ? "locations-menu-speed locations-menu-speed-active" : "locations-menu-speed"}
+								onClick={() => setPlayerSpeed(index + 1)}
+							>
+								{icon}
+							</div>
+						))}
+					</div>
+				)}
 				{[/Android/i, /webOS/i, /iPhone/i, /iPad/i, /iPod/i, /BlackBerry/i, /Windows Phone/i].some((toMatchItem) => {
 					return navigator.userAgent.match(toMatchItem);
-				}) ? null : (
+				}) || !isOnSpaceMap ? null : (
 					<div
 						className='locations-menu-btn locations-menu-toggle-control-scheme-visible-btn'
 						onMouseEnter={() => setIsDisplayingControlScheme(true)}
@@ -73,7 +76,7 @@ export const Menu = () => {
 					{!isDisplayingHierarchy ? <FaListUl /> : <FaArrowRight />}
 				</div>
 			</div>
-			<ControlScheme isDisplayingControlScheme={isDisplayingControlScheme} />
+			{!isOnSpaceMap ? null : <ControlScheme isDisplayingControlScheme={isDisplayingControlScheme} />}
 			<Hierarchy />
 			<LocationContainer location_id={selectedLocationId} />
 		</div>

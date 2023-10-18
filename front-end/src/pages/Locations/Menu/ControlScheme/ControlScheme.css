@@ -13,6 +13,10 @@
 	transition: opacity 0.2s;
 }
 
+.locations-menu-control-scheme > * {
+	pointer-events: none;
+}
+
 .locations-menu-control-scheme::before {
 	position: absolute;
 	z-index: -1;
@@ -28,10 +32,16 @@
 
 	background: var(--colour-grey-two);
 	opacity: 1;
+	pointer-events: none;
 }
 
 .locations-menu-control-scheme-is-displaying {
 	opacity: 1;
+	pointer-events: all;
+}
+
+.locations-menu-control-scheme-is-displaying > * {
+	pointer-events: all;
 }
 
 .locations-menu-control-scheme-control {

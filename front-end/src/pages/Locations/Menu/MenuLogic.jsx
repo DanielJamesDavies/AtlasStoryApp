@@ -17,8 +17,15 @@ import { LocationsContext } from "../LocationsContext";
 // Assets
 
 export const MenuLogic = () => {
-	const { selectedLocationId, setSelectedLocationId, isDisplayingHierarchy, setIsDisplayingHierarchy, playerSpeed, setPlayerSpeed } =
-		useContext(LocationsContext);
+	const {
+		selectedLocationId,
+		setSelectedLocationId,
+		isDisplayingHierarchy,
+		setIsDisplayingHierarchy,
+		playerSpeed,
+		setPlayerSpeed,
+		isOnSpaceMap,
+	} = useContext(LocationsContext);
 
 	const [locationsMenuContainerClassName, setLocationsMenuContainerClassName] = useState("locations-menu-container");
 
@@ -54,5 +61,6 @@ export const MenuLogic = () => {
 		playerSpeed,
 		setPlayerSpeed,
 		speedIcons,
+		isOnSpaceMap,
 	};
 };

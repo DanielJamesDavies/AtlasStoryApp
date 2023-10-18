@@ -8,6 +8,11 @@
 	background: var(--colour-grey-three);
 }
 
+.unit-page-subpage-settings-map-image-image-no-image {
+	width: 100%;
+	height: calc(((100vw - 76px - 12px - 24px - 6px - 16px - 24px) / 2) * (9 / 16));
+}
+
 .unit-page-subpage-settings-map-image-image img {
 	border-radius: inherit;
 	width: 100%;
