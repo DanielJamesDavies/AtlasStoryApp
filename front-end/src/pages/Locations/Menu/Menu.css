@@ -1,6 +1,6 @@
 .locations-menu-container {
 	position: absolute;
-	z-index: 2;
+	z-index: 4;
 	right: -400px;
 	width: calc(400px + 8px + 44px);
 	height: 100%;
@@ -81,7 +81,7 @@
 	opacity: 1;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 750px) {
 	.locations-menu-container {
 		left: calc(100vw - 8px - 40px);
 		width: calc(100vw + 8px + 40px);

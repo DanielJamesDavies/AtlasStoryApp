@@ -4,7 +4,6 @@
 	position: absolute;
 	right: 0px;
 	padding: 10px 16px;
-	z-index: 3;
 
 	width: calc(100% - 8px - 46px - 2 * 16px);
 	height: var(--locationsHierarchyHeight);
@@ -45,7 +44,7 @@
 	color: var(--text-colour-tertiary);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 750px) {
 	.locations-hierarchy {
 		--locationsHierarchyHeight: calc(var(--vh) - var(--navbar-mobile-height) - (2 * 10px));
 

@@ -37,34 +37,40 @@ export const SurfaceMapLogic = () => {
 		lastWindowWidth.current = window.innerWidth;
 	}, [lastWindowWidth]);
 
+	const getDimensionsZoom = useCallback(() => {
+		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
+		const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+		return { width_zoom, height_zoom };
+	}, [surfaceMapImageRef]);
+
 	const updatePointsForBounds = useCallback(() => {
 		const max_mobile_width = 750;
 
-		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
-		const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+		const { width_zoom, height_zoom } = getDimensionsZoom();
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
 
 		const imageContainerWidthDelta =
 			((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
 		const max_pointX =
 			window.innerWidth > max_mobile_width
-				? surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth
-				: surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth + imageContainerWidthDelta;
+				? surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth - 1 * zoom.current
+				: surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth + imageContainerWidthDelta - 1 * zoom.current;
 
 		const imageContainerHeightDelta =
 			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
-		const max_pointY = surfaceMapImageRef?.current?.clientHeight * zoom.current + imageContainerHeightDelta - window.innerHeight;
+		const max_pointY =
+			surfaceMapImageRef?.current?.clientHeight * zoom.current + imageContainerHeightDelta - window.innerHeight - 1 * zoom.current;
 
 		// X Bounds
-		if (pointX.current > 68) pointX.current = 68;
+		if (pointX.current > 68 - 1 * zoom.current) pointX.current = 68 - 1 * zoom.current;
 		if (window.innerWidth <= max_mobile_width && pointX.current > -imageContainerWidthDelta) pointX.current = -imageContainerWidthDelta;
 		if (pointX.current < -max_pointX) pointX.current = -max_pointX;
 
 		// Y Bounds
-		if (pointY.current > -imageContainerHeightDelta) pointY.current = -imageContainerHeightDelta;
+		if (pointY.current > -imageContainerHeightDelta - 1 * zoom.current) pointY.current = -imageContainerHeightDelta - 1 * zoom.current;
 		if (pointY.current < -max_pointY && window.innerWidth > max_mobile_width) pointY.current = -max_pointY;
 		if (window.innerWidth <= max_mobile_width && pointY.current < -max_pointY - 58) pointY.current = -max_pointY - 58;
-	}, []);
+	}, [getDimensionsZoom]);
 
 	const currentLocationId = useRef(false);
 	useEffect(() => {
@@ -88,8 +94,7 @@ export const SurfaceMapLogic = () => {
 			}
 			setTimeout(() => {
 				try {
-					const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
-					const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+					const { width_zoom, height_zoom } = getDimensionsZoom();
 					zoom.current = Math.max(width_zoom, height_zoom);
 					pointX.current = -(surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current;
 					pointY.current =
@@ -112,12 +117,12 @@ export const SurfaceMapLogic = () => {
 		addImagesToRecentImages,
 		surfaceMapImageRef,
 		updatePointsForBounds,
+		getDimensionsZoom,
 	]);
 
 	window.addEventListener("resize", () => {
 		zoom.current *= lastWindowWidth.current / window.innerWidth;
-		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
-		const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+		const { width_zoom, height_zoom } = getDimensionsZoom();
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
 		updatePointsForBounds();
 		if (surfaceMapImageContainerRef.current?.style) {
@@ -219,8 +224,7 @@ export const SurfaceMapLogic = () => {
 			pointY.current = e.clientY - ys * zoom.current;
 		}
 
-		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
-		const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+		const { width_zoom, height_zoom } = getDimensionsZoom();
 
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
 

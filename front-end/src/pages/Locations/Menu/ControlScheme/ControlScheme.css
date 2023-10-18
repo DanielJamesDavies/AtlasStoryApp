@@ -8,13 +8,13 @@
 	border-radius: 8px;
 	width: calc(var(--controlSchemeWidth) - (2 * 12px));
 	user-select: none;
-	pointer-events: none;
+	pointer-events: none !important;
 	opacity: 0;
 	transition: opacity 0.2s;
 }
 
 .locations-menu-control-scheme > * {
-	pointer-events: none;
+	pointer-events: none !important;
 }
 
 .locations-menu-control-scheme::before {
@@ -32,16 +32,15 @@
 
 	background: var(--colour-grey-two);
 	opacity: 1;
-	pointer-events: none;
 }
 
 .locations-menu-control-scheme-is-displaying {
 	opacity: 1;
-	pointer-events: all;
+	pointer-events: all !important;
 }
 
 .locations-menu-control-scheme-is-displaying > * {
-	pointer-events: all;
+	pointer-events: all !important;
 }
 
 .locations-menu-control-scheme-control {
