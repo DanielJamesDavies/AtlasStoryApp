@@ -47,6 +47,7 @@ export const SurfaceMapLogic = () => {
 		if (pointX.current > 68) pointX.current = 68;
 		if (window.innerWidth <= max_mobile_width && pointX.current > -imageContainerWidthDelta) pointX.current = -imageContainerWidthDelta;
 		if (pointX.current < -max_pointX) pointX.current = -max_pointX;
+		if (imageContainerWidthDelta !== 0 && pointX.current < 0 && window.innerWidth > max_mobile_width) pointX.current = 0;
 
 		// Y Bounds
 		if (pointY.current > -imageContainerHeightDelta) pointY.current = -imageContainerHeightDelta;
