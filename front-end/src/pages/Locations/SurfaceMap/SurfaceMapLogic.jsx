@@ -37,7 +37,7 @@ export const SurfaceMapLogic = () => {
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
 
 		const imageContainerWidthDelta = ((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
-		const max_pointX = surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth;
+		const max_pointX = (surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth) + (imageContainerWidthDelta * zoom.current) / 4;
 
 		const imageContainerHeightDelta = ((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 		const max_pointY = (surfaceMapImageRef?.current?.clientHeight * zoom.current) + imageContainerHeightDelta - window.innerHeight;
@@ -79,7 +79,7 @@ export const SurfaceMapLogic = () => {
 					const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
 					const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
 					zoom.current = Math.max(width_zoom, height_zoom);
-					pointX.current = 0;
+					pointX.current = -(surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current;
 					pointY.current = -((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 					updatePointsForBounds();
 					surfaceMapImageContainerRef.current.style.transform =
@@ -155,6 +155,9 @@ export const SurfaceMapLogic = () => {
 		e.stopPropagation();
 		e.preventDefault();
 
+		const prev_pointX = JSON.parse(JSON.stringify(pointX.current));
+		const prev_pointY = JSON.parse(JSON.stringify(pointY.current));
+
 		let xs = (e.clientX - pointX.current) / zoom.current;
 		let ys = (e.clientY - pointY.current) / zoom.current;
 		let delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
@@ -169,7 +172,7 @@ export const SurfaceMapLogic = () => {
 
 		if (zoom.current <= 1) {
 			zoom.current = 1;
-			pointX.current = 0;
+			pointX.current = -(surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current;
 			pointY.current = 0;
 		} else if (zoom.current >= 40) {
 			zoom.current = 40;
@@ -178,6 +181,14 @@ export const SurfaceMapLogic = () => {
 		} else {
 			pointX.current = e.clientX - xs * zoom.current;
 			pointY.current = e.clientY - ys * zoom.current;
+		}
+		
+		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
+		const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+
+		if (zoom.current === Math.max(width_zoom, height_zoom)) {
+			pointX.current = prev_pointX;
+			pointY.current = prev_pointY;
 		}
 
 		updatePointsForBounds();
@@ -232,15 +243,16 @@ export const SurfaceMapLogic = () => {
 	}
 
 	function onTouchMove(e) {
-
 		if (e.touches.length === 1) {
 			const newPointX = e.touches[0].pageX - startPos.x;
 			const newPointY = e.touches[0].pageY - startPos.y;
 			if (Number.isNaN(newPointX) || Number.isNaN(newPointY)) return;
 			pointX.current = newPointX;
 			pointY.current = newPointY;
-			updatePointsForBounds();
 		} else if (e.touches.length === 2) {
+			const prev_pointX = JSON.parse(JSON.stringify(pointX.current));
+			const prev_pointY = JSON.parse(JSON.stringify(pointY.current));
+
 			let xs = (startCoords.centerX - pointX.current) / zoom.current;
 			let ys = (startCoords.centerY - pointY.current) / zoom.current;
 
@@ -252,9 +264,12 @@ export const SurfaceMapLogic = () => {
 
 			zoom.current -= diffDist * zoom.current * 0.006;
 			setIsImagePixelated(zoom.current > 3);
+			
+			const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
+			const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
 
 			if (zoom.current <= 1) {
-				zoom.current = 1;
+				zoom.current = Math.max(1, width_zoom, height_zoom);
 				pointX.current = 0;
 				pointY.current = 0;
 			} else if (zoom.current >= 50) {
@@ -265,7 +280,11 @@ export const SurfaceMapLogic = () => {
 				pointX.current = startCoords.centerX - xs * zoom.current;
 				pointY.current = startCoords.centerY - ys * zoom.current;
 			}
-			updatePointsForBounds();
+
+			if (zoom.current === Math.max(width_zoom, height_zoom)) {
+				pointX.current = prev_pointX;
+				pointY.current = prev_pointY;
+			}
 
 			setPoints({ pointX: pointX.current, pointY: pointY.current });
 
