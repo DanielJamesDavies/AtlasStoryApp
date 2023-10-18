@@ -16,7 +16,7 @@ import "./SurfaceMap.css";
 // Assets
 
 export const SurfaceMap = () => {
-	const { surfaceMapContainerRef, surfaceMapImageContainerRef, locationMapImage, onTouchStart, onTouchMove, isImagePixelated } =
+	const { surfaceMapContainerRef, surfaceMapImageContainerRef, surfaceMapImageRef, locationMapImage, onTouchStart, onTouchMove, isImagePixelated } =
 		SurfaceMapLogic();
 
 	return (
@@ -28,6 +28,7 @@ export const SurfaceMap = () => {
 			) : (
 				<div ref={surfaceMapImageContainerRef} className='locations-surface-map-image-container'>
 					<div
+					 ref={surfaceMapImageRef}
 						className={
 							isImagePixelated
 								? "locations-surface-map-image locations-surface-map-image-is-pixelated"

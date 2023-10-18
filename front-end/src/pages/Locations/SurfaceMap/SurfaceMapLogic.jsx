@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useRef, useEffect, useState } from "react";
+import { useContext, useRef, useEffect, useState, useCallback } from "react";
 
 // Components
 
@@ -24,11 +24,32 @@ export const SurfaceMapLogic = () => {
 	const [isImagePixelated, setIsImagePixelated] = useState(false);
 
 	const surfaceMapImageContainerRef = useRef();
+	const surfaceMapImageRef = useRef();
 	var zoom = useRef(1);
 	var panning = useRef(false);
 	var pointX = useRef(0);
 	var pointY = useRef(0);
 	var startPos = useRef({ x: 0, y: 0 });
+
+	const updatePointsForBounds = useCallback(() => {
+		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
+		const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
+
+		const imageContainerWidthDelta = ((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
+		const max_pointX = (surfaceMapImageRef?.current?.clientWidth * zoom.current) + imageContainerWidthDelta - window.innerWidth;
+
+		const imageContainerHeightDelta = ((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+		const max_pointY = (surfaceMapImageRef?.current?.clientHeight * zoom.current) + imageContainerHeightDelta - window.innerHeight;
+
+		if (pointX.current > 68) pointX.current = 68;
+		if (window.innerWidth <= 768 && pointX.current > -imageContainerWidthDelta) pointX.current = -imageContainerWidthDelta;
+		if (pointX.current < -max_pointX) pointX.current = -max_pointX;
+
+		if (pointY.current > -imageContainerHeightDelta) pointY.current = -imageContainerHeightDelta;
+		if (pointY.current < -max_pointY && window.innerWidth > 768) pointY.current = -max_pointY;
+		if (window.innerWidth <= 768 && pointY.current < -max_pointY - 58) pointY.current = -max_pointY - 58;
+	}, []);
 
 	const currentLocationId = useRef(false);
 	useEffect(() => {
@@ -52,7 +73,12 @@ export const SurfaceMapLogic = () => {
 			}
 			setTimeout(() => {
 				try {
-					zoom.current = 1.1;
+					const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
+					const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+					zoom.current = Math.max(width_zoom, height_zoom);
+					pointX.current = 0;
+					pointY.current = -((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+					updatePointsForBounds();
 					surfaceMapImageContainerRef.current.style.transform =
 						"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
 				} catch {}
@@ -60,7 +86,17 @@ export const SurfaceMapLogic = () => {
 			setLocationMapImage(mapImage?.image);
 		}
 		getLocationMapImage();
-	}, [locations, currentMapLocationId, setLocationMapImage, currentLocationId, APIRequest, recentImages, addImagesToRecentImages]);
+	}, [locations, currentMapLocationId, setLocationMapImage, currentLocationId, APIRequest, recentImages, addImagesToRecentImages, surfaceMapImageRef, updatePointsForBounds]);
+
+	window.addEventListener("resize", () => {
+		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
+		const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
+		pointY.current = -((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+		updatePointsForBounds();
+		surfaceMapImageContainerRef.current.style.transform =
+			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
+	})
 
 	useEffect(() => {
 		zoom.current = 1;
@@ -87,6 +123,7 @@ export const SurfaceMapLogic = () => {
 				surfaceMapImageContainerRefCurrent.removeEventListener("wheel", imageSurfaceMapOnWheel);
 			}
 		};
+	// eslint-disable-next-line
 	}, [surfaceMapImageContainerRef, locationMapImage, zoom, panning, pointX, pointY]);
 
 	function imageSurfaceMapOnMouseDown(e) {
@@ -104,6 +141,9 @@ export const SurfaceMapLogic = () => {
 		if (!panning.current) return;
 		pointX.current = e.clientX - startPos.x;
 		pointY.current = e.clientY - startPos.y;
+
+		updatePointsForBounds();
+
 		surfaceMapImageContainerRef.current.style.transform =
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
 	}
@@ -135,9 +175,9 @@ export const SurfaceMapLogic = () => {
 		} else {
 			pointX.current = e.clientX - xs * zoom.current;
 			pointY.current = e.clientY - ys * zoom.current;
-			surfaceMapImageContainerRef.current.style.transform =
-				"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
 		}
+
+		updatePointsForBounds();
 
 		surfaceMapImageContainerRef.current.style.transform =
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
@@ -189,12 +229,14 @@ export const SurfaceMapLogic = () => {
 	}
 
 	function onTouchMove(e) {
+
 		if (e.touches.length === 1) {
 			const newPointX = e.touches[0].pageX - startPos.x;
 			const newPointY = e.touches[0].pageY - startPos.y;
 			if (Number.isNaN(newPointX) || Number.isNaN(newPointY)) return;
 			pointX.current = newPointX;
 			pointY.current = newPointY;
+			updatePointsForBounds();
 		} else if (e.touches.length === 2) {
 			let xs = (startCoords.centerX - pointX.current) / zoom.current;
 			let ys = (startCoords.centerY - pointY.current) / zoom.current;
@@ -220,15 +262,18 @@ export const SurfaceMapLogic = () => {
 				pointX.current = startCoords.centerX - xs * zoom.current;
 				pointY.current = startCoords.centerY - ys * zoom.current;
 			}
+			updatePointsForBounds();
 
 			setPoints({ pointX: pointX.current, pointY: pointY.current });
 
 			prevDist.current = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
 		}
 
+		updatePointsForBounds();
+
 		surfaceMapImageContainerRef.current.style.transform =
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
 	}
 
-	return { surfaceMapContainerRef, surfaceMapImageContainerRef, locationMapImage, onTouchStart, onTouchMove, isImagePixelated };
+	return { surfaceMapContainerRef, surfaceMapImageContainerRef, surfaceMapImageRef, locationMapImage, onTouchStart, onTouchMove, isImagePixelated };
 };
