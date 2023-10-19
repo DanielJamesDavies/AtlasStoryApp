@@ -22,3 +22,16 @@
 	animation-fill-mode: forwards;
 	animation-delay: 1.2s;
 }
+
+.locations-map-is-displaying {
+	animation: fade-in 0.2s 1;
+	animation-fill-mode: forwards;
+	opacity: 0;
+	user-select: none;
+	pointer-events: none;
+}
+
+.locations-map-hidden {
+	animation: fade-out 0.1s 1;
+	animation-fill-mode: forwards;
+}

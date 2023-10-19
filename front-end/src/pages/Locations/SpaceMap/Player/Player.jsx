@@ -43,6 +43,7 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 		travellingToMapLocationForwardDelta,
 		scenesChangePlayerInitial,
 		mapObjectLocations,
+		setIsHidingSpaceMap,
 	} = useContext(LocationsContext);
 	const { getItemFromIdInHierarchy } = HierarchyFunctions();
 	const { coordToPosition } = MapFunctions();
@@ -108,27 +109,34 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 					newPosition = coordToPosition(newPosition, { order: "yxz", multiplier: 0.05 });
 				}
 
-				camera.position.lerp(new Vector3(...newPosition), 0.1);
+				const camera_position = camera.position.clone();
+				const dist = Math.hypot(camera_position.x - newPosition[0], camera_position.y - newPosition[1], camera_position.z - newPosition[2]);
 
 				movingTime.current += delta;
 
-				if (movingTime.current > 0.75 + travellingToMapLocationForwardDelta / 10) {
-					movingTime.current = 0;
-					rotatingTime.current = 0;
+				const min_dist = 0.25;
 
-					const scenesChangePlayerInitialItem = JSON.parse(
-						JSON.stringify(scenesChangePlayerInitial.current.find((e) => e.type === newLocation?.type))
-					);
-					if (scenesChangePlayerInitialItem) {
-						api.position.set(...scenesChangePlayerInitialItem?.position);
-						camera.rotation.set(...scenesChangePlayerInitialItem?.rotation);
-						playerCameraRotation.current = scenesChangePlayerInitialItem?.rotation;
-					}
+				if (dist > min_dist) camera.position.lerp(new Vector3(...newPosition), delta * 10);
 
-					setCurrentMapLocationId(JSON.parse(JSON.stringify(travellingToMapLocationId)));
-					setTravellingToMapLocationId(false);
-					setIsPlayerMovementEnabled(true);
-					setIsPlayerViewControlEnabled(true);
+				if (dist <= min_dist || movingTime.current > 0.6 + travellingToMapLocationForwardDelta / 10) {
+					setIsHidingSpaceMap(true);
+					setTimeout(() => {
+						movingTime.current = 0;
+						rotatingTime.current = 0;
+						const scenesChangePlayerInitialItem = JSON.parse(
+							JSON.stringify(scenesChangePlayerInitial.current.find((e) => e.type === newLocation?.type))
+						);
+						if (scenesChangePlayerInitialItem) {
+							api.position.set(...scenesChangePlayerInitialItem?.position);
+							camera.rotation.set(...scenesChangePlayerInitialItem?.rotation);
+							playerCameraRotation.current = scenesChangePlayerInitialItem?.rotation;
+						}
+						setCurrentMapLocationId(JSON.parse(JSON.stringify(travellingToMapLocationId)));
+						setTravellingToMapLocationId(false);
+						setIsPlayerMovementEnabled(true);
+						setIsPlayerViewControlEnabled(true);
+					}, 200);
+					setTimeout(() => setIsHidingSpaceMap(false), 210);
 				}
 			}
 		}

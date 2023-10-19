@@ -23,6 +23,7 @@ export const SpaceMapLogic = () => {
 		setIsDisplayingHierarchy,
 		isMouseControllingPlayer,
 		setIsMouseOverMap,
+		isHidingSpaceMap,
 	} = useContext(LocationsContext);
 	const [isPlayerMovementEnabled, setIsPlayerMovementEnabled] = useState(false);
 
@@ -54,5 +55,6 @@ export const SpaceMapLogic = () => {
 		isPlayerMovementEnabled,
 		setIsPlayerMovementEnabled,
 		setCursorPointer,
+		isHidingSpaceMap,
 	};
 };

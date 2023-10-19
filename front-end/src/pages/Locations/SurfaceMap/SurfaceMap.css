@@ -23,12 +23,17 @@
 	position: fixed;
 	z-index: 3;
 	top: 0;
-	left: var(--navbar-width);
-	min-width: calc(100vw - var(--navbar-width));
-	width: calc(100vw - var(--navbar-width));
-	min-height: var(--vh);
+	left: calc(var(--navbar-width) - 1px);
+	width: calc(100vw - var(--navbar-width) + 1px);
 	height: var(--vh);
 	background: #000;
+}
+
+.locations-surface-map-loading-circle-container:not(.locations-surface-map-loading-circle-container-loaded) .loading-circle-container {
+	animation: fade-in 0 1;
+	animation-fill-mode: forwards;
+	animation-delay: 0.05s;
+	opacity: 0;
 }
 
 .locations-surface-map-loading-circle-container-loaded {

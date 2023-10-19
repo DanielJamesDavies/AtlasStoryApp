@@ -112,6 +112,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 
 	const [isOnMap, setIsOnMap] = useState(false);
 	const [isOnSpaceMap, setIsOnSpaceMap] = useState(true);
+	const [isHidingSpaceMap, setIsHidingSpaceMap] = useState(false);
 
 	const locationsMapRef = useRef();
 	const [playerApi, setPlayerApi] = useState(false);
@@ -351,6 +352,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setIsOnMap,
 				isOnSpaceMap,
 				setIsOnSpaceMap,
+				isHidingSpaceMap,
+				setIsHidingSpaceMap,
 				locationsMapRef,
 				playerApi,
 				setPlayerApi,

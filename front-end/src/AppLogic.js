@@ -27,6 +27,4 @@ export const AppLogic = () => {
 		}
 		disableIosZoomOnTextInput();
 	}, []);
-
-	return {};
 };

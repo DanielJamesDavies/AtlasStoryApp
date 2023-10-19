@@ -128,7 +128,7 @@ export const SurfaceMapLogic = () => {
 					} else if (JSON.stringify(path.getAttribute("fill")) !== JSON.stringify("rgb(255,255,255)")) {
 						path.classList.add("locations-surface-map-image-component-delete");
 					} else {
-						path.classList.add("locations-surface-map-image-component-active");
+						// path.classList.add("locations-surface-map-image-component-active");
 					}
 					return true;
 				});

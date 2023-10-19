@@ -19,7 +19,7 @@ export const Path = ({ path, locations }) => {
 	const { coordToPosition } = MapFunctions();
 
 	const lineRef = useRef();
-	const cylinderBufferGeometryRef = useRef();
+	const cylinderGeometryRef = useRef();
 	const isLoading = useRef(true);
 	const currPositions = useRef(false);
 	const [width, setWidth] = useState(0);
@@ -36,7 +36,7 @@ export const Path = ({ path, locations }) => {
 		const [pos_from, pos_to] = getPointPositons();
 
 		async function createPath(pos_from, pos_to, iteration) {
-			if (!lineRef?.current || !cylinderBufferGeometryRef?.current) return false;
+			if (!lineRef?.current || !cylinderGeometryRef?.current) return false;
 			if (JSON.stringify(currPositions.current) === JSON.stringify([pos_from, pos_to])) return false;
 
 			setWidth(path?.isMajor ? 0.04 : 0.015);
@@ -47,8 +47,8 @@ export const Path = ({ path, locations }) => {
 			lineRef.current.position.copy(new Vector3(...pos_from));
 			lineRef.current.lookAt(new Vector3(...pos_to));
 
-			cylinderBufferGeometryRef.current.rotateX(Math.PI / 2);
-			cylinderBufferGeometryRef.current.translate(0, 0, newLength / 2);
+			cylinderGeometryRef.current.rotateX(Math.PI / 2);
+			cylinderGeometryRef.current.translate(0, 0, newLength / 2);
 
 			if (iteration === 1) {
 				isLoading.current = false;
@@ -61,7 +61,7 @@ export const Path = ({ path, locations }) => {
 
 	return (
 		<mesh ref={lineRef} position={getPointPositons()[0]}>
-			<cylinderBufferGeometry ref={cylinderBufferGeometryRef} attach='geometry' args={[width, width, length, 25]} />
+			<cylinderGeometry ref={cylinderGeometryRef} attach='geometry' args={[width, width, length, 25]} />
 			<meshBasicMaterial attach='material' color={path?.colour === undefined ? "#444444" : path?.colour} />
 		</mesh>
 	);

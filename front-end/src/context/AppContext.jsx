@@ -13,6 +13,7 @@ const AppProvider = ({ children }) => {
 	const defaultAccentHoverColour = "#0088ff";
 	const [accentColour, setAccentColour] = useState(defaultAccentColour);
 	const [accentHoverColour, setAccentHoverColour] = useState(defaultAccentHoverColour);
+	const [coverImage, setCoverImage] = useState(false);
 
 	useEffect(() => {
 		if (username === false) {
@@ -47,6 +48,8 @@ const AppProvider = ({ children }) => {
 				accentHoverColour,
 				changeAccentColour,
 				changeAccentHoverColour,
+				coverImage,
+				setCoverImage,
 			}}
 		>
 			{children}

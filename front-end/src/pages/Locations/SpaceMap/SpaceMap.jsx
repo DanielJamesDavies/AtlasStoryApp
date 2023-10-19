@@ -32,12 +32,13 @@ export const SpaceMap = () => {
 		isPlayerMovementEnabled,
 		setIsPlayerMovementEnabled,
 		setCursorPointer,
+		isHidingSpaceMap,
 	} = SpaceMapLogic();
 
 	return (
 		<div
 			ref={locationsMapRef}
-			className='locations-map'
+			className={"locations-map" + (isHidingSpaceMap ? " locations-map-hidden" : " locations-map-is-displaying")}
 			onMouseDown={() => {
 				if (selectedLocationId) {
 					setSelectedLocationId(false);

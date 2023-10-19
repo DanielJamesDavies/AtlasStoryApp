@@ -26,6 +26,7 @@ export const MapLocationStatusLogic = () => {
 		hoverMapLocationId,
 		isOnSpaceMap,
 		setIsOnSpaceMap,
+		setIsHidingSpaceMap,
 	} = useContext(LocationsContext);
 	const { getPathToItemInHierarchy, getItemInHierarchyFromPath } = HierarchyFunctions();
 
@@ -58,22 +59,28 @@ export const MapLocationStatusLogic = () => {
 	function goBackLocation(e) {
 		e.stopPropagation();
 
-		const hierarchy = JSON.parse(JSON.stringify(story?.data?.locationsHierarchy));
-		if (!hierarchy) return false;
-		let parentCurrMapLocationHierarchyPath = getPathToItemInHierarchy(currentMapLocationId, hierarchy);
-		parentCurrMapLocationHierarchyPath.pop();
-		const newItem = getItemInHierarchyFromPath(parentCurrMapLocationHierarchyPath, hierarchy);
-		if (!newItem?._id) return false;
+		setIsHidingSpaceMap(true);
 
-		const newItemLocation = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newItem?._id));
-		if (["reality"].includes(newItemLocation?.type)) return false;
+		setTimeout(() => {
+			const hierarchy = JSON.parse(JSON.stringify(story?.data?.locationsHierarchy));
+			if (!hierarchy) return false;
+			let parentCurrMapLocationHierarchyPath = getPathToItemInHierarchy(currentMapLocationId, hierarchy);
+			parentCurrMapLocationHierarchyPath.pop();
+			const newItem = getItemInHierarchyFromPath(parentCurrMapLocationHierarchyPath, hierarchy);
+			if (!newItem?._id) return false;
 
-		const curr_location = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(currentMapLocationId));
-		if (!["surfaceLocation"].includes(curr_location?.type) && !isOnSpaceMap) {
-			return setIsOnSpaceMap(true);
-		}
+			const newItemLocation = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(newItem?._id));
+			if (["reality"].includes(newItemLocation?.type)) return false;
 
-		setCurrentMapLocationId(newItem?._id);
+			const curr_location = locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(currentMapLocationId));
+			if (!["surfaceLocation"].includes(curr_location?.type) && !isOnSpaceMap) {
+				return setIsOnSpaceMap(true);
+			}
+
+			setCurrentMapLocationId(newItem?._id);
+		}, 200);
+
+		setTimeout(() => setIsHidingSpaceMap(false), 210);
 	}
 
 	return { locations, locationTypes, statusPath, selectedLocationId, hoverMapLocationId, goBackLocation };
