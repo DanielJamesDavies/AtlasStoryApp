@@ -46,6 +46,11 @@ const LocationSchema = mongoose.Schema({
 				required: true,
 				auto: true,
 			},
+			mapImageComponents: {
+				type: String,
+				required: true,
+				default: ""
+			},
 			overviewBackground: {
 				type: mongoose.Schema.Types.ObjectId,
 				required: true,

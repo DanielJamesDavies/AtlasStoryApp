@@ -1,4 +1,5 @@
 // Packages
+import { sanitize } from 'dompurify';
 
 // Components
 import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
@@ -17,8 +18,11 @@ import "./SurfaceMap.css";
 
 export const SurfaceMap = () => {
 	const {
+		locations,
+		currentMapLocationId,
 		surfaceMapContainerRef,
 		surfaceMapImageContainerRef,
+		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageRef,
 		locationMapImage,
 		onTouchStart,
@@ -46,6 +50,12 @@ export const SurfaceMap = () => {
 							}
 						>
 							<img ref={surfaceMapImageRef} src={locationMapImage} alt='' />
+							<div 
+								ref={surfaceMapImageComponentsContainerRef} 
+								className='locations-surface-map-image-components-container'
+								dangerouslySetInnerHTML={{__html: sanitize(locations?.find((e) => e._id === currentMapLocationId)?.data?.mapImageComponents)}}
+							>
+							</div>
 						</div>
 					</div>
 					{isPanning ? null : (

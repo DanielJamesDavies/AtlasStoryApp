@@ -26,6 +26,7 @@ export const SurfaceMapLogic = () => {
 
 	const surfaceMapImageContainerRef = useRef();
 	const surfaceMapImageRef = useRef();
+	const surfaceMapImageComponentsContainerRef = useRef();
 	var zoom = useRef(1);
 	var panning = useRef(false);
 	var pointX = useRef(0);
@@ -104,7 +105,18 @@ export const SurfaceMapLogic = () => {
 						"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
 				} catch {}
 			}, 100);
+
 			setLocationMapImage(mapImage?.image);
+			
+			setTimeout(() => {
+				Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
+					if (index === 0 || JSON.stringify(path.getAttribute("fill")) !== JSON.stringify("rgb(255,255,255)")) {
+						path.classList.add("locations-surface-map-image-componen-delete")
+					}
+					return true;
+				});
+				Array.from(document.getElementsByClassName("locations-surface-map-image-componen-delete")).map((path) => path.remove())
+			}, 100)
 		}
 		getLocationMapImage();
 	}, [
@@ -363,8 +375,11 @@ export const SurfaceMapLogic = () => {
 	}
 
 	return {
+		locations,
+		currentMapLocationId,
 		surfaceMapContainerRef,
 		surfaceMapImageContainerRef,
+		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageRef,
 		locationMapImage,
 		onTouchStart,
