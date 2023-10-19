@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
 	const characterType = new CharacterType({
 		_id: new mongoose.Types.ObjectId(),
 		story_id: req.body.story_id,
-		data: { name: req.body.name, colour: req.body.colour },
+		data: { name: req?.body?.name, colour: req?.body?.colour },
 	});
 
 	let story = await Story.findById(req.body.story_id)

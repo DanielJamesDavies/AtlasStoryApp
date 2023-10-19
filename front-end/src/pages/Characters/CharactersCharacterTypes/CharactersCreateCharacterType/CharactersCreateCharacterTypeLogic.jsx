@@ -16,7 +16,7 @@ import { APIContext } from "../../../../context/APIContext";
 // Assets
 
 export const CharactersCreateCharacterTypeLogic = () => {
-	const { story, setStory, setCharacterTypes, isDisplayingCreateCharacterTypeForm, setIsDisplayingCreateCharacterTypeForm } =
+	const { story, setStory, setStoryCharacterTypes, isDisplayingCreateCharacterTypeForm, setIsDisplayingCreateCharacterTypeForm } =
 		useContext(CharactersContext);
 
 	function closeCreateCharacterTypeForm() {
@@ -28,9 +28,9 @@ export const CharactersCreateCharacterTypeLogic = () => {
 		setCharacterTypeName(e.target.value);
 	}
 
-	const [characterTypeColour, setCharacterTypeColour] = useState("");
-	function changeCharacterTypeColour(e) {
-		setCharacterTypeColour(e.target.value);
+	const [characterTypeColour, setCharacterTypeColour] = useState("#0044ff");
+	function changeCharacterTypeColour(new_colour) {
+		setCharacterTypeColour(new_colour);
 	}
 
 	const { APIRequest } = useContext(APIContext);
@@ -49,7 +49,7 @@ export const CharactersCreateCharacterTypeLogic = () => {
 		if (response?.errors) return setErrors(response.errors);
 
 		if (response?.data?.characterType) {
-			setCharacterTypes((oldCharacterTypes) => {
+			setStoryCharacterTypes((oldCharacterTypes) => {
 				let newCharacterTypes = JSON.parse(JSON.stringify(oldCharacterTypes));
 				newCharacterTypes.push(response.data.characterType);
 				return newCharacterTypes;

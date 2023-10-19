@@ -14,9 +14,11 @@ const CharacterTypeSchema = mongoose.Schema({
 		type: {
 			name: {
 				type: String,
+				default: "Character Type",
 			},
 			colour: {
 				type: String,
+				default: "#0044ff",
 			},
 			description: { type: [String], default: [""] },
 		},

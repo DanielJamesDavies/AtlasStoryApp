@@ -2,6 +2,13 @@
 	margin: 12px 0;
 }
 
+.characters-create-character-type-form-input-label {
+	margin-bottom: 4px;
+	font-size: var(--font-size-p-s);
+	font-weight: 600;
+	color: var(--text-colour-secondary);
+}
+
 .characters-create-character-type-form-submit-container {
 	margin-top: 20px;
 	text-align: right;

@@ -15,6 +15,7 @@ import { CharactersCreateCharacterTypeLogic } from "./CharactersCreateCharacterT
 
 // Styles
 import "./CharactersCreateCharacterType.css";
+import { ColourPicker } from "../../../../components/ColourPicker/ColourPicker";
 
 // Assets
 
@@ -43,7 +44,13 @@ export const CharactersCreateCharacterType = () => {
 					<ErrorMessage errors={errors} attribute='name' />
 				</div>
 				<div className='characters-create-character-type-form-input-container'>
-					<TextInput label='Colour' value={characterTypeColour} onChange={changeCharacterTypeColour} isDark={true} />
+					<div className='characters-create-character-type-form-input-label'>Colour</div>
+					<ColourPicker
+						value={characterTypeColour}
+						onChange={changeCharacterTypeColour}
+						enableEdit={true}
+						pickerVerticalPlacement='bottom'
+					/>
 					<ErrorMessage errors={errors} attribute='colour' />
 				</div>
 				<ErrorMessage errors={errors} />

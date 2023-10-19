@@ -16,7 +16,7 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const CharactersCharacterTypeLogic = () => {
-	const { isAuthorizedToEdit, story, setStory, setCharacterTypes, characterType, setCharacterType } = useContext(CharactersContext);
+	const { isAuthorizedToEdit, story, setStory, setStoryCharacterTypes, characterType, setCharacterType } = useContext(CharactersContext);
 	const { APIRequest } = useContext(APIContext);
 
 	async function deleteCharacterType() {
@@ -27,7 +27,7 @@ export const CharactersCharacterTypeLogic = () => {
 		});
 		if (!response || response?.errors) return false;
 
-		setCharacterTypes((oldCharacterTypes) => {
+		setStoryCharacterTypes((oldCharacterTypes) => {
 			let newCharacterTypes = JSON.parse(JSON.stringify(oldCharacterTypes));
 			const characterTypeIndex = newCharacterTypes.findIndex((e) => e._id === newCharacterType._id);
 			if (characterTypeIndex === -1) return newCharacterTypes;
