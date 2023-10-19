@@ -107,21 +107,39 @@ export const SurfaceMapLogic = () => {
 			}, 100);
 
 			setLocationMapImage(mapImage?.image);
-			
+
 			setTimeout(() => {
-				Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
-					if (index === 0 || JSON.stringify(path.getAttribute("fill")) !== JSON.stringify("rgb(255,255,255)")) {
-						path.classList.add("locations-surface-map-image-componen-delete")
+				if (!surfaceMapImageComponentsContainerRef.current?.children) return false;
+
+				const svg_width = surfaceMapImageComponentsContainerRef.current?.children[0].getAttribute("width");
+				const image_width = surfaceMapImageRef?.current?.clientWidth;
+				const image_height = surfaceMapImageRef?.current?.clientHeight;
+
+				const max_component_width = Math.floor(image_width * (zoom.current / 1)) - 2;
+				const max_component_height = Math.floor(image_height * (zoom.current / 1)) - 2;
+
+				Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path) => {
+					let { width, height } = path.getClientRects()[0];
+					width *= image_width / svg_width;
+					height *= image_width / svg_width;
+
+					if (width > max_component_width && height > max_component_height) {
+						path.classList.add("locations-surface-map-image-component-delete");
+					} else if (JSON.stringify(path.getAttribute("fill")) !== JSON.stringify("rgb(255,255,255)")) {
+						path.classList.add("locations-surface-map-image-component-delete");
+					} else {
+						path.classList.add("locations-surface-map-image-component-active");
 					}
 					return true;
 				});
-				
+				Array.from(document.getElementsByClassName("locations-surface-map-image-component-delete")).map((path) => path.remove());
+
 				const imageContainerWidthDelta =
-				((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
-				Array.from(document.getElementsByClassName("locations-surface-map-image-componen-delete")).map((path) => path.remove())
-				const svg_width = surfaceMapImageComponentsContainerRef.current.children[0].getAttribute("width");
-				const image_width = surfaceMapImageRef?.current?.clientWidth;
-				surfaceMapImageComponentsContainerRef.current.style = `scale: ${image_width / svg_width}; margin-left: -${imageContainerWidthDelta * (1 / zoom.current)}px`;
+					((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
+				let surfaceMapImageComponentsContainerStyles = [`scale: ${image_width / svg_width}`, `margin-top: -2px`];
+				if (window?.innerWidth > 750)
+					surfaceMapImageComponentsContainerStyles.push(`margin-left: ${-1 * (imageContainerWidthDelta * (1 / zoom.current) + 1.5)}px`);
+				surfaceMapImageComponentsContainerRef.current.style = surfaceMapImageComponentsContainerStyles.join("; ");
 			}, 100);
 		}
 		getLocationMapImage();
@@ -154,12 +172,15 @@ export const SurfaceMapLogic = () => {
 				}
 			}, 2);
 		}
-		
+
 		const imageContainerWidthDelta =
 			((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
 		const svg_width = surfaceMapImageComponentsContainerRef.current.children[0].getAttribute("width");
 		const image_width = surfaceMapImageRef?.current?.clientWidth;
-		surfaceMapImageComponentsContainerRef.current.style = `scale: ${image_width / svg_width}; margin-left: -${imageContainerWidthDelta * (1 / zoom.current)}px`;
+		let surfaceMapImageComponentsContainerStyles = [`scale: ${image_width / svg_width}`, `margin-top: -2px`];
+		if (window?.innerWidth > 750)
+			surfaceMapImageComponentsContainerStyles.push(`margin-left: ${-1 * (imageContainerWidthDelta * (1 / zoom.current) + 1.5)}px`);
+		surfaceMapImageComponentsContainerRef.current.style = surfaceMapImageComponentsContainerStyles.join("; ");
 
 		lastWindowWidth.current = window.innerWidth;
 	});

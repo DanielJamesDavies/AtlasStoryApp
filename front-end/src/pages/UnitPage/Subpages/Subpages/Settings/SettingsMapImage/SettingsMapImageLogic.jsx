@@ -43,7 +43,7 @@ export const SettingsMapImageLogic = () => {
 		Marvin.thresholding(imageOut, imageOut, 220);
 
 		const svgstring = ImageTracer.imagedataToSVG(imageOut?.imageData, { strokewidth: 4, linefilter: true });
-		
+
 		newUnit.data.mapImageComponents = svgstring;
 		setUnit(newUnit);
 	}
@@ -57,10 +57,10 @@ export const SettingsMapImageLogic = () => {
 
 	async function revertMapImage() {
 		setErrors([]);
-		
+
 		const response = await APIRequest("/image/" + unit?.data?.mapImage, "GET");
 		if (!response || response?.errors || !response?.data?.image?.image) return false;
-		
+
 		const components_response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", {
 			story_id: story._id,
 			path: ["data", "mapImageComponents"],

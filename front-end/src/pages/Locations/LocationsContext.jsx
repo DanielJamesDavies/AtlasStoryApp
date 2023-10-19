@@ -3,6 +3,7 @@ import { FaBullseye, FaDiceD6, FaDotCircle, FaGlobe, FaGlobeEurope, FaMap, FaMoo
 
 import { RoutesContext } from "../../context/RoutesContext";
 import { APIContext } from "../../context/APIContext";
+import { RecentDataContext } from "../../context/RecentDataContext";
 import { StoryContext } from "../../context/StoryContext";
 
 import { HierarchyFunctions } from "./HierarchyFunctions";
@@ -106,6 +107,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const { location, changeLocation, locationPath } = useContext(RoutesContext);
 	const { APIRequest } = useContext(APIContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon, locations, setLocations } = useContext(StoryContext);
+	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { getItemFromIdInHierarchy, getInitialMapLocationItem } = HierarchyFunctions();
 
 	const [isOnMap, setIsOnMap] = useState(false);
@@ -127,6 +129,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [isMouseOverMap, setIsMouseOverMap] = useState(false);
 	const [isMouseControllingPlayer, setIsMouseControllingPlayer] = useState(false);
 	const [mapObjectLocations, setMapObjectLocations] = useState([]);
+	const [locations3DMapImages, setLocations3DMapImages] = useState(false);
 
 	const scenesChangePlayerInitial = useRef([
 		{
@@ -214,6 +217,29 @@ const LocationsProvider = ({ children, story_uid }) => {
 			if (!response || response?.errors || !response?.data?.locations) return false;
 			setLocations(response.data.locations);
 			getInitialMapLocationId(response.data.locations);
+			getLocations3DMapImages(response.data.locations);
+		}
+
+		async function getLocations3DMapImages(locations) {
+			const newLocations3DMapImages = (
+				await Promise.all(
+					locations.map(async (location) => {
+						let mapImage = false;
+						const recentImage = recentImages.current.find((e) => e?._id === location?.data?.mapImage);
+						if (recentImage?.image) {
+							mapImage = recentImage;
+						} else {
+							const map_image_response = await APIRequest("/image/" + location?.data?.mapImage, "GET");
+							if (map_image_response?.errors || !map_image_response?.data?.image?.image) return false;
+							mapImage = map_image_response?.data?.image;
+
+							addImagesToRecentImages([mapImage]);
+						}
+						return mapImage;
+					})
+				)
+			).filter((e) => e !== false);
+			setLocations3DMapImages(newLocations3DMapImages);
 		}
 
 		getInitial();
@@ -225,10 +251,13 @@ const LocationsProvider = ({ children, story_uid }) => {
 		story,
 		setStory,
 		setLocations,
+		setLocations3DMapImages,
 		setCurrentMapLocationId,
 		getItemFromIdInHierarchy,
 		getInitialMapLocationItem,
 		url_location,
+		recentImages,
+		addImagesToRecentImages,
 	]);
 
 	const prev_map_location_id = useRef(false);
@@ -354,6 +383,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				mapObjectLocations,
 				setMapObjectLocations,
 				addToMapObjectLocations,
+				locations3DMapImages,
+				setLocations3DMapImages,
 				scenesChangePlayerInitial,
 				isDisplayingCreateLocationForm,
 				setIsDisplayingCreateLocationForm,

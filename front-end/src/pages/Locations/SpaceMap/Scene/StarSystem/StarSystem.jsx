@@ -29,6 +29,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 		hoverMapLocationId,
 		setHoverMapLocationId,
 		addToMapObjectLocations,
+		locations3DMapImages,
 	} = useContext(LocationsContext);
 	const { coordToPosition } = MapFunctions();
 	const ref = useRef();
@@ -163,6 +164,11 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 											dayLength={childLocation?.dayLength}
 											onClick={(e) => onClickLocation(e, childLocation)}
 											addToMapObjectLocations={addToMapObjectLocations}
+											image={
+												locations3DMapImages === false
+													? undefined
+													: locations3DMapImages?.find((e) => e._id === childLocation?.data?.mapImage)?.image || false
+											}
 										/>
 									</OutlineContainer>
 								)}
@@ -214,6 +220,13 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 																onPointerOver={(e) => onPointerOver(e, child2Location?._id)}
 																onPointerOut={(e) => onPointerOut(e)}
 																addToMapObjectLocations={addToMapObjectLocations}
+																image={
+																	locations3DMapImages === false
+																		? undefined
+																		: locations3DMapImages?.find(
+																				(e) => e._id === child2Location?.data?.mapImage
+																		  )?.image || false
+																}
 															/>
 														</OutlineContainer>
 													)}

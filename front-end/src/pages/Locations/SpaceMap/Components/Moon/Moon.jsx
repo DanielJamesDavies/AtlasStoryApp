@@ -25,10 +25,11 @@ export const Moon = ({
 	onPointerOver,
 	onPointerOut,
 	addToMapObjectLocations,
+	image,
 }) => {
 	const ref = useRef();
 
-	const [starMap] = useLoader(TextureLoader, ["/Assets/Map/Moon1/2k_moon.jpg"]);
+	const surfaceMap = useLoader(TextureLoader, !image ? "/Assets/Map/Moon1/2k_moon.jpg" : image);
 
 	useFrame((_, delta) => {
 		if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
@@ -50,7 +51,7 @@ export const Moon = ({
 			<group rotation={[0, tilt / 18.24 / Math.PI, 0]} scale={0.5}>
 				<mesh rotation={[3 * (Math.PI / 2), 0, Math.PI / 2]}>
 					<sphereGeometry args={[21.5, 32, 16]} />
-					<meshStandardMaterial map={starMap} />
+					<meshStandardMaterial map={surfaceMap} />
 				</mesh>
 			</group>
 		</group>

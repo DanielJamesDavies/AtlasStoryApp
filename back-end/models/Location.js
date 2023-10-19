@@ -49,7 +49,19 @@ const LocationSchema = mongoose.Schema({
 			mapImageComponents: {
 				type: String,
 				required: true,
-				default: ""
+				default: "",
+			},
+			mapLocations: {
+				type: [
+					{
+						name: { type: String, default: "Location" },
+						colour: { type: String, default: "#0044ff" },
+						location: { type: mongoose.Schema.Types.ObjectId },
+						components: { type: [Number], default: [] },
+					},
+				],
+				required: true,
+				default: [],
 			},
 			overviewBackground: {
 				type: mongoose.Schema.Types.ObjectId,

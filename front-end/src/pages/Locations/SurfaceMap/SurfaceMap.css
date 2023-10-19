@@ -20,10 +20,21 @@
 }
 
 .locations-surface-map-loading-circle-container {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	position: fixed;
+	z-index: 3;
+	top: 0;
+	left: var(--navbar-width);
+	min-width: calc(100vw - var(--navbar-width));
+	width: calc(100vw - var(--navbar-width));
+	min-height: var(--vh);
+	height: var(--vh);
+	background: #000;
+}
+
+.locations-surface-map-loading-circle-container-loaded {
+	animation: fade-out 0.5s 1;
+	animation-fill-mode: forwards;
+	animation-delay: 0.4s;
 }
 
 .locations-surface-map-image-container {
@@ -75,9 +86,9 @@
 
 .locations-surface-map-image-components-container svg {
 	position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .locations-surface-map-image-components-container svg path {
@@ -85,26 +96,16 @@
 	stroke: #0044ff;
 	transition: 0.1s;
 	pointer-events: all;
-	stroke-width: 6px;
-	opacity: 0.2;
+	stroke-width: 10px;
+	opacity: 0;
 }
 
-.locations-surface-map-image-components-container svg path:hover {
-	opacity: 0.5;
+.locations-surface-map-image-component-active {
+	opacity: 0.6 !important;
 }
 
-.locations-surface-map-background {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index: -1;
-
-	width: 100%;
-	height: 100%;
-
-	background: var(--colour-grey-one);
-	opacity: 0.7;
+.locations-surface-map-image-component-active:hover {
+	opacity: 0.45 !important;
 }
 
 .locations-surface-map-movement-boxes-container {
@@ -317,21 +318,16 @@
 }
 
 @media (max-width: 750px) {
+	.locations-surface-map-loading-circle-container {
+		top: 0;
+		left: 0;
+		width: 100vw;
+		min-height: calc(var(--vh) - var(--navbar-mobile-height));
+		height: calc(var(--vh) - var(--navbar-mobile-height));
+	}
+
 	.locations-surface-map-image {
 		width: calc(100% - 64px);
-	}
-
-	.locations-surface-map-switch-btn-decrement {
-		left: 0;
-	}
-
-	.locations-surface-map-switch-btn-increment {
-		right: 0;
-	}
-
-	.locations-surface-map-close-btn {
-		top: 10px;
-		right: 0;
 	}
 
 	.locations-surface-map-movement-box {

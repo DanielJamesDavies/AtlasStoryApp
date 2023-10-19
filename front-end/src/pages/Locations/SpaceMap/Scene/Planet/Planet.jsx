@@ -17,7 +17,8 @@ import { LocationsContext } from "../../../LocationsContext";
 // Assets
 
 export const Planet = ({ location, setCursorPointer }) => {
-	const { setIsDisplayingHierarchy, setSelectedLocationId, setHoverMapLocationId, setIsOnSpaceMap } = useContext(LocationsContext);
+	const { setIsDisplayingHierarchy, setSelectedLocationId, setHoverMapLocationId, setIsOnSpaceMap, locations3DMapImages } =
+		useContext(LocationsContext);
 	const { coordToPosition } = MapFunctions();
 	const ref = useRef();
 	const [isHovering, setIsHovering] = useState(false);
@@ -89,6 +90,11 @@ export const Planet = ({ location, setCursorPointer }) => {
 				onClick={(e) => onClickLocation(e, location)}
 				onPointerOver={onPointerOver}
 				onPointerOut={onPointerOut}
+				image={
+					locations3DMapImages === false
+						? undefined
+						: locations3DMapImages?.find((e) => e._id === location?.data?.mapImage)?.image || false
+				}
 			/>
 		</group>
 	);
