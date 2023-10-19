@@ -115,8 +115,14 @@ export const SurfaceMapLogic = () => {
 					}
 					return true;
 				});
+				
+				const imageContainerWidthDelta =
+				((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
 				Array.from(document.getElementsByClassName("locations-surface-map-image-componen-delete")).map((path) => path.remove())
-			}, 100)
+				const svg_width = surfaceMapImageComponentsContainerRef.current.children[0].getAttribute("width");
+				const image_width = surfaceMapImageRef?.current?.clientWidth;
+				surfaceMapImageComponentsContainerRef.current.style = `scale: ${image_width / svg_width}; margin-left: -${imageContainerWidthDelta * (1 / zoom.current)}px`;
+			}, 100);
 		}
 		getLocationMapImage();
 	}, [
@@ -148,6 +154,13 @@ export const SurfaceMapLogic = () => {
 				}
 			}, 2);
 		}
+		
+		const imageContainerWidthDelta =
+			((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
+		const svg_width = surfaceMapImageComponentsContainerRef.current.children[0].getAttribute("width");
+		const image_width = surfaceMapImageRef?.current?.clientWidth;
+		surfaceMapImageComponentsContainerRef.current.style = `scale: ${image_width / svg_width}; margin-left: -${imageContainerWidthDelta * (1 / zoom.current)}px`;
+
 		lastWindowWidth.current = window.innerWidth;
 	});
 

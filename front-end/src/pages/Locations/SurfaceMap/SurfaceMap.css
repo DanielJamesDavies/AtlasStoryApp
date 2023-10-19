@@ -70,22 +70,27 @@
 .locations-surface-map-image-components-container {
 	position: absolute;
 	z-index: 2;
-	margin-left: -411px;
-    scale: 0.59;
+	width: 100%;
+}
+
+.locations-surface-map-image-components-container svg {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .locations-surface-map-image-components-container svg path {
-	stroke: transparent;
-	fill: none;
+	fill: #0044ff;
+	stroke: #0044ff;
 	transition: 0.1s;
 	pointer-events: all;
 	stroke-width: 6px;
-	opacity: 0.5;
+	opacity: 0.2;
 }
 
 .locations-surface-map-image-components-container svg path:hover {
-	fill: #0044ff !important;
-	stroke: #0044ff !important;
+	opacity: 0.5;
 }
 
 .locations-surface-map-background {
