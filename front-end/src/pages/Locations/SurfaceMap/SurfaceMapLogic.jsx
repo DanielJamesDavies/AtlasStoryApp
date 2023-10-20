@@ -95,11 +95,34 @@ export const SurfaceMapLogic = () => {
 			}
 			setTimeout(() => {
 				try {
+					// Minimum Zoom
 					const { width_zoom, height_zoom } = getDimensionsZoom();
 					zoom.current = Math.max(width_zoom, height_zoom);
+
+					// Center X
 					pointX.current = -(surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current;
+					pointX.current =
+						zoom.current === width_zoom
+							? window.innerWidth > 750
+								? 68 / 2
+								: 0
+							: -((surfaceMapImageContainerRef?.current?.clientWidth * zoom.current - window.innerWidth) / 2);
+
+					// Center Y
+					const imageContainerHeightDelta =
+						((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+					const max_pointY =
+						surfaceMapImageRef?.current?.clientHeight * zoom.current +
+						imageContainerHeightDelta -
+						window.innerHeight -
+						1 * zoom.current;
 					pointY.current =
-						-((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+						window.innerWidth <= 750
+							? -(max_pointY + 58 / 2)
+							: -((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) /
+							  2;
+
+					// Set Initial Position and Zoom
 					updatePointsForBounds();
 					surfaceMapImageContainerRef.current.style.transform =
 						"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
@@ -175,7 +198,7 @@ export const SurfaceMapLogic = () => {
 
 		const imageContainerWidthDelta =
 			((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
-		const svg_width = surfaceMapImageComponentsContainerRef.current.children[0].getAttribute("width");
+		const svg_width = surfaceMapImageComponentsContainerRef?.current?.children?.[0]?.getAttribute("width");
 		const image_width = surfaceMapImageRef?.current?.clientWidth;
 		let surfaceMapImageComponentsContainerStyles = [`scale: ${image_width / svg_width}`, `margin-top: -2px`];
 		if (window?.innerWidth > 750)

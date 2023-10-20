@@ -336,6 +336,27 @@ const LocationsProvider = ({ children, story_uid }) => {
 		[setMapObjectLocations]
 	);
 
+	useEffect(() => {
+		if (story?.data?.title) {
+			if (isOnMap) {
+				const location = locations?.find((e) => e?._id === currentMapLocationId);
+				if (location?.data?.name) {
+					document.title = location?.data?.name + " | Locations | " + story?.data?.title + " | Atlas Story App";
+					const current_url = JSON.parse(JSON.stringify(window?.location?.href));
+					setTimeout(() => {
+						if (JSON.stringify(current_url) === JSON.stringify(window?.location?.href)) {
+							document.title = location?.data?.name + " | Locations | " + story?.data?.title + " | Atlas Story App";
+						}
+					}, 500);
+				} else {
+					document.title = "Locations | " + story?.data?.title + " | Atlas Story App";
+				}
+			} else {
+				document.title = "Locations | " + story?.data?.title + " | Atlas Story App";
+			}
+		}
+	}, [isOnMap, currentMapLocationId, locations, story]);
+
 	return (
 		<LocationsContext.Provider
 			value={{

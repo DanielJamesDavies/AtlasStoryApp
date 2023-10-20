@@ -21,6 +21,8 @@
 	animation: fade-out 0.5s 1;
 	animation-fill-mode: forwards;
 	animation-delay: 1.2s;
+	pointer-events: none;
+	user-select: none;
 }
 
 .locations-map-is-displaying {
