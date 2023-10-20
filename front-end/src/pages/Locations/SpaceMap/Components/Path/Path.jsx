@@ -1,5 +1,5 @@
 // Packages
-import { useRef, useState, useCallback, useLayoutEffect } from "react";
+import { useRef, useState, useCallback, useLayoutEffect, useEffect } from "react";
 import { Vector3 } from "three";
 
 // Components
@@ -38,8 +38,7 @@ export const Path = ({ path, locations }) => {
 		async function createPath(pos_from, pos_to, iteration) {
 			if (!lineRef?.current || !cylinderGeometryRef?.current) return false;
 			if (JSON.stringify(currPositions.current) === JSON.stringify([pos_from, pos_to])) return false;
-
-			setWidth(path?.isMajor ? 0.04 : 0.015);
+			if (!isLoading.current) return false;
 
 			const newLength = Math.hypot(pos_from[0] - pos_to[0], pos_from[1] - pos_to[1], pos_from[2] - pos_to[2]);
 			setLength(newLength);
@@ -58,6 +57,10 @@ export const Path = ({ path, locations }) => {
 		createPath(pos_from, pos_to, 0);
 		setTimeout(() => createPath(pos_from, pos_to, 1), 1);
 	}, [path, locations, getPointPositons, setWidth, setLength, isLoading, currPositions]);
+
+	useEffect(() => {
+		setWidth(path?.isMajor ? 0.04 : 0.015);
+	}, [path, setWidth]);
 
 	return (
 		<mesh ref={lineRef} position={getPointPositons()[0]}>
