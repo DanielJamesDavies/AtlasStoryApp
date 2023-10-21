@@ -99,18 +99,55 @@
 .locations-surface-map-image-components-container svg path {
 	fill: #0044ff;
 	stroke: #0044ff;
-	transition: 0.1s;
+	transition: 0.2s;
 	pointer-events: all;
-	stroke-width: 10px;
+	stroke-width: 8px;
 	opacity: 0;
 }
 
-.locations-surface-map-image-component-active {
-	opacity: 0.6 !important;
+.locations-surface-map-image-components-container-is-selecting .locations-surface-map-image-component {
+	cursor: pointer;
 }
 
-.locations-surface-map-image-component-active:hover {
+.locations-surface-map-image-components-container-is-selecting .locations-surface-map-image-component:hover {
+	fill: var(--regionSelectingForColour) !important;
+	stroke: var(--regionSelectingForColour) !important;
+	opacity: 0.3;
+}
+
+.locations-surface-map-image-component-selected {
+	fill: var(--regionSelectingForColour) !important;
+	stroke: var(--regionSelectingForColour) !important;
+	transition: 0.2s;
+	animation: locations-surface-map-image-component-pulse 1.25s infinite ease-in-out;
+}
+
+.locations-surface-map-image-component-selected:hover {
 	opacity: 0.45 !important;
+}
+
+@keyframes locations-surface-map-image-component-pulse {
+	0% {
+		opacity: 0.7;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.7;
+	}
+}
+
+.locations-surface-map-image-component-in-region {
+	fill: var(--regionColour) !important;
+	stroke: var(--regionColour) !important;
+	transition: 0.2s;
+	opacity: 1 !important;
+	animation: none !important;
+}
+
+.locations-surface-map-image-component-in-region:hover {
+	opacity: 0.8 !important;
 }
 
 .locations-surface-map-movement-boxes-container {

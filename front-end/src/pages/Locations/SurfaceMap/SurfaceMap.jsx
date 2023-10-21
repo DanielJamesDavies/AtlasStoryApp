@@ -31,10 +31,30 @@ export const SurfaceMap = () => {
 		enterMovementBox,
 		leaveMovementBox,
 		isPanning,
+		isScrolling,
+		isSelectingSurfaceMapComponents,
+		surfaceMapImageComponentsStyles,
+		onMovementBoxWheel,
+		selectedLocationId,
+		setSelectedLocationId,
+		setIsDisplayingHierarchy,
 	} = SurfaceMapLogic();
 
 	return (
-		<div ref={surfaceMapContainerRef} className='locations-surface-map-container' onTouchStart={onTouchStart} onTouchMove={onTouchMove}>
+		<div
+			ref={surfaceMapContainerRef}
+			className='locations-surface-map-container'
+			onTouchStart={onTouchStart}
+			onTouchMove={onTouchMove}
+			onClick={() => {
+				if (isSelectingSurfaceMapComponents) return false;
+				if (selectedLocationId) {
+					setSelectedLocationId(false);
+				} else {
+					setIsDisplayingHierarchy(false);
+				}
+			}}
+		>
 			{!locationMapImage ? (
 				<div className='locations-surface-map-loading-circle-container'>
 					<LoadingCircle center={true} />
@@ -55,14 +75,18 @@ export const SurfaceMap = () => {
 							<img ref={surfaceMapImageRef} src={locationMapImage} alt='' />
 							<div
 								ref={surfaceMapImageComponentsContainerRef}
-								className='locations-surface-map-image-components-container'
+								className={
+									"locations-surface-map-image-components-container" +
+									(isSelectingSurfaceMapComponents ? " locations-surface-map-image-components-container-is-selecting" : "")
+								}
 								dangerouslySetInnerHTML={{
 									__html: sanitize(locations?.find((e) => e._id === currentMapLocationId)?.data?.mapImageComponents),
 								}}
+								style={surfaceMapImageComponentsStyles}
 							></div>
 						</div>
 					</div>
-					{isPanning ? null : (
+					{isPanning || isScrolling ? null : (
 						<div className='locations-surface-map-movement-boxes-container'>
 							{[
 								[0, -1],
@@ -95,6 +119,7 @@ export const SurfaceMap = () => {
 									className='locations-surface-map-movement-box'
 									onMouseEnter={() => enterMovementBox(...movement)}
 									onMouseLeave={() => leaveMovementBox()}
+									onWheel={onMovementBoxWheel}
 								></div>
 							))}
 						</div>

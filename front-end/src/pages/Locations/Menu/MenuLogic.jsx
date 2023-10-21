@@ -18,6 +18,7 @@ import { LocationsContext } from "../LocationsContext";
 
 export const MenuLogic = () => {
 	const {
+		currentMapLocationId,
 		selectedLocationId,
 		setSelectedLocationId,
 		isDisplayingHierarchy,
@@ -43,7 +44,11 @@ export const MenuLogic = () => {
 	const [isDisplayingControlScheme, setIsDisplayingControlScheme] = useState(false);
 
 	function toggleIsDisplayingHierarchy() {
-		if (isDisplayingHierarchy) setSelectedLocationId(false);
+		if (isDisplayingHierarchy) {
+			setSelectedLocationId(false);
+		} else {
+			setSelectedLocationId(currentMapLocationId);
+		}
 		setIsDisplayingHierarchy(!isDisplayingHierarchy);
 	}
 

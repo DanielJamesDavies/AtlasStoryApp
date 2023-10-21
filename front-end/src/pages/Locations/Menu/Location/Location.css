@@ -8,7 +8,7 @@
 	padding-top: 0;
 
 	width: calc(100% - 8px - 46px - 2 * 16px);
-	height: var(--locationsDetailsHeight);
+	min-height: var(--locationsDetailsHeight);
 }
 
 .locations-location-container::before {
@@ -44,6 +44,10 @@
 	height: 1px;
 
 	background: var(--colour-grey-four);
+}
+
+.locations-location {
+	min-height: var(--locationContainerHeight);
 }
 
 .locations-location-title {

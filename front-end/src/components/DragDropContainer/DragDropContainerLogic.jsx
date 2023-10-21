@@ -18,6 +18,7 @@ export const DragDropContainerLogic = ({
 	inlineItems,
 	enableDragDrop,
 	onDropItem,
+	absoluteVerticalDrag,
 	afterOnTouchMove,
 	afterOnTouchEnd,
 }) => {
@@ -88,10 +89,11 @@ export const DragDropContainerLogic = ({
 			let newClassName = "drag-drop-list";
 			if (className) newClassName += " " + className;
 			if (inlineItems) newClassName += " drag-drop-list-inline";
+			if (absoluteVerticalDrag) newClassName += " drag-drop-list-absolute-vertical-drag";
 			return newClassName;
 		}
 		setDragDropContainerClassName(getDragDropContainerClassName());
-	}, [setDragDropContainerClassName, className, inlineItems]);
+	}, [setDragDropContainerClassName, className, inlineItems, absoluteVerticalDrag]);
 
 	const dragDropContainerRef = useRef();
 	const [dropDownListScrollInterval, setDropDownListScrollInterval] = useState(false);

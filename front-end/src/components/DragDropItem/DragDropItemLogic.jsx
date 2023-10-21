@@ -1,5 +1,5 @@
 // Packages
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // Components
 
@@ -28,8 +28,9 @@ export const DragDropItemLogic = ({
 	isUsingTouch,
 	setIsUsingTouch,
 }) => {
-	function getDragDropItemClassName() {
+	const getDragDropItemClassName = useCallback(() => {
 		let newClassName = "drag-drop-item";
+		if (index === 0) newClassName += " drag-drop-item-first-item";
 		if (inlineItems) newClassName += " drag-drop-item-inline";
 		if (enableDragDrop) newClassName += " drag-drop-item-enable-drag-drop";
 		if (currentDraggingItem !== undefined && currentDraggingItem === orderIndex) newClassName += " drag-drop-item-dragging";
@@ -37,21 +38,13 @@ export const DragDropItemLogic = ({
 			newClassName += " drag-drop-item-dragging-touch";
 		if (!className) return newClassName;
 		return (newClassName += " " + className);
-	}
+	}, [index, orderIndex, className, inlineItems, enableDragDrop, currentDraggingItem, isUsingTouch]);
+
 	const [dragDropItemClassName, setDragDropItemClassName] = useState(getDragDropItemClassName());
+
 	useEffect(() => {
-		function getDragDropItemClassName() {
-			let newClassName = "drag-drop-item";
-			if (inlineItems) newClassName += " drag-drop-item-inline";
-			if (enableDragDrop) newClassName += " drag-drop-item-enable-drag-drop";
-			if (currentDraggingItem !== undefined && currentDraggingItem === orderIndex) newClassName += " drag-drop-item-dragging";
-			if (currentDraggingItem !== undefined && currentDraggingItem === orderIndex && isUsingTouch)
-				newClassName += " drag-drop-item-dragging-touch";
-			if (!className) return newClassName;
-			return (newClassName += " " + className);
-		}
 		setDragDropItemClassName(getDragDropItemClassName());
-	}, [setDragDropItemClassName, orderIndex, className, inlineItems, enableDragDrop, currentDraggingItem, isUsingTouch]);
+	}, [getDragDropItemClassName, setDragDropItemClassName, orderIndex, className, inlineItems, enableDragDrop, currentDraggingItem, isUsingTouch]);
 
 	const dragDropItemRef = useRef();
 

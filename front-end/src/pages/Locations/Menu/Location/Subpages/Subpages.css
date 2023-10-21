@@ -1,0 +1,4 @@
+.locations-location-subpages {
+	--locationsSubpageHeight: calc(var(--locationContainerHeight) - var(--locationPrimaryHeight));
+	height: var(--locationsSubpageHeight);
+}

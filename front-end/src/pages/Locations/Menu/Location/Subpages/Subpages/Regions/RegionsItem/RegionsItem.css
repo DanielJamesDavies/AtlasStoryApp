@@ -1,0 +1,110 @@
+.locations-location-regions-item-container {
+	margin: 12px 0;
+}
+
+.locations-location-regions-item-container.drag-drop-item-first-item {
+	margin-top: 0;
+}
+
+.locations-location-regions-item-container .content-item {
+	margin-left: 0;
+	margin-right: 0;
+	padding-right: 8px;
+}
+
+.locations-location-regions-item-has-single-line-text .content-item {
+	padding-bottom: 8px;
+}
+
+.locations-location-regions-item-container:last-child {
+	padding-bottom: 8px;
+}
+
+.drag-drop-item-enable-drag-drop.locations-location-regions-item-container {
+	animation: wiggle-very-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).locations-location-regions-item-container {
+	animation-delay: 0.1s;
+}
+
+.locations-location-regions-item-content {
+	display: inline-block;
+	width: calc(100% - 32px);
+	vertical-align: top;
+}
+
+.locations-location-regions-item-name {
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+.locations-location-regions-item-name,
+.locations-location-regions-item-name input {
+	--text-input-font-size: var(--font-size-p-l);
+	font-size: var(--font-size-p-l);
+	font-weight: 600;
+}
+
+.locations-location-regions-item .text-input-container-empty {
+	height: var(--font-size-p-l-height);
+}
+
+.locations-location-regions-item-colour-container,
+.locations-location-regions-item-components-container {
+	margin-top: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.locations-location-regions-item-colour-container label,
+.locations-location-regions-item-components-container label {
+	font-size: var(--font-size-p-m);
+	font-weight: 600;
+}
+
+.locations-location-regions-item-components-container button {
+	padding: 4px 8px;
+	border: 0;
+	border-radius: 5px;
+	width: fit-content;
+	background: var(--colour-grey-four);
+	color: var(--text-colour-secondary);
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.locations-location-regions-item-components-container button:hover {
+	background: var(--colour-grey-five);
+	color: var(--text-colour-primary);
+}
+
+.locations-location-regions-item-components-btn-save {
+	background: var(--colour-blue) !important;
+	color: #fff !important;
+}
+
+.locations-location-regions-item-components-btn-save:hover {
+	background: var(--colour-blue-tint) !important;
+}
+
+.locations-location-regions-item-image-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}
+
+.locations-location-regions-item-buttons-container {
+	display: inline-flex;
+	flex-direction: column;
+	width: 32px;
+	gap: 8px 0;
+}
+
+@media (max-width: 1000px) {
+	.locations-location-regions-item-container {
+		margin: 6px 0;
+		width: 100%;
+	}
+}

@@ -131,6 +131,10 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [isMouseControllingPlayer, setIsMouseControllingPlayer] = useState(false);
 	const [mapObjectLocations, setMapObjectLocations] = useState([]);
 	const [locations3DMapImages, setLocations3DMapImages] = useState(false);
+	const [isSelectingSurfaceMapComponents, setIsSelectingSurfaceMapComponents] = useState(false);
+	const [regionSelectingSurfaceMapComponentsFor, setRegionSelectingSurfaceMapComponentsFor] = useState(false);
+	const [selectedSurfaceMapComponents, setSelectedSurfaceMapComponents] = useState([]);
+	const [surfaceMapComponentsList, setSurfaceMapComponentsList] = useState([]);
 
 	const scenesChangePlayerInitial = useRef([
 		{
@@ -170,6 +174,26 @@ const LocationsProvider = ({ children, story_uid }) => {
 		}
 	}, [location]);
 
+	const updateSurfaceMapComponentsList = useCallback(
+		(newLocation) => {
+			let newSurfaceMapComponentsList = [];
+			newLocation?.data?.regions?.map((region) => {
+				region?.components?.map((component) => {
+					if (newSurfaceMapComponentsList.length - 1 < component) {
+						for (let i = 0; i < component - newSurfaceMapComponentsList.length - 1; i++) {
+							newSurfaceMapComponentsList.push(false);
+						}
+					}
+					newSurfaceMapComponentsList[component] = region?._id;
+					return component;
+				});
+				return region;
+			});
+			setSurfaceMapComponentsList(newSurfaceMapComponentsList);
+		},
+		[setSurfaceMapComponentsList]
+	);
+
 	const curr_story_uid = useRef(false);
 	useEffect(() => {
 		async function getInitial() {
@@ -182,7 +206,10 @@ const LocationsProvider = ({ children, story_uid }) => {
 			updateDocumentTitle();
 			setTimeout(() => updateDocumentTitle(), 1000);
 
-			getLocations();
+			const newLocations = await getLocations();
+			const newCurrentMapLocationItemID = getInitialMapLocationId(newLocations);
+			const location = newLocations.find((e) => e?._id === newCurrentMapLocationItemID);
+			updateSurfaceMapComponentsList(location);
 		}
 
 		function updateDocumentTitle() {
@@ -204,21 +231,22 @@ const LocationsProvider = ({ children, story_uid }) => {
 				);
 				if (newCurrentMapLocationItem?._id !== undefined) {
 					setCurrentMapLocationId(newCurrentMapLocationItem._id);
-					return true;
+					return newCurrentMapLocationItem._id;
 				}
 			}
 
 			newCurrentMapLocationItem = getInitialMapLocationItem(story.data.locationsHierarchy, newLocations);
 			if (newCurrentMapLocationItem?._id === undefined) return false;
 			setCurrentMapLocationId(newCurrentMapLocationItem._id);
+			return newCurrentMapLocationItem._id;
 		}
 
 		async function getLocations() {
 			const response = await APIRequest("/location?story_uid=" + story_uid, "GET");
 			if (!response || response?.errors || !response?.data?.locations) return false;
 			setLocations(response.data.locations);
-			getInitialMapLocationId(response.data.locations);
 			getLocations3DMapImages(response.data.locations);
+			return response.data.locations;
 		}
 
 		async function getLocations3DMapImages(locations) {
@@ -259,6 +287,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 		url_location,
 		recentImages,
 		addImagesToRecentImages,
+		updateSurfaceMapComponentsList,
 	]);
 
 	const prev_map_location_id = useRef(false);
@@ -357,6 +386,20 @@ const LocationsProvider = ({ children, story_uid }) => {
 		}
 	}, [isOnMap, currentMapLocationId, locations, story]);
 
+	const addComponentToSelectedSurfaceMapComponents = useCallback(
+		(new_index) => {
+			setSelectedSurfaceMapComponents((oldValue) => [...new Set(oldValue.concat([new_index]))]);
+		},
+		[setSelectedSurfaceMapComponents]
+	);
+
+	const removeComponentToSelectedSurfaceMapComponents = useCallback(
+		(old_index) => {
+			setSelectedSurfaceMapComponents((oldValue) => [...new Set(oldValue.filter((e) => e !== old_index))]);
+		},
+		[setSelectedSurfaceMapComponents]
+	);
+
 	return (
 		<LocationsContext.Provider
 			value={{
@@ -409,6 +452,17 @@ const LocationsProvider = ({ children, story_uid }) => {
 				addToMapObjectLocations,
 				locations3DMapImages,
 				setLocations3DMapImages,
+				isSelectingSurfaceMapComponents,
+				setIsSelectingSurfaceMapComponents,
+				regionSelectingSurfaceMapComponentsFor,
+				setRegionSelectingSurfaceMapComponentsFor,
+				selectedSurfaceMapComponents,
+				setSelectedSurfaceMapComponents,
+				addComponentToSelectedSurfaceMapComponents,
+				removeComponentToSelectedSurfaceMapComponents,
+				surfaceMapComponentsList,
+				setSurfaceMapComponentsList,
+				updateSurfaceMapComponentsList,
 				scenesChangePlayerInitial,
 				isDisplayingCreateLocationForm,
 				setIsDisplayingCreateLocationForm,

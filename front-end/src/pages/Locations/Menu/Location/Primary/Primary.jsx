@@ -15,9 +15,9 @@ import "./Primary.css";
 
 // Assets
 
-export const LocationPrimary = () => {
+export const LocationPrimary = ({ locationPrimaryRef }) => {
 	return (
-		<div className='locations-location-primary'>
+		<div ref={locationPrimaryRef} className='locations-location-primary'>
 			<LocationTitle />
 			<LocationName />
 		</div>

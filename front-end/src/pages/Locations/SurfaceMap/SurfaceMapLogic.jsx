@@ -17,12 +17,25 @@ import { RecentDataContext } from "../../../context/RecentDataContext";
 // Assets
 
 export const SurfaceMapLogic = () => {
-	const { locations, currentMapLocationId } = useContext(LocationsContext);
+	const {
+		locations,
+		currentMapLocationId,
+		isSelectingSurfaceMapComponents,
+		regionSelectingSurfaceMapComponentsFor,
+		selectedSurfaceMapComponents,
+		selectedLocationId,
+		setSelectedLocationId,
+		setIsDisplayingHierarchy,
+		surfaceMapComponentsList,
+		addComponentToSelectedSurfaceMapComponents,
+		removeComponentToSelectedSurfaceMapComponents,
+	} = useContext(LocationsContext);
 	const { APIRequest } = useContext(APIContext);
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const [locationMapImage, setLocationMapImage] = useState(false);
 	const [isImagePixelated, setIsImagePixelated] = useState(false);
 	const [isPanning, setIsPanning] = useState(false);
+	const [isScrolling, setIsScrolling] = useState(false);
 
 	const surfaceMapImageContainerRef = useRef();
 	const surfaceMapImageRef = useRef();
@@ -37,6 +50,49 @@ export const SurfaceMapLogic = () => {
 	useEffect(() => {
 		lastWindowWidth.current = window.innerWidth;
 	}, [lastWindowWidth]);
+
+	const onClickMapComponent = useCallback(
+		(index) => {
+			if (!isSelectingSurfaceMapComponents) return false;
+
+			if (
+				Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList).includes(
+					"locations-surface-map-image-component-in-region"
+				)
+			) {
+				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.remove(
+					"locations-surface-map-image-component-in-region"
+				);
+				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.remove(
+					"locations-surface-map-image-component-selected"
+				);
+				removeComponentToSelectedSurfaceMapComponents(index);
+				return true;
+			}
+
+			if (
+				!Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList).includes(
+					"locations-surface-map-image-component-selected"
+				)
+			) {
+				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.add(
+					"locations-surface-map-image-component-selected"
+				);
+				addComponentToSelectedSurfaceMapComponents(index);
+			} else {
+				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.remove(
+					"locations-surface-map-image-component-selected"
+				);
+				removeComponentToSelectedSurfaceMapComponents(index);
+			}
+		},
+		[
+			isSelectingSurfaceMapComponents,
+			surfaceMapImageComponentsContainerRef,
+			addComponentToSelectedSurfaceMapComponents,
+			removeComponentToSelectedSurfaceMapComponents,
+		]
+	);
 
 	const getDimensionsZoom = useCallback(() => {
 		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
@@ -146,16 +202,22 @@ export const SurfaceMapLogic = () => {
 					width *= image_width / svg_width;
 					height *= image_width / svg_width;
 
+					path.classList.add("locations-surface-map-image-component");
+
 					if (width > max_component_width && height > max_component_height) {
 						path.classList.add("locations-surface-map-image-component-delete");
 					} else if (JSON.stringify(path.getAttribute("fill")) !== JSON.stringify("rgb(255,255,255)")) {
 						path.classList.add("locations-surface-map-image-component-delete");
-					} else {
-						// path.classList.add("locations-surface-map-image-component-active");
 					}
+
 					return true;
 				});
 				Array.from(document.getElementsByClassName("locations-surface-map-image-component-delete")).map((path) => path.remove());
+
+				Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
+					path.addEventListener("click", () => onClickMapComponent(index));
+					return true;
+				});
 
 				const imageContainerWidthDelta =
 					((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
@@ -177,6 +239,7 @@ export const SurfaceMapLogic = () => {
 		surfaceMapImageRef,
 		updatePointsForBounds,
 		getDimensionsZoom,
+		onClickMapComponent,
 	]);
 
 	window.addEventListener("resize", () => {
@@ -207,6 +270,47 @@ export const SurfaceMapLogic = () => {
 
 		lastWindowWidth.current = window.innerWidth;
 	});
+
+	useEffect(() => {
+		try {
+			Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
+				if (selectedSurfaceMapComponents.includes(index)) path.classList.add("locations-surface-map-image-component-selected");
+				return true;
+			});
+		} catch {}
+	}, [selectedSurfaceMapComponents, surfaceMapImageComponentsContainerRef]);
+
+	useEffect(() => {
+		try {
+			Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
+				let new_path = path.cloneNode(true);
+				path.parentNode.replaceChild(new_path, path);
+				if (isSelectingSurfaceMapComponents) new_path.addEventListener("click", () => onClickMapComponent(index));
+				return true;
+			});
+		} catch {}
+	}, [isSelectingSurfaceMapComponents, surfaceMapImageComponentsContainerRef, onClickMapComponent]);
+
+	useEffect(() => {
+		const location = locations.find((e) => e?._id === currentMapLocationId);
+		if (location) {
+			try {
+				setTimeout(() => {
+					Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
+						if (surfaceMapComponentsList[index] === false || surfaceMapComponentsList[index] === undefined) {
+							path.style = ``;
+							path.classList.remove("locations-surface-map-image-component-in-region");
+							return true;
+						}
+						const region = location?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index]);
+						path.style = `--regionColour: ${region?.colour}`;
+						path.classList.add("locations-surface-map-image-component-in-region");
+						return true;
+					});
+				}, 200);
+			} catch {}
+		}
+	}, [isSelectingSurfaceMapComponents, surfaceMapComponentsList, surfaceMapImageComponentsContainerRef, locations, currentMapLocationId]);
 
 	useEffect(() => {
 		zoom.current = 1;
@@ -260,9 +364,14 @@ export const SurfaceMapLogic = () => {
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
 	}
 
+	var stopScrollTimeout = false;
 	function imageSurfaceMapOnWheel(e) {
 		e.stopPropagation();
 		e.preventDefault();
+
+		setIsScrolling(true);
+		clearTimeout(stopScrollTimeout);
+		stopScrollTimeout = setTimeout(() => setIsScrolling(false), 500);
 
 		const prev_pointX = JSON.parse(JSON.stringify(pointX.current));
 		const prev_pointY = JSON.parse(JSON.stringify(pointY.current));
@@ -308,6 +417,15 @@ export const SurfaceMapLogic = () => {
 
 		surfaceMapImageContainerRef.current.style.transform =
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
+	}
+
+	function onMovementBoxWheel() {
+		leaveMovementBox();
+		setTimeout(() => leaveMovementBox(), 1);
+
+		setIsScrolling(true);
+		clearTimeout(stopScrollTimeout);
+		stopScrollTimeout = setTimeout(() => setIsScrolling(false), 500);
 	}
 
 	const surfaceMapContainerRef = useRef();
@@ -431,6 +549,16 @@ export const SurfaceMapLogic = () => {
 		}
 	}
 
+	const [surfaceMapImageComponentsStyles, setSurfaceMapImageComponentsStyles] = useState({});
+	useEffect(() => {
+		let newSurfaceMapImageComponentsStyles = {};
+		const region = locations
+			?.find((e) => e?._id === currentMapLocationId)
+			?.data?.regions?.find((e) => e?._id === regionSelectingSurfaceMapComponentsFor);
+		if (region?.colour) newSurfaceMapImageComponentsStyles["--regionSelectingForColour"] = region?.colour;
+		setSurfaceMapImageComponentsStyles(newSurfaceMapImageComponentsStyles);
+	}, [setSurfaceMapImageComponentsStyles, regionSelectingSurfaceMapComponentsFor, locations, currentMapLocationId]);
+
 	return {
 		locations,
 		currentMapLocationId,
@@ -445,5 +573,12 @@ export const SurfaceMapLogic = () => {
 		enterMovementBox,
 		leaveMovementBox,
 		isPanning,
+		isScrolling,
+		isSelectingSurfaceMapComponents,
+		surfaceMapImageComponentsStyles,
+		onMovementBoxWheel,
+		selectedLocationId,
+		setSelectedLocationId,
+		setIsDisplayingHierarchy,
 	};
 };

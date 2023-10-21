@@ -1,0 +1,20 @@
+.locations-location-regions {
+	padding-top: 8px;
+}
+
+.locations-location-regions-items {
+	display: inline-block;
+	flex-flow: column wrap;
+	padding-right: 12px;
+
+	width: calc(100% - 12px);
+	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+@media (max-width: 750px) {
+	.locations-location-regions-items {
+		height: calc(var(--locationsSubpageHeight) - 32px - 8px);
+	}
+}

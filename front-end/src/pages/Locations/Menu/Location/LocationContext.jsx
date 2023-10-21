@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState, useMemo } from "react";
 
 import { LocationsContext } from "../../LocationsContext";
 import { APIContext } from "../../../../context/APIContext";
@@ -6,17 +6,22 @@ import { APIContext } from "../../../../context/APIContext";
 export const LocationContext = createContext();
 
 const LocationProvider = ({ children, location_id }) => {
-	const { isAuthorizedToEdit, story, locations, setLocations, selectedLocationId } = useContext(LocationsContext);
+	const { isAuthorizedToEdit, story, locations, setLocations, selectedLocationId, isOnSpaceMap } = useContext(LocationsContext);
 	const { APIRequest } = useContext(APIContext);
 
-	const subpages = [
-		{ id: "description", name: "Description" },
-		{ id: "properties", name: "Properties" },
-		{ id: "gallery", name: "Gallery" },
-		{ id: "miscellaneous", name: "Miscellaneous" },
-		{ id: "development", name: "Development" },
-		{ id: "settings", name: "Settings" },
-	];
+	const allSubpages = useMemo(
+		() => [
+			{ id: "description", name: "Description" },
+			{ id: "regions", name: "Regions" },
+			{ id: "properties", name: "Properties" },
+			{ id: "gallery", name: "Gallery" },
+			{ id: "miscellaneous", name: "Miscellaneous" },
+			{ id: "development", name: "Development" },
+			{ id: "settings", name: "Settings" },
+		],
+		[]
+	);
+	const [subpages, setSubpages] = useState([]);
 
 	const [location, setLocation] = useState(false);
 	const [openSubpageID, setOpenSubpageID] = useState("description");
@@ -61,6 +66,11 @@ const LocationProvider = ({ children, location_id }) => {
 
 		getInitial();
 	}, [location_id, setLocation, locations, APIRequest]);
+
+	useEffect(() => {
+		let newSubpages = allSubpages.filter((e) => (isOnSpaceMap ? e?.id !== "regions" : e?.id !== "properties"));
+		setSubpages(newSubpages);
+	}, [setSubpages, isOnSpaceMap, allSubpages]);
 
 	const changeLocation = useCallback(
 		(newLocation) => {

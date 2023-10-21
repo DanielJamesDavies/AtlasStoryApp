@@ -21,6 +21,7 @@ export const DragDropContainer = ({
 	enableDragDrop,
 	onDropItem,
 	includeVerticalDrag,
+	absoluteVerticalDrag,
 	afterOnTouchMove,
 	afterOnTouchEnd,
 }) => {
@@ -32,6 +33,7 @@ export const DragDropContainer = ({
 		enableDragDrop,
 		onDropItem,
 		includeVerticalDrag,
+		absoluteVerticalDrag,
 		afterOnTouchMove,
 		afterOnTouchEnd,
 	});
