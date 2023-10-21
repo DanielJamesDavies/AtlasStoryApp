@@ -146,8 +146,10 @@
 	animation: none !important;
 }
 
-.locations-surface-map-image-component-in-region:hover {
-	opacity: 0.8 !important;
+.locations-surface-map-image-component-hovering-over {
+	fill: var(--regionColourTint) !important;
+	stroke: var(--regionColourTint) !important;
+	opacity: 0.5 !important;
 }
 
 .locations-surface-map-movement-boxes-container {

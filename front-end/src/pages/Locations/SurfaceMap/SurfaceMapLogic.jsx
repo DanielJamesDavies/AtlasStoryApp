@@ -9,6 +9,7 @@ import { useContext, useRef, useEffect, useState, useCallback } from "react";
 import { LocationsContext } from "../LocationsContext";
 import { APIContext } from "../../../context/APIContext";
 import { RecentDataContext } from "../../../context/RecentDataContext";
+import getColourTint from "../../../services/GetColourTint";
 
 // Services
 
@@ -92,6 +93,48 @@ export const SurfaceMapLogic = () => {
 			addComponentToSelectedSurfaceMapComponents,
 			removeComponentToSelectedSurfaceMapComponents,
 		]
+	);
+
+	const onMouseOverMapComponent = useCallback(
+		(index) => {
+			locations
+				?.find((e) => e?._id === currentMapLocationId)
+				?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index])
+				?.components?.map((component_index) => {
+					if (
+						!Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList).includes(
+							"locations-surface-map-image-component-hovering-over"
+						)
+					) {
+						surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList.add(
+							"locations-surface-map-image-component-hovering-over"
+						);
+					}
+					return true;
+				});
+		},
+		[surfaceMapImageComponentsContainerRef, surfaceMapComponentsList, locations, currentMapLocationId]
+	);
+
+	const onMouseOutMapComponent = useCallback(
+		(index) => {
+			locations
+				?.find((e) => e?._id === currentMapLocationId)
+				?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index])
+				?.components?.map((component_index) => {
+					if (
+						Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList).includes(
+							"locations-surface-map-image-component-hovering-over"
+						)
+					) {
+						surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList.remove(
+							"locations-surface-map-image-component-hovering-over"
+						);
+					}
+					return true;
+				});
+		},
+		[surfaceMapImageComponentsContainerRef, surfaceMapComponentsList, locations, currentMapLocationId]
 	);
 
 	const getDimensionsZoom = useCallback(() => {
@@ -216,6 +259,8 @@ export const SurfaceMapLogic = () => {
 
 				Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
 					path.addEventListener("click", () => onClickMapComponent(index));
+					path.addEventListener("mouseover", () => onMouseOverMapComponent(index));
+					path.addEventListener("mouseout", () => onMouseOutMapComponent(index));
 					return true;
 				});
 
@@ -240,6 +285,8 @@ export const SurfaceMapLogic = () => {
 		updatePointsForBounds,
 		getDimensionsZoom,
 		onClickMapComponent,
+		onMouseOverMapComponent,
+		onMouseOutMapComponent,
 	]);
 
 	window.addEventListener("resize", () => {
@@ -286,10 +333,18 @@ export const SurfaceMapLogic = () => {
 				let new_path = path.cloneNode(true);
 				path.parentNode.replaceChild(new_path, path);
 				if (isSelectingSurfaceMapComponents) new_path.addEventListener("click", () => onClickMapComponent(index));
+				new_path.addEventListener("mouseover", () => onMouseOverMapComponent(index));
+				new_path.addEventListener("mouseout", () => onMouseOutMapComponent(index));
 				return true;
 			});
 		} catch {}
-	}, [isSelectingSurfaceMapComponents, surfaceMapImageComponentsContainerRef, onClickMapComponent]);
+	}, [
+		isSelectingSurfaceMapComponents,
+		surfaceMapImageComponentsContainerRef,
+		onClickMapComponent,
+		onMouseOverMapComponent,
+		onMouseOutMapComponent,
+	]);
 
 	useEffect(() => {
 		const location = locations.find((e) => e?._id === currentMapLocationId);
@@ -303,7 +358,7 @@ export const SurfaceMapLogic = () => {
 							return true;
 						}
 						const region = location?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index]);
-						path.style = `--regionColour: ${region?.colour}`;
+						path.style = `--regionColour: ${region?.colour}; --regionColourTint: ${getColourTint(region?.colour, 10)}`;
 						path.classList.add("locations-surface-map-image-component-in-region");
 						return true;
 					});

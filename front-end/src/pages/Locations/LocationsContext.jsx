@@ -207,9 +207,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			setTimeout(() => updateDocumentTitle(), 1000);
 
 			const newLocations = await getLocations();
-			const newCurrentMapLocationItemID = getInitialMapLocationId(newLocations);
-			const location = newLocations.find((e) => e?._id === newCurrentMapLocationItemID);
-			updateSurfaceMapComponentsList(location);
+			getInitialMapLocationId(newLocations);
 		}
 
 		function updateDocumentTitle() {
@@ -289,6 +287,11 @@ const LocationsProvider = ({ children, story_uid }) => {
 		addImagesToRecentImages,
 		updateSurfaceMapComponentsList,
 	]);
+
+	useEffect(() => {
+		const location = locations.find((e) => e?._id === currentMapLocationId);
+		updateSurfaceMapComponentsList(location);
+	}, [locations, currentMapLocationId, updateSurfaceMapComponentsList]);
 
 	const prev_map_location_id = useRef(false);
 	useEffect(() => {
