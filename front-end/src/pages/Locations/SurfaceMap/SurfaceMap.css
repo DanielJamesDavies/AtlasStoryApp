@@ -370,6 +370,17 @@
 		height: calc(var(--vh) - var(--navbar-mobile-height));
 	}
 
+	.locations-surface-map-loading-circle-background {
+		position: fixed;
+		display: block;
+		content: "";
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: var(--vh);
+		background: #000;
+	}
+
 	.locations-surface-map-image {
 		width: calc(100% - 64px);
 	}

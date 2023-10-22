@@ -315,6 +315,11 @@ export const SurfaceMapLogic = () => {
 			surfaceMapImageComponentsContainerStyles.push(`margin-left: ${-1 * (imageContainerWidthDelta * (1 / zoom.current) + 1.5)}px`);
 		surfaceMapImageComponentsContainerRef.current.style = surfaceMapImageComponentsContainerStyles.join("; ");
 
+		if (window?.innerWidth <= 750)
+			surfaceMapImageComponentsContainerRef.current.children[0].style = `margin-top: ${Math.exp(
+				(1 / window.innerWidth + 0.0007) * 480
+			)}px; margin-left: -0.5px`;
+
 		lastWindowWidth.current = window.innerWidth;
 	});
 
@@ -444,12 +449,13 @@ export const SurfaceMapLogic = () => {
 
 		setIsImagePixelated(zoom.current > 3);
 
+		const max_zoom = (1 / window.innerWidth) * 40000;
 		if (zoom.current <= 1) {
 			zoom.current = 1;
 			pointX.current = -(surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current;
 			pointY.current = 0;
-		} else if (zoom.current >= 40) {
-			zoom.current = 40;
+		} else if (zoom.current >= max_zoom) {
+			zoom.current = max_zoom;
 			pointX.current = e.clientX - xs * zoom.current;
 			pointY.current = e.clientY - ys * zoom.current;
 		} else {
@@ -538,6 +544,7 @@ export const SurfaceMapLogic = () => {
 		} else if (e.touches.length === 2) {
 			const prev_pointX = JSON.parse(JSON.stringify(pointX.current));
 			const prev_pointY = JSON.parse(JSON.stringify(pointY.current));
+			const prev_zoom = JSON.parse(JSON.stringify(zoom.current));
 
 			let xs = (startCoords.centerX - pointX.current) / zoom.current;
 			let ys = (startCoords.centerY - pointY.current) / zoom.current;
@@ -567,7 +574,7 @@ export const SurfaceMapLogic = () => {
 				pointY.current = startCoords.centerY - ys * zoom.current;
 			}
 
-			if (zoom.current === Math.max(width_zoom, height_zoom)) {
+			if (zoom.current === Math.max(width_zoom, height_zoom) && prev_zoom <= zoom.current) {
 				pointX.current = prev_pointX;
 				pointY.current = prev_pointY;
 			}

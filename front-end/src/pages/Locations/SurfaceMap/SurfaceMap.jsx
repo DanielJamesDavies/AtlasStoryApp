@@ -58,11 +58,13 @@ export const SurfaceMap = () => {
 			{!locationMapImage ? (
 				<div className='locations-surface-map-loading-circle-container'>
 					<LoadingCircle center={true} />
+					<div className='locations-surface-map-loading-circle-background'></div>
 				</div>
 			) : (
 				<>
 					<div className='locations-surface-map-loading-circle-container locations-surface-map-loading-circle-container-loaded'>
 						<LoadingCircle center={true} />
+						<div className='locations-surface-map-loading-circle-background'></div>
 					</div>
 					<div ref={surfaceMapImageContainerRef} className='locations-surface-map-image-container'>
 						<div
