@@ -102,16 +102,17 @@ const SpofityProvider = ({ children }) => {
 				if (token_response?.data?.refresh_token) setSpotifyRefreshToken(token_response.data.refresh_token);
 				if (token_response?.data?.access_token && token_response?.data?.refresh_token) isAuthorized.current = true;
 
-				if (window !== window?.parent)
+				if (window !== window?.parent && token_response?.data?.access_token && token_response?.data?.refresh_token) {
 					window.parent.postMessage(
 						JSON.stringify({
 							message: "spotify-tokens",
 							code: code,
 							access_token: token_response?.data?.access_token,
-							refresh_token: token_response.data.refresh_token,
+							refresh_token: token_response?.data?.refresh_token,
 						}),
 						"*"
 					);
+				}
 
 				const new_parameters = locationParams.current.filter((e) => !["code", "state"].includes(e.label));
 				setTimeout(() => changeLocationAndParameters(decodeURIComponent(previous_location), new_parameters), 50);

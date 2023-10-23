@@ -230,6 +230,8 @@ export const SurfaceMapLogic = () => {
 
 			setLocationMapImage(mapImage?.image);
 
+			lastWindowWidth.current = window.innerWidth;
+
 			setTimeout(() => {
 				if (!surfaceMapImageComponentsContainerRef.current?.children) return false;
 
@@ -270,6 +272,16 @@ export const SurfaceMapLogic = () => {
 				if (window?.innerWidth > 750)
 					surfaceMapImageComponentsContainerStyles.push(`margin-left: ${-1 * (imageContainerWidthDelta * (1 / zoom.current) + 1.5)}px`);
 				surfaceMapImageComponentsContainerRef.current.style = surfaceMapImageComponentsContainerStyles.join("; ");
+
+				try {
+					if (window?.innerWidth <= 750) {
+						surfaceMapImageComponentsContainerRef.current.children[0].style = `margin-top: ${Math.exp(
+							(1 / window.innerWidth + 0.0007) * 480
+						)}px; margin-left: -0.5px`;
+					} else {
+						surfaceMapImageComponentsContainerRef.current.children[0].style = ``;
+					}
+				} catch {}
 			}, 100);
 		}
 		getLocationMapImage();
@@ -290,7 +302,6 @@ export const SurfaceMapLogic = () => {
 	]);
 
 	window.addEventListener("resize", () => {
-		zoom.current *= lastWindowWidth.current / window.innerWidth;
 		const { width_zoom, height_zoom } = getDimensionsZoom();
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
 		updatePointsForBounds();
@@ -315,12 +326,20 @@ export const SurfaceMapLogic = () => {
 			surfaceMapImageComponentsContainerStyles.push(`margin-left: ${-1 * (imageContainerWidthDelta * (1 / zoom.current) + 1.5)}px`);
 		surfaceMapImageComponentsContainerRef.current.style = surfaceMapImageComponentsContainerStyles.join("; ");
 
-		if (window?.innerWidth <= 750)
-			surfaceMapImageComponentsContainerRef.current.children[0].style = `margin-top: ${Math.exp(
-				(1 / window.innerWidth + 0.0007) * 480
-			)}px; margin-left: -0.5px`;
+		try {
+			if (window?.innerWidth <= 750) {
+				surfaceMapImageComponentsContainerRef.current.children[0].style = `margin-top: ${Math.exp(
+					(1 / window.innerWidth + 0.0007) * 480
+				)}px; margin-left: -0.5px`;
+			} else {
+				surfaceMapImageComponentsContainerRef.current.children[0].style = ``;
+			}
+		} catch {}
 
-		lastWindowWidth.current = window.innerWidth;
+		updatePointsForBounds();
+
+		surfaceMapImageContainerRef.current.style.transform =
+			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
 	});
 
 	useEffect(() => {

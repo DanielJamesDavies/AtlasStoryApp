@@ -1,4 +1,5 @@
 const axios = require("axios");
+const qs = require("qs");
 
 module.exports = async (req, res) => {
 	const client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -9,10 +10,16 @@ module.exports = async (req, res) => {
 
 	try {
 		const tokensResponse = await axios({
-			method: "POST",
 			url: "https://accounts.spotify.com/api/token",
-			data: { code: req?.query?.code, redirect_uri: req?.query?.redirect_uri, grant_type: "authorization_code", client_id, client_secret },
-			headers: { "Content-Type": "application/x-www-form-urlencoded" },
+			method: "POST",
+			headers: { "content-type": "application/x-www-form-urlencoded" },
+			data: qs.stringify({
+				code: req?.query?.code,
+				redirect_uri: req?.query?.redirect_uri,
+				grant_type: "authorization_code",
+				client_id,
+				client_secret,
+			}),
 		});
 		return res.status(200).send({ message: "Success", data: tokensResponse?.data });
 	} catch (error) {

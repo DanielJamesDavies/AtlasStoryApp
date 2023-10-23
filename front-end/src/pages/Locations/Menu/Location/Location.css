@@ -66,5 +66,6 @@
 		z-index: 2;
 
 		width: calc(100vw - (2 * 16px) - 8px - 8px - 40px);
+		max-height: var(--locationsDetailsHeight);
 	}
 }

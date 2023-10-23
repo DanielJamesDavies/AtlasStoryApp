@@ -370,8 +370,13 @@
 		height: calc(var(--vh) - var(--navbar-mobile-height));
 	}
 
+	.locations-surface-map-loading-circle-container .loading-circle-container {
+		z-index: 3;
+	}
+
 	.locations-surface-map-loading-circle-background {
 		position: fixed;
+		z-index: 1;
 		display: block;
 		content: "";
 		top: 0;
