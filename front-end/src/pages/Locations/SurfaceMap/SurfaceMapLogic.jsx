@@ -38,10 +38,12 @@ export const SurfaceMapLogic = () => {
 	const [isPanning, setIsPanning] = useState(false);
 	const [isScrolling, setIsScrolling] = useState(false);
 	const [regionNamesHTML, setRegionNamesHTML] = useState("");
+	const [regionNamesTexts, setRegionNamesTexts] = useState("");
 
 	const surfaceMapImageContainerRef = useRef();
 	const surfaceMapImageRef = useRef();
 	const surfaceMapImageComponentsContainerRef = useRef();
+	const surfaceMapImageRegionsNamesTextsRef = useRef();
 
 	var zoom = useRef(1);
 	var panning = useRef(false);
@@ -808,8 +810,21 @@ export const SurfaceMapLogic = () => {
 		}
 	}, [surfaceMapImageComponentsContainerRef, getDistanceBetweenTwoComponents]);
 
-	const updateRegionsNames = useCallback(() => {
+	const updateRegionsNames = useCallback(async () => {
 		const location = locations.find((e) => e?._id === currentLocationId?.current);
+
+		const newRegionsNamesTexts = regionClusters.current
+			?.map((region_clusters) => {
+				const region = location?.data?.regions?.find((e) => e?._id === region_clusters?.region);
+				return `<div>${region?.name}</div>`;
+			})
+			.join("");
+
+		setRegionNamesTexts(newRegionsNamesTexts);
+
+		await new Promise((resolve) => setTimeout(resolve, 2));
+
+		const regionsNamesTexts = Array.from(surfaceMapImageRegionsNamesTextsRef.current.children);
 
 		const image_width = parseFloat(surfaceMapImageRef?.current?.clientWidth);
 		const svg_width = parseFloat(surfaceMapImageComponentsContainerRef.current?.children[0].getAttribute("width"));
@@ -817,26 +832,46 @@ export const SurfaceMapLogic = () => {
 
 		let new_region_names_html = ``;
 
-		regionClusters.current?.map((region_clusters) => {
+		regionClusters.current?.map((region_clusters, region_index) => {
 			const region = location?.data?.regions?.find((e) => e?._id === region_clusters?.region);
 			region_clusters?.clusters?.map((cluster) => {
 				let [a, b, c] = cluster.box;
-				a = a.map((e) => e * frame_multiplier * zoom.current);
-				b = b.map((e) => e * frame_multiplier * zoom.current);
-				c = c.map((e) => e * frame_multiplier * zoom.current);
+				a = a.map((e) => e * frame_multiplier);
+				b = b.map((e) => e * frame_multiplier);
+				c = c.map((e) => e * frame_multiplier);
 
-				// <svg viewBox='0 0 ${Math.ceil(b[0] - a[0])} ${Math.ceil(c[1] - a[1])}'>
-				// 	<text x='0' y='15'>
-				// 		${region?.name}
-				// 	</text>
-				// </svg>
+				const regionNamesTextBox = regionsNamesTexts[region_index]?.getBoundingClientRect();
+
+				const full_width = Math.ceil(b[0] - a[0]);
+				const full_height = Math.ceil(c[1] - a[1]);
+
+				let text_svg_width = 0;
+				let text_svg_height = 0;
+				if (full_width >= full_height) {
+					text_svg_width = full_width;
+					text_svg_height = full_width * (regionNamesTextBox?.height / regionNamesTextBox?.width);
+				} else {
+					text_svg_width = full_height * (regionNamesTextBox?.width / regionNamesTextBox?.height);
+					text_svg_height = full_height;
+				}
 
 				new_region_names_html += `
 					<div 
 						class='locations-surface-map-image-region-name'
-						style="top: ${a[1]}px; left: ${Math.ceil(a[0])}px;width: ${Math.ceil(b[0] - a[0])}px; height: ${Math.ceil(c[1] - a[1])}px;"
+						style="top: ${a[1]}px; left: ${Math.ceil(a[0])}px;width: ${full_width}px; height: ${full_height}px;"
 					>
-						<div>${region?.name}</div>
+						<svg
+							viewBox='0 0 ${text_svg_width} ${text_svg_height}'
+							style='overflow: visible; width: 100%; font-size: ${Math.max(
+								4 / zoom.current,
+								Math.min(26 / zoom.current, 5.5 * zoom.current * (text_svg_height / regionNamesTextBox?.height))
+							)}px'
+							dominant-baseline="middle" text-anchor="middle"
+						>
+							<text x='50%' y='50%' style='fill: #fff; letter-spacing: ${Math.min(60, 5 * (text_svg_height / regionNamesTextBox?.height))}px'>
+								${region?.name}
+							</text>
+						</svg>
 					</div>`;
 
 				return true;
@@ -846,6 +881,17 @@ export const SurfaceMapLogic = () => {
 
 		setRegionNamesHTML(new_region_names_html);
 	}, [locations]);
+
+	var updateRegionsNamesOnResizeTimeout = useRef();
+	function updateRegionsNamesOnResize() {
+		clearTimeout(updateRegionsNamesOnResizeTimeout.current);
+		updateRegionsNamesOnResizeTimeout.current = setTimeout(() => {
+			updateRegionsNames();
+			setTimeout(() => updateRegionsNames(), 1);
+		}, 5);
+	}
+
+	window.addEventListener("resize", () => updateRegionsNamesOnResize());
 
 	useEffect(() => {
 		function getClosestCluster(cluster, clusters, distances) {
@@ -915,14 +961,14 @@ export const SurfaceMapLogic = () => {
 						const coords = getCoordsOfPath(surfaceMapImageComponentsContainerRef.current.children[0].children[cluster_index]);
 						if (index === 0) {
 							min_x = coords[0][0];
-							max_x = coords[2][0];
+							max_x = coords[3][0];
 							min_y = coords[0][1];
-							max_y = coords[1][1];
+							max_y = coords[3][1];
 						} else {
 							if (min_x > coords[0][0]) min_x = coords[0][0];
-							if (max_x < coords[2][0]) max_x = coords[2][0];
+							if (max_x < coords[3][0]) max_x = coords[3][0];
 							if (min_y > coords[0][1]) min_y = coords[0][1];
-							if (max_y < coords[1][1]) max_y = coords[1][1];
+							if (max_y < coords[3][1]) max_y = coords[3][1];
 						}
 						return true;
 					});
@@ -953,8 +999,9 @@ export const SurfaceMapLogic = () => {
 		currentMapLocationId,
 		surfaceMapContainerRef,
 		surfaceMapImageContainerRef,
-		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageRef,
+		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageRegionsNamesTextsRef,
 		locationMapImage,
 		onTouchStart,
 		onTouchMove,
@@ -970,5 +1017,6 @@ export const SurfaceMapLogic = () => {
 		setSelectedLocationId,
 		setIsDisplayingHierarchy,
 		regionNamesHTML,
+		regionNamesTexts,
 	};
 };

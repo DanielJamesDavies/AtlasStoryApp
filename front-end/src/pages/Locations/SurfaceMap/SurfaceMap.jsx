@@ -22,8 +22,9 @@ export const SurfaceMap = () => {
 		currentMapLocationId,
 		surfaceMapContainerRef,
 		surfaceMapImageContainerRef,
-		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageRef,
+		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageRegionsNamesTextsRef,
 		locationMapImage,
 		onTouchStart,
 		onTouchMove,
@@ -39,6 +40,7 @@ export const SurfaceMap = () => {
 		setSelectedLocationId,
 		setIsDisplayingHierarchy,
 		regionNamesHTML,
+		regionNamesTexts,
 	} = SurfaceMapLogic();
 
 	return (
@@ -92,6 +94,13 @@ export const SurfaceMap = () => {
 									className='locations-surface-map-image-region-names'
 									dangerouslySetInnerHTML={{
 										__html: sanitize(regionNamesHTML),
+									}}
+								></div>
+								<div
+									ref={surfaceMapImageRegionsNamesTextsRef}
+									className='locations-surface-map-image-region-names-text'
+									dangerouslySetInnerHTML={{
+										__html: sanitize(regionNamesTexts),
 									}}
 								></div>
 							</div>
