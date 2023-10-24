@@ -38,6 +38,7 @@ export const SurfaceMap = () => {
 		selectedLocationId,
 		setSelectedLocationId,
 		setIsDisplayingHierarchy,
+		regionNamesHTML,
 	} = SurfaceMapLogic();
 
 	return (
@@ -86,6 +87,14 @@ export const SurfaceMap = () => {
 								}}
 								style={surfaceMapImageComponentsStyles}
 							></div>
+							<div className='locations-surface-map-image-region-names-container'>
+								<div
+									className='locations-surface-map-image-region-names'
+									dangerouslySetInnerHTML={{
+										__html: sanitize(regionNamesHTML),
+									}}
+								></div>
+							</div>
 						</div>
 					</div>
 					{isPanning || isScrolling ? null : (

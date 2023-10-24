@@ -150,6 +150,29 @@
 	fill: var(--regionColourTint) !important;
 	stroke: var(--regionColourTint) !important;
 	opacity: 0.5 !important;
+	cursor: pointer;
+}
+
+.locations-surface-map-image-region-names-container {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	user-select: none;
+}
+
+.locations-surface-map-image-region-name {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-transform: uppercase;
+	font-family: "Playfair Display", serif;
+	font-weight: 600;
+	letter-spacing: 2px;
 }
 
 .locations-surface-map-movement-boxes-container {
