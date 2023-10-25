@@ -24,6 +24,7 @@ export const SurfaceMap = () => {
 		surfaceMapImageContainerRef,
 		surfaceMapImageRef,
 		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageRegionsNamesRef,
 		surfaceMapImageRegionsNamesTextsRef,
 		locationMapImage,
 		onTouchStart,
@@ -91,6 +92,7 @@ export const SurfaceMap = () => {
 							></div>
 							<div className='locations-surface-map-image-region-names-container'>
 								<div
+									ref={surfaceMapImageRegionsNamesRef}
 									className='locations-surface-map-image-region-names'
 									dangerouslySetInnerHTML={{
 										__html: sanitize(regionNamesHTML),

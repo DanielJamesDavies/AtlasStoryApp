@@ -43,6 +43,7 @@ export const SurfaceMapLogic = () => {
 	const surfaceMapImageContainerRef = useRef();
 	const surfaceMapImageRef = useRef();
 	const surfaceMapImageComponentsContainerRef = useRef();
+	const surfaceMapImageRegionsNamesRef = useRef();
 	const surfaceMapImageRegionsNamesTextsRef = useRef();
 
 	var zoom = useRef(1);
@@ -280,9 +281,7 @@ export const SurfaceMapLogic = () => {
 
 				try {
 					if (window?.innerWidth <= 750) {
-						surfaceMapImageComponentsContainerRef.current.children[0].style = `margin-top: ${Math.exp(
-							(1 / window.innerWidth + 0.0007) * 480
-						)}px; margin-left: -0.5px`;
+						surfaceMapImageComponentsContainerRef.current.children[0].style = `margin-top: ${Math.exp((1 / window.innerWidth + 0.0007) * 480 )}px; margin-left: -0.5px`;
 					} else {
 						surfaceMapImageComponentsContainerRef.current.children[0].style = ``;
 					}
@@ -502,6 +501,8 @@ export const SurfaceMapLogic = () => {
 
 		surfaceMapImageContainerRef.current.style.transform =
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
+
+		updateRegionsNames();
 	}
 
 	function onMovementBoxWheel() {
@@ -606,6 +607,8 @@ export const SurfaceMapLogic = () => {
 			setPoints({ pointX: pointX.current, pointY: pointY.current });
 
 			prevDist.current = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+
+			updateRegionsNames();
 		}
 
 		updatePointsForBounds();
@@ -810,7 +813,7 @@ export const SurfaceMapLogic = () => {
 		}
 	}, [surfaceMapImageComponentsContainerRef, getDistanceBetweenTwoComponents]);
 
-	const updateRegionsNames = useCallback(async () => {
+	const createRegionsNames = useCallback(async () => {
 		const location = locations.find((e) => e?._id === currentLocationId?.current);
 
 		const newRegionsNamesTexts = regionClusters.current
@@ -859,6 +862,10 @@ export const SurfaceMapLogic = () => {
 					<div 
 						class='locations-surface-map-image-region-name'
 						style="top: ${a[1]}px; left: ${Math.ceil(a[0])}px;width: ${full_width}px; height: ${full_height}px;"
+						data-box-a="${cluster.box[0]}"
+						data-box-b="${cluster.box[1]}"
+						data-box-c="${cluster.box[2]}"
+						data-region-index="${region_index}"
 					>
 						<svg
 							viewBox='0 0 ${text_svg_width} ${text_svg_height}'
@@ -882,16 +889,50 @@ export const SurfaceMapLogic = () => {
 		setRegionNamesHTML(new_region_names_html);
 	}, [locations]);
 
-	var updateRegionsNamesOnResizeTimeout = useRef();
-	function updateRegionsNamesOnResize() {
-		clearTimeout(updateRegionsNamesOnResizeTimeout.current);
-		updateRegionsNamesOnResizeTimeout.current = setTimeout(() => {
-			updateRegionsNames();
-			setTimeout(() => updateRegionsNames(), 1);
-		}, 5);
-	}
+	const updateRegionsNames = useCallback(async () => {
+		const image_width = parseFloat(surfaceMapImageRef?.current?.clientWidth);
+		const svg_width = parseFloat(surfaceMapImageComponentsContainerRef.current?.children[0].getAttribute("width"));
+		const frame_multiplier = image_width / svg_width;
 
-	window.addEventListener("resize", () => updateRegionsNamesOnResize());
+		const regionsNamesTexts = Array.from(surfaceMapImageRegionsNamesTextsRef.current.children);
+
+		Array.from(surfaceMapImageRegionsNamesRef?.current?.children)?.map((name_div) => {
+			const a = name_div?.getAttribute("data-box-a").split(",")?.map((e) => parseFloat(e) * frame_multiplier);
+			const b = name_div?.getAttribute("data-box-b").split(",")?.map((e) => parseFloat(e) * frame_multiplier);
+			const c = name_div?.getAttribute("data-box-c").split(",")?.map((e) => parseFloat(e) * frame_multiplier);
+			const region_index = parseFloat(name_div?.getAttribute("data-region-index"))
+			
+			const regionNamesTextBox = regionsNamesTexts[region_index]?.getBoundingClientRect();
+
+			const full_width = Math.ceil(b[0] - a[0]);
+			const full_height = Math.ceil(c[1] - a[1]);
+
+			let text_svg_width = 0;
+			let text_svg_height = 0;
+			if (full_width >= full_height) {
+				text_svg_width = full_width;
+				text_svg_height = full_width * (regionNamesTextBox?.height / regionNamesTextBox?.width);
+			} else {
+				text_svg_width = full_height * (regionNamesTextBox?.width / regionNamesTextBox?.height);
+				text_svg_height = full_height;
+			}
+
+			name_div.style = `top: ${a[1]}px; left: ${Math.ceil(a[0])}px;width: ${full_width}px; height: ${full_height}px;`;
+			name_div.children[0].style = `overflow: visible; width: 100%; font-size: ${Math.max(
+				4,
+				Math.min(26, 5.5 * zoom.current * (text_svg_height / regionNamesTextBox?.height))
+			)}px`;
+			name_div.children[0].setAttribute("viewBox", `0 0 ${text_svg_width} ${text_svg_height}`);
+			name_div.children[0].children[0].style = `fill: #fff; letter-spacing: ${Math.min(60, 5 * (text_svg_height / regionNamesTextBox?.height))}px`;
+		
+			return true;
+		})
+	}, [surfaceMapImageRegionsNamesRef]);
+
+	window.addEventListener("resize", () => {
+		updateRegionsNames();
+		setTimeout(() => updateRegionsNames(), 10);
+	});
 
 	useEffect(() => {
 		function getClosestCluster(cluster, clusters, distances) {
@@ -988,11 +1029,11 @@ export const SurfaceMapLogic = () => {
 
 			regionClusters.current = regions_clusters;
 
-			updateRegionsNames();
+			createRegionsNames();
 		}
 
 		setTimeout(() => updateRegionNamesOnMap(), 100);
-	}, [getDistancesBetweenComponents, locations, currentLocationId, getCoordsOfPath, updateRegionsNames]);
+	}, [getDistancesBetweenComponents, locations, currentLocationId, getCoordsOfPath, createRegionsNames]);
 
 	return {
 		locations,
@@ -1001,6 +1042,7 @@ export const SurfaceMapLogic = () => {
 		surfaceMapImageContainerRef,
 		surfaceMapImageRef,
 		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageRegionsNamesRef,
 		surfaceMapImageRegionsNamesTextsRef,
 		locationMapImage,
 		onTouchStart,
