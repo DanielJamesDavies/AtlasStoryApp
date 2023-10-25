@@ -272,20 +272,7 @@ export const SurfaceMapLogic = () => {
 					return true;
 				});
 
-				const imageContainerWidthDelta =
-					((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
-				let surfaceMapImageComponentsContainerStyles = [`scale: ${image_width / svg_width}`, `margin-top: -2px`];
-				if (window?.innerWidth > 750)
-					surfaceMapImageComponentsContainerStyles.push(`margin-left: ${-1 * (imageContainerWidthDelta * (1 / zoom.current) + 1.5)}px`);
-				surfaceMapImageComponentsContainerRef.current.style = surfaceMapImageComponentsContainerStyles.join("; ");
-
-				try {
-					if (window?.innerWidth <= 750) {
-						surfaceMapImageComponentsContainerRef.current.children[0].style = `margin-top: ${Math.exp((1 / window.innerWidth + 0.0007) * 480 )}px; margin-left: -0.5px`;
-					} else {
-						surfaceMapImageComponentsContainerRef.current.children[0].style = ``;
-					}
-				} catch {}
+				surfaceMapImageComponentsContainerRef.current.children[0].style = `scale: ${image_width / svg_width}`;
 			}, 100);
 		}
 		getLocationMapImage();
@@ -321,24 +308,9 @@ export const SurfaceMapLogic = () => {
 			}, 2);
 		}
 
-		const imageContainerWidthDelta =
-			((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
 		const svg_width = surfaceMapImageComponentsContainerRef?.current?.children?.[0]?.getAttribute("width");
 		const image_width = surfaceMapImageRef?.current?.clientWidth;
-		let surfaceMapImageComponentsContainerStyles = [`scale: ${image_width / svg_width}`, `margin-top: -2px`];
-		if (window?.innerWidth > 750)
-			surfaceMapImageComponentsContainerStyles.push(`margin-left: ${-1 * (imageContainerWidthDelta * (1 / zoom.current) + 1.5)}px`);
-		surfaceMapImageComponentsContainerRef.current.style = surfaceMapImageComponentsContainerStyles.join("; ");
-
-		try {
-			if (window?.innerWidth <= 750) {
-				surfaceMapImageComponentsContainerRef.current.children[0].style = `margin-top: ${Math.exp(
-					(1 / window.innerWidth + 0.0007) * 480
-				)}px; margin-left: -0.5px`;
-			} else {
-				surfaceMapImageComponentsContainerRef.current.children[0].style = ``;
-			}
-		} catch {}
+		surfaceMapImageComponentsContainerRef.current.children[0].style = `scale: ${image_width / svg_width}`;
 
 		updatePointsForBounds();
 
@@ -875,7 +847,10 @@ export const SurfaceMapLogic = () => {
 							)}px'
 							dominant-baseline="middle" text-anchor="middle"
 						>
-							<text x='50%' y='50%' style='fill: #fff; letter-spacing: ${Math.min(60, 5 * (text_svg_height / regionNamesTextBox?.height))}px'>
+							<text x='50%' y='50%' style='fill: #fff; letter-spacing: ${Math.min(
+								60 / zoom.current,
+								5 * zoom.current * (text_svg_height / regionNamesTextBox?.height)
+							)}px'>
 								${region?.name}
 							</text>
 						</svg>
@@ -897,11 +872,20 @@ export const SurfaceMapLogic = () => {
 		const regionsNamesTexts = Array.from(surfaceMapImageRegionsNamesTextsRef.current.children);
 
 		Array.from(surfaceMapImageRegionsNamesRef?.current?.children)?.map((name_div) => {
-			const a = name_div?.getAttribute("data-box-a").split(",")?.map((e) => parseFloat(e) * frame_multiplier);
-			const b = name_div?.getAttribute("data-box-b").split(",")?.map((e) => parseFloat(e) * frame_multiplier);
-			const c = name_div?.getAttribute("data-box-c").split(",")?.map((e) => parseFloat(e) * frame_multiplier);
-			const region_index = parseFloat(name_div?.getAttribute("data-region-index"))
-			
+			const a = name_div
+				?.getAttribute("data-box-a")
+				.split(",")
+				?.map((e) => parseFloat(e) * frame_multiplier);
+			const b = name_div
+				?.getAttribute("data-box-b")
+				.split(",")
+				?.map((e) => parseFloat(e) * frame_multiplier);
+			const c = name_div
+				?.getAttribute("data-box-c")
+				.split(",")
+				?.map((e) => parseFloat(e) * frame_multiplier);
+			const region_index = parseFloat(name_div?.getAttribute("data-region-index"));
+
 			const regionNamesTextBox = regionsNamesTexts[region_index]?.getBoundingClientRect();
 
 			const full_width = Math.ceil(b[0] - a[0]);
@@ -919,14 +903,17 @@ export const SurfaceMapLogic = () => {
 
 			name_div.style = `top: ${a[1]}px; left: ${Math.ceil(a[0])}px;width: ${full_width}px; height: ${full_height}px;`;
 			name_div.children[0].style = `overflow: visible; width: 100%; font-size: ${Math.max(
-				4,
-				Math.min(26, 5.5 * zoom.current * (text_svg_height / regionNamesTextBox?.height))
+				4 / zoom.current,
+				Math.min(26 / zoom.current, 5.5 * zoom.current * (text_svg_height / regionNamesTextBox?.height))
 			)}px`;
 			name_div.children[0].setAttribute("viewBox", `0 0 ${text_svg_width} ${text_svg_height}`);
-			name_div.children[0].children[0].style = `fill: #fff; letter-spacing: ${Math.min(60, 5 * (text_svg_height / regionNamesTextBox?.height))}px`;
-		
+			name_div.children[0].children[0].style = `fill: #fff; letter-spacing: ${Math.min(
+				60 / zoom.current,
+				5 * zoom.current * (text_svg_height / regionNamesTextBox?.height)
+			)}px`;
+
 			return true;
-		})
+		});
 	}, [surfaceMapImageRegionsNamesRef]);
 
 	window.addEventListener("resize", () => {
@@ -1030,10 +1017,14 @@ export const SurfaceMapLogic = () => {
 			regionClusters.current = regions_clusters;
 
 			createRegionsNames();
+
+			setInterval(() => {
+				updateRegionsNames();
+			}, 3000);
 		}
 
 		setTimeout(() => updateRegionNamesOnMap(), 100);
-	}, [getDistancesBetweenComponents, locations, currentLocationId, getCoordsOfPath, createRegionsNames]);
+	}, [getDistancesBetweenComponents, locations, currentLocationId, getCoordsOfPath, createRegionsNames, updateRegionsNames]);
 
 	return {
 		locations,
