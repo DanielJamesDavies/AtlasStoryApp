@@ -306,7 +306,9 @@ export const SurfaceMapRegionsLogic = ({
 	]);
 
 	const updateRegionsNames = useCallback(async () => {
-		const regionsNamesTexts = Array.from(surfaceMapImageRegionsNamesTextsRef.current.children);
+		if (!surfaceMapImageRegionsNamesTextsRef?.current) return false;
+
+		const regionsNamesTexts = Array.from(surfaceMapImageRegionsNamesTextsRef?.current?.children);
 
 		Array.from(surfaceMapImageRegionsNamesRef?.current?.children)?.map((name_div) => {
 			const a = name_div

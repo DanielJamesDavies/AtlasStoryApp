@@ -43,10 +43,7 @@ export const SurfaceMapMovementLogic = ({
 
 		const imageContainerWidthDelta =
 			((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
-		const max_pointX =
-			window.innerWidth > max_mobile_width
-				? surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth - 1 * zoom.current
-				: surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth - 1 * zoom.current;
+		const max_pointX = surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth - 1 * zoom.current;
 
 		const imageContainerHeightDelta =
 			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
@@ -72,23 +69,15 @@ export const SurfaceMapMovementLogic = ({
 				zoom.current = Math.max(width_zoom, height_zoom);
 
 				// Center X
-				pointX.current = -(surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current;
-				pointX.current =
-					zoom.current === width_zoom
-						? window.innerWidth > 750
-							? 68 / 2
-							: 0
-						: -((surfaceMapImageContainerRef?.current?.clientWidth * zoom.current - window.innerWidth) / 2);
+				const max_pointX = surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth - 1 * zoom.current;
+				pointX.current = -(max_pointX / 2) + (zoom.current === width_zoom ? 68 / 2 : 0);
 
-				// Center Y
 				const imageContainerHeightDelta =
 					((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 				const max_pointY =
 					surfaceMapImageRef?.current?.clientHeight * zoom.current + imageContainerHeightDelta - window.innerHeight - 1 * zoom.current;
-				pointY.current =
-					window.innerWidth <= 750
-						? -(max_pointY + 58 / 2)
-						: -((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+				const min_pointY = -imageContainerHeightDelta - 1 * zoom.current;
+				pointY.current = -((-max_pointY + min_pointY) / 2) + min_pointY;
 
 				// Set Initial Position and Zoom
 				updatePointsForBounds();
@@ -182,10 +171,6 @@ export const SurfaceMapMovementLogic = ({
 		clearTimeout(stopScrollTimeout);
 		stopScrollTimeout = setTimeout(() => setIsScrolling(false), 500);
 
-		const prev_pointX = JSON.parse(JSON.stringify(pointX.current));
-		const prev_pointY = JSON.parse(JSON.stringify(pointY.current));
-		const prev_zoom = JSON.parse(JSON.stringify(zoom.current));
-
 		let xs = (e.clientX - pointX.current) / zoom.current;
 		let ys = (e.clientY - pointY.current) / zoom.current;
 		let delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
@@ -198,29 +183,17 @@ export const SurfaceMapMovementLogic = ({
 
 		setIsImagePixelated(zoom.current > 3);
 
+		const { width_zoom, height_zoom } = getDimensionsZoom();
+
 		const max_zoom = (1 / window.innerWidth) * 40000;
-		if (zoom.current <= 1) {
-			zoom.current = 1;
-			pointX.current = -(surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current;
-			pointY.current = 0;
-		} else if (zoom.current >= max_zoom) {
+		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
+		if (zoom.current >= max_zoom) {
 			zoom.current = max_zoom;
 			pointX.current = e.clientX - xs * zoom.current;
 			pointY.current = e.clientY - ys * zoom.current;
 		} else {
 			pointX.current = e.clientX - xs * zoom.current;
 			pointY.current = e.clientY - ys * zoom.current;
-		}
-
-		const { width_zoom, height_zoom } = getDimensionsZoom();
-
-		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
-
-		updatePointsForBounds();
-
-		if (zoom.current === Math.max(width_zoom, height_zoom) && prev_zoom <= zoom.current) {
-			pointX.current = prev_pointX;
-			pointY.current = prev_pointY;
 		}
 
 		updatePointsForBounds();
@@ -291,10 +264,6 @@ export const SurfaceMapMovementLogic = ({
 			pointX.current = newPointX;
 			pointY.current = newPointY;
 		} else if (e.touches.length === 2) {
-			const prev_pointX = JSON.parse(JSON.stringify(pointX.current));
-			const prev_pointY = JSON.parse(JSON.stringify(pointY.current));
-			const prev_zoom = JSON.parse(JSON.stringify(zoom.current));
-
 			let xs = (startCoords.centerX - pointX.current) / zoom.current;
 			let ys = (startCoords.centerY - pointY.current) / zoom.current;
 
@@ -307,26 +276,20 @@ export const SurfaceMapMovementLogic = ({
 			zoom.current -= diffDist * zoom.current * 0.006;
 			setIsImagePixelated(zoom.current > 3);
 
-			const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
-			const height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+			const { width_zoom, height_zoom } = getDimensionsZoom();
 
-			if (zoom.current <= 1) {
-				zoom.current = Math.max(1, width_zoom, height_zoom);
-				pointX.current = 0;
-				pointY.current = 0;
-			} else if (zoom.current >= 50) {
-				zoom.current = 50;
-				pointX.current = startCoords.centerX - xs * zoom.current;
-				pointY.current = startCoords.centerY - ys * zoom.current;
+			const max_zoom = (1 / window.innerWidth) * 40000;
+			zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
+			if (zoom.current >= max_zoom) {
+				zoom.current = max_zoom;
+				pointX.current = e.clientX - xs * zoom.current;
+				pointY.current = e.clientY - ys * zoom.current;
 			} else {
-				pointX.current = startCoords.centerX - xs * zoom.current;
-				pointY.current = startCoords.centerY - ys * zoom.current;
+				pointX.current = e.clientX - xs * zoom.current;
+				pointY.current = e.clientY - ys * zoom.current;
 			}
 
-			if (zoom.current === Math.max(width_zoom, height_zoom) && prev_zoom <= zoom.current) {
-				pointX.current = prev_pointX;
-				pointY.current = prev_pointY;
-			}
+			updatePointsForBounds();
 
 			setPoints({ pointX: pointX.current, pointY: pointY.current });
 
