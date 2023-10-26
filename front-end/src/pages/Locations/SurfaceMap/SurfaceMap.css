@@ -74,8 +74,6 @@
 }
 
 .locations-surface-map-image img {
-	max-width: 100%;
-	max-height: 100%;
 	object-fit: contain;
 }
 
@@ -86,15 +84,13 @@
 .locations-surface-map-image-components-container {
 	position: absolute;
 	z-index: 2;
-	height: 100%;
 }
 
 .locations-surface-map-image-components-container svg {
-	/* position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%); */
-	transform-origin: top left;
+	margin-top: 2px;
+	margin-left: -1.5px;
+	min-width: 100%;
+	min-height: 100%;
 }
 
 .locations-surface-map-image-components-container svg path {
@@ -165,6 +161,11 @@
 	user-select: none;
 }
 
+.locations-surface-map-image-region-names {
+	position: relative;
+	transform: translateY(-58px);
+}
+
 .locations-surface-map-image-region-name {
 	position: absolute;
 	display: flex;
@@ -177,6 +178,8 @@
 }
 
 .locations-surface-map-image-region-names-text {
+	position: absolute;
+	width: max-content;
 	opacity: 0;
 	user-select: none;
 	pointer-events: none;

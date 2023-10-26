@@ -18,6 +18,7 @@ import getColourTint from "../../../services/GetColourTint";
 export const SurfaceMapRegionsLogic = ({
 	surfaceMapImageRef,
 	surfaceMapImageComponentsContainerRef,
+	surfaceMapImageContainerRef,
 	surfaceMapImageRegionsNamesRef,
 	surfaceMapImageRegionsNamesTextsRef,
 	zoom,
@@ -226,13 +227,13 @@ export const SurfaceMapRegionsLogic = ({
 
 		setRegionNamesTexts(newRegionsNamesTexts);
 
+		const imageContainerHeightDelta =
+			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+		surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(${imageContainerHeightDelta - 1 * zoom.current}px)`;
+
 		await new Promise((resolve) => setTimeout(resolve, 2));
 
 		const regionsNamesTexts = Array.from(surfaceMapImageRegionsNamesTextsRef.current.children);
-
-		const image_width = parseFloat(surfaceMapImageRef?.current?.clientWidth);
-		const svg_width = parseFloat(surfaceMapImageComponentsContainerRef.current?.children[0].getAttribute("width"));
-		const frame_multiplier = image_width / svg_width;
 
 		let new_region_names_html = ``;
 
@@ -240,9 +241,9 @@ export const SurfaceMapRegionsLogic = ({
 			const region = location?.data?.regions?.find((e) => e?._id === region_clusters?.region);
 			region_clusters?.clusters?.map((cluster) => {
 				let [a, b, c] = cluster.box;
-				a = a.map((e) => e * frame_multiplier);
-				b = b.map((e) => e * frame_multiplier);
-				c = c.map((e) => e * frame_multiplier);
+				a = a.map((e) => e);
+				b = b.map((e) => e);
+				c = c.map((e) => e);
 
 				const regionNamesTextBox = regionsNamesTexts[region_index]?.getBoundingClientRect();
 
@@ -291,28 +292,35 @@ export const SurfaceMapRegionsLogic = ({
 		});
 
 		setRegionNamesHTML(new_region_names_html);
-	}, [locations, currentLocationId, regionClusters, setRegionNamesHTML, setRegionNamesTexts, surfaceMapImageComponentsContainerRef, surfaceMapImageRef, surfaceMapImageRegionsNamesTextsRef, zoom]);
+	}, [
+		locations,
+		currentLocationId,
+		regionClusters,
+		setRegionNamesHTML,
+		setRegionNamesTexts,
+		surfaceMapImageContainerRef,
+		surfaceMapImageRef,
+		surfaceMapImageRegionsNamesRef,
+		surfaceMapImageRegionsNamesTextsRef,
+		zoom,
+	]);
 
 	const updateRegionsNames = useCallback(async () => {
-		const image_width = parseFloat(surfaceMapImageRef?.current?.clientWidth);
-		const svg_width = parseFloat(surfaceMapImageComponentsContainerRef.current?.children[0].getAttribute("width"));
-		const frame_multiplier = image_width / svg_width;
-
 		const regionsNamesTexts = Array.from(surfaceMapImageRegionsNamesTextsRef.current.children);
 
 		Array.from(surfaceMapImageRegionsNamesRef?.current?.children)?.map((name_div) => {
 			const a = name_div
 				?.getAttribute("data-box-a")
 				.split(",")
-				?.map((e) => parseFloat(e) * frame_multiplier);
+				?.map((e) => parseFloat(e));
 			const b = name_div
 				?.getAttribute("data-box-b")
 				.split(",")
-				?.map((e) => parseFloat(e) * frame_multiplier);
+				?.map((e) => parseFloat(e));
 			const c = name_div
 				?.getAttribute("data-box-c")
 				.split(",")
-				?.map((e) => parseFloat(e) * frame_multiplier);
+				?.map((e) => parseFloat(e));
 			const region_index = parseFloat(name_div?.getAttribute("data-region-index"));
 
 			const regionNamesTextBox = regionsNamesTexts[region_index]?.getBoundingClientRect();
@@ -343,11 +351,15 @@ export const SurfaceMapRegionsLogic = ({
 
 			return true;
 		});
-	}, [surfaceMapImageComponentsContainerRef, surfaceMapImageRef, surfaceMapImageRegionsNamesRef, surfaceMapImageRegionsNamesTextsRef, zoom]);
+	}, [surfaceMapImageRegionsNamesRef, surfaceMapImageRegionsNamesTextsRef, zoom]);
 
 	window.addEventListener("resize", () => {
 		updateRegionsNames();
 		setTimeout(() => updateRegionsNames(), 10);
+
+		const imageContainerHeightDelta =
+			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+		surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(${imageContainerHeightDelta - 1 * zoom.current}px)`;
 	});
 
 	useEffect(() => {
@@ -455,7 +467,16 @@ export const SurfaceMapRegionsLogic = ({
 		}
 
 		setTimeout(() => updateRegionNamesOnMap(), 100);
-	}, [getDistancesBetweenComponents, locations, currentLocationId, getCoordsOfPath, createRegionsNames, updateRegionsNames, regionClusters, surfaceMapImageComponentsContainerRef]);
+	}, [
+		getDistancesBetweenComponents,
+		locations,
+		currentLocationId,
+		getCoordsOfPath,
+		createRegionsNames,
+		updateRegionsNames,
+		regionClusters,
+		surfaceMapImageComponentsContainerRef,
+	]);
 
 	return { updateRegionsNames };
 };

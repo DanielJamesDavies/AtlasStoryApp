@@ -14,12 +14,7 @@ import { LocationsContext } from "../LocationsContext";
 
 // Assets
 
-export const SurfaceMapComponentsLogic = ({ 
-		surfaceMapImageComponentsContainerRef,
-		surfaceMapImageRef,
-		zoom,
-		locationMapImage,
-	 }) => {
+export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRef, surfaceMapImageRef, zoom, locationMapImage }) => {
 	const {
 		locations,
 		currentMapLocationId,
@@ -151,12 +146,18 @@ export const SurfaceMapComponentsLogic = ({
 					path.addEventListener("mouseout", () => onMouseOutMapComponent(index));
 					return true;
 				});
-
-				surfaceMapImageComponentsContainerRef.current.children[0].style = `scale: ${image_width / svg_width}`;
 			}, 50);
 		}
 		setDefaultPosition();
-	}, [locationMapImage, onClickMapComponent, onMouseOutMapComponent, onMouseOverMapComponent, surfaceMapImageComponentsContainerRef, surfaceMapImageRef, zoom]);
+	}, [
+		locationMapImage,
+		onClickMapComponent,
+		onMouseOutMapComponent,
+		onMouseOverMapComponent,
+		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageRef,
+		zoom,
+	]);
 
 	useEffect(() => {
 		try {

@@ -58,6 +58,7 @@ export const SurfaceMapLogic = () => {
 	const { updateRegionsNames } = SurfaceMapRegionsLogic({
 		surfaceMapImageRef,
 		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageContainerRef,
 		surfaceMapImageRegionsNamesRef,
 		surfaceMapImageRegionsNamesTextsRef,
 		zoom,
@@ -67,22 +68,14 @@ export const SurfaceMapLogic = () => {
 		setRegionNamesHTML,
 	});
 
-	const {
-		surfaceMapImageComponentsStyles
-	} = SurfaceMapComponentsLogic({ 
+	const { surfaceMapImageComponentsStyles } = SurfaceMapComponentsLogic({
 		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageRef,
 		zoom,
 		locationMapImage,
-	 });
+	});
 
-	const {
-		onTouchStart,
-		onTouchMove,
-		enterMovementBox,
-		leaveMovementBox,
-		onMovementBoxWheel,
-	} = SurfaceMapMovementLogic({
+	const { onTouchStart, onTouchMove, enterMovementBox, leaveMovementBox, onMovementBoxWheel } = SurfaceMapMovementLogic({
 		surfaceMapContainerRef,
 		surfaceMapImageContainerRef,
 		surfaceMapImageComponentsContainerRef,
@@ -96,7 +89,7 @@ export const SurfaceMapLogic = () => {
 		panning,
 		setIsPanning,
 		setIsScrolling,
-		locationMapImage
+		locationMapImage,
 	});
 
 	useEffect(() => {
