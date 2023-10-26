@@ -39,7 +39,7 @@
 .locations-surface-map-loading-circle-container-loaded {
 	animation: fade-out 0.5s 1;
 	animation-fill-mode: forwards;
-	animation-delay: 0.4s;
+	animation-delay: 0.6s;
 }
 
 .locations-surface-map-image-container {

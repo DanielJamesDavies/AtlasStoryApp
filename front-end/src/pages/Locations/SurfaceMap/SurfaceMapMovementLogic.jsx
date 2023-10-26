@@ -187,14 +187,10 @@ export const SurfaceMapMovementLogic = ({
 
 		const max_zoom = (1 / window.innerWidth) * 40000;
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
-		if (zoom.current >= max_zoom) {
-			zoom.current = max_zoom;
-			pointX.current = e.clientX - xs * zoom.current;
-			pointY.current = e.clientY - ys * zoom.current;
-		} else {
-			pointX.current = e.clientX - xs * zoom.current;
-			pointY.current = e.clientY - ys * zoom.current;
-		}
+		if (zoom.current >= max_zoom) zoom.current = max_zoom;
+
+		pointX.current = e.clientX - xs * zoom.current;
+		pointY.current = e.clientY - ys * zoom.current;
 
 		updatePointsForBounds();
 
@@ -280,22 +276,16 @@ export const SurfaceMapMovementLogic = ({
 
 			const max_zoom = (1 / window.innerWidth) * 40000;
 			zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
-			if (zoom.current >= max_zoom) {
-				zoom.current = max_zoom;
-				pointX.current = e.clientX - xs * zoom.current;
-				pointY.current = e.clientY - ys * zoom.current;
-			} else {
-				pointX.current = e.clientX - xs * zoom.current;
-				pointY.current = e.clientY - ys * zoom.current;
-			}
+			if (zoom.current >= max_zoom) zoom.current = Math.max(50, max_zoom);
+
+			pointX.current = startCoords.centerX - xs * zoom.current;
+			pointY.current = startCoords.centerY - ys * zoom.current;
 
 			updatePointsForBounds();
 
 			setPoints({ pointX: pointX.current, pointY: pointY.current });
 
 			prevDist.current = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-
-			updateRegionsNames();
 		}
 
 		updatePointsForBounds();
