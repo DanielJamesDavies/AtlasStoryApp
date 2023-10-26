@@ -215,6 +215,16 @@ export const SurfaceMapRegionsLogic = ({
 		}
 	}, [surfaceMapImageComponentsContainerRef, getDistanceBetweenTwoComponents]);
 
+	const updateRegionsNamesPosition = useCallback(() => {
+		const max_mobile_width = 750;
+		let height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+		if (window.innerWidth <= max_mobile_width) height_zoom = (window?.innerHeight + 58) / surfaceMapImageRef?.current?.clientHeight;
+		const imageContainerHeightDelta =
+			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+		const min_pointY = (imageContainerHeightDelta / zoom.current) * height_zoom;
+		surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(${(min_pointY, min_pointY * (1 / height_zoom))}px)`;
+	}, [surfaceMapImageContainerRef, surfaceMapImageRef, surfaceMapImageRegionsNamesRef, zoom]);
+
 	const createRegionsNames = useCallback(async () => {
 		const location = locations.find((e) => e?._id === currentLocationId?.current);
 
@@ -227,9 +237,7 @@ export const SurfaceMapRegionsLogic = ({
 
 		setRegionNamesTexts(newRegionsNamesTexts);
 
-		const imageContainerHeightDelta =
-			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
-		surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(${imageContainerHeightDelta - 1 * zoom.current}px)`;
+		updateRegionsNamesPosition();
 
 		await new Promise((resolve) => setTimeout(resolve, 2));
 
@@ -298,10 +306,8 @@ export const SurfaceMapRegionsLogic = ({
 		regionClusters,
 		setRegionNamesHTML,
 		setRegionNamesTexts,
-		surfaceMapImageContainerRef,
-		surfaceMapImageRef,
-		surfaceMapImageRegionsNamesRef,
 		surfaceMapImageRegionsNamesTextsRef,
+		updateRegionsNamesPosition,
 		zoom,
 	]);
 
@@ -359,9 +365,7 @@ export const SurfaceMapRegionsLogic = ({
 		updateRegionsNames();
 		setTimeout(() => updateRegionsNames(), 10);
 
-		const imageContainerHeightDelta =
-			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
-		surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(${imageContainerHeightDelta - 1 * zoom.current}px)`;
+		updateRegionsNamesPosition();
 	});
 
 	useEffect(() => {
