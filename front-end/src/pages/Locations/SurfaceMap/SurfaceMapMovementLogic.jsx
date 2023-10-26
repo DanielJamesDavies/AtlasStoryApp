@@ -14,13 +14,20 @@ import { useRef, useEffect, useState, useCallback } from "react";
 // Assets
 
 export const SurfaceMapMovementLogic = ({
+	surfaceMapContainerRef,
 	surfaceMapImageContainerRef,
+	surfaceMapImageComponentsContainerRef,
 	surfaceMapImageRef,
 	pointX,
 	pointY,
 	zoom,
+	startPos,
 	updateRegionsNames,
 	setIsImagePixelated,
+	panning,
+	setIsPanning,
+	setIsScrolling,
+	locationMapImage
 }) => {
 	const getDimensionsZoom = useCallback(() => {
 		const width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
@@ -55,7 +62,7 @@ export const SurfaceMapMovementLogic = ({
 		if (pointY.current > -imageContainerHeightDelta - 1 * zoom.current) pointY.current = -imageContainerHeightDelta - 1 * zoom.current;
 		if (pointY.current < -max_pointY && window.innerWidth > max_mobile_width) pointY.current = -max_pointY;
 		if (window.innerWidth <= max_mobile_width && pointY.current < -max_pointY - 58) pointY.current = -max_pointY - 58;
-	}, [getDimensionsZoom]);
+	}, [getDimensionsZoom, pointX, pointY, surfaceMapImageContainerRef, surfaceMapImageRef, zoom]);
 
 	useEffect(() => {
 		function setDefaultPosition() {
@@ -96,7 +103,7 @@ export const SurfaceMapMovementLogic = ({
 			}, 100);
 		}
 		setDefaultPosition();
-	}, [mapImage]);
+	}, [locationMapImage, getDimensionsZoom, pointX, pointY, surfaceMapImageContainerRef, surfaceMapImageRef, updatePointsForBounds, zoom]);
 
 	window.addEventListener("resize", () => {
 		const { width_zoom, height_zoom } = getDimensionsZoom();
@@ -243,8 +250,6 @@ export const SurfaceMapMovementLogic = ({
 		stopScrollTimeout = setTimeout(() => setIsScrolling(false), 500);
 	}
 
-	const surfaceMapContainerRef = useRef();
-
 	useEffect(() => {
 		function onGesture(e) {
 			e.preventDefault();
@@ -365,5 +370,13 @@ export const SurfaceMapMovementLogic = ({
 			clearInterval(movementInterval.current);
 			movementInterval.current = false;
 		}
+	}
+
+	return {
+		onTouchStart,
+		onTouchMove,
+		enterMovementBox,
+		leaveMovementBox,
+		onMovementBoxWheel,
 	}
 };

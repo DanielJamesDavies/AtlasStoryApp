@@ -291,7 +291,7 @@ export const SurfaceMapRegionsLogic = ({
 		});
 
 		setRegionNamesHTML(new_region_names_html);
-	}, [locations]);
+	}, [locations, currentLocationId, regionClusters, setRegionNamesHTML, setRegionNamesTexts, surfaceMapImageComponentsContainerRef, surfaceMapImageRef, surfaceMapImageRegionsNamesTextsRef, zoom]);
 
 	const updateRegionsNames = useCallback(async () => {
 		const image_width = parseFloat(surfaceMapImageRef?.current?.clientWidth);
@@ -343,7 +343,7 @@ export const SurfaceMapRegionsLogic = ({
 
 			return true;
 		});
-	}, [surfaceMapImageRegionsNamesRef]);
+	}, [surfaceMapImageComponentsContainerRef, surfaceMapImageRef, surfaceMapImageRegionsNamesRef, surfaceMapImageRegionsNamesTextsRef, zoom]);
 
 	window.addEventListener("resize", () => {
 		updateRegionsNames();
@@ -445,7 +445,9 @@ export const SurfaceMapRegionsLogic = ({
 
 			regionClusters.current = regions_clusters;
 
-			createRegionsNames();
+			setTimeout(() => {
+				createRegionsNames();
+			}, 100);
 
 			setInterval(() => {
 				updateRegionsNames();
@@ -453,5 +455,7 @@ export const SurfaceMapRegionsLogic = ({
 		}
 
 		setTimeout(() => updateRegionNamesOnMap(), 100);
-	}, [getDistancesBetweenComponents, locations, currentLocationId, getCoordsOfPath, createRegionsNames, updateRegionsNames]);
+	}, [getDistancesBetweenComponents, locations, currentLocationId, getCoordsOfPath, createRegionsNames, updateRegionsNames, regionClusters, surfaceMapImageComponentsContainerRef]);
+
+	return { updateRegionsNames };
 };

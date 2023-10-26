@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useRef, useEffect, useState, useCallback } from "react";
+import { useContext, useRef, useEffect, useState } from "react";
 
 // Components
 
@@ -38,6 +38,7 @@ export const SurfaceMapLogic = () => {
 	const [regionNamesHTML, setRegionNamesHTML] = useState("");
 	const [regionNamesTexts, setRegionNamesTexts] = useState("");
 
+	const surfaceMapContainerRef = useRef();
 	const surfaceMapImageContainerRef = useRef();
 	const surfaceMapImageRef = useRef();
 	const surfaceMapImageComponentsContainerRef = useRef();
@@ -54,9 +55,7 @@ export const SurfaceMapLogic = () => {
 	var startPos = useRef({ x: 0, y: 0 });
 	var lastWindowWidth = useRef(0);
 
-	const {} = SurfaceMapMovementLogic();
-
-	const {} = SurfaceMapRegionsLogic({
+	const { updateRegionsNames } = SurfaceMapRegionsLogic({
 		surfaceMapImageRef,
 		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageRegionsNamesRef,
@@ -68,7 +67,37 @@ export const SurfaceMapLogic = () => {
 		setRegionNamesHTML,
 	});
 
-	const {} = SurfaceMapComponentsLogic({ surfaceMapImageComponentsContainerRef });
+	const {
+		surfaceMapImageComponentsStyles
+	} = SurfaceMapComponentsLogic({ 
+		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageRef,
+		zoom,
+		locationMapImage,
+	 });
+
+	const {
+		onTouchStart,
+		onTouchMove,
+		enterMovementBox,
+		leaveMovementBox,
+		onMovementBoxWheel,
+	} = SurfaceMapMovementLogic({
+		surfaceMapContainerRef,
+		surfaceMapImageContainerRef,
+		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageRef,
+		pointX,
+		pointY,
+		zoom,
+		startPos,
+		updateRegionsNames,
+		setIsImagePixelated,
+		panning,
+		setIsPanning,
+		setIsScrolling,
+		locationMapImage
+	});
 
 	useEffect(() => {
 		lastWindowWidth.current = window.innerWidth;
@@ -99,7 +128,7 @@ export const SurfaceMapLogic = () => {
 			lastWindowWidth.current = window.innerWidth;
 		}
 		getLocationMapImage();
-	}, [locations, currentMapLocationId, setLocationMapImage, currentLocationId]);
+	}, [locations, currentMapLocationId, setLocationMapImage, currentLocationId, APIRequest, addImagesToRecentImages, recentImages]);
 
 	return {
 		locations,

@@ -46,7 +46,7 @@ export const Locations = () => {
 					</div>
 				</div>
 				<Menu />
-				{/* {isOnSpaceMap ? <SpaceMap /> : <SurfaceMap />} */}
+				{isOnSpaceMap ? <SpaceMap /> : <SurfaceMap />}
 				<MapLocationStatus />
 				<CreateLocationForm />
 			</div>

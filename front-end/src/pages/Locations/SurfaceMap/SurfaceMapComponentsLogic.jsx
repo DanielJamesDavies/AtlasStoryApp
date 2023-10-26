@@ -14,7 +14,12 @@ import { LocationsContext } from "../LocationsContext";
 
 // Assets
 
-export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRef }) => {
+export const SurfaceMapComponentsLogic = ({ 
+		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageRef,
+		zoom,
+		locationMapImage,
+	 }) => {
 	const {
 		locations,
 		currentMapLocationId,
@@ -148,10 +153,10 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRe
 				});
 
 				surfaceMapImageComponentsContainerRef.current.children[0].style = `scale: ${image_width / svg_width}`;
-			}, 100);
+			}, 50);
 		}
 		setDefaultPosition();
-	}, [mapImage]);
+	}, [locationMapImage, onClickMapComponent, onMouseOutMapComponent, onMouseOverMapComponent, surfaceMapImageComponentsContainerRef, surfaceMapImageRef, zoom]);
 
 	useEffect(() => {
 		try {
@@ -190,4 +195,6 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRe
 		if (region?.colour) newSurfaceMapImageComponentsStyles["--regionSelectingForColour"] = region?.colour;
 		setSurfaceMapImageComponentsStyles(newSurfaceMapImageComponentsStyles);
 	}, [setSurfaceMapImageComponentsStyles, regionSelectingSurfaceMapComponentsFor, locations, currentMapLocationId]);
+
+	return { surfaceMapImageComponentsStyles };
 };
