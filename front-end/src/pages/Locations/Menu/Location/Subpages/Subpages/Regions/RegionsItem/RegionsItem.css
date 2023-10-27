@@ -51,7 +51,8 @@
 }
 
 .locations-location-regions-item-colour-container,
-.locations-location-regions-item-components-container {
+.locations-location-regions-item-components-container,
+.locations-location-regions-item-location-container {
 	margin-top: 8px;
 	display: flex;
 	flex-direction: column;
@@ -59,7 +60,8 @@
 }
 
 .locations-location-regions-item-colour-container label,
-.locations-location-regions-item-components-container label {
+.locations-location-regions-item-components-container label,
+.locations-location-regions-item-location-container label {
 	font-size: var(--font-size-p-m);
 	font-weight: 600;
 }

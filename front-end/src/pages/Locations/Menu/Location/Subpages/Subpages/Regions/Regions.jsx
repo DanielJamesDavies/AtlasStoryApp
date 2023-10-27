@@ -23,6 +23,7 @@ export const Regions = () => {
 	const {
 		isAuthorizedToEdit,
 		location,
+		locationChildren,
 		addRegionsItem,
 		isReorderingRegionsItems,
 		toggleIsReorderingRegionsItems,
@@ -45,7 +46,7 @@ export const Regions = () => {
 				<div className='locations-location-regions-items'>
 					{location?.data?.regions?.map((regionsItem, index) => (
 						<div key={index} className='locations-location-regions-item-container'>
-							<RegionsItem index={index} regionsItem={regionsItem} isEditing={false} />
+							<RegionsItem index={index} regionsItem={regionsItem} isEditing={false} locationChildren={locationChildren} />
 						</div>
 					))}
 				</div>
@@ -64,7 +65,7 @@ export const Regions = () => {
 									index={index}
 									regionsItem={regionsItem}
 									isEditing={true}
-									isReorderingRegionsItems={isReorderingRegionsItems}
+									locationChildren={locationChildren}
 								/>
 							</DragDropItem>
 						))}

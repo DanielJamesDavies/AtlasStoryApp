@@ -6,6 +6,7 @@ import { ContentItem } from "../../../../../../../../components/ContentItem/Cont
 import { TextInput } from "../../../../../../../../components/TextInput/TextInput";
 import { IconBtn } from "../../../../../../../../components/IconBtn/IconBtn";
 import { ColourPicker } from "../../../../../../../../components/ColourPicker/ColourPicker";
+import { DropdownContainer } from "../../../../../../../../components/DropdownContainer/DropdownContainer";
 
 // Logic
 import { RegionsItemLogic } from "./RegionsItemLogic";
@@ -19,15 +20,17 @@ import "./RegionsItem.css";
 
 // Assets
 
-export const RegionsItem = ({ regionsItem, index, isEditing }) => {
+export const RegionsItem = ({ regionsItem, index, isEditing, locationChildren }) => {
 	const {
+		locations,
 		changeRegionsItemName,
 		changeRegionsItemColour,
 		removeRegionsItem,
 		regionSelectingSurfaceMapComponentsFor,
 		startSelectingMapComponents,
 		endSelectingMapComponents,
-	} = RegionsItemLogic({ regionsItem, index });
+		changeLocation,
+	} = RegionsItemLogic({ regionsItem, index, locationChildren });
 
 	if (!isEditing)
 		return (
@@ -75,6 +78,15 @@ export const RegionsItem = ({ regionsItem, index, isEditing }) => {
 								Save Selected Components
 							</button>
 						)}
+					</div>
+					<div className="locations-location-regions-item-location-container">
+						<label>Location</label>
+						<DropdownContainer value={locations?.find((e) => e?._id === regionsItem?.location)?.data?.name} onChange={changeLocation} noBackground={true} includeUnselectedOption={true}>
+							{locationChildren
+								.map((location, index) => (
+									<div key={index}>{location?.data?.name}</div>
+								))}
+						</DropdownContainer>
 					</div>
 				</div>
 				<div className='locations-location-regions-item-buttons-container'>

@@ -28,37 +28,38 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRe
 
 	const onClickMapComponent = useCallback(
 		(index) => {
-			if (!isSelectingSurfaceMapComponents) return false;
-
-			if (
-				Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList).includes(
-					"locations-surface-map-image-component-in-region"
-				)
-			) {
-				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.remove(
-					"locations-surface-map-image-component-in-region"
-				);
-				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.remove(
-					"locations-surface-map-image-component-selected"
-				);
-				removeComponentToSelectedSurfaceMapComponents(index);
-				return true;
-			}
-
-			if (
-				!Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList).includes(
-					"locations-surface-map-image-component-selected"
-				)
-			) {
-				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.add(
-					"locations-surface-map-image-component-selected"
-				);
-				addComponentToSelectedSurfaceMapComponents(index);
-			} else {
-				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.remove(
-					"locations-surface-map-image-component-selected"
-				);
-				removeComponentToSelectedSurfaceMapComponents(index);
+			if (isSelectingSurfaceMapComponents) {
+				if (
+					Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList).includes(
+						"locations-surface-map-image-component-in-region"
+					)
+				) {
+					surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.remove(
+						"locations-surface-map-image-component-in-region"
+					);
+					surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.remove(
+						"locations-surface-map-image-component-selected"
+					);
+					removeComponentToSelectedSurfaceMapComponents(index);
+					return true;
+				}
+	
+				if (
+					!Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList).includes(
+						"locations-surface-map-image-component-selected"
+					)
+				) {
+					surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.add(
+						"locations-surface-map-image-component-selected"
+					);
+					addComponentToSelectedSurfaceMapComponents(index);
+				} else {
+					surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.remove(
+						"locations-surface-map-image-component-selected"
+					);
+					removeComponentToSelectedSurfaceMapComponents(index);
+				}
+				return false;
 			}
 		},
 		[

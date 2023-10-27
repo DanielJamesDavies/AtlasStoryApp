@@ -37,9 +37,6 @@ export const SurfaceMap = () => {
 		isSelectingSurfaceMapComponents,
 		surfaceMapImageComponentsStyles,
 		onMovementBoxWheel,
-		selectedLocationId,
-		setSelectedLocationId,
-		setIsDisplayingHierarchy,
 		regionNamesHTML,
 		regionNamesTexts,
 	} = SurfaceMapLogic();
@@ -50,14 +47,6 @@ export const SurfaceMap = () => {
 			className='locations-surface-map-container'
 			onTouchStart={onTouchStart}
 			onTouchMove={onTouchMove}
-			// onClick={() => {
-			// 	if (isSelectingSurfaceMapComponents) return false;
-			// 	if (selectedLocationId) {
-			// 		setSelectedLocationId(false);
-			// 	} else {
-			// 		setIsDisplayingHierarchy(false);
-			// 	}
-			// }}
 		>
 			{!locationMapImage ? (
 				<div className='locations-surface-map-loading-circle-container'>

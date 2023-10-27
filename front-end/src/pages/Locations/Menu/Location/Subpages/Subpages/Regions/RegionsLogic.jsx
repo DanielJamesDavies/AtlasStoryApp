@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Components
 
@@ -11,6 +11,7 @@ import { LocationsContext } from "../../../../../LocationsContext";
 import { LocationContext } from "../../../LocationContext";
 
 // Services
+import { HierarchyFunctions } from "../../../../../HierarchyFunctions";
 
 // Styles
 
@@ -20,6 +21,34 @@ export const RegionsLogic = () => {
 	const { isAuthorizedToEdit, story, locations, setLocations, selectedLocationId } = useContext(LocationsContext);
 	const { location, setLocation } = useContext(LocationContext);
 	const { APIRequest } = useContext(APIContext);
+	const { getItemFromIdInHierarchy } = HierarchyFunctions();
+
+	const [locationChildren, setLocationChildren] = useState([]);
+
+	useEffect(() => {
+		function flattenHierarchyItems(heirarchyItem) {
+			let items = [heirarchyItem?._id];
+			if (heirarchyItem?.children) {
+				items = items.concat(heirarchyItem?.children?.map((e) => {
+					return flattenHierarchyItems(e);
+				}))
+			}
+			return items.flat();
+		}
+
+		function getLocationChildren() {
+			const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
+			const heirarchyItem = getItemFromIdInHierarchy(newSelectedLocationId, story?.data?.locationsHierarchy);
+
+			const newLocationChildren = flattenHierarchyItems(heirarchyItem).filter((e) => e !== newSelectedLocationId).map((id) => {
+				const location = locations?.find((e) => e?._id === id);
+				return { _id: id, type: location?.type, data: { name: location?.data?.name } };
+			})?.filter((e) => e?.type === "surfaceLocation");
+			
+			setLocationChildren(newLocationChildren);
+		}
+		getLocationChildren();
+	}, [setLocationChildren, story, getItemFromIdInHierarchy, locations, selectedLocationId]);
 
 	async function addRegionsItem() {
 		const new_id_response = await APIRequest("/new-id/", "GET");
@@ -47,18 +76,21 @@ export const RegionsLogic = () => {
 
 	function reorderRegionsItems(res) {
 		if (res?.from === undefined || res?.to === undefined) return false;
+		
+		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
+		let newLocations = JSON.parse(JSON.stringify(locations));
+		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
+		if (locationIndex === -1) return false;
+		const tempRegionsItem = newLocations[locationIndex].data.regions.splice(res.from, 1)[0];
+		newLocations[locationIndex].data.regions.splice(res.to, 0, tempRegionsItem);
+		setLocations(newLocations);
+
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
 			const tempRegionsItem = newLocation.data.regions.splice(res.from, 1)[0];
 			newLocation.data.regions.splice(res.to, 0, tempRegionsItem);
 			return newLocation;
 		});
-		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
-		let newLocations = JSON.parse(JSON.stringify(locations));
-		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		const tempRegionsItem = newLocations[locationIndex].data.regions.splice(res.from, 1)[0];
-		newLocations[locationIndex].data.regions.splice(res.to, 0, tempRegionsItem);
-		setLocations(newLocations);
 	}
 
 	const [errors, setErrors] = useState([]);
@@ -98,6 +130,7 @@ export const RegionsLogic = () => {
 	return {
 		isAuthorizedToEdit,
 		location,
+		locationChildren,
 		addRegionsItem,
 		isReorderingRegionsItems,
 		toggleIsReorderingRegionsItems,

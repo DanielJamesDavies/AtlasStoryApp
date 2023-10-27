@@ -15,7 +15,7 @@ import { LocationContext } from "../../../../LocationContext";
 
 // Assets
 
-export const RegionsItemLogic = ({ regionsItem, index }) => {
+export const RegionsItemLogic = ({ regionsItem, index, locationChildren }) => {
 	const {
 		locations,
 		setLocations,
@@ -96,7 +96,26 @@ export const RegionsItemLogic = ({ regionsItem, index }) => {
 		updateSurfaceMapComponentsList(newLocation);
 	}
 
+	function changeLocation(e) {
+		const new_location_id = locationChildren[e]?._id;
+		
+		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
+		let newLocations = JSON.parse(JSON.stringify(locations));
+		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
+		if (locationIndex === -1) return false;
+		newLocations[locationIndex].data.regions[index].location = new_location_id;
+		setLocations(newLocations);
+
+		let newLocation = false;
+		setLocation((oldLocation) => {
+			newLocation = JSON.parse(JSON.stringify(oldLocation));
+			newLocation.data.regions[index].location = new_location_id;
+			return newLocation;
+		});
+	}
+
 	return {
+		locations,
 		changeRegionsItemName,
 		changeRegionsItemColour,
 		removeRegionsItem,
@@ -104,5 +123,6 @@ export const RegionsItemLogic = ({ regionsItem, index }) => {
 		regionSelectingSurfaceMapComponentsFor,
 		startSelectingMapComponents,
 		endSelectingMapComponents,
+		changeLocation,
 	};
 };
