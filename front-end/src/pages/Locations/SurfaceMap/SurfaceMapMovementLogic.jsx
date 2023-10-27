@@ -1,11 +1,12 @@
 // Packages
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback, useContext } from "react";
 
 // Components
 
 // Logic
 
 // Context
+import { LocationsContext } from "../LocationsContext";
 
 // Services
 
@@ -28,6 +29,10 @@ export const SurfaceMapMovementLogic = ({
 	setIsScrolling,
 	locationMapImage,
 }) => {
+	const { isDisplayingHierarchy } = useContext(LocationsContext);
+
+	const isDisplayingHierarchyValue = useRef();
+
 	const max_mobile_width = 750;
 
 	const getDimensionsZoom = useCallback(() => {
@@ -43,12 +48,15 @@ export const SurfaceMapMovementLogic = ({
 
 		const imageContainerWidthDelta =
 			((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
-		const max_pointX = surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth - 1 * zoom.current;
+		let max_pointX = surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth - 1 * zoom.current;
 
 		const imageContainerHeightDelta =
 			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 		const max_pointY =
 			surfaceMapImageRef?.current?.clientHeight * zoom.current + imageContainerHeightDelta - window.innerHeight - 1 * zoom.current;
+
+		const menuWidth = Math.min(window.innerWidth, 800) - 44 - 10;
+		if (isDisplayingHierarchyValue.current) max_pointX += menuWidth;
 
 		// X Bounds
 		if (pointX.current > 68 - 1 * zoom.current) pointX.current = 68 - 1 * zoom.current;
@@ -59,7 +67,15 @@ export const SurfaceMapMovementLogic = ({
 		if (pointY.current > -imageContainerHeightDelta - 1 * zoom.current) pointY.current = -imageContainerHeightDelta - 1 * zoom.current;
 		if (pointY.current < -max_pointY && window.innerWidth > max_mobile_width) pointY.current = -max_pointY;
 		if (window.innerWidth <= max_mobile_width && pointY.current < -max_pointY - 58) pointY.current = -max_pointY - 58;
-	}, [getDimensionsZoom, pointX, pointY, surfaceMapImageContainerRef, surfaceMapImageRef, zoom]);
+	}, [getDimensionsZoom, pointX, pointY, surfaceMapImageContainerRef, surfaceMapImageRef, zoom, isDisplayingHierarchyValue]);
+
+	useEffect(() => {
+		isDisplayingHierarchyValue.current = isDisplayingHierarchy;
+		updatePointsForBounds();
+		if (surfaceMapImageContainerRef?.current)
+			surfaceMapImageContainerRef.current.style.transform =
+				"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
+	}, [isDisplayingHierarchy, updatePointsForBounds, surfaceMapImageContainerRef, pointX, pointY, zoom]);
 
 	useEffect(() => {
 		function setDefaultPosition() {
