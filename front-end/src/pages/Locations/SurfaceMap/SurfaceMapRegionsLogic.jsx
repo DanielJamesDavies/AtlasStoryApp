@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useCallback } from "react";
+import { useContext, useEffect, useCallback, useRef } from "react";
 
 // Components
 
@@ -29,11 +29,23 @@ export const SurfaceMapRegionsLogic = ({
 }) => {
 	const { locations, currentMapLocationId, isSelectingSurfaceMapComponents, surfaceMapComponentsList } = useContext(LocationsContext);
 
+	const updateRegionsNamesInterval = useRef();
+
+	useEffect(() => {
+		setRegionNamesHTML(null);
+		setRegionNamesTexts(null);
+		if (updateRegionsNamesInterval.current !== false) {
+			clearInterval(updateRegionsNamesInterval.current);
+			updateRegionsNamesInterval.current = false;
+		}
+	}, [currentMapLocationId, setRegionNamesHTML, setRegionNamesTexts, updateRegionsNamesInterval]);
+
 	useEffect(() => {
 		const location = locations.find((e) => e?._id === currentMapLocationId);
 		if (location) {
 			try {
 				setTimeout(() => {
+					if (!surfaceMapImageComponentsContainerRef?.current) return false;
 					Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
 						if (surfaceMapComponentsList[index] === false || surfaceMapComponentsList[index] === undefined) {
 							path.style = ``;
@@ -42,6 +54,7 @@ export const SurfaceMapRegionsLogic = ({
 						}
 						const region = location?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index]);
 						path.style = `--regionColour: ${region?.colour}; --regionColourTint: ${getColourTint(region?.colour, 10)}`;
+						path.setAttribute("data-region-id", region?._id);
 						path.classList.add("locations-surface-map-image-component-in-region");
 						return true;
 					});
@@ -361,12 +374,19 @@ export const SurfaceMapRegionsLogic = ({
 		});
 	}, [surfaceMapImageRegionsNamesRef, surfaceMapImageRegionsNamesTextsRef, zoom]);
 
-	window.addEventListener("resize", () => {
+	const onResize = useCallback(() => {
 		updateRegionsNames();
 		setTimeout(() => updateRegionsNames(), 10);
 
 		updateRegionsNamesPosition();
-	});
+	}, [updateRegionsNames, updateRegionsNamesPosition]);
+
+	useEffect(() => {
+		window.addEventListener("resize", onResize);
+		return () => {
+			window.removeEventListener("resize", onResize);
+		};
+	}, [onResize]);
 
 	useEffect(() => {
 		function getClosestCluster(cluster, clusters, distances) {
@@ -467,9 +487,9 @@ export const SurfaceMapRegionsLogic = ({
 				createRegionsNames();
 			}, 100);
 
-			setInterval(() => {
+			updateRegionsNamesInterval.current = setInterval(() => {
 				updateRegionsNames();
-			}, 3000);
+			}, 750);
 		}
 
 		setTimeout(() => updateRegionNamesOnMap(), 100);

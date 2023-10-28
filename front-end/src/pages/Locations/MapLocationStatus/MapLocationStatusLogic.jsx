@@ -27,6 +27,7 @@ export const MapLocationStatusLogic = () => {
 		isOnSpaceMap,
 		setIsOnSpaceMap,
 		setIsHidingSpaceMap,
+		surfaceMapHoveringRegion,
 	} = useContext(LocationsContext);
 	const { getPathToItemInHierarchy, getItemInHierarchyFromPath } = HierarchyFunctions();
 
@@ -83,5 +84,15 @@ export const MapLocationStatusLogic = () => {
 		setTimeout(() => setIsHidingSpaceMap(false), 210);
 	}
 
-	return { locations, locationTypes, statusPath, selectedLocationId, hoverMapLocationId, goBackLocation };
+	return {
+		locations,
+		locationTypes,
+		statusPath,
+		currentMapLocationId,
+		selectedLocationId,
+		hoverMapLocationId,
+		goBackLocation,
+		isOnSpaceMap,
+		surfaceMapHoveringRegion,
+	};
 };

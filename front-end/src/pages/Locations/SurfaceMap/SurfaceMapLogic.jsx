@@ -38,6 +38,7 @@ export const SurfaceMapLogic = () => {
 	const [regionNamesHTML, setRegionNamesHTML] = useState("");
 	const [regionNamesTexts, setRegionNamesTexts] = useState("");
 
+	const loadingCircleContainerLoadedRef = useRef();
 	const surfaceMapContainerRef = useRef();
 	const surfaceMapImageContainerRef = useRef();
 	const surfaceMapImageRef = useRef();
@@ -102,21 +103,36 @@ export const SurfaceMapLogic = () => {
 			if (locations?.length === 0) return false;
 			currentLocationId.current = JSON.parse(JSON.stringify(currentMapLocationId));
 
+			setLocationMapImage(false);
+
 			const mapImageID = locations?.find((e) => e?._id === currentMapLocationId)?.data?.mapImage;
 			let mapImage = false;
 
-			const recentImage = recentImages.current.find((e) => e?._id === mapImageID);
-			if (recentImage?.image) {
-				mapImage = recentImage;
-			} else {
-				const map_image_response = await APIRequest("/image/" + mapImageID, "GET");
-				if (map_image_response?.errors || !map_image_response?.data?.image?.image) return false;
-				mapImage = map_image_response?.data?.image;
+			if (mapImageID) {
+				const recentImage = recentImages.current.find((e) => e?._id === mapImageID);
+				if (recentImage?.image) {
+					mapImage = recentImage;
+				} else {
+					const map_image_response = await APIRequest("/image/" + mapImageID, "GET");
+					if (map_image_response?.errors || !map_image_response?.data?.image?.image) return false;
+					mapImage = map_image_response?.data?.image;
 
-				addImagesToRecentImages([mapImage]);
+					addImagesToRecentImages([mapImage]);
+				}
+
+				setLocationMapImage(mapImage?.image);
 			}
 
-			setLocationMapImage(mapImage?.image);
+			setTimeout(() => {
+				loadingCircleContainerLoadedRef.current.style = `animation: none; opacity: 1`;
+				loadingCircleContainerLoadedRef.current.children[0].style = `opacity: 1`;
+				loadingCircleContainerLoadedRef.current.classList.remove("locations-surface-map-loading-circle-container-loaded");
+			}, 1);
+			setTimeout(() => {
+				loadingCircleContainerLoadedRef.current.style = ``;
+				loadingCircleContainerLoadedRef.current.children[0].style = ``;
+				loadingCircleContainerLoadedRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
+			}, 1200);
 
 			lastWindowWidth.current = window.innerWidth;
 		}
@@ -126,6 +142,7 @@ export const SurfaceMapLogic = () => {
 	return {
 		locations,
 		currentMapLocationId,
+		loadingCircleContainerLoadedRef,
 		surfaceMapContainerRef,
 		surfaceMapImageContainerRef,
 		surfaceMapImageRef,

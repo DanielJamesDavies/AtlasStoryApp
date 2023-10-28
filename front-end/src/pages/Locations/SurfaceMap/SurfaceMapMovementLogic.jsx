@@ -104,7 +104,7 @@ export const SurfaceMapMovementLogic = ({
 		setTimeout(() => setDefaultPosition(), 200);
 	}, [locationMapImage, getDimensionsZoom, pointX, pointY, surfaceMapImageContainerRef, surfaceMapImageRef, updatePointsForBounds, zoom]);
 
-	window.addEventListener("resize", () => {
+	const onResize = useCallback(() => {
 		const { width_zoom, height_zoom } = getDimensionsZoom();
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
 		updatePointsForBounds();
@@ -124,7 +124,12 @@ export const SurfaceMapMovementLogic = ({
 
 		surfaceMapImageContainerRef.current.style.transform =
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-	});
+	}, [getDimensionsZoom, pointX, pointY, zoom, surfaceMapImageContainerRef, updatePointsForBounds]);
+
+	useEffect(() => {
+		window.addEventListener("resize", onResize);
+		return () => window.removeEventListener("resize", onResize);
+	}, [onResize]);
 
 	useEffect(() => {
 		zoom.current = 1;
@@ -330,6 +335,13 @@ export const SurfaceMapMovementLogic = ({
 			movementInterval.current = false;
 		}
 	}
+
+	useEffect(() => {
+		return () => {
+			clearInterval(movementInterval.current);
+			movementInterval.current = false;
+		};
+	}, []);
 
 	return {
 		onTouchStart,

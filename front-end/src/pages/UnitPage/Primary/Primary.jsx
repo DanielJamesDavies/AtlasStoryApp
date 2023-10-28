@@ -6,6 +6,7 @@ import { Story } from "./Story/Story";
 import { Name } from "./Name/Name";
 import { CharacterType } from "./CharacterType/CharacterType";
 import { Version } from "./Version/Version";
+import { GoToMapBtn } from "./GoToMapBtn/GoToMapBtn";
 
 // Logic
 import { PrimaryLogic } from "./PrimaryLogic";
@@ -37,6 +38,7 @@ export const Primary = () => {
 					{unit_type !== "character" ? null : <CharacterType primaryStoryStyles={primaryStoryStyles} />}
 				</div>
 				{!["character", "group"].includes(unit_type) ? null : <Version unitPagePrimaryVersionRef={unitPagePrimaryVersionRef} />}
+				{!["location"].includes(unit_type) ? null : <GoToMapBtn unitPagePrimaryVersionRef={unitPagePrimaryVersionRef} />}
 			</div>
 			<button
 				className='unit-page-primary-section-switcher-btn unit-page-primary-section-switcher-btn-to-subpages'

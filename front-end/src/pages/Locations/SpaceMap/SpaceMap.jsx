@@ -50,7 +50,7 @@ export const SpaceMap = () => {
 			onMouseLeave={onMouseLeave}
 		>
 			<div className='locations-map-loading-circle-container'>
-				<LoadingCircle center={true} />
+				<LoadingCircle center={true} size='l' />
 			</div>
 			<Canvas gl={{ powerPreference: "high-performance", antialias: false }}>
 				<Physics gravity={[0, 0, 0]}>

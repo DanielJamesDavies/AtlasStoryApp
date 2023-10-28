@@ -16,7 +16,17 @@ import { FaChevronLeft } from "react-icons/fa";
 // Assets
 
 export const MapLocationStatus = () => {
-	const { locations, locationTypes, statusPath, selectedLocationId, hoverMapLocationId, goBackLocation } = MapLocationStatusLogic();
+	const {
+		locations,
+		locationTypes,
+		statusPath,
+		currentMapLocationId,
+		selectedLocationId,
+		hoverMapLocationId,
+		goBackLocation,
+		isOnSpaceMap,
+		surfaceMapHoveringRegion,
+	} = MapLocationStatusLogic();
 
 	if (!locations) return null;
 	return (
@@ -42,28 +52,51 @@ export const MapLocationStatus = () => {
 					))}
 				</div>
 			</div>
-			{!hoverMapLocationId && !selectedLocationId ? null : (
-				<div className='locations-map-location-status-next-location-container'>
-					<div className='locations-map-location-status-divider'>|</div>
-					<div className='locations-map-location-status-next-location'>
-						<div className='locations-map-location-status-next-location-icon'>
-							{!hoverMapLocationId
-								? locationTypes.find(
-										(type) =>
-											type.type === locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.type
-								  )?.icon
-								: locationTypes.find(
-										(type) =>
-											type.type === locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(hoverMapLocationId))?.type
-								  )?.icon}
+			{isOnSpaceMap ? (
+				<>
+					{!hoverMapLocationId && !selectedLocationId ? null : (
+						<div className='locations-map-location-status-next-location-container'>
+							<div className='locations-map-location-status-divider'>|</div>
+							<div className='locations-map-location-status-next-location'>
+								<div className='locations-map-location-status-next-location-icon'>
+									{!hoverMapLocationId
+										? locationTypes.find(
+												(type) =>
+													type.type ===
+													locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.type
+										  )?.icon
+										: locationTypes.find(
+												(type) =>
+													type.type ===
+													locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(hoverMapLocationId))?.type
+										  )?.icon}
+								</div>
+								<div className='locations-map-location-status-next-location-name'>
+									{!hoverMapLocationId
+										? locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.data?.name
+										: locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(hoverMapLocationId))?.data?.name}
+								</div>
+							</div>
 						</div>
-						<div className='locations-map-location-status-next-location-name'>
-							{!hoverMapLocationId
-								? locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.data?.name
-								: locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(hoverMapLocationId))?.data?.name}
+					)}
+				</>
+			) : (
+				<>
+					{!surfaceMapHoveringRegion ? null : (
+						<div className='locations-map-location-status-next-location-container'>
+							<div className='locations-map-location-status-divider'>|</div>
+							<div className='locations-map-location-status-next-location'>
+								<div className='locations-map-location-status-next-location-name'>
+									{
+										locations
+											.find((e) => JSON.stringify(e?._id) === JSON.stringify(currentMapLocationId))
+											?.data?.regions?.find((e) => e?._id === surfaceMapHoveringRegion)?.name
+									}
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
+					)}
+				</>
 			)}
 		</div>
 	);

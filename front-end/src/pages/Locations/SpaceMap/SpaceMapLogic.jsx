@@ -42,7 +42,7 @@ export const SpaceMapLogic = () => {
 	}
 
 	function setCursorPointer(value) {
-		if (!isMouseControllingPlayer) locationsMapRef.current.style.cursor = value ? "pointer" : "auto";
+		if (locationsMapRef?.current && !isMouseControllingPlayer) locationsMapRef.current.style.cursor = value ? "pointer" : "auto";
 	}
 
 	return {

@@ -22,6 +22,7 @@ import { Subpages } from "./Subpages/Subpages";
 export const UnitPage = () => {
 	const {
 		unit,
+		unit_type,
 		unitOverviewBackground,
 		unitOverviewForegrounds,
 		unitPageStyle,
@@ -36,8 +37,8 @@ export const UnitPage = () => {
 			ref={unitPageContainerRef}
 			className={
 				isOnOverviewSection
-					? "unit-page-container unit-page-container-is-on-overview"
-					: "unit-page-container unit-page-container-is-on-subpages"
+					? "unit-page-container unit-page-container-is-on-overview unit-page-container-" + unit_type
+					: "unit-page-container unit-page-container-is-on-subpages unit-page-container-" + unit_type
 			}
 			style={unitPageStyle ? unitPageStyle : {}}
 		>

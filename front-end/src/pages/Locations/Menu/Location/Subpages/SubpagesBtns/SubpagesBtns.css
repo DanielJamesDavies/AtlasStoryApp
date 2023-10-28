@@ -34,7 +34,9 @@
 }
 
 .locations-location-subpages-btn.btn-list-item-active,
-.locations-location-subpages-btn.btn-list-item-active:hover {
+.locations-location-subpages-btn.btn-list-item-active:hover,
+.locations-location-subpages-btn.btn-list-item:focus {
+	outline: 0;
 	background: var(--colour-accent);
 	border-color: var(--colour-accent);
 	color: #fff;

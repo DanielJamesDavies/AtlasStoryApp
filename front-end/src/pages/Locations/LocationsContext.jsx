@@ -135,6 +135,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [regionSelectingSurfaceMapComponentsFor, setRegionSelectingSurfaceMapComponentsFor] = useState(false);
 	const [selectedSurfaceMapComponents, setSelectedSurfaceMapComponents] = useState([]);
 	const [surfaceMapComponentsList, setSurfaceMapComponentsList] = useState([]);
+	const [surfaceMapHoveringRegion, setSurfaceMapHoveringRegion] = useState(false);
 
 	const scenesChangePlayerInitial = useRef([
 		{
@@ -312,16 +313,18 @@ const LocationsProvider = ({ children, story_uid }) => {
 
 	const hasGotIsOnSpaceMapForLocation = useRef(false);
 	useEffect(() => {
-		const location_id = locationPath.current
-			.split("/")
-			.filter((e) => e.length !== 0)
-			.at(-1);
-		if (hasGotIsOnSpaceMapForLocation?.current !== location_id && locationPath.current.split("/").filter((e) => e.length !== 0).length === 4) {
-			if (locations?.length !== 0 && story?.data?.locationsHierarchy?.length !== 0) hasGotIsOnSpaceMapForLocation.current = location_id;
-			if (location_id) {
-				const curr_location_type = locations.find((e) => e?._id === location_id)?.type;
-				if (curr_location_type === "surfaceLocation") return setIsOnSpaceMap(false);
-				setIsOnSpaceMap(true);
+		if (locations.length !== 0) {
+			const location_id = locationPath.current
+				.split("/")
+				.filter((e) => e.length !== 0)
+				.at(-1);
+			if (hasGotIsOnSpaceMapForLocation?.current === false && locationPath.current.split("/").filter((e) => e.length !== 0).length === 4) {
+				if (locations?.length !== 0 && story?.data?.locationsHierarchy?.length !== 0) hasGotIsOnSpaceMapForLocation.current = location_id;
+				if (location_id) {
+					const curr_location_type = locations.find((e) => e?._id === location_id)?.type;
+					if (curr_location_type === "surfaceLocation") return setIsOnSpaceMap(false);
+					setIsOnSpaceMap(true);
+				}
 			}
 		}
 	}, [locationPath, setIsOnSpaceMap, story, locations]);
@@ -466,6 +469,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				surfaceMapComponentsList,
 				setSurfaceMapComponentsList,
 				updateSurfaceMapComponentsList,
+				surfaceMapHoveringRegion,
+				setSurfaceMapHoveringRegion,
 				scenesChangePlayerInitial,
 				isDisplayingCreateLocationForm,
 				setIsDisplayingCreateLocationForm,

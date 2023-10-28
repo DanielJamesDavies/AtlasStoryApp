@@ -21,14 +21,16 @@ export const LocationLogic = () => {
 	const updateLocationStyles = useCallback(() => {
 		let newLocationStyles = {};
 		if (locationContainerRef?.current?.clientHeight)
-			newLocationStyles["--locationContainerHeight"] = locationContainerRef?.current?.clientHeight + "px";
+			newLocationStyles["--locationContainerHeight"] = locationContainerRef?.current?.clientHeight - 8 + "px";
 		if (locationPrimaryRef?.current?.clientHeight)
 			newLocationStyles["--locationPrimaryHeight"] = locationPrimaryRef?.current?.clientHeight + "px";
 		setLocationStyles(newLocationStyles);
 	}, [setLocationStyles, locationPrimaryRef, locationContainerRef]);
 
 	useEffect(() => {
-		updateLocationStyles();
+		setTimeout(() => {
+			updateLocationStyles();
+		}, 10);
 	}, [updateLocationStyles]);
 
 	window.addEventListener("resize", updateLocationStyles);

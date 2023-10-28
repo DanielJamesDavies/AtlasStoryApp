@@ -73,6 +73,10 @@
 		width: max-content;
 	}
 
+	.unit-page-container-location .unit-page-primary-name-and-type-container {
+		max-width: calc(100vw - 100px);
+	}
+
 	.unit-page-primary-section-switcher-btn {
 		display: inline-block;
 		width: 0;
@@ -108,5 +112,11 @@
 			opacity: 1;
 			pointer-events: all;
 		}
+	}
+}
+
+@media (max-width: 350px) {
+	.unit-page-container-location .unit-page-primary-name-and-type-container {
+		max-width: calc(100vw - 84px);
 	}
 }
