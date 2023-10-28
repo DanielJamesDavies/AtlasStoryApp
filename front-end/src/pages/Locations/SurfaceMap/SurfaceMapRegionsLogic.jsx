@@ -16,6 +16,7 @@ import getColourTint from "../../../services/GetColourTint";
 // Assets
 
 export const SurfaceMapRegionsLogic = ({
+	locationMapImage,
 	surfaceMapImageRef,
 	surfaceMapImageComponentsContainerRef,
 	surfaceMapImageContainerRef,
@@ -42,26 +43,34 @@ export const SurfaceMapRegionsLogic = ({
 
 	useEffect(() => {
 		const location = locations.find((e) => e?._id === currentMapLocationId);
-		if (location) {
-			try {
-				setTimeout(() => {
+		if (location && surfaceMapComponentsList.length !== 0 && locationMapImage) {
+			setTimeout(() => {
+				try {
 					if (!surfaceMapImageComponentsContainerRef?.current) return false;
 					Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
-						if (surfaceMapComponentsList[index] === false || surfaceMapComponentsList[index] === undefined) {
+						const region = location?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index]);
+						if (!region || surfaceMapComponentsList[index] === false || surfaceMapComponentsList[index] === undefined) {
 							path.style = ``;
 							path.classList.remove("locations-surface-map-image-component-in-region");
+							path.removeAttribute("data-region-id");
 							return true;
 						}
-						const region = location?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index]);
 						path.style = `--regionColour: ${region?.colour}; --regionColourTint: ${getColourTint(region?.colour, 10)}`;
 						path.setAttribute("data-region-id", region?._id);
 						path.classList.add("locations-surface-map-image-component-in-region");
 						return true;
 					});
-				}, 200);
-			} catch {}
+				} catch {}
+			}, 250);
 		}
-	}, [isSelectingSurfaceMapComponents, surfaceMapComponentsList, surfaceMapImageComponentsContainerRef, locations, currentMapLocationId]);
+	}, [
+		isSelectingSurfaceMapComponents,
+		surfaceMapComponentsList,
+		surfaceMapImageComponentsContainerRef,
+		locations,
+		currentMapLocationId,
+		locationMapImage,
+	]);
 
 	const getCoordsOfPath = useCallback((component) => {
 		const offset = 8;
@@ -404,6 +413,8 @@ export const SurfaceMapRegionsLogic = ({
 		}
 
 		function updateRegionNamesOnMap() {
+			if (!locationMapImage) return false;
+
 			const location = locations.find((e) => e?._id === currentLocationId?.current);
 
 			// Get Distances Between Components
@@ -492,7 +503,7 @@ export const SurfaceMapRegionsLogic = ({
 			}, 750);
 		}
 
-		setTimeout(() => updateRegionNamesOnMap(), 100);
+		setTimeout(() => updateRegionNamesOnMap(), 300);
 	}, [
 		getDistancesBetweenComponents,
 		locations,
@@ -502,6 +513,7 @@ export const SurfaceMapRegionsLogic = ({
 		updateRegionsNames,
 		regionClusters,
 		surfaceMapImageComponentsContainerRef,
+		locationMapImage,
 	]);
 
 	return { updateRegionsNames };

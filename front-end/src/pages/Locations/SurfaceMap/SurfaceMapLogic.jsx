@@ -57,6 +57,7 @@ export const SurfaceMapLogic = () => {
 	var lastWindowWidth = useRef(0);
 
 	const { updateRegionsNames } = SurfaceMapRegionsLogic({
+		locationMapImage,
 		surfaceMapImageRef,
 		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageContainerRef,

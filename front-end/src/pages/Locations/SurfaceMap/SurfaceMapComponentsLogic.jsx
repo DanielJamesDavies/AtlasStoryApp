@@ -30,6 +30,7 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRe
 
 	const clicks = useRef([]);
 	const clickTimeout = useRef(false);
+	const readyToSelectComponent = useRef(true);
 	const onClickMapComponent = useCallback(
 		(index) => {
 			function getNewClicks(oldClicks, maxDelta) {
@@ -47,6 +48,11 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRe
 			}
 
 			if (isSelectingSurfaceMapComponents) {
+				if (!readyToSelectComponent.current) return false;
+				readyToSelectComponent.current = false;
+				setTimeout(() => {
+					readyToSelectComponent.current = true;
+				}, 10);
 				if (
 					Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList).includes(
 						"locations-surface-map-image-component-in-region"
@@ -121,15 +127,9 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRe
 				?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index]);
 			setSurfaceMapHoveringRegion(region?._id);
 			region?.components?.map((component_index) => {
-				if (
-					!Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList).includes(
-						"locations-surface-map-image-component-hovering-over"
-					)
-				) {
-					surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList.add(
-						"locations-surface-map-image-component-hovering-over"
-					);
-				}
+				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList.add(
+					"locations-surface-map-image-component-hovering-over"
+				);
 				return true;
 			});
 		},
@@ -143,15 +143,9 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRe
 				?.find((e) => e?._id === currentMapLocationId)
 				?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index])
 				?.components?.map((component_index) => {
-					if (
-						Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList).includes(
-							"locations-surface-map-image-component-hovering-over"
-						)
-					) {
-						surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList.remove(
-							"locations-surface-map-image-component-hovering-over"
-						);
-					}
+					surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList.remove(
+						"locations-surface-map-image-component-hovering-over"
+					);
 					return true;
 				});
 		},
@@ -187,6 +181,9 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRe
 						return true;
 					});
 					Array.from(document.getElementsByClassName("locations-surface-map-image-component-delete")).map((path) => path.remove());
+					Array.from(document.getElementsByClassName("locations-surface-map-image-component-hovering-over")).map((path) =>
+						path.classList.remove("locations-surface-map-image-component-hovering-over")
+					);
 
 					Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
 						path.addEventListener("click", () => onClickMapComponent(index));
