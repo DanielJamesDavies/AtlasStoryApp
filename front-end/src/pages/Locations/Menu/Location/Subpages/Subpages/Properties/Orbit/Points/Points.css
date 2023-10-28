@@ -17,3 +17,13 @@
 	align-items: center;
 	gap: 6px;
 }
+
+.locations-location-points-container.editable-container-is-editing .locations-location-points-value {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.locations-location-points-value-label {
+	flex-shrink: 0;
+}

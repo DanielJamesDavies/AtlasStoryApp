@@ -34,9 +34,15 @@ export const LocationPoints = () => {
 			</div>
 			<div className='locations-location-points'>
 				<div className='locations-location-points-title'>Points</div>
-				<div className='locations-location-points-value'>
-					<TextInput value={location?.points[0] + "km"} onChange={(e) => changePoints(e, 0)} />
-					<TextInput value={location?.points[1] + "km"} onChange={(e) => changePoints(e, 1)} />
+				<div>
+					<div className='locations-location-points-value'>
+						<div className='locations-location-points-value-label'>Aphelion (km):&nbsp;&nbsp;</div>
+						<TextInput value={location?.points[0]} onChange={(e) => changePoints(e, 0)} />
+					</div>
+					<div className='locations-location-points-value'>
+						<div className='locations-location-points-value-label'>Perihelion (km):</div>
+						<TextInput value={location?.points[1]} onChange={(e) => changePoints(e, 1)} />
+					</div>
 				</div>
 			</div>
 		</EditableContainer>

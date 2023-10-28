@@ -22,9 +22,7 @@ export const LocationPointsLogic = () => {
 	function changePoints(e, index) {
 		e.stopPropagation();
 		let newLocation = JSON.parse(JSON.stringify(location));
-		const newValue = e.target.value.replace(",", "").substring(0, e.target.value.replace(",", "").length - 2);
-		const deduplicate = (array) => array.filter((item, index) => array.indexOf(item) === index);
-		newLocation.points[index] = JSON.stringify(deduplicate(newValue.split(""))) === JSON.stringify(["0"]) ? newValue : parseFloat(newValue);
+		newLocation.points[index] = e.target.value.trim().length === 0 ? "" : parseFloat(e.target.value);
 		changeLocation(newLocation);
 	}
 
