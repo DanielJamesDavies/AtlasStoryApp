@@ -16,6 +16,8 @@ import { LocationsContext } from "../LocationsContext";
 
 export const SpaceMapLogic = () => {
 	const {
+		locations,
+		locationTypes,
 		locationsMapRef,
 		travellingToMapLocationId,
 		selectedLocationId,
@@ -24,6 +26,7 @@ export const SpaceMapLogic = () => {
 		isMouseControllingPlayer,
 		setIsMouseOverMap,
 		isHidingSpaceMap,
+		hoverMapLocationId,
 	} = useContext(LocationsContext);
 	const [isPlayerMovementEnabled, setIsPlayerMovementEnabled] = useState(false);
 
@@ -45,7 +48,15 @@ export const SpaceMapLogic = () => {
 		if (locationsMapRef?.current && !isMouseControllingPlayer) locationsMapRef.current.style.cursor = value ? "pointer" : "auto";
 	}
 
+	const [locationsMapLabelStyles, setLocationsMapLabelStyles] = useState({});
+
+	function onMouseMove(e) {
+		setLocationsMapLabelStyles({ left: e?.clientX, top: e?.clientY });
+	}
+
 	return {
+		locations,
+		locationTypes,
 		locationsMapRef,
 		onMouseEnter,
 		onMouseLeave,
@@ -56,5 +67,9 @@ export const SpaceMapLogic = () => {
 		setIsPlayerMovementEnabled,
 		setCursorPointer,
 		isHidingSpaceMap,
+		hoverMapLocationId,
+		onMouseMove,
+		locationsMapLabelStyles,
+		travellingToMapLocationId,
 	};
 };

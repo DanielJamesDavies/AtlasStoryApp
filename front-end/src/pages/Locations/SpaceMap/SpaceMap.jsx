@@ -23,6 +23,8 @@ import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
 
 export const SpaceMap = () => {
 	const {
+		locations,
+		locationTypes,
 		locationsMapRef,
 		onMouseEnter,
 		onMouseLeave,
@@ -33,6 +35,10 @@ export const SpaceMap = () => {
 		setIsPlayerMovementEnabled,
 		setCursorPointer,
 		isHidingSpaceMap,
+		hoverMapLocationId,
+		onMouseMove,
+		locationsMapLabelStyles,
+		travellingToMapLocationId,
 	} = SpaceMapLogic();
 
 	return (
@@ -48,9 +54,18 @@ export const SpaceMap = () => {
 			}}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
+			onMouseMove={onMouseMove}
 		>
 			<div className='locations-map-loading-circle-container'>
 				<LoadingCircle center={true} size='l' />
+			</div>
+			<div className='locations-map-label-container'>
+				{travellingToMapLocationId !== false || !locations?.find((e) => e?._id === hoverMapLocationId)?.data?.name ? null : (
+					<div className='locations-map-label' style={locationsMapLabelStyles}>
+						{locationTypes?.find((e) => e?.type === locations?.find((e) => e?._id === hoverMapLocationId)?.type)?.icon}
+						<span>{locations?.find((e) => e?._id === hoverMapLocationId)?.data?.name}</span>
+					</div>
+				)}
 			</div>
 			<Canvas gl={{ powerPreference: "high-performance", antialias: false }}>
 				<Physics gravity={[0, 0, 0]}>
