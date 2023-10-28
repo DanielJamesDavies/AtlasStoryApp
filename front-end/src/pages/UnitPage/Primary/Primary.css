@@ -19,6 +19,12 @@
 	display: flex;
 }
 
+.unit-page-container-location .unit-page-primary-name-and-type-container {
+	flex-direction: row;
+	flex-wrap: wrap;
+	max-width: calc(100vw - var(--navbar-width) - 2 * 24px - 64px);
+}
+
 .unit-page-primary-section-switcher-btn {
 	position: relative;
 	display: none;
@@ -119,9 +125,4 @@
 	.unit-page-container-location .unit-page-primary-name-and-type-container {
 		max-width: calc(100vw - 84px);
 	}
-}
-
-.unit-page-container-location .unit-page-primary-name-and-type-container {
-	flex-direction: row;
-	flex-wrap: wrap;
 }

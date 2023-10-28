@@ -47,7 +47,7 @@ export const Scene = ({ camera }) => {
 		},
 		{
 			type: "starSystem",
-			position: [-6.5, -3.5, 22],
+			position: [-6.5, -2.5, 22],
 			rotation: [8 * (Math.PI / 180), 330 * (Math.PI / 180), Math.PI / 2],
 		},
 		{
@@ -57,13 +57,12 @@ export const Scene = ({ camera }) => {
 		},
 		{
 			type: "planet",
-			position_old: [-10.5, -2.5, 10],
-			position: [0.5, -0.1, 0.9],
+			position: [0.5, -0.09, 0.9],
 			rotation: [7 * (Math.PI / 180), 330 * (Math.PI / 180), Math.PI / 2],
 		},
 		{
 			type: "moon",
-			position: [-10.5, -2.5, 20],
+			position: [-10.5, -2, 20],
 			rotation: [7 * (Math.PI / 180), 330 * (Math.PI / 180), Math.PI / 2],
 		},
 	]);

@@ -38,6 +38,7 @@ export const Background = () => {
 						</Canvas>
 					</div>
 				)}
+				<div className='unit-page-overview-background unit-page-overview-background-no-image'></div>
 			</>
 		);
 	return (

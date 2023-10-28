@@ -19,6 +19,11 @@
 
 .unit-page-container-location .unit-page-primary-name-container {
 	margin-right: 24px;
+	max-width: calc(100vw - var(--navbar-width) - 2 * 24px - 64px);
+}
+
+.unit-page-container-location .unit-page-primary-name {
+	width: max-content;
 }
 
 @media (max-width: 750px) {
