@@ -5,6 +5,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Story } from "./Story/Story";
 import { Name } from "./Name/Name";
 import { CharacterType } from "./CharacterType/CharacterType";
+import { LocationType } from "./LocationType/LocationType";
 import { Version } from "./Version/Version";
 import { GoToMapBtn } from "./GoToMapBtn/GoToMapBtn";
 
@@ -36,6 +37,7 @@ export const Primary = () => {
 				<div className='unit-page-primary-name-and-type-container'>
 					<Name primaryStoryStyles={primaryStoryStyles} />
 					{unit_type !== "character" ? null : <CharacterType primaryStoryStyles={primaryStoryStyles} />}
+					{unit_type !== "location" ? null : <LocationType />}
 				</div>
 				{!["character", "group"].includes(unit_type) ? null : <Version unitPagePrimaryVersionRef={unitPagePrimaryVersionRef} />}
 				{!["location"].includes(unit_type) ? null : <GoToMapBtn unitPagePrimaryVersionRef={unitPagePrimaryVersionRef} />}

@@ -17,6 +17,10 @@
 	color: var(--text-colour-primary);
 }
 
+.unit-page-container-location .unit-page-primary-name-container {
+	margin-right: 24px;
+}
+
 @media (max-width: 750px) {
 	.unit-page-primary-name-container {
 		margin: 4px 0;

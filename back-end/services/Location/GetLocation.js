@@ -8,7 +8,13 @@ module.exports = async (req, res) => {
 			.catch(() => false);
 		if (!location) return res.status(200).send({ errors: [{ message: "Location Not Found" }] });
 
-		return res.status(200).send({ message: "Success", data: { location } });
+		let newLocation = JSON.parse(JSON.stringify(location));
+		newLocation.views += 1;
+		try {
+			await Location.findOneAndReplace({ _id: newLocation._id }, newLocation, { upsert: true });
+		} catch {}
+
+		return res.status(200).send({ message: "Success", data: { location: newLocation } });
 	}
 
 	let story = false;
@@ -22,7 +28,13 @@ module.exports = async (req, res) => {
 			.catch(() => false);
 		if (!location) return res.status(200).send({ errors: [{ message: "Location Not Found" }] });
 
-		return res.status(200).send({ message: "Success", data: { location } });
+		let newLocation = JSON.parse(JSON.stringify(location));
+		newLocation.views += 1;
+		try {
+			await Location.findOneAndReplace({ _id: newLocation._id }, newLocation, { upsert: true });
+		} catch {}
+
+		return res.status(200).send({ message: "Success", data: { location: newLocation } });
 	}
 
 	if (req?.query?.story_id) {

@@ -8,7 +8,8 @@ const Image = require("../../models/Image");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 module.exports = async (req, res) => {
-	if (!req?.body?.path || req?.body?.path === ["_id"]) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
+	if (!req?.body?.path || JSON.stringify(req?.body?.path) === JSON.stringify(["_id"]))
+		return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
 
 	const oldCharacter = await Character.findById(req.params.id)
 		.exec()

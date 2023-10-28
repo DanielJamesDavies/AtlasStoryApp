@@ -24,6 +24,7 @@ export const SummaryItems = () => {
 	const {
 		isAuthorizedToEdit,
 		unit,
+		unit_type,
 		changeSummaryItemLabel,
 		changeSummaryItemText,
 		removeSummaryItem,
@@ -35,6 +36,7 @@ export const SummaryItems = () => {
 		saveSummaryItems,
 	} = SummaryItemsLogic();
 
+	if (["location"].includes(unit_type)) return null;
 	return (
 		<EditableContainer
 			className='unit-page-overview-summary-items-container'

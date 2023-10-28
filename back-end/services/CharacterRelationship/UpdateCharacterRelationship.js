@@ -14,7 +14,8 @@ module.exports = async (req, res) => {
 
 	let newCharacterRelationship = JSON.parse(JSON.stringify(oldCharacterRelationship));
 	if (req?.body?.path) {
-		if (req?.body?.path === ["_id"] || req?.body?.path === ["story_id"]) return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
+		if (JSON.stringify(req?.body?.path) === JSON.stringify(["_id"]) || JSON.stringify(req?.body?.path) === JSON.stringify(["story_id"]))
+			return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
 
 		newCharacterRelationship = ChangeValueInNestedObject(
 			JSON.parse(JSON.stringify(oldCharacterRelationship)),

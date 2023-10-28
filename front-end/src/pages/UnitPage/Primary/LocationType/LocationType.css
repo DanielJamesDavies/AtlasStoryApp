@@ -1,0 +1,11 @@
+.unit-page-primary-location-type-container {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 600;
+}
+
+.unit-page-primary-location-type-icon {
+	margin-bottom: -4px;
+	font-size: 20px;
+}

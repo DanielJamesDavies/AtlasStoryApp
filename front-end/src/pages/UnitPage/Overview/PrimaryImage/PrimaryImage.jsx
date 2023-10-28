@@ -17,9 +17,18 @@ import "./PrimaryImage.css";
 // Assets
 
 export const PrimaryImage = () => {
-	const { isAuthorizedToEdit, unitVersion, unitPrimaryImages, onPrimaryImageClick, changePrimaryImage, revertPrimaryImage, savePrimaryImage } =
-		PrimaryImageLogic();
+	const {
+		isAuthorizedToEdit,
+		unit_type,
+		unitVersion,
+		unitPrimaryImages,
+		onPrimaryImageClick,
+		changePrimaryImage,
+		revertPrimaryImage,
+		savePrimaryImage,
+	} = PrimaryImageLogic();
 
+	if (["plot", "location"].includes(unit_type)) return null;
 	if (
 		!isAuthorizedToEdit &&
 		(!unitPrimaryImages.find((e) => e?._id === unitVersion?._id)?.image?.image ||

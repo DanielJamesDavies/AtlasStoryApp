@@ -1,6 +1,9 @@
 // Packages
+import { Canvas } from "@react-three/fiber";
+import { Physics } from "@react-three/cannon";
 
 // Components
+import { SpaceMap } from "./SpaceMap/SpaceMap";
 
 // Logic
 import { BackgroundLogic } from "./BackgroundLogic";
@@ -15,9 +18,28 @@ import "./Background.css";
 // Assets
 
 export const Background = () => {
-	const { unit_type, unitOverviewForegrounds, unitOverviewBackground, unitVersion, overviewForegroundSizeRef } = BackgroundLogic();
+	const { unit_type, unit, unitOverviewForegrounds, unitOverviewBackground, unitVersion, overviewForegroundSizeRef, locationMapImage } =
+		BackgroundLogic();
 
 	if (unitOverviewForegrounds === false) return null;
+	if (unit_type === "location" && (!unitOverviewBackground || unitOverviewBackground === "NO_IMAGE"))
+		return (
+			<>
+				{unit?.type === "surfaceLocation" ? (
+					<div className='unit-page-overview-background-surface-map-container'>
+						{!locationMapImage || locationMapImage === "NO_IMAGE" ? null : <img src={locationMapImage} alt='' />}
+					</div>
+				) : (
+					<div className='unit-page-overview-background-space-map-container'>
+						<Canvas gl={{ powerPreference: "high-performance", antialias: false }}>
+							<Physics gravity={[0, 0, 0]}>
+								<SpaceMap />
+							</Physics>
+						</Canvas>
+					</div>
+				)}
+			</>
+		);
 	return (
 		<>
 			{!["character"].includes(unit_type) ? null : (

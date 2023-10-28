@@ -19,7 +19,7 @@ import "./Tilt.css";
 export const LocationTilt = () => {
 	const { isAuthorizedToEdit, location, changeTilt, revertTilt, saveTilt } = LocationTiltLogic();
 
-	if (["reality"].includes(location?.type)) return null;
+	if (["reality", "starSystem"].includes(location?.type)) return null;
 	return (
 		<EditableContainer
 			className='locations-location-tilt-container'

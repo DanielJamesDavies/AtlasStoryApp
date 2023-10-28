@@ -95,6 +95,7 @@ export const SummaryItemsLogic = () => {
 	return {
 		isAuthorizedToEdit,
 		unit,
+		unit_type,
 		changeSummaryItemLabel,
 		changeSummaryItemText,
 		removeSummaryItem,

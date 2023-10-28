@@ -6,6 +6,7 @@ import { Description } from "./Description/Description";
 import { PrimaryImage } from "./PrimaryImage/PrimaryImage";
 import { Date } from "./Date/Date";
 import { SummaryItems } from "./SummaryItems/SummaryItems";
+import { LocationProperties } from "./LocationProperties/LocationProperties";
 
 // Logic
 
@@ -30,6 +31,7 @@ export const Overview = ({ innerRef }) => {
 						<PrimaryImage />
 						<Date />
 						<SummaryItems />
+						<LocationProperties />
 					</div>
 				</div>
 				<Background />

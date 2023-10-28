@@ -120,3 +120,8 @@
 		max-width: calc(100vw - 84px);
 	}
 }
+
+.unit-page-container-location .unit-page-primary-name-and-type-container {
+	flex-direction: row;
+	flex-wrap: wrap;
+}

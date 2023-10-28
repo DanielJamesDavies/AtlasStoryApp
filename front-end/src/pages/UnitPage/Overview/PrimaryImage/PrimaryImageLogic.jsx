@@ -17,7 +17,7 @@ import { LightboxContext } from "../../../../context/LightboxContext";
 // Assets
 
 export const PrimaryImageLogic = () => {
-	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, unitPrimaryImages, setUnitPrimaryImage } = useContext(UnitPageContext);
+	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, unitPrimaryImages, setUnitPrimaryImages } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
 
@@ -32,7 +32,7 @@ export const PrimaryImageLogic = () => {
 		if (newUnitPrimaryImagesIndex === -1) return false;
 		if (newCharacterPrimaryImages[newUnitPrimaryImagesIndex]?.image?.image)
 			newCharacterPrimaryImages[newUnitPrimaryImagesIndex].image.image = image;
-		setUnitPrimaryImage(newCharacterPrimaryImages);
+		setUnitPrimaryImages(newCharacterPrimaryImages);
 	}
 
 	async function revertPrimaryImage() {
@@ -43,7 +43,7 @@ export const PrimaryImageLogic = () => {
 		const response = await APIRequest("/image/" + unitVersion?.primaryImage, "GET");
 		if (!response || response?.errors || !response?.data?.image?.image) return false;
 		newCharacterPrimaryImages[newUnitPrimaryImagesIndex].image = response.data.image;
-		setUnitPrimaryImage(newCharacterPrimaryImages);
+		setUnitPrimaryImages(newCharacterPrimaryImages);
 		return true;
 	}
 
@@ -74,6 +74,7 @@ export const PrimaryImageLogic = () => {
 
 	return {
 		isAuthorizedToEdit,
+		unit_type,
 		unitVersion,
 		unitPrimaryImages,
 		onPrimaryImageClick,

@@ -1,0 +1,50 @@
+.unit-page-overview-location-properties-container {
+	width: 100%;
+}
+
+.unit-page-overview-location-properties-item {
+	margin-bottom: 8px;
+	padding: 8px 12px;
+	border-radius: 8px;
+	background: linear-gradient(0deg, var(--unitColour), var(--unitColourTint) 130%);
+	text-align: left;
+	color: #fff;
+}
+
+.unit-page-overview-location-properties-item-label {
+	font-size: var(--font-size-p-s);
+	font-weight: 600;
+	min-height: var(--font-size-p-s-height);
+	width: max-content;
+}
+
+.editable-container-is-editing .unit-page-overview-location-properties-item-label {
+	margin-bottom: -4px;
+}
+
+.unit-page-overview-location-properties-item-value,
+.unit-page-overview-location-properties-item-value input {
+	font-size: var(--font-size-p-m);
+	min-height: var(--font-size-p-m-height);
+}
+
+.unit-page-overview-location-properties-item-point-container {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: var(--font-size-p-m);
+	min-height: var(--font-size-p-m-height);
+}
+
+.unit-page-overview-location-properties-item-point-label {
+	flex-shrink: 0;
+	width: max-content;
+}
+
+.unit-page-overview-location-properties-item-point-container:nth-child(2) {
+	margin-top: 2px;
+}
+
+.unit-page-overview-location-properties-item:nth-child(1) .unit-page-overview-location-properties-item-label {
+	margin-bottom: 2px;
+}

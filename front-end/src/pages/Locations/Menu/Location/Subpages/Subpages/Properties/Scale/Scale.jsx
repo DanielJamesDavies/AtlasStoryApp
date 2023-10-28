@@ -20,7 +20,10 @@ import "./Scale.css";
 export const LocationScale = () => {
 	const { isAuthorizedToEdit, location, scaleUnits, displayedScale, changeScale, changeScaleUnit, revertScale, saveScale } = LocationScaleLogic();
 
-	if (["reality"].includes(location?.type) || (!isAuthorizedToEdit && scaleUnits.findIndex((e) => e.id === location?.data?.scaleUnit) === -1))
+	if (
+		["reality", "starSystem"].includes(location?.type) ||
+		(!isAuthorizedToEdit && scaleUnits.findIndex((e) => e.id === location?.data?.scaleUnit) === -1)
+	)
 		return null;
 	return (
 		<EditableContainer

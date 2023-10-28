@@ -15,6 +15,7 @@ const LocationSchema = mongoose.Schema({
 		required: true,
 	},
 	type: { type: String, required: true, default: "reality" },
+	views: { type: Number, required: true, default: 0 },
 	position: { type: [Number], required: true, default: [0, 0, 0] },
 	rotation: { type: [Number], required: true, default: [0, 0, 0] },
 	scale: { type: Number, required: true, default: 1 },
