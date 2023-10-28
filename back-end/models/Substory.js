@@ -35,7 +35,7 @@ const SubstorySchema = mongoose.Schema({
 								_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
 								label: { type: String, default: "" },
 								text: { type: [String], default: [""] },
-								images: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+								images: { type: [{ image: mongoose.Schema.Types.ObjectId, caption: "" }], default: [] },
 							},
 						],
 						default: [],

@@ -28,7 +28,9 @@
 }
 
 .unit-page-subpage-plot-item-btns-container {
-	display: inline-block;
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: center;
 	vertical-align: top;
 	width: calc(22px + 8px);
 }
@@ -47,4 +49,54 @@
 .unit-page-subpage-plot-item-label.text-input-container-empty {
 	margin-top: -1px;
 	margin-bottom: 4px;
+}
+
+.unit-page-subpage-plot-item-images {
+	display: inline-flex;
+	flex-wrap: wrap;
+	text-align: left;
+	width: 100%;
+}
+
+.unit-page-subpage-plot-item-image-item {
+	position: relative;
+	margin: 4px;
+	width: calc((100% / 3) - 8px);
+}
+
+.drag-drop-item-enable-drag-drop .unit-page-subpage-plot-item-image-item {
+	-webkit-user-drag: element;
+}
+
+.unit-page-subpage-plot-item-image-item img {
+	width: 100%;
+	max-height: max(18vw, 140px);
+	object-fit: contain;
+}
+
+.unit-page-subpage-plot-item-image-item-caption {
+	padding: 3px 8px;
+	border-radius: 4px;
+	min-width: 46px;
+	width: max-content;
+	max-width: calc(100% - 16px);
+	word-break: break-word;
+	overflow-wrap: anywhere;
+	background: var(--colour-grey-three);
+}
+
+.unit-page-subpage-plot-item-image-item-caption,
+.unit-page-subpage-plot-item-image-item-caption input {
+	font-size: var(--font-size-p-m);
+	min-height: 20px;
+}
+
+.unit-page-subpage-plot-item-image-item-caption .text-input-label {
+	left: 8px !important;
+}
+
+.unit-page-subpage-plot-item-image-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
 }

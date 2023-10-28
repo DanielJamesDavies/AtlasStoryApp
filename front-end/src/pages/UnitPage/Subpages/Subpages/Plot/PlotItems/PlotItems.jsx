@@ -4,6 +4,7 @@
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
+import { UnitImages } from "../../../UnitImages/UnitImages";
 import { PlotItem } from "./PlotItem";
 
 // Logic
@@ -32,6 +33,12 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 		plotItemsContainerRef,
 		plotItemsListRef,
 		onPlotItemsListContainerScroll,
+		unitImagesCurrPlotItemID,
+		openUnitImages,
+		closeUnitImages,
+		addImageToPlotItem,
+		unitImages,
+		onPlotItemImageClick,
 	} = PlotItemsLogic({
 		cluster,
 		changeCluster,
@@ -60,6 +67,9 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 									<div key={index} className='unit-page-subpage-plot-item-container'>
 										<PlotItem
 											item={item}
+											plot_index={unit.data.plot.items.findIndex((e) => e?._id === item?._id)}
+											unitImages={unitImages}
+											onPlotItemImageClick={onPlotItemImageClick}
 											removePlotItem={removePlotItem}
 											addPlotItem={addPlotItem}
 											cluster={cluster}
@@ -81,15 +91,21 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 									<DragDropItem key={index} index={index} className='unit-page-subpage-plot-item-container'>
 										<PlotItem
 											item={item}
+											plot_index={unit.data.plot.items.findIndex((e) => e?._id === item?._id)}
+											unitImages={unitImages}
+											onPlotItemImageClick={onPlotItemImageClick}
 											removePlotItem={removePlotItem}
 											addPlotItem={addPlotItem}
 											cluster={cluster}
 											groupID={groupID}
 											isEditing={true}
+											openUnitImages={openUnitImages}
+											isReorderingPlotItems={isReorderingPlotItems}
 										/>
 									</DragDropItem>
 							  ))}
 					</DragDropContainer>
+					{unitImagesCurrPlotItemID === -1 ? null : <UnitImages onAddImage={addImageToPlotItem} onClose={closeUnitImages} />}
 				</EditableContainer>
 			</div>
 		);
@@ -141,6 +157,7 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 									</div>
 								))}
 				</div>
+				{unitImagesCurrPlotItemID === -1 ? null : <UnitImages onAddImage={addImageToPlotItem} onClose={closeUnitImages} />}
 			</EditableContainer>
 		</div>
 	);

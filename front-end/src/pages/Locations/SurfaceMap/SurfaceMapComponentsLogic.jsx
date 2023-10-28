@@ -96,6 +96,7 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRe
 					const region_id = surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].getAttribute("data-region-id");
 					const region = location?.data?.regions?.find((e) => e?._id === region_id);
 					if (region?.location) setCurrentMapLocationId(region?.location);
+					setSurfaceMapHoveringRegion(false);
 					break;
 				default:
 					break;
@@ -109,6 +110,7 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapImageComponentsContainerRe
 			locations,
 			currentMapLocationId,
 			setCurrentMapLocationId,
+			setSurfaceMapHoveringRegion,
 		]
 	);
 

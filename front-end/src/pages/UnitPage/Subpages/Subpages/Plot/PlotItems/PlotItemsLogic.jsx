@@ -8,6 +8,7 @@ import { useContext, useState, useRef, useLayoutEffect } from "react";
 // Context
 import { UnitPageContext } from "../../../../UnitPageContext";
 import { APIContext } from "../../../../../../context/APIContext";
+import { LightboxContext } from "../../../../../../context/LightboxContext";
 
 // Services
 
@@ -16,8 +17,9 @@ import { APIContext } from "../../../../../../context/APIContext";
 // Assets
 
 export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
-	const { unit_type, isAuthorizedToEdit, story, unit, setUnit } = useContext(UnitPageContext);
+	const { unit_type, isAuthorizedToEdit, story, unit, setUnit, unitImages } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
+	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
 
 	async function addPlotItem() {
 		let newUnit = JSON.parse(JSON.stringify(unit));
@@ -102,6 +104,7 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 				path: ["data", "plot", "items"],
 				newValue: newUnit.data.plot.items,
 			});
+			console.log(response);
 			if (!response || response?.errors) return false;
 
 			setUnit(newUnit);
@@ -178,6 +181,32 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 		e.stopPropagation();
 	}
 
+	const [unitImagesCurrPlotItemID, setUnitImagesCurrPlotItemID] = useState(-1);
+	function openUnitImages(index) {
+		setUnitImagesCurrPlotItemID(index);
+	}
+
+	function closeUnitImages() {
+		setUnitImagesCurrPlotItemID(-1);
+	}
+
+	function addImageToPlotItem(image_id) {
+		const newUnitImagesCurrPlotItemID = JSON.parse(JSON.stringify(unitImagesCurrPlotItemID));
+		let newUnit = JSON.parse(JSON.stringify(unit));
+		const plotItemIndex = newUnit.data.plot.items.findIndex((e) => e?._id === newUnitImagesCurrPlotItemID);
+		if (plotItemIndex === -1) return false;
+		if (newUnit.data.plot.items[plotItemIndex].images.findIndex((e) => e.image === image_id) !== -1) return false;
+		newUnit.data.plot.items[plotItemIndex].images.push({ image: image_id, caption: "" });
+		setUnit(newUnit);
+	}
+
+	function onPlotItemImageClick(item_id, image_index) {
+		const plotItemIndex = unit.data.plot.items.findIndex((e) => e?._id === item_id);
+		if (plotItemIndex === -1) return false;
+		setLightboxImageIDs(unit.data.plot.items[plotItemIndex].images);
+		setLightboxIndex(image_index);
+	}
+
 	return {
 		isAuthorizedToEdit,
 		unit,
@@ -191,5 +220,11 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 		plotItemsContainerRef,
 		plotItemsListRef,
 		onPlotItemsListContainerScroll,
+		unitImagesCurrPlotItemID,
+		openUnitImages,
+		closeUnitImages,
+		addImageToPlotItem,
+		unitImages,
+		onPlotItemImageClick,
 	};
 };

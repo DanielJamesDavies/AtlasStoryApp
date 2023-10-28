@@ -14,7 +14,7 @@ import { UnitPageContext } from "../../../../UnitPageContext";
 
 // Assets
 
-export const PlotItemLogic = ({ item }) => {
+export const PlotItemLogic = ({ item, plot_index }) => {
 	const { unit, setUnit } = useContext(UnitPageContext);
 
 	function changeItemLabel(e) {
@@ -43,5 +43,34 @@ export const PlotItemLogic = ({ item }) => {
 		setIsDisplayingPlotItemAddToGroupMenu(false);
 	}
 
-	return { changeItemLabel, changeItemText, isDisplayingPlotItemAddToGroupMenu, showPlotItemAddToGroupMenu, hidePlotItemAddToGroupMenu };
+	function reorderItemImages(res) {
+		if (res.from === undefined || res.to === undefined) return false;
+		let newUnit = JSON.parse(JSON.stringify(unit));
+		const tempItemImage = newUnit.data.plot.items[plot_index].images.splice(res.from, 1)[0];
+		newUnit.data.plot.items[plot_index].images.splice(res.to, 0, tempItemImage);
+		setUnit(newUnit);
+	}
+
+	function changeImageCaption(e, index) {
+		let newUnit = JSON.parse(JSON.stringify(unit));
+		newUnit.data.plot.items[plot_index].images[index].caption = e.target.value;
+		setUnit(newUnit);
+	}
+
+	function removeItemImage(index) {
+		let newUnit = JSON.parse(JSON.stringify(unit));
+		newUnit.data.plot.items[plot_index].images.splice(index, 1);
+		setUnit(newUnit);
+	}
+
+	return {
+		changeItemLabel,
+		changeItemText,
+		isDisplayingPlotItemAddToGroupMenu,
+		showPlotItemAddToGroupMenu,
+		hidePlotItemAddToGroupMenu,
+		reorderItemImages,
+		changeImageCaption,
+		removeItemImage,
+	};
 };

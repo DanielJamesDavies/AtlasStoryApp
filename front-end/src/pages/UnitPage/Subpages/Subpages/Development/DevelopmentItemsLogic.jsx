@@ -100,13 +100,13 @@ export const DevelopmentItemsLogic = () => {
 		return true;
 	}
 
-	const [unitImagesCurrDevItemIndex, setunitImagesCurrDevItemIndex] = useState(-1);
+	const [unitImagesCurrDevItemIndex, setUnitImagesCurrDevItemIndex] = useState(-1);
 	function openUnitImages(index) {
-		setunitImagesCurrDevItemIndex(index);
+		setUnitImagesCurrDevItemIndex(index);
 	}
 
 	function closeUnitImages() {
-		setunitImagesCurrDevItemIndex(-1);
+		setUnitImagesCurrDevItemIndex(-1);
 	}
 
 	function addImageToDevItem(image_id) {
