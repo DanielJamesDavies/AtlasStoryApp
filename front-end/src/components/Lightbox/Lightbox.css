@@ -73,6 +73,8 @@
 	transform: translateX(-50%);
 	width: max-content;
 	max-width: 100vw;
+	pointer-events: none;
+	user-select: none;
 }
 
 .lightbox-caption-container {
@@ -91,6 +93,8 @@
 	max-width: calc(100vw - 16px - 16px);
 	word-break: break-word;
 	overflow-wrap: anywhere;
+	pointer-events: none;
+	user-select: none;
 }
 
 .lightbox-text-image-file-size {
@@ -98,6 +102,8 @@
 	margin-left: 6px;
 	font-size: var(--font-size-p-s);
 	opacity: 0.4;
+	pointer-events: none;
+	user-select: none;
 }
 
 .lightbox-switch-btn {
