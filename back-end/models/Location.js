@@ -49,7 +49,6 @@ const LocationSchema = mongoose.Schema({
 			},
 			mapImageComponents: {
 				type: String,
-				required: true,
 				default: "",
 			},
 			regions: {

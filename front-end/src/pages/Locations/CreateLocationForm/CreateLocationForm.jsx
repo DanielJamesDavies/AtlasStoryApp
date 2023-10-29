@@ -57,7 +57,7 @@ export const CreateLocationForm = () => {
 					<SuggestionsMessage suggestions={itemUIDSuggestions} labelContext={"for UID"} />
 					{itemUid.length === 0 ? null : (
 						<URLPreviewMessage
-							path={"s/" + story_uid + "/c/" + itemUid}
+							path={"s/" + story_uid + "/l/" + itemUid}
 							label='With this UID, your location will be accessable on the following URL:'
 						/>
 					)}
