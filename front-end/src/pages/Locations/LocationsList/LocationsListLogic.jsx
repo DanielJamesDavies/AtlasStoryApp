@@ -40,9 +40,9 @@ export const LocationsListLogic = () => {
 
 	useEffect(() => updateSearchedLocations(), [locations, searchValue, updateSearchedLocations]);
 
-	function onClickLocation(location) {
+	function onClickLocation(e, location) {
 		if (story_uid && location?.uid) {
-			changeLocation("/s/" + story_uid + "/l/" + location?.uid);
+			changeLocation("/s/" + story_uid + "/l/" + location?.uid, e.button === 1);
 		}
 	}
 

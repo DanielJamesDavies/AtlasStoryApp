@@ -38,7 +38,7 @@ export const SurfaceMapMovementLogic = ({
 	const getDimensionsZoom = useCallback(() => {
 		let width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
 		let height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
-		if (window.innerWidth <= max_mobile_width) height_zoom = (window?.innerHeight + 58) / surfaceMapImageRef?.current?.clientHeight;
+		if (window.innerWidth <= max_mobile_width) height_zoom = (window?.innerHeight - 58) / surfaceMapImageRef?.current?.clientHeight;
 		return { width_zoom, height_zoom };
 	}, [surfaceMapImageRef]);
 

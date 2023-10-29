@@ -54,7 +54,12 @@ export const LocationsList = () => {
 						?.map((location, index) => (
 							<div key={index}>
 								{index === 0 ? null : <div className='locations-list-item-divider'></div>}
-								<div className='locations-list-item' onClick={() => onClickLocation(location)}>
+								<div
+									className='locations-list-item'
+									onMouseDown={(e) => e.preventDefault()}
+									onClick={(e) => onClickLocation(e, location)}
+									onAuxClick={(e) => onClickLocation(e, location)}
+								>
 									<div className='locations-list-item-name'>{location?.data?.name}</div>
 									<div className='locations-list-item-type'>
 										{locationTypes.find((e) => e?.type === location?.type)?.icon}

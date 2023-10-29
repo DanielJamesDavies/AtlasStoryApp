@@ -244,7 +244,11 @@ export const SurfaceMapRegionsLogic = ({
 		const imageContainerHeightDelta =
 			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 		const min_pointY = (imageContainerHeightDelta / zoom.current) * height_zoom;
-		surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(${(min_pointY, min_pointY * (1 / height_zoom))}px)`;
+		if (Math.sign(min_pointY) === -1) {
+			surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(${min_pointY * (1 / height_zoom)}px)`;
+		} else {
+			surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(0px)`;
+		}
 	}, [surfaceMapImageContainerRef, surfaceMapImageRef, surfaceMapImageRegionsNamesRef, zoom]);
 
 	const createRegionsNames = useCallback(async () => {
