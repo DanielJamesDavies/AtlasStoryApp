@@ -1,7 +1,7 @@
 .lore-list-item {
 	flex-shrink: 0;
 	flex-grow: 0;
-	width: calc(min(12px, 2vw) * 16);
+	width: calc(min(11.7px, max(0.65vw, 7.2px)) * 16);
 	cursor: pointer;
 }
 
@@ -30,7 +30,7 @@
 	margin-bottom: 4px;
 	border: 2px solid var(--colour-grey-five);
 	width: 100%;
-	height: calc(min(12px, 2vw) * 9);
+	height: calc(min(11.7px, max(0.65vw, 7.2px)) * 9);
 	border-radius: 5px;
 	background: var(--colour-grey-two);
 	box-shadow: 0 0 20px transparent;

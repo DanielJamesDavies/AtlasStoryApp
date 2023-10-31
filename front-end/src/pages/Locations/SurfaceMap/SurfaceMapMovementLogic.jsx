@@ -59,8 +59,8 @@ export const SurfaceMapMovementLogic = ({
 		if (isDisplayingHierarchyValue.current) max_pointX += menuWidth;
 
 		// X Bounds
-		if (pointX.current > 68 - 1 * zoom.current) pointX.current = 68 - 1 * zoom.current;
-		if (window.innerWidth <= max_mobile_width && pointX.current > imageContainerWidthDelta / 20) pointX.current = imageContainerWidthDelta / 20;
+		if (pointX.current > 68 - 1 * zoom.current && window.innerWidth > max_mobile_width) pointX.current = 68 - 1 * zoom.current;
+		if (window.innerWidth <= max_mobile_width && pointX.current > 0) pointX.current = 0;
 		if (pointX.current < -max_pointX) pointX.current = -max_pointX;
 
 		// Y Bounds

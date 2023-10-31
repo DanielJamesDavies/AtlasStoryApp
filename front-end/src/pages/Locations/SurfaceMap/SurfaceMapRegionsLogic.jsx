@@ -281,6 +281,8 @@ export const SurfaceMapRegionsLogic = ({
 
 				const regionNamesTextBox = regionsNamesTexts[region_index]?.getBoundingClientRect();
 
+				if (regionNamesTextBox?.width === 0 || regionNamesTextBox?.height === 0) return false;
+
 				const full_width = Math.ceil(b[0] - a[0]);
 				const full_height = Math.ceil(c[1] - a[1]);
 
@@ -306,7 +308,7 @@ export const SurfaceMapRegionsLogic = ({
 						<svg
 							viewBox='0 0 ${text_svg_width} ${text_svg_height}'
 							style='overflow: visible; width: 100%; font-size: ${Math.max(
-								4 / zoom.current,
+								2,
 								Math.min(26 / zoom.current, 5.5 * zoom.current * (text_svg_height / regionNamesTextBox?.height))
 							)}px'
 							dominant-baseline="middle" text-anchor="middle"
@@ -359,6 +361,8 @@ export const SurfaceMapRegionsLogic = ({
 
 			const regionNamesTextBox = regionsNamesTexts[region_index]?.getBoundingClientRect();
 
+			if (regionNamesTextBox?.width === 0 || regionNamesTextBox?.height === 0) return false;
+
 			const full_width = Math.ceil(b[0] - a[0]);
 			const full_height = Math.ceil(c[1] - a[1]);
 
@@ -373,9 +377,9 @@ export const SurfaceMapRegionsLogic = ({
 			}
 
 			name_div.style = `top: ${a[1]}px; left: ${Math.ceil(a[0])}px;width: ${full_width}px; height: ${full_height}px;`;
-			name_div.children[0].style = `overflow: visible; width: 100%; font-size: ${Math.max(
-				4 / zoom.current,
-				Math.min(26 / zoom.current, 5.5 * zoom.current * (text_svg_height / regionNamesTextBox?.height))
+			name_div.children[0].style = `overflow: visible; width: 100%; max-height: 100%; font-size: ${Math.max(
+				4,
+				4.5 * zoom.current * (text_svg_width / regionNamesTextBox?.width)
 			)}px`;
 			name_div.children[0].setAttribute("viewBox", `0 0 ${text_svg_width} ${text_svg_height}`);
 			name_div.children[0].children[0].style = `fill: #fff; letter-spacing: ${Math.min(

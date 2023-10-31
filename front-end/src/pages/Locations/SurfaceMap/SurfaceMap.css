@@ -424,10 +424,6 @@
 		background: #000;
 	}
 
-	.locations-surface-map-image {
-		width: calc(100% - 64px);
-	}
-
 	.locations-surface-map-movement-box {
 		display: none;
 		pointer-events: none;
