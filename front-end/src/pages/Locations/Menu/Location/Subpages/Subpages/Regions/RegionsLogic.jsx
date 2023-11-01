@@ -18,7 +18,7 @@ import { HierarchyFunctions } from "../../../../../HierarchyFunctions";
 // Assets
 
 export const RegionsLogic = () => {
-	const { isAuthorizedToEdit, story, locations, setLocations, selectedLocationId } = useContext(LocationsContext);
+	const { isAuthorizedToEdit, story, locations, setLocations, selectedLocationId, isDrawingSurfaceMapComponents, setIsDrawingSurfaceMapComponents } = useContext(LocationsContext);
 	const { location, setLocation } = useContext(LocationContext);
 	const { APIRequest } = useContext(APIContext);
 	const { getItemFromIdInHierarchy } = HierarchyFunctions();
@@ -127,6 +127,10 @@ export const RegionsLogic = () => {
 		return true;
 	}
 
+	function toggleIsDrawingSurfaceMapComponents() {
+		setIsDrawingSurfaceMapComponents((oldValue) => !oldValue)
+	}
+
 	return {
 		isAuthorizedToEdit,
 		location,
@@ -138,5 +142,7 @@ export const RegionsLogic = () => {
 		revertRegionsItems,
 		saveRegionsItems,
 		errors,
+		isDrawingSurfaceMapComponents,
+		toggleIsDrawingSurfaceMapComponents,
 	};
 };

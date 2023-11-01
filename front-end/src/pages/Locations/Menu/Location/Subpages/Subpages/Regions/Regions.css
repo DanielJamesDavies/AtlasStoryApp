@@ -13,6 +13,35 @@
 	overflow-x: hidden;
 }
 
+.locations-location-regions-start-drawing-btn-container {
+	display: flex;
+	justify-content: right;
+	margin-bottom: 6px;
+}
+
+.locations-location-regions-start-drawing-btn {
+	border: 0;
+	border-radius: 5px;
+	padding: 6px 12px;
+	background: var(--colour-accent);
+	color: #fff;
+	font-size: 13px;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.locations-location-regions-start-drawing-btn:hover {
+	background: var(--colour-accent-hover);
+}
+
+.locations-location-regions-start-drawing-btn-active {
+	background: var(--colour-red);
+}
+
+.locations-location-regions-start-drawing-btn-active:hover {
+	background: var(--colour-red-tint);
+}
+
 @media (max-width: 750px) {
 	.locations-location-regions-items {
 		height: calc(var(--locationsSubpageHeight) - 32px - 8px);

@@ -29,7 +29,7 @@ export const SurfaceMapMovementLogic = ({
 	setIsScrolling,
 	locationMapImage,
 }) => {
-	const { isDisplayingHierarchy } = useContext(LocationsContext);
+	const { isDisplayingHierarchy, isDrawingSurfaceMapComponents } = useContext(LocationsContext);
 
 	const isDisplayingHierarchyValue = useRef();
 
@@ -46,8 +46,6 @@ export const SurfaceMapMovementLogic = ({
 		const { width_zoom, height_zoom } = getDimensionsZoom();
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
 
-		const imageContainerWidthDelta =
-			((surfaceMapImageContainerRef?.current?.clientWidth - surfaceMapImageRef?.current?.clientWidth) * zoom.current) / 2;
 		let max_pointX = surfaceMapImageRef?.current?.clientWidth * zoom.current - window.innerWidth - 1 * zoom.current;
 
 		const imageContainerHeightDelta =
@@ -173,7 +171,7 @@ export const SurfaceMapMovementLogic = ({
 
 	function imageSurfaceMapOnMouseMove(e) {
 		e.preventDefault();
-		if (!panning.current) return;
+		if (!panning.current || isDrawingSurfaceMapComponents) return;
 		pointX.current = e.clientX - startPos.x;
 		pointY.current = e.clientY - startPos.y;
 

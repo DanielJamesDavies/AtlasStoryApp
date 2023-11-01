@@ -71,9 +71,13 @@ export const SurfaceMapLogic = () => {
 	});
 
 	const { surfaceMapImageComponentsStyles } = SurfaceMapComponentsLogic({
+		surfaceMapContainerRef,
+		surfaceMapImageContainerRef,
 		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageRef,
 		zoom,
+		pointX,
+		pointY,
 		locationMapImage,
 	});
 

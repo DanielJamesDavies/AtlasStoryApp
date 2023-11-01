@@ -31,6 +31,8 @@ export const Regions = () => {
 		revertRegionsItems,
 		saveRegionsItems,
 		errors,
+		isDrawingSurfaceMapComponents,
+		toggleIsDrawingSurfaceMapComponents,
 	} = RegionsLogic();
 
 	return (
@@ -51,6 +53,14 @@ export const Regions = () => {
 					))}
 				</div>
 				<div>
+					<div className="locations-location-regions-start-drawing-btn-container">
+						<button
+							className={"locations-location-regions-start-drawing-btn" + (isDrawingSurfaceMapComponents ? " locations-location-regions-start-drawing-btn-active" : "")}
+							onClick={toggleIsDrawingSurfaceMapComponents}
+						>
+							{isDrawingSurfaceMapComponents ? "Stop Drawing New Components" : "Start Drawing New Components"}
+						</button>
+					</div>
 					<ErrorMessage errors={errors} />
 					<DragDropContainer
 						className='locations-location-regions-items'
