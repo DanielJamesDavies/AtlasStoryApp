@@ -27,6 +27,8 @@ export const SurfaceMap = () => {
 		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageRegionsNamesRef,
 		surfaceMapImageRegionsNamesTextsRef,
+		surfaceMapDrawingShapeRef,
+		surfaceMapImageNewComponentsRef,
 		locationMapImage,
 		onTouchStart,
 		onTouchMove,
@@ -94,6 +96,10 @@ export const SurfaceMap = () => {
 											__html: sanitize(regionNamesTexts),
 										}}
 									></div>
+								</div>
+								<div ref={surfaceMapDrawingShapeRef} className='locations-surface-map-drawing-shape-container'></div>
+								<div className='locations-surface-map-image-new-components-container'>
+									<svg version='1.1' ref={surfaceMapImageNewComponentsRef}></svg>
 								</div>
 							</div>
 						</div>

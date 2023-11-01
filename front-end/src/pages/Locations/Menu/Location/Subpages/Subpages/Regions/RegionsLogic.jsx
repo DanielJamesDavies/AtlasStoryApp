@@ -18,7 +18,15 @@ import { HierarchyFunctions } from "../../../../../HierarchyFunctions";
 // Assets
 
 export const RegionsLogic = () => {
-	const { isAuthorizedToEdit, story, locations, setLocations, selectedLocationId, isDrawingSurfaceMapComponents, setIsDrawingSurfaceMapComponents } = useContext(LocationsContext);
+	const {
+		isAuthorizedToEdit,
+		story,
+		locations,
+		setLocations,
+		selectedLocationId,
+		isDrawingSurfaceMapComponents,
+		setIsDrawingSurfaceMapComponents,
+	} = useContext(LocationsContext);
 	const { location, setLocation } = useContext(LocationContext);
 	const { APIRequest } = useContext(APIContext);
 	const { getItemFromIdInHierarchy } = HierarchyFunctions();
@@ -29,9 +37,11 @@ export const RegionsLogic = () => {
 		function flattenHierarchyItems(heirarchyItem) {
 			let items = [heirarchyItem?._id];
 			if (heirarchyItem?.children) {
-				items = items.concat(heirarchyItem?.children?.map((e) => {
-					return flattenHierarchyItems(e);
-				}))
+				items = items.concat(
+					heirarchyItem?.children?.map((e) => {
+						return flattenHierarchyItems(e);
+					})
+				);
 			}
 			return items.flat();
 		}
@@ -40,11 +50,14 @@ export const RegionsLogic = () => {
 			const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 			const heirarchyItem = getItemFromIdInHierarchy(newSelectedLocationId, story?.data?.locationsHierarchy);
 
-			const newLocationChildren = flattenHierarchyItems(heirarchyItem).filter((e) => e !== newSelectedLocationId).map((id) => {
-				const location = locations?.find((e) => e?._id === id);
-				return { _id: id, type: location?.type, data: { name: location?.data?.name } };
-			})?.filter((e) => e?.type === "surfaceLocation");
-			
+			const newLocationChildren = flattenHierarchyItems(heirarchyItem)
+				.filter((e) => e !== newSelectedLocationId)
+				.map((id) => {
+					const location = locations?.find((e) => e?._id === id);
+					return { _id: id, type: location?.type, data: { name: location?.data?.name } };
+				})
+				?.filter((e) => e?.type === "surfaceLocation");
+
 			setLocationChildren(newLocationChildren);
 		}
 		getLocationChildren();
@@ -76,7 +89,7 @@ export const RegionsLogic = () => {
 
 	function reorderRegionsItems(res) {
 		if (res?.from === undefined || res?.to === undefined) return false;
-		
+
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
@@ -115,6 +128,10 @@ export const RegionsLogic = () => {
 	async function saveRegionsItems() {
 		setErrors([]);
 		if (!location?._id) return;
+
+		const locationsLocation = locations?.find((e) => e?._id === location?._id);
+		if (!locationsLocation) return false;
+
 		const response = await APIRequest("/location/" + location._id, "PATCH", {
 			story_id: story._id,
 			path: ["data", "regions"],
@@ -124,11 +141,22 @@ export const RegionsLogic = () => {
 			if (response?.errors) setErrors(response.errors);
 			return false;
 		}
+
+		const components_response = await APIRequest("/location/" + location._id, "PATCH", {
+			story_id: story._id,
+			path: ["data", "mapImageComponents"],
+			newValue: locationsLocation.data.mapImageComponents,
+		});
+		if (!components_response || components_response?.errors) {
+			if (components_response?.errors) setErrors(components_response.errors);
+			return false;
+		}
+
 		return true;
 	}
 
 	function toggleIsDrawingSurfaceMapComponents() {
-		setIsDrawingSurfaceMapComponents((oldValue) => !oldValue)
+		setIsDrawingSurfaceMapComponents((oldValue) => !oldValue);
 	}
 
 	return {

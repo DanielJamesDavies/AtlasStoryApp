@@ -45,6 +45,8 @@ export const SurfaceMapLogic = () => {
 	const surfaceMapImageComponentsContainerRef = useRef();
 	const surfaceMapImageRegionsNamesRef = useRef();
 	const surfaceMapImageRegionsNamesTextsRef = useRef();
+	const surfaceMapDrawingShapeRef = useRef();
+	const surfaceMapImageNewComponentsRef = useRef();
 
 	const currentLocationId = useRef(false);
 	var regionClusters = useRef();
@@ -75,6 +77,8 @@ export const SurfaceMapLogic = () => {
 		surfaceMapImageContainerRef,
 		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageRef,
+		surfaceMapDrawingShapeRef,
+		surfaceMapImageNewComponentsRef,
 		zoom,
 		pointX,
 		pointY,
@@ -137,6 +141,9 @@ export const SurfaceMapLogic = () => {
 				loadingCircleContainerLoadedRef.current.style = ``;
 				loadingCircleContainerLoadedRef.current.children[0].style = ``;
 				loadingCircleContainerLoadedRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
+
+				surfaceMapImageNewComponentsRef.current.setAttribute("width", surfaceMapImageRef?.current?.clientWidth);
+				surfaceMapImageNewComponentsRef.current.setAttribute("height", surfaceMapImageRef?.current?.clientHeight);
 			}, 1200);
 
 			lastWindowWidth.current = window.innerWidth;
@@ -154,6 +161,8 @@ export const SurfaceMapLogic = () => {
 		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageRegionsNamesRef,
 		surfaceMapImageRegionsNamesTextsRef,
+		surfaceMapDrawingShapeRef,
+		surfaceMapImageNewComponentsRef,
 		locationMapImage,
 		onTouchStart,
 		onTouchMove,

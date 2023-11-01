@@ -472,7 +472,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 				updateSurfaceMapComponentsList,
 				surfaceMapHoveringRegion,
 				setSurfaceMapHoveringRegion,
-				isDrawingSurfaceMapComponents, 
+				isDrawingSurfaceMapComponents,
 				setIsDrawingSurfaceMapComponents,
 				scenesChangePlayerInitial,
 				isDisplayingCreateLocationForm,

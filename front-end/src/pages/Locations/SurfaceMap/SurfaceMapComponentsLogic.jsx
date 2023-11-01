@@ -1,5 +1,6 @@
 // Packages
 import { useContext, useEffect, useState, useCallback, useRef } from "react";
+import { toPath } from "svg-points";
 
 // Components
 
@@ -14,9 +15,20 @@ import { LocationsContext } from "../LocationsContext";
 
 // Assets
 
-export const SurfaceMapComponentsLogic = ({ surfaceMapContainerRef, surfaceMapImageContainerRef, surfaceMapImageComponentsContainerRef, surfaceMapImageRef, zoom, pointX, pointY, locationMapImage }) => {
+export const SurfaceMapComponentsLogic = ({
+	surfaceMapContainerRef,
+	surfaceMapImageComponentsContainerRef,
+	surfaceMapImageRef,
+	surfaceMapDrawingShapeRef,
+	surfaceMapImageNewComponentsRef,
+	zoom,
+	pointX,
+	pointY,
+	locationMapImage,
+}) => {
 	const {
 		locations,
+		setLocations,
 		currentMapLocationId,
 		setCurrentMapLocationId,
 		isSelectingSurfaceMapComponents,
@@ -245,69 +257,138 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapContainerRef, surfaceMapIm
 	}, [setSurfaceMapImageComponentsStyles, regionSelectingSurfaceMapComponentsFor, locations, currentMapLocationId]);
 
 	// Drawing Shapes
-	
+
 	const isDrawingShape = useRef(false);
 	const isDrawingLine = useRef(false);
 	const drawingLine = useRef(false);
 	const drawingLineFirstCoords = useRef(false);
 	const drawingLineCurrFirstCoords = useRef(false);
+	const firstDot = useRef(false);
+	const drawingShapeCoords = useRef([]);
 
-	const onMouseMove = useCallback((e) => {
-		if (!isDrawingSurfaceMapComponents) return false;
-		if (!isDrawingShape.current) return false;
+	const onMouseMove = useCallback(
+		(e) => {
+			if (!isDrawingSurfaceMapComponents) return false;
+			if (!isDrawingShape.current) return false;
 
-		const posX = (e?.clientX) / zoom.current - pointX.current / zoom.current;
-		const posY = (e?.clientY) / zoom.current - pointY.current / zoom.current;
+			const posX = e?.clientX / zoom.current - pointX.current / zoom.current;
+			const posY = e?.clientY / zoom.current - pointY.current / zoom.current;
 
-		if (isDrawingLine.current) {
-			const dy = drawingLineCurrFirstCoords.current[1] - posY;
-			const dx = drawingLineCurrFirstCoords.current[0] - posX;
-			const theta = (Math.atan2(dy, dx) * 180 / Math.PI) + 90;
+			if (isDrawingLine.current) {
+				const dy = drawingLineCurrFirstCoords.current[1] - posY;
+				const dx = drawingLineCurrFirstCoords.current[0] - posX;
+				const theta = (Math.atan2(dy, dx) * 180) / Math.PI + 90;
 
-			const length = Math.hypot(Math.abs(drawingLineCurrFirstCoords.current[0] - posX), Math.abs(drawingLineCurrFirstCoords.current[1] - posY));
-			drawingLine.current.style = `position: absolute; z-index: 999999; top: ${drawingLineCurrFirstCoords.current[1]}px; left: ${drawingLineCurrFirstCoords.current[0]}px; display: block; content: ""; width: 2px; height: ${length}px; border-radius: 100%; background: #0044ff; transform: rotate(${theta}deg); transform-origin: top left; opacity: 0.8`
-		}
-	}, [pointX, pointY, zoom, isDrawingSurfaceMapComponents]);
-	
-	const onMouseClick = useCallback((e) => {
-		if (!isDrawingSurfaceMapComponents) return false;
+				const length = Math.hypot(
+					Math.abs(drawingLineCurrFirstCoords.current[0] - posX),
+					Math.abs(drawingLineCurrFirstCoords.current[1] - posY)
+				);
+				drawingLine.current.style = `height: ${length + 1}px; top: ${drawingLineCurrFirstCoords.current[1]}px; left: ${
+					drawingLineCurrFirstCoords.current[0]
+				}px; transform: rotate(${theta}deg);`;
 
-		const posX = (e?.clientX) / zoom.current - pointX.current / zoom.current;
-		const posY = (e?.clientY) / zoom.current - pointY.current / zoom.current;
+				const dist_from_start = Math.hypot(
+					Math.abs(drawingLineFirstCoords.current[0] - posX),
+					Math.abs(drawingLineFirstCoords.current[1] - posY)
+				);
 
-		if (!isDrawingShape.current) {
-			isDrawingShape.current = true;
-			isDrawingLine.current = true;
-			drawingLineFirstCoords.current = [posX, posY];
-
-			const dot = document.createElement("div")
-			dot.style = `position: absolute; z-index: 999999; top: ${posY}px; left: ${posX}px; display: block; content: ""; width: 6px; height: 6px; border-radius: 100%; background: #0044ff`
-			surfaceMapImageContainerRef.current.appendChild(dot);
-			
-			drawingLine.current = document.createElement("div");
-			surfaceMapImageContainerRef.current.appendChild(drawingLine.current);
-			drawingLineCurrFirstCoords.current = [posX, posY];
-		} else {
-			isDrawingLine.current = false;
-			const dot = document.createElement("div")
-			dot.style = `position: absolute; z-index: 999999; top: ${posY}px; left: ${posX}px; display: block; content: ""; width: 6px; height: 6px; border-radius: 100%; background: #0044ff`
-			surfaceMapImageContainerRef.current.appendChild(dot);
-
-			const dist_from_start = Math.hypot(Math.abs(drawingLineFirstCoords.current[0] - posX), Math.abs(drawingLineFirstCoords.current[1] - posY));
-
-			if (dist_from_start < 10) {
-				isDrawingLine.current = false;
-				isDrawingShape.current = false;
-			} else {
-				isDrawingLine.current = true;
-				
-				drawingLine.current = document.createElement("div");
-				drawingLine.current.style = `position: absolute; z-index: 999999; top: ${posY}px; left: ${posX}px; display: block; content: ""; width: 2px; height: 2px; border-radius: 100%; background: #0044ff`
-				surfaceMapImageContainerRef.current.appendChild(drawingLine.current);
-				drawingLineCurrFirstCoords.current = [posX, posY]
+				if (dist_from_start < Math.max(1, 10 / zoom.current) && firstDot?.current) {
+					firstDot.current.classList.add("locations-surface-map-drawing-point-first-hovering");
+				} else {
+					firstDot.current.classList.remove("locations-surface-map-drawing-point-first-hovering");
+				}
 			}
-		}
-	}, [pointX, pointY, zoom, surfaceMapImageContainerRef, isDrawingSurfaceMapComponents]);
+		},
+		[pointX, pointY, zoom, isDrawingSurfaceMapComponents]
+	);
+
+	const onMouseClick = useCallback(
+		(e) => {
+			if (!isDrawingSurfaceMapComponents) return false;
+
+			const posX = e?.clientX / zoom.current - pointX.current / zoom.current;
+			const posY = e?.clientY / zoom.current - pointY.current / zoom.current;
+
+			if (!isDrawingShape.current) {
+				isDrawingShape.current = true;
+				isDrawingLine.current = true;
+				drawingLineFirstCoords.current = [posX, posY];
+
+				const dot = document.createElement("div");
+				dot.classList.add("locations-surface-map-drawing-point");
+				dot.style = `top: ${posY}px; left: ${posX}px;`;
+				surfaceMapDrawingShapeRef.current.appendChild(dot);
+				firstDot.current = dot;
+
+				drawingShapeCoords.current = [[posX, posY]];
+
+				drawingLine.current = document.createElement("div");
+				drawingLine.current.classList.add("locations-surface-map-drawing-line");
+				surfaceMapDrawingShapeRef.current.appendChild(drawingLine.current);
+				drawingLineCurrFirstCoords.current = [posX, posY];
+			} else {
+				isDrawingLine.current = false;
+				const dot = document.createElement("div");
+				dot.classList.add("locations-surface-map-drawing-point");
+				dot.style = `top: ${posY}px; left: ${posX}px;`;
+				surfaceMapDrawingShapeRef.current.appendChild(dot);
+
+				drawingShapeCoords.current.push([posX, posY]);
+
+				const dist_from_start = Math.hypot(
+					Math.abs(drawingLineFirstCoords.current[0] - posX),
+					Math.abs(drawingLineFirstCoords.current[1] - posY)
+				);
+
+				if (dist_from_start < Math.max(1, 10 / zoom.current)) {
+					isDrawingLine.current = false;
+					isDrawingShape.current = false;
+
+					Array.from(surfaceMapDrawingShapeRef.current.children).map((el) => el.remove());
+
+					let newDrawingShapeCoords = JSON.parse(JSON.stringify(drawingShapeCoords.current));
+					drawingShapeCoords.current = [];
+
+					newDrawingShapeCoords = newDrawingShapeCoords.map((e) => [e[0] + 1.5, e[1] + 58.5]);
+					const polygon = toPath({ type: "polygon", points: newDrawingShapeCoords.map((e1) => e1.join(",")).join(" ") });
+
+					const xmlns = "http://www.w3.org/2000/svg";
+					const newPathEl = document.createElementNS(xmlns, "path");
+					newPathEl.setAttributeNS(null, "d", polygon);
+					surfaceMapImageNewComponentsRef.current.appendChild(newPathEl);
+
+					let newPath = `<path fill="rgb(255,255,255)" stroke="rgb(255,255,255)" stroke-width="4" opacity="1" d="${polygon}" />`;
+
+					setLocations((oldLocations) => {
+						let newLocations = JSON.parse(JSON.stringify(oldLocations));
+						const locationIndex = newLocations.findIndex((e) => e?._id === currentMapLocationId);
+						if (locationIndex === -1) return newLocations;
+						let newMapImageComponents = newLocations[locationIndex]?.data?.mapImageComponents.replaceAll("</svg>", "");
+						newLocations[locationIndex].data.mapImageComponents = newMapImageComponents + newPath + "</svg>";
+						return newLocations;
+					});
+				} else {
+					isDrawingLine.current = true;
+
+					drawingLine.current = document.createElement("div");
+					drawingLine.current.classList.add("locations-surface-map-drawing-line");
+					drawingLine.current.style = `top: ${posY}px; left: ${posX}px;`;
+					surfaceMapDrawingShapeRef.current.appendChild(drawingLine.current);
+					drawingLineCurrFirstCoords.current = [posX, posY];
+				}
+			}
+		},
+		[
+			pointX,
+			pointY,
+			zoom,
+			surfaceMapDrawingShapeRef,
+			surfaceMapImageNewComponentsRef,
+			isDrawingSurfaceMapComponents,
+			currentMapLocationId,
+			setLocations,
+		]
+	);
 
 	useEffect(() => {
 		const surfaceMapContainerRefCurrent = surfaceMapContainerRef?.current;
@@ -316,8 +397,14 @@ export const SurfaceMapComponentsLogic = ({ surfaceMapContainerRef, surfaceMapIm
 		return () => {
 			surfaceMapContainerRefCurrent?.removeEventListener("mousemove", onMouseMove);
 			surfaceMapContainerRefCurrent?.removeEventListener("click", onMouseClick);
-		}
+		};
 	}, [onMouseMove, onMouseClick, surfaceMapContainerRef]);
+
+	useEffect(() => {
+		if (surfaceMapImageNewComponentsRef?.current?.children) {
+			Array.from(surfaceMapImageNewComponentsRef.current.children).map((el) => el.remove());
+		}
+	}, [isDrawingSurfaceMapComponents, surfaceMapImageNewComponentsRef]);
 
 	return { surfaceMapImageComponentsStyles };
 };

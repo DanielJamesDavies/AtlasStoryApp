@@ -399,6 +399,71 @@
 	background: #faa4;
 }
 
+.locations-surface-map-drawing-point {
+	position: absolute;
+	z-index: 4;
+	display: block;
+	content: "";
+	margin-top: calc(-3px / min(3, var(--zoom)));
+	margin-left: calc(-1.5px / min(3, var(--zoom)));
+	border-radius: 100%;
+	width: calc(6px / min(3, var(--zoom)));
+	height: calc(6px / min(3, var(--zoom)));
+	background: var(--colour-accent-hover);
+}
+
+.locations-surface-map-drawing-point-first-hovering {
+	background: #fff;
+}
+
+.locations-surface-map-drawing-shape-container {
+	z-index: 6;
+}
+
+.locations-surface-map-drawing-line {
+	position: absolute;
+	z-index: 3;
+	display: block;
+	content: "";
+	width: calc(4px / min(3, var(--zoom)));
+	height: calc(4px / min(3, var(--zoom)));
+	transform-origin: top center;
+	background: var(--colour-accent);
+	opacity: 0.8;
+}
+
+.locations-surface-map-image-components-path-new {
+	opacity: 0.5;
+}
+
+.locations-surface-map-image-new-components-container {
+	position: absolute;
+	z-index: 5;
+	pointer-events: none;
+	user-select: none;
+}
+
+.locations-surface-map-image-new-components-container svg {
+	margin-top: 2px;
+	margin-left: -1.5px;
+	min-width: 100%;
+	min-height: 100%;
+}
+
+.locations-surface-map-image-new-components-container svg path {
+	fill: var(--colour-accent);
+	stroke: var(--colour-accent);
+	transition: 0.2s;
+	pointer-events: all;
+	stroke-width: 8px;
+	opacity: 0.5;
+	stroke-width: 4px;
+}
+
+.locations-surface-map-image-component-delete {
+	fill: var(--colour-red) !important;
+}
+
 @media (max-width: 750px) {
 	.locations-surface-map-loading-circle-container {
 		top: 0;

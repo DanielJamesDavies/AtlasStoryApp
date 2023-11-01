@@ -406,6 +406,10 @@ export const SurfaceMapRegionsLogic = ({
 	}, [onResize]);
 
 	useEffect(() => {
+		updateRegionsNames();
+	}, [locations, updateRegionsNames]);
+
+	useEffect(() => {
 		function getClosestCluster(cluster, clusters, distances) {
 			return clusters
 				?.map((e, cluster_index) => {
