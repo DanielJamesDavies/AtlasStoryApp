@@ -17,6 +17,7 @@ import { LocationsContext } from "../LocationsContext";
 
 export const SurfaceMapComponentsLogic = ({
 	surfaceMapContainerRef,
+	surfaceMapImageContainerRef,
 	surfaceMapImageComponentsContainerRef,
 	surfaceMapImageDisplayComponentsContainerRef,
 	surfaceMapImageRef,
@@ -414,7 +415,12 @@ export const SurfaceMapComponentsLogic = ({
 					let newDrawingShapeCoords = JSON.parse(JSON.stringify(drawingShapeCoords.current));
 					drawingShapeCoords.current = [];
 
-					newDrawingShapeCoords = newDrawingShapeCoords.map((e) => [e[0] + 1.5, e[1] + 58.5]);
+					const imageContainerHeightDelta =
+					((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+
+					const min_y = -imageContainerHeightDelta - 1 * zoom.current;
+					const offset_y = -1 * Math.min(0, -1 * min_y * 1 / zoom.current);
+					newDrawingShapeCoords = newDrawingShapeCoords.map((e) => [e[0] + 1.5, e[1] + offset_y]);
 					const polygon = toPath({ type: "polygon", points: newDrawingShapeCoords.map((e1) => e1.join(",")).join(" ") });
 
 					const xmlns = "http://www.w3.org/2000/svg";
@@ -449,6 +455,8 @@ export const SurfaceMapComponentsLogic = ({
 			pointX,
 			pointY,
 			zoom,
+			surfaceMapImageContainerRef,
+			surfaceMapImageRef,
 			surfaceMapDrawingShapeRef,
 			surfaceMapImageNewComponentsRef,
 			isDrawingSurfaceMapComponents,
