@@ -45,14 +45,6 @@ export const SurfaceMapComponentsLogic = ({
 
 	const [surfaceMapImageDisplayComponents, setSurfaceMapImageDisplayComponents] = useState(null);
 
-	useEffect(() => {
-		if (!isSelectingSurfaceMapComponents) {
-			Array.from(document.getElementsByClassName("locations-surface-map-image-component-selected")).map((e) =>
-				e.classList.remove("locations-surface-map-image-component-selected")
-			);
-		}
-	}, [isSelectingSurfaceMapComponents]);
-
 	const clicks = useRef([]);
 	const clickTimeout = useRef(false);
 	const readyToSelectComponent = useRef(true);
@@ -481,6 +473,23 @@ export const SurfaceMapComponentsLogic = ({
 			Array.from(surfaceMapImageNewComponentsRef.current.children).map((el) => el.remove());
 		}
 	}, [isDrawingSurfaceMapComponents, surfaceMapImageNewComponentsRef]);
+
+	useEffect(() => {
+		if (!isSelectingSurfaceMapComponents) {
+			Array.from(document.getElementsByClassName("locations-surface-map-image-component-selected")).map((e) =>
+				e.classList.remove("locations-surface-map-image-component-selected")
+			);
+		}
+	}, [isSelectingSurfaceMapComponents]);
+
+	useEffect(() => {
+		if (!isDrawingSurfaceMapComponents && surfaceMapDrawingShapeRef?.current) {
+			isDrawingLine.current = false;
+			isDrawingShape.current = false;
+
+			Array.from(surfaceMapDrawingShapeRef?.current?.children)?.map((el) => el.remove());
+		}
+	}, [isDrawingSurfaceMapComponents, surfaceMapDrawingShapeRef, isDrawingShape, isDrawingLine]);
 
 	return { surfaceMapImageDisplayComponents, surfaceMapImageComponentsStyles };
 };
