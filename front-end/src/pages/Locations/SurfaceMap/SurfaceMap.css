@@ -556,6 +556,8 @@
 
 	pointer-events: none;
 	user-select: none;
+
+	transform: translateY(calc(1px * min(0, -1 * var(--min_y) * 1 / var(--zoom)) + 31px));
 }
 
 .locations-surface-map-place-container {
