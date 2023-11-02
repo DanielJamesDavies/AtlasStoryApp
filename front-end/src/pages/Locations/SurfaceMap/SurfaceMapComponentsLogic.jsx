@@ -18,6 +18,7 @@ import { LocationsContext } from "../LocationsContext";
 export const SurfaceMapComponentsLogic = ({
 	surfaceMapContainerRef,
 	surfaceMapImageComponentsContainerRef,
+	surfaceMapImageDisplayComponentsContainerRef,
 	surfaceMapImageRef,
 	surfaceMapDrawingShapeRef,
 	surfaceMapImageNewComponentsRef,
@@ -39,13 +40,40 @@ export const SurfaceMapComponentsLogic = ({
 		addComponentToSelectedSurfaceMapComponents,
 		removeComponentToSelectedSurfaceMapComponents,
 		isDrawingSurfaceMapComponents,
+		isDeletingSurfaceMapComponents,
 	} = useContext(LocationsContext);
+
+	const [surfaceMapImageDisplayComponents, setSurfaceMapImageDisplayComponents] = useState(null);
+
+	useEffect(() => {
+		if (!isSelectingSurfaceMapComponents) {
+			Array.from(document.getElementsByClassName("locations-surface-map-image-component-selected")).map((e) =>
+				e.classList.remove("locations-surface-map-image-component-selected")
+			);
+		}
+	}, [isSelectingSurfaceMapComponents]);
 
 	const clicks = useRef([]);
 	const clickTimeout = useRef(false);
 	const readyToSelectComponent = useRef(true);
+
 	const onClickMapComponent = useCallback(
 		(index) => {
+			if (isDeletingSurfaceMapComponents) {
+				const d = surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index]?.getAttribute("d");
+
+				setLocations((oldLocations) => {
+					let newLocations = JSON.parse(JSON.stringify(oldLocations));
+					const locationIndex = newLocations.findIndex((e) => e?._id === currentMapLocationId);
+					if (locationIndex === -1) return newLocations;
+					let newMapImageComponents = newLocations[locationIndex]?.data?.mapImageComponents.replaceAll(d, "");
+					newLocations[locationIndex].data.mapImageComponents = newMapImageComponents;
+					return newLocations;
+				});
+
+				return false;
+			}
+
 			function getNewClicks(oldClicks, maxDelta) {
 				let newClicks = JSON.parse(JSON.stringify(oldClicks));
 
@@ -127,46 +155,88 @@ export const SurfaceMapComponentsLogic = ({
 			addComponentToSelectedSurfaceMapComponents,
 			removeComponentToSelectedSurfaceMapComponents,
 			locations,
+			setLocations,
 			currentMapLocationId,
 			setCurrentMapLocationId,
 			setSurfaceMapHoveringRegion,
+			isDeletingSurfaceMapComponents,
 		]
 	);
 
 	const onMouseOverMapComponent = useCallback(
 		(index) => {
+			if (isDeletingSurfaceMapComponents) {
+				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.add(
+					"locations-surface-map-image-component-hovering-over"
+				);
+				return false;
+			}
+
 			const region = locations
 				?.find((e) => e?._id === currentMapLocationId)
 				?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index]);
 			setSurfaceMapHoveringRegion(region?._id);
-			region?.components?.map((component_index) => {
-				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList.add(
-					"locations-surface-map-image-component-hovering-over"
-				);
+
+			Array.from(surfaceMapImageDisplayComponentsContainerRef?.current?.children)?.map((e) => {
+				if (e?.getAttribute("data-region-id") !== region?._id) return false;
+				e.classList.add("locations-surface-map-image-display-components-svg-hover");
 				return true;
 			});
 		},
-		[surfaceMapImageComponentsContainerRef, surfaceMapComponentsList, locations, currentMapLocationId, setSurfaceMapHoveringRegion]
+		[
+			surfaceMapImageComponentsContainerRef,
+			surfaceMapComponentsList,
+			locations,
+			currentMapLocationId,
+			setSurfaceMapHoveringRegion,
+			isDeletingSurfaceMapComponents,
+			surfaceMapImageDisplayComponentsContainerRef,
+		]
 	);
 
-	const onMouseOutMapComponent = useCallback(
-		(index) => {
-			setSurfaceMapHoveringRegion(false);
-			locations
-				?.find((e) => e?._id === currentMapLocationId)
-				?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index])
-				?.components?.map((component_index) => {
-					surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[component_index].classList.remove(
-						"locations-surface-map-image-component-hovering-over"
-					);
-					return true;
-				});
-		},
-		[surfaceMapImageComponentsContainerRef, surfaceMapComponentsList, locations, currentMapLocationId, setSurfaceMapHoveringRegion]
-	);
+	const onMouseOutMapComponent = useCallback(() => {
+		setSurfaceMapHoveringRegion(false);
+
+		Array.from(surfaceMapImageDisplayComponentsContainerRef?.current?.children)?.map((e) => {
+			e.classList.remove("locations-surface-map-image-display-components-svg-hover");
+			return true;
+		});
+	}, [setSurfaceMapHoveringRegion, surfaceMapImageDisplayComponentsContainerRef]);
+
+	const updateSurfaceMapImageDisplayComponents = useCallback(() => {
+		let newSurfaceMapImageDisplayComponents = [];
+
+		Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path) => {
+			const regionID = path?.getAttribute("data-region-id");
+			if (!regionID) return false;
+			const newSurfaceMapImageDisplayComponentsIndex = newSurfaceMapImageDisplayComponents?.findIndex((e) => e?.region === regionID);
+			if (newSurfaceMapImageDisplayComponentsIndex === -1) {
+				newSurfaceMapImageDisplayComponents.push({ region: regionID, components: [path] });
+			} else {
+				newSurfaceMapImageDisplayComponents[newSurfaceMapImageDisplayComponentsIndex].components.push(path);
+			}
+			return true;
+		});
+
+		newSurfaceMapImageDisplayComponents = newSurfaceMapImageDisplayComponents
+			.map((e) => {
+				return (
+					`<svg 
+						width="${surfaceMapImageRef?.current?.clientWidth}"
+						height="${surfaceMapImageRef?.current?.clientHeight}"
+						data-region-id="${e?.region}"
+					>` +
+					e?.components?.map((e2) => e2?.outerHTML) +
+					"</svg>"
+				);
+			})
+			.join("");
+
+		setSurfaceMapImageDisplayComponents(newSurfaceMapImageDisplayComponents);
+	}, [surfaceMapImageComponentsContainerRef, surfaceMapImageRef]);
 
 	useEffect(() => {
-		function setDefaultPosition() {
+		function setDefaultComponents() {
 			setTimeout(() => {
 				if (!surfaceMapImageComponentsContainerRef.current?.children) return false;
 
@@ -204,10 +274,12 @@ export const SurfaceMapComponentsLogic = ({
 						path.addEventListener("mouseout", () => onMouseOutMapComponent(index));
 						return true;
 					});
+
+					setTimeout(() => updateSurfaceMapImageDisplayComponents(), 200);
 				} catch {}
 			}, 50);
 		}
-		setDefaultPosition();
+		setDefaultComponents();
 	}, [
 		locationMapImage,
 		onClickMapComponent,
@@ -216,6 +288,7 @@ export const SurfaceMapComponentsLogic = ({
 		surfaceMapImageComponentsContainerRef,
 		surfaceMapImageRef,
 		zoom,
+		updateSurfaceMapImageDisplayComponents,
 	]);
 
 	useEffect(() => {
@@ -367,6 +440,8 @@ export const SurfaceMapComponentsLogic = ({
 						newLocations[locationIndex].data.mapImageComponents = newMapImageComponents + newPath + "</svg>";
 						return newLocations;
 					});
+
+					setTimeout(() => updateSurfaceMapImageDisplayComponents(), 5);
 				} else {
 					isDrawingLine.current = true;
 
@@ -387,6 +462,7 @@ export const SurfaceMapComponentsLogic = ({
 			isDrawingSurfaceMapComponents,
 			currentMapLocationId,
 			setLocations,
+			updateSurfaceMapImageDisplayComponents,
 		]
 	);
 
@@ -406,5 +482,5 @@ export const SurfaceMapComponentsLogic = ({
 		}
 	}, [isDrawingSurfaceMapComponents, surfaceMapImageNewComponentsRef]);
 
-	return { surfaceMapImageComponentsStyles };
+	return { surfaceMapImageDisplayComponents, surfaceMapImageComponentsStyles };
 };

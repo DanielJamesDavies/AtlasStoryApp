@@ -42,6 +42,12 @@ export const SurfaceMapMovementLogic = ({
 		return { width_zoom, height_zoom };
 	}, [surfaceMapImageRef]);
 
+	const updateSurfaceMapContainerStyle = useCallback(() => {
+		const imageContainerHeightDelta =
+			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+		surfaceMapContainerRef.current.style = `--zoom: ${zoom.current}; --min_y: ${-imageContainerHeightDelta - 1 * zoom.current}`;
+	}, [zoom, surfaceMapImageContainerRef, surfaceMapImageRef, surfaceMapContainerRef]);
+
 	const updatePointsForBounds = useCallback(() => {
 		const { width_zoom, height_zoom } = getDimensionsZoom();
 		zoom.current = Math.max(zoom.current, width_zoom, height_zoom);
@@ -73,8 +79,17 @@ export const SurfaceMapMovementLogic = ({
 		if (surfaceMapImageContainerRef?.current)
 			surfaceMapImageContainerRef.current.style.transform =
 				"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-		surfaceMapContainerRef.current.style = `--zoom: ${zoom.current}`;
-	}, [isDisplayingHierarchy, updatePointsForBounds, surfaceMapImageContainerRef, pointX, pointY, zoom, surfaceMapContainerRef]);
+		updateSurfaceMapContainerStyle();
+	}, [
+		isDisplayingHierarchy,
+		updatePointsForBounds,
+		surfaceMapImageContainerRef,
+		pointX,
+		pointY,
+		zoom,
+		surfaceMapContainerRef,
+		updateSurfaceMapContainerStyle,
+	]);
 
 	useEffect(() => {
 		function setDefaultPosition() {
@@ -98,7 +113,7 @@ export const SurfaceMapMovementLogic = ({
 				updatePointsForBounds();
 				surfaceMapImageContainerRef.current.style.transform =
 					"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-				surfaceMapContainerRef.current.style = `--zoom: ${zoom.current}`;
+				updateSurfaceMapContainerStyle();
 			} catch {}
 		}
 		setTimeout(() => setDefaultPosition(), 200);
@@ -111,7 +126,7 @@ export const SurfaceMapMovementLogic = ({
 		surfaceMapImageRef,
 		updatePointsForBounds,
 		zoom,
-		surfaceMapContainerRef,
+		updateSurfaceMapContainerStyle,
 	]);
 
 	const onResize = useCallback(() => {
@@ -121,13 +136,13 @@ export const SurfaceMapMovementLogic = ({
 		if (surfaceMapImageContainerRef.current?.style) {
 			surfaceMapImageContainerRef.current.style.transform =
 				"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-			surfaceMapContainerRef.current.style = `--zoom: ${zoom.current}`;
+			updateSurfaceMapContainerStyle();
 		} else {
 			setTimeout(() => {
 				if (surfaceMapImageContainerRef.current?.style) {
 					surfaceMapImageContainerRef.current.style.transform =
 						"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-					surfaceMapContainerRef.current.style = `--zoom: ${zoom.current}`;
+					updateSurfaceMapContainerStyle();
 				}
 			}, 2);
 		}
@@ -136,8 +151,8 @@ export const SurfaceMapMovementLogic = ({
 
 		surfaceMapImageContainerRef.current.style.transform =
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-		surfaceMapContainerRef.current.style = `--zoom: ${zoom.current}`;
-	}, [getDimensionsZoom, pointX, pointY, zoom, surfaceMapImageContainerRef, updatePointsForBounds, surfaceMapContainerRef]);
+		updateSurfaceMapContainerStyle();
+	}, [getDimensionsZoom, pointX, pointY, zoom, surfaceMapImageContainerRef, updatePointsForBounds, updateSurfaceMapContainerStyle]);
 
 	useEffect(() => {
 		window.addEventListener("resize", onResize);
@@ -154,7 +169,7 @@ export const SurfaceMapMovementLogic = ({
 		if (surfaceMapImageContainerRef?.current) {
 			surfaceMapImageContainerRefCurrent.style.transform =
 				"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-			surfaceMapContainerRef.current.style = `--zoom: ${zoom.current}`;
+			updateSurfaceMapContainerStyle();
 			surfaceMapImageContainerRefCurrent.addEventListener("mousedown", imageSurfaceMapOnMouseDown);
 			surfaceMapImageContainerRefCurrent.addEventListener("mouseup", imageSurfaceMapOnMouseUp);
 			surfaceMapImageContainerRefCurrent.addEventListener("mouseout", imageSurfaceMapOnMouseUp);
@@ -195,7 +210,7 @@ export const SurfaceMapMovementLogic = ({
 
 		surfaceMapImageContainerRef.current.style.transform =
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-		surfaceMapContainerRef.current.style = `--zoom: ${zoom.current}`;
+		updateSurfaceMapContainerStyle();
 	}
 
 	var stopScrollTimeout = false;
@@ -232,7 +247,7 @@ export const SurfaceMapMovementLogic = ({
 
 		surfaceMapImageContainerRef.current.style.transform =
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-		surfaceMapContainerRef.current.style = `--zoom: ${zoom.current}`;
+		updateSurfaceMapContainerStyle();
 
 		updateRegionsNames();
 	}
@@ -329,7 +344,7 @@ export const SurfaceMapMovementLogic = ({
 
 		surfaceMapImageContainerRef.current.style.transform =
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-		surfaceMapContainerRef.current.style = `--zoom: ${zoom.current}`;
+		updateSurfaceMapContainerStyle();
 	}
 
 	var movementInterval = useRef(false);
@@ -343,7 +358,7 @@ export const SurfaceMapMovementLogic = ({
 
 			surfaceMapImageContainerRef.current.style.transform =
 				"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
-			surfaceMapContainerRef.current.style = `--zoom: ${zoom.current}`;
+			updateSurfaceMapContainerStyle();
 		}, 1);
 	}
 

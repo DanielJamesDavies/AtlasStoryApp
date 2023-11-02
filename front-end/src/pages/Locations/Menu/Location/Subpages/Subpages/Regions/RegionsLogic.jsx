@@ -26,6 +26,8 @@ export const RegionsLogic = () => {
 		selectedLocationId,
 		isDrawingSurfaceMapComponents,
 		setIsDrawingSurfaceMapComponents,
+		isDeletingSurfaceMapComponents,
+		setIsDeletingSurfaceMapComponents,
 	} = useContext(LocationsContext);
 	const { location, setLocation } = useContext(LocationContext);
 	const { APIRequest } = useContext(APIContext);
@@ -159,6 +161,10 @@ export const RegionsLogic = () => {
 		setIsDrawingSurfaceMapComponents((oldValue) => !oldValue);
 	}
 
+	function toggleIsDeletingSurfaceMapComponents() {
+		setIsDeletingSurfaceMapComponents((oldValue) => !oldValue);
+	}
+
 	return {
 		isAuthorizedToEdit,
 		location,
@@ -172,5 +178,7 @@ export const RegionsLogic = () => {
 		errors,
 		isDrawingSurfaceMapComponents,
 		toggleIsDrawingSurfaceMapComponents,
+		isDeletingSurfaceMapComponents,
+		toggleIsDeletingSurfaceMapComponents,
 	};
 };

@@ -43,6 +43,7 @@ export const SurfaceMapLogic = () => {
 	const surfaceMapImageContainerRef = useRef();
 	const surfaceMapImageRef = useRef();
 	const surfaceMapImageComponentsContainerRef = useRef();
+	const surfaceMapImageDisplayComponentsContainerRef = useRef();
 	const surfaceMapImageRegionsNamesRef = useRef();
 	const surfaceMapImageRegionsNamesTextsRef = useRef();
 	const surfaceMapDrawingShapeRef = useRef();
@@ -72,10 +73,11 @@ export const SurfaceMapLogic = () => {
 		setRegionNamesHTML,
 	});
 
-	const { surfaceMapImageComponentsStyles } = SurfaceMapComponentsLogic({
+	const { surfaceMapImageDisplayComponents, surfaceMapImageComponentsStyles } = SurfaceMapComponentsLogic({
 		surfaceMapContainerRef,
 		surfaceMapImageContainerRef,
 		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageDisplayComponentsContainerRef,
 		surfaceMapImageRef,
 		surfaceMapDrawingShapeRef,
 		surfaceMapImageNewComponentsRef,
@@ -159,6 +161,7 @@ export const SurfaceMapLogic = () => {
 		surfaceMapImageContainerRef,
 		surfaceMapImageRef,
 		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageDisplayComponentsContainerRef,
 		surfaceMapImageRegionsNamesRef,
 		surfaceMapImageRegionsNamesTextsRef,
 		surfaceMapDrawingShapeRef,
@@ -172,6 +175,7 @@ export const SurfaceMapLogic = () => {
 		isPanning,
 		isScrolling,
 		isSelectingSurfaceMapComponents,
+		surfaceMapImageDisplayComponents,
 		surfaceMapImageComponentsStyles,
 		onMovementBoxWheel,
 		selectedLocationId,

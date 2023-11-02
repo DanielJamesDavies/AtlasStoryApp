@@ -30,6 +30,15 @@ export const SurfaceMapRegionsLogic = ({
 }) => {
 	const { locations, currentMapLocationId, isSelectingSurfaceMapComponents, surfaceMapComponentsList } = useContext(LocationsContext);
 
+	const max_mobile_width = 750;
+
+	const getDimensionsZoom = useCallback(() => {
+		let width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
+		let height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
+		if (window.innerWidth <= max_mobile_width) height_zoom = (window?.innerHeight - 58) / surfaceMapImageRef?.current?.clientHeight;
+		return { width_zoom, height_zoom };
+	}, [surfaceMapImageRef]);
+
 	const updateRegionsNamesInterval = useRef();
 
 	useEffect(() => {
@@ -265,7 +274,7 @@ export const SurfaceMapRegionsLogic = ({
 
 		updateRegionsNamesPosition();
 
-		await new Promise((resolve) => setTimeout(resolve, 2));
+		await new Promise((resolve) => setTimeout(resolve, 5));
 
 		const regionsNamesTexts = Array.from(surfaceMapImageRegionsNamesTextsRef.current.children);
 
@@ -281,7 +290,11 @@ export const SurfaceMapRegionsLogic = ({
 
 				const regionNamesTextBox = regionsNamesTexts[region_index]?.getBoundingClientRect();
 
-				if (regionNamesTextBox?.width === 0 || regionNamesTextBox?.height === 0) return false;
+				const { width_zoom, height_zoom } = getDimensionsZoom();
+				const regionNamesTextBoxWidth = (regionNamesTextBox?.width / zoom.current) * (1 / Math.max(width_zoom, height_zoom));
+				const regionNamesTextBoxHeight = (regionNamesTextBox?.height / zoom.current) * (1 / Math.max(width_zoom, height_zoom));
+
+				if (regionNamesTextBoxWidth === 0 || regionNamesTextBox?.height === 0) return false;
 
 				const full_width = Math.ceil(b[0] - a[0]);
 				const full_height = Math.ceil(c[1] - a[1]);
@@ -290,9 +303,9 @@ export const SurfaceMapRegionsLogic = ({
 				let text_svg_height = 0;
 				if (full_width >= full_height) {
 					text_svg_width = full_width;
-					text_svg_height = full_width * (regionNamesTextBox?.height / regionNamesTextBox?.width);
+					text_svg_height = full_width * (regionNamesTextBoxHeight / regionNamesTextBoxWidth);
 				} else {
-					text_svg_width = full_height * (regionNamesTextBox?.width / regionNamesTextBox?.height);
+					text_svg_width = full_height * (regionNamesTextBoxWidth / regionNamesTextBoxHeight);
 					text_svg_height = full_height;
 				}
 
@@ -309,13 +322,13 @@ export const SurfaceMapRegionsLogic = ({
 							viewBox='0 0 ${text_svg_width} ${text_svg_height}'
 							style='overflow: visible; width: 100%; font-size: ${Math.max(
 								2,
-								Math.min(26 / zoom.current, 5.5 * zoom.current * (text_svg_height / regionNamesTextBox?.height))
+								Math.min(26 / zoom.current, 5.5 * zoom.current * (text_svg_height / regionNamesTextBoxHeight))
 							)}px'
 							dominant-baseline="middle" text-anchor="middle"
 						>
 							<text x='50%' y='50%' style='fill: #fff; letter-spacing: ${Math.min(
 								60 / zoom.current,
-								5 * zoom.current * (text_svg_height / regionNamesTextBox?.height)
+								5 * zoom.current * (text_svg_height / regionNamesTextBoxHeight)
 							)}px'>
 								${region?.name}
 							</text>
@@ -337,6 +350,7 @@ export const SurfaceMapRegionsLogic = ({
 		surfaceMapImageRegionsNamesTextsRef,
 		updateRegionsNamesPosition,
 		zoom,
+		getDimensionsZoom,
 	]);
 
 	const updateRegionsNames = useCallback(async () => {

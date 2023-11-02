@@ -137,6 +137,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [surfaceMapComponentsList, setSurfaceMapComponentsList] = useState([]);
 	const [surfaceMapHoveringRegion, setSurfaceMapHoveringRegion] = useState(false);
 	const [isDrawingSurfaceMapComponents, setIsDrawingSurfaceMapComponents] = useState(false);
+	const [isDeletingSurfaceMapComponents, setIsDeletingSurfaceMapComponents] = useState(false);
 
 	const scenesChangePlayerInitial = useRef([
 		{
@@ -474,6 +475,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setSurfaceMapHoveringRegion,
 				isDrawingSurfaceMapComponents,
 				setIsDrawingSurfaceMapComponents,
+				isDeletingSurfaceMapComponents,
+				setIsDeletingSurfaceMapComponents,
 				scenesChangePlayerInitial,
 				isDisplayingCreateLocationForm,
 				setIsDisplayingCreateLocationForm,

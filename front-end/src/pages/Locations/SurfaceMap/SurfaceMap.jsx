@@ -25,6 +25,7 @@ export const SurfaceMap = () => {
 		surfaceMapImageContainerRef,
 		surfaceMapImageRef,
 		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageDisplayComponentsContainerRef,
 		surfaceMapImageRegionsNamesRef,
 		surfaceMapImageRegionsNamesTextsRef,
 		surfaceMapDrawingShapeRef,
@@ -38,6 +39,7 @@ export const SurfaceMap = () => {
 		isPanning,
 		isScrolling,
 		isSelectingSurfaceMapComponents,
+		surfaceMapImageDisplayComponents,
 		surfaceMapImageComponentsStyles,
 		onMovementBoxWheel,
 		regionNamesHTML,
@@ -46,7 +48,15 @@ export const SurfaceMap = () => {
 
 	return (
 		<>
-			<div ref={surfaceMapContainerRef} className='locations-surface-map-container' onTouchStart={onTouchStart} onTouchMove={onTouchMove}>
+			<div
+				ref={surfaceMapContainerRef}
+				className={
+					"locations-surface-map-container" +
+					(isSelectingSurfaceMapComponents ? " locations-surface-map-container-is-selecting-components" : "")
+				}
+				onTouchStart={onTouchStart}
+				onTouchMove={onTouchMove}
+			>
 				{!locationMapImage ? (
 					<div className='locations-surface-map-loading-circle-container'>
 						<LoadingCircle center={true} size='l' />
@@ -72,14 +82,21 @@ export const SurfaceMap = () => {
 								<img ref={surfaceMapImageRef} src={locationMapImage} alt='' />
 								<div
 									ref={surfaceMapImageComponentsContainerRef}
-									className={
-										"locations-surface-map-image-components-container" +
-										(isSelectingSurfaceMapComponents ? " locations-surface-map-image-components-container-is-selecting" : "")
-									}
+									className={"locations-surface-map-image-components-container"}
 									dangerouslySetInnerHTML={{
 										__html: sanitize(locations?.find((e) => e._id === currentMapLocationId)?.data?.mapImageComponents),
 									}}
 									style={surfaceMapImageComponentsStyles}
+								></div>
+								<div
+									ref={surfaceMapImageDisplayComponentsContainerRef}
+									className={
+										"locations-surface-map-image-components-container locations-surface-map-image-display-components-container" +
+										(isSelectingSurfaceMapComponents ? " locations-surface-map-image-components-container-is-selecting" : "")
+									}
+									dangerouslySetInnerHTML={{
+										__html: sanitize(surfaceMapImageDisplayComponents),
+									}}
 								></div>
 								<div className='locations-surface-map-image-region-names-container'>
 									<div

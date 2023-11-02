@@ -13,15 +13,16 @@
 	overflow-x: hidden;
 }
 
-.locations-location-regions-start-drawing-btn-container {
+.locations-location-regions-start-btn-container {
 	display: flex;
 	justify-content: right;
+	gap: 8px;
 	margin-bottom: 6px;
 }
 
-.locations-location-regions-start-drawing-btn {
+.locations-location-regions-start-btn {
 	border: 0;
-	border-radius: 5px;
+	border-radius: 32px;
 	padding: 6px 12px;
 	background: var(--colour-accent);
 	color: #fff;
@@ -30,15 +31,15 @@
 	cursor: pointer;
 }
 
-.locations-location-regions-start-drawing-btn:hover {
+.locations-location-regions-start-btn:hover {
 	background: var(--colour-accent-hover);
 }
 
-.locations-location-regions-start-drawing-btn-active {
+.locations-location-regions-start-btn-active {
 	background: var(--colour-red);
 }
 
-.locations-location-regions-start-drawing-btn-active:hover {
+.locations-location-regions-start-btn-active:hover {
 	background: var(--colour-red-tint);
 }
 

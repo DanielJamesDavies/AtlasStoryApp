@@ -94,8 +94,8 @@
 }
 
 .locations-surface-map-image-components-container svg path {
-	fill: #0044ff;
-	stroke: #0044ff;
+	fill: var(--regionColour);
+	stroke: var(--regionColour);
 	transition: 0.2s;
 	pointer-events: all;
 	stroke-width: 8px;
@@ -113,9 +113,10 @@
 }
 
 .locations-surface-map-image-component-selected {
+	opacity: 1 !important;
 	fill: var(--regionSelectingForColour) !important;
 	stroke: var(--regionSelectingForColour) !important;
-	transition: 0.2s;
+	transition: 0.2s !important;
 	animation: locations-surface-map-image-component-pulse 1.25s infinite ease-in-out;
 }
 
@@ -139,7 +140,6 @@
 	fill: var(--regionColour) !important;
 	stroke: var(--regionColour) !important;
 	transition: 0.2s;
-	opacity: 1 !important;
 	animation: none !important;
 }
 
@@ -462,6 +462,57 @@
 
 .locations-surface-map-image-component-delete {
 	fill: var(--colour-red) !important;
+}
+
+.locations-surface-map-image-components-container svg path {
+	opacity: 0;
+}
+
+.locations-surface-map-container-is-selecting-components svg path {
+	opacity: 0.4 !important;
+}
+
+.locations-surface-map-container-is-selecting-components svg path:hover {
+	fill: var(--regionSelectingForColour) !important;
+	stroke: var(--regionSelectingForColour) !important;
+	opacity: 0.8;
+}
+
+.locations-surface-map-container-is-selecting-components .locations-surface-map-image-component-selected {
+	opacity: 1 !important;
+}
+
+.locations-surface-map-image-display-components-container {
+	top: 0;
+	left: 0;
+	opacity: 1;
+	pointer-events: none;
+	user-select: none;
+	transform: translateY(calc(1px * min(0, -1 * var(--min_y) * 1 / var(--zoom))));
+}
+
+.locations-surface-map-container-is-selecting-components .locations-surface-map-image-display-components-container {
+	opacity: 0;
+}
+
+.locations-surface-map-image-display-components-container svg {
+	position: absolute;
+	top: -3px;
+	left: 0;
+	transition: 0.2s;
+	pointer-events: none;
+	user-select: none;
+	opacity: 0.9;
+}
+
+.locations-surface-map-image-display-components-container svg path {
+	pointer-events: none;
+	user-select: none;
+	opacity: 1;
+}
+
+.locations-surface-map-image-display-components-svg-hover {
+	opacity: 0.6 !important;
 }
 
 @media (max-width: 750px) {

@@ -33,6 +33,8 @@ export const Regions = () => {
 		errors,
 		isDrawingSurfaceMapComponents,
 		toggleIsDrawingSurfaceMapComponents,
+		isDeletingSurfaceMapComponents,
+		toggleIsDeletingSurfaceMapComponents,
 	} = RegionsLogic();
 
 	return (
@@ -53,12 +55,24 @@ export const Regions = () => {
 					))}
 				</div>
 				<div>
-					<div className="locations-location-regions-start-drawing-btn-container">
+					<div className='locations-location-regions-start-btn-container'>
 						<button
-							className={"locations-location-regions-start-drawing-btn" + (isDrawingSurfaceMapComponents ? " locations-location-regions-start-drawing-btn-active" : "")}
+							className={
+								"locations-location-regions-start-btn" +
+								(isDrawingSurfaceMapComponents ? " locations-location-regions-start-btn-active" : "")
+							}
 							onClick={toggleIsDrawingSurfaceMapComponents}
 						>
 							{isDrawingSurfaceMapComponents ? "Stop Drawing New Components" : "Start Drawing New Components"}
+						</button>
+						<button
+							className={
+								"locations-location-regions-start-btn" +
+								(isDeletingSurfaceMapComponents ? " locations-location-regions-start-btn-active" : "")
+							}
+							onClick={toggleIsDeletingSurfaceMapComponents}
+						>
+							{isDeletingSurfaceMapComponents ? "Stop Deleting Components" : "Start Deleting Components"}
 						</button>
 					</div>
 					<ErrorMessage errors={errors} />
@@ -71,12 +85,7 @@ export const Regions = () => {
 					>
 						{location?.data?.regions?.map((regionsItem, index) => (
 							<DragDropItem className='locations-location-regions-item-container' key={index} index={index}>
-								<RegionsItem
-									index={index}
-									regionsItem={regionsItem}
-									isEditing={true}
-									locationChildren={locationChildren}
-								/>
+								<RegionsItem index={index} regionsItem={regionsItem} isEditing={true} locationChildren={locationChildren} />
 							</DragDropItem>
 						))}
 					</DragDropContainer>
