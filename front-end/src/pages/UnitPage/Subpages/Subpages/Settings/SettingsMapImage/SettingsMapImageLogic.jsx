@@ -80,18 +80,31 @@ export const SettingsMapImageLogic = () => {
 	async function saveMapImage() {
 		setErrors([]);
 		if (!unit?._id) return;
+
+		await APIRequest("/" + unit_type + "/" + unit?._id, "PATCH", {
+			path: ["data", "regions"],
+			newValue: unit?.data?.regions?.map((region) => {
+				region.components = [];
+				return region;
+			}),
+			story_id: story._id,
+			unit_id: unit._id,
+		});
+
 		await APIRequest("/" + unit_type + "/" + unit?._id, "PATCH", {
 			path: ["data", "mapImageComponents"],
 			newValue: unit?.data?.mapImageComponents,
 			story_id: story._id,
 			unit_id: unit._id,
 		});
+
 		await APIRequest("/" + unit_type + "/" + unit?._id, "PATCH", {
 			path: ["data", "mapImage"],
 			newValue: unit?.data?.mapImage,
 			story_id: story._id,
 			unit_id: unit._id,
 		});
+
 		const response = await APIRequest("/image/" + unit?.data?.mapImage, "PATCH", {
 			newValue: locationMapImage,
 			story_id: story._id,
@@ -102,6 +115,7 @@ export const SettingsMapImageLogic = () => {
 			return false;
 		}
 		addImagesToRecentImages([response?.data?.image]);
+
 		return true;
 	}
 
