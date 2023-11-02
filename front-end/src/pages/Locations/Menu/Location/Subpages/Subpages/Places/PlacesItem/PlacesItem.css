@@ -1,0 +1,131 @@
+.locations-location-places-item-container {
+	margin: 12px 0;
+}
+
+.locations-location-places-item-container.drag-drop-item-first-item {
+	margin-top: 0;
+}
+
+.locations-location-places-item-container .content-item {
+	margin-left: 0;
+	margin-right: 0;
+	padding-right: 8px;
+}
+
+.locations-location-places-item-has-single-line-text .content-item {
+	padding-bottom: 8px;
+}
+
+.locations-location-places-item-container:last-child {
+	padding-bottom: 8px;
+}
+
+.drag-drop-item-enable-drag-drop.locations-location-places-item-container {
+	animation: wiggle-very-small infinite 0.5s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).locations-location-places-item-container {
+	animation-delay: 0.1s;
+}
+
+.locations-location-places-item-content {
+	display: inline-block;
+	width: calc(100% - 32px);
+	vertical-align: top;
+}
+
+.locations-location-places-item-name {
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+.locations-location-places-item-name,
+.locations-location-places-item-name input {
+	--text-input-font-size: var(--font-size-p-l);
+	font-size: var(--font-size-p-l);
+	font-weight: 600;
+}
+
+.locations-location-places-item .text-input-container-empty {
+	height: var(--font-size-p-l-height);
+}
+
+.locations-location-places-item-components-container,
+.locations-location-places-item-location-container,
+.locations-location-places-item-symbol-container,
+.locations-location-places-item-is-major-container {
+	margin-top: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.locations-location-places-item-symbol-container {
+	flex-direction: row;
+	align-items: center;
+	font-size: var(--font-size-p-m);
+}
+
+.locations-location-places-item-symbol-container b {
+	font-weight: 600;
+}
+
+.locations-location-places-items-container.editable-container-is-editing .locations-location-places-item-symbol-container {
+	flex-direction: column;
+	align-items: flex-start;
+	margin-top: 12px;
+}
+
+.locations-location-places-item-components-container label,
+.locations-location-places-item-location-container label,
+.locations-location-places-item-symbol-container label,
+.locations-location-places-item-is-major-container label,
+.locations-location-places-item-is-major-container .toggle-input-label {
+	font-size: var(--font-size-p-m);
+	font-weight: 600;
+}
+
+.locations-location-places-item-components-container button {
+	padding: 4px 8px;
+	border: 0;
+	border-radius: 5px;
+	width: fit-content;
+	background: var(--colour-grey-four);
+	color: var(--text-colour-secondary);
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.locations-location-places-item-components-container button:hover {
+	background: var(--colour-grey-five);
+	color: var(--text-colour-primary);
+}
+
+.locations-location-places-item-components-btn-save {
+	background: var(--colour-blue) !important;
+	color: #fff !important;
+}
+
+.locations-location-places-item-components-btn-save:hover {
+	background: var(--colour-blue-tint) !important;
+}
+
+.locations-location-places-item-image-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}
+
+.locations-location-places-item-buttons-container {
+	display: inline-flex;
+	flex-direction: column;
+	width: 32px;
+	gap: 8px 0;
+}
+
+@media (max-width: 1000px) {
+	.locations-location-places-item-container {
+		margin: 6px 0;
+		width: 100%;
+	}
+}

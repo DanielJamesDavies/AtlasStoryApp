@@ -13,6 +13,7 @@ const LocationProvider = ({ children, location_id }) => {
 		() => [
 			{ id: "description", name: "Description" },
 			{ id: "regions", name: "Regions" },
+			{ id: "places", name: "Places" },
 			{ id: "properties", name: "Properties" },
 			{ id: "gallery", name: "Gallery" },
 			{ id: "miscellaneous", name: "Miscellaneous" },

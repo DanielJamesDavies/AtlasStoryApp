@@ -42,6 +42,7 @@ export const SurfaceMapComponentsLogic = ({
 		removeComponentToSelectedSurfaceMapComponents,
 		isDrawingSurfaceMapComponents,
 		isDeletingSurfaceMapComponents,
+		isPositioningSurfaceMapPlace,
 	} = useContext(LocationsContext);
 
 	const [surfaceMapImageDisplayComponents, setSurfaceMapImageDisplayComponents] = useState(null);
@@ -52,6 +53,8 @@ export const SurfaceMapComponentsLogic = ({
 
 	const onClickMapComponent = useCallback(
 		(index) => {
+			if (isPositioningSurfaceMapPlace) return false;
+
 			if (isDeletingSurfaceMapComponents) {
 				const d = surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index]?.getAttribute("d");
 
@@ -153,6 +156,7 @@ export const SurfaceMapComponentsLogic = ({
 			setCurrentMapLocationId,
 			setSurfaceMapHoveringRegion,
 			isDeletingSurfaceMapComponents,
+			isPositioningSurfaceMapPlace,
 		]
 	);
 
@@ -416,10 +420,10 @@ export const SurfaceMapComponentsLogic = ({
 					drawingShapeCoords.current = [];
 
 					const imageContainerHeightDelta =
-					((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+						((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 
 					const min_y = -imageContainerHeightDelta - 1 * zoom.current;
-					const offset_y = -1 * Math.min(0, -1 * min_y * 1 / zoom.current);
+					const offset_y = -1 * Math.min(0, (-1 * min_y * 1) / zoom.current);
 					newDrawingShapeCoords = newDrawingShapeCoords.map((e) => [e[0] + 1.5, e[1] + offset_y]);
 					const polygon = toPath({ type: "polygon", points: newDrawingShapeCoords.map((e1) => e1.join(",")).join(" ") });
 

@@ -12,6 +12,7 @@ import { SurfaceMapComponentsLogic } from "./SurfaceMapComponentsLogic";
 import { LocationsContext } from "../LocationsContext";
 import { APIContext } from "../../../context/APIContext";
 import { RecentDataContext } from "../../../context/RecentDataContext";
+import { SurfaceMapPlacesLogic } from "./SurfaceMapPlacesLogic";
 
 // Services
 
@@ -27,6 +28,7 @@ export const SurfaceMapLogic = () => {
 		selectedLocationId,
 		setSelectedLocationId,
 		setIsDisplayingHierarchy,
+		isPositioningSurfaceMapPlace,
 	} = useContext(LocationsContext);
 
 	const { APIRequest } = useContext(APIContext);
@@ -48,6 +50,9 @@ export const SurfaceMapLogic = () => {
 	const surfaceMapImageRegionsNamesTextsRef = useRef();
 	const surfaceMapDrawingShapeRef = useRef();
 	const surfaceMapImageNewComponentsRef = useRef();
+	const surfaceMapPlacesRef = useRef();
+	const surfaceMapPositioningPlaceRef = useRef();
+	const [surfaceMapPlaces, setSurfaceMapPlaces] = useState(null);
 
 	const currentLocationId = useRef(false);
 	var regionClusters = useRef();
@@ -71,6 +76,16 @@ export const SurfaceMapLogic = () => {
 		currentLocationId,
 		setRegionNamesTexts,
 		setRegionNamesHTML,
+	});
+
+	SurfaceMapPlacesLogic({
+		surfaceMapContainerRef,
+		surfaceMapPlacesRef,
+		surfaceMapPositioningPlaceRef,
+		setSurfaceMapPlaces,
+		zoom,
+		pointX,
+		pointY,
 	});
 
 	const { surfaceMapImageDisplayComponents, surfaceMapImageComponentsStyles } = SurfaceMapComponentsLogic({
@@ -183,5 +198,9 @@ export const SurfaceMapLogic = () => {
 		setIsDisplayingHierarchy,
 		regionNamesHTML,
 		regionNamesTexts,
+		surfaceMapPlacesRef,
+		surfaceMapPositioningPlaceRef,
+		surfaceMapPlaces,
+		isPositioningSurfaceMapPlace,
 	};
 };

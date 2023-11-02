@@ -5,6 +5,7 @@ import { useState, useContext, useEffect, useRef } from "react";
 import { Description } from "./Subpages/Description/Description";
 import { Properties } from "./Subpages/Properties/Properties";
 import { Regions } from "./Subpages/Regions/Regions";
+import { Places } from "./Subpages/Places/Places";
 import { Gallery } from "./Subpages/Gallery/Gallery";
 import { Miscellaneous } from "./Subpages/Miscellaneous/Miscellaneous";
 import { Development } from "./Subpages/Development/Development";
@@ -14,6 +15,7 @@ import { Settings } from "./Subpages/Settings/Settings";
 
 // Context
 import { LocationContext } from "../LocationContext";
+import { LocationsContext } from "../../../LocationsContext";
 
 // Services
 
@@ -22,6 +24,13 @@ import { LocationContext } from "../LocationContext";
 // Assets
 
 export const LocationSubpagesLogic = () => {
+	const {
+		setIsSelectingSurfaceMapComponents,
+		setRegionSelectingSurfaceMapComponentsFor,
+		setIsDrawingSurfaceMapComponents,
+		setIsDeletingSurfaceMapComponents,
+		setIsPositioningSurfaceMapPlace,
+	} = useContext(LocationsContext);
 	const { openSubpageID } = useContext(LocationContext);
 
 	const subpageContainerRef = useRef();
@@ -40,6 +49,12 @@ export const LocationSubpagesLogic = () => {
 
 	useEffect(() => {
 		function getSubpage() {
+			setIsSelectingSurfaceMapComponents(false);
+			setRegionSelectingSurfaceMapComponentsFor(false);
+			setIsDrawingSurfaceMapComponents(false);
+			setIsDeletingSurfaceMapComponents(false);
+			setIsPositioningSurfaceMapPlace(false);
+
 			switch (openSubpageID) {
 				case "description":
 					return <Description />;
@@ -47,6 +62,8 @@ export const LocationSubpagesLogic = () => {
 					return <Properties />;
 				case "regions":
 					return <Regions />;
+				case "places":
+					return <Places />;
 				case "gallery":
 					return <Gallery />;
 				case "miscellaneous":
@@ -60,7 +77,14 @@ export const LocationSubpagesLogic = () => {
 			}
 		}
 		setSubpage(getSubpage());
-	}, [openSubpageID]);
+	}, [
+		openSubpageID,
+		setIsSelectingSurfaceMapComponents,
+		setRegionSelectingSurfaceMapComponentsFor,
+		setIsDrawingSurfaceMapComponents,
+		setIsDeletingSurfaceMapComponents,
+		setIsPositioningSurfaceMapPlace,
+	]);
 
 	return { subpageContainerRef, subpage };
 };

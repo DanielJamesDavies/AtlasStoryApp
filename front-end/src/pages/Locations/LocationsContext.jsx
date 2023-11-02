@@ -131,13 +131,15 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [isMouseControllingPlayer, setIsMouseControllingPlayer] = useState(false);
 	const [mapObjectLocations, setMapObjectLocations] = useState([]);
 	const [locations3DMapImages, setLocations3DMapImages] = useState(false);
-	const [isSelectingSurfaceMapComponents, setIsSelectingSurfaceMapComponents] = useState(false);
-	const [regionSelectingSurfaceMapComponentsFor, setRegionSelectingSurfaceMapComponentsFor] = useState(false);
 	const [selectedSurfaceMapComponents, setSelectedSurfaceMapComponents] = useState([]);
 	const [surfaceMapComponentsList, setSurfaceMapComponentsList] = useState([]);
 	const [surfaceMapHoveringRegion, setSurfaceMapHoveringRegion] = useState(false);
+	const [isSelectingSurfaceMapComponents, setIsSelectingSurfaceMapComponents] = useState(false);
+	const [regionSelectingSurfaceMapComponentsFor, setRegionSelectingSurfaceMapComponentsFor] = useState(false);
 	const [isDrawingSurfaceMapComponents, setIsDrawingSurfaceMapComponents] = useState(false);
 	const [isDeletingSurfaceMapComponents, setIsDeletingSurfaceMapComponents] = useState(false);
+	const [isPositioningSurfaceMapPlace, setIsPositioningSurfaceMapPlace] = useState(false);
+	const [positioningPlaceID, setPositioningPlaceID] = useState(false);
 
 	const scenesChangePlayerInitial = useRef([
 		{
@@ -480,6 +482,10 @@ const LocationsProvider = ({ children, story_uid }) => {
 				scenesChangePlayerInitial,
 				isDisplayingCreateLocationForm,
 				setIsDisplayingCreateLocationForm,
+				isPositioningSurfaceMapPlace,
+				setIsPositioningSurfaceMapPlace,
+				positioningPlaceID,
+				setPositioningPlaceID,
 			}}
 		>
 			{children}

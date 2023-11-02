@@ -12,8 +12,8 @@ import "./ToggleInput.css";
 
 // Assets
 
-export const ToggleInput = ({ className, label, labels, value, onToggle, enableEdit }) => {
-	const { toggleInputContainerClassName } = ToggleInputLogic({ className, enableEdit });
+export const ToggleInput = ({ className, label, labels, value, onToggle, enableEdit, size }) => {
+	const { toggleInputContainerClassName } = ToggleInputLogic({ className, enableEdit, size });
 
 	return (
 		<div className={toggleInputContainerClassName}>

@@ -1,0 +1,50 @@
+.locations-location-places {
+	padding-top: 8px;
+}
+
+.locations-location-places-items {
+	display: inline-block;
+	flex-flow: column wrap;
+	padding-right: 12px;
+
+	width: calc(100% - 12px);
+	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px);
+	overflow-y: overlay;
+	overflow-x: hidden;
+}
+
+.locations-location-places-start-btn-container {
+	display: flex;
+	justify-content: right;
+	gap: 8px;
+	margin-bottom: 6px;
+}
+
+.locations-location-places-start-btn {
+	border: 0;
+	border-radius: 32px;
+	padding: 6px 12px;
+	background: var(--colour-accent);
+	color: #fff;
+	font-size: 13px;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.locations-location-places-start-btn:hover {
+	background: var(--colour-accent-hover);
+}
+
+.locations-location-places-start-btn-active {
+	background: var(--colour-red);
+}
+
+.locations-location-places-start-btn-active:hover {
+	background: var(--colour-red-tint);
+}
+
+@media (max-width: 750px) {
+	.locations-location-places-items {
+		height: calc(var(--locationsSubpageHeight) - 32px - 8px);
+	}
+}

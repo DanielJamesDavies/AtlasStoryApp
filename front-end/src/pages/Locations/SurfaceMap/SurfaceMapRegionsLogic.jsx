@@ -423,6 +423,8 @@ export const SurfaceMapRegionsLogic = ({
 		updateRegionsNames();
 	}, [locations, updateRegionsNames]);
 
+	const timeOfLastUpdateRegionNamesOnMap = useRef(false);
+
 	useEffect(() => {
 		function getClosestCluster(cluster, clusters, distances) {
 			return clusters
@@ -440,6 +442,13 @@ export const SurfaceMapRegionsLogic = ({
 
 		function updateRegionNamesOnMap() {
 			if (!locationMapImage) return false;
+
+			const { width_zoom, height_zoom } = getDimensionsZoom();
+			if (zoom.current > Math.max(width_zoom, height_zoom)) return false;
+
+			if (timeOfLastUpdateRegionNamesOnMap.current !== false && Date.now() - timeOfLastUpdateRegionNamesOnMap.current <= 4000) return false;
+
+			timeOfLastUpdateRegionNamesOnMap.current = Date.now();
 
 			const location = locations.find((e) => e?._id === currentLocationId?.current);
 
@@ -540,6 +549,8 @@ export const SurfaceMapRegionsLogic = ({
 		regionClusters,
 		surfaceMapImageComponentsContainerRef,
 		locationMapImage,
+		zoom,
+		getDimensionsZoom,
 	]);
 
 	return { updateRegionsNames };

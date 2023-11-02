@@ -68,6 +68,25 @@ const LocationSchema = mongoose.Schema({
 				required: true,
 				default: [],
 			},
+			places: {
+				type: [
+					{
+						_id: {
+							type: mongoose.Schema.Types.ObjectId,
+							required: true,
+							auto: true,
+						},
+						name: { type: String, default: "Location" },
+						colour: { type: String, default: "#0044ff" },
+						location: { type: mongoose.Schema.Types.ObjectId },
+						position: [Number],
+						symbol: { type: String, default: "star" },
+						isMajor: { type: Boolean, default: true },
+					},
+				],
+				required: true,
+				default: [],
+			},
 			overviewBackground: {
 				type: mongoose.Schema.Types.ObjectId,
 				required: true,

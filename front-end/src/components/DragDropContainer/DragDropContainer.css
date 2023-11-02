@@ -19,8 +19,3 @@
 .drag-drop-scroll-bottom {
 	bottom: 0;
 }
-
-.drag-drop-list-absolute-vertical-drag .drag-drop-scroll-top,
-.drag-drop-list-absolute-vertical-drag .drag-drop-scroll-bottom {
-	position: absolute;
-}
