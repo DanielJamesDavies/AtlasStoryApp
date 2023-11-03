@@ -43,6 +43,7 @@ export const SurfaceMapComponentsLogic = ({
 		isDrawingSurfaceMapComponents,
 		isDeletingSurfaceMapComponents,
 		isPositioningSurfaceMapPlace,
+		regionItemHoveringOver,
 	} = useContext(LocationsContext);
 
 	const [surfaceMapImageDisplayComponents, setSurfaceMapImageDisplayComponents] = useState(null);
@@ -169,10 +170,25 @@ export const SurfaceMapComponentsLogic = ({
 			if (isNaN(index)) return false;
 
 			if (isDeletingSurfaceMapComponents) {
-				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.add(
-					"locations-surface-map-image-component-hovering-over"
-				);
-				return false;
+				const region_id = surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].getAttribute("data-region-id");
+				if (!region_id) {
+					surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.add(
+						"locations-surface-map-image-display-components-svg-hover"
+					);
+				} else {
+					Array.from(surfaceMapImageDisplayComponentsContainerRef?.current?.children)?.map((e) => {
+						if (e?.getAttribute("data-region-id") === region_id) {
+							Array.from(e?.children)?.map((path) => {
+								if (parseInt(path?.getAttribute("data-index")) === index) {
+									path.classList.add("locations-surface-map-image-display-components-svg-hover");
+								}
+								return true;
+							});
+						}
+						return true;
+					});
+				}
+				return true;
 			}
 
 			const region = locations
@@ -200,11 +216,11 @@ export const SurfaceMapComponentsLogic = ({
 	const onMouseOutMapComponent = useCallback(() => {
 		setSurfaceMapHoveringRegion(false);
 
-		Array.from(surfaceMapImageDisplayComponentsContainerRef?.current?.children)?.map((e) => {
+		Array.from(document.getElementsByClassName("locations-surface-map-image-display-components-svg-hover"))?.map((e) => {
 			e.classList.remove("locations-surface-map-image-display-components-svg-hover");
 			return true;
 		});
-	}, [setSurfaceMapHoveringRegion, surfaceMapImageDisplayComponentsContainerRef]);
+	}, [setSurfaceMapHoveringRegion]);
 
 	const updateSurfaceMapImageDisplayComponents = useCallback(async () => {
 		const location = locations.find((e) => e?._id === currentMapLocationId);
@@ -242,6 +258,19 @@ export const SurfaceMapComponentsLogic = ({
 		// eslint-disable-next-line
 	}, [surfaceMapImageComponentsContainerRef, surfaceMapImageRef, surfaceMapComponentsList]);
 
+	useEffect(() => {
+		Array.from(document.getElementsByClassName("locations-surface-map-image-display-components-svg-hover"))?.map((e) =>
+			e?.classList?.remove("locations-surface-map-image-display-components-svg-hover")
+		);
+		if (regionItemHoveringOver !== false && surfaceMapImageDisplayComponentsContainerRef?.current?.children) {
+			Array.from(surfaceMapImageDisplayComponentsContainerRef?.current?.children)?.map((e) => {
+				if (e?.getAttribute("data-region-id") !== regionItemHoveringOver) return false;
+				e.classList.add("locations-surface-map-image-display-components-svg-hover");
+				return true;
+			});
+		}
+	}, [regionItemHoveringOver, surfaceMapImageDisplayComponentsContainerRef]);
+
 	const [hasSetDefaultComponents, setHasSetDefaultComponents] = useState(false);
 
 	const setDefaultComponents = useCallback(() => {
@@ -252,8 +281,8 @@ export const SurfaceMapComponentsLogic = ({
 			const image_width = surfaceMapImageRef?.current?.clientWidth;
 			const image_height = surfaceMapImageRef?.current?.clientHeight;
 
-			const max_component_width = Math.floor(image_width * (zoom.current / 1)) - 2;
-			const max_component_height = Math.floor(image_height * (zoom.current / 1)) - 2;
+			const max_component_width = image_width * (zoom.current / 1) - 2;
+			const max_component_height = image_height * (zoom.current / 1) - 2;
 
 			Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path) => {
 				let { width, height } = path.getClientRects()[0];
@@ -351,11 +380,13 @@ export const SurfaceMapComponentsLogic = ({
 				((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 			const min_y = -imageContainerHeightDelta - 1 * zoom.current;
 
-			const posX = e?.clientX / zoom.current - pointX.current / zoom.current;
+			let posX = e?.clientX / zoom.current - pointX.current / zoom.current;
 			let posY = e?.clientY / zoom.current - pointY.current / zoom.current;
 			if (min_y < 0) {
 				posY = e?.clientY / zoom.current + Math.abs(pointY.current - min_y) / zoom.current;
 			}
+			posX = Math.floor(posX);
+			posY = Math.floor(posY);
 
 			if (!isDrawingShape.current) {
 				isDrawingShape.current = true;
@@ -402,7 +433,7 @@ export const SurfaceMapComponentsLogic = ({
 
 					const min_y = -imageContainerHeightDelta - 1 * zoom.current;
 					const offset_y = -1 * Math.min(0, (-1 * min_y * 1) / zoom.current);
-					newDrawingShapeCoords = newDrawingShapeCoords.map((e) => [e[0] + 1.5, e[1] + offset_y]);
+					newDrawingShapeCoords = newDrawingShapeCoords.map((e) => [e[0] + 1.5, e[1] + offset_y + 1.5]);
 					const polygon = toPath({
 						type: "polygon",
 						points: newDrawingShapeCoords
@@ -414,9 +445,10 @@ export const SurfaceMapComponentsLogic = ({
 					const xmlns = "http://www.w3.org/2000/svg";
 					const newPathEl = document.createElementNS(xmlns, "path");
 					newPathEl.setAttributeNS(null, "d", polygon);
+					newPathEl.classList.add("locations-surface-map-image-component-is-drawn");
 					surfaceMapImageNewComponentsRef.current.appendChild(newPathEl);
 
-					let newPath = `<path fill="rgb(255,255,255)" stroke="rgb(255,255,255)" stroke-width="4" opacity="1" d="${polygon}" />`;
+					let newPath = `<path class='locations-surface-map-image-component-is-drawn' fill="rgb(255,255,255)" stroke="rgb(255,255,255)" stroke-width="4" opacity="1" d="${polygon}" />`;
 
 					setLocations((oldLocations) => {
 						let newLocations = JSON.parse(JSON.stringify(oldLocations));
@@ -463,11 +495,13 @@ export const SurfaceMapComponentsLogic = ({
 				((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 			const min_y = -imageContainerHeightDelta - 1 * zoom.current;
 
-			const posX = e?.clientX / zoom.current - pointX.current / zoom.current;
+			let posX = e?.clientX / zoom.current - pointX.current / zoom.current;
 			let posY = e?.clientY / zoom.current - pointY.current / zoom.current;
 			if (min_y < 0) {
 				posY = e?.clientY / zoom.current + Math.abs(pointY.current - min_y) / zoom.current;
 			}
+			posX = Math.floor(posX);
+			posY = Math.floor(posY);
 
 			if (isDrawingLine.current) {
 				const dy = drawingLineCurrFirstCoords.current[1] - posY;
@@ -478,9 +512,9 @@ export const SurfaceMapComponentsLogic = ({
 					Math.abs(drawingLineCurrFirstCoords.current[0] - posX),
 					Math.abs(drawingLineCurrFirstCoords.current[1] - posY)
 				);
-				drawingLine.current.style = `height: ${length + 1}px; top: ${drawingLineCurrFirstCoords.current[1]}px; left: ${
+				drawingLine.current.style = `height: ${length * 2}px; top: ${drawingLineCurrFirstCoords.current[1]}px; left: ${
 					drawingLineCurrFirstCoords.current[0]
-				}px; transform: rotate(${theta}deg);`;
+				}px; --rotation: ${theta}deg`;
 
 				const dist_from_start = Math.hypot(
 					Math.abs(drawingLineFirstCoords.current[0] - posX),

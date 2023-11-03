@@ -84,7 +84,12 @@ export const MapLocationStatus = () => {
 				<>
 					{!surfaceMapHoveringRegion ? null : (
 						<div className='locations-map-location-status-next-location-container'>
-							<div className='locations-map-location-status-divider'>|</div>
+							{locations
+								.find((e) => JSON.stringify(e?._id) === JSON.stringify(currentMapLocationId))
+								?.data?.regions?.find((e) => e?._id === surfaceMapHoveringRegion)
+								?.name?.trim()?.length === 0 ? null : (
+								<div className='locations-map-location-status-divider'>|</div>
+							)}
 							<div className='locations-map-location-status-next-location'>
 								<div className='locations-map-location-status-next-location-name'>
 									{

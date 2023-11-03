@@ -140,6 +140,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [isDeletingSurfaceMapComponents, setIsDeletingSurfaceMapComponents] = useState(false);
 	const [isPositioningSurfaceMapPlace, setIsPositioningSurfaceMapPlace] = useState(false);
 	const [positioningPlaceID, setPositioningPlaceID] = useState(false);
+	const [regionItemHoveringOver, setRegionItemHoveringOver] = useState(false);
 
 	const scenesChangePlayerInitial = useRef([
 		{
@@ -486,6 +487,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setIsPositioningSurfaceMapPlace,
 				positioningPlaceID,
 				setPositioningPlaceID,
+				regionItemHoveringOver,
+				setRegionItemHoveringOver,
 			}}
 		>
 			{children}

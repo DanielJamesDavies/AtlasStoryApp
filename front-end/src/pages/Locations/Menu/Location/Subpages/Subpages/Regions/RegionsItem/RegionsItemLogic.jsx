@@ -27,6 +27,7 @@ export const RegionsItemLogic = ({ regionsItem, index, locationChildren }) => {
 		regionSelectingSurfaceMapComponentsFor,
 		setRegionSelectingSurfaceMapComponentsFor,
 		updateSurfaceMapComponentsList,
+		setRegionItemHoveringOver,
 	} = useContext(LocationsContext);
 	const { setLocation } = useContext(LocationContext);
 
@@ -98,7 +99,7 @@ export const RegionsItemLogic = ({ regionsItem, index, locationChildren }) => {
 
 	function changeLocation(e) {
 		const new_location_id = locationChildren[e]?._id;
-		
+
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
@@ -114,6 +115,17 @@ export const RegionsItemLogic = ({ regionsItem, index, locationChildren }) => {
 		});
 	}
 
+	function onMouseOver() {
+		setRegionItemHoveringOver(regionsItem?._id);
+	}
+
+	function onMouseOut() {
+		setRegionItemHoveringOver((oldValue) => {
+			if (JSON.stringify(oldValue) === JSON.stringify(regionsItem?._id)) return false;
+			return oldValue;
+		});
+	}
+
 	return {
 		locations,
 		changeRegionsItemName,
@@ -124,5 +136,7 @@ export const RegionsItemLogic = ({ regionsItem, index, locationChildren }) => {
 		startSelectingMapComponents,
 		endSelectingMapComponents,
 		changeLocation,
+		onMouseOver,
+		onMouseOut,
 	};
 };

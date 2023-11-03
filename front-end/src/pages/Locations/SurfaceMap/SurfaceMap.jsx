@@ -39,6 +39,7 @@ export const SurfaceMap = () => {
 		isPanning,
 		isScrolling,
 		isSelectingSurfaceMapComponents,
+		isDeletingSurfaceMapComponents,
 		surfaceMapImageDisplayComponents,
 		surfaceMapImageComponentsStyles,
 		onMovementBoxWheel,
@@ -56,6 +57,7 @@ export const SurfaceMap = () => {
 				className={
 					"locations-surface-map-container" +
 					(isSelectingSurfaceMapComponents ? " locations-surface-map-container-is-selecting-components" : "") +
+					(isDeletingSurfaceMapComponents ? " locations-surface-map-container-is-deleting-components" : "") +
 					(isPositioningSurfaceMapPlace ? " locations-surface-map-container-is-positioning-place" : "")
 				}
 				onTouchStart={onTouchStart}
