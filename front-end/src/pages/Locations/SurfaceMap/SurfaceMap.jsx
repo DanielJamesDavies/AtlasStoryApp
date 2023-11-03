@@ -44,7 +44,6 @@ export const SurfaceMap = () => {
 		onMovementBoxWheel,
 		regionNamesHTML,
 		regionNamesTexts,
-		surfaceMapPlacesRef,
 		surfaceMapPositioningPlaceRef,
 		surfaceMapPlaces,
 		isPositioningSurfaceMapPlace,
@@ -123,9 +122,7 @@ export const SurfaceMap = () => {
 								<div className='locations-surface-map-image-new-components-container'>
 									<svg version='1.1' ref={surfaceMapImageNewComponentsRef}></svg>
 								</div>
-								<div ref={surfaceMapPlacesRef} className='locations-surface-map-places-container'>
-									{surfaceMapPlaces}
-								</div>
+								<div className='locations-surface-map-places-container'>{surfaceMapPlaces}</div>
 								<div ref={surfaceMapPositioningPlaceRef} className='locations-surface-map-positioning-place-container'></div>
 							</div>
 						</div>

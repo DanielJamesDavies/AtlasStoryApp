@@ -50,7 +50,6 @@ export const SurfaceMapLogic = () => {
 	const surfaceMapImageRegionsNamesTextsRef = useRef();
 	const surfaceMapDrawingShapeRef = useRef();
 	const surfaceMapImageNewComponentsRef = useRef();
-	const surfaceMapPlacesRef = useRef();
 	const surfaceMapPositioningPlaceRef = useRef();
 	const [surfaceMapPlaces, setSurfaceMapPlaces] = useState(null);
 
@@ -80,7 +79,8 @@ export const SurfaceMapLogic = () => {
 
 	SurfaceMapPlacesLogic({
 		surfaceMapContainerRef,
-		surfaceMapPlacesRef,
+		surfaceMapImageRef,
+		surfaceMapImageContainerRef,
 		surfaceMapPositioningPlaceRef,
 		setSurfaceMapPlaces,
 		zoom,
@@ -198,7 +198,6 @@ export const SurfaceMapLogic = () => {
 		setIsDisplayingHierarchy,
 		regionNamesHTML,
 		regionNamesTexts,
-		surfaceMapPlacesRef,
 		surfaceMapPositioningPlaceRef,
 		surfaceMapPlaces,
 		isPositioningSurfaceMapPlace,

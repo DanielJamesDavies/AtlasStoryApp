@@ -537,11 +537,12 @@
 	display: block;
 	content: "";
 
-	width: calc(min(10px, 18px / var(--zoom)));
-	height: calc(min(10px, 18px / var(--zoom)));
+	width: 1px;
+	height: 1px;
 
 	background: #fff;
-	transform: rotate(45deg);
+	transform: rotate(45deg) scale(max(0.8, calc(1 / var(--zoom) * 5))) translate(2px, 1px);
+	transform-origin: center center;
 	opacity: 0.7;
 }
 

@@ -17,7 +17,8 @@ import { FaCircle, FaCrosshairs, FaMapMarkerAlt, FaStar } from "react-icons/fa";
 
 export const SurfaceMapPlacesLogic = ({
 	surfaceMapContainerRef,
-	surfaceMapPlacesRef,
+	surfaceMapImageRef,
+	surfaceMapImageContainerRef,
 	surfaceMapPositioningPlaceRef,
 	setSurfaceMapPlaces,
 	zoom,
@@ -102,11 +103,16 @@ export const SurfaceMapPlacesLogic = ({
 			setIsPositioningSurfaceMapPlace(false);
 			setPositioningPlaceID(false);
 
-			surfaceMapPositioningPlaceDot.current.remove();
-			surfaceMapPositioningPlaceDot.current = false;
+			if (surfaceMapPositioningPlaceDot?.current && surfaceMapPositioningPlaceDot.current !== false) {
+				surfaceMapPositioningPlaceDot.current.remove();
+				surfaceMapPositioningPlaceDot.current = false;
+			}
+
+			const imageContainerHeightDelta =
+				((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 
 			const posX = e?.clientX / zoom.current - pointX.current / zoom.current;
-			const posY = e?.clientY / zoom.current - pointY.current / zoom.current;
+			const posY = e?.clientY / zoom.current - pointY.current / zoom.current + imageContainerHeightDelta * -1 * (1 / zoom.current) - 31;
 
 			let newLocations = false;
 			setLocations((oldLocations) => {
@@ -131,6 +137,8 @@ export const SurfaceMapPlacesLogic = ({
 			positioningPlaceID,
 			setPositioningPlaceID,
 			updateSurfaceMapPlaces,
+			surfaceMapImageRef,
+			surfaceMapImageContainerRef,
 		]
 	);
 
@@ -145,7 +153,7 @@ export const SurfaceMapPlacesLogic = ({
 	}, [onMouseMove, onMouseClick, surfaceMapContainerRef]);
 
 	useEffect(() => {
-		if (!isPositioningSurfaceMapPlace && surfaceMapPositioningPlaceDot?.current !== false) {
+		if (!isPositioningSurfaceMapPlace && surfaceMapPositioningPlaceDot?.current && surfaceMapPositioningPlaceDot?.current !== false) {
 			surfaceMapPositioningPlaceDot.current.remove();
 			surfaceMapPositioningPlaceDot.current = false;
 		}
