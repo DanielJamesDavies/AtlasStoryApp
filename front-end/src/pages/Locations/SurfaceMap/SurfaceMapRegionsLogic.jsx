@@ -53,7 +53,7 @@ export const SurfaceMapRegionsLogic = ({
 	useEffect(() => {
 		const location = locations.find((e) => e?._id === currentMapLocationId);
 		if (location && surfaceMapComponentsList.length !== 0 && locationMapImage) {
-			setTimeout(() => {
+			const interval = setInterval(() => {
 				try {
 					if (!surfaceMapImageComponentsContainerRef?.current) return false;
 					Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
@@ -70,7 +70,10 @@ export const SurfaceMapRegionsLogic = ({
 						return true;
 					});
 				} catch {}
-			}, 250);
+			}, 25);
+			setTimeout(() => {
+				clearInterval(interval);
+			}, 300);
 		}
 	}, [
 		isSelectingSurfaceMapComponents,

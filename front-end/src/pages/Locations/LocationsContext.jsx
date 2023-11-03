@@ -227,7 +227,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			if (!story || !story?.data?.locationsHierarchy || story.data.locationsHierarchy.length === 0) return false;
 
 			let newCurrentMapLocationItem = false;
-			if (url_location.current) {
+			if (url_location.current && story?.data?.locationsHierarchy) {
 				newCurrentMapLocationItem = getItemFromIdInHierarchy(
 					url_location.current,
 					JSON.parse(JSON.stringify(story.data.locationsHierarchy))
@@ -316,26 +316,26 @@ const LocationsProvider = ({ children, story_uid }) => {
 	}, [locationPath, setIsOnMap]);
 
 	const hasGotIsOnSpaceMapForLocation = useRef(false);
-	useEffect(() => {
-		if (locations.length !== 0) {
-			const location_id = locationPath.current
-				.split("/")
-				.filter((e) => e.length !== 0)
-				.at(-1);
-			if (hasGotIsOnSpaceMapForLocation?.current === false && locationPath.current.split("/").filter((e) => e.length !== 0).length === 4) {
-				if (locations?.length !== 0 && story?.data?.locationsHierarchy?.length !== 0) hasGotIsOnSpaceMapForLocation.current = location_id;
-				if (location_id) {
-					const curr_location_type = locations.find((e) => e?._id === location_id)?.type;
-					if (curr_location_type === "surfaceLocation") return setIsOnSpaceMap(false);
-					setIsOnSpaceMap(true);
-				}
-			}
-		}
-	}, [locationPath, setIsOnSpaceMap, story, locations]);
+	const getInitialIsOnSpaceMap = useCallback(() => {
+		const location_id = locationPath.current
+			.split("/")
+			.filter((e) => e.length !== 0)
+			.at(-1);
+
+		if (hasGotIsOnSpaceMapForLocation.current === location_id) return false;
+
+		if (locations.length === 0) return false;
+
+		hasGotIsOnSpaceMapForLocation.current = location_id;
+
+		const curr_location_type = locations.find((e) => e?._id === location_id)?.type;
+
+		if (!["planet", "moon"].includes(curr_location_type)) setIsOnSpaceMap(curr_location_type !== "surfaceLocation");
+	}, [setIsOnSpaceMap, locationPath, locations, hasGotIsOnSpaceMapForLocation]);
 
 	useEffect(() => {
-		setIsOnSpaceMap(true);
-	}, [isOnMap, setIsOnSpaceMap]);
+		getInitialIsOnSpaceMap();
+	}, [isOnMap, setIsOnSpaceMap, getInitialIsOnSpaceMap]);
 
 	const changeCameraRotation = useCallback(
 		(newRotation) => {

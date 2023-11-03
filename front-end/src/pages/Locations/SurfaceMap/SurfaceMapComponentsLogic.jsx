@@ -52,7 +52,10 @@ export const SurfaceMapComponentsLogic = ({
 	const readyToSelectComponent = useRef(true);
 
 	const onClickMapComponent = useCallback(
-		(index) => {
+		(e) => {
+			const index = parseInt(e.target.getAttribute("data-index"));
+			if (isNaN(index)) return false;
+
 			if (isPositioningSurfaceMapPlace) return false;
 
 			if (isDeletingSurfaceMapComponents) {
@@ -127,7 +130,7 @@ export const SurfaceMapComponentsLogic = ({
 
 			clicks.current.push(Date.now());
 			clicks.current = getNewClicks(clicks.current, maxDelta);
-			switch (clicks.current.length / 2) {
+			switch (clicks.current.length) {
 				case 1:
 					clickTimeout.current = setTimeout(() => {
 						// Single Click
@@ -161,7 +164,10 @@ export const SurfaceMapComponentsLogic = ({
 	);
 
 	const onMouseOverMapComponent = useCallback(
-		(index) => {
+		(e) => {
+			const index = parseInt(e.target.getAttribute("data-index"));
+			if (isNaN(index)) return false;
+
 			if (isDeletingSurfaceMapComponents) {
 				surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].classList.add(
 					"locations-surface-map-image-component-hovering-over"
@@ -200,15 +206,17 @@ export const SurfaceMapComponentsLogic = ({
 		});
 	}, [setSurfaceMapHoveringRegion, surfaceMapImageDisplayComponentsContainerRef]);
 
-	const updateSurfaceMapImageDisplayComponents = useCallback(() => {
+	const updateSurfaceMapImageDisplayComponents = useCallback(async () => {
+		const location = locations.find((e) => e?._id === currentMapLocationId);
+
 		let newSurfaceMapImageDisplayComponents = [];
 
-		Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path) => {
-			const regionID = path?.getAttribute("data-region-id");
+		Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
+			let regionID = path?.getAttribute("data-region-id");
 			if (!regionID) return false;
-			const newSurfaceMapImageDisplayComponentsIndex = newSurfaceMapImageDisplayComponents?.findIndex((e) => e?.region === regionID);
+			const newSurfaceMapImageDisplayComponentsIndex = newSurfaceMapImageDisplayComponents?.findIndex((e) => e?.region?._id === regionID);
 			if (newSurfaceMapImageDisplayComponentsIndex === -1) {
-				newSurfaceMapImageDisplayComponents.push({ region: regionID, components: [path] });
+				newSurfaceMapImageDisplayComponents.push({ region: location?.data?.regions?.find((e) => e?._id === regionID), components: [path] });
 			} else {
 				newSurfaceMapImageDisplayComponents[newSurfaceMapImageDisplayComponentsIndex].components.push(path);
 			}
@@ -221,7 +229,8 @@ export const SurfaceMapComponentsLogic = ({
 					`<svg 
 						width="${surfaceMapImageRef?.current?.clientWidth}"
 						height="${surfaceMapImageRef?.current?.clientHeight}"
-						data-region-id="${e?.region}"
+						data-region-id="${e?.region?._id}"
+						style="--regionColour: ${e?.region?.colour}"
 					>` +
 					e?.components?.map((e2) => e2?.outerHTML) +
 					"</svg>"
@@ -230,82 +239,80 @@ export const SurfaceMapComponentsLogic = ({
 			.join("");
 
 		setSurfaceMapImageDisplayComponents(newSurfaceMapImageDisplayComponents);
-	}, [surfaceMapImageComponentsContainerRef, surfaceMapImageRef]);
+		// eslint-disable-next-line
+	}, [surfaceMapImageComponentsContainerRef, surfaceMapImageRef, surfaceMapComponentsList]);
 
-	useEffect(() => {
-		function setDefaultComponents() {
-			setTimeout(() => {
-				if (!surfaceMapImageComponentsContainerRef.current?.children) return false;
+	const [hasSetDefaultComponents, setHasSetDefaultComponents] = useState(false);
 
-				try {
-					const svg_width = surfaceMapImageComponentsContainerRef.current?.children[0].getAttribute("width");
-					const image_width = surfaceMapImageRef?.current?.clientWidth;
-					const image_height = surfaceMapImageRef?.current?.clientHeight;
+	const setDefaultComponents = useCallback(() => {
+		if (!surfaceMapImageComponentsContainerRef.current?.children) return false;
 
-					const max_component_width = Math.floor(image_width * (zoom.current / 1)) - 2;
-					const max_component_height = Math.floor(image_height * (zoom.current / 1)) - 2;
-
-					Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path) => {
-						let { width, height } = path.getClientRects()[0];
-						width *= image_width / svg_width;
-						height *= image_width / svg_width;
-
-						path.classList.add("locations-surface-map-image-component");
-
-						if (width > max_component_width && height > max_component_height) {
-							path.classList.add("locations-surface-map-image-component-delete");
-						} else if (JSON.stringify(path.getAttribute("fill")) !== JSON.stringify("rgb(255,255,255)")) {
-							path.classList.add("locations-surface-map-image-component-delete");
-						}
-
-						return true;
-					});
-					Array.from(document.getElementsByClassName("locations-surface-map-image-component-delete")).map((path) => path.remove());
-					Array.from(document.getElementsByClassName("locations-surface-map-image-component-hovering-over")).map((path) =>
-						path.classList.remove("locations-surface-map-image-component-hovering-over")
-					);
-
-					Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
-						path.addEventListener("click", () => onClickMapComponent(index));
-						path.addEventListener("mouseover", () => onMouseOverMapComponent(index));
-						path.addEventListener("mouseout", () => onMouseOutMapComponent(index));
-						return true;
-					});
-
-					setTimeout(() => updateSurfaceMapImageDisplayComponents(), 200);
-				} catch {}
-			}, 50);
-		}
-		setDefaultComponents();
-	}, [
-		locationMapImage,
-		onClickMapComponent,
-		onMouseOutMapComponent,
-		onMouseOverMapComponent,
-		surfaceMapImageComponentsContainerRef,
-		surfaceMapImageRef,
-		zoom,
-		updateSurfaceMapImageDisplayComponents,
-	]);
-
-	useEffect(() => {
 		try {
-			Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
-				let new_path = path.cloneNode(true);
-				path.parentNode.replaceChild(new_path, path);
-				if (isSelectingSurfaceMapComponents) new_path.addEventListener("click", () => onClickMapComponent(index));
-				new_path.addEventListener("mouseover", () => onMouseOverMapComponent(index));
-				new_path.addEventListener("mouseout", () => onMouseOutMapComponent(index));
+			const svg_width = surfaceMapImageComponentsContainerRef.current?.children[0].getAttribute("width");
+			const image_width = surfaceMapImageRef?.current?.clientWidth;
+			const image_height = surfaceMapImageRef?.current?.clientHeight;
+
+			const max_component_width = Math.floor(image_width * (zoom.current / 1)) - 2;
+			const max_component_height = Math.floor(image_height * (zoom.current / 1)) - 2;
+
+			Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path) => {
+				let { width, height } = path.getClientRects()[0];
+				width *= image_width / svg_width;
+				height *= image_width / svg_width;
+
+				path.classList.add("locations-surface-map-image-component");
+
+				if (width > max_component_width && height > max_component_height) {
+					path.classList.add("locations-surface-map-image-component-delete");
+				} else if (JSON.stringify(path.getAttribute("fill")) !== JSON.stringify("rgb(255,255,255)")) {
+					path.classList.add("locations-surface-map-image-component-delete");
+				}
+
 				return true;
 			});
+			Array.from(document.getElementsByClassName("locations-surface-map-image-component-delete")).map((path) => path.remove());
+			Array.from(document.getElementsByClassName("locations-surface-map-image-component-hovering-over")).map((path) =>
+				path.classList.remove("locations-surface-map-image-component-hovering-over")
+			);
+
+			Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
+				path.setAttribute("data-index", index);
+				return true;
+			});
+
+			setHasSetDefaultComponents(true);
+
+			setTimeout(() => updateSurfaceMapImageDisplayComponents(), 200);
 		} catch {}
-	}, [
-		isSelectingSurfaceMapComponents,
-		surfaceMapImageComponentsContainerRef,
-		onClickMapComponent,
-		onMouseOverMapComponent,
-		onMouseOutMapComponent,
-	]);
+	}, [surfaceMapImageComponentsContainerRef, surfaceMapImageRef, updateSurfaceMapImageDisplayComponents, zoom]);
+
+	useEffect(() => {
+		setHasSetDefaultComponents(false);
+		setTimeout(() => setDefaultComponents(), 200);
+	}, [locationMapImage, setDefaultComponents, isSelectingSurfaceMapComponents]);
+
+	useEffect(() => {
+		const surfaceMapImageComponentsContainerRefCurrent = surfaceMapImageComponentsContainerRef?.current;
+		if (surfaceMapImageComponentsContainerRefCurrent?.children[0]?.children) {
+			Array.from(surfaceMapImageComponentsContainerRefCurrent?.children[0]?.children)?.map((path, index) => {
+				path.addEventListener("click", onClickMapComponent);
+				path.addEventListener("mouseover", onMouseOverMapComponent);
+				path.addEventListener("mouseout", onMouseOutMapComponent);
+				return true;
+			});
+		}
+
+		return () => {
+			if (surfaceMapImageComponentsContainerRefCurrent?.children[0]?.children) {
+				Array.from(surfaceMapImageComponentsContainerRefCurrent?.children[0]?.children)?.map((path) => {
+					path.removeEventListener("click", onClickMapComponent);
+					path.removeEventListener("mouseover", onMouseOverMapComponent);
+					path.removeEventListener("mouseout", onMouseOutMapComponent);
+					return true;
+				});
+			}
+		};
+	}, [hasSetDefaultComponents, surfaceMapImageComponentsContainerRef, onClickMapComponent, onMouseOverMapComponent, onMouseOutMapComponent]);
 
 	useEffect(() => {
 		try {
@@ -336,48 +343,19 @@ export const SurfaceMapComponentsLogic = ({
 	const firstDot = useRef(false);
 	const drawingShapeCoords = useRef([]);
 
-	const onMouseMove = useCallback(
-		(e) => {
-			if (!isDrawingSurfaceMapComponents) return false;
-			if (!isDrawingShape.current) return false;
-
-			const posX = e?.clientX / zoom.current - pointX.current / zoom.current;
-			const posY = e?.clientY / zoom.current - pointY.current / zoom.current;
-
-			if (isDrawingLine.current) {
-				const dy = drawingLineCurrFirstCoords.current[1] - posY;
-				const dx = drawingLineCurrFirstCoords.current[0] - posX;
-				const theta = (Math.atan2(dy, dx) * 180) / Math.PI + 90;
-
-				const length = Math.hypot(
-					Math.abs(drawingLineCurrFirstCoords.current[0] - posX),
-					Math.abs(drawingLineCurrFirstCoords.current[1] - posY)
-				);
-				drawingLine.current.style = `height: ${length + 1}px; top: ${drawingLineCurrFirstCoords.current[1]}px; left: ${
-					drawingLineCurrFirstCoords.current[0]
-				}px; transform: rotate(${theta}deg);`;
-
-				const dist_from_start = Math.hypot(
-					Math.abs(drawingLineFirstCoords.current[0] - posX),
-					Math.abs(drawingLineFirstCoords.current[1] - posY)
-				);
-
-				if (dist_from_start < Math.max(1, 10 / zoom.current) && firstDot?.current) {
-					firstDot.current.classList.add("locations-surface-map-drawing-point-first-hovering");
-				} else {
-					firstDot.current.classList.remove("locations-surface-map-drawing-point-first-hovering");
-				}
-			}
-		},
-		[pointX, pointY, zoom, isDrawingSurfaceMapComponents]
-	);
-
 	const onMouseClick = useCallback(
 		(e) => {
 			if (!isDrawingSurfaceMapComponents) return false;
 
+			const imageContainerHeightDelta =
+				((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+			const min_y = -imageContainerHeightDelta - 1 * zoom.current;
+
 			const posX = e?.clientX / zoom.current - pointX.current / zoom.current;
-			const posY = e?.clientY / zoom.current - pointY.current / zoom.current;
+			let posY = e?.clientY / zoom.current - pointY.current / zoom.current;
+			if (min_y < 0) {
+				posY = e?.clientY / zoom.current + Math.abs(pointY.current - min_y) / zoom.current;
+			}
 
 			if (!isDrawingShape.current) {
 				isDrawingShape.current = true;
@@ -425,7 +403,13 @@ export const SurfaceMapComponentsLogic = ({
 					const min_y = -imageContainerHeightDelta - 1 * zoom.current;
 					const offset_y = -1 * Math.min(0, (-1 * min_y * 1) / zoom.current);
 					newDrawingShapeCoords = newDrawingShapeCoords.map((e) => [e[0] + 1.5, e[1] + offset_y]);
-					const polygon = toPath({ type: "polygon", points: newDrawingShapeCoords.map((e1) => e1.join(",")).join(" ") });
+					const polygon = toPath({
+						type: "polygon",
+						points: newDrawingShapeCoords
+							.map((e1) => e1.join(","))
+							.slice(0, -1)
+							.join(" "),
+					});
 
 					const xmlns = "http://www.w3.org/2000/svg";
 					const newPathEl = document.createElementNS(xmlns, "path");
@@ -468,6 +452,49 @@ export const SurfaceMapComponentsLogic = ({
 			setLocations,
 			updateSurfaceMapImageDisplayComponents,
 		]
+	);
+
+	const onMouseMove = useCallback(
+		(e) => {
+			if (!isDrawingSurfaceMapComponents) return false;
+			if (!isDrawingShape.current) return false;
+
+			const imageContainerHeightDelta =
+				((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+			const min_y = -imageContainerHeightDelta - 1 * zoom.current;
+
+			const posX = e?.clientX / zoom.current - pointX.current / zoom.current;
+			let posY = e?.clientY / zoom.current - pointY.current / zoom.current;
+			if (min_y < 0) {
+				posY = e?.clientY / zoom.current + Math.abs(pointY.current - min_y) / zoom.current;
+			}
+
+			if (isDrawingLine.current) {
+				const dy = drawingLineCurrFirstCoords.current[1] - posY;
+				const dx = drawingLineCurrFirstCoords.current[0] - posX;
+				const theta = (Math.atan2(dy, dx) * 180) / Math.PI + 90;
+
+				const length = Math.hypot(
+					Math.abs(drawingLineCurrFirstCoords.current[0] - posX),
+					Math.abs(drawingLineCurrFirstCoords.current[1] - posY)
+				);
+				drawingLine.current.style = `height: ${length + 1}px; top: ${drawingLineCurrFirstCoords.current[1]}px; left: ${
+					drawingLineCurrFirstCoords.current[0]
+				}px; transform: rotate(${theta}deg);`;
+
+				const dist_from_start = Math.hypot(
+					Math.abs(drawingLineFirstCoords.current[0] - posX),
+					Math.abs(drawingLineFirstCoords.current[1] - posY)
+				);
+
+				if (dist_from_start < Math.max(1, 10 / zoom.current) && firstDot?.current) {
+					firstDot.current.classList.add("locations-surface-map-drawing-point-first-hovering");
+				} else {
+					firstDot.current.classList.remove("locations-surface-map-drawing-point-first-hovering");
+				}
+			}
+		},
+		[pointX, pointY, zoom, isDrawingSurfaceMapComponents, surfaceMapImageContainerRef, surfaceMapImageRef]
 	);
 
 	useEffect(() => {
