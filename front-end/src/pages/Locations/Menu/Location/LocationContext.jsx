@@ -69,7 +69,7 @@ const LocationProvider = ({ children, location_id }) => {
 	}, [location_id, setLocation, locations, APIRequest]);
 
 	useEffect(() => {
-		let newSubpages = allSubpages.filter((e) => (isOnSpaceMap ? e?.id !== "regions" : e?.id !== "properties"));
+		let newSubpages = allSubpages.filter((e) => (isOnSpaceMap ? !["regions", "places"].includes(e?.id) : e?.id !== "properties"));
 		setSubpages(newSubpages);
 	}, [setSubpages, isOnSpaceMap, allSubpages]);
 

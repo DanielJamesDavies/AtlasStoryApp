@@ -26,8 +26,8 @@ export const NavigationBarLogic = () => {
 		{ title: "Locations", icon: <FontAwesomeIcon icon={faGlobe} />, path: "/locations" },
 		{ title: "Map", icon: <FontAwesomeIcon icon={faMap} />, path: "/map" },
 		{ title: "Events", icon: <FontAwesomeIcon icon={faClock} />, path: "/events" },
-		{ title: "Objects", icon: <FontAwesomeIcon icon={faSpaceShuttle} />, path: "/objects" },
 		{ title: "World Building", icon: <FontAwesomeIcon icon={faLandmark} />, path: "/world-building" },
+		{ title: "Objects", icon: <FontAwesomeIcon icon={faSpaceShuttle} />, path: "/objects" },
 	];
 
 	function goToPage(e, page_path) {

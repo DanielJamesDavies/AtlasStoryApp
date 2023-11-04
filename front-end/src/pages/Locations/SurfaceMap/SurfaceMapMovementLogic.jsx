@@ -22,25 +22,23 @@ export const SurfaceMapMovementLogic = ({
 	pointY,
 	zoom,
 	startPos,
-	updateRegionsNames,
 	setIsImagePixelated,
 	panning,
 	setIsPanning,
 	setIsScrolling,
 	locationMapImage,
+	max_mobile_width,
 }) => {
 	const { isDisplayingHierarchy, isDrawingSurfaceMapComponents } = useContext(LocationsContext);
 
 	const isDisplayingHierarchyValue = useRef();
-
-	const max_mobile_width = 750;
 
 	const getDimensionsZoom = useCallback(() => {
 		let width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
 		let height_zoom = window?.innerHeight / surfaceMapImageRef?.current?.clientHeight;
 		if (window.innerWidth <= max_mobile_width) height_zoom = (window?.innerHeight - 58) / surfaceMapImageRef?.current?.clientHeight;
 		return { width_zoom, height_zoom };
-	}, [surfaceMapImageRef]);
+	}, [surfaceMapImageRef, max_mobile_width]);
 
 	const updateSurfaceMapContainerStyle = useCallback(() => {
 		const imageContainerHeightDelta =
@@ -71,7 +69,7 @@ export const SurfaceMapMovementLogic = ({
 		if (pointY.current > -imageContainerHeightDelta - 1 * zoom.current) pointY.current = -imageContainerHeightDelta - 1 * zoom.current;
 		if (pointY.current < -max_pointY && window.innerWidth > max_mobile_width) pointY.current = -max_pointY;
 		if (window.innerWidth <= max_mobile_width && pointY.current < -max_pointY - 58) pointY.current = -max_pointY - 58;
-	}, [getDimensionsZoom, pointX, pointY, surfaceMapImageContainerRef, surfaceMapImageRef, zoom, isDisplayingHierarchyValue]);
+	}, [getDimensionsZoom, pointX, pointY, surfaceMapImageContainerRef, surfaceMapImageRef, zoom, isDisplayingHierarchyValue, max_mobile_width]);
 
 	useEffect(() => {
 		isDisplayingHierarchyValue.current = isDisplayingHierarchy;
@@ -248,8 +246,6 @@ export const SurfaceMapMovementLogic = ({
 		surfaceMapImageContainerRef.current.style.transform =
 			"translate(" + pointX.current + "px, " + pointY.current + "px) scale(" + zoom.current + ")";
 		updateSurfaceMapContainerStyle();
-
-		updateRegionsNames();
 	}
 
 	function onMovementBoxWheel() {
@@ -382,5 +378,6 @@ export const SurfaceMapMovementLogic = ({
 		enterMovementBox,
 		leaveMovementBox,
 		onMovementBoxWheel,
+		getDimensionsZoom,
 	};
 };

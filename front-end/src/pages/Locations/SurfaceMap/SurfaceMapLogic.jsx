@@ -63,8 +63,26 @@ export const SurfaceMapLogic = () => {
 	var pointY = useRef(0);
 	var startPos = useRef({ x: 0, y: 0 });
 	var lastWindowWidth = useRef(0);
+	const max_mobile_width = 750;
 
-	const { updateRegionsNames } = SurfaceMapRegionsLogic({
+	const { onTouchStart, onTouchMove, enterMovementBox, leaveMovementBox, onMovementBoxWheel, getDimensionsZoom } = SurfaceMapMovementLogic({
+		surfaceMapContainerRef,
+		surfaceMapImageContainerRef,
+		surfaceMapImageComponentsContainerRef,
+		surfaceMapImageRef,
+		pointX,
+		pointY,
+		zoom,
+		startPos,
+		setIsImagePixelated,
+		panning,
+		setIsPanning,
+		setIsScrolling,
+		locationMapImage,
+		max_mobile_width,
+	});
+
+	SurfaceMapRegionsLogic({
 		locationMapImage,
 		surfaceMapImageRef,
 		surfaceMapImageComponentsContainerRef,
@@ -76,6 +94,8 @@ export const SurfaceMapLogic = () => {
 		currentLocationId,
 		setRegionNamesTexts,
 		setRegionNamesHTML,
+		getDimensionsZoom,
+		max_mobile_width,
 	});
 
 	SurfaceMapPlacesLogic({
@@ -100,23 +120,6 @@ export const SurfaceMapLogic = () => {
 		zoom,
 		pointX,
 		pointY,
-		locationMapImage,
-	});
-
-	const { onTouchStart, onTouchMove, enterMovementBox, leaveMovementBox, onMovementBoxWheel } = SurfaceMapMovementLogic({
-		surfaceMapContainerRef,
-		surfaceMapImageContainerRef,
-		surfaceMapImageComponentsContainerRef,
-		surfaceMapImageRef,
-		pointX,
-		pointY,
-		zoom,
-		startPos,
-		updateRegionsNames,
-		setIsImagePixelated,
-		panning,
-		setIsPanning,
-		setIsScrolling,
 		locationMapImage,
 	});
 
