@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const Location = require("../../models/Location");
 const Image = require("../../models/Image");
 
@@ -119,9 +121,49 @@ module.exports = async (req, res) => {
 			} else {
 				newLocation.data.gallery = req?.body?.newValue;
 			}
+		} else if (JSON.stringify(req?.body?.path) === JSON.stringify(["data", "mapVersions"])) {
+			if (req.body.newValue.length === 0) return res.status(200).send({ errors: [{ message: "A Location Cannot Have No Map Versions" }] });
+
+			let newVersions = req.body.newValue;
+
+			newVersions = newVersions.map((version) => {
+				const versionIndex = newLocation.data.mapVersions.findIndex((e) => e._id === version._id);
+				if (versionIndex === -1) return version;
+				const tempVersion = version;
+				version = newLocation.data.mapVersions[versionIndex];
+				version.title = tempVersion.title;
+				return version;
+			});
+
+			newLocation.data.mapVersions = newVersions;
+			newLocation = new Location(newLocation);
+			newLocation = JSON.parse(JSON.stringify(newLocation));
+		} else if (
+			req?.body?.path?.length > 3 &&
+			JSON.stringify(req?.body?.path[0]) === JSON.stringify("data") &&
+			JSON.stringify(req?.body?.path[1]) === JSON.stringify("mapVersions")
+		) {
+			let newPath = JSON.parse(JSON.stringify(req?.body?.path));
+			const mapVersionID = req?.body?.path[2];
+			const mapVersionIndex = newLocation?.data?.mapVersions?.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(mapVersionID));
+			if (mapVersionIndex === -1) return res.status(200).send({ errors: [{ message: "Map Version Does Not Exist" }] });
+			newPath[2] = mapVersionIndex;
+
+			newLocation = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldLocation)), newPath, req?.body?.newValue);
 		} else {
 			newLocation = ChangeValueInNestedObject(JSON.parse(JSON.stringify(oldLocation)), req?.body?.path, req?.body?.newValue);
 		}
+	}
+
+	if (newLocation?.data?.mapVersions?.length === 0) {
+		newLocation.data.mapVersions.push({
+			_id: new mongoose.Types.ObjectId(),
+			title: "Ver. 1",
+			mapImage: ID,
+			mapImageComponents: "",
+			regions: [],
+			places: [],
+		});
 	}
 
 	try {

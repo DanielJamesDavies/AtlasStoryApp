@@ -36,7 +36,7 @@ export const GetUnitServices = ({
 	setCharacterRelationshipsCharacters,
 	storyCharacterRelationships,
 	storyGroups,
-	setLocationMapImage,
+	setLocationMapImages,
 }) => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { APIRequest } = useContext(APIContext);
@@ -299,28 +299,36 @@ export const GetUnitServices = ({
 		[APIRequest, recentImages, addImagesToRecentImages, setCharacterFaceImage]
 	);
 
-	// Get Location Map Image
-	const getLocationMapImage = useCallback(
-		async (mapImageID) => {
-			if (!mapImageID) return;
+	// Get Location Map Images
+	const getLocationMapImages = useCallback(
+		async (mapVersions) => {
+			const newLocationMapImages = await Promise.all(
+				mapVersions?.map(async (mapVersion) => {
+					if (!mapVersion?.mapImage) return;
 
-			let mapImage = false;
+					let mapImage = false;
 
-			const recentImage = recentImages.current.find((e) => e?._id === mapImageID);
-			if (recentImage?.image) {
-				mapImage = recentImage;
-			} else {
-				const map_image_response = await APIRequest("/image/" + mapImageID, "GET");
-				if (map_image_response?.errors || !map_image_response?.data?.image?.image) return false;
-				mapImage = map_image_response?.data?.image;
-			}
+					const recentImage = recentImages.current.find((e) => e?._id === mapVersion?.mapImage);
+					if (recentImage?.image) {
+						mapImage = recentImage;
+					} else {
+						const map_image_response = await APIRequest("/image/" + mapVersion?.mapImage, "GET");
+						if (map_image_response?.errors || !map_image_response?.data?.image?.image)
+							return { _id: mapVersion?.mapImage, image: false };
+						mapImage = map_image_response?.data?.image;
+					}
 
-			addImagesToRecentImages([mapImage]);
+					addImagesToRecentImages([mapImage]);
 
-			setLocationMapImage(mapImage.image);
-			return mapImage.image;
+					if (!mapImage) return { _id: mapVersion?.mapImage, image: false };
+					return mapImage;
+				})
+			);
+
+			setLocationMapImages(newLocationMapImages);
+			return newLocationMapImages;
 		},
-		[APIRequest, recentImages, addImagesToRecentImages, setLocationMapImage]
+		[APIRequest, recentImages, addImagesToRecentImages, setLocationMapImages]
 	);
 
 	// Get Unit Subpages
@@ -483,6 +491,6 @@ export const GetUnitServices = ({
 		getUnitSoundtrack,
 		getCharacterCardBackground,
 		getCharacterFaceImage,
-		getLocationMapImage,
+		getLocationMapImages,
 	};
 };

@@ -141,6 +141,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [isPositioningSurfaceMapPlace, setIsPositioningSurfaceMapPlace] = useState(false);
 	const [positioningPlaceID, setPositioningPlaceID] = useState(false);
 	const [regionItemHoveringOver, setRegionItemHoveringOver] = useState(false);
+	const [mapVersionID, setMapVersionID] = useState(false);
 
 	const scenesChangePlayerInitial = useRef([
 		{
@@ -181,9 +182,9 @@ const LocationsProvider = ({ children, story_uid }) => {
 	}, [location]);
 
 	const updateSurfaceMapComponentsList = useCallback(
-		(newLocation) => {
+		(newMapVersion) => {
 			let newSurfaceMapComponentsList = [];
-			newLocation?.data?.regions?.map((region) => {
+			newMapVersion?.regions?.map((region) => {
 				region?.components?.map((component) => {
 					if (newSurfaceMapComponentsList.length - 1 < component) {
 						for (let i = 0; i < component - newSurfaceMapComponentsList.length - 1; i++) {
@@ -296,8 +297,9 @@ const LocationsProvider = ({ children, story_uid }) => {
 
 	useEffect(() => {
 		const location = locations.find((e) => e?._id === currentMapLocationId);
-		updateSurfaceMapComponentsList(location);
-	}, [locations, currentMapLocationId, updateSurfaceMapComponentsList]);
+		const mapVersion = location?.data?.mapVersions?.find((e) => e?._id === mapVersionID);
+		updateSurfaceMapComponentsList(mapVersion);
+	}, [locations, currentMapLocationId, updateSurfaceMapComponentsList, mapVersionID]);
 
 	const prev_map_location_id = useRef(false);
 	useEffect(() => {
@@ -489,6 +491,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setPositioningPlaceID,
 				regionItemHoveringOver,
 				setRegionItemHoveringOver,
+				mapVersionID,
+				setMapVersionID,
 			}}
 		>
 			{children}

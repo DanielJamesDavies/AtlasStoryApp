@@ -9,6 +9,7 @@ import { SettingsMajorEvent } from "./SettingsMajorEvent/SettingsMajorEvent";
 import { SettingsTitleOnPoster } from "./SettingsTitleOnPoster/SettingsTitleOnPoster";
 import { SettingsStoryTitleInTitle } from "./SettingsStoryTitleInTitle/SettingsStoryTitleInTitle";
 import { SettingsVersions } from "./SettingsVersions/SettingsVersions";
+import { SettingsMapVersions } from "./SettingsMapVersions/SettingsMapVersions";
 import { SettingsSubpages } from "./SettingsSubpages/SettingsSubpages";
 import { SettingsOverviewBackgroundImage } from "./SettingsOverviewBackgroundImage/SettingsOverviewBackgroundImage";
 import { SettingsOverviewForegroundImage } from "./SettingsOverviewForegroundImage/SettingsOverviewForegroundImage";
@@ -41,13 +42,14 @@ export const Settings = () => {
 				<SettingsTitleOnPoster />
 				<SettingsStoryTitleInTitle />
 				<SettingsVersions />
+				<SettingsMapVersions />
 				<SettingsSubpages />
 				<SettingsDelete />
 			</div>
 			<div className='unit-page-subpage-settings-section-2'>
+				<SettingsMapImage />
 				<SettingsOverviewForegroundImage />
 				<SettingsOverviewBackgroundImage />
-				<SettingsMapImage />
 				<SettingsCardBackgroundImage />
 				<SettingsFaceImage />
 				<SettingsListImage />

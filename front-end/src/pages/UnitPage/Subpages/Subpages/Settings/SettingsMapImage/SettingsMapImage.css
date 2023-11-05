@@ -1,3 +1,20 @@
+.unit-page-subpage-settings-map-image-container .label-value {
+	display: flex;
+	flex-direction: column;
+}
+
+.unit-page-subpage-settings-map-image-select-version-container {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	margin: 12px 0;
+}
+
+.unit-page-subpage-settings-map-image-select-version-label {
+	margin-bottom: -1px;
+	font-size: 13px;
+}
+
 .unit-page-subpage-settings-map-image-image {
 	display: block;
 	margin-top: 6px;

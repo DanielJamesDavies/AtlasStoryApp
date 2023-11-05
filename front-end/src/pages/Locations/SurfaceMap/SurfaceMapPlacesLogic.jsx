@@ -24,6 +24,7 @@ export const SurfaceMapPlacesLogic = ({
 	zoom,
 	pointX,
 	pointY,
+	mapVersionID,
 }) => {
 	const {
 		locations,
@@ -39,7 +40,7 @@ export const SurfaceMapPlacesLogic = ({
 
 	const updateSurfaceMapPlaces = useCallback(
 		(newLocations) => {
-			if (timeOfLastUpdateRegionNamesOnMap.current !== false && Date.now() - timeOfLastUpdateRegionNamesOnMap.current <= 1000) return false;
+			if (timeOfLastUpdateRegionNamesOnMap.current !== false && Date.now() - timeOfLastUpdateRegionNamesOnMap.current <= 250) return false;
 
 			function getPlaceSymbol(type) {
 				switch (type) {
@@ -57,7 +58,10 @@ export const SurfaceMapPlacesLogic = ({
 			const location = newLocations.find((e) => e?._id === currentMapLocationId);
 			if (!location) return false;
 
-			let newSurfaceMapPlaces = location?.data?.places?.map((place, index) => (
+			const mapVersion = location?.data?.mapVersions?.find((e) => e?._id === mapVersionID);
+			if (!mapVersion) return false;
+
+			let newSurfaceMapPlaces = mapVersion?.places?.map((place, index) => (
 				<div
 					key={index}
 					className={
@@ -76,7 +80,7 @@ export const SurfaceMapPlacesLogic = ({
 
 			setSurfaceMapPlaces(newSurfaceMapPlaces);
 		},
-		[setSurfaceMapPlaces, currentMapLocationId]
+		[setSurfaceMapPlaces, currentMapLocationId, mapVersionID]
 	);
 
 	const surfaceMapPositioningPlaceDot = useRef(false);
@@ -119,9 +123,13 @@ export const SurfaceMapPlacesLogic = ({
 				newLocations = JSON.parse(JSON.stringify(oldLocations));
 				const locationIndex = newLocations.findIndex((e) => e?._id === currentMapLocationId);
 				if (locationIndex === -1) return newLocations;
-				const placeIndex = newLocations[locationIndex]?.data?.places.findIndex((e) => e?._id === positioningPlaceID);
+				const versionIndex = newLocations[locationIndex]?.data?.mapVersions.findIndex((e) => e?._id === mapVersionID);
+				if (versionIndex === -1) return newLocations;
+				const placeIndex = newLocations[locationIndex]?.data?.mapVersions[versionIndex]?.places.findIndex(
+					(e) => e?._id === positioningPlaceID
+				);
 				if (placeIndex === -1) return newLocations;
-				newLocations[locationIndex].data.places[placeIndex].position = [posX, posY];
+				newLocations[locationIndex].data.mapVersions[versionIndex].places[placeIndex].position = [posX, posY];
 				return newLocations;
 			});
 
@@ -139,6 +147,7 @@ export const SurfaceMapPlacesLogic = ({
 			updateSurfaceMapPlaces,
 			surfaceMapImageRef,
 			surfaceMapImageContainerRef,
+			mapVersionID,
 		]
 	);
 
@@ -161,7 +170,7 @@ export const SurfaceMapPlacesLogic = ({
 
 	useEffect(() => {
 		updateSurfaceMapPlaces(locations);
-	}, [locations, updateSurfaceMapPlaces]);
+	}, [locations, updateSurfaceMapPlaces, mapVersionID]);
 
 	return {};
 };

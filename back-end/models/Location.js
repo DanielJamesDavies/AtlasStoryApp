@@ -41,7 +41,64 @@ const LocationSchema = mongoose.Schema({
 			colour: { type: String, default: "#0044ff" },
 			description: { type: [String], default: [""] },
 			scaleUnit: { type: String, required: true, default: "m" },
-			borders: { type: [[[Number]]], default: [] },
+			mapVersions: {
+				type: [
+					{
+						_id: {
+							type: mongoose.Schema.Types.ObjectId,
+							required: true,
+							auto: true,
+						},
+						title: { type: String, default: "Ver. 1" },
+						mapImage: {
+							type: mongoose.Schema.Types.ObjectId,
+							required: true,
+							auto: true,
+						},
+						mapImageComponents: {
+							type: String,
+							default: "",
+						},
+						regions: {
+							type: [
+								{
+									_id: {
+										type: mongoose.Schema.Types.ObjectId,
+										required: true,
+										auto: true,
+									},
+									name: { type: String, default: "Location" },
+									colour: { type: String, default: "#0044ff" },
+									location: { type: mongoose.Schema.Types.ObjectId },
+									components: { type: [Number], default: [] },
+								},
+							],
+							required: true,
+							default: [],
+						},
+						places: {
+							type: [
+								{
+									_id: {
+										type: mongoose.Schema.Types.ObjectId,
+										required: true,
+										auto: true,
+									},
+									name: { type: String, default: "Location" },
+									colour: { type: String, default: "#0044ff" },
+									location: { type: mongoose.Schema.Types.ObjectId },
+									position: [Number],
+									symbol: { type: String, default: "star" },
+									isMajor: { type: Boolean, default: true },
+								},
+							],
+							required: true,
+							default: [],
+						},
+					},
+				],
+				default: [{ title: "Ver. 1" }],
+			},
 			mapImage: {
 				type: mongoose.Schema.Types.ObjectId,
 				required: true,

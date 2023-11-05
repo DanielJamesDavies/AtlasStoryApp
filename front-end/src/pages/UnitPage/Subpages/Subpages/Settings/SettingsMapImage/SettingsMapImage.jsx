@@ -5,6 +5,7 @@ import { ContentItem } from "../../../../../../components/ContentItem/ContentIte
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { ImageInput } from "../../../../../../components/ImageInput/ImageInput";
+import { DropdownContainer } from "../../../../../../components/DropdownContainer/DropdownContainer";
 import { ErrorMessage } from "../../../../../../components/ErrorMessage/ErrorMessage";
 
 // Logic
@@ -20,13 +21,43 @@ import "./SettingsMapImage.css";
 // Assets
 
 export const SettingsMapImage = () => {
-	const { unit_type, isAuthorizedToEdit, locationMapImage, changeMapImage, removeMapImage, revertMapImage, saveMapImage, errors } =
-		SettingsMapImageLogic();
+	const {
+		unit_type,
+		isAuthorizedToEdit,
+		unit,
+		mapVersion,
+		changeMapVersion,
+		mapVersionImage,
+		changeMapImage,
+		removeMapImage,
+		revertMapImage,
+		saveMapImage,
+		errors,
+	} = SettingsMapImageLogic();
 
-	if (!["location"].includes(unit_type)) return null;
+	if (
+		!["location"].includes(unit_type) ||
+		!unit ||
+		!["surfaceLocation", "planet", "moon"].includes(unit?.type) ||
+		!mapVersion ||
+		mapVersion === ""
+	)
+		return null;
 	return (
 		<ContentItem hasBg={true} size='s'>
-			<LabelContainer className='unit-page-subpage-settings-map-image-container' label='Map Image'>
+			<LabelContainer className='unit-page-subpage-settings-map-image-container' label='Map Images'>
+				<div className='unit-page-subpage-settings-map-image-select-version-container'>
+					<div className='unit-page-subpage-settings-map-image-select-version-label'>Map Version: </div>
+					<DropdownContainer
+						value={unit?.data?.mapVersions.find((e) => e?._id === mapVersion)?.title}
+						onChange={changeMapVersion}
+						includeUnselectedOption={false}
+					>
+						{unit?.data?.mapVersions?.map((version, index) => (
+							<div key={index}>{version?.title}</div>
+						))}
+					</DropdownContainer>
+				</div>
 				<EditableContainer
 					isAuthorizedToEdit={isAuthorizedToEdit}
 					onRemove={removeMapImage}
@@ -34,16 +65,16 @@ export const SettingsMapImage = () => {
 					onSave={saveMapImage}
 				>
 					<div className='unit-page-subpage-settings-map-image-image'>
-						{!locationMapImage || locationMapImage === "NO_IMAGE" ? null : <img src={locationMapImage} alt='' />}
+						{!mapVersionImage || mapVersionImage === "NO_IMAGE" ? null : <img src={mapVersionImage} alt='' />}
 					</div>
 					<div>
 						<div
 							className={
 								"unit-page-subpage-settings-map-image-image" +
-								(!locationMapImage || locationMapImage === "NO_IMAGE" ? " unit-page-subpage-settings-map-image-image-no-image" : "")
+								(!mapVersionImage || mapVersionImage === "NO_IMAGE" ? " unit-page-subpage-settings-map-image-image-no-image" : "")
 							}
 						>
-							<ImageInput value={locationMapImage} onChange={changeMapImage} />
+							<ImageInput value={mapVersionImage} onChange={changeMapImage} />
 						</div>
 						<ErrorMessage errors={errors} />
 					</div>

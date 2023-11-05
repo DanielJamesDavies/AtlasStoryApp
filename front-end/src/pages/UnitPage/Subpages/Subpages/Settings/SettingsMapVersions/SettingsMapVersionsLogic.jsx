@@ -15,19 +15,22 @@ import { APIContext } from "../../../../../../context/APIContext";
 
 // Assets
 
-export const SettingsVersionsLogic = () => {
-	const { unit_type, isAuthorizedToEdit, story, unit, setUnit, unitVersion, setUnitVersion } = useContext(UnitPageContext);
+export const SettingsMapVersionsLogic = () => {
+	const { unit_type, isAuthorizedToEdit, story, unit, setUnit } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 
-	const [versions, setVersions] = useState(unit?.data?.versions);
+	const [versions, setVersions] = useState(unit?.data?.mapVersions);
 	useEffect(() => {
-		setVersions(unit?.data?.versions);
+		setVersions(unit?.data?.mapVersions);
 	}, [unit]);
 
-	function addVersion() {
+	async function addVersion() {
+		const new_id_response = await APIRequest("/new-id/", "GET");
+		if (!new_id_response || new_id_response?.errors || !new_id_response?.data?._id) return false;
+
 		setVersions((oldVersions) => {
 			let newVersions = JSON.parse(JSON.stringify(oldVersions));
-			newVersions.push({ _id: "new", title: "" });
+			newVersions.push({ _id: new_id_response.data._id, title: "" });
 			return newVersions;
 		});
 	}
@@ -67,7 +70,7 @@ export const SettingsVersionsLogic = () => {
 		setErrors([]);
 		const response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", {
 			story_id: story._id,
-			path: ["data", "versions"],
+			path: ["data", "mapVersions"],
 		});
 		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
@@ -81,40 +84,30 @@ export const SettingsVersionsLogic = () => {
 	async function saveVersions() {
 		setErrors([]);
 		if (!unit?._id) return;
+		const newVersions = JSON.parse(JSON.stringify(versions));
 		const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
 			story_id: story._id,
-			path: ["data", "versions"],
-			newValue: versions,
+			path: ["data", "mapVersions"],
+			newValue: newVersions,
 		});
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);
 			return false;
 		}
-		if (response?.data?.[unit_type]?.data?.versions) {
-			setVersions(response.data[unit_type].data.versions);
+		if (response?.data?.location?.data?.mapVersions) {
+			setVersions(response.data.location.data.mapVersions);
 
 			setUnit((oldUnit) => {
 				let newUnit = JSON.parse(JSON.stringify(oldUnit));
-				newUnit.data.versions = response.data[unit_type].data.versions.map((version) => {
-					const versionIndex = newUnit.data.versions.findIndex((e) => e._id === version._id);
+				newUnit.data.mapVersions = response.data.location.data.mapVersions.map((version) => {
+					const versionIndex = newUnit.data.mapVersions.findIndex((e) => e._id === version._id);
 					if (versionIndex !== -1) {
 						const tempVersion = version;
-						version = newUnit.data.versions[versionIndex];
+						version = newUnit.data.mapVersions[versionIndex];
 						version.title = tempVersion.title;
 					}
 					return version;
 				});
-
-				const unitVersionIndex = newUnit.data.versions.findIndex((e) => e._id === unitVersion._id);
-				if (unitVersionIndex === -1) {
-					setUnitVersion(newUnit.data.versions[0]);
-				} else {
-					setUnitVersion((oldUnitVersion) => {
-						let newUnitVersion = JSON.parse(JSON.stringify(oldUnitVersion));
-						newUnitVersion.title = newUnit.data.versions[unitVersionIndex]?.title;
-						return newUnitVersion;
-					});
-				}
 
 				return newUnit;
 			});
@@ -125,6 +118,7 @@ export const SettingsVersionsLogic = () => {
 	return {
 		unit_type,
 		isAuthorizedToEdit,
+		unit,
 		versions,
 		addVersion,
 		removeVersion,

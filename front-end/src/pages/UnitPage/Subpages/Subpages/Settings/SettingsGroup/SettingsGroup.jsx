@@ -32,9 +32,7 @@ export const SettingsGroup = () => {
 					<div>
 						<DropdownContainer value={group?.data?.name} onChange={changeGroup}>
 							{storyGroups.map((groupsGroup, index) => (
-								<div key={index} className=''>
-									{groupsGroup?.data?.name}
-								</div>
+								<div key={index}>{groupsGroup?.data?.name}</div>
 							))}
 						</DropdownContainer>
 						<ErrorMessage errors={errors} />

@@ -26,22 +26,23 @@ export const SurfaceMapLogic = () => {
 		currentMapLocationId,
 		isSelectingSurfaceMapComponents,
 		isDeletingSurfaceMapComponents,
-		selectedLocationId,
-		setSelectedLocationId,
-		setIsDisplayingHierarchy,
 		isPositioningSurfaceMapPlace,
+		mapVersionID,
+		setMapVersionID,
 	} = useContext(LocationsContext);
 
 	const { APIRequest } = useContext(APIContext);
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const [locationMapImage, setLocationMapImage] = useState(false);
+	const [locationMapImages, setLocationMapImages] = useState(false);
+
 	const [isImagePixelated, setIsImagePixelated] = useState(false);
 	const [isPanning, setIsPanning] = useState(false);
 	const [isScrolling, setIsScrolling] = useState(false);
 	const [regionNamesHTML, setRegionNamesHTML] = useState("");
 	const [regionNamesTexts, setRegionNamesTexts] = useState("");
+	const [surfaceMapPlaces, setSurfaceMapPlaces] = useState(null);
 
-	const loadingCircleContainerLoadedRef = useRef();
 	const surfaceMapContainerRef = useRef();
 	const surfaceMapImageContainerRef = useRef();
 	const surfaceMapImageRef = useRef();
@@ -52,7 +53,7 @@ export const SurfaceMapLogic = () => {
 	const surfaceMapDrawingShapeRef = useRef();
 	const surfaceMapImageNewComponentsRef = useRef();
 	const surfaceMapPositioningPlaceRef = useRef();
-	const [surfaceMapPlaces, setSurfaceMapPlaces] = useState(null);
+	const locationsSurfaceMapLoadingCircleContainerRef = useRef();
 
 	const currentLocationId = useRef(false);
 	var regionClusters = useRef();
@@ -96,6 +97,7 @@ export const SurfaceMapLogic = () => {
 		setRegionNamesHTML,
 		getDimensionsZoom,
 		max_mobile_width,
+		mapVersionID,
 	});
 
 	SurfaceMapPlacesLogic({
@@ -107,6 +109,7 @@ export const SurfaceMapLogic = () => {
 		zoom,
 		pointX,
 		pointY,
+		mapVersionID,
 	});
 
 	const { surfaceMapImageDisplayComponents, surfaceMapImageComponentsStyles } = SurfaceMapComponentsLogic({
@@ -121,6 +124,7 @@ export const SurfaceMapLogic = () => {
 		pointX,
 		pointY,
 		locationMapImage,
+		mapVersionID,
 	});
 
 	useEffect(() => {
@@ -135,47 +139,115 @@ export const SurfaceMapLogic = () => {
 
 			setLocationMapImage(false);
 
-			const mapImageID = locations?.find((e) => e?._id === currentMapLocationId)?.data?.mapImage;
-			let mapImage = false;
+			const location = locations?.find((e) => e?._id === currentMapLocationId);
+			const mapVersionID = location?.data?.mapVersions[0]?._id;
 
-			if (mapImageID) {
-				const recentImage = recentImages.current.find((e) => e?._id === mapImageID);
-				if (recentImage?.image) {
-					mapImage = recentImage;
-				} else {
-					const map_image_response = await APIRequest("/image/" + mapImageID, "GET");
-					if (map_image_response?.errors || !map_image_response?.data?.image?.image) return false;
-					mapImage = map_image_response?.data?.image;
+			setMapVersionID(mapVersionID);
 
-					addImagesToRecentImages([mapImage]);
-				}
+			console.log(location?.data?.mapVersions);
 
-				setLocationMapImage(mapImage?.image);
-			}
+			const mapImages = await Promise.all(
+				location?.data?.mapVersions?.map(async (mapVersion, index) => {
+					let mapImage = false;
+
+					if (!mapVersion?.mapImage) return false;
+					const recentImage = recentImages.current.find((e) => e?._id === mapVersion?.mapImage);
+					if (recentImage?.image) {
+						mapImage = recentImage;
+					} else {
+						const map_image_response = await APIRequest("/image/" + mapVersion?.mapImage, "GET");
+						if (map_image_response?.errors || !map_image_response?.data?.image?.image) return false;
+						mapImage = map_image_response?.data?.image;
+
+						addImagesToRecentImages([mapImage]);
+					}
+
+					if (index === 0) setLocationMapImage(mapImage?.image);
+					return mapImage;
+				})
+			);
+
+			setLocationMapImages(mapImages);
+
+			locationsSurfaceMapLoadingCircleContainerRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
 
 			setTimeout(() => {
-				loadingCircleContainerLoadedRef.current.style = `animation: none; opacity: 1`;
-				loadingCircleContainerLoadedRef.current.children[0].style = `opacity: 1`;
-				loadingCircleContainerLoadedRef.current.classList.remove("locations-surface-map-loading-circle-container-loaded");
-			}, 1);
-			setTimeout(() => {
-				loadingCircleContainerLoadedRef.current.style = ``;
-				loadingCircleContainerLoadedRef.current.children[0].style = ``;
-				loadingCircleContainerLoadedRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
-
-				surfaceMapImageNewComponentsRef.current.setAttribute("width", surfaceMapImageRef?.current?.clientWidth);
-				surfaceMapImageNewComponentsRef.current.setAttribute("height", surfaceMapImageRef?.current?.clientHeight);
+				console.log(surfaceMapImageNewComponentsRef);
+				surfaceMapImageNewComponentsRef?.current.setAttribute("width", surfaceMapImageRef?.current?.clientWidth);
+				surfaceMapImageNewComponentsRef?.current.setAttribute("height", surfaceMapImageRef?.current?.clientHeight);
 			}, 1200);
 
 			lastWindowWidth.current = window.innerWidth;
 		}
 		getLocationMapImage();
-	}, [locations, currentMapLocationId, setLocationMapImage, currentLocationId, APIRequest, addImagesToRecentImages, recentImages]);
+	}, [
+		locations,
+		currentMapLocationId,
+		setLocationMapImage,
+		currentLocationId,
+		APIRequest,
+		addImagesToRecentImages,
+		recentImages,
+		setMapVersionID,
+	]);
+
+	function decrementMapVersion() {
+		const oldLocationMapImage = JSON.parse(JSON.stringify(locationMapImage));
+		setLocationMapImage(false);
+
+		const location = locations?.find((e) => e?._id === currentMapLocationId);
+		if (!location?.data?.mapVersions) {
+			setLocationMapImage(oldLocationMapImage);
+			return;
+		}
+
+		const currentVersionIndex = location.data.mapVersions.findIndex((e) => e._id === mapVersionID);
+		if (currentVersionIndex === -1 || currentVersionIndex === 0) {
+			setLocationMapImage(oldLocationMapImage);
+			return false;
+		}
+
+		locationsSurfaceMapLoadingCircleContainerRef.current.classList.remove("locations-surface-map-loading-circle-container-loaded");
+		setMapVersionID(location.data.mapVersions[currentVersionIndex - 1]?._id);
+		setTimeout(() => {
+			locationsSurfaceMapLoadingCircleContainerRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
+			setLocationMapImage(locationMapImages?.find((e) => e?._id === location.data.mapVersions[currentVersionIndex - 1]?.mapImage)?.image);
+		}, 200);
+	}
+
+	function incrementMapVersion() {
+		const oldLocationMapImage = JSON.parse(JSON.stringify(locationMapImage));
+		setLocationMapImage(false);
+
+		const location = locations?.find((e) => e?._id === currentMapLocationId);
+		if (!location?.data?.mapVersions) {
+			setLocationMapImage(oldLocationMapImage);
+			return false;
+		}
+
+		const currentVersionIndex = location.data.mapVersions.findIndex((e) => e._id === mapVersionID);
+		if (currentVersionIndex === -1 || currentVersionIndex === location.data.mapVersions.length - 1) {
+			setLocationMapImage(oldLocationMapImage);
+			return false;
+		}
+
+		const newImage = locationMapImages?.find((e) => e?._id === location.data.mapVersions[currentVersionIndex + 1]?.mapImage)?.image;
+		if (!newImage) {
+			setLocationMapImage(oldLocationMapImage);
+			return false;
+		}
+
+		locationsSurfaceMapLoadingCircleContainerRef.current.classList.remove("locations-surface-map-loading-circle-container-loaded");
+		setMapVersionID(location.data.mapVersions[currentVersionIndex + 1]?._id);
+		setTimeout(() => {
+			locationsSurfaceMapLoadingCircleContainerRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
+			setLocationMapImage(locationMapImages?.find((e) => e?._id === location.data.mapVersions[currentVersionIndex + 1]?.mapImage)?.image);
+		}, 200);
+	}
 
 	return {
 		locations,
 		currentMapLocationId,
-		loadingCircleContainerLoadedRef,
 		surfaceMapContainerRef,
 		surfaceMapImageContainerRef,
 		surfaceMapImageRef,
@@ -198,13 +270,14 @@ export const SurfaceMapLogic = () => {
 		surfaceMapImageDisplayComponents,
 		surfaceMapImageComponentsStyles,
 		onMovementBoxWheel,
-		selectedLocationId,
-		setSelectedLocationId,
-		setIsDisplayingHierarchy,
 		regionNamesHTML,
 		regionNamesTexts,
 		surfaceMapPositioningPlaceRef,
 		surfaceMapPlaces,
 		isPositioningSurfaceMapPlace,
+		mapVersionID,
+		decrementMapVersion,
+		incrementMapVersion,
+		locationsSurfaceMapLoadingCircleContainerRef,
 	};
 };

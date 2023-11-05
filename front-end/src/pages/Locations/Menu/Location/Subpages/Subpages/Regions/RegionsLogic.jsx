@@ -28,6 +28,7 @@ export const RegionsLogic = () => {
 		setIsDrawingSurfaceMapComponents,
 		isDeletingSurfaceMapComponents,
 		setIsDeletingSurfaceMapComponents,
+		mapVersionID,
 	} = useContext(LocationsContext);
 	const { location, setLocation } = useContext(LocationContext);
 	const { APIRequest } = useContext(APIContext);
@@ -73,14 +74,17 @@ export const RegionsLogic = () => {
 
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.regions.push(new_region);
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+			if (mapVersionIndex === -1) return newLocation;
+			newLocation.data.mapVersions[mapVersionIndex].regions.push(new_region);
 			return newLocation;
 		});
 
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].data.regions.push(new_region);
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].regions.push(new_region);
 		setLocations(newLocations);
 	}
 
@@ -103,7 +107,9 @@ export const RegionsLogic = () => {
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
 			const tempRegionsItem = newLocation.data.regions.splice(res.from, 1)[0];
-			newLocation.data.regions.splice(res.to, 0, tempRegionsItem);
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+			if (mapVersionIndex === -1) return newLocation;
+			newLocation.data.mapVersions[mapVersionIndex].regions.splice(res.to, 0, tempRegionsItem);
 			return newLocation;
 		});
 	}
@@ -114,13 +120,15 @@ export const RegionsLogic = () => {
 		setErrors([]);
 		const response = await APIRequest("/location/get-value/" + location._id, "POST", {
 			story_id: story._id,
-			path: ["data", "regions"],
+			path: ["data", "mapVersions", mapVersionID, "regions"],
 		});
 		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.regions = response.data.value;
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+			if (mapVersionIndex === -1) return newLocation;
+			newLocation.data.mapVersions[mapVersionIndex].regions = response.data.value;
 			return newLocation;
 		});
 
@@ -134,20 +142,23 @@ export const RegionsLogic = () => {
 		const locationsLocation = locations?.find((e) => e?._id === location?._id);
 		if (!locationsLocation) return false;
 
-		const response = await APIRequest("/location/" + location._id, "PATCH", {
+		const mapVersionIndex = locationsLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+		if (mapVersionIndex === -1) return false;
+
+		const regions_response = await APIRequest("/location/" + location._id, "PATCH", {
 			story_id: story._id,
-			path: ["data", "regions"],
-			newValue: location.data.regions,
+			path: ["data", "mapVersions", mapVersionID, "regions"],
+			newValue: location.data.mapVersions[mapVersionIndex].regions,
 		});
-		if (!response || response?.errors) {
-			if (response?.errors) setErrors(response.errors);
+		if (!regions_response || regions_response?.errors) {
+			if (regions_response?.errors) setErrors(regions_response.errors);
 			return false;
 		}
 
 		const components_response = await APIRequest("/location/" + location._id, "PATCH", {
 			story_id: story._id,
-			path: ["data", "mapImageComponents"],
-			newValue: locationsLocation.data.mapImageComponents,
+			path: ["data", "mapVersions", mapVersionID, "mapImageComponents"],
+			newValue: locationsLocation.data.mapVersions[mapVersionIndex].mapImageComponents,
 		});
 		if (!components_response || components_response?.errors) {
 			if (components_response?.errors) setErrors(components_response.errors);
@@ -180,5 +191,6 @@ export const RegionsLogic = () => {
 		toggleIsDrawingSurfaceMapComponents,
 		isDeletingSurfaceMapComponents,
 		toggleIsDeletingSurfaceMapComponents,
+		mapVersionID,
 	};
 };

@@ -30,6 +30,7 @@ export const SurfaceMapRegionsLogic = ({
 	setRegionNamesHTML,
 	getDimensionsZoom,
 	max_mobile_width,
+	mapVersionID,
 }) => {
 	const { locations, currentMapLocationId, isSelectingSurfaceMapComponents, surfaceMapComponentsList } = useContext(LocationsContext);
 	const { getDistancesBetweenComponents, getClosestCluster, getClusterBoxes } = SurfaceMapRegionsClusteringFunctions({
@@ -49,40 +50,67 @@ export const SurfaceMapRegionsLogic = ({
 		prevRegionNames.current = false;
 		prevRegionComponents.current = false;
 		hasRunIntitialCreateRegionNamesClusters.current = false;
-	}, [currentMapLocationId, setRegionNamesHTML, setRegionNamesTexts]);
+	}, [currentMapLocationId, setRegionNamesHTML, setRegionNamesTexts, mapVersionID]);
 
-	useEffect(() => {
-		const location = locations.find((e) => e?._id === currentMapLocationId);
-		if (location && surfaceMapComponentsList.length !== 0 && locationMapImage) {
-			const interval = setInterval(() => {
-				try {
-					if (!surfaceMapImageComponentsContainerRef?.current) return false;
-					Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
-						const region = location?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index]);
-						if (!region || surfaceMapComponentsList[index] === false || surfaceMapComponentsList[index] === undefined) {
+	const setComponentsRegionIDs = useCallback(
+		(isInitial) => {
+			const location = locations.find((e) => e?._id === currentMapLocationId);
+			const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
+			if (location && surfaceMapComponentsList.length !== 0 && locationMapImage) {
+				const interval = setInterval(() => {
+					try {
+						if (!surfaceMapImageComponentsContainerRef?.current) return false;
+						Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
+							const region = mapVersion?.regions?.find((e) => e?._id === surfaceMapComponentsList[index]);
+							if (!region || surfaceMapComponentsList[index] === false || surfaceMapComponentsList[index] === undefined) {
+								path.style = ``;
+								path.classList.remove("locations-surface-map-image-component-in-region");
+								path.removeAttribute("data-region-id");
+								return true;
+							}
+							path.style = `--regionColour: ${region?.colour}; --regionColourTint: ${getColourTint(region?.colour, 10)}`;
+							path.setAttribute("data-region-id", region?._id);
+							path.classList.add("locations-surface-map-image-component-in-region");
+							return true;
+						});
+					} catch {}
+				}, 25);
+				setTimeout(() => {
+					clearInterval(interval);
+				}, 300);
+			} else {
+				setTimeout(() => {
+					if (surfaceMapImageComponentsContainerRef?.current?.children[0]?.children) {
+						Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path) => {
 							path.style = ``;
 							path.classList.remove("locations-surface-map-image-component-in-region");
 							path.removeAttribute("data-region-id");
 							return true;
-						}
-						path.style = `--regionColour: ${region?.colour}; --regionColourTint: ${getColourTint(region?.colour, 10)}`;
-						path.setAttribute("data-region-id", region?._id);
-						path.classList.add("locations-surface-map-image-component-in-region");
-						return true;
-					});
-				} catch {}
-			}, 25);
-			setTimeout(() => {
-				clearInterval(interval);
-			}, 300);
-		}
+						});
+					}
+				}, 20);
+
+				if (isInitial) {
+					setTimeout(() => {
+						setComponentsRegionIDs();
+					}, 200);
+				}
+			}
+		},
+		[surfaceMapComponentsList, surfaceMapImageComponentsContainerRef, locations, currentMapLocationId, locationMapImage, mapVersionID]
+	);
+
+	useEffect(() => {
+		setComponentsRegionIDs(true);
 	}, [
+		setComponentsRegionIDs,
 		isSelectingSurfaceMapComponents,
 		surfaceMapComponentsList,
 		surfaceMapImageComponentsContainerRef,
 		locations,
 		currentMapLocationId,
 		locationMapImage,
+		mapVersionID,
 	]);
 
 	const updateRegionsNamesPosition = useCallback(() => {
@@ -112,16 +140,17 @@ export const SurfaceMapRegionsLogic = ({
 
 	const updateRegionNamesTexts = useCallback(
 		(location) => {
+			const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
 			const newRegionsNamesTexts = regionClusters.current
 				?.map((region_clusters) => {
-					const region = location?.data?.regions?.find((e) => e?._id === region_clusters?.region);
+					const region = mapVersion?.regions?.find((e) => e?._id === region_clusters?.region);
 					return `<div>${region?.name}</div>`;
 				})
 				.join("");
 
 			setRegionNamesTexts(newRegionsNamesTexts);
 		},
-		[setRegionNamesTexts, regionClusters]
+		[setRegionNamesTexts, regionClusters, mapVersionID]
 	);
 
 	const updateRegionsNames = useCallback(
@@ -129,6 +158,7 @@ export const SurfaceMapRegionsLogic = ({
 			if (!surfaceMapImageRegionsNamesTextsRef?.current) return false;
 
 			const location = locations.find((e) => e?._id === currentLocationId?.current);
+			const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
 
 			updateRegionNamesTexts(location);
 
@@ -139,7 +169,7 @@ export const SurfaceMapRegionsLogic = ({
 
 				if (regions_to_update && !regions_to_update.includes(region_id)) return false;
 
-				const region = location?.data?.regions?.find((e) => e?._id === region_id);
+				const region = mapVersion?.regions?.find((e) => e?._id === region_id);
 
 				const region_index = parseFloat(name_div?.getAttribute("data-region-index"));
 				const regionNamesTextBox = regionsNamesTexts[region_index]?.getBoundingClientRect();
@@ -194,6 +224,7 @@ export const SurfaceMapRegionsLogic = ({
 			locations,
 			currentLocationId,
 			updateRegionNamesTexts,
+			mapVersionID,
 		]
 	);
 
@@ -202,13 +233,14 @@ export const SurfaceMapRegionsLogic = ({
 			if (updateRegionsNamesTimeout.current !== false) return false;
 
 			const location = locations?.find((e) => e?._id === currentLocationId.current);
-			if (!location) return setTimeout(() => runUpdateRegionNames(), 100);
+			const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
+			if (!location || !mapVersion) return setTimeout(() => runUpdateRegionNames(), 100);
 
 			if (prevRegionNames?.current === false) {
-				prevRegionNames.current = location?.data?.regions?.map(() => 0);
+				prevRegionNames.current = mapVersion?.regions?.map(() => 0);
 			}
 
-			const region_differences = location?.data?.regions
+			const region_differences = mapVersion?.regions
 				?.map((region, index) => {
 					if (JSON.stringify(region) !== JSON.stringify(prevRegionNames.current?.[index])) {
 						return region?._id;
@@ -224,10 +256,10 @@ export const SurfaceMapRegionsLogic = ({
 				updateRegionsNamesTimeout.current = false;
 			}, 50);
 
-			prevRegionNames.current = JSON.parse(JSON.stringify(location?.data?.regions));
+			prevRegionNames.current = JSON.parse(JSON.stringify(mapVersion?.regions));
 		}
 		runUpdateRegionNames();
-	}, [locations, currentLocationId, updateRegionsNames]);
+	}, [locations, currentLocationId, updateRegionsNames, mapVersionID]);
 
 	const onResize = useCallback(() => {
 		updateRegionsNames();
@@ -245,6 +277,7 @@ export const SurfaceMapRegionsLogic = ({
 
 	const createRegionsNames = useCallback(async () => {
 		const location = locations.find((e) => e?._id === currentLocationId?.current);
+		const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
 
 		updateRegionNamesTexts(location);
 
@@ -257,7 +290,7 @@ export const SurfaceMapRegionsLogic = ({
 		let new_region_names_html = ``;
 
 		regionClusters.current?.map((region_clusters, region_index) => {
-			const region = location?.data?.regions?.find((e) => e?._id === region_clusters?.region);
+			const region = mapVersion?.regions?.find((e) => e?._id === region_clusters?.region);
 			region_clusters?.clusters?.map((cluster) => {
 				let [a, b, c] = cluster.box;
 				a = a.map((e) => e);
@@ -351,6 +384,7 @@ export const SurfaceMapRegionsLogic = ({
 		getRegionNameSVGStyleValues,
 		updateRegionsNames,
 		updateRegionNamesTexts,
+		mapVersionID,
 	]);
 
 	const createRegionNamesClusters = useCallback(() => {
@@ -360,6 +394,7 @@ export const SurfaceMapRegionsLogic = ({
 		if (zoom.current > Math.max(width_zoom, height_zoom)) return false;
 
 		const location = locations.find((e) => e?._id === currentLocationId?.current);
+		const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
 
 		// Get Distances Between Components
 		const distances = getDistancesBetweenComponents();
@@ -367,7 +402,7 @@ export const SurfaceMapRegionsLogic = ({
 
 		// Create Clusters of Components for Each Region
 		let regions_clusters = [];
-		location?.data?.regions?.map((region, region_index) => {
+		mapVersion?.regions?.map((region, region_index) => {
 			regions_clusters.push({ region: region?._id, clusters: [[region?.components[0]]] });
 			regions_clusters[region_index].clusters = region?.components.map((e) => [e]);
 
@@ -418,14 +453,18 @@ export const SurfaceMapRegionsLogic = ({
 		getDimensionsZoom,
 		getClosestCluster,
 		getClusterBoxes,
+		mapVersionID,
 	]);
 
 	useEffect(() => {
 		function runCreateRegionNamesClusters() {
-			const location = locations?.find((e) => e?._id === currentLocationId.current);
-			if (!location) return false;
+			if (!locationMapImage) return false;
 
-			const regionComponents = location?.data?.regions?.map((e) => {
+			const location = locations?.find((e) => e?._id === currentLocationId.current);
+			const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
+			if (!location || !mapVersion) return false;
+
+			const regionComponents = mapVersion?.regions?.map((e) => {
 				return { _id: e?._id, components: e?.components };
 			});
 
@@ -469,5 +508,6 @@ export const SurfaceMapRegionsLogic = ({
 		hasRunIntitialCreateRegionNamesClusters,
 		getClosestCluster,
 		createRegionNamesClusters,
+		mapVersionID,
 	]);
 };

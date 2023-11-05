@@ -31,6 +31,7 @@ export const Places = () => {
 		revertPlacesItems,
 		savePlacesItems,
 		errors,
+		mapVersionID,
 	} = PlacesLogic();
 
 	return (
@@ -44,11 +45,13 @@ export const Places = () => {
 				onSave={savePlacesItems}
 			>
 				<div className='locations-location-places-items'>
-					{location?.data?.places?.map((placesItem, index) => (
-						<div key={index} className='locations-location-places-item-container'>
-							<PlacesItem index={index} placesItem={placesItem} isEditing={false} locationChildren={locationChildren} />
-						</div>
-					))}
+					{location?.data?.mapVersions
+						?.find((e) => e?._id === mapVersionID)
+						?.places?.map((placesItem, index) => (
+							<div key={index} className='locations-location-places-item-container'>
+								<PlacesItem index={index} placesItem={placesItem} isEditing={false} locationChildren={locationChildren} />
+							</div>
+						))}
 				</div>
 				<div>
 					<ErrorMessage errors={errors} />
@@ -59,11 +62,13 @@ export const Places = () => {
 						includeVerticalDrag={true}
 						absoluteVerticalDrag={true}
 					>
-						{location?.data?.places?.map((placesItem, index) => (
-							<DragDropItem className='locations-location-places-item-container' key={index} index={index}>
-								<PlacesItem index={index} placesItem={placesItem} isEditing={true} locationChildren={locationChildren} />
-							</DragDropItem>
-						))}
+						{location?.data?.mapVersions
+							?.find((e) => e?._id === mapVersionID)
+							?.places?.map((placesItem, index) => (
+								<DragDropItem className='locations-location-places-item-container' key={index} index={index}>
+									<PlacesItem index={index} placesItem={placesItem} isEditing={true} locationChildren={locationChildren} />
+								</DragDropItem>
+							))}
 					</DragDropContainer>
 				</div>
 			</EditableContainer>

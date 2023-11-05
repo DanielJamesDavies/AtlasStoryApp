@@ -21,7 +21,7 @@
 
 .locations-surface-map-loading-circle-container {
 	position: fixed;
-	z-index: 3;
+	z-index: 10;
 	top: 0;
 	left: calc(var(--navbar-width) - 1px);
 	width: calc(100vw - var(--navbar-width) + 1px);
@@ -30,7 +30,7 @@
 }
 
 .locations-surface-map-loading-circle-container:not(.locations-surface-map-loading-circle-container-loaded) .loading-circle-container {
-	animation: fade-in 0 1;
+	animation: fade-in 0s 1;
 	animation-fill-mode: forwards;
 	animation-delay: 0.05s;
 	opacity: 0;
@@ -39,7 +39,7 @@
 .locations-surface-map-loading-circle-container-loaded {
 	animation: fade-out 0.5s 1;
 	animation-fill-mode: forwards;
-	animation-delay: 0.6s;
+	animation-delay: 1s;
 }
 
 .locations-surface-map-image-container {
@@ -623,6 +623,44 @@
 
 .locations-surface-map-place-container-is-major .locations-surface-map-place-name {
 	font-size: 5px;
+}
+
+.locations-surface-map-versions-container {
+	position: fixed;
+	z-index: 5;
+	top: 8px;
+	right: 8px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	max-width: 200px;
+}
+
+.locations-surface-map-versions-container button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 0;
+	background: transparent;
+	color: #fff;
+	font-size: 20px;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.locations-surface-map-versions-container button:hover {
+	color: var(--colour-accent);
+}
+
+.locations-surface-map-versions-label {
+	font-size: 12px;
+	font-weight: 400;
+	width: 100px;
+}
+
+.locations-surface-map-versions-value {
+	font-size: 14px;
+	font-weight: 600;
 }
 
 @media (max-width: 750px) {

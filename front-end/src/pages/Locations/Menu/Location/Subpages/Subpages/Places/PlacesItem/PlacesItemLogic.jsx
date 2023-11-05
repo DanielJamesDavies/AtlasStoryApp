@@ -21,11 +21,9 @@ export const PlacesItemLogic = ({ placesItem, index, locationChildren }) => {
 		setLocations,
 		selectedLocationId,
 		setIsPositioningSurfaceMapPlace,
-		selectedSurfaceMapComponents,
-		setSelectedSurfaceMapComponents,
 		positioningPlaceID,
 		setPositioningPlaceID,
-		updateSurfaceMapComponentsList,
+		mapVersionID,
 	} = useContext(LocationsContext);
 	const { setLocation } = useContext(LocationContext);
 
@@ -39,54 +37,45 @@ export const PlacesItemLogic = ({ placesItem, index, locationChildren }) => {
 	function changePlacesItemName(e) {
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.places[index].name = e.target.value;
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+			if (mapVersionIndex === -1) return false;
+			newLocation.data.mapVersions[mapVersionIndex].places[index].name = e.target.value;
 			return newLocation;
 		});
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].data.places[index].name = e.target.value;
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+		if (locationIndex === -1 || mapVersionIndex === -1) return false;
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].places[index].name = e.target.value;
 		setLocations(newLocations);
 	}
 
 	function removePlacesItem() {
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.places.splice(index, 1);
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+			if (mapVersionIndex === -1) return false;
+			newLocation.data.mapVersions[mapVersionIndex].places.splice(index, 1);
 			return newLocation;
 		});
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].data.places.splice(index, 1);
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+		if (locationIndex === -1 || mapVersionIndex === -1) return false;
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].places.splice(index, 1);
 		setLocations(newLocations);
 	}
 
 	function startPositioningPlace() {
 		setIsPositioningSurfaceMapPlace(true);
-		setSelectedSurfaceMapComponents(placesItem?.components);
 		setPositioningPlaceID(placesItem?._id);
 	}
 
 	function endPositioningPlace() {
 		setIsPositioningSurfaceMapPlace(false);
 		setPositioningPlaceID(false);
-		let newSelectedSurfaceMapComponents = JSON.parse(JSON.stringify(selectedSurfaceMapComponents));
-		setSelectedSurfaceMapComponents([]);
-
-		let newLocation = false;
-		setLocation((oldLocation) => {
-			newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.places[index].components = newSelectedSurfaceMapComponents;
-			return newLocation;
-		});
-		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
-		let newLocations = JSON.parse(JSON.stringify(locations));
-		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].data.places[index].components = newSelectedSurfaceMapComponents;
-		setLocations(newLocations);
-
-		updateSurfaceMapComponentsList(newLocation);
 	}
 
 	function changeLocation(e) {
@@ -96,13 +85,17 @@ export const PlacesItemLogic = ({ placesItem, index, locationChildren }) => {
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
 		if (locationIndex === -1) return false;
-		newLocations[locationIndex].data.places[index].location = new_location_id;
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+		if (mapVersionIndex === -1) return false;
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].places[index].location = new_location_id;
 		setLocations(newLocations);
 
 		let newLocation = false;
 		setLocation((oldLocation) => {
 			newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.places[index].location = new_location_id;
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+			if (mapVersionIndex === -1) return false;
+			newLocation.data.mapVersions[mapVersionIndex].places[index].location = new_location_id;
 			return newLocation;
 		});
 	}
@@ -114,13 +107,17 @@ export const PlacesItemLogic = ({ placesItem, index, locationChildren }) => {
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
 		if (locationIndex === -1) return false;
-		newLocations[locationIndex].data.places[index].symbol = new_symbol;
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+		if (mapVersionIndex === -1) return false;
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].places[index].symbol = new_symbol;
 		setLocations(newLocations);
 
 		let newLocation = false;
 		setLocation((oldLocation) => {
 			newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.places[index].symbol = new_symbol;
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+			if (mapVersionIndex === -1) return false;
+			newLocation.data.mapVersions[mapVersionIndex].places[index].symbol = new_symbol;
 			return newLocation;
 		});
 	}
@@ -130,13 +127,22 @@ export const PlacesItemLogic = ({ placesItem, index, locationChildren }) => {
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
 		if (locationIndex === -1) return false;
-		newLocations[locationIndex].data.places[index].isMajor = newLocations[locationIndex].data.places[index].isMajor ? false : true;
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+		if (mapVersionIndex === -1) return false;
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].places[index].isMajor = newLocations[locationIndex].data.mapVersions[
+			mapVersionIndex
+		].places[index].isMajor
+			? false
+			: true;
 		setLocations(newLocations);
 
 		let newLocation = false;
 		setLocation((oldLocation) => {
 			newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.places[index].isMajor = newLocations[locationIndex].data.places[index].isMajor;
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+			if (mapVersionIndex === -1) return false;
+			newLocation.data.mapVersions[mapVersionIndex].places[index].isMajor =
+				newLocations[locationIndex].data.mapVersions[mapVersionIndex].places[index].isMajor;
 			return newLocation;
 		});
 	}

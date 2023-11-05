@@ -27,6 +27,7 @@ export const SurfaceMapComponentsLogic = ({
 	pointX,
 	pointY,
 	locationMapImage,
+	mapVersionID,
 }) => {
 	const {
 		locations,
@@ -66,8 +67,10 @@ export const SurfaceMapComponentsLogic = ({
 					let newLocations = JSON.parse(JSON.stringify(oldLocations));
 					const locationIndex = newLocations.findIndex((e) => e?._id === currentMapLocationId);
 					if (locationIndex === -1) return newLocations;
-					let newMapImageComponents = newLocations[locationIndex]?.data?.mapImageComponents.replaceAll(d, "");
-					newLocations[locationIndex].data.mapImageComponents = newMapImageComponents;
+					const versionIndex = newLocations[locationIndex]?.data?.mapVersions.findIndex((e) => e?._id === mapVersionID);
+					if (versionIndex === -1) return newLocations;
+					let newMapImageComponents = newLocations[locationIndex]?.data?.mapVersions[versionIndex]?.mapImageComponents.replaceAll(d, "");
+					newLocations[locationIndex].data.mapVersions[versionIndex].mapImageComponents = newMapImageComponents;
 					return newLocations;
 				});
 
@@ -140,8 +143,9 @@ export const SurfaceMapComponentsLogic = ({
 				case 2:
 					clearTimeout(clickTimeout.current);
 					const location = locations.find((e) => e?._id === currentMapLocationId);
+					const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
 					const region_id = surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index].getAttribute("data-region-id");
-					const region = location?.data?.regions?.find((e) => e?._id === region_id);
+					const region = mapVersion?.regions?.find((e) => e?._id === region_id);
 					if (region?.location) setCurrentMapLocationId(region?.location);
 					setSurfaceMapHoveringRegion(false);
 					break;
@@ -161,6 +165,7 @@ export const SurfaceMapComponentsLogic = ({
 			setSurfaceMapHoveringRegion,
 			isDeletingSurfaceMapComponents,
 			isPositioningSurfaceMapPlace,
+			mapVersionID,
 		]
 	);
 
@@ -193,7 +198,8 @@ export const SurfaceMapComponentsLogic = ({
 
 			const region = locations
 				?.find((e) => e?._id === currentMapLocationId)
-				?.data?.regions?.find((e) => e?._id === surfaceMapComponentsList[index]);
+				?.data?.mapVersions?.find((e) => e?._id === mapVersionID)
+				?.regions?.find((e) => e?._id === surfaceMapComponentsList[index]);
 			setSurfaceMapHoveringRegion(region?._id);
 
 			Array.from(surfaceMapImageDisplayComponentsContainerRef?.current?.children)?.map((e) => {
@@ -210,6 +216,7 @@ export const SurfaceMapComponentsLogic = ({
 			setSurfaceMapHoveringRegion,
 			isDeletingSurfaceMapComponents,
 			surfaceMapImageDisplayComponentsContainerRef,
+			mapVersionID,
 		]
 	);
 
@@ -224,15 +231,19 @@ export const SurfaceMapComponentsLogic = ({
 
 	const updateSurfaceMapImageDisplayComponents = useCallback(async () => {
 		const location = locations.find((e) => e?._id === currentMapLocationId);
+		const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
 
 		let newSurfaceMapImageDisplayComponents = [];
 
-		Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
+		Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path) => {
 			let regionID = path?.getAttribute("data-region-id");
 			if (!regionID) return false;
 			const newSurfaceMapImageDisplayComponentsIndex = newSurfaceMapImageDisplayComponents?.findIndex((e) => e?.region?._id === regionID);
 			if (newSurfaceMapImageDisplayComponentsIndex === -1) {
-				newSurfaceMapImageDisplayComponents.push({ region: location?.data?.regions?.find((e) => e?._id === regionID), components: [path] });
+				newSurfaceMapImageDisplayComponents.push({
+					region: mapVersion?.regions?.find((e) => e?._id === regionID),
+					components: [path],
+				});
 			} else {
 				newSurfaceMapImageDisplayComponents[newSurfaceMapImageDisplayComponentsIndex].components.push(path);
 			}
@@ -256,7 +267,7 @@ export const SurfaceMapComponentsLogic = ({
 
 		setSurfaceMapImageDisplayComponents(newSurfaceMapImageDisplayComponents);
 		// eslint-disable-next-line
-	}, [surfaceMapImageComponentsContainerRef, surfaceMapImageRef, surfaceMapComponentsList]);
+	}, [surfaceMapImageComponentsContainerRef, surfaceMapImageRef, surfaceMapComponentsList, mapVersionID]);
 
 	useEffect(() => {
 		Array.from(document.getElementsByClassName("locations-surface-map-image-display-components-svg-hover"))?.map((e) =>
@@ -357,10 +368,11 @@ export const SurfaceMapComponentsLogic = ({
 		let newSurfaceMapImageComponentsStyles = {};
 		const region = locations
 			?.find((e) => e?._id === currentMapLocationId)
-			?.data?.regions?.find((e) => e?._id === regionSelectingSurfaceMapComponentsFor);
+			?.data?.mapVersions?.find((e) => e?._id === mapVersionID)
+			?.regions?.find((e) => e?._id === regionSelectingSurfaceMapComponentsFor);
 		if (region?.colour) newSurfaceMapImageComponentsStyles["--regionSelectingForColour"] = region?.colour;
 		setSurfaceMapImageComponentsStyles(newSurfaceMapImageComponentsStyles);
-	}, [setSurfaceMapImageComponentsStyles, regionSelectingSurfaceMapComponentsFor, locations, currentMapLocationId]);
+	}, [setSurfaceMapImageComponentsStyles, regionSelectingSurfaceMapComponentsFor, locations, currentMapLocationId, mapVersionID]);
 
 	// Drawing Shapes
 
@@ -454,8 +466,13 @@ export const SurfaceMapComponentsLogic = ({
 						let newLocations = JSON.parse(JSON.stringify(oldLocations));
 						const locationIndex = newLocations.findIndex((e) => e?._id === currentMapLocationId);
 						if (locationIndex === -1) return newLocations;
-						let newMapImageComponents = newLocations[locationIndex]?.data?.mapImageComponents.replaceAll("</svg>", "");
-						newLocations[locationIndex].data.mapImageComponents = newMapImageComponents + newPath + "</svg>";
+						const versionIndex = newLocations[locationIndex]?.data?.mapVersions.findIndex((e) => e?._id === mapVersionID);
+						if (versionIndex === -1) return newLocations;
+						let newMapImageComponents = newLocations[locationIndex]?.data?.mapVersions[versionIndex]?.mapImageComponents.replaceAll(
+							"</svg>",
+							""
+						);
+						newLocations[locationIndex].data.mapVersions[versionIndex].mapImageComponents = newMapImageComponents + newPath + "</svg>";
 						return newLocations;
 					});
 
@@ -483,6 +500,7 @@ export const SurfaceMapComponentsLogic = ({
 			currentMapLocationId,
 			setLocations,
 			updateSurfaceMapImageDisplayComponents,
+			mapVersionID,
 		]
 	);
 

@@ -20,7 +20,7 @@ import "./RegionsItem.css";
 
 // Assets
 
-export const RegionsItem = ({ regionsItem, index, isEditing, locationChildren }) => {
+export const RegionsItem = ({ regionsItem, index, isEditing, locationChildren, mapVersion }) => {
 	const {
 		locations,
 		changeRegionsItemName,
@@ -32,7 +32,7 @@ export const RegionsItem = ({ regionsItem, index, isEditing, locationChildren })
 		changeLocation,
 		onMouseOver,
 		onMouseOut,
-	} = RegionsItemLogic({ regionsItem, index, locationChildren });
+	} = RegionsItemLogic({ regionsItem, index, locationChildren, mapVersion });
 
 	return (
 		<div className='locations-location-regions-item' onMouseOver={onMouseOver} onMouseOut={onMouseOut}>

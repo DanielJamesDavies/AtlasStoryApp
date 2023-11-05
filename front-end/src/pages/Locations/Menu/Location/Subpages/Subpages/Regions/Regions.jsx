@@ -35,10 +35,15 @@ export const Regions = () => {
 		toggleIsDrawingSurfaceMapComponents,
 		isDeletingSurfaceMapComponents,
 		toggleIsDeletingSurfaceMapComponents,
+		mapVersionID,
 	} = RegionsLogic();
 
 	return (
 		<div className='locations-location-regions'>
+			<div className='locations-location-regions-version-container'>
+				<div>Map Version: </div>
+				<div>{location?.data?.mapVersions.find((e) => e?._id === mapVersionID)?.title}</div>
+			</div>
 			<EditableContainer
 				className='locations-location-regions-items-container'
 				isAuthorizedToEdit={isAuthorizedToEdit}
@@ -48,11 +53,19 @@ export const Regions = () => {
 				onSave={saveRegionsItems}
 			>
 				<div className='locations-location-regions-items'>
-					{location?.data?.regions?.map((regionsItem, index) => (
-						<div key={index} className='locations-location-regions-item-container'>
-							<RegionsItem index={index} regionsItem={regionsItem} isEditing={false} locationChildren={locationChildren} />
-						</div>
-					))}
+					{location?.data?.mapVersions
+						?.find((e) => e?._id === mapVersionID)
+						?.regions?.map((regionsItem, index) => (
+							<div key={index} className='locations-location-regions-item-container'>
+								<RegionsItem
+									index={index}
+									regionsItem={regionsItem}
+									isEditing={false}
+									locationChildren={locationChildren}
+									mapVersion={mapVersionID}
+								/>
+							</div>
+						))}
 				</div>
 				<div>
 					<div className='locations-location-regions-start-btn-container'>
@@ -83,11 +96,19 @@ export const Regions = () => {
 						includeVerticalDrag={true}
 						absoluteVerticalDrag={true}
 					>
-						{location?.data?.regions?.map((regionsItem, index) => (
-							<DragDropItem className='locations-location-regions-item-container' key={index} index={index}>
-								<RegionsItem index={index} regionsItem={regionsItem} isEditing={true} locationChildren={locationChildren} />
-							</DragDropItem>
-						))}
+						{location?.data?.mapVersions
+							?.find((e) => e?._id === mapVersionID)
+							?.regions?.map((regionsItem, index) => (
+								<DragDropItem className='locations-location-regions-item-container' key={index} index={index}>
+									<RegionsItem
+										index={index}
+										regionsItem={regionsItem}
+										isEditing={true}
+										locationChildren={locationChildren}
+										mapVersion={mapVersionID}
+									/>
+								</DragDropItem>
+							))}
 					</DragDropContainer>
 				</div>
 			</EditableContainer>

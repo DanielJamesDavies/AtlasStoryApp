@@ -15,7 +15,7 @@ import { LocationContext } from "../../../../LocationContext";
 
 // Assets
 
-export const RegionsItemLogic = ({ regionsItem, index, locationChildren }) => {
+export const RegionsItemLogic = ({ regionsItem, index, locationChildren, mapVersion }) => {
 	const {
 		locations,
 		setLocations,
@@ -34,39 +34,48 @@ export const RegionsItemLogic = ({ regionsItem, index, locationChildren }) => {
 	function changeRegionsItemName(e) {
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.regions[index].name = e.target.value;
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersion);
+			if (mapVersionIndex === -1) return newLocation;
+			newLocation.data.mapVersions[mapVersionIndex].regions[index].name = e.target.value;
 			return newLocation;
 		});
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].data.regions[index].name = e.target.value;
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersion);
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].regions[index].name = e.target.value;
 		setLocations(newLocations);
 	}
 
 	function changeRegionsItemColour(new_colour) {
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.regions[index].colour = new_colour;
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersion);
+			if (mapVersionIndex === -1) return newLocation;
+			newLocation.data.mapVersions[mapVersionIndex].regions[index].colour = new_colour;
 			return newLocation;
 		});
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].data.regions[index].colour = new_colour;
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersion);
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].regions[index].colour = new_colour;
 		setLocations(newLocations);
 	}
 
 	function removeRegionsItem() {
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.regions.splice(index, 1);
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersion);
+			if (mapVersionIndex === -1) return newLocation;
+			newLocation.data.mapVersions[mapVersionIndex].regions.splice(index, 1);
 			return newLocation;
 		});
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].data.regions.splice(index, 1);
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersion);
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].regions.splice(index, 1);
 		setLocations(newLocations);
 	}
 
@@ -85,16 +94,19 @@ export const RegionsItemLogic = ({ regionsItem, index, locationChildren }) => {
 		let newLocation = false;
 		setLocation((oldLocation) => {
 			newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.regions[index].components = newSelectedSurfaceMapComponents;
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersion);
+			if (mapVersionIndex === -1) return newLocation;
+			newLocation.data.mapVersions[mapVersionIndex].regions[index].components = newSelectedSurfaceMapComponents;
 			return newLocation;
 		});
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].data.regions[index].components = newSelectedSurfaceMapComponents;
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersion);
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].regions[index].components = newSelectedSurfaceMapComponents;
 		setLocations(newLocations);
 
-		updateSurfaceMapComponentsList(newLocation);
+		updateSurfaceMapComponentsList(newLocations[locationIndex].data.mapVersions[mapVersionIndex]);
 	}
 
 	function changeLocation(e) {
@@ -104,13 +116,16 @@ export const RegionsItemLogic = ({ regionsItem, index, locationChildren }) => {
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
 		if (locationIndex === -1) return false;
-		newLocations[locationIndex].data.regions[index].location = new_location_id;
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersion);
+		if (mapVersionIndex === -1) return false;
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].regions[index].location = new_location_id;
 		setLocations(newLocations);
 
-		let newLocation = false;
 		setLocation((oldLocation) => {
-			newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.regions[index].location = new_location_id;
+			let newLocation = JSON.parse(JSON.stringify(oldLocation));
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersion);
+			if (mapVersionIndex === -1) return newLocation;
+			newLocation.data.mapVersions[mapVersionIndex].regions[index].location = new_location_id;
 			return newLocation;
 		});
 	}

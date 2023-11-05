@@ -1,4 +1,5 @@
 // Packages
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { sanitize } from "dompurify";
 
 // Components
@@ -20,7 +21,6 @@ export const SurfaceMap = () => {
 	const {
 		locations,
 		currentMapLocationId,
-		loadingCircleContainerLoadedRef,
 		surfaceMapContainerRef,
 		surfaceMapImageContainerRef,
 		surfaceMapImageRef,
@@ -48,6 +48,10 @@ export const SurfaceMap = () => {
 		surfaceMapPositioningPlaceRef,
 		surfaceMapPlaces,
 		isPositioningSurfaceMapPlace,
+		mapVersionID,
+		decrementMapVersion,
+		incrementMapVersion,
+		locationsSurfaceMapLoadingCircleContainerRef,
 	} = SurfaceMapLogic();
 
 	return (
@@ -63,19 +67,29 @@ export const SurfaceMap = () => {
 				onTouchStart={onTouchStart}
 				onTouchMove={onTouchMove}
 			>
-				{!locationMapImage ? (
-					<div className='locations-surface-map-loading-circle-container'>
-						<LoadingCircle center={true} size='l' />
-						<div className='locations-surface-map-loading-circle-background'></div>
-					</div>
-				) : (
+				<div ref={locationsSurfaceMapLoadingCircleContainerRef} className='locations-surface-map-loading-circle-container'>
+					<LoadingCircle center={true} />
+					<div className='locations-surface-map-loading-circle-background'></div>
+				</div>
+				{!locationMapImage ? null : (
 					<>
-						<div
-							ref={loadingCircleContainerLoadedRef}
-							className='locations-surface-map-loading-circle-container locations-surface-map-loading-circle-container-loaded'
-						>
-							<LoadingCircle center={true} size='l' />
-							<div className='locations-surface-map-loading-circle-background'></div>
+						<div className='locations-surface-map-versions-container'>
+							<button onClick={decrementMapVersion}>
+								<FaChevronLeft />
+							</button>
+							<div>
+								<div className='locations-surface-map-versions-label'>Version</div>
+								<div className='locations-surface-map-versions-value'>
+									{
+										locations
+											?.find((e) => e?._id === currentMapLocationId)
+											?.data?.mapVersions?.find((e) => e?._id === mapVersionID)?.title
+									}
+								</div>
+							</div>
+							<button onClick={incrementMapVersion}>
+								<FaChevronRight />
+							</button>
 						</div>
 						<div ref={surfaceMapImageContainerRef} className='locations-surface-map-image-container'>
 							<div
@@ -90,7 +104,11 @@ export const SurfaceMap = () => {
 									ref={surfaceMapImageComponentsContainerRef}
 									className={"locations-surface-map-image-components-container"}
 									dangerouslySetInnerHTML={{
-										__html: sanitize(locations?.find((e) => e._id === currentMapLocationId)?.data?.mapImageComponents),
+										__html: sanitize(
+											locations
+												?.find((e) => e?._id === currentMapLocationId)
+												?.data?.mapVersions?.find((e) => e?._id === mapVersionID)?.mapImageComponents
+										),
 									}}
 									style={surfaceMapImageComponentsStyles}
 								></div>

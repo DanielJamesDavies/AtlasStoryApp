@@ -18,7 +18,7 @@ import "./Background.css";
 // Assets
 
 export const Background = () => {
-	const { unit_type, unit, unitOverviewForegrounds, unitOverviewBackground, unitVersion, overviewForegroundSizeRef, locationMapImage } =
+	const { unit_type, unit, unitOverviewForegrounds, unitOverviewBackground, unitVersion, overviewForegroundSizeRef, locationMapImages } =
 		BackgroundLogic();
 
 	if (unitOverviewForegrounds === false) return null;
@@ -27,7 +27,9 @@ export const Background = () => {
 			<>
 				{unit?.type === "surfaceLocation" ? (
 					<div className='unit-page-overview-background-surface-map-container'>
-						{!locationMapImage || locationMapImage === "NO_IMAGE" ? null : <img src={locationMapImage} alt='' />}
+						{!locationMapImages[0]?.image || locationMapImages[0]?.image === "NO_IMAGE" ? null : (
+							<img src={locationMapImages[0]?.image} alt='' />
+						)}
 					</div>
 				) : (
 					<div className='unit-page-overview-background-space-map-container'>

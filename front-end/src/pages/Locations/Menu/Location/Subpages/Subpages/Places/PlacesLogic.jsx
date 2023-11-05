@@ -18,7 +18,7 @@ import { HierarchyFunctions } from "../../../../../HierarchyFunctions";
 // Assets
 
 export const PlacesLogic = () => {
-	const { isAuthorizedToEdit, story, locations, setLocations, selectedLocationId } = useContext(LocationsContext);
+	const { isAuthorizedToEdit, story, locations, setLocations, selectedLocationId, mapVersionID } = useContext(LocationsContext);
 	const { location, setLocation } = useContext(LocationContext);
 	const { APIRequest } = useContext(APIContext);
 	const { getItemFromIdInHierarchy } = HierarchyFunctions();
@@ -63,14 +63,18 @@ export const PlacesLogic = () => {
 
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.places.push(new_place);
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+			if (mapVersionIndex === -1) return newLocation;
+			newLocation.data.mapVersions[mapVersionIndex].places.push(new_place);
 			return newLocation;
 		});
 
 		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
-		newLocations[locationIndex].data.places.push(new_place);
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+		if (locationIndex === -1 || mapVersionIndex === -1) return false;
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].places.push(new_place);
 		setLocations(newLocations);
 	}
 
@@ -92,8 +96,10 @@ export const PlacesLogic = () => {
 
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
-			const tempPlacesItem = newLocation.data.places.splice(res.from, 1)[0];
-			newLocation.data.places.splice(res.to, 0, tempPlacesItem);
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+			if (mapVersionIndex === -1) return newLocation;
+			const tempPlacesItem = newLocation.data.mapVersions[mapVersionIndex].places.splice(res.from, 1)[0];
+			newLocation.data.mapVersions[mapVersionIndex].places.splice(res.to, 0, tempPlacesItem);
 			return newLocation;
 		});
 	}
@@ -104,13 +110,15 @@ export const PlacesLogic = () => {
 		setErrors([]);
 		const response = await APIRequest("/location/get-value/" + location._id, "POST", {
 			story_id: story._id,
-			path: ["data", "places"],
+			path: ["data", "mapVersions", mapVersionID, "places"],
 		});
 		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
-			newLocation.data.places = response.data.value;
+			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+			if (mapVersionIndex === -1) return newLocation;
+			newLocation.data.mapVersions[mapVersionIndex].places = response.data.value;
 			return newLocation;
 		});
 
@@ -123,11 +131,13 @@ export const PlacesLogic = () => {
 
 		const locationsLocation = locations?.find((e) => e?._id === location?._id);
 		if (!locationsLocation) return false;
+		const mapVersionIndex = locationsLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
+		if (mapVersionIndex === -1) return false;
 
 		const response = await APIRequest("/location/" + location._id, "PATCH", {
 			story_id: story._id,
-			path: ["data", "places"],
-			newValue: locationsLocation.data.places,
+			path: ["data", "mapVersions", mapVersionID, "places"],
+			newValue: locationsLocation.data.mapVersions[mapVersionIndex].places,
 		});
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);
@@ -148,5 +158,6 @@ export const PlacesLogic = () => {
 		revertPlacesItems,
 		savePlacesItems,
 		errors,
+		mapVersionID,
 	};
 };
