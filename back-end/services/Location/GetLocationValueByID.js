@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
 	let newPath = JSON.parse(JSON.stringify(req?.body?.path));
 
 	if (newPath.length > 3 && newPath[0] === "data" && newPath[1] === "mapVersions") {
-		const mapVersionIndex = location?.data?.find((e = e?._id === newPath[2]));
+		const mapVersionIndex = location?.data?.mapVersions?.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newPath[2]));
 		if (mapVersionIndex === -1) return res.status(200).send({ errors: [{ message: "Location Map Version Not Found" }] });
 		newPath[2] = mapVersionIndex;
 	}

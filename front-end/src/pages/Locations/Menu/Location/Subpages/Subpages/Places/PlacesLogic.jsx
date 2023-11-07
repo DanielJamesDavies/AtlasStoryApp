@@ -126,6 +126,17 @@ export const PlacesLogic = () => {
 			return newLocation;
 		});
 
+		const newSelectedLocationId = JSON.parse(JSON.stringify(selectedLocationId));
+		let newLocations = JSON.parse(JSON.stringify(locations));
+		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
+		if (locationIndex === -1) return false;
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions.findIndex(
+			(e) => JSON.stringify(e?._id) === JSON.stringify(mapVersionID)
+		);
+		if (mapVersionIndex === -1) return false;
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].places = response.data.value;
+		setLocations(newLocations);
+
 		return true;
 	}
 
