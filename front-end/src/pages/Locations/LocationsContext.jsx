@@ -143,6 +143,10 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [regionItemHoveringOver, setRegionItemHoveringOver] = useState(false);
 	const [mapVersionID, setMapVersionID] = useState(false);
 	const [locationMapComponentsImages, setLocationMapComponentsImages] = useState(false);
+	const [locationMapImage, setLocationMapImage] = useState(false);
+	const [locationMapComponentsImage, setLocationMapComponentsImage] = useState(false);
+	const [locationMapImages, setLocationMapImages] = useState(false);
+	const locationsSurfaceMapLoadingCircleContainerRef = useRef();
 
 	const scenesChangePlayerInitial = useRef([
 		{
@@ -496,6 +500,13 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setMapVersionID,
 				locationMapComponentsImages,
 				setLocationMapComponentsImages,
+				locationMapImage,
+				setLocationMapImage,
+				locationMapComponentsImage,
+				setLocationMapComponentsImage,
+				locationMapImages,
+				setLocationMapImages,
+				locationsSurfaceMapLoadingCircleContainerRef,
 			}}
 		>
 			{children}

@@ -119,10 +119,12 @@ export const SurfaceMapRegionsLogic = ({
 		const imageContainerHeightDelta =
 			((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
 		const min_pointY = (imageContainerHeightDelta / zoom.current) * height_zoom;
-		if (Math.sign(min_pointY) === -1) {
-			surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(${min_pointY * (1 / height_zoom)}px);`;
-		} else {
-			surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(0px);`;
+		if (surfaceMapImageRegionsNamesRef?.current) {
+			if (Math.sign(min_pointY) === -1) {
+				surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(${min_pointY * (1 / height_zoom)}px);`;
+			} else {
+				surfaceMapImageRegionsNamesRef.current.style = `transform: translateY(0px);`;
+			}
 		}
 	}, [surfaceMapImageContainerRef, surfaceMapImageRef, surfaceMapImageRegionsNamesRef, zoom, max_mobile_width]);
 
@@ -284,6 +286,8 @@ export const SurfaceMapRegionsLogic = ({
 		updateRegionsNamesPosition();
 
 		await new Promise((resolve) => setTimeout(resolve, 5));
+
+		if (!surfaceMapImageRegionsNamesTextsRef?.current?.children) return false;
 
 		const regionsNamesTexts = Array.from(surfaceMapImageRegionsNamesTextsRef.current.children);
 

@@ -58,6 +58,19 @@
 	}
 }
 
+.locations-header {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	justify-content: space-between;
+	align-items: center;
+	position: absolute;
+	z-index: 2;
+	top: 8px;
+	left: 8px;
+	width: calc(100% - 16px);
+}
+
 .locations-map-btn {
 	--borderWidth: 5px;
 	position: relative;

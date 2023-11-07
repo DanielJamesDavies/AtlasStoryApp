@@ -244,6 +244,8 @@ export const SurfaceMapComponentsLogic = ({
 
 		let newSurfaceMapImageDisplayComponents = [];
 
+		if (!surfaceMapImageComponentsContainerRef?.current?.children[0]?.children) return false;
+
 		Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path) => {
 			let regionID = path?.getAttribute("data-region-id");
 			if (!regionID) return false;

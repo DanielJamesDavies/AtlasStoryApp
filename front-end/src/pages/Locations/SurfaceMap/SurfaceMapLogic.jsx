@@ -29,15 +29,17 @@ export const SurfaceMapLogic = () => {
 		isPositioningSurfaceMapPlace,
 		mapVersionID,
 		setMapVersionID,
-		locationMapComponentsImages,
 		setLocationMapComponentsImages,
+		locationMapImage,
+		setLocationMapImage,
+		locationMapComponentsImage,
+		setLocationMapComponentsImage,
+		setLocationMapImages,
+		locationsSurfaceMapLoadingCircleContainerRef,
 	} = useContext(LocationsContext);
 
 	const { APIRequest } = useContext(APIContext);
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
-	const [locationMapImage, setLocationMapImage] = useState(false);
-	const [locationMapComponentsImage, setLocationMapComponentsImage] = useState(false);
-	const [locationMapImages, setLocationMapImages] = useState(false);
 
 	const [isImagePixelated, setIsImagePixelated] = useState(false);
 	const [isPanning, setIsPanning] = useState(false);
@@ -56,7 +58,6 @@ export const SurfaceMapLogic = () => {
 	const surfaceMapDrawingShapeRef = useRef();
 	const surfaceMapImageNewComponentsRef = useRef();
 	const surfaceMapPositioningPlaceRef = useRef();
-	const locationsSurfaceMapLoadingCircleContainerRef = useRef();
 
 	const currentLocationId = useRef(false);
 	var regionClusters = useRef();
@@ -209,81 +210,11 @@ export const SurfaceMapLogic = () => {
 		setMapVersionID,
 		setLocationMapComponentsImage,
 		setLocationMapComponentsImages,
+		locationsSurfaceMapLoadingCircleContainerRef,
+		setLocationMapImages,
 	]);
 
-	function decrementMapVersion() {
-		const oldLocationMapImage = JSON.parse(JSON.stringify(locationMapImage));
-		const oldLocationMapComponentsImage = JSON.parse(JSON.stringify(locationMapComponentsImage));
-
-		setLocationMapImage(false);
-		setLocationMapComponentsImage(false);
-
-		const location = locations?.find((e) => e?._id === currentMapLocationId);
-		if (!location?.data?.mapVersions) {
-			setLocationMapImage(oldLocationMapImage);
-			setLocationMapComponentsImage(oldLocationMapComponentsImage);
-			return;
-		}
-
-		const currentVersionIndex = location.data.mapVersions.findIndex((e) => e._id === mapVersionID);
-		if (currentVersionIndex === -1 || currentVersionIndex === 0) {
-			setLocationMapImage(oldLocationMapImage);
-			setLocationMapComponentsImage(oldLocationMapComponentsImage);
-			return false;
-		}
-
-		locationsSurfaceMapLoadingCircleContainerRef.current.classList.remove("locations-surface-map-loading-circle-container-loaded");
-		setMapVersionID(location.data.mapVersions[currentVersionIndex - 1]?._id);
-		setTimeout(() => {
-			locationsSurfaceMapLoadingCircleContainerRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
-			setLocationMapImage(locationMapImages?.find((e) => e?._id === location.data.mapVersions[currentVersionIndex - 1]?.mapImage)?.image);
-			setLocationMapComponentsImage(
-				locationMapComponentsImages?.find((e) => e?._id === location.data.mapVersions[currentVersionIndex - 1]?.mapImageComponents)?.image
-			);
-		}, 200);
-	}
-
-	function incrementMapVersion() {
-		const oldLocationMapImage = JSON.parse(JSON.stringify(locationMapImage));
-		const oldLocationMapComponentsImage = JSON.parse(JSON.stringify(locationMapComponentsImage));
-
-		setLocationMapImage(false);
-		setLocationMapComponentsImage(false);
-
-		const location = locations?.find((e) => e?._id === currentMapLocationId);
-		if (!location?.data?.mapVersions) {
-			setLocationMapImage(oldLocationMapImage);
-			setLocationMapComponentsImage(oldLocationMapComponentsImage);
-			return false;
-		}
-
-		const currentVersionIndex = location.data.mapVersions.findIndex((e) => e._id === mapVersionID);
-		if (currentVersionIndex === -1 || currentVersionIndex === location.data.mapVersions.length - 1) {
-			setLocationMapImage(oldLocationMapImage);
-			setLocationMapComponentsImage(oldLocationMapComponentsImage);
-			return false;
-		}
-
-		const newImage = locationMapImages?.find((e) => e?._id === location.data.mapVersions[currentVersionIndex + 1]?.mapImage)?.image;
-		if (!newImage) {
-			setLocationMapImage(oldLocationMapImage);
-			return false;
-		}
-
-		locationsSurfaceMapLoadingCircleContainerRef.current.classList.remove("locations-surface-map-loading-circle-container-loaded");
-		setMapVersionID(location.data.mapVersions[currentVersionIndex + 1]?._id);
-		setTimeout(() => {
-			locationsSurfaceMapLoadingCircleContainerRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
-			setLocationMapImage(locationMapImages?.find((e) => e?._id === location.data.mapVersions[currentVersionIndex + 1]?.mapImage)?.image);
-			setLocationMapComponentsImage(
-				locationMapComponentsImages?.find((e) => e?._id === location.data.mapVersions[currentVersionIndex + 1]?.mapImageComponents)?.image
-			);
-		}, 200);
-	}
-
 	return {
-		locations,
-		currentMapLocationId,
 		surfaceMapContainerRef,
 		surfaceMapImageContainerRef,
 		surfaceMapImageRef,
@@ -311,9 +242,6 @@ export const SurfaceMapLogic = () => {
 		surfaceMapPositioningPlaceRef,
 		surfaceMapPlaces,
 		isPositioningSurfaceMapPlace,
-		mapVersionID,
-		decrementMapVersion,
-		incrementMapVersion,
 		locationsSurfaceMapLoadingCircleContainerRef,
 		locationMapComponentsImage,
 	};

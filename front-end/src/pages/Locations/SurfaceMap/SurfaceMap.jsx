@@ -1,5 +1,4 @@
 // Packages
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { sanitize } from "dompurify";
 
 // Components
@@ -19,8 +18,6 @@ import "./SurfaceMap.css";
 
 export const SurfaceMap = () => {
 	const {
-		locations,
-		currentMapLocationId,
 		surfaceMapContainerRef,
 		surfaceMapImageContainerRef,
 		surfaceMapImageRef,
@@ -48,9 +45,6 @@ export const SurfaceMap = () => {
 		surfaceMapPositioningPlaceRef,
 		surfaceMapPlaces,
 		isPositioningSurfaceMapPlace,
-		mapVersionID,
-		decrementMapVersion,
-		incrementMapVersion,
 		locationsSurfaceMapLoadingCircleContainerRef,
 		locationMapComponentsImage,
 	} = SurfaceMapLogic();
@@ -74,24 +68,6 @@ export const SurfaceMap = () => {
 				</div>
 				{!locationMapImage ? null : (
 					<>
-						<div className='locations-surface-map-versions-container'>
-							<button onClick={decrementMapVersion}>
-								<FaChevronLeft />
-							</button>
-							<div>
-								<div className='locations-surface-map-versions-label'>Version</div>
-								<div className='locations-surface-map-versions-value'>
-									{
-										locations
-											?.find((e) => e?._id === currentMapLocationId)
-											?.data?.mapVersions?.find((e) => e?._id === mapVersionID)?.title
-									}
-								</div>
-							</div>
-							<button onClick={incrementMapVersion}>
-								<FaChevronRight />
-							</button>
-						</div>
 						<div ref={surfaceMapImageContainerRef} className='locations-surface-map-image-container'>
 							<div
 								className={

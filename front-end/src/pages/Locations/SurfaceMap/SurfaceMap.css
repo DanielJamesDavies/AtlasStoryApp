@@ -625,44 +625,6 @@
 	font-size: 5px;
 }
 
-.locations-surface-map-versions-container {
-	position: fixed;
-	z-index: 5;
-	top: 8px;
-	right: 8px;
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	max-width: 200px;
-}
-
-.locations-surface-map-versions-container button {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: 0;
-	background: transparent;
-	color: #fff;
-	font-size: 20px;
-	transition: 0.2s;
-	cursor: pointer;
-}
-
-.locations-surface-map-versions-container button:hover {
-	color: var(--colour-accent);
-}
-
-.locations-surface-map-versions-label {
-	font-size: 12px;
-	font-weight: 400;
-	width: 100px;
-}
-
-.locations-surface-map-versions-value {
-	font-size: 14px;
-	font-weight: 600;
-}
-
 @media (max-width: 750px) {
 	.locations-surface-map-loading-circle-container {
 		top: 0;

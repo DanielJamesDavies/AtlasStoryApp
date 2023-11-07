@@ -1,0 +1,34 @@
+.locations-surface-map-versions-container {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	max-width: 200px;
+	color: #aaa;
+}
+
+.locations-surface-map-versions-container button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 0;
+	background: transparent;
+	color: #aaa;
+	font-size: 22px;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.locations-surface-map-versions-container button:hover {
+	color: #fff;
+}
+
+.locations-surface-map-versions-label {
+	font-size: 12px;
+	font-weight: 400;
+	width: 110px;
+}
+
+.locations-surface-map-versions-value {
+	font-size: 14px;
+	font-weight: 600;
+}

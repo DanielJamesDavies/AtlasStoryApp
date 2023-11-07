@@ -11,6 +11,7 @@ import { SpaceMap } from "./SpaceMap/SpaceMap";
 import { SurfaceMap } from "./SurfaceMap/SurfaceMap";
 import { MapLocationStatus } from "./MapLocationStatus/MapLocationStatus";
 import { CreateLocationForm } from "./CreateLocationForm/CreateLocationForm";
+import { LocationVersion } from "./LocationVersion/LocationVersion";
 
 // Logic
 import { LocationsLogic } from "./LocationsLogic";
@@ -46,8 +47,12 @@ export const Locations = () => {
 					</div>
 				</div>
 				<Menu />
+				<div className='locations-header'>
+					<MapLocationStatus />
+					{isOnSpaceMap ? null : <LocationVersion />}
+				</div>
 				{isOnSpaceMap ? <SpaceMap /> : <SurfaceMap />}
-				<MapLocationStatus />
+
 				<CreateLocationForm />
 			</div>
 		);
