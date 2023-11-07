@@ -9,6 +9,7 @@ const GroupSchema = mongoose.Schema({
 	uid: {
 		type: String,
 		required: true,
+		index: true,
 	},
 	data: {
 		type: {

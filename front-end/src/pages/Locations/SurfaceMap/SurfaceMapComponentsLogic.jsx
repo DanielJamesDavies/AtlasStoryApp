@@ -16,7 +16,6 @@ import { LocationsContext } from "../LocationsContext";
 // Assets
 
 export const SurfaceMapComponentsLogic = ({
-	surfaceMapContainerRef,
 	surfaceMapImageContainerRef,
 	surfaceMapImageComponentsContainerRef,
 	surfaceMapImageDisplayComponentsContainerRef,
@@ -28,10 +27,12 @@ export const SurfaceMapComponentsLogic = ({
 	pointY,
 	locationMapImage,
 	mapVersionID,
+	locationMapComponentsImage,
+	setLocationMapComponentsImage,
+	setLocationMapComponentsImages,
 }) => {
 	const {
 		locations,
-		setLocations,
 		currentMapLocationId,
 		setCurrentMapLocationId,
 		isSelectingSurfaceMapComponents,
@@ -63,15 +64,21 @@ export const SurfaceMapComponentsLogic = ({
 			if (isDeletingSurfaceMapComponents) {
 				const d = surfaceMapImageComponentsContainerRef?.current?.children[0]?.children[index]?.getAttribute("d");
 
-				setLocations((oldLocations) => {
-					let newLocations = JSON.parse(JSON.stringify(oldLocations));
-					const locationIndex = newLocations.findIndex((e) => e?._id === currentMapLocationId);
-					if (locationIndex === -1) return newLocations;
-					const versionIndex = newLocations[locationIndex]?.data?.mapVersions.findIndex((e) => e?._id === mapVersionID);
-					if (versionIndex === -1) return newLocations;
-					let newMapImageComponents = newLocations[locationIndex]?.data?.mapVersions[versionIndex]?.mapImageComponents.replaceAll(d, "");
-					newLocations[locationIndex].data.mapVersions[versionIndex].mapImageComponents = newMapImageComponents;
-					return newLocations;
+				let newLocations = JSON.parse(JSON.stringify(locations));
+				const locationIndex = newLocations.findIndex((e) => e?._id === currentMapLocationId);
+				const versionIndex = newLocations[locationIndex]?.data?.mapVersions.findIndex((e) => e?._id === mapVersionID);
+				const components_id = newLocations[locationIndex].data.mapVersions[versionIndex].mapImageComponents;
+
+				let newLocationMapComponentsImage = JSON.parse(JSON.stringify(locationMapComponentsImage));
+				newLocationMapComponentsImage = newLocationMapComponentsImage.replaceAll(d, "");
+				setLocationMapComponentsImage(newLocationMapComponentsImage);
+
+				setLocationMapComponentsImages((oldValue) => {
+					let newValue = JSON.parse(JSON.stringify(oldValue));
+					const index = newValue?.findIndex((e) => e?._id === components_id);
+					if (index === -1) return newValue;
+					newValue[index].image = newLocationMapComponentsImage;
+					return newValue;
 				});
 
 				return false;
@@ -159,13 +166,15 @@ export const SurfaceMapComponentsLogic = ({
 			addComponentToSelectedSurfaceMapComponents,
 			removeComponentToSelectedSurfaceMapComponents,
 			locations,
-			setLocations,
 			currentMapLocationId,
 			setCurrentMapLocationId,
 			setSurfaceMapHoveringRegion,
 			isDeletingSurfaceMapComponents,
 			isPositioningSurfaceMapPlace,
 			mapVersionID,
+			locationMapComponentsImage,
+			setLocationMapComponentsImage,
+			setLocationMapComponentsImages,
 		]
 	);
 
@@ -462,18 +471,21 @@ export const SurfaceMapComponentsLogic = ({
 
 					let newPath = `<path class='locations-surface-map-image-component-is-drawn' fill="rgb(255,255,255)" stroke="rgb(255,255,255)" stroke-width="4" opacity="1" d="${polygon}" />`;
 
-					setLocations((oldLocations) => {
-						let newLocations = JSON.parse(JSON.stringify(oldLocations));
-						const locationIndex = newLocations.findIndex((e) => e?._id === currentMapLocationId);
-						if (locationIndex === -1) return newLocations;
-						const versionIndex = newLocations[locationIndex]?.data?.mapVersions.findIndex((e) => e?._id === mapVersionID);
-						if (versionIndex === -1) return newLocations;
-						let newMapImageComponents = newLocations[locationIndex]?.data?.mapVersions[versionIndex]?.mapImageComponents.replaceAll(
-							"</svg>",
-							""
-						);
-						newLocations[locationIndex].data.mapVersions[versionIndex].mapImageComponents = newMapImageComponents + newPath + "</svg>";
-						return newLocations;
+					let newLocations = JSON.parse(JSON.stringify(locations));
+					const locationIndex = newLocations.findIndex((e) => e?._id === currentMapLocationId);
+					const versionIndex = newLocations[locationIndex]?.data?.mapVersions.findIndex((e) => e?._id === mapVersionID);
+					const components_id = newLocations[locationIndex].data.mapVersions[versionIndex].mapImageComponents;
+
+					let newLocationMapComponentsImage = JSON.parse(JSON.stringify(locationMapComponentsImage));
+					newLocationMapComponentsImage = newLocationMapComponentsImage.replaceAll("</svg>", "") + newPath + "</svg>";
+					setLocationMapComponentsImage(newLocationMapComponentsImage);
+
+					setLocationMapComponentsImages((oldValue) => {
+						let newValue = JSON.parse(JSON.stringify(oldValue));
+						const index = newValue?.findIndex((e) => e?._id === components_id);
+						if (index === -1) return newValue;
+						newValue[index].image = newLocationMapComponentsImage;
+						return newValue;
 					});
 
 					setTimeout(() => updateSurfaceMapImageDisplayComponents(), 5);
@@ -497,10 +509,13 @@ export const SurfaceMapComponentsLogic = ({
 			surfaceMapDrawingShapeRef,
 			surfaceMapImageNewComponentsRef,
 			isDrawingSurfaceMapComponents,
+			locations,
 			currentMapLocationId,
-			setLocations,
 			updateSurfaceMapImageDisplayComponents,
 			mapVersionID,
+			locationMapComponentsImage,
+			setLocationMapComponentsImage,
+			setLocationMapComponentsImages,
 		]
 	);
 
@@ -550,14 +565,14 @@ export const SurfaceMapComponentsLogic = ({
 	);
 
 	useEffect(() => {
-		const surfaceMapContainerRefCurrent = surfaceMapContainerRef?.current;
-		if (surfaceMapContainerRef?.current) surfaceMapContainerRefCurrent.addEventListener("mousemove", onMouseMove);
-		if (surfaceMapContainerRef?.current) surfaceMapContainerRefCurrent.addEventListener("click", onMouseClick);
+		const surfaceMapContainerRefCurrent = surfaceMapImageContainerRef?.current;
+		surfaceMapContainerRefCurrent?.addEventListener("mousemove", onMouseMove);
+		surfaceMapContainerRefCurrent?.addEventListener("click", onMouseClick);
 		return () => {
 			surfaceMapContainerRefCurrent?.removeEventListener("mousemove", onMouseMove);
 			surfaceMapContainerRefCurrent?.removeEventListener("click", onMouseClick);
 		};
-	}, [onMouseMove, onMouseClick, surfaceMapContainerRef]);
+	}, [onMouseMove, onMouseClick, surfaceMapImageContainerRef]);
 
 	useEffect(() => {
 		if (surfaceMapImageNewComponentsRef?.current?.children) {

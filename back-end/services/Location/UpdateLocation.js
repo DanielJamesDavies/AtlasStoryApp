@@ -5,6 +5,8 @@ const Image = require("../../models/Image");
 
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
+const deleteImagesByKey = require("../Image/deleteImagesByKey");
+
 module.exports = async (req, res) => {
 	if ((!req?.body?.path && !req?.body?.paths) || JSON.stringify(req?.body?.path) === JSON.stringify(["_id"]))
 		return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
@@ -125,6 +127,7 @@ module.exports = async (req, res) => {
 			if (req.body.newValue.length === 0) return res.status(200).send({ errors: [{ message: "A Location Cannot Have No Map Versions" }] });
 
 			let newVersions = req.body.newValue;
+			const oldVersions = JSON.parse(JSON.stringify(newLocation.data.mapVersions));
 
 			newVersions = newVersions.map((version) => {
 				const versionIndex = newLocation.data.mapVersions.findIndex((e) => e._id === version._id);
@@ -138,6 +141,17 @@ module.exports = async (req, res) => {
 			newLocation.data.mapVersions = newVersions;
 			newLocation = new Location(newLocation);
 			newLocation = JSON.parse(JSON.stringify(newLocation));
+
+			// Delete Images for all deleted versions
+			const deletedVersionIDs = oldVersions
+				?.filter((e) => newVersions?.findIndex((e2) => JSON.stringify(e2?._id) === JSON.stringify(e?._id)) === -1)
+				?.map((e) => e?._id);
+
+			await Promise.all(
+				deletedVersionIDs?.map(async (deletedVersionID) => {
+					return await deleteImagesByKey("location_map_version_id", deletedVersionID);
+				})
+			);
 		} else if (
 			req?.body?.path?.length > 3 &&
 			JSON.stringify(req?.body?.path[0]) === JSON.stringify("data") &&
@@ -159,8 +173,8 @@ module.exports = async (req, res) => {
 		newLocation.data.mapVersions.push({
 			_id: new mongoose.Types.ObjectId(),
 			title: "Ver. 1",
-			mapImage: ID,
-			mapImageComponents: "",
+			mapImage: new mongoose.Types.ObjectId(),
+			mapImageComponents: new mongoose.Types.ObjectId(),
 			regions: [],
 			places: [],
 		});

@@ -12,6 +12,7 @@
 	width: 100%;
 	max-width: unset;
 	height: 100%;
+	overflow: hidden;
 }
 
 .locations-loading-container {

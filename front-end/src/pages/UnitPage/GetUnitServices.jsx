@@ -37,6 +37,7 @@ export const GetUnitServices = ({
 	storyCharacterRelationships,
 	storyGroups,
 	setLocationMapImages,
+	setLocationMapComponents,
 }) => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { APIRequest } = useContext(APIContext);
@@ -331,6 +332,35 @@ export const GetUnitServices = ({
 		[APIRequest, recentImages, addImagesToRecentImages, setLocationMapImages]
 	);
 
+	// Get Location Map Components
+	const getLocationMapComponents = useCallback(
+		async (mapVersions) => {
+			const newLocationMapComponents = await Promise.all(
+				mapVersions?.map(async (mapVersion) => {
+					if (!mapVersion?.mapImageComponents) return;
+					const mapImageComponents = JSON.parse(JSON.stringify(mapVersion?.mapImageComponents));
+
+					let mapImageComponentsImage = false;
+
+					const map_image_response = await APIRequest("/image/" + mapImageComponents, "GET");
+
+					if (map_image_response?.errors || !map_image_response?.data?.image?.image)
+						return { _id: mapImageComponents, version_id: mapVersion?._id, image: false };
+
+					mapImageComponentsImage = map_image_response?.data?.image;
+
+					if (!mapImageComponentsImage) return { _id: mapImageComponents, version_id: mapVersion?._id, image: false };
+
+					return { _id: mapImageComponents, version_id: mapVersion?._id, image: mapImageComponentsImage?.image };
+				})
+			);
+
+			setLocationMapComponents(newLocationMapComponents);
+			return newLocationMapComponents;
+		},
+		[APIRequest, setLocationMapComponents]
+	);
+
 	// Get Unit Subpages
 	const getUnitSubpages = useCallback(
 		async (unitSubpages) => {
@@ -492,5 +522,6 @@ export const GetUnitServices = ({
 		getCharacterCardBackground,
 		getCharacterFaceImage,
 		getLocationMapImages,
+		getLocationMapComponents,
 	};
 };

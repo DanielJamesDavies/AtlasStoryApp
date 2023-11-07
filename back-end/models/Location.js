@@ -9,10 +9,12 @@ const LocationSchema = mongoose.Schema({
 	story_id: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
+		index: true,
 	},
 	uid: {
 		type: String,
 		required: true,
+		index: true,
 	},
 	type: { type: String, required: true, default: "reality" },
 	views: { type: Number, required: true, default: 0 },
@@ -56,8 +58,9 @@ const LocationSchema = mongoose.Schema({
 							auto: true,
 						},
 						mapImageComponents: {
-							type: String,
-							default: "",
+							type: mongoose.Schema.Types.ObjectId,
+							required: true,
+							auto: true,
 						},
 						regions: {
 							type: [
@@ -98,51 +101,6 @@ const LocationSchema = mongoose.Schema({
 					},
 				],
 				default: [{ title: "Ver. 1" }],
-			},
-			mapImage: {
-				type: mongoose.Schema.Types.ObjectId,
-				required: true,
-				auto: true,
-			},
-			mapImageComponents: {
-				type: String,
-				default: "",
-			},
-			regions: {
-				type: [
-					{
-						_id: {
-							type: mongoose.Schema.Types.ObjectId,
-							required: true,
-							auto: true,
-						},
-						name: { type: String, default: "Location" },
-						colour: { type: String, default: "#0044ff" },
-						location: { type: mongoose.Schema.Types.ObjectId },
-						components: { type: [Number], default: [] },
-					},
-				],
-				required: true,
-				default: [],
-			},
-			places: {
-				type: [
-					{
-						_id: {
-							type: mongoose.Schema.Types.ObjectId,
-							required: true,
-							auto: true,
-						},
-						name: { type: String, default: "Location" },
-						colour: { type: String, default: "#0044ff" },
-						location: { type: mongoose.Schema.Types.ObjectId },
-						position: [Number],
-						symbol: { type: String, default: "star" },
-						isMajor: { type: Boolean, default: true },
-					},
-				],
-				required: true,
-				default: [],
 			},
 			overviewBackground: {
 				type: mongoose.Schema.Types.ObjectId,

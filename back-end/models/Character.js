@@ -17,6 +17,7 @@ const CharacterSchema = mongoose.Schema({
 	uid: {
 		type: String,
 		required: true,
+		index: true,
 	},
 	isPrimaryCharacter: { type: Boolean, default: false },
 	character_type_id: { type: mongoose.Schema.Types.ObjectId },

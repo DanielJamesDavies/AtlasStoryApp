@@ -25,11 +25,17 @@ module.exports = async (req, res) => {
 			group_id: req.body.group_id,
 			character_type_id: req.body.character_type_id,
 			substory_id: req.body.substory_id,
+			location_id: req.body.location_id,
+			location_map_version_id: req.body.location_map_version_id,
+			event_id: req.body.event_id,
+			object_id: req.body.object_id,
+			lore_item_id: req.body.lore_item_id,
 		});
 
 		try {
 			await newImage.save();
 		} catch (error) {
+			console.log(error);
 			return res.status(200).send({ errors: [{ message: "Image Could Not Be Created" }] });
 		}
 

@@ -35,6 +35,7 @@ const StoryProvider = ({ children }) => {
 	const [storySubstories, setStorySubstories] = useState([]);
 	const [locations, setLocations] = useState(false);
 
+	const hasGotInitialForStoryID = useRef(false);
 	useEffect(() => {
 		async function getAll() {
 			if (window !== window.parent) return;
@@ -49,22 +50,39 @@ const StoryProvider = ({ children }) => {
 			const newStory = await getStory(story_uid);
 			if (!newStory) return;
 
+			const hasGotInitialForStory = JSON.stringify(hasGotInitialForStoryID.current) === JSON.stringify(newStory?._id);
+			hasGotInitialForStoryID.current = newStory?._id;
+
 			changeAccentColour(newStory?.data?.colours?.accent);
 			changeAccentHoverColour(getColourTint(newStory?.data?.colours?.accent));
 
-			getStoryMembers(newStory?.data?.members);
-			getStoryGenres(newStory?.data?.genres);
+			const split_path = window?.location?.pathname?.split("/")?.filter((e) => e.length !== 0);
+
+			if (!hasGotInitialForStory || (split_path[1] === "s" && split_path.length < 3)) {
+				getStoryMembers(newStory?.data?.members);
+				getStoryGenres(newStory?.data?.genres);
+			}
+
 			getStoryIcon(newStory?.data?.icon);
 			getStoryBanner(newStory?.data?.banner);
-			getStoryNotesImages(newStory?.data?.notes);
 
-			getStoryGroups(newStory.uid, newStory?.data?.groups);
-			getStoryCharacterRelationships(newStory._id);
-			getStoryCharacterTypes(newStory.uid, newStory?.data?.characterTypes);
+			if (!hasGotInitialForStory || split_path.at(-1) === "notes") {
+				getStoryNotesImages(newStory?.data?.notes);
+			}
 
-			getStorySubstories(newStory.uid, newStory?.data?.substories);
+			if (!hasGotInitialForStory || ["characters", "c", "g"].includes(split_path[2])) {
+				getStoryGroups(newStory.uid, newStory?.data?.groups);
+				getStoryCharacterRelationships(newStory._id);
+				getStoryCharacterTypes(newStory.uid, newStory?.data?.characterTypes);
+			}
 
-			getLocations(newStory.uid);
+			if (!hasGotInitialForStory || ["plots", "p"].includes(split_path[2])) {
+				getStorySubstories(newStory.uid, newStory?.data?.substories);
+			}
+
+			if (!hasGotInitialForStory && split_path[2] !== "locations") {
+				getLocations(newStory.uid);
+			}
 		}
 
 		function setStateToDefault() {
@@ -172,7 +190,7 @@ const StoryProvider = ({ children }) => {
 		}
 
 		async function setFaviconToStoryIcon(base64) {
-			const favicon_width = 128;
+			const favicon_height = 128;
 			const border_radius = 32;
 
 			var image = new Image();
@@ -180,22 +198,26 @@ const StoryProvider = ({ children }) => {
 			image.onload = function () {
 				const canvas = document.getElementById("faviconCanvas");
 
-				canvas.width = favicon_width;
-				canvas.height = favicon_width;
+				canvas.width = favicon_height;
+				canvas.height = favicon_height;
 
-				const crop_pixels = image.width * 0.08;
+				const image_length = Math.min(image.height, image.width);
+				const width_offset = (image.width - image_length) / 2;
+				const height_offset = (image.height - image_length) / 2;
+
+				const crop_pixels = image_length * 0.08;
 
 				const ctx = canvas.getContext("2d");
 				ctx.drawImage(
 					image,
-					crop_pixels,
-					crop_pixels,
-					image.width - crop_pixels * 2,
-					image.height - crop_pixels * 2,
+					crop_pixels + width_offset,
+					crop_pixels + height_offset,
+					image_length - crop_pixels * 2 + width_offset,
+					image_length - crop_pixels * 2 + height_offset,
 					0,
 					0,
-					favicon_width,
-					favicon_width
+					favicon_height,
+					favicon_height
 				);
 				ctx.save();
 
@@ -207,21 +229,21 @@ const StoryProvider = ({ children }) => {
 				ctx.closePath();
 				ctx.fill();
 				ctx.beginPath();
-				ctx.moveTo(favicon_width, 0);
+				ctx.moveTo(favicon_height, 0);
 				ctx.lineTo(0, 0);
-				ctx.arcTo(favicon_width, 0, favicon_width, border_radius, border_radius);
+				ctx.arcTo(favicon_height, 0, favicon_height, border_radius, border_radius);
 				ctx.closePath();
 				ctx.fill();
 				ctx.beginPath();
-				ctx.moveTo(0, favicon_width);
+				ctx.moveTo(0, favicon_height);
 				ctx.lineTo(0, 0);
-				ctx.arcTo(0, favicon_width, border_radius, favicon_width, border_radius);
+				ctx.arcTo(0, favicon_height, border_radius, favicon_height, border_radius);
 				ctx.closePath();
 				ctx.fill();
 				ctx.beginPath();
-				ctx.moveTo(favicon_width, favicon_width);
-				ctx.lineTo(0, favicon_width);
-				ctx.arcTo(favicon_width, favicon_width, favicon_width, 0, border_radius);
+				ctx.moveTo(favicon_height, favicon_height);
+				ctx.lineTo(0, favicon_height);
+				ctx.arcTo(favicon_height, favicon_height, favicon_height, 0, border_radius);
 				ctx.closePath();
 				ctx.fill();
 				ctx.restore();

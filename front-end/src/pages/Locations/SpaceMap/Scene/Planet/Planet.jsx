@@ -91,9 +91,7 @@ export const Planet = ({ location, setCursorPointer }) => {
 				onPointerOver={onPointerOver}
 				onPointerOut={onPointerOut}
 				image={
-					locations3DMapImages === false
-						? undefined
-						: locations3DMapImages?.find((e) => e._id === location?.data?.mapImage)?.image || false
+					locations3DMapImages === false ? undefined : locations3DMapImages?.find((e) => e?.location_id === location?._id)?.image || false
 				}
 			/>
 		</group>

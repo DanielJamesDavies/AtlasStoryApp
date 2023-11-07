@@ -36,6 +36,10 @@ export const Places = () => {
 
 	return (
 		<div className='locations-location-places'>
+			<div className='locations-location-places-version-container'>
+				<div>Map Version: </div>
+				<div>{location?.data?.mapVersions.find((e) => e?._id === mapVersionID)?.title}</div>
+			</div>
 			<EditableContainer
 				className='locations-location-places-items-container'
 				isAuthorizedToEdit={isAuthorizedToEdit}

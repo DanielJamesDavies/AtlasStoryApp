@@ -5,6 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import { SearchInput } from "../../../components/SearchInput/SearchInput";
 import { IconBtn } from "../../../components/IconBtn/IconBtn";
 import { FirstAddButton } from "../../../components/FirstAddButton/FirstAddButton";
+import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
 
 // Logic
 import { LocationsListLogic } from "./LocationsListLogic";
@@ -44,9 +45,13 @@ export const LocationsList = () => {
 				/>
 			</div>
 			<div className='locations-list-items'>
-				{locations?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+				{story?.data?.locations?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
 					<div className='objects-list-add-first-container'>
 						<FirstAddButton label='Create Location' onClick={() => setIsDisplayingCreateLocationForm(true)} />
+					</div>
+				) : locations?.length === 0 ? (
+					<div className='locations-list-items-loading-circle-container'>
+						<LoadingCircle center={true} />
 					</div>
 				) : (
 					searchedLocations

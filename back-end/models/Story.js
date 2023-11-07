@@ -7,6 +7,7 @@ const StorySchema = mongoose.Schema({
 		required: true,
 		min: 1,
 		max: 64,
+		index: true,
 	},
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
@@ -111,6 +112,7 @@ const StorySchema = mongoose.Schema({
 				default: {},
 			},
 			substories: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+			locations: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			locationsHierarchy: { type: Object, default: [] },
 			events: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			objects: { type: [mongoose.Schema.Types.ObjectId], default: [] },

@@ -7,6 +7,7 @@ const UserSchema = mongoose.Schema({
 		required: true,
 		min: 1,
 		max: 32,
+		index: true,
 	},
 	email: {
 		type: String,
@@ -17,7 +18,7 @@ const UserSchema = mongoose.Schema({
 	isPrivate: {
 		type: Boolean,
 		required: true,
-		default: false	
+		default: false,
 	},
 	data: {
 		nickname: {

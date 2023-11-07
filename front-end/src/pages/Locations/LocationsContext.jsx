@@ -142,6 +142,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 	const [positioningPlaceID, setPositioningPlaceID] = useState(false);
 	const [regionItemHoveringOver, setRegionItemHoveringOver] = useState(false);
 	const [mapVersionID, setMapVersionID] = useState(false);
+	const [locationMapComponentsImages, setLocationMapComponentsImages] = useState(false);
 
 	const scenesChangePlayerInitial = useRef([
 		{
@@ -259,17 +260,17 @@ const LocationsProvider = ({ children, story_uid }) => {
 				await Promise.all(
 					locations.map(async (location) => {
 						let mapImage = false;
-						const recentImage = recentImages.current.find((e) => e?._id === location?.data?.mapImage);
+						const recentImage = recentImages.current.find((e) => e?._id === location?.data?.mapVersions?.[0]?.mapImage);
 						if (recentImage?.image) {
 							mapImage = recentImage;
 						} else {
-							const map_image_response = await APIRequest("/image/" + location?.data?.mapImage, "GET");
+							const map_image_response = await APIRequest("/image/" + location?.data?.mapVersions?.[0]?.mapImage, "GET");
 							if (map_image_response?.errors || !map_image_response?.data?.image?.image) return false;
 							mapImage = map_image_response?.data?.image;
 
 							addImagesToRecentImages([mapImage]);
 						}
-						return mapImage;
+						return { ...mapImage, ...{ location_id: location?._id } };
 					})
 				)
 			).filter((e) => e !== false);
@@ -493,6 +494,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				setRegionItemHoveringOver,
 				mapVersionID,
 				setMapVersionID,
+				locationMapComponentsImages,
+				setLocationMapComponentsImages,
 			}}
 		>
 			{children}

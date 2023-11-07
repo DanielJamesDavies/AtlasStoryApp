@@ -3,6 +3,8 @@ const Story = require("../../models/Story");
 
 const { getPathToItemInHierarchy, getItemInHierarchyFromPath, changeItemInHierarchy } = require("./StoryLocationHierarchyFunctions");
 
+const deleteImagesByKey = require("../Image/deleteImagesByKey");
+
 module.exports = async (req, res) => {
 	const location = await Location.findById(req.params.id)
 		.exec()
@@ -21,6 +23,9 @@ module.exports = async (req, res) => {
 	const removeLocationFromStoryLocationsHierarchyResult = await removeLocationFromStoryLocationsHierarchy(req.params.id, story);
 	if (removeLocationFromStoryLocationsHierarchyResult?.errors)
 		return res.status(200).send({ errors: removeLocationFromStoryLocationsHierarchyResult?.errors });
+
+	const delete_images_result = await deleteImagesByKey("location_id", location._id);
+	if (delete_images_result?.errors) return res.status(200).send({ errors: delete_images_result.errors });
 
 	try {
 		const locationDeleteResult = await Location.deleteOne({ _id: location._id });

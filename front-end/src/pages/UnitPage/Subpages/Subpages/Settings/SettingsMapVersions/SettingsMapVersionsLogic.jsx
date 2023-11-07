@@ -95,19 +95,20 @@ export const SettingsMapVersionsLogic = () => {
 			return false;
 		}
 		if (response?.data?.location?.data?.mapVersions) {
-			setVersions(response.data.location.data.mapVersions);
-
 			setUnit((oldUnit) => {
 				let newUnit = JSON.parse(JSON.stringify(oldUnit));
-				newUnit.data.mapVersions = response.data.location.data.mapVersions.map((version) => {
+				newUnit.data.mapVersions = JSON.parse(JSON.stringify(response?.data?.location?.data?.mapVersions)).map((version) => {
+					let newVersion = JSON.parse(JSON.stringify(version));
 					const versionIndex = newUnit.data.mapVersions.findIndex((e) => e._id === version._id);
 					if (versionIndex !== -1) {
-						const tempVersion = version;
+						const tempVersion = newVersion;
 						version = newUnit.data.mapVersions[versionIndex];
 						version.title = tempVersion.title;
 					}
 					return version;
 				});
+
+				console.log(newUnit.data.mapVersions);
 
 				return newUnit;
 			});

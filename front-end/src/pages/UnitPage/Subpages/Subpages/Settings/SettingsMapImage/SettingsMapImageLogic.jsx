@@ -20,7 +20,8 @@ const MarvinImage = window.MarvinImage;
 // Assets
 
 export const SettingsMapImageLogic = () => {
-	const { unit_type, isAuthorizedToEdit, story, unit, setUnit, locationMapImages, setLocationMapImages } = useContext(UnitPageContext);
+	const { unit_type, isAuthorizedToEdit, story, unit, locationMapImages, setLocationMapImages, locationMapComponents, setLocationMapComponents } =
+		useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 	const { addImagesToRecentImages } = useContext(RecentDataContext);
 
@@ -28,7 +29,6 @@ export const SettingsMapImageLogic = () => {
 
 	const [mapVersion, setMapVersion] = useState("");
 	const [mapVersionImage, setMapVersionImage] = useState(false);
-	const [mapVersionComponents, setMapVersionComponents] = useState([]);
 
 	const changeMapVersion = useCallback(
 		(index) => {
@@ -41,33 +41,12 @@ export const SettingsMapImageLogic = () => {
 		[unit, locationMapImages]
 	);
 
-	const getMapVersionComponents = useCallback(() => {
-		setMapVersionComponents(
-			unit?.data?.mapVersions?.map((version) => {
-				return { _id: version?._id, mapImageComponents: version?.mapImageComponents };
-			})
-		);
-	}, [setMapVersionComponents, unit]);
-
-	const hasGotMapVersionComponents = useRef(false);
-	useEffect(() => {
-		if (unit?._id && hasGotMapVersionComponents.current === false) {
-			getMapVersionComponents();
-			hasGotMapVersionComponents.current = true;
-		}
-	}, [getMapVersionComponents, unit]);
-
 	const prevVersions = useRef(false);
 	useEffect(() => {
-		const newUnitMapVersions = unit?.data?.mapVersions?.map((e) => {
-			e.mapImageComponents = "";
-			return e;
-		});
-
-		if (locationMapImages !== false && JSON.stringify(newUnitMapVersions) !== JSON.stringify(prevVersions.current)) {
+		if (locationMapImages !== false && JSON.stringify(unit?.data?.mapVersions) !== JSON.stringify(prevVersions.current)) {
 			const mapVersionID = mapVersion === "" ? 0 : unit?.data?.mapVersions?.findIndex((e) => e?._id === mapVersion);
 			changeMapVersion(mapVersionID);
-			prevVersions.current = JSON.parse(JSON.stringify(newUnitMapVersions));
+			prevVersions.current = JSON.parse(JSON.stringify(unit?.data?.mapVersions));
 		}
 	}, [unit, changeMapVersion, locationMapImages, mapVersion]);
 
@@ -97,51 +76,68 @@ export const SettingsMapImageLogic = () => {
 
 		const svgstring = ImageTracer.imagedataToSVG(imageOut?.imageData, { strokewidth: 4, linefilter: true });
 
-		setMapVersionComponents((oldValue) => {
+		setLocationMapComponents((oldValue) => {
 			let newValue = JSON.parse(JSON.stringify(oldValue));
-			const index = newValue?.findIndex((e) => e?._id === mapVersion);
-			if (index === -1) return newValue;
-			newValue[index].mapImageComponents = svgstring;
+			const index = newValue.findIndex((e) => e?.version_id === mapVersion);
+			if (index === -1) {
+				const mapImageComponents = unit?.data?.mapVersions?.find((e) => e?._id === mapVersion)?.mapImageComponents;
+				newValue.push({ _id: mapImageComponents, version_id: mapVersion, image: svgstring });
+				return newValue;
+			}
+			newValue[index].image = svgstring;
 			return newValue;
 		});
 	}
 
 	function removeMapImage() {
 		setMapVersionImage("NO_IMAGE");
-		let newUnit = JSON.parse(JSON.stringify(unit));
-		newUnit.data.mapImageComponents = "";
-		setUnit(newUnit);
+
+		const image_id = unit?.data?.mapVersions?.find((e) => e?._id === mapVersion)?.mapImage;
+
+		setLocationMapImages((oldValue) => {
+			let newValue = JSON.parse(JSON.stringify(oldValue));
+			const index = newValue?.findIndex((e) => e?._id === image_id);
+			if (index === -1) return newValue;
+			newValue[index].image = false;
+			return newValue;
+		});
+
+		setLocationMapComponents((oldValue) => {
+			let newValue = JSON.parse(JSON.stringify(oldValue));
+			const index = newValue.findIndex((e) => e?.version_id === mapVersion);
+			if (index === -1) return newValue;
+			newValue[index].image = "";
+			return newValue;
+		});
 	}
 
 	async function revertMapImage() {
 		setErrors([]);
 
-		const mapVersionId = JSON.parse(JSON.stringify(mapVersion));
 		const image_id = unit?.data?.mapVersions?.find((e) => e?._id === mapVersion)?.mapImage;
+		const components_id = unit?.data?.mapVersions?.find((e) => e?._id === mapVersion)?.mapImageComponents;
 
 		const response = await APIRequest("/image/" + image_id, "GET");
 		if (!response || response?.errors || !response?.data?.image?.image) return false;
 
-		const components_response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", {
-			story_id: story._id,
-			path: ["data", "mapVersions", mapVersionId, "mapImageComponents"],
-		});
-		if (!components_response || components_response?.errors || components_response?.data?.value === undefined) return false;
+		const components_response = await APIRequest("/image/" + components_id, "GET");
+		if (!response || response?.errors || !components_response?.data?.image?.image) return false;
 
 		setMapVersionImage(response.data.image.image);
-		setUnit((oldUnit) => {
-			let newUnit = JSON.parse(JSON.stringify(oldUnit));
-			const mapVersionIndex = newUnit.data.mapVersions?.findIndex((e) => e?._id === mapVersionId);
-			if (mapVersionIndex === -1) return newUnit;
-			newUnit.data.mapVersions[mapVersionIndex].mapImageComponents = response.data.value;
-			return newUnit;
-		});
 
 		setLocationMapImages((oldValue) => {
 			let newValue = JSON.parse(JSON.stringify(oldValue));
 			const index = newValue?.findIndex((e) => e?._id === image_id);
 			if (index === -1) return newValue;
 			newValue[index].image = response?.data?.image?.image;
+			return newValue;
+		});
+
+		setLocationMapComponents((oldValue) => {
+			let newValue = JSON.parse(JSON.stringify(oldValue));
+			const index = newValue.findIndex((e) => e?.version_id === mapVersion);
+			if (index === -1) return newValue;
+			newValue[index].image = components_response?.data?.image?.image;
 			return newValue;
 		});
 
@@ -159,9 +155,33 @@ export const SettingsMapImageLogic = () => {
 		const mapVersionIndex = newUnit.data.mapVersions?.findIndex((e) => e?._id === mapVersionId);
 		if (mapVersionIndex === -1) return false;
 
-		const mapImageComponents = mapVersionComponents?.find((e) => e?._id === mapVersionId)?.mapImageComponents;
 		const newMapVersionImage = JSON.parse(JSON.stringify(mapVersionImage));
+		const newMapVersionImageComponentsItem = JSON.parse(JSON.stringify(locationMapComponents))?.find((e) => e?.version_id === mapVersionId);
+		const mapImageComponents = newMapVersionImageComponentsItem?._id;
+		const newMapVersionImageComponentsImage = newMapVersionImageComponentsItem?.image;
 
+		// Add Map Components ID to Location
+		await APIRequest("/" + newUnitType + "/" + unit?._id, "PATCH", {
+			path: ["data", "mapVersions", mapVersionId, "mapImageComponents"],
+			newValue: mapImageComponents,
+			story_id: story._id,
+			unit_id: unit._id,
+		});
+
+		// Update Map Components Image
+		const components_response = await APIRequest("/image/" + mapImageComponents, "PATCH", {
+			newValue: newMapVersionImageComponentsImage,
+			story_id: story._id,
+			unit_id: unit._id,
+			location_id: newUnit?._id,
+			location_map_version_id: mapVersionId,
+		});
+		if (!components_response || components_response?.errors) {
+			if (components_response?.errors) setErrors(components_response.errors);
+			return false;
+		}
+
+		// Reset Map Version Regions Components
 		await APIRequest("/" + newUnitType + "/" + newUnit?._id, "PATCH", {
 			path: ["data", "mapVersions", mapVersionId, "regions"],
 			newValue: newUnit?.data?.mapVersions[mapVersionIndex]?.regions?.map((region) => {
@@ -172,13 +192,7 @@ export const SettingsMapImageLogic = () => {
 			unit_id: newUnit._id,
 		});
 
-		await APIRequest("/" + newUnitType + "/" + unit?._id, "PATCH", {
-			path: ["data", "mapVersions", mapVersionId, "mapImageComponents"],
-			newValue: mapImageComponents,
-			story_id: story._id,
-			unit_id: unit._id,
-		});
-
+		// Add Map Image ID to Location
 		await APIRequest("/" + newUnitType + "/" + unit?._id, "PATCH", {
 			path: ["data", "mapVersions", mapVersionId, "mapImage"],
 			newValue: newUnit?.data?.mapVersions[mapVersionIndex]?.mapImage,
@@ -186,10 +200,13 @@ export const SettingsMapImageLogic = () => {
 			unit_id: unit._id,
 		});
 
+		// Update Map Image
 		const response = await APIRequest("/image/" + newUnit?.data?.mapVersions[mapVersionIndex]?.mapImage, "PATCH", {
 			newValue: newMapVersionImage,
 			story_id: story._id,
 			unit_id: unit._id,
+			location_id: newUnit?._id,
+			location_map_version_id: mapVersionId,
 		});
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);

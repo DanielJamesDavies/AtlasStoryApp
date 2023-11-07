@@ -29,6 +29,7 @@ export const RegionsLogic = () => {
 		isDeletingSurfaceMapComponents,
 		setIsDeletingSurfaceMapComponents,
 		mapVersionID,
+		locationMapComponentsImages,
 	} = useContext(LocationsContext);
 	const { location, setLocation } = useContext(LocationContext);
 	const { APIRequest } = useContext(APIContext);
@@ -145,6 +146,9 @@ export const RegionsLogic = () => {
 		const mapVersionIndex = locationsLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
 		if (mapVersionIndex === -1) return false;
 
+		const locationMapComponentsImage = locationMapComponentsImages?.find((e) => e?.location_map_version_id === mapVersionID);
+		if (!locationMapComponentsImage) return false;
+
 		const regions_response = await APIRequest("/location/" + location._id, "PATCH", {
 			story_id: story._id,
 			path: ["data", "mapVersions", mapVersionID, "regions"],
@@ -155,10 +159,12 @@ export const RegionsLogic = () => {
 			return false;
 		}
 
-		const components_response = await APIRequest("/location/" + location._id, "PATCH", {
-			story_id: story._id,
-			path: ["data", "mapVersions", mapVersionID, "mapImageComponents"],
-			newValue: locationsLocation.data.mapVersions[mapVersionIndex].mapImageComponents,
+		const components_response = await APIRequest("/image/" + locationMapComponentsImage?._id, "PATCH", {
+			newValue: locationMapComponentsImage?.image,
+			story_id: story?._id,
+			unit_id: location?._id,
+			location_id: location?._id,
+			location_map_version_id: mapVersionID,
 		});
 		if (!components_response || components_response?.errors) {
 			if (components_response?.errors) setErrors(components_response.errors);

@@ -359,7 +359,7 @@ export const SurfaceMapRegionsLogic = ({
 							dominant-baseline="middle" text-anchor="middle"
 						>
 							<text text-anchor="middle" x='50%' y='50%' style='fill: #fff; letter-spacing: ${svg_letter_spacing}px; scale: ${svg_text_scale}; transform-origin: center'>
-								${region?.name}
+								${region?.name || ""}
 							</text>
 						</svg>
 					</div>`;
@@ -389,9 +389,6 @@ export const SurfaceMapRegionsLogic = ({
 
 	const createRegionNamesClusters = useCallback(() => {
 		if (!locationMapImage) return false;
-
-		const { width_zoom, height_zoom } = getDimensionsZoom();
-		if (zoom.current > Math.max(width_zoom, height_zoom)) return false;
 
 		const location = locations.find((e) => e?._id === currentLocationId?.current);
 		const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
@@ -449,8 +446,6 @@ export const SurfaceMapRegionsLogic = ({
 		createRegionsNames,
 		regionClusters,
 		locationMapImage,
-		zoom,
-		getDimensionsZoom,
 		getClosestCluster,
 		getClusterBoxes,
 		mapVersionID,
@@ -479,6 +474,15 @@ export const SurfaceMapRegionsLogic = ({
 					}
 					return false;
 				})
+				.concat(
+					prevRegionComponents.current?.map((region, index) => {
+						if (region === 0) return false;
+						if (JSON.stringify(region) !== JSON.stringify(regionComponents?.[index])) {
+							return region?._id;
+						}
+						return false;
+					})
+				)
 				?.filter((e) => e !== false);
 
 			if (region_differences.length === 0) return false;

@@ -13,6 +13,7 @@ const EventSchema = mongoose.Schema({
 	uid: {
 		type: String,
 		required: true,
+		index: true,
 	},
 	data: {
 		type: {
@@ -23,12 +24,12 @@ const EventSchema = mongoose.Schema({
 			isMajor: { type: Boolean, default: false },
 			date: {
 				type: {
-					year: {type: String, default: "1"},
-					month: {type: String, default: "1"},
-					day: {type: String, default: "1"},
-					time: {type: String, default: "00:00"},
+					year: { type: String, default: "1" },
+					month: { type: String, default: "1" },
+					day: { type: String, default: "1" },
+					time: { type: String, default: "00:00" },
 				},
-				default: {} 
+				default: {},
 			},
 			colour: { type: String, default: "#0044ff" },
 			overviewBackground: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },

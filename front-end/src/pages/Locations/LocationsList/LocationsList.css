@@ -62,8 +62,17 @@
 	font-size: var(--font-size-p-m);
 }
 
+.locations-list-items-loading-circle-container {
+	position: relative;
+	height: calc(var(--vh) - 494px - 48px);
+}
+
 @media (max-width: 750px) {
 	.locations-list-items {
 		max-height: calc(var(--vh) - 222px - max(28vw, 175px));
+	}
+
+	.locations-list-items-loading-circle-container {
+		height: calc(var(--vh) - 222px - max(28vw, 175px) - 48px);
 	}
 }

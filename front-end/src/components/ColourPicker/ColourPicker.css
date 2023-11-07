@@ -1,17 +1,21 @@
 .colour-picker {
 	position: relative;
-	z-index: 300;
+	z-index: 200;
 	display: flex;
 	align-items: center;
 	--colourblock-width: 32px;
 }
 
-.colour-picker-size-s {
-	--colourblock-width: 24px;
+.colour-picker-is-editing {
+	z-index: 300;
 }
 
 .colour-picker-is-showing-picker {
 	z-index: 301;
+}
+
+.colour-picker-size-s {
+	--colourblock-width: 24px;
 }
 
 .colour-picker-alignment-right {

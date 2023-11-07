@@ -2,13 +2,21 @@
 	padding-top: 8px;
 }
 
+.locations-location-places-version-container {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin: 0 4px;
+	font-size: 14px;
+}
+
 .locations-location-places-items {
 	display: inline-block;
 	flex-flow: column wrap;
 	padding-right: 12px;
 
 	width: calc(100% - 12px);
-	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px);
+	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px - 8px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
@@ -17,6 +25,7 @@
 	display: flex;
 	justify-content: right;
 	gap: 8px;
+	margin-top: 6px;
 	margin-bottom: 6px;
 }
 
@@ -45,6 +54,6 @@
 
 @media (max-width: 750px) {
 	.locations-location-places-items {
-		height: calc(var(--locationsSubpageHeight) - 32px - 8px);
+		height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px - 20px);
 	}
 }

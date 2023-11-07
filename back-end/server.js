@@ -39,6 +39,7 @@ emailTransporter.verify((error, success) => {
 });
 
 app.use("*", (req, res, next) => {
+	// console.log(req?.originalUrl);
 	if (emailTransporter) req.emailTransporter = emailTransporter;
 	if (isEmailTransporterVerified) req.isEmailTransporterVerified = isEmailTransporterVerified;
 	req.cookieOptions = {

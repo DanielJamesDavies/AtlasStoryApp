@@ -27,11 +27,19 @@ export const ColourPicker = ({
 	circular,
 	presetColours,
 }) => {
-	const { colourPickerClassName, isShowingPicker, setIsShowingPicker, colourBlockStyle, currentPresetColours, onSketchPickerChange } =
-		ColourPickerLogic({ value, onChange, size, enableEdit, pickerVerticalPlacement, horizontalAlignment, circular, presetColours });
+	const {
+		colourPickerRef,
+		colourPickerClassName,
+		isShowingPicker,
+		setIsShowingPicker,
+		colourBlockStyle,
+		currentPresetColours,
+		onSketchPickerChange,
+	} = ColourPickerLogic({ value, onChange, size, enableEdit, pickerVerticalPlacement, horizontalAlignment, circular, presetColours });
 
 	return (
 		<div
+			ref={colourPickerRef}
 			className={colourPickerClassName}
 			onTouchMove={(e) => e.stopPropagation()}
 			onClick={() => setIsShowingPicker((oldIsShowingPicker) => !oldIsShowingPicker)}

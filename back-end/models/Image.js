@@ -9,7 +9,11 @@ const ImageSchema = mongoose.Schema({
 	group_id: mongoose.Schema.Types.ObjectId,
 	character_type_id: mongoose.Schema.Types.ObjectId,
 	substory_id: mongoose.Schema.Types.ObjectId,
+	location_id: mongoose.Schema.Types.ObjectId,
+	location_map_version_id: mongoose.Schema.Types.ObjectId,
+	event_id: mongoose.Schema.Types.ObjectId,
 	object_id: mongoose.Schema.Types.ObjectId,
+	lore_item_id: mongoose.Schema.Types.ObjectId,
 });
 
 module.exports = mongoose.model("Image", ImageSchema);
