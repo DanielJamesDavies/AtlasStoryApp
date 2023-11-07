@@ -16,7 +16,7 @@
 	padding-right: 12px;
 
 	width: calc(100% - 12px);
-	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px - 8px);
+	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px - 12px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }

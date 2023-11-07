@@ -16,9 +16,13 @@
 	padding-right: 12px;
 
 	width: calc(100% - 12px);
-	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px - 35px - 8px - 12px);
+	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px - 12px);
 	overflow-y: overlay;
 	overflow-x: hidden;
+}
+
+.locations-location-regions-items-container.editable-container-is-editing .locations-location-regions-items {
+	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px - 35px - 8px - 12px);
 }
 
 .locations-location-regions-start-btn-container {
@@ -53,7 +57,7 @@
 }
 
 @media (max-width: 750px) {
-	.locations-location-regions-items {
+	.locations-location-regions-items-container.editable-container-is-editing .locations-location-regions-items {
 		height: calc(var(--locationsSubpageHeight) - 32px - 8px - 35px - 8px - 30px - 12px);
 	}
 }

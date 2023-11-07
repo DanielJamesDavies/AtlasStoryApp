@@ -101,15 +101,19 @@ export const RegionsLogic = () => {
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
 		if (locationIndex === -1) return false;
-		const tempRegionsItem = newLocations[locationIndex].data.regions.splice(res.from, 1)[0];
-		newLocations[locationIndex].data.regions.splice(res.to, 0, tempRegionsItem);
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions.findIndex(
+			(e) => JSON.stringify(e?._id) === JSON.stringify(mapVersionID)
+		);
+		if (mapVersionIndex === -1) return false;
+		const tempRegionsItem = newLocations[locationIndex].data.mapVersions[mapVersionIndex].regions.splice(res.from, 1)[0];
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].regions.splice(res.to, 0, tempRegionsItem);
 		setLocations(newLocations);
 
 		setLocation((oldLocation) => {
 			let newLocation = JSON.parse(JSON.stringify(oldLocation));
-			const tempRegionsItem = newLocation.data.regions.splice(res.from, 1)[0];
 			const mapVersionIndex = newLocation.data.mapVersions?.findIndex((e) => e?._id === mapVersionID);
 			if (mapVersionIndex === -1) return newLocation;
+			const tempRegionsItem = newLocation.data.mapVersions[mapVersionIndex].regions.splice(res.from, 1)[0];
 			newLocation.data.mapVersions[mapVersionIndex].regions.splice(res.to, 0, tempRegionsItem);
 			return newLocation;
 		});

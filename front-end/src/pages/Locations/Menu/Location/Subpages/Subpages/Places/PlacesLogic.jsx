@@ -90,8 +90,12 @@ export const PlacesLogic = () => {
 		let newLocations = JSON.parse(JSON.stringify(locations));
 		const locationIndex = newLocations.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(newSelectedLocationId));
 		if (locationIndex === -1) return false;
-		const tempPlacesItem = newLocations[locationIndex].data.places.splice(res.from, 1)[0];
-		newLocations[locationIndex].data.places.splice(res.to, 0, tempPlacesItem);
+		const mapVersionIndex = newLocations[locationIndex].data.mapVersions.findIndex(
+			(e) => JSON.stringify(e?._id) === JSON.stringify(mapVersionID)
+		);
+		if (mapVersionIndex === -1) return false;
+		const tempItem = newLocations[locationIndex].data.mapVersions[mapVersionIndex].places.splice(res.from, 1)[0];
+		newLocations[locationIndex].data.mapVersions[mapVersionIndex].places.splice(res.to, 0, tempItem);
 		setLocations(newLocations);
 
 		setLocation((oldLocation) => {
