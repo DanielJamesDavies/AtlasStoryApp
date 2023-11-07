@@ -31,7 +31,7 @@ export const MapFunctions = () => {
 
 	const getLocationMapImage = useCallback(
 		async (location_id) => {
-			const mapImageID = locations?.find((e) => e?._id === location_id)?.data?.mapImage;
+			const mapImageID = locations?.find((e) => e?._id === location_id)?.data?.mapVersions?.[0]?.mapImage;
 			let mapImage = false;
 
 			if (mapImageID) {
