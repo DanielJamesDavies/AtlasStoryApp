@@ -18,7 +18,7 @@ import "./Description.css";
 // Assets
 
 export const Description = () => {
-	const { unit_type, isAuthorizedToEdit, unit, unitVersion, changeDescription, revertDescription, saveDescription } = DescriptionLogic();
+	const { unit_type, isAuthorizedToEdit, unit, unitVersion, changeDescription, revertDescription, saveDescription, unitVersionItemCopying, copyVersionDescription, pasteVersionDescription } = DescriptionLogic();
 
 	return (
 		<EditableContainer
@@ -26,6 +26,8 @@ export const Description = () => {
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertDescription}
 			onSave={saveDescription}
+			onCopyVersionValue={copyVersionDescription}
+			onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["description"]) ? undefined : pasteVersionDescription}
 		>
 			{["character", "group"].includes(unit_type) ? (
 				!isAuthorizedToEdit &&

@@ -16,7 +16,7 @@ import { APIContext } from "../../../../context/APIContext";
 // Assets
 
 export const DescriptionLogic = () => {
-	const { unit_type, isAuthorizedToEdit, story, unit, setUnit, unitVersion, changeUnitVersion } = useContext(UnitPageContext);
+	const { unit_type, isAuthorizedToEdit, story, unit, setUnit, unitVersion, changeUnitVersion, unitVersionItemCopying, changeUnitVersionItemCopying, pasteVersionItemCopying } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 
 	function changeDescription(e) {
@@ -79,5 +79,13 @@ export const DescriptionLogic = () => {
 		}
 	}
 
-	return { unit_type, isAuthorizedToEdit, unit, unitVersion, changeDescription, revertDescription, saveDescription };
+	function copyVersionDescription() {
+		changeUnitVersionItemCopying(["description"]);
+	}
+
+	function pasteVersionDescription() {
+		pasteVersionItemCopying(["description"]);
+	}
+
+	return { unit_type, isAuthorizedToEdit, unit, unitVersion, changeDescription, revertDescription, saveDescription, unitVersionItemCopying, copyVersionDescription, pasteVersionDescription };
 };

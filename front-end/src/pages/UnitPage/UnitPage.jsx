@@ -4,6 +4,7 @@
 import { LoadingCircle } from "../../components/LoadingCircle/LoadingCircle";
 import { Primary } from "./Primary/Primary";
 import { Overview } from "./Overview/Overview";
+import { Subpages } from "./Subpages/Subpages";
 import { SectionSwitcher } from "./SectionSwitcher/SectionSwitcher";
 
 // Logic
@@ -15,7 +16,6 @@ import { UnitPageLogic } from "./UnitPageLogic";
 
 // Styles
 import "./UnitPage.css";
-import { Subpages } from "./Subpages/Subpages";
 
 // Assets
 

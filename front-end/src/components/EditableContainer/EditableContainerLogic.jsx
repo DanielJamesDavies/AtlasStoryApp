@@ -26,6 +26,8 @@ export const EditableContainerLogic = ({
 	onDefault,
 	onSaveDefault,
 	onReorder,
+	onCopyVersionValue,
+	onPasteVersionValue,
 	onRevert,
 	onSave,
 	onScroll,
@@ -157,10 +159,19 @@ export const EditableContainerLogic = ({
 		if (save_default_success) setIsEditing(false);
 	}
 
+	async function onCopyVersionValueBtnClick(e) {
+		e.stopPropagation();
+		await onCopyVersionValue();
+	}
+
+	async function onPasteVersionValueBtnClick(e) {
+		e.stopPropagation();
+		await onPasteVersionValue();
+	}
+
 	async function onReorderBtnClick(e) {
 		e.stopPropagation();
-		const reorder_success = await onReorder();
-		if (reorder_success) setIsEditing(false);
+		await onReorder();
 	}
 
 	async function onRevertBtnClick(e) {
@@ -190,6 +201,8 @@ export const EditableContainerLogic = ({
 		onDefaultBtnClick,
 		onSaveDefaultBtnClick,
 		onReorderBtnClick,
+		onCopyVersionValueBtnClick,
+		onPasteVersionValueBtnClick,
 		onRevertBtnClick,
 		onSaveBtnClick,
 	};

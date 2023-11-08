@@ -1,9 +1,12 @@
-import React, { createContext, useState, useContext, useEffect, useRef, useMemo } from "react";
+import React, { createContext, useState, useContext, useEffect, useRef, useMemo, useCallback } from "react";
 
 import { StoryContext } from "../../context/StoryContext";
 import { RoutesContext } from "../../context/RoutesContext";
 
 import { GetUnitServices } from "./GetUnitServices";
+
+import getValueInNestedObject from "../../services/GetValueInNestedObject";
+import changeValueInNestedObject from "../../services/ChangeValueInNestedObject";
 
 export const UnitPageContext = createContext();
 
@@ -22,6 +25,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 	const [unitImages, setUnitImages] = useState([]);
 	const [unitSoundtrack, setUnitSoundtrack] = useState(false);
 	const [unitListImage, setUnitListImage] = useState(false);
+	const [unitVersionItemCopying, setUnitVersionItemCopying] = useState(false);
 
 	const [characterCardBackground, setCharacterCardBackground] = useState(false);
 	const [characterFaceImage, setCharacterFaceImage] = useState(false);
@@ -183,7 +187,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		setUnitVersion(unit?.data?.versions[currentVersionIndex + 1]);
 	}
 
-	function changeUnitVersion(newUnitVersion) {
+	const changeUnitVersion = useCallback((newUnitVersion) => {
 		setUnitVersion(newUnitVersion);
 		setUnit((oldUnit) => {
 			let newUnit = JSON.parse(JSON.stringify(oldUnit));
@@ -191,7 +195,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			if (unitVersionIndex !== -1) newUnit.data.versions[unitVersionIndex] = newUnitVersion;
 			return newUnit;
 		});
-	}
+	}, [setUnitVersion, setUnit]);
 
 	const hasReadInitialLocationParameters = useRef(false);
 
@@ -235,7 +239,26 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		allSubpages,
 		unit_type,
 		unit_type_title,
+		changeUnitVersion,
 	]);
+
+	const changeUnitVersionItemCopying = useCallback((item) => {
+		if (!unitVersion?._id) return false;
+		setUnitVersionItemCopying({ version: unitVersion?._id, item });
+	}, [unitVersion]);
+
+	const pasteVersionItemCopying = useCallback((item) => {
+		const newUnit = JSON.parse(JSON.stringify(unit));
+		const newUnitVersionItemCopying = JSON.parse(JSON.stringify(unitVersionItemCopying));
+		if (JSON.stringify(newUnitVersionItemCopying?.item) === JSON.stringify(item)) {
+			const oldVersionIndex = newUnit?.data?.versions?.findIndex((e) => e?._id === newUnitVersionItemCopying?.version);
+			if (oldVersionIndex === -1) return false;
+			let newValue = getValueInNestedObject(newUnit?.data?.versions[oldVersionIndex], newUnitVersionItemCopying?.item);
+			let newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
+			newUnitVersion = changeValueInNestedObject(newUnitVersion, item, newValue);
+			changeUnitVersion(newUnitVersion);
+		}
+	}, [unitVersionItemCopying, unit, unitVersion, changeUnitVersion]);
 
 	return (
 		<UnitPageContext.Provider
@@ -269,6 +292,10 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				setUnitSoundtrack,
 				unitListImage,
 				setUnitListImage,
+				unitVersionItemCopying,
+				setUnitVersionItemCopying,
+				changeUnitVersionItemCopying,
+				pasteVersionItemCopying,
 				characterCardBackground,
 				setCharacterCardBackground,
 				characterFaceImage,

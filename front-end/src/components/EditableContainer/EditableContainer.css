@@ -175,6 +175,37 @@
 	color: var(--colour-accent);
 }
 
+.editable-container-edit-btn-small-icon {
+	position: absolute;
+	z-index: 3;
+	top: 2px;
+	left: unset;
+	right: 8px;
+	width: fit-content;
+	height: 60%;
+}
+
+.editable-container-edit-btn-small-icon svg:nth-child(1) {
+	top: unset;
+	left: unset;
+	width: fit-content;
+	height: 100%;
+	transform: translate(0, 0);
+}
+
+.editable-container-edit-btn-small-icon svg:nth-child(2) {
+	position: absolute;
+	z-index: -1;
+	top: -1px;
+	left: 0;
+	width: fit-content;
+	height: 100%;
+	transform: translate(0, 0);
+	fill: #000;
+	scale: 1.5;
+	transform-origin: center;
+}
+
 @media (max-width: 750px) {
 	.editable-container-edit-btn {
 		padding: 16px 0;
