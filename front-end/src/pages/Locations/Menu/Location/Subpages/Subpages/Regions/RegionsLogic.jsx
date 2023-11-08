@@ -30,6 +30,8 @@ export const RegionsLogic = () => {
 		setIsDeletingSurfaceMapComponents,
 		mapVersionID,
 		locationMapComponentsImages,
+		setIsSelectingSurfaceMapComponents,
+		setRegionSelectingSurfaceMapComponentsFor,
 	} = useContext(LocationsContext);
 	const { location, setLocation } = useContext(LocationContext);
 	const { APIRequest } = useContext(APIContext);
@@ -191,10 +193,20 @@ export const RegionsLogic = () => {
 
 	function toggleIsDrawingSurfaceMapComponents() {
 		setIsDrawingSurfaceMapComponents((oldValue) => !oldValue);
+
+		setIsSelectingSurfaceMapComponents(false);
+		setRegionSelectingSurfaceMapComponentsFor(false);
+		setIsDrawingSurfaceMapComponents(false);
+		setIsDeletingSurfaceMapComponents(false);
 	}
 
 	function toggleIsDeletingSurfaceMapComponents() {
 		setIsDeletingSurfaceMapComponents((oldValue) => !oldValue);
+
+		setIsSelectingSurfaceMapComponents(false);
+		setRegionSelectingSurfaceMapComponentsFor(false);
+		setIsDrawingSurfaceMapComponents(false);
+		setIsDeletingSurfaceMapComponents(false);
 	}
 
 	return {

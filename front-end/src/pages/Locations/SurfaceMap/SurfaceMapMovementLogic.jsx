@@ -32,6 +32,7 @@ export const SurfaceMapMovementLogic = ({
 	const { isDisplayingHierarchy, isDrawingSurfaceMapComponents } = useContext(LocationsContext);
 
 	const isDisplayingHierarchyValue = useRef();
+	var movementInterval = useRef(false);
 
 	const getDimensionsZoom = useCallback(() => {
 		let width_zoom = window?.innerWidth / surfaceMapImageRef?.current?.clientWidth;
@@ -201,6 +202,9 @@ export const SurfaceMapMovementLogic = ({
 	function imageSurfaceMapOnMouseMove(e) {
 		e.preventDefault();
 		if (!panning.current || isDrawingSurfaceMapComponents) return;
+		clearInterval(movementInterval.current);
+		movementInterval.current = false;
+
 		pointX.current = e.clientX - startPos.x;
 		pointY.current = e.clientY - startPos.y;
 
@@ -343,7 +347,6 @@ export const SurfaceMapMovementLogic = ({
 		updateSurfaceMapContainerStyle();
 	}
 
-	var movementInterval = useRef(false);
 	function enterMovementBox(delta_x, delta_y) {
 		movementInterval.current = setInterval(() => {
 			const max_zoom_multiplier = 15;

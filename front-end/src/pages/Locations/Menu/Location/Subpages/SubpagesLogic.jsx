@@ -24,13 +24,8 @@ import { LocationsContext } from "../../../LocationsContext";
 // Assets
 
 export const LocationSubpagesLogic = () => {
-	const {
-		setIsSelectingSurfaceMapComponents,
-		setRegionSelectingSurfaceMapComponentsFor,
-		setIsDrawingSurfaceMapComponents,
-		setIsDeletingSurfaceMapComponents,
-		setIsPositioningSurfaceMapPlace,
-	} = useContext(LocationsContext);
+	const { setRegionSelectingSurfaceMapComponentsFor, setIsDrawingSurfaceMapComponents, setIsDeletingSurfaceMapComponents } =
+		useContext(LocationsContext);
 	const { openSubpageID } = useContext(LocationContext);
 
 	const subpageContainerRef = useRef();
@@ -49,11 +44,9 @@ export const LocationSubpagesLogic = () => {
 
 	useEffect(() => {
 		function getSubpage() {
-			setIsSelectingSurfaceMapComponents(false);
 			setRegionSelectingSurfaceMapComponentsFor(false);
 			setIsDrawingSurfaceMapComponents(false);
 			setIsDeletingSurfaceMapComponents(false);
-			setIsPositioningSurfaceMapPlace(false);
 
 			switch (openSubpageID) {
 				case "description":
@@ -77,14 +70,7 @@ export const LocationSubpagesLogic = () => {
 			}
 		}
 		setSubpage(getSubpage());
-	}, [
-		openSubpageID,
-		setIsSelectingSurfaceMapComponents,
-		setRegionSelectingSurfaceMapComponentsFor,
-		setIsDrawingSurfaceMapComponents,
-		setIsDeletingSurfaceMapComponents,
-		setIsPositioningSurfaceMapPlace,
-	]);
+	}, [openSubpageID, setRegionSelectingSurfaceMapComponentsFor, setIsDrawingSurfaceMapComponents, setIsDeletingSurfaceMapComponents]);
 
 	return { subpageContainerRef, subpage };
 };

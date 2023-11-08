@@ -32,7 +32,7 @@ const APIProvider = ({ children }) => {
 
 				if (responseData?.cookiesConsent !== undefined) {
 					setCookiesConsent(responseData?.cookiesConsent);
-					if(responseData?.cookiesConsent === false) setShowCookiesConsentPopUp(true);
+					if (responseData?.cookiesConsent === false) setShowCookiesConsentPopUp(true);
 				}
 
 				return responseData;

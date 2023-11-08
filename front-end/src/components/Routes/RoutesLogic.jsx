@@ -57,7 +57,9 @@ export const RoutesLogic = () => {
 
 			setRenderComponent(null);
 			setShowUnauthorizedNavigationBar(false);
-			if (window !== window.parent || ["authorize-spotify", "spotify"].includes(locationSplit[0])) return null;
+
+			if (window !== window.parent) return null;
+			if (["authorize-spotify", "spotify"].includes(locationSplit[0])) return null;
 
 			if (locationSplit[0] !== "s") setFaviconToDefault();
 			switch (locationSplit[0]) {

@@ -209,11 +209,11 @@ export const SurfaceMapRegionsLogic = ({
 				});
 
 				name_div.style = `top: ${a[1]}px; left: ${Math.ceil(a[0])}px;width: ${full_width}px; height: ${full_height}px;`;
-				name_div.children[0].style = `overflow: visible; width: 100%; max-height: 100%; font-size: ${svg_font_size}px; margin-left: ${
-					full_height / 15
-				}px`;
+				name_div.children[0].style = `overflow: visible; width: 100%; max-height: 100%; font-size: ${svg_font_size}px;`;
 				name_div.children[0].setAttribute("viewBox", `0 0 ${text_svg_width} ${text_svg_height}`);
-				name_div.children[0].children[0].style = `fill: #fff; letter-spacing: ${svg_letter_spacing}px; scale: ${svg_text_scale}; transform-origin: center`;
+				name_div.children[0].children[0].style = `font-size: ${svg_font_size * svg_text_scale}px; fill: #fff; letter-spacing: ${
+					svg_letter_spacing * svg_text_scale
+				}px; transform: translate(${2.5 * svg_text_scale}px, ${1.1 * svg_text_scale}px); --scale: ${svg_text_scale}`;
 				name_div.children[0].children[0].innerHTML = region?.name || "";
 
 				return true;
@@ -320,10 +320,10 @@ export const SurfaceMapRegionsLogic = ({
 					>
 						<svg
 							viewBox='0 0 0 0'
-							style='overflow: visible; width: 100%; font-size: 0px; margin-left: 0px'
+							style='overflow: visible; width: 100%; font-size: 0px; padding-left: 0px;'
 							dominant-baseline="middle" text-anchor="middle"
 						>
-							<text text-anchor="middle" x='50%' y='50%' style='fill: #fff; letter-spacing:0px; scale: 0; transform-origin: center'></text>
+							<text alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle" x='50%' y='50%' style='fill: #fff; letter-spacing:0px; scale: 0; transform-origin: center'></text>
 						</svg>
 					</div>`;
 					return false;
