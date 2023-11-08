@@ -419,7 +419,7 @@ export const SurfaceMapRegionsLogic = ({
 						distances
 					);
 
-					if (closest_cluster && closest_cluster.min_dist <= max_distance) {
+					if (closest_cluster && closest_cluster.min_dist / zoom.current <= max_distance) {
 						noChangesCount = 0;
 
 						// Fuse clusters
@@ -453,6 +453,7 @@ export const SurfaceMapRegionsLogic = ({
 		getClosestCluster,
 		getClusterBoxes,
 		mapVersionID,
+		zoom,
 	]);
 
 	useEffect(() => {

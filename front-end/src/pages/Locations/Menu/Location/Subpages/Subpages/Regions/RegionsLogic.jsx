@@ -196,7 +196,6 @@ export const RegionsLogic = () => {
 
 		setIsSelectingSurfaceMapComponents(false);
 		setRegionSelectingSurfaceMapComponentsFor(false);
-		setIsDrawingSurfaceMapComponents(false);
 		setIsDeletingSurfaceMapComponents(false);
 	}
 
@@ -206,7 +205,6 @@ export const RegionsLogic = () => {
 		setIsSelectingSurfaceMapComponents(false);
 		setRegionSelectingSurfaceMapComponentsFor(false);
 		setIsDrawingSurfaceMapComponents(false);
-		setIsDeletingSurfaceMapComponents(false);
 	}
 
 	return {
