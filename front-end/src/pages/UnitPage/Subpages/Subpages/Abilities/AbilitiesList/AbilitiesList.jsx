@@ -19,7 +19,7 @@ import "./AbilitiesList.css";
 
 // Assets
 
-export const AbilitiesList = ({ currAbility, switchAbility }) => {
+export const AbilitiesList = ({ currAbility, changeAbility, switchAbility }) => {
 	const {
 		isAuthorizedToEdit,
 		unitVersion,
@@ -33,7 +33,10 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 		onClickAbility,
 		abilitiesListItemsRef,
 		onAbilitiesListScroll,
-	} = AbilitiesListLogic({ currAbility, switchAbility });
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
+	} = AbilitiesListLogic({ currAbility, changeAbility, switchAbility });
 
 	return (
 		<div className='unit-page-subpage-abilities-list'>
@@ -44,6 +47,8 @@ export const AbilitiesList = ({ currAbility, switchAbility }) => {
 				onRevert={revertAbilities}
 				onSave={saveAbilities}
 				onScroll={onAbilitiesListScroll}
+				onCopyVersionValue={copyVersionValue}
+				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["abilities"]) ? undefined : pasteVersionValue}
 			>
 				<BtnListContainer>
 					<div ref={abilitiesListItemsRef} className='unit-page-subpage-abilities-list-items'>

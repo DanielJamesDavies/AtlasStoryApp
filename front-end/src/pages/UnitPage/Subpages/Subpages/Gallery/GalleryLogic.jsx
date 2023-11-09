@@ -17,7 +17,7 @@ import { LightboxContext } from "../../../../../context/LightboxContext";
 // Assets
 
 export const GalleryLogic = () => {
-	const { unit_type, isAuthorizedToEdit, story, unit, setUnit, unitVersion, changeUnitVersion } = useContext(UnitPageContext);
+	const { unit_type, isAuthorizedToEdit, story, unit, setUnit, unitVersion, changeUnitVersion, unitVersionItemCopying, changeUnitVersionItemCopying, pasteVersionItemCopying } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 	const { setLightboxImageIDs, setLightboxIndex } = useContext(LightboxContext);
 
@@ -151,6 +151,14 @@ export const GalleryLogic = () => {
 		setIsDisplayingCharactersImages((oldIsDisplayingCharactersImages) => !oldIsDisplayingCharactersImages);
 	}
 
+	function copyVersionValue() {
+		changeUnitVersionItemCopying(["gallery"]);
+	}
+
+	function pasteVersionValue() {
+		pasteVersionItemCopying(["gallery"]);
+	}
+
 	return {
 		unit_type,
 		isAuthorizedToEdit,
@@ -169,5 +177,8 @@ export const GalleryLogic = () => {
 		onGalleryItemClick,
 		isDisplayingCharactersImages,
 		toggleIsDisplayingCharactersImages,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
 	};
 };

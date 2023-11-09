@@ -172,13 +172,17 @@ module.exports = async (req, res) => {
 
 				if (newPath.length >= 4 && newPath[3] === "abilities") {
 					if (newPath.length === 4) {
+						const shouldSaveClusterItems = req?.body?.shouldSaveClusterItems;
+
 						newAbilities = req?.body?.newValue.map((ability) => {
 							const abilityIndex = newCharacter.data.versions[versionIndex].abilities.findIndex(
 								(e) => JSON.stringify(e._id) === JSON.stringify(ability._id)
 							);
-							if (abilityIndex === -1) return { _id: ability?._id };
+							if (abilityIndex === -1 && !shouldSaveClusterItems) return { _id: ability?._id };
+							if (shouldSaveClusterItems) return ability;
 							return newCharacter.data.versions[versionIndex].abilities[abilityIndex];
 						});
+
 						newCharacter = ChangeValueInNestedObject(newCharacter, newPath, newAbilities);
 						break;
 					}
@@ -203,7 +207,7 @@ module.exports = async (req, res) => {
 							const biographyClusterIndex = newCharacter.data.versions[versionIndex].biography.findIndex(
 								(e) => JSON.stringify(e._id) === JSON.stringify(biographyCluster._id)
 							);
-							if (biographyClusterIndex === -1) return { _id: biographyCluster?._id, name: biographyCluster?.name };
+							if (biographyClusterIndex === -1 && !shouldSaveClusterItems) return { _id: biographyCluster?._id, name: biographyCluster?.name };
 							if (shouldSaveClusterItems) return biographyCluster;
 							return newCharacter.data.versions[versionIndex].biography[biographyClusterIndex];
 						});

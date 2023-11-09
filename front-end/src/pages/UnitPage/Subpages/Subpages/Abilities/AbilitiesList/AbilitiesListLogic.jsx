@@ -15,9 +15,11 @@ import { APIContext } from "../../../../../../context/APIContext";
 
 // Assets
 
-export const AbilitiesListLogic = ({ currAbility, switchAbility }) => {
-	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion } = useContext(UnitPageContext);
+export const AbilitiesListLogic = ({ currAbility, changeAbility, switchAbility }) => {
+	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion, unitVersionItemCopying, changeUnitVersionItemCopying, pasteVersionItemCopying } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
+
+	const [abilitiesPasted, setAbilitiesPasted] = useState([]);
 
 	async function addAbility() {
 		let newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
@@ -77,10 +79,24 @@ export const AbilitiesListLogic = ({ currAbility, switchAbility }) => {
 
 	async function saveAbilities() {
 		if (!unit?._id) return;
+		const newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
+
+		let shouldSaveClusterItems = false;
+
+		const newAbilitiesPasted = JSON.parse(JSON.stringify(abilitiesPasted));
+		const newAbilityPastedIndex = newAbilitiesPasted?.findIndex((e) => e?.version === newUnitVersion?._id);
+		if (newAbilityPastedIndex !== -1) {
+			const newAbilityPasted = newAbilitiesPasted[newAbilityPastedIndex]?.abilities;
+			if (JSON.stringify(newAbilityPasted) === JSON.stringify(newUnitVersion?.abilities)) {
+				shouldSaveClusterItems = true;
+			}
+		}
+
 		const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
 			story_id: story._id,
-			path: ["data", "versions", unitVersion._id, "abilities"],
-			newValue: unitVersion.abilities,
+			path: ["data", "versions", newUnitVersion._id, "abilities"],
+			newValue: newUnitVersion.abilities,
+			shouldSaveClusterItems,
 		});
 		if (!response) return false;
 		return true;
@@ -96,6 +112,33 @@ export const AbilitiesListLogic = ({ currAbility, switchAbility }) => {
 		e.stopPropagation();
 	}
 
+	function copyVersionValue() {
+		changeUnitVersionItemCopying(["abilities"]);
+	}
+
+	function pasteVersionValue() {
+		const newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
+		const newAbilities = pasteVersionItemCopying(["abilities"]);
+		if (newAbilities === false) return false;
+
+		setAbilitiesPasted((oldValue) => {
+			let newValue = JSON.parse(JSON.stringify(oldValue));
+			const index = newValue?.findIndex((e) => e?.version === newUnitVersion._id);
+			if (index === -1) {
+				newValue.push({ version: newUnitVersion._id, abilities: JSON.parse(JSON.stringify(newAbilities)) });
+			} else {
+				newValue[index].abilities = JSON.parse(JSON.stringify(newAbilities));
+			}
+			return newValue;
+		});
+
+		changeAbility((oldValue) => {
+			let newValue = JSON.parse(JSON.stringify(newAbilities?.[0]));
+			newValue.character_version_id = newUnitVersion?._id;
+			return newValue;
+		});
+	}
+
 	return {
 		isAuthorizedToEdit,
 		unitVersion,
@@ -109,5 +152,8 @@ export const AbilitiesListLogic = ({ currAbility, switchAbility }) => {
 		onClickAbility,
 		abilitiesListItemsRef,
 		onAbilitiesListScroll,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
 	};
 };

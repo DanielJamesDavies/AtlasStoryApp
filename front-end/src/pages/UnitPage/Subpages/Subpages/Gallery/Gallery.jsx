@@ -39,6 +39,9 @@ export const Gallery = () => {
 		onGalleryItemClick,
 		isDisplayingCharactersImages,
 		toggleIsDisplayingCharactersImages,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
 	} = GalleryLogic();
 
 	return (
@@ -52,6 +55,8 @@ export const Gallery = () => {
 				onSave={saveGalleryItems}
 				onAdd={toggleIsDisplayingCharactersImages}
 				onScroll={onGalleryScroll}
+				onCopyVersionValue={copyVersionValue}
+				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["gallery"]) ? undefined : pasteVersionValue}
 			>
 				<div className='unit-page-subpage-gallery-items-container'>
 					<div className='unit-page-subpage-gallery-items'>

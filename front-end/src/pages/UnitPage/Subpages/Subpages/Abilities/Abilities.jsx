@@ -20,7 +20,7 @@ export const Abilities = () => {
 
 	return (
 		<div className='unit-page-subpage-abilities'>
-			<AbilitiesList currAbility={ability} switchAbility={switchAbility} />
+			<AbilitiesList currAbility={ability} changeAbility={changeAbility} switchAbility={switchAbility} />
 			<Ability ability={ability} changeAbility={changeAbility} />
 		</div>
 	);
