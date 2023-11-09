@@ -31,6 +31,9 @@ export const BigFive = () => {
 		errors,
 		bigFiveRef,
 		onBigFiveContainerScroll,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue
 	} = BigFiveLogic();
 
 	if (!isAuthorizedToEdit && unitVersion?.psychology?.isBigFiveVisible === false) return null;
@@ -50,6 +53,8 @@ export const BigFive = () => {
 				onRevert={revertBigFive}
 				onSave={saveBigFive}
 				onScroll={onBigFiveContainerScroll}
+				onCopyVersionValue={copyVersionValue}
+				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["psychology", "bigFive"]) ? undefined : pasteVersionValue}
 			>
 				<div ref={bigFiveRef} className='unit-page-subpage-psychology-big-five-traits-container'>
 					{bigFiveTraits.map((trait, index) => (

@@ -47,6 +47,9 @@ export const PhysicalOutfitItems = ({
 		errors,
 		physicalOutfitItemsRef,
 		onPhysicalOutfitItemsContainerScroll,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
 	} = PhysicalOutfitItemsLogic();
 
 	return (
@@ -58,6 +61,8 @@ export const PhysicalOutfitItems = ({
 				onRevert={revertPhysicalOutfitItems}
 				onSave={savePhysicalOutfitItems}
 				onScroll={onPhysicalOutfitItemsContainerScroll}
+				onCopyVersionValue={copyVersionValue}
+				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["physical", "outfits"]) ? undefined : pasteVersionValue}
 			>
 				<div ref={physicalOutfitItemsRef} className='unit-page-subpage-physical-outfit-items'>
 					{unitVersion?.physical?.outfits?.map((physicalOutfitItem, index) => (

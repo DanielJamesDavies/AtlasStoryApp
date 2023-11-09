@@ -257,7 +257,9 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			let newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
 			newUnitVersion = changeValueInNestedObject(newUnitVersion, item, newValue);
 			changeUnitVersion(newUnitVersion);
+			return newValue;
 		}
+		return false;
 	}, [unitVersionItemCopying, unit, unitVersion, changeUnitVersion]);
 
 	return (

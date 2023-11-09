@@ -15,9 +15,11 @@ import { APIContext } from "../../../../../../context/APIContext";
 
 // Assets
 
-export const BiographyClusterListLogic = ({ currBiographyCluster, switchBiographyCluster }) => {
-	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion } = useContext(UnitPageContext);
+export const BiographyClusterListLogic = ({ currBiographyCluster, changeBiographyCluster, switchBiographyCluster }) => {
+	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion, unitVersionItemCopying, changeUnitVersionItemCopying, pasteVersionItemCopying } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
+
+	const [biographyClustersPasted, setBiographyClustersPasted] = useState([]);
 
 	async function addBiographyCluster() {
 		let newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
@@ -96,12 +98,27 @@ export const BiographyClusterListLogic = ({ currBiographyCluster, switchBiograph
 
 	async function saveBiographyClusters() {
 		if (!unit?._id) return;
+		const newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
+
+		let shouldSaveClusterItems = false;
+
+		const newBiographyClustersPasted = JSON.parse(JSON.stringify(biographyClustersPasted));
+		const newBiographyClusterPastedIndex = newBiographyClustersPasted?.findIndex((e) => e?.version === newUnitVersion?._id);
+		if (newBiographyClusterPastedIndex !== -1) {
+			const newBiographyClusterPasted = newBiographyClustersPasted[newBiographyClusterPastedIndex]?.cluster;
+			if (JSON.stringify(newBiographyClusterPasted) === JSON.stringify(newUnitVersion?.biography)) {
+				shouldSaveClusterItems = true;
+			}
+		}
+
 		const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
 			story_id: story._id,
-			path: ["data", "versions", unitVersion._id, "biography"],
-			newValue: unitVersion.biography,
+			path: ["data", "versions", newUnitVersion._id, "biography"],
+			newValue: newUnitVersion.biography,
+			shouldSaveClusterItems,
 		});
 		if (!response) return false;
+
 		return true;
 	}
 
@@ -113,6 +130,34 @@ export const BiographyClusterListLogic = ({ currBiographyCluster, switchBiograph
 	function onBiographyClusterListScroll(e) {
 		if (biographyClusterListItemsRefCurrent?.scrollTop === 0) return;
 		e.stopPropagation();
+	}
+
+	function copyVersionValue() {
+		changeUnitVersionItemCopying(["biography"]);
+	}
+
+	function pasteVersionValue() {
+		const newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
+		const newBiographyCluster = pasteVersionItemCopying(["biography"]);
+		if (newBiographyCluster === false) return false;
+
+		setBiographyClustersPasted((oldValue) => {
+			let newValue = JSON.parse(JSON.stringify(oldValue));
+			const index = newValue?.findIndex((e) => e?.version === newUnitVersion._id);
+			if (index === -1) {
+				newValue.push({ version: newUnitVersion._id, cluster: JSON.parse(JSON.stringify(newBiographyCluster)) });
+			} else {
+				newValue[index].cluster = JSON.parse(JSON.stringify(newBiographyCluster));
+			}
+			return newValue;
+		});
+
+		const nextBiographyCluster = newBiographyCluster?.find((e) => e?._id === currBiographyCluster?._id);
+		changeBiographyCluster((oldValue) => {
+			let newValue = JSON.parse(JSON.stringify(oldValue));
+			newValue.items = nextBiographyCluster?.items;
+			return newValue;
+		});
 	}
 
 	return {
@@ -129,5 +174,8 @@ export const BiographyClusterListLogic = ({ currBiographyCluster, switchBiograph
 		onClickBiographyCluster,
 		biographyClusterListItemsRef,
 		onBiographyClusterListScroll,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
 	};
 };

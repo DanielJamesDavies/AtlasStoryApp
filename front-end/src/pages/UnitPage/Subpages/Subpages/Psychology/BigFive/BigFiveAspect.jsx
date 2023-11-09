@@ -16,7 +16,12 @@ import "./BigFiveAspect.css";
 // Assets
 
 export const BigFiveAspect = ({ trait, aspect, isEditing }) => {
-	const { unitVersion, aspectValueText, getPercentileText, changeBigFiveAspect } = BigFiveAspectLogic({ aspect });
+	const { 
+		unitVersion, 
+		aspectValueText,
+		getPercentileText,
+		changeBigFiveAspect,
+	} = BigFiveAspectLogic({ aspect });
 
 	return (
 		<div className='unit-page-subpage-psychology-big-five-aspect-container'>

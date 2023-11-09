@@ -20,7 +20,7 @@ export const Biography = () => {
 
 	return (
 		<div className='unit-page-subpage-abilities'>
-			<BiographyClusterList currBiographyCluster={biographyCluster} switchBiographyCluster={switchBiographyCluster} />
+			<BiographyClusterList currBiographyCluster={biographyCluster} changeBiographyCluster={changeBiographyCluster} switchBiographyCluster={switchBiographyCluster} />
 			<BiographyCluster biographyCluster={biographyCluster} changeBiographyCluster={changeBiographyCluster} />
 		</div>
 	);

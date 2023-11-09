@@ -16,7 +16,7 @@ import { APIContext } from "../../../../../../context/APIContext";
 // Assets
 
 export const PhysicalAttributeItemsLogic = () => {
-	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion } = useContext(UnitPageContext);
+	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion, unitVersionItemCopying, changeUnitVersionItemCopying, pasteVersionItemCopying } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 
 	function changePhysicalAttributeItemTitle(e, index) {
@@ -141,6 +141,14 @@ export const PhysicalAttributeItemsLogic = () => {
 		e.stopPropagation();
 	}
 
+	function copyVersionValue() {
+		changeUnitVersionItemCopying(["physical", "attributes"]);
+	}
+
+	function pasteVersionValue() {
+		pasteVersionItemCopying(["physical", "attributes"]);
+	}
+
 	return {
 		isAuthorizedToEdit,
 		unitVersion,
@@ -160,5 +168,8 @@ export const PhysicalAttributeItemsLogic = () => {
 		errors,
 		physicalAttributeItemsRef,
 		onPhysicalAttributeItemsContainerScroll,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
 	};
 };

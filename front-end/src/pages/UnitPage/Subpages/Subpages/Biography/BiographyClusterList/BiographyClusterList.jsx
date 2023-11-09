@@ -19,7 +19,7 @@ import { BtnListContainer } from "../../../../../../components/BtnListContainer/
 
 // Assets
 
-export const BiographyClusterList = ({ currBiographyCluster, switchBiographyCluster }) => {
+export const BiographyClusterList = ({ currBiographyCluster, changeBiographyCluster, switchBiographyCluster }) => {
 	const {
 		isAuthorizedToEdit,
 		unitVersion,
@@ -34,7 +34,10 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 		onClickBiographyCluster,
 		biographyClusterListItemsRef,
 		onBiographyClusterListScroll,
-	} = BiographyClusterListLogic({ currBiographyCluster, switchBiographyCluster });
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
+	} = BiographyClusterListLogic({ currBiographyCluster, changeBiographyCluster, switchBiographyCluster });
 
 	return (
 		<div className='unit-page-subpage-biography-cluster-list'>
@@ -45,7 +48,8 @@ export const BiographyClusterList = ({ currBiographyCluster, switchBiographyClus
 				onRevert={revertBiographyClusters}
 				onSave={saveBiographyClusters}
 				onDefault={defaultBiographyClusters}
-				onScroll={onBiographyClusterListScroll}
+				onScroll={onBiographyClusterListScroll}onCopyVersionValue={copyVersionValue}
+				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["biography"]) ? undefined : pasteVersionValue}
 			>
 				<BtnListContainer>
 					<div ref={biographyClusterListItemsRef} className='unit-page-subpage-biography-cluster-list-items'>

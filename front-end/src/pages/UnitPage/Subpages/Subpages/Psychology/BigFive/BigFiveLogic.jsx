@@ -16,7 +16,7 @@ import { APIContext } from "../../../../../../context/APIContext";
 // Assets
 
 export const BigFiveLogic = () => {
-	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion } = useContext(UnitPageContext);
+	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion, unitVersionItemCopying, changeUnitVersionItemCopying, pasteVersionItemCopying } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 
 	const bigFiveTraits = [
@@ -138,6 +138,14 @@ export const BigFiveLogic = () => {
 		e.stopPropagation();
 	}
 
+	function copyVersionValue() {
+		changeUnitVersionItemCopying(["psychology", "bigFive"]);
+	}
+
+	function pasteVersionValue() {
+		pasteVersionItemCopying(["psychology", "bigFive"]);
+	}
+
 	return {
 		isAuthorizedToEdit,
 		unitVersion,
@@ -149,5 +157,8 @@ export const BigFiveLogic = () => {
 		errors,
 		bigFiveRef,
 		onBigFiveContainerScroll,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
 	};
 };

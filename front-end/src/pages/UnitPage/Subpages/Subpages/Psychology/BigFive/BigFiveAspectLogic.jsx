@@ -59,5 +59,10 @@ export const BigFiveAspectLogic = ({ aspect }) => {
 		changeUnitVersion(newUnitVersion);
 	}
 
-	return { unitVersion, aspectValueText, getPercentileText, changeBigFiveAspect };
+	return {
+		unitVersion,
+		aspectValueText,
+		getPercentileText,
+		changeBigFiveAspect,
+	};
 };

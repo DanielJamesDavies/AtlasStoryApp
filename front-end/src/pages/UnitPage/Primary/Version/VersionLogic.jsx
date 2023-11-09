@@ -19,22 +19,19 @@ export const VersionLogic = () => {
 
 	const [primaryVersionStyle, setPrimaryVersionStyle] = useState({});
 	const primaryVersionWidthRef = useRef();
-	useLayoutEffect(() => {
+	const getPrimaryVersionStyleInterval = useRef(false);
+	useLayoutEffect(() => {		
 		function getPrimaryVersionStyle() {
 			let newStyle = {};
 			if (primaryVersionWidthRef?.current?.clientWidth) newStyle.width = primaryVersionWidthRef.current.clientWidth + "px";
-			return newStyle;
+			setPrimaryVersionStyle(newStyle);
 		}
-		setPrimaryVersionStyle(getPrimaryVersionStyle());
-		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 80);
-		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 120);
-		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 160);
-		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 320);
-		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 480);
-		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 1000);
-		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 2000);
-		setTimeout(() => setPrimaryVersionStyle(getPrimaryVersionStyle()), 3000);
-	}, [setPrimaryVersionStyle, primaryVersionWidthRef, unit, unitVersion]);
+
+		clearInterval(getPrimaryVersionStyleInterval.current);
+		getPrimaryVersionStyleInterval.current = setInterval(() => {
+			getPrimaryVersionStyle();
+		}, 750);
+	}, [setPrimaryVersionStyle, primaryVersionWidthRef, unit, unitVersion, getPrimaryVersionStyleInterval]);
 
 	return {
 		unit,

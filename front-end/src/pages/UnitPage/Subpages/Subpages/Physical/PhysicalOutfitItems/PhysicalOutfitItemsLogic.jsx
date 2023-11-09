@@ -16,7 +16,7 @@ import { APIContext } from "../../../../../../context/APIContext";
 // Assets
 
 export const PhysicalOutfitItemsLogic = () => {
-	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion } = useContext(UnitPageContext);
+	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion, unitVersionItemCopying, changeUnitVersionItemCopying, pasteVersionItemCopying } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 
 	function changePhysicalOutfitItemTitle(e, index) {
@@ -114,6 +114,14 @@ export const PhysicalOutfitItemsLogic = () => {
 		e.stopPropagation();
 	}
 
+	function copyVersionValue() {
+		changeUnitVersionItemCopying(["physical", "outfits"]);
+	}
+
+	function pasteVersionValue() {
+		pasteVersionItemCopying(["physical", "outfits"]);
+	}
+
 	return {
 		isAuthorizedToEdit,
 		unitVersion,
@@ -132,5 +140,8 @@ export const PhysicalOutfitItemsLogic = () => {
 		errors,
 		physicalOutfitItemsRef,
 		onPhysicalOutfitItemsContainerScroll,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
 	};
 };

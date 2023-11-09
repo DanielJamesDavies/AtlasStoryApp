@@ -16,7 +16,7 @@ import { APIContext } from "../../../../../../context/APIContext";
 // Assets
 
 export const PsychologyItemsLogic = () => {
-	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion } = useContext(UnitPageContext);
+	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion, unitVersionItemCopying, changeUnitVersionItemCopying, pasteVersionItemCopying } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 
 	function changePsychologyItemTitle(e, index) {
@@ -126,6 +126,14 @@ export const PsychologyItemsLogic = () => {
 		e.stopPropagation();
 	}
 
+	function copyVersionValue() {
+		changeUnitVersionItemCopying(["psychology", "items"]);
+	}
+
+	function pasteVersionValue() {
+		pasteVersionItemCopying(["psychology", "items"]);
+	}
+
 	return {
 		isAuthorizedToEdit,
 		unitVersion,
@@ -142,5 +150,8 @@ export const PsychologyItemsLogic = () => {
 		errors,
 		psychologyItemsRef,
 		onPsychologyItemsContainerScroll,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
 	};
 };

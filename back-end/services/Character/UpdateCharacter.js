@@ -197,11 +197,14 @@ module.exports = async (req, res) => {
 
 				if (newPath.length >= 4 && newPath[3] === "biography") {
 					if (newPath.length === 4) {
+						const shouldSaveClusterItems = req?.body?.shouldSaveClusterItems;
+
 						newBiographyClusters = req?.body?.newValue.map((biographyCluster) => {
 							const biographyClusterIndex = newCharacter.data.versions[versionIndex].biography.findIndex(
 								(e) => JSON.stringify(e._id) === JSON.stringify(biographyCluster._id)
 							);
 							if (biographyClusterIndex === -1) return { _id: biographyCluster?._id, name: biographyCluster?.name };
+							if (shouldSaveClusterItems) return biographyCluster;
 							return newCharacter.data.versions[versionIndex].biography[biographyClusterIndex];
 						});
 						newCharacter = ChangeValueInNestedObject(newCharacter, newPath, newBiographyClusters);

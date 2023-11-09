@@ -14,7 +14,6 @@ import { BiographyClusterItemsLogic } from "./BiographyClusterItemsLogic";
 // Services
 
 // Styles
-import "./BiographyClusterItems.css";
 
 // Assets
 

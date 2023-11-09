@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 
 // Components
 
@@ -22,6 +22,7 @@ export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundAct
 			: "btn-list-item-loading btn-list-item-list-closed"
 	);
 
+	const getBtnListItemClassNameTimeout = useRef(false);
 	useEffect(() => {
 		function getBtnListItemClassName() {
 			let newBtnListItemClassName = "btn-list-item";
@@ -32,8 +33,13 @@ export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundAct
 			if (isBtnListOpen === false) newBtnListItemClassName += " btn-list-item-list-closed";
 			setBtnListItemClassName(newBtnListItemClassName);
 		}
-		getBtnListItemClassName();
-	}, [setBtnListItemClassName, className, size, index, isActive, hasFoundActive, onClick, isBtnListOpen]);
+		
+		if (getBtnListItemClassNameTimeout.current !== false) clearTimeout(getBtnListItemClassNameTimeout.current);
+		getBtnListItemClassNameTimeout.current = setTimeout(() => {
+			getBtnListItemClassName();
+			getBtnListItemClassNameTimeout.current = false;
+		}, 100);
+	}, [setBtnListItemClassName, className, size, index, isActive, hasFoundActive, onClick, isBtnListOpen, getBtnListItemClassNameTimeout]);
 
 	async function onBtnListItemClick(e) {
 		if (setIsBtnListOpen) setIsBtnListOpen((oldIsBtnListOpen) => !oldIsBtnListOpen);

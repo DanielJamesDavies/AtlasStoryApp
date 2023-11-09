@@ -48,6 +48,9 @@ export const PhysicalAttributeItems = ({
 		errors,
 		physicalAttributeItemsRef,
 		onPhysicalAttributeItemsContainerScroll,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
 	} = PhysicalAttributeItemsLogic();
 
 	return (
@@ -63,7 +66,8 @@ export const PhysicalAttributeItems = ({
 				onReorder={toggleIsReorderingPhysicalAttributeItems}
 				onRevert={revertPhysicalAttributeItems}
 				onSave={savePhysicalAttributeItems}
-				onScroll={onPhysicalAttributeItemsContainerScroll}
+				onScroll={onPhysicalAttributeItemsContainerScroll}onCopyVersionValue={copyVersionValue}
+				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["physical", "attributes"]) ? undefined : pasteVersionValue}
 			>
 				<div ref={physicalAttributeItemsRef} className='unit-page-subpage-physical-attribute-items'>
 					{unitVersion?.physical?.attributes?.map((physicalAttributeItem, index) => (

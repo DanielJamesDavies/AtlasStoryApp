@@ -37,6 +37,9 @@ export const PsychologyItems = () => {
 		errors,
 		psychologyItemsRef,
 		onPsychologyItemsContainerScroll,
+		unitVersionItemCopying,
+		copyVersionValue,
+		pasteVersionValue,
 	} = PsychologyItemsLogic();
 
 	return (
@@ -50,6 +53,8 @@ export const PsychologyItems = () => {
 				onRevert={revertPsychologyItems}
 				onSave={savePsychologyItems}
 				onScroll={onPsychologyItemsContainerScroll}
+				onCopyVersionValue={copyVersionValue}
+				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["psychology", "items"]) ? undefined : pasteVersionValue}
 			>
 				<div ref={psychologyItemsRef} className='unit-page-subpage-psychology-items'>
 					{unitVersion?.psychology?.items?.map((psychologyItem, index) => (
