@@ -1,0 +1,258 @@
+.ai-assistant-menu-container {
+	position: fixed;
+	bottom: 12px;
+	right: calc(12px + 8px);
+	z-index: 20;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	gap: 12px;
+	width: calc(100vw - (12px + 8px) * 2);
+}
+
+@media (max-width: 750px) {
+	.ai-assistant-menu-container {
+		bottom: calc(var(--navbar-mobile-height) + 8px);
+	}
+}
+
+.ai-assistant-text-input {
+	padding: 0 20px;
+	border: 4px solid var(--colour-grey-four);
+	border-radius: 32px;
+	width: 0;
+	max-width: 500px;
+	height: 40px;
+	box-sizing: border-box;
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+	opacity: 0;
+}
+
+.ai-assistant-text-input:focus {
+	outline: 0;
+	border-color: var(--colour-blue);
+}
+
+.ai-assistant-menu-container-is-running .ai-assistant-text-input {
+	animation: ai-assistant-text-input-show 0.5s 1;
+	animation-delay: 0;
+	animation-fill-mode: forwards;
+	transition: 0.2s;
+}
+
+@keyframes ai-assistant-text-input-show {
+	0% {
+		width: 0;
+		opacity: 0;
+	}
+	25% {
+		width: 0;
+	}
+	100% {
+		width: 100%;
+		opacity: 1;
+	}
+}
+
+.ai-assistant-menu-container-is-executing .ai-assistant-text-input,
+.ai-assistant-menu-container-input-is-microphone.ai-assistant-menu-container-is-running .ai-assistant-text-input {
+	pointer-events: none;
+	user-select: none;
+	animation: ai-assistant-text-input-hide 0.5s 1;
+	animation-delay: 0;
+	animation-fill-mode: forwards;
+}
+
+@keyframes ai-assistant-text-input-hide {
+	0% {
+		width: 100%;
+		opacity: 1;
+	}
+	25% {
+		opacity: 1;
+	}
+	100% {
+		width: 0;
+		opacity: 0;
+	}
+}
+
+.ai-assistant-btn {
+	flex-shrink: 0;
+	position: relative;
+	border: 0;
+	border-radius: 100%;
+	width: var(--btnSize);
+	height: var(--btnSize);
+	background: var(--colour-grey-three);
+	cursor: pointer;
+	color: var(--text-colour-secondary);
+}
+
+.ai-assistant-btn:hover {
+	background: var(--colour-grey-four);
+}
+
+.ai-assistant-toggle-input-btn {
+	--btnSize: 40px;
+}
+
+.ai-assistant-menu-container-input-is-microphone .ai-assistant-toggle-input-btn-svg-text,
+.ai-assistant-menu-container:not(.ai-assistant-menu-container-input-is-microphone) .ai-assistant-toggle-input-btn-svg-mic,
+.ai-assistant-menu-container:not(.ai-assistant-menu-container-input-is-microphone)
+	.ai-assistant-toggle-input-btn-is-hovering
+	.ai-assistant-toggle-input-btn-svg-text,
+.ai-assistant-menu-container-input-is-microphone .ai-assistant-toggle-input-btn-is-hovering .ai-assistant-toggle-input-btn-svg-mic {
+	opacity: 0;
+}
+
+.ai-assistant-menu-container-input-is-microphone .ai-assistant-toggle-input-btn-is-hovering .ai-assistant-toggle-input-btn-svg-text,
+.ai-assistant-menu-container:not(.ai-assistant-menu-container-input-is-microphone)
+	.ai-assistant-toggle-input-btn-is-hovering
+	.ai-assistant-toggle-input-btn-svg-mic {
+	opacity: 1;
+}
+
+.ai-assistant-toggle-input-btn-svg-text {
+	margin-top: -1px;
+}
+
+.ai-assistant-run-btn {
+	--btnSize: 64px;
+}
+
+.ai-assistant-menu-container-is-running .ai-assistant-run-btn {
+	background: var(--colour-blue);
+	color: #fff;
+}
+
+.ai-assistant-menu-container-is-running.ai-assistant-menu-container-is-hovering .ai-assistant-run-btn {
+	background: var(--colour-grey-three);
+	color: var(--text-colour-secondary);
+}
+
+.ai-assistant-btn > * {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 22px;
+}
+
+.ai-assistant-run-btn .ai-assistant-run-btn-svg-robot {
+	margin-top: -1px;
+	font-size: 28px;
+}
+
+.ai-assistant-run-btn .ai-assistant-run-btn-svg-play {
+	margin-left: 1px;
+}
+
+.ai-assistant-run-btn .ai-assistant-run-btn-svg-play,
+.ai-assistant-run-btn .ai-assistant-run-btn-svg-stop {
+	display: none;
+}
+
+.ai-assistant-menu-container-is-hovering .ai-assistant-run-btn .ai-assistant-run-btn-svg-robot {
+	display: none;
+}
+
+.ai-assistant-menu-container-is-running .ai-assistant-run-btn-svg-robot {
+	display: none;
+}
+
+.ai-assistant-menu-container-is-hovering .ai-assistant-run-btn .ai-assistant-run-btn-svg-play {
+	display: block;
+}
+
+.ai-assistant-menu-container-is-running.ai-assistant-menu-container-is-hovering .ai-assistant-run-btn .ai-assistant-run-btn-svg-play {
+	display: none;
+}
+
+.ai-assistant-menu-container-is-running.ai-assistant-menu-container-is-hovering .ai-assistant-run-btn .ai-assistant-run-btn-svg-stop {
+	display: block;
+}
+
+.ai-assistant-run-btn-audio-waves {
+	position: relative;
+	opacity: 0;
+	pointer-events: none;
+	width: 100%;
+	height: 100%;
+}
+
+.ai-assistant-menu-container-is-running:not(.ai-assistant-menu-container-is-hovering):not(
+		.ai-assistant-menu-container-is-executing
+	).ai-assistant-menu-container-input-is-microphone
+	.ai-assistant-run-btn-audio-waves {
+	opacity: 1;
+}
+
+.ai-assistant-menu-container-is-running:not(.ai-assistant-menu-container-input-is-microphone):not(.ai-assistant-menu-container-is-hovering):not(
+		.ai-assistant-menu-container-is-executing
+	)
+	.ai-assistant-run-btn-svg-robot {
+	display: block;
+}
+
+.ai-assistant-menu-container-is-running:not(.ai-assistant-menu-container-input-is-microphone) .ai-assistant-run-btn-svg-robot {
+	display: none;
+}
+
+.ai-assistant-run-btn-audio-wave {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: block;
+	content: "";
+	width: 3px;
+	min-height: 5px;
+	height: 25px;
+	border-radius: 5px;
+	background: #fff;
+	animation: ai-assistant-run-btn-audio-wave 1.5s infinite linear;
+}
+
+.ai-assistant-run-btn-audio-wave:nth-child(1) {
+	transform: translate(-50%, -50%) translateX(-14px);
+	animation-delay: -0.5s;
+}
+
+.ai-assistant-run-btn-audio-wave:nth-child(2) {
+	transform: translate(-50%, -50%) translateX(-7px);
+	animation-delay: -0.75s;
+}
+
+.ai-assistant-run-btn-audio-wave:nth-child(4) {
+	transform: translate(-50%, -50%) translateX(7px);
+	animation-delay: -1s;
+}
+
+.ai-assistant-run-btn-audio-wave:nth-child(5) {
+	transform: translate(-50%, -50%) translateX(14px);
+	animation-delay: -1.25s;
+}
+
+@keyframes ai-assistant-run-btn-audio-wave {
+	0% {
+		height: 7px;
+	}
+	50% {
+		height: 23px;
+	}
+	100% {
+		height: 7px;
+	}
+}
+
+.ai-assistant-run-btn-loading-circle {
+	opacity: 0;
+	--loadingCircleColour: #fff !important;
+	pointer-events: none;
+}
+
+.ai-assistant-menu-container-is-executing:not(.ai-assistant-menu-container-is-hovering) .ai-assistant-run-btn-loading-circle {
+	opacity: 1;
+}

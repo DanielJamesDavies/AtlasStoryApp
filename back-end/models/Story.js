@@ -117,6 +117,18 @@ const StorySchema = mongoose.Schema({
 			events: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			objects: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			lore: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+			pronunciations: {
+				type: [
+					{
+						type: {
+							from: { type: String, default: "" },
+							to: { type: String, default: "" },
+						},
+						default: {},
+					},
+				],
+				default: [],
+			},
 		},
 		default: {},
 	},

@@ -16,8 +16,9 @@ import "./Subpages.css";
 // Assets
 
 export const Subpages = ({ innerRef }) => {
-	const { subpageContainerRef, subpage } = SubpagesLogic();
+	const { subpageContainerRef, subpage, unit } = SubpagesLogic();
 
+	if (!unit) return null;
 	return (
 		<div className='unit-page-subpages-container'>
 			<div ref={innerRef} className='unit-page-subpages'>

@@ -75,9 +75,24 @@ const RoutesProvider = ({ children }) => {
 		[getNewURL, locationPath, domain]
 	);
 
+	const [routesUnitSubpageID, setRoutesUnitSubpageID] = useState(false);
+	const [routesIsOnOverviewSection, setRoutesIsOnOverviewSection] = useState(false);
+
 	return (
 		<RoutesContext.Provider
-			value={{ domain, location, locationPath, locationParams, changeLocation, changeLocationParameters, changeLocationAndParameters }}
+			value={{
+				domain,
+				location,
+				locationPath,
+				locationParams,
+				changeLocation,
+				changeLocationParameters,
+				changeLocationAndParameters,
+				routesUnitSubpageID,
+				setRoutesUnitSubpageID,
+				routesIsOnOverviewSection,
+				setRoutesIsOnOverviewSection,
+			}}
 		>
 			{children}
 		</RoutesContext.Provider>

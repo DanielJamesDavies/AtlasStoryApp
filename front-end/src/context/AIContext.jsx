@@ -24,11 +24,52 @@ const AIProvider = ({ children }) => {
 		setGptMaxTokens(tokens);
 	}
 
+	const GPT_Request = useCallback(
+		async (messages, temperature = 0) => {
+			if (!GPT_API_Key)
+				return { messages: [{ role: "error", content: "Error: No API Key Given. Please add an OpenAI API Key in your user settings." }] };
+
+			if (isNaN(parseInt(GPT_Max_Tokens))) updateGptMaxTokens(100);
+
+			const data = {
+				method: "POST",
+				headers: {
+					Authorization: "Bearer " + GPT_API_Key,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					model: "gpt-3.5-turbo",
+					messages: messages,
+					max_tokens: isNaN(parseInt(GPT_Max_Tokens)) ? 100 : GPT_Max_Tokens,
+					temperature,
+				}),
+			};
+
+			try {
+				const API_URL = "https://api.openai.com/v1/chat/completions";
+
+				const response = await fetch(API_URL, data);
+
+				const responseData = await response.json();
+
+				if (responseData?.error?.code) {
+					return { error_code: responseData?.error?.code };
+				}
+
+				return { role: responseData?.choices[0]?.message?.role, content: responseData?.choices[0]?.message?.content };
+			} catch (e) {
+				return { error_code: 0 };
+			}
+		},
+		[GPT_API_Key, GPT_Max_Tokens]
+	);
+
 	const AI_GPT_Request = useCallback(
 		async (messages, temperature = 0) => {
 			const gpt_system_message = [
-				"I am Atlas AI, a large language model trained by OpenAI.",
-				"I am always clear, concise, and honest. I don't describe the question, I just answer.",
+				"I am Atlas AI.",
+				"I am always clear, concise, and honest.",
+				"I don't describe the question, I just answer.",
 			];
 			const gpt_initial_user_message = [
 				"You are a British polymath and are an expert at writing with several decades of experience.",
@@ -44,10 +85,81 @@ const AIProvider = ({ children }) => {
 
 			let newMessages = initial_messages.concat(messages);
 
-			if (!GPT_API_Key)
-				return { messages: [{ role: "error", content: "Error: No API Key Given. Please add an OpenAI API Key in your user settings." }] };
+			const response = await GPT_Request(newMessages, temperature);
 
-			if (isNaN(parseInt(GPT_Max_Tokens))) updateGptMaxTokens(100);
+			if (response?.error_code) {
+				switch (response?.error_code) {
+					case "invalid_api_key":
+						return {
+							messages: newMessages.concat([
+								{ role: "error", content: "Error: Invalid OpenAI API key. Please enter a valid key in user settings." },
+							]),
+						};
+					default:
+						return { messages: newMessages.concat([{ role: "error", content: "Error: Request failed. Please try again." }]) };
+				}
+			}
+
+			newMessages.push({ role: response?.role, content: response?.content });
+			newMessages.splice(0, 1);
+			return { messages: newMessages };
+		},
+		[GPT_Request]
+	);
+
+	const AI_Whisper_Request = useCallback(
+		async (audio_file, keywords) => {
+			if (!GPT_API_Key) return false;
+
+			let form_data = new FormData();
+			form_data.append("model", "whisper-1");
+			form_data.append("file", new File([audio_file], "audio.webm"));
+
+			if (keywords) {
+				let prompt = "Please listen out for these keywords: " + keywords?.join(", ");
+				form_data.append("prompt", prompt);
+			}
+
+			const data = {
+				method: "POST",
+				headers: {
+					Authorization: "Bearer " + GPT_API_Key,
+				},
+				body: form_data,
+			};
+
+			try {
+				const API_URL = "https://api.openai.com/v1/audio/transcriptions";
+
+				const response = await new Promise((resolve) => {
+					fetch(API_URL, data)
+						.then((res) => res.json())
+						.then((res) => resolve(res))
+						.catch(() => {
+							resolve(false);
+						});
+				});
+
+				return response;
+			} catch (e) {
+				return false;
+			}
+		},
+		[GPT_API_Key]
+	);
+
+	const AI_TTS_Request = useCallback(
+		async (input, pronunciations) => {
+			if (!GPT_API_Key) return false;
+
+			let new_input = JSON.parse(JSON.stringify(input));
+			if (pronunciations) {
+				pronunciations?.map((pronunciation) => {
+					new_input = new_input.replaceAll(pronunciation?.from, pronunciation?.to);
+					new_input = new_input.replaceAll(pronunciation?.from.toLowerCase(), pronunciation?.to);
+					return true;
+				});
+			}
 
 			const data = {
 				method: "POST",
@@ -56,47 +168,44 @@ const AIProvider = ({ children }) => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					model: "gpt-3.5-turbo-0613",
-					messages: newMessages,
-					max_tokens: isNaN(parseInt(GPT_Max_Tokens)) ? 100 : GPT_Max_Tokens,
-					temperature,
+					model: "tts-1",
+					input: new_input,
+					voice: "fable",
 				}),
 			};
 
 			try {
-				const API_URL = "https://api.openai.com/v1/chat/completions";
+				const API_URL = "https://api.openai.com/v1/audio/speech";
 
-				const response = await fetch(API_URL, data);
+				const ctx = new AudioContext();
 
-				const responseData = await response.json();
+				const response = await new Promise((resolve) => {
+					fetch(API_URL, data)
+						.then((data) => data.arrayBuffer())
+						.then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer))
+						.then((decodedAudio) => {
+							resolve(decodedAudio);
+						})
+						.catch((e) => {
+							resolve(false);
+						});
+				});
 
-				if (responseData?.error?.code) {
-					switch (responseData?.error?.code) {
-						case "invalid_api_key":
-							return {
-								messages: newMessages.concat([
-									{ role: "error", content: "Error: Invalid OpenAI API key. Please enter a valid key in user settings." },
-								]),
-							};
-						default:
-							return { messages: newMessages.concat([{ role: "error", content: "Error: Request failed. Please try again." }]) };
-					}
-				}
-
-				newMessages.push(responseData?.choices[0]?.message);
-				newMessages.splice(0, 1);
-				return { messages: newMessages };
+				return response;
 			} catch (e) {
-				return { messages: newMessages.concat([{ role: "error", content: "Error: Request failed. Please try again." }]) };
+				return false;
 			}
 		},
-		[GPT_API_Key, GPT_Max_Tokens]
+		[GPT_API_Key]
 	);
 
 	return (
 		<AIContext.Provider
 			value={{
 				AI_GPT_Request,
+				AI_Whisper_Request,
+				AI_TTS_Request,
+				GPT_Request,
 				GPT_API_Key,
 				updateGptApiKey,
 				GPT_Max_Tokens,

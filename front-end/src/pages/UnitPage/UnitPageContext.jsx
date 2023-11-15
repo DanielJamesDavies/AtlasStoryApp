@@ -11,9 +11,19 @@ import changeValueInNestedObject from "../../services/ChangeValueInNestedObject"
 export const UnitPageContext = createContext();
 
 const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_title, type_url_key }) => {
-	const { isAuthorizedToEdit, story, setStory, storyIcon, storyCharacters, storyCharacterTypes, storyCharacterRelationships, storyGroups } =
-		useContext(StoryContext);
-	const { locationParams, changeLocationParameters } = useContext(RoutesContext);
+	const {
+		isAuthorizedToEdit,
+		story,
+		setStory,
+		storyIcon,
+		storyCharacters,
+		storyCharacterTypes,
+		storyCharacterRelationships,
+		storyGroups,
+		unitValueToChange,
+		getUnitValue,
+	} = useContext(StoryContext);
+	const { locationParams, changeLocationParameters, routesUnitSubpageID, routesIsOnOverviewSection } = useContext(RoutesContext);
 
 	const isGettingUnit = useRef(false);
 	const currUnitUid = useRef(false);
@@ -80,6 +90,90 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 
+	useEffect(() => {
+		if (routesUnitSubpageID) {
+			setOpenSubpageID(routesUnitSubpageID);
+			setIsOnOverviewSection(false);
+		}
+	}, [routesUnitSubpageID, setOpenSubpageID]);
+
+	const hasCompletedInitial = useRef(false);
+	useEffect(() => {
+		if (hasCompletedInitial.current) {
+			setIsOnOverviewSection(routesIsOnOverviewSection);
+		} else {
+			hasCompletedInitial.current = true;
+		}
+	}, [routesIsOnOverviewSection, hasCompletedInitial]);
+
+	const changeUnitValueToChange = useCallback(() => {
+		setUnit((oldUnit) => {
+			let newUnit = JSON.parse(JSON.stringify(oldUnit));
+			if (unitValueToChange?.unit_id !== newUnit?._id) return newUnit;
+
+			let newPath = JSON.parse(JSON.stringify(unitValueToChange?.path));
+
+			newPath = newPath
+				?.map((path_item) => {
+					if (!unitVersion && ["versions", "VERSION_ID"].includes(path_item)) {
+						return false;
+					}
+					if (path_item === "VERSION_ID") {
+						return newUnit?.data?.versions?.findIndex((e) => e?._id === unitVersion?._id);
+					}
+					return path_item;
+				})
+				?.filter((e) => e !== false);
+
+			newUnit = changeValueInNestedObject(newUnit, newPath, unitValueToChange?.newValue);
+
+			const newPathVersionsIndex = newPath?.findIndex((e) => e === "versions");
+			if (newPathVersionsIndex !== -1 && newPathVersionsIndex + 1 < newPath?.length - 1) {
+				const newVersionIndex = newPath[newPathVersionsIndex + 1];
+				const newVersion = newUnit?.data?.versions[newVersionIndex];
+				setUnitVersion((oldVersion) => {
+					if (oldVersion?._id !== newVersion?._id) return oldVersion;
+					return newVersion;
+				});
+			}
+
+			console.log("newUnit", newUnit);
+
+			return newUnit;
+		});
+	}, [setUnit, unitValueToChange, unitVersion, setUnitVersion]);
+
+	const lastUnitValueToChange = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(unitValueToChange) !== JSON.stringify(lastUnitValueToChange?.current)) {
+			lastUnitValueToChange.current = JSON.parse(JSON.stringify(unitValueToChange));
+			changeUnitValueToChange();
+		}
+	}, [unitValueToChange, changeUnitValueToChange, lastUnitValueToChange]);
+
+	useEffect(() => {
+		getUnitValue.current = (unit_id, path) => {
+			let newUnit = JSON.parse(JSON.stringify(unit));
+
+			if (unit_id !== newUnit?._id) return false;
+
+			let newPath = JSON.parse(JSON.stringify(path));
+			newPath = newPath
+				?.map((path_item) => {
+					if (!unitVersion && ["versions", "VERSION_ID"].includes(path_item)) {
+						return false;
+					}
+					if (path_item === "VERSION_ID") {
+						return newUnit?.data?.versions?.findIndex((e) => e?._id === unitVersion?._id);
+					}
+					return path_item;
+				})
+				?.filter((e) => e !== false);
+
+			return getValueInNestedObject(unit, newPath);
+		};
+	}, [getUnitValue, unit, unitVersion]);
+
 	const {
 		getUnit,
 		getUnitPrimaryImages,
@@ -132,6 +226,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 	useEffect(() => {
 		async function getInitial() {
 			if (currUnitUid.current === unit_uid || isGettingUnit.current) return false;
+			setValuesToDefault();
 			const newUnit = await getUnit();
 			if (!newUnit) return false;
 			if (["character", "group"].includes(unit_type) && newUnit?.data?.versions[0]) {
@@ -154,6 +249,28 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				getLocationMapComponents(newUnit?.data?.mapVersions);
 			}
 		}
+
+		function setValuesToDefault() {
+			setUnit(false);
+			setUnitVersion(false);
+			setUnitPrimaryImages([]);
+			setUnitOverviewBackground(false);
+			setUnitOverviewForegrounds(false);
+			setUnitImages([]);
+			setUnitSoundtrack(false);
+			setUnitListImage(false);
+			setUnitVersionItemCopying(false);
+			setCharacterCardBackground(false);
+			setCharacterFaceImage(false);
+			setCharacterRelationships([]);
+			setCharacterRelationshipsAddedIds([]);
+			setCharacterRelationshipsRemovedIds([]);
+			setCharacterRelationshipsCharacters(false);
+			setSelectedCharacterRelationshipsCharacterId(false);
+			setRelationshipsFilters(false);
+			setUnitPageStyle(false);
+		}
+
 		getInitial();
 	}, [
 		story_uid,
@@ -187,15 +304,18 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		setUnitVersion(unit?.data?.versions[currentVersionIndex + 1]);
 	}
 
-	const changeUnitVersion = useCallback((newUnitVersion) => {
-		setUnitVersion(newUnitVersion);
-		setUnit((oldUnit) => {
-			let newUnit = JSON.parse(JSON.stringify(oldUnit));
-			const unitVersionIndex = newUnit.data.versions.findIndex((e) => e._id === newUnitVersion._id);
-			if (unitVersionIndex !== -1) newUnit.data.versions[unitVersionIndex] = newUnitVersion;
-			return newUnit;
-		});
-	}, [setUnitVersion, setUnit]);
+	const changeUnitVersion = useCallback(
+		(newUnitVersion) => {
+			setUnitVersion(newUnitVersion);
+			setUnit((oldUnit) => {
+				let newUnit = JSON.parse(JSON.stringify(oldUnit));
+				const unitVersionIndex = newUnit.data.versions.findIndex((e) => e._id === newUnitVersion._id);
+				if (unitVersionIndex !== -1) newUnit.data.versions[unitVersionIndex] = newUnitVersion;
+				return newUnit;
+			});
+		},
+		[setUnitVersion, setUnit]
+	);
 
 	const hasReadInitialLocationParameters = useRef(false);
 
@@ -242,25 +362,31 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		changeUnitVersion,
 	]);
 
-	const changeUnitVersionItemCopying = useCallback((item) => {
-		if (!unitVersion?._id) return false;
-		setUnitVersionItemCopying({ version: unitVersion?._id, item });
-	}, [unitVersion]);
+	const changeUnitVersionItemCopying = useCallback(
+		(item) => {
+			if (!unitVersion?._id) return false;
+			setUnitVersionItemCopying({ version: unitVersion?._id, item });
+		},
+		[unitVersion]
+	);
 
-	const pasteVersionItemCopying = useCallback((item) => {
-		const newUnit = JSON.parse(JSON.stringify(unit));
-		const newUnitVersionItemCopying = JSON.parse(JSON.stringify(unitVersionItemCopying));
-		if (JSON.stringify(newUnitVersionItemCopying?.item) === JSON.stringify(item)) {
-			const oldVersionIndex = newUnit?.data?.versions?.findIndex((e) => e?._id === newUnitVersionItemCopying?.version);
-			if (oldVersionIndex === -1) return false;
-			let newValue = getValueInNestedObject(newUnit?.data?.versions[oldVersionIndex], newUnitVersionItemCopying?.item);
-			let newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
-			newUnitVersion = changeValueInNestedObject(newUnitVersion, item, newValue);
-			changeUnitVersion(newUnitVersion);
-			return newValue;
-		}
-		return false;
-	}, [unitVersionItemCopying, unit, unitVersion, changeUnitVersion]);
+	const pasteVersionItemCopying = useCallback(
+		(item) => {
+			const newUnit = JSON.parse(JSON.stringify(unit));
+			const newUnitVersionItemCopying = JSON.parse(JSON.stringify(unitVersionItemCopying));
+			if (JSON.stringify(newUnitVersionItemCopying?.item) === JSON.stringify(item)) {
+				const oldVersionIndex = newUnit?.data?.versions?.findIndex((e) => e?._id === newUnitVersionItemCopying?.version);
+				if (oldVersionIndex === -1) return false;
+				let newValue = getValueInNestedObject(newUnit?.data?.versions[oldVersionIndex], newUnitVersionItemCopying?.item);
+				let newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
+				newUnitVersion = changeValueInNestedObject(newUnitVersion, item, newValue);
+				changeUnitVersion(newUnitVersion);
+				return newValue;
+			}
+			return false;
+		},
+		[unitVersionItemCopying, unit, unitVersion, changeUnitVersion]
+	);
 
 	return (
 		<UnitPageContext.Provider

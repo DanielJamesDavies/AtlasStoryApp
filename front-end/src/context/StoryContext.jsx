@@ -30,10 +30,16 @@ const StoryProvider = ({ children }) => {
 	const [storyNotesImages, setStoryNotesImages] = useState([]);
 	const [storyGroups, setStoryGroups] = useState([]);
 	const [storyCharacters, setStoryCharacters] = useState([]);
+	const [hasGotStoryCharacters, setHasGotStoryCharacters] = useState(false);
 	const [storyCharacterRelationships, setStoryCharacterRelationships] = useState([]);
 	const [storyCharacterTypes, setStoryCharacterTypes] = useState([]);
 	const [storySubstories, setStorySubstories] = useState([]);
 	const [locations, setLocations] = useState(false);
+
+	const [unitValueToChange, setUnitValueToChange] = useState(false);
+	const getUnitValue = useRef(() => {
+		return false;
+	});
 
 	const hasGotInitialForStoryID = useRef(false);
 	useEffect(() => {
@@ -319,6 +325,7 @@ const StoryProvider = ({ children }) => {
 			newCharacters = newCharacters.flat(1);
 			newCharacters = newCharacters.filter((e) => e !== false);
 			setStoryCharacters(newCharacters);
+			setHasGotStoryCharacters(true);
 			return newCharacters;
 		}
 
@@ -453,6 +460,7 @@ const StoryProvider = ({ children }) => {
 		setStoryBanner,
 		setStoryGroups,
 		setStoryCharacters,
+		setHasGotStoryCharacters,
 		setStoryCharacterRelationships,
 		setStoryCharacterTypes,
 		setStorySubstories,
@@ -496,6 +504,8 @@ const StoryProvider = ({ children }) => {
 				setStoryGroups,
 				storyCharacters,
 				setStoryCharacters,
+				hasGotStoryCharacters,
+				setHasGotStoryCharacters,
 				storyCharacterRelationships,
 				setStoryCharacterRelationships,
 				storyCharacterTypes,
@@ -509,6 +519,9 @@ const StoryProvider = ({ children }) => {
 				isReorderingCharacters,
 				toggleIsReorderingCharacters,
 				updateStoryColours,
+				unitValueToChange,
+				setUnitValueToChange,
+				getUnitValue,
 			}}
 		>
 			{children}

@@ -29,7 +29,7 @@ import { UnitPageContext } from "../UnitPageContext";
 // Assets
 
 export const SubpagesLogic = () => {
-	const { unit_type, openSubpageID, allSubpages } = useContext(UnitPageContext);
+	const { unit_type, openSubpageID, allSubpages, unit } = useContext(UnitPageContext);
 
 	const subpageContainerRef = useRef();
 
@@ -82,5 +82,5 @@ export const SubpagesLogic = () => {
 		setSubpage(getSubpage());
 	}, [unit_type, openSubpageID, allSubpages]);
 
-	return { subpageContainerRef, subpage };
+	return { subpageContainerRef, subpage, unit };
 };
