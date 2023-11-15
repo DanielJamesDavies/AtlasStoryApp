@@ -101,7 +101,7 @@ export const AIAssistantMenuLogic = () => {
 
 			if (!story?.uid) return setIsRunningAssistant(false);
 
-			if (!microphone.current) microphone.current = navigator.mediaDevices.getUserMedia({ audio: true });
+			if (!microphone.current && newInputIsMicrophone) microphone.current = navigator.mediaDevices.getUserMedia({ audio: true });
 
 			setAssistantTextInput("");
 
@@ -183,6 +183,8 @@ export const AIAssistantMenuLogic = () => {
 					unit_id: dictateTextCommand?.arguments[0],
 					path: dictateTextCommand?.arguments[1],
 					newValue: dictateTextCommand?.arguments[2],
+					isList: dictateTextCommand?.isList,
+					addValue: dictateTextCommand?.addValue
 				});
 			}
 

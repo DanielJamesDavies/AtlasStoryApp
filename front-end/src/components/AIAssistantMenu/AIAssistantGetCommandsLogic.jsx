@@ -30,6 +30,20 @@ export const AIAssistantGetCommandsLogic = () => {
 				isOnOverview: true,
 				splitIntoArray: true,
 			},
+			{
+				name: "Physical Attributes",
+				keywords: ["physical attribute"],
+				path: ["data", "versions", "VERSION_ID", "physical", "attributes"],
+				subpage: "physical",
+				isList: true
+			},
+			{
+				name: "Outfits",
+				keywords: ["outfit", "clothes"],
+				path: ["data", "versions", "VERSION_ID", "physical", "outfits"],
+				subpage: "physical",
+				isList: true
+			}
 		],
 		[]
 	);
@@ -94,6 +108,20 @@ export const AIAssistantGetCommandsLogic = () => {
 			return true;
 		});
 
+		// Add Value
+		[
+			"generate",
+			"write",
+			"add",
+			"append",
+			"make",
+		].map((e) => {
+			if (input_text.toLowerCase().includes(e)) {
+				possible_commands.addValue = true;
+			}
+			return true;
+		});
+
 		return possible_commands;
 	}, []);
 
@@ -134,26 +162,88 @@ export const AIAssistantGetCommandsLogic = () => {
 					]);
 
 					if (dictate_or_generate_text_res?.content?.toLowerCase() === "dictate") {
-						const dictated_text_res = await GPT_Request([
-							{
-								role: "system",
-								content:
-									"Please always answer with the dictated text the user requested for a value to be changed to. Never describe the question. Never say what you are doing. Just write the answer of the dictation.",
-							},
-							{ role: "user", content: "USER MESSAGE: " + input_text },
-						]);
-						if (dictated_text_res?.content) {
-							probable_commands.push({
-								command: "dictateText",
-								text: unit_value_object?.splitIntoArray ? dictated_text_res?.content?.split("\n") : dictated_text_res?.content,
-								path: unit_value_object?.path,
-							});
+						if (!unit_value_object?.isList) {
+							const dictated_text_res = await GPT_Request([
+								{
+									role: "system",
+									content:
+										"Please always answer with the dictated text the user requested for a value to be changed to. Never describe the question. Never say what you are doing. Just write the answer of the dictation.",
+								},
+								{ role: "user", content: "USER MESSAGE: " + input_text },
+							]);
+							if (dictated_text_res?.content) {
+								probable_commands.push({ command: "goToPage" });
+	
+								if (unit_value_object?.subpage) {
+									probable_commands.push({
+										command: "goToUnitSubpage",
+										subpage: unit_value_object.subpage,
+									});
+								}
+	
+								probable_commands.push({
+									command: "dictateText",
+									text: unit_value_object?.splitIntoArray ? dictated_text_res?.content?.split("\n") : dictated_text_res?.content,
+									path: unit_value_object?.path,
+									isList: unit_value_object?.isList,
+									addValue: possible_commands.addValue
+								});
+							}
+						} else {
+							const dictated_label_res = await GPT_Request([
+								{
+									role: "system",
+									content:
+										"Please always answer with the label of an item the user mentioned. Do not respond with the value or content of an item but respond with what the item is called. Never describe the question. Never say what you are doing. Just write the answer from the user message.",
+								},
+								{ role: "user", content: "USER MESSAGE: " + input_text },
+							]);
+							const dictated_content_res = await GPT_Request([
+								{
+									role: "system",
+									content:
+										"Please always answer with the content/value of an item the user mentioned that corresponds to the label. Never describe the question. Never say what you are doing. Just write the answer from the user message.",
+								},
+								{ role: "user", content: "USER MESSAGE: " + input_text },
+								{ role: "user", content: "LABEL: " + dictated_label_res?.content }
+							]);
+							console.log("Label: ", dictated_label_res?.content, "Text: ", dictated_content_res?.content);
+							if (dictated_label_res?.content && dictated_content_res?.content) {
+								probable_commands.push({ command: "goToPage" });
+	
+								if (unit_value_object?.subpage) {
+									probable_commands.push({
+										command: "goToUnitSubpage",
+										subpage: unit_value_object.subpage,
+									});
+								}
+	
+								probable_commands.push({
+									command: "dictateText",
+									label: dictated_label_res?.content,
+									text: dictated_content_res?.content?.split("\n"),
+									path: unit_value_object?.path,
+									isList: unit_value_object?.isList,
+									addValue: possible_commands.addValue
+								});
+							}
 						}
 					} else if (dictate_or_generate_text_res?.content?.toLowerCase() === "generate") {
+						probable_commands.push({ command: "goToPage" });
+						
+						if (unit_value_object?.subpage) {
+							probable_commands.push({
+								command: "goToUnitSubpage",
+								subpage: unit_value_object.subpage,
+							});
+						}
+
 						probable_commands.push({
 							command: "generateText",
 							path: unit_value_object?.path,
 							splitIntoArray: unit_value_object?.splitIntoArray,
+							isList: unit_value_object?.isList,
+							addValue: possible_commands.addValue
 						});
 					}
 				}
@@ -255,6 +345,8 @@ export const AIAssistantGetCommandsLogic = () => {
 					authorization_required: true,
 					arguments: [unit?._id, generateTextCommand?.path],
 					splitValueIntoArray: generateTextCommand?.splitIntoArray,
+					isList: generateTextCommand?.isList,
+					addValue: generateTextCommand?.addValue
 				});
 			}
 
@@ -271,6 +363,8 @@ export const AIAssistantGetCommandsLogic = () => {
 					function: "dictateText",
 					authorization_required: true,
 					arguments: [unit?._id, dictateTextCommand?.path, dictateTextCommand?.text],
+					isList: dictateTextCommand?.isList,
+					addValue: dictateTextCommand?.addValue
 				});
 			}
 
