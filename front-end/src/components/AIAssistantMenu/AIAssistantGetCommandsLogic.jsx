@@ -125,6 +125,43 @@ export const AIAssistantGetCommandsLogic = () => {
 		return possible_commands;
 	}, []);
 
+	const getUnitListItems = useCallback((unit_id) => {
+		const unit = false; // Get Unit
+		const unitVersion = false; // Get Unit Version
+
+		const physical_attributes = unitVersion?.physical?.attributes?.map((item) => {
+			return { label: item?.title, text: item?.text };
+		});
+
+		const physical_outfits = unitVersion?.physical?.attributes?.map((item) => {
+			return { label: item?.title, text: item?.text };
+		});
+
+		const psychological_items = unitVersion?.psychology?.items?.map((item) => {
+			return { label: item?.title, text: item?.text };
+		});
+
+		const biography_items = unitVersion?.biography?.items?.map((item) => {
+			return { _id: item?._id, label: item?.title, text: item?.text };
+		});
+
+		const abilities = unitVersion?.abilities?.map((item) => {
+			return { _id: item?._id, label: item?.name };
+		});
+
+		const misc_items = unit?.data?.miscellaneous?.items?.map((item) => {
+			return { label: item?.title };
+		});
+		
+		const dev_items = unit?.data?.development?.items?.map((item) => {
+			return { label: item?.title };
+		});
+
+		const all_items = physical_attributes.concat(physical_outfits).concat(psychological_items).concat(biography_items).concat(abilities).concat(misc_items).concat(dev_items);
+
+		return { all_items };
+	}, []);
+
 	const getProbableCommands = useCallback(
 		async (input_text, possible_commands, unit) => {
 			let probable_commands = [];
@@ -150,6 +187,8 @@ export const AIAssistantGetCommandsLogic = () => {
 					return e?.keywords.map((e2) => input_text.toLowerCase().includes(e2)).filter((e) => e !== false).length !== 0;
 				})?.[0];
 				console.log(unit_value_object);
+
+				const { all_items } = getUnitListItems(unit?._id);
 
 				if (unit_value_object) {
 					const dictate_or_generate_text_res = await GPT_Request([
@@ -263,7 +302,7 @@ export const AIAssistantGetCommandsLogic = () => {
 
 			return probable_commands;
 		},
-		[GPT_Request, unit_value_objects]
+		[GPT_Request, unit_value_objects, getUnitListItems]
 	);
 
 	const getCommands = useCallback(
