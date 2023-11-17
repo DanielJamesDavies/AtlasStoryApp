@@ -215,7 +215,7 @@ export const AIAssistantMenuLogic = () => {
 						{
 							role: "user",
 							content:
-								"Never write the given text with the revised version unless asked to, just write the revised version. Please make sure to use \n line breaks in your response to split paragraphs if there are multiple paragraphs! Thank you",
+								"Never write the given text with the revised version unless asked to, just write the revised version. Please make sure to use \n line breaks in your response to split paragraphs if there are multiple paragraphs! Please never apologise, you're doing a great job. Thank you",
 						},
 					])
 				)?.content;
@@ -226,6 +226,7 @@ export const AIAssistantMenuLogic = () => {
 					unit_id: generateTextCommand?.arguments[0],
 					path: generateTextCommand?.arguments[1],
 					newValue: generateTextCommand?.splitValueIntoArray ? generated_text_res?.split("\n") : generated_text_res,
+					isList: generateTextCommand?.isList,
 				});
 			}
 

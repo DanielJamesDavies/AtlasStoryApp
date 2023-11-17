@@ -129,8 +129,18 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				?.filter((e) => e !== false);
 
 			if (unitValueToChange?.isList) {
-				newUnit = changeValueInNestedObject(newUnit, newPath.concat("title"), unitValueToChange?.label);
-				newUnit = changeValueInNestedObject(newUnit, newPath.concat("text"), unitValueToChange?.text);
+				if (unitValueToChange?.label) {
+					newUnit = changeValueInNestedObject(newUnit, newPath.concat("title"), unitValueToChange?.label);
+				}
+				if (unitValueToChange?.text) {
+					newUnit = changeValueInNestedObject(newUnit, newPath.concat("text"), unitValueToChange?.text);
+				} else if (unitValueToChange?.newValue) {
+					if (JSON.stringify(typeof unitValueToChange?.newValue) !== JSON.stringify("array")) {
+						newUnit = changeValueInNestedObject(newUnit, newPath.concat("text"), unitValueToChange?.newValue?.split("\n"));
+					} else {
+						newUnit = changeValueInNestedObject(newUnit, newPath.concat("text"), unitValueToChange?.newValue);
+					}
+				}
 			} else {
 				newUnit = changeValueInNestedObject(newUnit, newPath, unitValueToChange?.newValue);
 			}

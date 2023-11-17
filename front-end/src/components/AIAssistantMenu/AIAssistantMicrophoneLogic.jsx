@@ -46,7 +46,7 @@ export const AIAssistantMicrophoneLogic = ({ microphone }) => {
 					}
 
 					if (isSpeaking && !inverted) resolve(true);
-					if (!isSpeaking && inverted && durationNotSpoken > 25) resolve(false);
+					if (!isSpeaking && inverted && durationNotSpoken > 35) resolve(false);
 				};
 			});
 		});
