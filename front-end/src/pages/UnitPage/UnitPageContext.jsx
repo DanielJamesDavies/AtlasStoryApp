@@ -22,6 +22,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		storyGroups,
 		unitValueToChange,
 		getUnitValue,
+		getUnitAndCurrUnitVersion,
 	} = useContext(StoryContext);
 	const { locationParams, changeLocationParameters, routesUnitSubpageID, routesIsOnOverviewSection } = useContext(RoutesContext);
 
@@ -114,18 +115,25 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			let newPath = JSON.parse(JSON.stringify(unitValueToChange?.path));
 
 			newPath = newPath
-				?.map((path_item) => {
+				?.map((path_item, index) => {
 					if (!unitVersion && ["versions", "VERSION_ID"].includes(path_item)) {
 						return false;
 					}
 					if (path_item === "VERSION_ID") {
 						return newUnit?.data?.versions?.findIndex((e) => e?._id === unitVersion?._id);
+					} else if (index !== 0 && newPath[index - 1] === "versions") {
+						return newUnit?.data?.versions?.findIndex((e) => e?._id === path_item);
 					}
 					return path_item;
 				})
 				?.filter((e) => e !== false);
 
-			newUnit = changeValueInNestedObject(newUnit, newPath, unitValueToChange?.newValue);
+			if (unitValueToChange?.isList) {
+				newUnit = changeValueInNestedObject(newUnit, newPath.concat("title"), unitValueToChange?.label);
+				newUnit = changeValueInNestedObject(newUnit, newPath.concat("text"), unitValueToChange?.text);
+			} else {
+				newUnit = changeValueInNestedObject(newUnit, newPath, unitValueToChange?.newValue);
+			}
 
 			const newPathVersionsIndex = newPath?.findIndex((e) => e === "versions");
 			if (newPathVersionsIndex !== -1 && newPathVersionsIndex + 1 < newPath?.length - 1) {
@@ -136,8 +144,6 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 					return newVersion;
 				});
 			}
-
-			console.log("newUnit", newUnit);
 
 			return newUnit;
 		});
@@ -159,12 +165,14 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 
 			let newPath = JSON.parse(JSON.stringify(path));
 			newPath = newPath
-				?.map((path_item) => {
+				?.map((path_item, index) => {
 					if (!unitVersion && ["versions", "VERSION_ID"].includes(path_item)) {
 						return false;
 					}
 					if (path_item === "VERSION_ID") {
 						return newUnit?.data?.versions?.findIndex((e) => e?._id === unitVersion?._id);
+					} else if (index !== 0 && newPath[index - 1] === "versions") {
+						return newUnit?.data?.versions?.findIndex((e) => e?._id === path_item);
 					}
 					return path_item;
 				})
@@ -173,6 +181,14 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			return getValueInNestedObject(unit, newPath);
 		};
 	}, [getUnitValue, unit, unitVersion]);
+
+	useEffect(() => {
+		getUnitAndCurrUnitVersion.current = () => {
+			let newUnit = JSON.parse(JSON.stringify(unit));
+			let newUnitVersion = JSON.parse(JSON.stringify(unitVersion));
+			return { unit: newUnit, unitVersion: newUnitVersion };
+		};
+	}, [getUnitAndCurrUnitVersion, unit, unitVersion]);
 
 	const {
 		getUnit,
@@ -340,11 +356,21 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
 				changeLocationParameters(newLocationParameters);
 			}
-			if (unit?.data?.name && story?.data?.title)
-				setTimeout(
-					() => (document.title = unit?.data?.name + " | " + story?.data?.title + " | " + unit_type_title + " | Atlas Story App"),
-					100
-				);
+			if (["plot"].includes(unit_type)) {
+				if (unit?.data?.title && story?.data?.title) {
+					setTimeout(
+						() => (document.title = unit?.data?.title + " | " + story?.data?.title + " | " + unit_type_title + " | Atlas Story App"),
+						100
+					);
+				}
+			} else {
+				if (unit?.data?.name && story?.data?.title) {
+					setTimeout(
+						() => (document.title = unit?.data?.name + " | " + story?.data?.title + " | " + unit_type_title + " | Atlas Story App"),
+						100
+					);
+				}
+			}
 		}
 	}, [
 		changeLocationParameters,

@@ -183,8 +183,10 @@ export const AIAssistantMenuLogic = () => {
 					unit_id: dictateTextCommand?.arguments[0],
 					path: dictateTextCommand?.arguments[1],
 					newValue: dictateTextCommand?.arguments[2],
+					label: dictateTextCommand?.label,
+					text: dictateTextCommand?.text,
 					isList: dictateTextCommand?.isList,
-					addValue: dictateTextCommand?.addValue
+					addValue: dictateTextCommand?.addValue,
 				});
 			}
 
@@ -198,9 +200,14 @@ export const AIAssistantMenuLogic = () => {
 						{
 							role: "system",
 							content:
-								"Never describe the question, just answer. Please fulfil the commands of the user message using the content of the text provided. Please ensure all your responses are well written and concise.",
+								"Never describe the question, just answer. Please fulfil the commands of the user message using the content of the text provided. Please ensure all your responses are well written and concise. Never write text such as, 'Here's the revised text:'.",
 						},
 						{ role: "user", content: "TEXT: " + old_value },
+						{
+							role: "user",
+							content:
+								"Please use the same formatting as the TEXT. For example, if there are bullet points in the TEXT, please use bullet points in the revised version.",
+						},
 						{
 							role: "user",
 							content: "USER MESSAGE: " + input_text + ".",
@@ -212,8 +219,6 @@ export const AIAssistantMenuLogic = () => {
 						},
 					])
 				)?.content;
-
-				console.log("generated_text_res", generated_text_res);
 
 				if (!isRunningAssistantRef.current) return false;
 

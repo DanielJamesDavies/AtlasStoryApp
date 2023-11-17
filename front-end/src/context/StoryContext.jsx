@@ -40,6 +40,9 @@ const StoryProvider = ({ children }) => {
 	const getUnitValue = useRef(() => {
 		return false;
 	});
+	const getUnitAndCurrUnitVersion = useRef(() => {
+		return { unit: false, unitVersion: false };
+	});
 
 	const hasGotInitialForStoryID = useRef(false);
 	useEffect(() => {
@@ -522,6 +525,7 @@ const StoryProvider = ({ children }) => {
 				unitValueToChange,
 				setUnitValueToChange,
 				getUnitValue,
+				getUnitAndCurrUnitVersion,
 			}}
 		>
 			{children}
