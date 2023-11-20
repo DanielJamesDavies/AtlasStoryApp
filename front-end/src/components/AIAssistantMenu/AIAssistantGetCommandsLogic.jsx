@@ -69,7 +69,7 @@ export const AIAssistantGetCommandsLogic = () => {
 	);
 
 	const getPossibleCommands = useCallback(
-		(input_text) => {
+		(input_text, message_keys) => {
 			let possible_commands = { goToPage: false, goToUnitSubpage: [], editValue: false };
 
 			// Go to Page
@@ -114,6 +114,9 @@ export const AIAssistantGetCommandsLogic = () => {
 				}
 				return true;
 			});
+			if (message_keys?.includes("edit_text")) {
+				possible_commands.editValue = true;
+			}
 
 			// Add Value
 			["generate", "write", "add", "append", "make"].map((e) => {
@@ -289,7 +292,7 @@ export const AIAssistantGetCommandsLogic = () => {
 	);
 
 	const getProbableCommands = useCallback(
-		async (input_text, possible_commands, unit) => {
+		async (input_text, possible_commands, unit, message_keys) => {
 			let probable_commands = [];
 
 			// Go To Subpage
@@ -430,7 +433,7 @@ export const AIAssistantGetCommandsLogic = () => {
 			}
 
 			// Go To Page
-			if (probable_commands.length === 0 && possible_commands.goToPage) {
+			if (probable_commands.length === 0 && (possible_commands.goToPage || message_keys.includes("navigate"))) {
 				const go_to_page_res = await GPT_Request([
 					{ role: "system", content: "Please always answer just 'Yes' or 'No'. Never respond to the user message." },
 					{ role: "user", content: "Does the user want to go to " + unit?.name },
@@ -456,111 +459,204 @@ export const AIAssistantGetCommandsLogic = () => {
 
 		const first_input_words = input_text.split(" ").slice(0, 5).join(" ").toLowerCase();
 		if (["go to", "navigate to", "open"].map((e) => first_input_words.includes(e)).filter((e) => e !== false).length !== 0) {
-			unit = units?.filter((e) => input_text.toLowerCase().includes(e?.name?.toLowerCase()))?.[0];
+			const new_unit = units?.filter((e) => input_text.toLowerCase().includes(e?.name?.toLowerCase()))?.[0];
+			if (new_unit) unit = new_unit;
 		}
 
 		return unit;
 	}, []);
 
+	const getMessageKeys = useCallback(
+		async (input_text) => {
+			let keys = (
+				await GPT_Request([
+					{
+						role: "system",
+						content:
+							"I will provide you a user request message. Please respond with the following keys that best corresponds to the message: none, edit_text, navigate, create_character, create_character_type, create_group, create_plot, create_location, create_event, create_object, create_world_item. Start with Keys: and then seperate them by commas.",
+					},
+					{
+						role: "user",
+						content: "USER REQUEST MESSAGE: " + input_text,
+					},
+				])
+			)?.content;
+			if (!keys) return [];
+
+			keys = keys.substring(6).split(", ");
+			if (keys.includes("edit_text") || keys.includes("navigate")) {
+				keys = keys.filter((e) => ["edit_text", "navigate"].includes(e));
+			}
+
+			return keys;
+		},
+		[GPT_Request]
+	);
+
 	const getCommands = useCallback(
 		async (input_text, units) => {
-			const possible_commands = getPossibleCommands(input_text);
-
-			let unit = getUnit(input_text, units);
-
-			const probable_commands = await getProbableCommands(input_text, possible_commands, unit);
-
 			let commands = [];
 
-			// Go to Page
-			const goToPageCommand = probable_commands.find((e) => e?.command === "goToPage");
-			if (unit && goToPageCommand) {
-				if (unit?.page_letter) {
-					if (
-						JSON.stringify(window?.location?.pathname) !==
-						JSON.stringify("/s/" + story?.uid + "/" + unit?.page_letter + "/" + unit?.uid)
-					) {
-						commands.push({
-							desc: "I'm going to " + unit?.name + " now",
-							function: "changeLocation",
-							arguments: ["/s/" + story?.uid + "/" + unit?.page_letter + "/" + unit?.uid],
-						});
-					}
-				} else if (unit?.page) {
-					if (JSON.stringify(window?.location?.pathname) !== JSON.stringify("/s/" + story?.uid + "/" + unit?.page)) {
-						commands.push({
-							desc: "I'm going to " + unit?.name + " now",
-							function: "changeLocation",
-							arguments: ["/s/" + story?.uid + "/" + unit?.page],
-						});
+			const message_keys = await getMessageKeys(input_text);
+
+			const create_unit_message_keys = [
+				"create_character",
+				"create_group",
+				"create_plot",
+				"create_location",
+				"create_object",
+				"create_world_item",
+			].filter((e) => message_keys.includes(e));
+
+			if (create_unit_message_keys.length === 0) {
+				const possible_commands = getPossibleCommands(input_text, message_keys);
+
+				let unit = getUnit(input_text, units);
+
+				let probable_commands = await getProbableCommands(input_text, possible_commands, unit, message_keys);
+
+				// Go to Page
+				const goToPageCommand = probable_commands.find((e) => e?.command === "goToPage");
+				if (unit && goToPageCommand) {
+					if (unit?.page_letter) {
+						if (
+							JSON.stringify(window?.location?.pathname) !==
+							JSON.stringify("/s/" + story?.uid + "/" + unit?.page_letter + "/" + unit?.uid)
+						) {
+							commands.push({
+								desc: "I'm going to " + unit?.name + " now",
+								function: "changeLocation",
+								arguments: ["/s/" + story?.uid + "/" + unit?.page_letter + "/" + unit?.uid],
+							});
+						}
+					} else if (unit?.page) {
+						if (JSON.stringify(window?.location?.pathname) !== JSON.stringify("/s/" + story?.uid + "/" + unit?.page)) {
+							commands.push({
+								desc: "I'm going to " + unit?.name + " now",
+								function: "changeLocation",
+								arguments: ["/s/" + story?.uid + "/" + unit?.page],
+							});
+						}
 					}
 				}
-			}
 
-			// Go to Subpage
-			const goToUnitSubpageCommand = probable_commands.find((e) => e?.command === "goToUnitSubpage");
-			if (unit && goToUnitSubpageCommand) {
+				// Go to Subpage
+				const goToUnitSubpageCommand = probable_commands.find((e) => e?.command === "goToUnitSubpage");
+				if (unit && goToUnitSubpageCommand) {
+					commands.push({
+						desc:
+							Math.floor(Math.random() * 3) >= 1
+								? ""
+								: "I'm going to " + unit?.name + "'s " + goToUnitSubpageCommand?.subpage.name + " now",
+						function: "changeUnitSubpage",
+						arguments: [goToUnitSubpageCommand?.subpage.id],
+					});
+				}
+
+				// Go to Overview Section
+				const goToUnitOverviewCommand = probable_commands.find((e) => e?.command === "goToUnitOverview");
+				if (unit && goToUnitOverviewCommand) {
+					commands.push({
+						desc: "",
+						function: "goToUnitOverview",
+					});
+				}
+
+				// Generate Text
+				const generateTextCommand = probable_commands.find((e) => e?.command === "generateText");
+				if (unit && generateTextCommand) {
+					commands.push({
+						desc: "",
+						function: "setEditableContainerToEditing",
+						authorization_required: true,
+					});
+					commands.push({
+						desc: Math.floor(Math.random() * 2) >= 1 ? "" : "I'll begin doing that for you now",
+						function: "generateText",
+						authorization_required: true,
+						arguments: [unit?._id, generateTextCommand?.path],
+						splitValueIntoArray: generateTextCommand?.splitIntoArray,
+						isList: generateTextCommand?.isList,
+						addValue: generateTextCommand?.addValue,
+					});
+				}
+
+				// Dictate Text
+				const dictateTextCommand = probable_commands.find((e) => e?.command === "dictateText");
+				if (unit && dictateTextCommand) {
+					commands.push({
+						desc: "",
+						function: "setEditableContainerToEditing",
+						authorization_required: true,
+					});
+					commands.push({
+						desc: "",
+						function: "dictateText",
+						authorization_required: true,
+						arguments: [unit?._id, dictateTextCommand?.path, dictateTextCommand?.text],
+						label: dictateTextCommand?.label,
+						text: dictateTextCommand?.text,
+						isList: dictateTextCommand?.isList,
+						addValue: dictateTextCommand?.addValue,
+					});
+				}
+			} else {
+				console.log("create_unit_message_keys", create_unit_message_keys);
+
+				let unit_type_path = "";
+				let unit_type_name = "";
+				switch (create_unit_message_keys[0]) {
+					case "create_character":
+						unit_type_path = "characters";
+						unit_type_name = "character";
+						break;
+					case "create_character_type":
+						unit_type_path = "characters";
+						unit_type_name = "character type";
+						break;
+					case "create_group":
+						unit_type_path = "characters";
+						unit_type_name = "group";
+						break;
+					case "create_plot":
+						unit_type_path = "plots";
+						unit_type_name = "plot";
+						break;
+					case "create_location":
+						unit_type_path = "locations";
+						unit_type_name = "location";
+						break;
+					case "create_event":
+						unit_type_path = "events";
+						unit_type_name = "event";
+						break;
+					case "create_object":
+						unit_type_path = "objects";
+						unit_type_name = "object";
+						break;
+					case "create_world_item":
+						unit_type_path = "world-building";
+						unit_type_name = "world item";
+						break;
+					default:
+						break;
+				}
 				commands.push({
-					desc:
-						Math.floor(Math.random() * 3) >= 1
-							? ""
-							: "I'm going to " + unit?.name + "'s " + goToUnitSubpageCommand?.subpage.name + " now",
-					function: "changeUnitSubpage",
-					arguments: [goToUnitSubpageCommand?.subpage.id],
+					desc: "I'll begin creating a new " + unit_type_name + " now",
+					function: "changeLocation",
+					arguments: ["/s/" + story?.uid + "/" + unit_type_path],
 				});
-			}
-
-			// Go to Overview Section
-			const goToUnitOverviewCommand = probable_commands.find((e) => e?.command === "goToUnitOverview");
-			if (unit && goToUnitOverviewCommand) {
 				commands.push({
 					desc: "",
-					function: "goToUnitOverview",
-				});
-			}
-
-			// Generate Text
-			const generateTextCommand = probable_commands.find((e) => e?.command === "generateText");
-			if (unit && generateTextCommand) {
-				commands.push({
-					desc: "",
-					function: "setEditableContainerToEditing",
+					function: "createUnit",
 					authorization_required: true,
-				});
-				commands.push({
-					desc: Math.floor(Math.random() * 2) >= 1 ? "" : "I'll begin doing that for you now",
-					function: "generateText",
-					authorization_required: true,
-					arguments: [unit?._id, generateTextCommand?.path],
-					splitValueIntoArray: generateTextCommand?.splitIntoArray,
-					isList: generateTextCommand?.isList,
-					addValue: generateTextCommand?.addValue,
-				});
-			}
-
-			// Dictate Text
-			const dictateTextCommand = probable_commands.find((e) => e?.command === "dictateText");
-			if (unit && dictateTextCommand) {
-				commands.push({
-					desc: "",
-					function: "setEditableContainerToEditing",
-					authorization_required: true,
-				});
-				commands.push({
-					desc: "",
-					function: "dictateText",
-					authorization_required: true,
-					arguments: [unit?._id, dictateTextCommand?.path, dictateTextCommand?.text],
-					label: dictateTextCommand?.label,
-					text: dictateTextCommand?.text,
-					isList: dictateTextCommand?.isList,
-					addValue: dictateTextCommand?.addValue,
+					arguments: [unit_type_path],
 				});
 			}
 
 			return commands;
 		},
-		[story, getPossibleCommands, getProbableCommands, getUnit]
+		[story, getPossibleCommands, getProbableCommands, getUnit, getMessageKeys]
 	);
 
 	return { getCommands };

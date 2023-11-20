@@ -6,11 +6,11 @@ import { useState, useContext, useRef, useCallback, useEffect } from "react";
 // Logic
 import { AIAssistantMicrophoneLogic } from "./AIAssistantMicrophoneLogic";
 import { AIAssistantGetCommandsLogic } from "./AIAssistantGetCommandsLogic";
+import { AIAssistantExecuteCommandsLogic } from "./AIAssistantExecuteCommandsLogic";
 
 // Context
 import { AIContext } from "../../context/AIContext";
 import { StoryContext } from "../../context/StoryContext";
-import { RoutesContext } from "../../context/RoutesContext";
 
 // Services
 
@@ -19,19 +19,9 @@ import { RoutesContext } from "../../context/RoutesContext";
 // Assets
 
 export const AIAssistantMenuLogic = () => {
-	const { GPT_API_Key, GPT_Request, AI_Whisper_Request, AI_TTS_Request } = useContext(AIContext);
-	const {
-		story,
-		isAuthorizedToEdit,
-		storyCharacters,
-		hasGotStoryCharacters,
-		storyGroups,
-		storyCharacterTypes,
-		storySubstories,
-		setUnitValueToChange,
-		getUnitValue,
-	} = useContext(StoryContext);
-	const { changeLocation, setRoutesUnitSubpageID, setRoutesIsOnOverviewSection } = useContext(RoutesContext);
+	const { GPT_API_Key, AI_Whisper_Request, AI_TTS_Request } = useContext(AIContext);
+	const { story, isAuthorizedToEdit, storyCharacters, hasGotStoryCharacters, storyGroups, storyCharacterTypes, storySubstories } =
+		useContext(StoryContext);
 
 	const [isRunningAssistant, setIsRunningAssistant] = useState(false);
 	const isRunningAssistantRef = useRef(false);
@@ -48,6 +38,7 @@ export const AIAssistantMenuLogic = () => {
 
 	const { getAudioFile } = AIAssistantMicrophoneLogic({ microphone });
 	const { getCommands } = AIAssistantGetCommandsLogic();
+	const { executeCommands } = AIAssistantExecuteCommandsLogic({ isRunningAssistantRef });
 
 	useEffect(() => {
 		isRunningAssistantRef.current = JSON.parse(JSON.stringify(isRunningAssistant));
@@ -107,48 +98,6 @@ export const AIAssistantMenuLogic = () => {
 			);
 		},
 		[setMessages]
-	);
-
-	const generateText = useCallback(
-		async (generateTextCommand, input_text) => {
-			let old_value = getUnitValue.current(generateTextCommand?.arguments[0], generateTextCommand?.arguments[1]);
-			if (JSON.stringify(typeof old_value) === JSON.stringify("array")) old_value = old_value.join("\n");
-
-			const generated_text_res = (
-				await GPT_Request([
-					{
-						role: "system",
-						content:
-							"Never describe the question, just answer. Please fulfil the commands of the user message using the content of the text provided. Please ensure all your responses are well written and concise. Never write text such as, 'Here's the revised text:'.",
-					},
-					{ role: "user", content: "TEXT: " + old_value },
-					{
-						role: "user",
-						content:
-							"Please use the same formatting as the TEXT. For example, if there are bullet points in the TEXT, please use bullet points in the revised version.",
-					},
-					{
-						role: "user",
-						content: "USER MESSAGE: " + input_text + ".",
-					},
-					{
-						role: "user",
-						content:
-							"Never write the given text with the revised version unless asked to, just write the revised version. Please make sure to use \n line breaks in your response to split paragraphs if there are multiple paragraphs! Please never apologise, you're doing a great job. Thank you",
-					},
-				])
-			)?.content;
-
-			if (!isRunningAssistantRef.current) return false;
-
-			setUnitValueToChange({
-				unit_id: generateTextCommand?.arguments[0],
-				path: generateTextCommand?.arguments[1],
-				newValue: generateTextCommand?.splitValueIntoArray ? generated_text_res?.split("\n") : generated_text_res,
-				isList: generateTextCommand?.isList,
-			});
-		},
-		[GPT_Request, setUnitValueToChange, getUnitValue]
 	);
 
 	const runSequence = useCallback(
@@ -220,40 +169,7 @@ export const AIAssistantMenuLogic = () => {
 			addMessage(response_text, "assistant");
 
 			// Execute Commands
-			const changeLocationCommand = commands.find((e) => e?.function === "changeLocation");
-			if (changeLocationCommand) {
-				await changeLocation(...changeLocationCommand?.arguments);
-			}
-			await new Promise((resolve) => setTimeout(resolve, 1000));
-
-			const changeUnitSubpageCommand = commands.find((e) => e?.function === "changeUnitSubpage");
-			if (changeUnitSubpageCommand) {
-				setRoutesUnitSubpageID(...changeUnitSubpageCommand?.arguments);
-				setRoutesIsOnOverviewSection(false);
-			}
-
-			const goToUnitOverviewCommand = commands.find((e) => e?.function === "goToUnitOverview");
-			if (goToUnitOverviewCommand) {
-				setRoutesIsOnOverviewSection(true);
-			}
-
-			const dictateTextCommand = commands.find((e) => e?.function === "dictateText");
-			if (dictateTextCommand) {
-				setUnitValueToChange({
-					unit_id: dictateTextCommand?.arguments[0],
-					path: dictateTextCommand?.arguments[1],
-					newValue: dictateTextCommand?.arguments[2],
-					label: dictateTextCommand?.label,
-					text: dictateTextCommand?.text,
-					isList: dictateTextCommand?.isList,
-					addValue: dictateTextCommand?.addValue,
-				});
-			}
-
-			const generateTextCommand = commands.find((e) => e?.function === "generateText");
-			if (generateTextCommand) {
-				await generateText(generateTextCommand, input_text);
-			}
+			await executeCommands(commands, input_text);
 
 			setIsAssistantExecuting(false);
 
@@ -267,20 +183,16 @@ export const AIAssistantMenuLogic = () => {
 			AI_Whisper_Request,
 			AI_TTS_Request,
 			story,
-			changeLocation,
-			setRoutesUnitSubpageID,
-			setRoutesIsOnOverviewSection,
 			getAllUnits,
 			getAudioFile,
 			getCommands,
 			getResponseText,
 			setIsAssistantExecuting,
 			isAuthorizedToEdit,
-			setUnitValueToChange,
 			inputIsMicrophone,
 			setAssistantTextInput,
 			addMessage,
-			generateText,
+			executeCommands,
 		]
 	);
 
