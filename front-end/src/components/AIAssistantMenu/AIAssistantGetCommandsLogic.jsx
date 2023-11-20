@@ -446,17 +446,27 @@ export const AIAssistantGetCommandsLogic = () => {
 		[GPT_Request, subpages_list, unit_value_objects, getUnitListItems, getDictateOrGenerate, getDictatedValue]
 	);
 
+	const getUnit = useCallback((input_text, units) => {
+		let unit = undefined;
+
+		let locationSplit = window?.location?.pathname.split("/").filter((e) => e.length !== 0);
+		if (locationSplit.length >= 4 && locationSplit[0] === "s" && ["c", "g", "p", "l", "e", "w", "o"].includes(locationSplit[2])) {
+			unit = units.find((e) => e?.uid === locationSplit[3]);
+		}
+
+		const first_input_words = input_text.split(" ").slice(0, 5).join(" ").toLowerCase();
+		if (["go to", "navigate to", "open"].map((e) => first_input_words.includes(e)).filter((e) => e !== false).length !== 0) {
+			unit = units?.filter((e) => input_text.toLowerCase().includes(e?.name?.toLowerCase()))?.[0];
+		}
+
+		return unit;
+	}, []);
+
 	const getCommands = useCallback(
 		async (input_text, units) => {
 			const possible_commands = getPossibleCommands(input_text);
 
-			let unit = units?.filter((e) => input_text.toLowerCase().includes(e?.name?.toLowerCase()))?.[0];
-			if (unit === undefined) {
-				let locationSplit = window?.location?.pathname.split("/").filter((e) => e.length !== 0);
-				if (locationSplit.length >= 4 && locationSplit[0] === "s" && ["c", "g", "p", "l", "e", "w", "o"].includes(locationSplit[2])) {
-					unit = units.find((e) => e?.uid === locationSplit[3]);
-				}
-			}
+			let unit = getUnit(input_text, units);
 
 			const probable_commands = await getProbableCommands(input_text, possible_commands, unit);
 
@@ -550,7 +560,7 @@ export const AIAssistantGetCommandsLogic = () => {
 
 			return commands;
 		},
-		[story, getPossibleCommands, getProbableCommands]
+		[story, getPossibleCommands, getProbableCommands, getUnit]
 	);
 
 	return { getCommands };

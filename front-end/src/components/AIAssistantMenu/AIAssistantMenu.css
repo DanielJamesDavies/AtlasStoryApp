@@ -16,6 +16,10 @@
 	}
 }
 
+.ai-assistant-text-container {
+	width: min(100%, 400px);
+}
+
 .ai-assistant-text-input {
 	padding: 0 20px;
 	border: 4px solid var(--colour-grey-four);
@@ -43,29 +47,38 @@
 
 @keyframes ai-assistant-text-input-show {
 	0% {
+		margin-left: 100%;
 		width: 0;
 		opacity: 0;
 	}
 	25% {
+		margin-left: 100%;
 		width: 0;
 	}
 	100% {
+		margin-left: 0;
 		width: 100%;
 		opacity: 1;
 	}
 }
 
-.ai-assistant-menu-container-is-executing .ai-assistant-text-input,
 .ai-assistant-menu-container-input-is-microphone.ai-assistant-menu-container-is-running .ai-assistant-text-input {
 	pointer-events: none;
 	user-select: none;
 	animation: ai-assistant-text-input-hide 0.5s 1;
-	animation-delay: 0;
+	animation-delay: 4s;
 	animation-fill-mode: forwards;
+}
+
+.ai-assistant-menu-container-is-executing:not(.ai-assistant-menu-container-input-is-microphone) .ai-assistant-text-input {
+	pointer-events: none;
+	user-select: none;
+	opacity: 0.5;
 }
 
 @keyframes ai-assistant-text-input-hide {
 	0% {
+		margin-left: 0;
 		width: 100%;
 		opacity: 1;
 	}
@@ -73,8 +86,82 @@
 		opacity: 1;
 	}
 	100% {
+		margin-left: 100%;
 		width: 0;
 		opacity: 0;
+	}
+}
+
+.ai-assistant-messages {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	margin-bottom: 6px;
+	transition: 0.2s;
+	opacity: 0;
+	animation: ai-assistant-messages-show 0.5s 1;
+	animation-delay: 0.4s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes ai-assistant-messages-show {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.ai-assistant-menu-container:not(.ai-assistant-menu-container-is-running) .ai-assistant-messages,
+.ai-assistant-menu-container-input-is-microphone .ai-assistant-messages {
+	pointer-events: none;
+	user-select: none;
+	animation: ai-assistant-messages-hide 0.5s 1;
+	animation-delay: 0;
+	animation-fill-mode: forwards;
+}
+
+@keyframes ai-assistant-messages-hide {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.ai-assistant-message {
+	padding: 7px 11px;
+	border-radius: 16px;
+	background: var(--colour-blue);
+	font-size: 14px;
+	width: 75%;
+	max-width: fit-content;
+	opacity: 0;
+	pointer-events: none;
+	user-select: none;
+}
+
+.ai-assistant-message-user {
+	margin-left: auto;
+	background: var(--colour-grey-four);
+}
+
+.ai-assistant-message:nth-last-child(1),
+.ai-assistant-message:nth-last-child(2) {
+	animation: ai-assistant-message-fade-in 0.4s 1;
+	animation-fill-mode: forwards;
+}
+
+@keyframes ai-assistant-message-fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+		pointer-events: all;
+		user-select: all;
 	}
 }
 

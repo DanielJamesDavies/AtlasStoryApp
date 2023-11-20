@@ -38,6 +38,7 @@ export const AIAssistantMenu = () => {
 		assistantTextInput,
 		changeAssistantTextInput,
 		onKeyDownAssistantTextInput,
+		messages,
 	} = AIAssistantMenuLogic();
 
 	if (
@@ -60,13 +61,22 @@ export const AIAssistantMenu = () => {
 				(inputIsMicrophoneState ? " ai-assistant-menu-container-input-is-microphone" : "")
 			}
 		>
-			<input
-				className='ai-assistant-text-input'
-				value={assistantTextInput}
-				onChange={changeAssistantTextInput}
-				onKeyDown={onKeyDownAssistantTextInput}
-				placeholder='Type your commands here'
-			></input>
+			<div className='ai-assistant-text-container'>
+				<div className='ai-assistant-messages'>
+					{messages?.map((message, index) => (
+						<div key={index} className={"ai-assistant-message ai-assistant-message-" + message?.role}>
+							{message?.content}
+						</div>
+					))}
+				</div>
+				<input
+					className='ai-assistant-text-input'
+					value={assistantTextInput}
+					onChange={changeAssistantTextInput}
+					onKeyDown={onKeyDownAssistantTextInput}
+					placeholder='Type your commands here'
+				></input>
+			</div>
 			<button
 				className={
 					"ai-assistant-btn ai-assistant-toggle-input-btn" +

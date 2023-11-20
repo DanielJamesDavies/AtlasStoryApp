@@ -38,10 +38,13 @@ export const AIAssistantMenuLogic = () => {
 	const [isAssistantExecuting, setIsAssistantExecuting] = useState(false);
 	const [isHoveringOverAssistantContainer, setIsHoveringOverAssistantContainer] = useState(false);
 	const [isHoveringOverToggleInputBtn, setIsHoveringOverToggleInputBtn] = useState(false);
+
 	const microphone = useRef(false);
 	const inputIsMicrophone = useRef(true);
 	const [inputIsMicrophoneState, setInputIsMicrophone] = useState(true);
 	const [assistantTextInput, setAssistantTextInput] = useState("");
+
+	const [messages, setMessages] = useState([]);
 
 	const { getAudioFile } = AIAssistantMicrophoneLogic({ microphone });
 	const { getCommands } = AIAssistantGetCommandsLogic();
@@ -80,20 +83,73 @@ export const AIAssistantMenuLogic = () => {
 
 	const getResponseText = useCallback((commands, isAuthorizedToEdit) => {
 		if (!isAuthorizedToEdit && commands.filter((e) => e?.authorization_required).length !== 0) {
-			return "I'm sorry.. . I am not authorized to fulfil that request";
+			return "I'm sorry. I am not authorized to fulfil that request";
 		}
 
 		const agreement_words = ["Sure!", "Certainly.", "Of course!"];
 
-		let response_text = agreement_words[Math.floor(Math.random() * agreement_words.length)] + commands.at(-1).desc;
+		let response_text = agreement_words[Math.floor(Math.random() * agreement_words.length)] + " " + commands.at(-1).desc;
 
-		response_text = response_text?.replaceAll("!", "!. .");
-		response_text = response_text?.replaceAll(".", ".. .");
-		response_text = response_text?.replaceAll(",", ".. .");
-		response_text = response_text?.replaceAll("to", "2");
+		let response_audio_text = JSON.parse(JSON.stringify(response_text));
 
-		return response_text;
+		response_audio_text = response_audio_text?.replaceAll("!", "!. .");
+		response_audio_text = response_audio_text?.replaceAll(".", ".. .");
+		response_audio_text = response_audio_text?.replaceAll(",", ".. .");
+		response_audio_text = response_audio_text?.replaceAll("to", "2");
+
+		return { response_text, response_audio_text };
 	}, []);
+
+	const addMessage = useCallback(
+		(content, role) => {
+			setMessages((oldValue) =>
+				oldValue.filter((e, i) => !(i === oldValue.length - 1 && e?.role === "user" && role === "user")).concat([{ role, content }])
+			);
+		},
+		[setMessages]
+	);
+
+	const generateText = useCallback(
+		async (generateTextCommand, input_text) => {
+			let old_value = getUnitValue.current(generateTextCommand?.arguments[0], generateTextCommand?.arguments[1]);
+			if (JSON.stringify(typeof old_value) === JSON.stringify("array")) old_value = old_value.join("\n");
+
+			const generated_text_res = (
+				await GPT_Request([
+					{
+						role: "system",
+						content:
+							"Never describe the question, just answer. Please fulfil the commands of the user message using the content of the text provided. Please ensure all your responses are well written and concise. Never write text such as, 'Here's the revised text:'.",
+					},
+					{ role: "user", content: "TEXT: " + old_value },
+					{
+						role: "user",
+						content:
+							"Please use the same formatting as the TEXT. For example, if there are bullet points in the TEXT, please use bullet points in the revised version.",
+					},
+					{
+						role: "user",
+						content: "USER MESSAGE: " + input_text + ".",
+					},
+					{
+						role: "user",
+						content:
+							"Never write the given text with the revised version unless asked to, just write the revised version. Please make sure to use \n line breaks in your response to split paragraphs if there are multiple paragraphs! Please never apologise, you're doing a great job. Thank you",
+					},
+				])
+			)?.content;
+
+			if (!isRunningAssistantRef.current) return false;
+
+			setUnitValueToChange({
+				unit_id: generateTextCommand?.arguments[0],
+				path: generateTextCommand?.arguments[1],
+				newValue: generateTextCommand?.splitValueIntoArray ? generated_text_res?.split("\n") : generated_text_res,
+				isList: generateTextCommand?.isList,
+			});
+		},
+		[GPT_Request, setUnitValueToChange, getUnitValue]
+	);
 
 	const runSequence = useCallback(
 		async (input_text, newInputIsMicrophone) => {
@@ -131,6 +187,8 @@ export const AIAssistantMenuLogic = () => {
 				if (!input_text) return setIsRunningAssistant(false);
 			}
 
+			addMessage(input_text, "user");
+
 			if (!isRunningAssistantRef.current) return false;
 
 			// Get Commands
@@ -140,10 +198,10 @@ export const AIAssistantMenuLogic = () => {
 			if (!isRunningAssistantRef.current) return false;
 
 			// Speak
-			const response_text = getResponseText(commands, isAuthorizedToEdit);
-			if (response_text.length < 150) {
+			const { response_text, response_audio_text } = getResponseText(commands, isAuthorizedToEdit);
+			if (response_audio_text.length < 150) {
 				try {
-					const response_audio = await AI_TTS_Request(response_text, pronunciations);
+					const response_audio = await AI_TTS_Request(response_audio_text, pronunciations);
 
 					if (!isRunningAssistantRef.current) return false;
 
@@ -158,6 +216,8 @@ export const AIAssistantMenuLogic = () => {
 					source.start();
 				} catch {}
 			}
+
+			addMessage(response_text, "assistant");
 
 			// Execute Commands
 			const changeLocationCommand = commands.find((e) => e?.function === "changeLocation");
@@ -192,42 +252,7 @@ export const AIAssistantMenuLogic = () => {
 
 			const generateTextCommand = commands.find((e) => e?.function === "generateText");
 			if (generateTextCommand) {
-				let old_value = getUnitValue.current(generateTextCommand?.arguments[0], generateTextCommand?.arguments[1]);
-				if (JSON.stringify(typeof old_value) === JSON.stringify("array")) old_value = old_value.join("\n");
-
-				const generated_text_res = (
-					await GPT_Request([
-						{
-							role: "system",
-							content:
-								"Never describe the question, just answer. Please fulfil the commands of the user message using the content of the text provided. Please ensure all your responses are well written and concise. Never write text such as, 'Here's the revised text:'.",
-						},
-						{ role: "user", content: "TEXT: " + old_value },
-						{
-							role: "user",
-							content:
-								"Please use the same formatting as the TEXT. For example, if there are bullet points in the TEXT, please use bullet points in the revised version.",
-						},
-						{
-							role: "user",
-							content: "USER MESSAGE: " + input_text + ".",
-						},
-						{
-							role: "user",
-							content:
-								"Never write the given text with the revised version unless asked to, just write the revised version. Please make sure to use \n line breaks in your response to split paragraphs if there are multiple paragraphs! Please never apologise, you're doing a great job. Thank you",
-						},
-					])
-				)?.content;
-
-				if (!isRunningAssistantRef.current) return false;
-
-				setUnitValueToChange({
-					unit_id: generateTextCommand?.arguments[0],
-					path: generateTextCommand?.arguments[1],
-					newValue: generateTextCommand?.splitValueIntoArray ? generated_text_res?.split("\n") : generated_text_res,
-					isList: generateTextCommand?.isList,
-				});
+				await generateText(generateTextCommand, input_text);
 			}
 
 			setIsAssistantExecuting(false);
@@ -239,7 +264,6 @@ export const AIAssistantMenuLogic = () => {
 		[
 			isRunningAssistantRef,
 			microphone,
-			GPT_Request,
 			AI_Whisper_Request,
 			AI_TTS_Request,
 			story,
@@ -253,9 +277,10 @@ export const AIAssistantMenuLogic = () => {
 			setIsAssistantExecuting,
 			isAuthorizedToEdit,
 			setUnitValueToChange,
-			getUnitValue,
 			inputIsMicrophone,
 			setAssistantTextInput,
+			addMessage,
+			generateText,
 		]
 	);
 
@@ -269,6 +294,8 @@ export const AIAssistantMenuLogic = () => {
 			if (inputIsMicrophone.current) {
 				runSequence("", true);
 			}
+		} else {
+			setMessages([]);
 		}
 	}
 
@@ -331,5 +358,6 @@ export const AIAssistantMenuLogic = () => {
 		assistantTextInput,
 		changeAssistantTextInput,
 		onKeyDownAssistantTextInput,
+		messages,
 	};
 };
