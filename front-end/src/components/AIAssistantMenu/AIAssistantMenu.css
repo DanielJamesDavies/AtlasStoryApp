@@ -71,9 +71,7 @@
 }
 
 .ai-assistant-menu-container-is-executing:not(.ai-assistant-menu-container-input-is-microphone) .ai-assistant-text-input {
-	pointer-events: none;
-	user-select: none;
-	opacity: 0.6 !important;
+	opacity: 0.7 !important;
 }
 
 @keyframes ai-assistant-text-input-hide {

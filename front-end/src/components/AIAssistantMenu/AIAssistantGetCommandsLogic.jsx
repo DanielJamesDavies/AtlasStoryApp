@@ -114,7 +114,7 @@ export const AIAssistantGetCommandsLogic = () => {
 				}
 				return true;
 			});
-			if (message_keys?.includes("edit_text")) {
+			if (message_keys?.includes("edit_text") || message_keys?.includes("write_text")) {
 				possible_commands.editValue = true;
 			}
 
@@ -234,6 +234,7 @@ export const AIAssistantGetCommandsLogic = () => {
 						"Please always answer just 'dictate' or 'generate'. If the user states what a value should be, word-for-word, write 'dictate'. If the user states to generate, rewrite, or add to text, write 'generate'.",
 				},
 				{ role: "user", content: "USER MESSAGE: " + input_text },
+				{ role: "user", content: "Please never write the generated text, just write 'dictate' or 'generate'. Thank you" },
 			]);
 		},
 		[GPT_Request]
@@ -319,9 +320,10 @@ export const AIAssistantGetCommandsLogic = () => {
 				const { all_items } = getUnitListItems(unit?._id);
 
 				const fuse = new Fuse(all_items, { keys: ["label"], threshold: 1 });
-				const relevant_items = fuse.search(input_text.toLowerCase());
+				const first_input_words = input_text.split(" ").slice(0, 10).join(" ").toLowerCase();
+				const relevant_items = fuse.search(first_input_words);
 				const relevant_item = relevant_items.filter((e) => {
-					return input_text.toLowerCase().includes(e?.item?.label.toLowerCase());
+					return first_input_words.includes(e?.item?.label.toLowerCase());
 				})?.[0]?.item;
 
 				if (relevant_item) {
@@ -371,6 +373,7 @@ export const AIAssistantGetCommandsLogic = () => {
 
 					if (dictate_or_generate_text_res?.content?.toLowerCase() === "dictate") {
 						const dictated_text = await getDictatedValue(input_text, unit_value_object?.isList);
+
 						if (!unit_value_object?.isList) {
 							if (dictated_text) {
 								probable_commands.push({ command: "goToPage" });
@@ -473,7 +476,7 @@ export const AIAssistantGetCommandsLogic = () => {
 					{
 						role: "system",
 						content:
-							"I will provide you a user request message. Please respond with the following keys that best corresponds to the message: none, edit_text, navigate, create_character, create_character_type, create_group, create_plot, create_location, create_event, create_object, create_world_item. Start with Keys: and then seperate them by commas.",
+							"I will provide you a user request message. Please respond with the following keys that best corresponds to the message: none, edit_text, write_text, navigate, create_character, create_character_type, create_group, create_plot, create_location, create_event, create_object, create_world_item. Start with Keys: and then seperate them by commas.",
 					},
 					{
 						role: "user",
@@ -484,8 +487,8 @@ export const AIAssistantGetCommandsLogic = () => {
 			if (!keys) return [];
 
 			keys = keys.substring(6).split(", ");
-			if (keys.includes("edit_text") || keys.includes("navigate")) {
-				keys = keys.filter((e) => ["edit_text", "navigate"].includes(e));
+			if (keys.includes("edit_text") || keys.includes("write_text") || keys.includes("navigate")) {
+				keys = keys.filter((e) => ["write_text", "edit_text", "navigate"].includes(e));
 			}
 
 			return keys;
@@ -601,8 +604,6 @@ export const AIAssistantGetCommandsLogic = () => {
 					});
 				}
 			} else {
-				console.log("create_unit_message_keys", create_unit_message_keys);
-
 				let unit_type_path = "";
 				let unit_type_name = "";
 				switch (create_unit_message_keys[0]) {

@@ -41,10 +41,6 @@ export const AIAssistantExecuteCommandsLogic = ({ isRunningAssistantRef }) => {
 					},
 					{
 						role: "user",
-						content: "USER MESSAGE: " + input_text + ".",
-					},
-					{
-						role: "user",
 						content:
 							"Never write the given text with the revised version unless asked to, just write the revised version. Please make sure to use \n line breaks in your response to split paragraphs if there are multiple paragraphs!",
 					},
@@ -55,7 +51,14 @@ export const AIAssistantExecuteCommandsLogic = ({ isRunningAssistantRef }) => {
 					},
 					{
 						role: "user",
-						content: "Please never apologise, you're doing a great job. Please write the revised version now. Thank you",
+						content: "USER MESSAGE: " + input_text + ".",
+					},
+					{
+						role: "user",
+						content:
+							"Please never apologise, you're doing a great job. Please write the revised version now with the user message as your guide. Remember, this is your task: " +
+							input_text +
+							". Thank you",
 					},
 				])
 			)?.content;
@@ -111,7 +114,6 @@ export const AIAssistantExecuteCommandsLogic = ({ isRunningAssistantRef }) => {
 
 			const createUnitCommand = commands.find((e) => e?.function === "createUnit");
 			if (createUnitCommand) {
-				console.log("Create");
 				// Open Create Menu
 				// Fill Create Menu
 				// Run Create if filled
