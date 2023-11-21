@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState, useEffect, useRef } from "react";
 
 // Components
 
@@ -17,7 +17,8 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const SubstoriesListCreateSubstoryLogic = () => {
-	const { story_uid, story, isDisplayingCreateSubstoryForm, setIsDisplayingCreateSubstoryForm } = useContext(SubstoriesContext);
+	const { story_uid, story, isDisplayingCreateSubstoryForm, setIsDisplayingCreateSubstoryForm, createSubstoryValues } =
+		useContext(SubstoriesContext);
 
 	function closeCreateSubstoryForm() {
 		setIsDisplayingCreateSubstoryForm(false);
@@ -41,33 +42,50 @@ export const SubstoriesListCreateSubstoryLogic = () => {
 	}
 
 	const [substoryTitle, setSubstoryTitle] = useState("");
-	function changeSubstoryTitle(e) {
+	const changeSubstoryTitle = useCallback((e) => {
 		setSubstoryTitle(e.target.value);
 		updateSubstoryUIDSuggestions(e.target.value);
-	}
+	}, []);
 
 	const [substoryUID, setSubstoryUID] = useState("");
-	function changeSubstoryUID(e) {
-		setSubstoryUID(e.target.value.split(" ").join("-"));
-	}
+	const changeSubstoryUID = useCallback((e) => {
+		setSubstoryUID(e.target.value.split(" ").join("-").replaceAll("/", ""));
+	}, []);
 
 	const { APIRequest } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 	const [errors, setErrors] = useState([]);
 
-	async function submitCreateSubstory() {
-		const currStory = JSON.parse(JSON.stringify(story));
-		if (!currStory?._id) return;
+	const submitCreateSubstory = useCallback(
+		async (name, uid) => {
+			const currStory = JSON.parse(JSON.stringify(story));
+			if (!currStory?._id) return;
 
-		const response = await APIRequest("/substory", "POST", {
-			story_id: currStory._id,
-			title: JSON.parse(JSON.stringify(substoryTitle)),
-			uid: JSON.parse(JSON.stringify(substoryUID)),
-		});
-		if (!response) return;
-		if (response?.errors) return setErrors(response.errors);
-		if (currStory?.uid && response?.data?.substory_uid) changeLocation("/s/" + currStory.uid + "/s/" + response.data.substory_uid);
-	}
+			const response = await APIRequest("/plot", "POST", {
+				story_id: currStory._id,
+				title: name ? name : JSON.parse(JSON.stringify(substoryTitle)),
+				uid: uid ? uid : JSON.parse(JSON.stringify(substoryUID)),
+			});
+			if (!response) return;
+			if (response?.errors) return setErrors(response.errors);
+			if (currStory?.uid && response?.data?.substory_uid) changeLocation("/s/" + currStory.uid + "/p/" + response.data.substory_uid);
+		},
+		[story, APIRequest, substoryTitle, substoryUID, setErrors, changeLocation]
+	);
+
+	const lastCreateValues = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateValues.current) !== JSON.stringify(createSubstoryValues)) {
+			lastCreateValues.current = JSON.parse(JSON.stringify(createSubstoryValues));
+			const name = createSubstoryValues?.name;
+			const uid = createSubstoryValues?.uid;
+			if (name) changeSubstoryTitle({ target: { value: name } });
+			if (uid) changeSubstoryUID({ target: { value: uid } });
+			if (name && uid) {
+				submitCreateSubstory(name, uid);
+			}
+		}
+	}, [createSubstoryValues, changeSubstoryTitle, changeSubstoryUID, submitCreateSubstory]);
 
 	return {
 		story_uid,

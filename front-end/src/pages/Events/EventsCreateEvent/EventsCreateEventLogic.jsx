@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState, useEffect, useRef } from "react";
 
 // Components
 
@@ -17,7 +17,7 @@ import { RoutesContext } from "../../../context/RoutesContext";
 // Assets
 
 export const EventsCreateEventLogic = () => {
-	const { story_uid, story, isDisplayingCreateEventForm, setIsDisplayingCreateEventForm } = useContext(EventsContext);
+	const { story_uid, story, isDisplayingCreateEventForm, setIsDisplayingCreateEventForm, createEventsValues } = useContext(EventsContext);
 
 	function closeCreateEventForm() {
 		setIsDisplayingCreateEventForm(false);
@@ -41,33 +41,50 @@ export const EventsCreateEventLogic = () => {
 	}
 
 	const [eventName, setEventName] = useState("");
-	function changeEventName(e) {
+	const changeEventName = useCallback((e) => {
 		setEventName(e.target.value);
 		updateEventUIDSuggestions(e.target.value);
-	}
+	}, []);
 
 	const [eventUID, setEventUID] = useState("");
-	function changeEventUID(e) {
-		setEventUID(e.target.value.split(" ").join("-"));
-	}
+	const changeEventUID = useCallback((e) => {
+		setEventUID(e.target.value.split(" ").join("-").replaceAll("/", ""));
+	}, []);
 
 	const { APIRequest } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 	const [errors, setErrors] = useState([]);
 
-	async function submitCreateEvent() {
-		const currStory = JSON.parse(JSON.stringify(story));
-		if (!currStory?._id) return;
+	const submitCreateEvent = useCallback(
+		async (name, uid) => {
+			const currStory = JSON.parse(JSON.stringify(story));
+			if (!currStory?._id) return;
 
-		const response = await APIRequest("/event", "POST", {
-			story_id: currStory._id,
-			name: JSON.parse(JSON.stringify(eventName)),
-			uid: JSON.parse(JSON.stringify(eventUID)),
-		});
-		if (!response) return;
-		if (response?.errors) return setErrors(response.errors);
-		if (currStory?.uid && response?.data?.event_uid) changeLocation("/s/" + currStory.uid + "/e/" + response.data.event_uid);
-	}
+			const response = await APIRequest("/event", "POST", {
+				story_id: currStory._id,
+				name: name ? name : JSON.parse(JSON.stringify(eventName)),
+				uid: uid ? uid : JSON.parse(JSON.stringify(eventUID)),
+			});
+			if (!response) return;
+			if (response?.errors) return setErrors(response.errors);
+			if (currStory?.uid && response?.data?.event_uid) changeLocation("/s/" + currStory.uid + "/e/" + response.data.event_uid);
+		},
+		[story, APIRequest, eventName, eventUID, setErrors, changeLocation]
+	);
+
+	const lastCreateValues = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateValues.current) !== JSON.stringify(createEventsValues)) {
+			lastCreateValues.current = JSON.parse(JSON.stringify(createEventsValues));
+			const name = createEventsValues?.name;
+			const uid = createEventsValues?.uid;
+			if (name) changeEventName({ target: { value: name } });
+			if (uid) changeEventUID({ target: { value: uid } });
+			if (name) {
+				submitCreateEvent(name, uid);
+			}
+		}
+	}, [createEventsValues, changeEventName, changeEventUID, submitCreateEvent]);
 
 	return {
 		story_uid,

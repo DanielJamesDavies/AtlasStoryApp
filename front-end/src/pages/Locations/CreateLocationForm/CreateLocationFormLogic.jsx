@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState, useRef } from "react";
 
 // Components
 
@@ -27,6 +27,7 @@ export const CreateLocationFormLogic = () => {
 		changeStoryHierarchy,
 		locations,
 		setLocations,
+		createLocationsValues,
 	} = useContext(LocationsContext);
 	const { APIRequest } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
@@ -43,20 +44,26 @@ export const CreateLocationFormLogic = () => {
 		setIsDisplayingCreateLocationForm(false);
 	}
 
-	function changeItemName(e) {
-		if (isSubmitting) return false;
+	const changeItemName = useCallback(
+		(e) => {
+			if (isSubmitting) return false;
 
-		setItemName(e.target.value);
-		updateItemUIDSuggestions(e.target.value);
-	}
+			setItemName(e.target.value);
+			updateItemUIDSuggestions(e.target.value);
+		},
+		[isSubmitting]
+	);
 
 	const [errors, setErrors] = useState([]);
 
-	function changeItemUid(e) {
-		if (isSubmitting) return false;
+	const changeItemUid = useCallback(
+		(e) => {
+			if (isSubmitting) return false;
 
-		setItemUid(e.target.value);
-	}
+			setItemUid(e.target.value);
+		},
+		[isSubmitting]
+	);
 
 	const [itemUIDSuggestions, setItemUIDSuggestions] = useState([]);
 
@@ -179,6 +186,17 @@ export const CreateLocationFormLogic = () => {
 		setIsSubmitting(false);
 		closeCreateHierarchyItemForm();
 	}
+
+	const lastCreateValues = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateValues.current) !== JSON.stringify(createLocationsValues)) {
+			lastCreateValues.current = JSON.parse(JSON.stringify(createLocationsValues));
+			const name = createLocationsValues?.name;
+			const uid = createLocationsValues?.uid;
+			if (name) changeItemName({ target: { value: name } });
+			if (uid) changeItemUid({ target: { value: uid } });
+		}
+	}, [createLocationsValues, changeItemName, changeItemUid]);
 
 	return {
 		story_uid,

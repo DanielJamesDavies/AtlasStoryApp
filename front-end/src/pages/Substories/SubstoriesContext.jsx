@@ -9,7 +9,9 @@ export const SubstoriesContext = createContext();
 const SubstoriesProvider = ({ children, story_uid }) => {
 	const { APIRequest } = useContext(APIContext);
 	const { location, changeLocationParameters } = useContext(RoutesContext);
-	const { isAuthorizedToEdit, story, setStory, storyIcon, storySubstories, setStorySubstories } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, storySubstories, setStorySubstories, createUnitForm } = useContext(StoryContext);
+
+	const [createSubstoryValues, setCreateSubstoryValues] = useState({});
 
 	const curr_story_uid = useRef(false);
 	useEffect(() => {
@@ -52,6 +54,18 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 		changeLocationParameters([]);
 	}, [changeLocationParameters]);
 
+	const lastCreateUnitForm = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateUnitForm?.current) !== JSON.stringify(createUnitForm)) {
+			lastCreateUnitForm.current = JSON.parse(JSON.stringify(createUnitForm));
+			if (createUnitForm?.unit_type === "plot") {
+				setIsDisplayingCreateSubstoryForm(true);
+
+				setCreateSubstoryValues({ name: createUnitForm?.name, uid: createUnitForm?.uid });
+			}
+		}
+	}, [createUnitForm, setCreateSubstoryValues, setIsDisplayingCreateSubstoryForm, lastCreateUnitForm]);
+
 	return (
 		<SubstoriesContext.Provider
 			value={{
@@ -66,6 +80,8 @@ const SubstoriesProvider = ({ children, story_uid }) => {
 				setIsDisplayingCreateSubstoryForm,
 				isReorderingSubstories,
 				toggleIsReorderingSubstories,
+				createSubstoryValues,
+				setCreateSubstoryValues,
 			}}
 		>
 			{children}

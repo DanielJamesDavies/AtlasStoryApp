@@ -106,7 +106,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 
 	const { location, changeLocation, locationPath } = useContext(RoutesContext);
 	const { APIRequest } = useContext(APIContext);
-	const { isAuthorizedToEdit, story, setStory, storyIcon, locations, setLocations } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, locations, setLocations, createUnitForm } = useContext(StoryContext);
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { getItemFromIdInHierarchy, getInitialMapLocationItem } = HierarchyFunctions();
 
@@ -418,6 +418,20 @@ const LocationsProvider = ({ children, story_uid }) => {
 		[setSelectedSurfaceMapComponents]
 	);
 
+	const [createLocationsValues, setCreateLocationsValues] = useState({});
+
+	const lastCreateUnitForm = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateUnitForm?.current) !== JSON.stringify(createUnitForm)) {
+			lastCreateUnitForm.current = JSON.parse(JSON.stringify(createUnitForm));
+			if (createUnitForm?.unit_type === "location") {
+				setIsDisplayingCreateLocationForm(true);
+
+				setCreateLocationsValues({ name: createUnitForm?.name, uid: createUnitForm?.uid });
+			}
+		}
+	}, [createUnitForm, setCreateLocationsValues, setIsDisplayingCreateLocationForm, lastCreateUnitForm]);
+
 	return (
 		<LocationsContext.Provider
 			value={{
@@ -507,6 +521,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 				locationMapImages,
 				setLocationMapImages,
 				locationsSurfaceMapLoadingCircleContainerRef,
+				createLocationsValues,
+				setCreateLocationsValues,
 			}}
 		>
 			{children}

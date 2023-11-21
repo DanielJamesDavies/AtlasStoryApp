@@ -8,10 +8,12 @@ export const ObjectsContext = createContext();
 
 const ObjectsProvider = ({ children, story_uid }) => {
 	const { location, changeLocationParameters } = useContext(RoutesContext);
-	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, createUnitForm } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 	const [objects, setObjects] = useState(false);
 	const [objectsImages, setObjectsImages] = useState(false);
+
+	const [createObjectsValues, setCreateObjectsValues] = useState({});
 
 	const curr_story_uid = useRef(false);
 	useEffect(() => {
@@ -80,6 +82,18 @@ const ObjectsProvider = ({ children, story_uid }) => {
 		setIsReorderingObjects((oldIsReorderingObjects) => !oldIsReorderingObjects);
 	}
 
+	const lastCreateUnitForm = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateUnitForm?.current) !== JSON.stringify(createUnitForm)) {
+			lastCreateUnitForm.current = JSON.parse(JSON.stringify(createUnitForm));
+			if (createUnitForm?.unit_type === "object") {
+				setIsDisplayingCreateObjectForm(true);
+
+				setCreateObjectsValues({ name: createUnitForm?.name, uid: createUnitForm?.uid });
+			}
+		}
+	}, [createUnitForm, setCreateObjectsValues, setIsDisplayingCreateObjectForm, lastCreateUnitForm]);
+
 	return (
 		<ObjectsContext.Provider
 			value={{
@@ -94,6 +108,8 @@ const ObjectsProvider = ({ children, story_uid }) => {
 				isReorderingObjects,
 				setIsReorderingObjects,
 				toggleIsReorderingObjects,
+				createObjectsValues,
+				setCreateObjectsValues,
 			}}
 		>
 			{children}

@@ -8,10 +8,12 @@ export const EventsContext = createContext();
 
 const EventsProvider = ({ children, story_uid }) => {
 	const { location, changeLocationParameters } = useContext(RoutesContext);
-	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, createUnitForm } = useContext(StoryContext);
 	const { user_id, APIRequest } = useContext(APIContext);
 	const [events, setEvents] = useState(false);
 	const [eventsImages, setEventsImages] = useState(false);
+
+	const [createEventsValues, setCreateEventsValues] = useState({});
 
 	const curr_story_uid = useRef(false);
 	useEffect(() => {
@@ -76,6 +78,18 @@ const EventsProvider = ({ children, story_uid }) => {
 
 	const [isDisplayingCreateEventForm, setIsDisplayingCreateEventForm] = useState(false);
 
+	const lastCreateUnitForm = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateUnitForm?.current) !== JSON.stringify(createUnitForm)) {
+			lastCreateUnitForm.current = JSON.parse(JSON.stringify(createUnitForm));
+			if (createUnitForm?.unit_type === "event") {
+				setIsDisplayingCreateEventForm(true);
+
+				setCreateEventsValues({ name: createUnitForm?.name, uid: createUnitForm?.uid });
+			}
+		}
+	}, [createUnitForm, setCreateEventsValues, setIsDisplayingCreateEventForm, lastCreateUnitForm]);
+
 	return (
 		<EventsContext.Provider
 			value={{
@@ -88,6 +102,8 @@ const EventsProvider = ({ children, story_uid }) => {
 				eventsImages,
 				isDisplayingCreateEventForm,
 				setIsDisplayingCreateEventForm,
+				createEventsValues,
+				setCreateEventsValues,
 			}}
 		>
 			{children}

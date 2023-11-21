@@ -8,10 +8,12 @@ export const LoreContext = createContext();
 
 const LoreProvider = ({ children, story_uid }) => {
 	const { location, changeLocationParameters } = useContext(RoutesContext);
-	const { isAuthorizedToEdit, story, setStory, storyIcon } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, createUnitForm } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 	const [lore, setLore] = useState(false);
 	const [loreImages, setLoreImages] = useState(false);
+
+	const [createLoreItemValues, setCreateLoreItemValues] = useState({});
 
 	const curr_story_uid = useRef(false);
 	useEffect(() => {
@@ -80,6 +82,18 @@ const LoreProvider = ({ children, story_uid }) => {
 		setIsReorderingLore((oldIsReorderingLore) => !oldIsReorderingLore);
 	}
 
+	const lastCreateUnitForm = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateUnitForm?.current) !== JSON.stringify(createUnitForm)) {
+			lastCreateUnitForm.current = JSON.parse(JSON.stringify(createUnitForm));
+			if (createUnitForm?.unit_type === "world_item") {
+				setIsDisplayingCreateLoreItemForm(true);
+
+				setCreateLoreItemValues({ name: createUnitForm?.name, uid: createUnitForm?.uid });
+			}
+		}
+	}, [createUnitForm, setCreateLoreItemValues, setIsDisplayingCreateLoreItemForm, lastCreateUnitForm]);
+
 	return (
 		<LoreContext.Provider
 			value={{
@@ -94,6 +108,8 @@ const LoreProvider = ({ children, story_uid }) => {
 				isReorderingLore,
 				setIsReorderingLore,
 				toggleIsReorderingLore,
+				createLoreItemValues,
+				setCreateLoreItemValues,
 			}}
 		>
 			{children}

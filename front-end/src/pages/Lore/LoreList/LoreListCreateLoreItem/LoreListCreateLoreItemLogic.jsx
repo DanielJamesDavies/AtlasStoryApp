@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState, useRef, useEffect } from "react";
 
 // Components
 
@@ -17,7 +17,7 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const LoreListCreateLoreItemLogic = () => {
-	const { story_uid, story, isDisplayingCreateLoreItemForm, setIsDisplayingCreateLoreItemForm } = useContext(LoreContext);
+	const { story_uid, story, isDisplayingCreateLoreItemForm, setIsDisplayingCreateLoreItemForm, createLoreItemValues } = useContext(LoreContext);
 
 	function closeCreateLoreItemForm() {
 		setIsDisplayingCreateLoreItemForm(false);
@@ -41,33 +41,50 @@ export const LoreListCreateLoreItemLogic = () => {
 	}
 
 	const [loreItemName, setLoreItemName] = useState("");
-	function changeLoreItemName(e) {
+	const changeLoreItemName = useCallback((e) => {
 		setLoreItemName(e.target.value);
 		updateLoreItemUIDSuggestions(e.target.value);
-	}
+	}, []);
 
 	const [loreItemUID, setLoreItemUID] = useState("");
-	function changeLoreItemUID(e) {
+	const changeLoreItemUID = useCallback((e) => {
 		setLoreItemUID(e.target.value.split(" ").join("-"));
-	}
+	}, []);
 
 	const { APIRequest } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 	const [errors, setErrors] = useState([]);
 
-	async function submitCreateLoreItem() {
-		const currStory = JSON.parse(JSON.stringify(story));
-		if (!currStory?._id) return;
+	const submitCreateLoreItem = useCallback(
+		async (name, uid) => {
+			const currStory = JSON.parse(JSON.stringify(story));
+			if (!currStory?._id) return;
 
-		const response = await APIRequest("/lore", "POST", {
-			story_id: currStory._id,
-			name: JSON.parse(JSON.stringify(loreItemName)),
-			uid: JSON.parse(JSON.stringify(loreItemUID)),
-		});
-		if (!response) return;
-		if (response?.errors) return setErrors(response.errors);
-		if (currStory?.uid && response?.data?.lore_item_uid) changeLocation("/s/" + currStory.uid + "/w/" + response.data.lore_item_uid);
-	}
+			const response = await APIRequest("/lore", "POST", {
+				story_id: currStory._id,
+				name: name ? name : JSON.parse(JSON.stringify(loreItemName)),
+				uid: uid ? uid : JSON.parse(JSON.stringify(loreItemUID)),
+			});
+			if (!response) return;
+			if (response?.errors) return setErrors(response.errors);
+			if (currStory?.uid && response?.data?.lore_item_uid) changeLocation("/s/" + currStory.uid + "/w/" + response.data.lore_item_uid);
+		},
+		[story, APIRequest, loreItemName, loreItemUID, setErrors, changeLocation]
+	);
+
+	const lastCreateValues = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateValues.current) !== JSON.stringify(createLoreItemValues)) {
+			lastCreateValues.current = JSON.parse(JSON.stringify(createLoreItemValues));
+			const name = createLoreItemValues?.name;
+			const uid = createLoreItemValues?.uid;
+			if (name) changeLoreItemName({ target: { value: name } });
+			if (uid) changeLoreItemUID({ target: { value: uid } });
+			if (name && uid) {
+				submitCreateLoreItem(name, uid);
+			}
+		}
+	}, [createLoreItemValues, changeLoreItemName, changeLoreItemUID, submitCreateLoreItem]);
 
 	return {
 		story_uid,

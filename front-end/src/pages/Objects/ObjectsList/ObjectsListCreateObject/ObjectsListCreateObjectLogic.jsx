@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState, useEffect, useRef } from "react";
 
 // Components
 
@@ -17,7 +17,7 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const ObjectsListCreateObjectLogic = () => {
-	const { story_uid, story, isDisplayingCreateObjectForm, setIsDisplayingCreateObjectForm } = useContext(ObjectsContext);
+	const { story_uid, story, isDisplayingCreateObjectForm, setIsDisplayingCreateObjectForm, createObjectsValues } = useContext(ObjectsContext);
 
 	function closeCreateObjectForm() {
 		setIsDisplayingCreateObjectForm(false);
@@ -41,33 +41,50 @@ export const ObjectsListCreateObjectLogic = () => {
 	}
 
 	const [objectName, setObjectName] = useState("");
-	function changeObjectName(e) {
+	const changeObjectName = useCallback((e) => {
 		setObjectName(e.target.value);
 		updateObjectUIDSuggestions(e.target.value);
-	}
+	}, []);
 
 	const [objectUID, setObjectUID] = useState("");
-	function changeObjectUID(e) {
-		setObjectUID(e.target.value.split(" ").join("-"));
-	}
+	const changeObjectUID = useCallback((e) => {
+		setObjectUID(e.target.value.split(" ").join("-").replaceAll("/", ""));
+	}, []);
 
 	const { APIRequest } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 	const [errors, setErrors] = useState([]);
 
-	async function submitCreateObject() {
-		const currStory = JSON.parse(JSON.stringify(story));
-		if (!currStory?._id) return;
+	const submitCreateObject = useCallback(
+		async (name, uid) => {
+			const currStory = JSON.parse(JSON.stringify(story));
+			if (!currStory?._id) return;
 
-		const response = await APIRequest("/object", "POST", {
-			story_id: currStory._id,
-			name: JSON.parse(JSON.stringify(objectName)),
-			uid: JSON.parse(JSON.stringify(objectUID)),
-		});
-		if (!response) return;
-		if (response?.errors) return setErrors(response.errors);
-		if (currStory?.uid && response?.data?.object_uid) changeLocation("/s/" + currStory.uid + "/o/" + response.data.object_uid);
-	}
+			const response = await APIRequest("/object", "POST", {
+				story_id: currStory._id,
+				name: name ? name : JSON.parse(JSON.stringify(objectName)),
+				uid: uid ? uid : JSON.parse(JSON.stringify(objectUID)),
+			});
+			if (!response) return;
+			if (response?.errors) return setErrors(response.errors);
+			if (currStory?.uid && response?.data?.object_uid) changeLocation("/s/" + currStory.uid + "/o/" + response.data.object_uid);
+		},
+		[story, APIRequest, objectName, objectUID, setErrors, changeLocation]
+	);
+
+	const lastCreateValues = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateValues.current) !== JSON.stringify(createObjectsValues)) {
+			lastCreateValues.current = JSON.parse(JSON.stringify(createObjectsValues));
+			const name = createObjectsValues?.name;
+			const uid = createObjectsValues?.uid;
+			if (name) changeObjectName({ target: { value: name } });
+			if (uid) changeObjectUID({ target: { value: uid } });
+			if (name) {
+				submitCreateObject(name, uid);
+			}
+		}
+	}, [createObjectsValues, changeObjectName, changeObjectUID, submitCreateObject]);
 
 	return {
 		story_uid,
