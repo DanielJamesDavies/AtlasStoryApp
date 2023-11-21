@@ -32,7 +32,13 @@ export const CharactersCharacterTypeLogic = () => {
 			const characterTypeIndex = newCharacterTypes.findIndex((e) => e._id === newCharacterType._id);
 			if (characterTypeIndex === -1) return newCharacterTypes;
 			newCharacterTypes.splice(characterTypeIndex, 1);
-			setCharacterType(newCharacterTypes[0] === undefined ? false : newCharacterTypes[0]);
+			setCharacterType(
+				newCharacterTypes[0] === undefined
+					? false
+					: characterTypeIndex === 0
+					? newCharacterTypes[0]
+					: newCharacterTypes[characterTypeIndex - 1]
+			);
 			return newCharacterTypes;
 		});
 

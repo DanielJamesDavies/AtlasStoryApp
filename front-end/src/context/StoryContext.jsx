@@ -44,6 +44,12 @@ const StoryProvider = ({ children }) => {
 		return { unit: false, unitVersion: false };
 	});
 
+	const [createUnitForm, setCreateUnitForm] = useState({});
+
+	useEffect(() => {
+		setCreateUnitForm({});
+	}, [location]);
+
 	const hasGotInitialForStoryID = useRef(false);
 	useEffect(() => {
 		async function getAll() {
@@ -526,6 +532,8 @@ const StoryProvider = ({ children }) => {
 				setUnitValueToChange,
 				getUnitValue,
 				getUnitAndCurrUnitVersion,
+				createUnitForm,
+				setCreateUnitForm,
 			}}
 		>
 			{children}

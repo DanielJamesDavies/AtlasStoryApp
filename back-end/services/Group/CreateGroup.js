@@ -5,6 +5,8 @@ const Group = require("../../models/Group");
 const Story = require("../../models/Story");
 
 module.exports = async (req, res) => {
+	if (!req.body.story_id) return res.status(200).send({ errors: [{ message: "Story Not Found" }] });
+
 	let validateGroupResult = validateGroup(req.body);
 	if (validateGroupResult?.errors) return res.status(200).send({ errors: validateGroupResult.errors });
 

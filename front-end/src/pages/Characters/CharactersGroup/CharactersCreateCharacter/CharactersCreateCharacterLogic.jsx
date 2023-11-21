@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState, useRef } from "react";
 
 // Components
 
@@ -17,7 +17,8 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const CharactersCreateCharacterLogic = () => {
-	const { story_uid, story, group, isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm } = useContext(CharactersContext);
+	const { story_uid, story, group, isDisplayingCreateCharacterForm, setIsDisplayingCreateCharacterForm, createCharacterValues } =
+		useContext(CharactersContext);
 
 	function closeCreateCharacterForm() {
 		setIsDisplayingCreateCharacterForm(false);
@@ -41,15 +42,15 @@ export const CharactersCreateCharacterLogic = () => {
 	}
 
 	const [characterName, setCharacterName] = useState("");
-	function changeCharacterName(e) {
+	const changeCharacterName = useCallback((e) => {
 		setCharacterName(e.target.value);
 		updateCharacterUIDSuggestions(e.target.value);
-	}
+	}, []);
 
 	const [characterUID, setCharacterUID] = useState("");
-	function changeCharacterUID(e) {
-		setCharacterUID(e.target.value.split(" ").join("-"));
-	}
+	const changeCharacterUID = useCallback((e) => {
+		setCharacterUID(e.target.value.split(" ").join("-").replaceAll("/", ""));
+	}, []);
 
 	const [characterIsPrimaryCharacter, setCharacterIsPrimaryCharacter] = useState(false);
 	function toggleCharacterIsPrimaryCharacter() {
@@ -60,23 +61,40 @@ export const CharactersCreateCharacterLogic = () => {
 	const { changeLocation } = useContext(RoutesContext);
 	const [errors, setErrors] = useState([]);
 
-	async function submitCreateCharacter() {
-		setErrors([]);
-		const currStory = JSON.parse(JSON.stringify(story));
-		const currGroup = JSON.parse(JSON.stringify(group));
-		if (!currStory?._id || !currGroup?._id) return;
+	const submitCreateCharacter = useCallback(
+		async (name, uid) => {
+			setErrors([]);
+			const currStory = JSON.parse(JSON.stringify(story));
+			const currGroup = JSON.parse(JSON.stringify(group));
+			if (!currStory?._id || !currGroup?._id) return;
 
-		const response = await APIRequest("/character", "POST", {
-			story_id: currStory._id,
-			group_id: currGroup?._id,
-			name: JSON.parse(JSON.stringify(characterName)),
-			uid: JSON.parse(JSON.stringify(characterUID)),
-			isPrimaryCharacter: JSON.parse(JSON.stringify(characterIsPrimaryCharacter)),
-		});
-		if (!response) return;
-		if (response?.errors) return setErrors(response.errors);
-		if (currStory?.uid && response?.data?.character_uid) changeLocation("/s/" + currStory.uid + "/c/" + response.data.character_uid);
-	}
+			const response = await APIRequest("/character", "POST", {
+				story_id: currStory._id,
+				group_id: currGroup?._id,
+				name: name ? name : JSON.parse(JSON.stringify(characterName)),
+				uid: uid ? uid : JSON.parse(JSON.stringify(characterUID)),
+				isPrimaryCharacter: JSON.parse(JSON.stringify(characterIsPrimaryCharacter)),
+			});
+			if (!response) return;
+			if (response?.errors) return setErrors(response.errors);
+			if (currStory?.uid && response?.data?.character_uid) changeLocation("/s/" + currStory.uid + "/c/" + response.data.character_uid);
+		},
+		[story, group, characterName, characterUID, characterIsPrimaryCharacter, APIRequest, changeLocation]
+	);
+
+	const lastCreateValues = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateValues.current) !== JSON.stringify(createCharacterValues)) {
+			lastCreateValues.current = JSON.parse(JSON.stringify(createCharacterValues));
+			const name = createCharacterValues?.name;
+			const uid = createCharacterValues?.uid;
+			if (name) changeCharacterName({ target: { value: name } });
+			if (uid) changeCharacterUID({ target: { value: uid } });
+			if (name && uid) {
+				submitCreateCharacter(name, uid);
+			}
+		}
+	}, [createCharacterValues, changeCharacterName, changeCharacterUID, submitCreateCharacter]);
 
 	return {
 		story_uid,

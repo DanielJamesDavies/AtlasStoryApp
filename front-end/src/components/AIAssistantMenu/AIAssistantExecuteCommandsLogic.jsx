@@ -18,7 +18,7 @@ import { RoutesContext } from "../../context/RoutesContext";
 
 export const AIAssistantExecuteCommandsLogic = ({ isRunningAssistantRef }) => {
 	const { GPT_Request } = useContext(AIContext);
-	const { setUnitValueToChange, getUnitValue } = useContext(StoryContext);
+	const { setUnitValueToChange, getUnitValue, setCreateUnitForm } = useContext(StoryContext);
 	const { changeLocation, setRoutesUnitSubpageID, setRoutesIsOnOverviewSection } = useContext(RoutesContext);
 
 	const generateText = useCallback(
@@ -75,6 +75,23 @@ export const AIAssistantExecuteCommandsLogic = ({ isRunningAssistantRef }) => {
 		[GPT_Request, setUnitValueToChange, getUnitValue, isRunningAssistantRef]
 	);
 
+	const getNameOfNewUnit = useCallback(
+		async (input_text) => {
+			const name = (
+				await GPT_Request([
+					{
+						role: "system",
+						content: `Respond with NAME IN USER MESSAGE: and then the name. If there is no name in the user message, respond with NO_NAME_1. Never come up with a name unless in the user message`,
+					},
+					{ role: "user", content: "USER MESSAGE: " + input_text },
+				])
+			)?.content;
+			if (name.includes("NO_NAME_1")) return undefined;
+			return name.split("NAME IN USER MESSAGE: ")[1];
+		},
+		[GPT_Request]
+	);
+
 	const executeCommands = useCallback(
 		async (commands, input_text) => {
 			const changeLocationCommand = commands.find((e) => e?.function === "changeLocation");
@@ -115,11 +132,28 @@ export const AIAssistantExecuteCommandsLogic = ({ isRunningAssistantRef }) => {
 			const createUnitCommand = commands.find((e) => e?.function === "createUnit");
 			if (createUnitCommand) {
 				// Open Create Menu
+				await changeLocation("/s/" + createUnitCommand?.story_uid + "/" + createUnitCommand?.unit_type_path);
+				await new Promise((resolve) => setTimeout(resolve, 500));
+
 				// Fill Create Menu
-				// Run Create if filled
+				const name = await getNameOfNewUnit(input_text);
+				if (name) {
+					const uid = name.toLowerCase().replaceAll(" ", "-");
+					setCreateUnitForm({ unit_type: createUnitCommand?.unit_type_id, name, uid });
+				} else {
+					setCreateUnitForm({ unit_type: createUnitCommand?.unit_type_id });
+				}
 			}
 		},
-		[generateText, changeLocation, setRoutesIsOnOverviewSection, setRoutesUnitSubpageID, setUnitValueToChange]
+		[
+			generateText,
+			changeLocation,
+			setCreateUnitForm,
+			setRoutesIsOnOverviewSection,
+			setRoutesUnitSubpageID,
+			setUnitValueToChange,
+			getNameOfNewUnit,
+		]
 	);
 
 	return { executeCommands };

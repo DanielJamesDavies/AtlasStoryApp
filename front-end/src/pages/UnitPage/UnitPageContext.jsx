@@ -359,6 +359,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 					);
 					if (unitVersionIndex !== -1) changeUnitVersion(unit.data.versions[unitVersionIndex]);
 				}
+				changeLocationParameters(locationParams.current.filter((e) => ["version", "subpage"].includes(e?.label)));
 				setTimeout(() => (hasReadInitialLocationParameters.current = true), 500);
 			} else {
 				let newLocationParameters = [];
@@ -383,9 +384,9 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			}
 		}
 	}, [
+		locationParams,
 		changeLocationParameters,
 		hasReadInitialLocationParameters,
-		locationParams,
 		isOnOverviewSection,
 		openSubpageID,
 		unitVersion,

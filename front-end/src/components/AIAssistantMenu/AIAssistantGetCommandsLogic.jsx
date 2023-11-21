@@ -504,9 +504,11 @@ export const AIAssistantGetCommandsLogic = () => {
 
 			const create_unit_message_keys = [
 				"create_character",
+				"create_character_type",
 				"create_group",
 				"create_plot",
 				"create_location",
+				"create_event",
 				"create_object",
 				"create_world_item",
 			].filter((e) => message_keys.includes(e));
@@ -605,53 +607,64 @@ export const AIAssistantGetCommandsLogic = () => {
 				}
 			} else {
 				let unit_type_path = "";
+				let unit_type_id = "";
 				let unit_type_name = "";
 				switch (create_unit_message_keys[0]) {
 					case "create_character":
 						unit_type_path = "characters";
+						unit_type_id = "character";
 						unit_type_name = "character";
 						break;
 					case "create_character_type":
 						unit_type_path = "characters";
+						unit_type_id = "character_type";
 						unit_type_name = "character type";
 						break;
 					case "create_group":
 						unit_type_path = "characters";
+						unit_type_id = "group";
 						unit_type_name = "group";
 						break;
 					case "create_plot":
 						unit_type_path = "plots";
+						unit_type_id = "plot";
 						unit_type_name = "plot";
 						break;
 					case "create_location":
 						unit_type_path = "locations";
+						unit_type_id = "location";
 						unit_type_name = "location";
 						break;
 					case "create_event":
 						unit_type_path = "events";
+						unit_type_id = "event";
 						unit_type_name = "event";
 						break;
 					case "create_object":
 						unit_type_path = "objects";
+						unit_type_id = "object";
 						unit_type_name = "object";
 						break;
 					case "create_world_item":
 						unit_type_path = "world-building";
+						unit_type_id = "world_item";
 						unit_type_name = "world item";
 						break;
 					default:
 						break;
 				}
 				commands.push({
-					desc: "I'll begin creating a new " + unit_type_name + " now",
 					function: "changeLocation",
 					arguments: ["/s/" + story?.uid + "/" + unit_type_path],
 				});
 				commands.push({
-					desc: "",
+					desc: "I'll begin creating a new " + unit_type_name + " now",
 					function: "createUnit",
 					authorization_required: true,
-					arguments: [unit_type_path],
+					unit_type_path,
+					unit_type_id,
+					unit_type_name,
+					story_uid: story?.uid,
 				});
 			}
 

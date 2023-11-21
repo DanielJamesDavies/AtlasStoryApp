@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useRef, useCallback } from "react";
 
 // Components
 
@@ -22,24 +22,28 @@ export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundAct
 			: "btn-list-item-loading btn-list-item-list-closed"
 	);
 
+	const getBtnListItemClassName = useCallback(() => {
+		let newBtnListItemClassName = "btn-list-item";
+		if (hasFoundActive !== false ? isActive : index === 0) newBtnListItemClassName += " btn-list-item-active";
+		if (onClick) newBtnListItemClassName += " btn-list-item-clickable";
+		if (className) newBtnListItemClassName += " " + className;
+		if (size) newBtnListItemClassName += " btn-list-item-size-" + size;
+		if (isBtnListOpen === false) newBtnListItemClassName += " btn-list-item-list-closed";
+		setBtnListItemClassName(newBtnListItemClassName);
+	}, [setBtnListItemClassName, className, size, index, isActive, hasFoundActive, onClick, isBtnListOpen]);
+
+	useEffect(() => {
+		getBtnListItemClassName();
+	}, [getBtnListItemClassName]);
+
 	const getBtnListItemClassNameTimeout = useRef(false);
 	useEffect(() => {
-		function getBtnListItemClassName() {
-			let newBtnListItemClassName = "btn-list-item";
-			if (hasFoundActive !== false ? isActive : index === 0) newBtnListItemClassName += " btn-list-item-active";
-			if (onClick) newBtnListItemClassName += " btn-list-item-clickable";
-			if (className) newBtnListItemClassName += " " + className;
-			if (size) newBtnListItemClassName += " btn-list-item-size-" + size;
-			if (isBtnListOpen === false) newBtnListItemClassName += " btn-list-item-list-closed";
-			setBtnListItemClassName(newBtnListItemClassName);
-		}
-		
 		if (getBtnListItemClassNameTimeout.current !== false) clearTimeout(getBtnListItemClassNameTimeout.current);
 		getBtnListItemClassNameTimeout.current = setTimeout(() => {
 			getBtnListItemClassName();
 			getBtnListItemClassNameTimeout.current = false;
 		}, 100);
-	}, [setBtnListItemClassName, className, size, index, isActive, hasFoundActive, onClick, isBtnListOpen, getBtnListItemClassNameTimeout]);
+	}, [getBtnListItemClassName, className, size, index, isActive, hasFoundActive, onClick, isBtnListOpen, getBtnListItemClassNameTimeout]);
 
 	async function onBtnListItemClick(e) {
 		if (setIsBtnListOpen) setIsBtnListOpen((oldIsBtnListOpen) => !oldIsBtnListOpen);

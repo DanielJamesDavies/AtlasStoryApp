@@ -85,6 +85,7 @@ const RoutesProvider = ({ children }) => {
 				location,
 				locationPath,
 				locationParams,
+				parameters,
 				changeLocation,
 				changeLocationParameters,
 				changeLocationAndParameters,

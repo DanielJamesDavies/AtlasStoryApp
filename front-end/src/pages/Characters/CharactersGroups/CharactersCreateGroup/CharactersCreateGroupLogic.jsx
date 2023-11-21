@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState, useRef, useEffect } from "react";
 
 // Components
 
@@ -16,7 +16,7 @@ import { APIContext } from "../../../../context/APIContext";
 // Assets
 
 export const CharactersCreateGroupLogic = () => {
-	const { story_uid, story, setStory, setStoryGroups, isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm } =
+	const { story_uid, story, setStory, setStoryGroups, isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm, createGroupValues } =
 		useContext(CharactersContext);
 
 	function closeCreateGroupForm() {
@@ -41,50 +41,79 @@ export const CharactersCreateGroupLogic = () => {
 	}
 
 	const [groupName, setGroupName] = useState("");
-	function changeGroupName(e) {
+	const changeGroupName = useCallback((e) => {
 		setGroupName(e.target.value);
 		updateGroupUIDSuggestions(e.target.value);
-	}
+	}, []);
 
 	const [groupUID, setGroupUID] = useState("");
-	function changeGroupUID(e) {
-		setGroupUID(e.target.value.split(" ").join("-"));
-	}
+	const changeGroupUID = useCallback((e) => {
+		setGroupUID(e.target.value.split(" ").join("-").replaceAll("/", ""));
+	}, []);
 
 	const { APIRequest } = useContext(APIContext);
 	const [errors, setErrors] = useState([]);
 
-	async function submitCreateGroup() {
-		const currStory = JSON.parse(JSON.stringify(story));
-		if (!currStory?._id) return false;
+	const submitCreateGroup = useCallback(
+		async (name, uid) => {
+			const currStory = JSON.parse(JSON.stringify(story));
+			if (!currStory?._id) return false;
 
-		const response = await APIRequest("/group", "POST", {
-			story_id: currStory._id,
-			name: JSON.parse(JSON.stringify(groupName)),
-			uid: JSON.parse(JSON.stringify(groupUID)),
-		});
-		if (response?.errors) return setErrors(response.errors);
-		if (!response || !response?.data?.group?._id) return false;
+			const response = await APIRequest("/group", "POST", {
+				story_id: currStory._id,
+				name: name ? name : JSON.parse(JSON.stringify(groupName)),
+				uid: uid ? uid : JSON.parse(JSON.stringify(groupUID)),
+			});
+			if (response?.errors) return setErrors(response.errors);
+			if (!response || !response?.data?.group?._id) return false;
 
-		setIsDisplayingCreateGroupForm(false);
-		setGroupUIDSuggestions([]);
-		setGroupName("");
-		setGroupUID("");
-		setErrors([]);
+			setIsDisplayingCreateGroupForm(false);
+			setGroupUIDSuggestions([]);
+			setGroupName("");
+			setGroupUID("");
+			setErrors([]);
 
-		setStory((oldStory) => {
-			let newStory = JSON.parse(JSON.stringify(oldStory));
-			if (!newStory.data.groups) newStory.data.groups = [];
-			newStory.data.groups.push(response?.data?.group?._id);
-			return newStory;
-		});
+			setStory((oldStory) => {
+				let newStory = JSON.parse(JSON.stringify(oldStory));
+				if (!newStory.data.groups) newStory.data.groups = [];
+				newStory.data.groups.push(response?.data?.group?._id);
+				return newStory;
+			});
 
-		setStoryGroups((oldStoryGroups) => {
-			let newStoryGroups = JSON.parse(JSON.stringify(oldStoryGroups));
-			newStoryGroups.push(response?.data?.group);
-			return newStoryGroups;
-		});
-	}
+			setStoryGroups((oldStoryGroups) => {
+				let newStoryGroups = JSON.parse(JSON.stringify(oldStoryGroups));
+				newStoryGroups.push(response?.data?.group);
+				return newStoryGroups;
+			});
+		},
+		[
+			story,
+			APIRequest,
+			groupName,
+			groupUID,
+			setIsDisplayingCreateGroupForm,
+			setGroupUIDSuggestions,
+			setGroupName,
+			setGroupUID,
+			setErrors,
+			setStory,
+			setStoryGroups,
+		]
+	);
+
+	const lastCreateValues = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateValues.current) !== JSON.stringify(createGroupValues)) {
+			lastCreateValues.current = JSON.parse(JSON.stringify(createGroupValues));
+			const name = createGroupValues?.name;
+			const uid = createGroupValues?.uid;
+			if (name) changeGroupName({ target: { value: name } });
+			if (uid) changeGroupUID({ target: { value: uid } });
+			if (name && uid) {
+				submitCreateGroup(name, uid);
+			}
+		}
+	}, [createGroupValues, changeGroupName, changeGroupUID, submitCreateGroup]);
 
 	return {
 		story_uid,

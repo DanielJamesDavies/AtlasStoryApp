@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext, useEffect, useRef } from "react";
 
 import { APIContext } from "../../context/APIContext";
 import { RoutesContext } from "../../context/RoutesContext";
@@ -8,7 +8,7 @@ export const CharactersContext = createContext();
 
 const CharactersProvider = ({ children, story_uid }) => {
 	const { APIRequest } = useContext(APIContext);
-	const { location, changeLocationParameters } = useContext(RoutesContext);
+	const { location, locationParams, changeLocationParameters } = useContext(RoutesContext);
 	const {
 		isAuthorizedToEdit,
 		story,
@@ -22,6 +22,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 		setStoryCharacterRelationships,
 		storyCharacterTypes,
 		setStoryCharacterTypes,
+		createUnitForm,
 	} = useContext(StoryContext);
 
 	const [group, setGroup] = useState(false);
@@ -33,6 +34,10 @@ const CharactersProvider = ({ children, story_uid }) => {
 	const [characterRelationshipsCharacters, setCharacterRelationshipsCharacters] = useState(false);
 	const [selectedCharacterRelationshipsCharacterId, setSelectedCharacterRelationshipsCharacterId] = useState(false);
 	const [relationshipsFilters, setRelationshipsFilters] = useState(false);
+
+	const [createCharacterValues, setCreateCharacterValues] = useState({});
+	const [createGroupValues, setCreateGroupValues] = useState({});
+	const [createCharacterTypeValues, setCreateCharacterTypeValues] = useState({});
 
 	useEffect(() => {
 		async function getInitial() {
@@ -122,7 +127,33 @@ const CharactersProvider = ({ children, story_uid }) => {
 
 	useEffect(() => {
 		changeLocationParameters([]);
-	}, [changeLocationParameters]);
+	}, [changeLocationParameters, locationParams]);
+
+	const lastCreateUnitForm = useRef(false);
+	useEffect(() => {
+		if (JSON.stringify(lastCreateUnitForm?.current) !== JSON.stringify(createUnitForm)) {
+			lastCreateUnitForm.current = JSON.parse(JSON.stringify(createUnitForm));
+			if (createUnitForm?.unit_type === "character") {
+				setIsDisplayingCreateCharacterForm(true);
+				setIsDisplayingCreateGroupForm(false);
+				setIsDisplayingCreateCharacterTypeForm(false);
+
+				setCreateCharacterValues({ name: createUnitForm?.name, uid: createUnitForm?.uid });
+			} else if (createUnitForm?.unit_type === "group") {
+				setIsDisplayingCreateCharacterForm(false);
+				setIsDisplayingCreateGroupForm(true);
+				setIsDisplayingCreateCharacterTypeForm(false);
+
+				setCreateGroupValues({ name: createUnitForm?.name, uid: createUnitForm?.uid });
+			} else if (createUnitForm?.unit_type === "character_type") {
+				setIsDisplayingCreateCharacterForm(false);
+				setIsDisplayingCreateGroupForm(false);
+				setIsDisplayingCreateCharacterTypeForm(true);
+
+				setCreateCharacterTypeValues({ name: createUnitForm?.name, uid: createUnitForm?.uid });
+			}
+		}
+	}, [createUnitForm, setCreateCharacterValues, setCreateGroupValues, setCreateCharacterTypeValues, lastCreateUnitForm]);
 
 	return (
 		<CharactersContext.Provider
@@ -168,6 +199,12 @@ const CharactersProvider = ({ children, story_uid }) => {
 				setIsDisplayingCreateCharacterTypeForm,
 				isReorderingCharacterTypes,
 				toggleIsReorderingCharacterTypes,
+				createCharacterValues,
+				setCreateCharacterValues,
+				createGroupValues,
+				setCreateGroupValues,
+				createCharacterTypeValues,
+				setCreateCharacterTypeValues,
 			}}
 		>
 			{children}
