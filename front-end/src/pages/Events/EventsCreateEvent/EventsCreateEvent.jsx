@@ -60,7 +60,7 @@ export const EventsCreateEvent = () => {
 				</div>
 				<ErrorMessage errors={errors} />
 				<div className='events-create-event-form-submit-container'>
-					<SubmitBtn label='Create Event' onSubmit={submitCreateEvent} />
+					<SubmitBtn label='Create Event' onSubmit={() => submitCreateEvent()} />
 				</div>
 			</div>
 		</PopUpContainer>

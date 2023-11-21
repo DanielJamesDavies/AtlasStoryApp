@@ -60,7 +60,7 @@ export const LoreListCreateLoreItem = () => {
 				</div>
 				<ErrorMessage errors={errors} />
 				<div className='lore-create-lore-item-form-submit-container'>
-					<SubmitBtn label='Create World Item' onSubmit={submitCreateLoreItem} />
+					<SubmitBtn label='Create World Item' onSubmit={() => submitCreateLoreItem()} />
 				</div>
 			</div>
 		</PopUpContainer>

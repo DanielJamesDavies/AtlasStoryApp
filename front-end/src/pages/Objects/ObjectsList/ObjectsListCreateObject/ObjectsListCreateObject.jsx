@@ -60,7 +60,7 @@ export const ObjectsListCreateObject = () => {
 				</div>
 				<ErrorMessage errors={errors} />
 				<div className='objects-create-object-form-submit-container'>
-					<SubmitBtn label='Create Object' onSubmit={submitCreateObject} />
+					<SubmitBtn label='Create Object' onSubmit={() => submitCreateObject()} />
 				</div>
 			</div>
 		</PopUpContainer>

@@ -60,7 +60,7 @@ export const CharactersCreateGroup = () => {
 				</div>
 				<ErrorMessage errors={errors} />
 				<div className='characters-create-group-form-submit-container'>
-					<SubmitBtn label='Create Group' onSubmit={submitCreateGroup} />
+					<SubmitBtn label='Create Group' onSubmit={() => submitCreateGroup()} />
 				</div>
 			</div>
 		</PopUpContainer>

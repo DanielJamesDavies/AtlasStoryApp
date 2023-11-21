@@ -18,6 +18,7 @@ import { APIContext } from "../../../../context/APIContext";
 export const CharactersCreateGroupLogic = () => {
 	const { story_uid, story, setStory, setStoryGroups, isDisplayingCreateGroupForm, setIsDisplayingCreateGroupForm, createGroupValues } =
 		useContext(CharactersContext);
+	const { APIRequest } = useContext(APIContext);
 
 	function closeCreateGroupForm() {
 		setIsDisplayingCreateGroupForm(false);
@@ -42,6 +43,7 @@ export const CharactersCreateGroupLogic = () => {
 
 	const [groupName, setGroupName] = useState("");
 	const changeGroupName = useCallback((e) => {
+		console.log(e?.target?.value);
 		setGroupName(e.target.value);
 		updateGroupUIDSuggestions(e.target.value);
 	}, []);
@@ -51,7 +53,6 @@ export const CharactersCreateGroupLogic = () => {
 		setGroupUID(e.target.value.split(" ").join("-").replaceAll("/", ""));
 	}, []);
 
-	const { APIRequest } = useContext(APIContext);
 	const [errors, setErrors] = useState([]);
 
 	const submitCreateGroup = useCallback(

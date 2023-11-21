@@ -72,7 +72,7 @@ export const CharactersCreateCharacter = () => {
 				</div>
 				<ErrorMessage errors={errors} />
 				<div className='characters-create-character-form-submit-container'>
-					<SubmitBtn label='Create Character' onSubmit={submitCreateCharacter} />
+					<SubmitBtn label='Create Character' onSubmit={() => submitCreateCharacter()} />
 				</div>
 			</div>
 		</PopUpContainer>

@@ -82,21 +82,27 @@ export const PronunciationsLogic = () => {
 		const pronunciation = story.data.pronunciations[index]?.to;
 		setIsLoadingPronounciation(true);
 
-		const response_audio = await AI_TTS_Request(pronunciation, []);
+		try {
+			const response_audio = await AI_TTS_Request(pronunciation, []);
 
-		const ctx = new AudioContext();
-		const source = ctx.createBufferSource();
-		source.buffer = response_audio;
+			const ctx = new AudioContext();
+			const source = ctx.createBufferSource();
+			source.buffer = response_audio;
 
-		const gain_node = ctx.createGain();
-		gain_node.gain.value = 0.1;
-		gain_node.connect(ctx.destination);
-		source.connect(gain_node);
-		source.start();
+			const gain_node = ctx.createGain();
+			gain_node.gain.value = 0.1;
+			gain_node.connect(ctx.destination);
+			source.connect(gain_node);
+			source.start();
 
-		setTimeout(() => {
-			setIsLoadingPronounciation(false);
-		}, 1000 * 5);
+			setTimeout(() => {
+				setIsLoadingPronounciation(false);
+			}, 1000 * 20);
+		} catch {
+			setTimeout(() => {
+				setIsLoadingPronounciation(false);
+			}, 1000 * 20);
+		}
 	}
 
 	return {

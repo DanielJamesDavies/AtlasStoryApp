@@ -60,7 +60,7 @@ export const SubstoriesListCreateSubstory = () => {
 				</div>
 				<ErrorMessage errors={errors} />
 				<div className='substories-create-substory-form-submit-container'>
-					<SubmitBtn label='Create Plot' onSubmit={submitCreateSubstory} />
+					<SubmitBtn label='Create Plot' onSubmit={() => submitCreateSubstory()} />
 				</div>
 			</div>
 		</PopUpContainer>

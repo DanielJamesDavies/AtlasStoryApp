@@ -32,13 +32,17 @@ export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundAct
 		setBtnListItemClassName(newBtnListItemClassName);
 	}, [setBtnListItemClassName, className, size, index, isActive, hasFoundActive, onClick, isBtnListOpen]);
 
+	const hasGotInitialClassName = useRef(false);
 	useEffect(() => {
-		getBtnListItemClassName();
-		setTimeout(() => getBtnListItemClassName(), 10);
-		setTimeout(() => getBtnListItemClassName(), 25);
-		setTimeout(() => getBtnListItemClassName(), 50);
-		setTimeout(() => getBtnListItemClassName(), 75);
-	}, [getBtnListItemClassName]);
+		if (hasGotInitialClassName.current === false) {
+			hasGotInitialClassName.current = true;
+			getBtnListItemClassName();
+			setTimeout(() => getBtnListItemClassName(), 10);
+			setTimeout(() => getBtnListItemClassName(), 25);
+			setTimeout(() => getBtnListItemClassName(), 50);
+			setTimeout(() => getBtnListItemClassName(), 75);
+		}
+	}, [getBtnListItemClassName, hasGotInitialClassName]);
 
 	const getBtnListItemClassNameTimeout = useRef(false);
 	useEffect(() => {
