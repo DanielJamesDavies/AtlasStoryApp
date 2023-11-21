@@ -17,6 +17,7 @@ import { SettingsLogic } from "./SettingsLogic";
 
 // Styles
 import "./Settings.css";
+import { Pronunciations } from "./Pronunciations/Pronunciations";
 
 // Assets
 
@@ -35,6 +36,9 @@ export const Settings = () => {
 					<div className='story-settings-section-label'>Unique Identifier (UID)</div>
 					<UID />
 				</div>
+				{/* <div className='story-settings-section-container'>
+					<div className='story-settings-section-label'>Cover</div>
+				</div> */}
 				<div className='story-settings-section-container'>
 					{/* <div className='story-settings-section-label'>Colours</div> */}
 					<Colours />
@@ -47,9 +51,10 @@ export const Settings = () => {
 					<div className='story-settings-section-label'>Members</div>
 					<Members />
 				</div>
-				{/* <div className='story-settings-section-container'>
-					<div className='story-settings-section-label'>Cover</div>
-				</div> */}
+				<div className='story-settings-section-container'>
+					<div className='story-settings-section-label'>Pronunciations</div>
+					<Pronunciations />
+				</div>
 				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Delete Story</div>
 					<Delete />

@@ -1,7 +1,13 @@
 .text-input-container {
 	position: relative;
 	display: inline-block;
+	--horizontalPadding: 0px;
+	padding-left: var(--horizontalPadding);
+	padding-right: var(--horizontalPadding);
+
 	width: 100%;
+	box-sizing: border-box;
+
 	--text-input-font-size: var(--font-size-p-m);
 	font-size: var(--text-input-font-size);
 }
@@ -106,7 +112,7 @@
 .text-input-container-seamless.text-input-container-empty .text-input-label {
 	position: absolute;
 	top: 50%;
-	left: 0;
+	left: var(--horizontalPadding);
 	transform: translateY(-50%);
 	display: block;
 	/* margin-top: 2px;
@@ -254,4 +260,26 @@
 
 .text-input-ai-tools-container .ai-tools-container-is-displaying {
 	margin-top: 2px;
+}
+
+/* Background Colours */
+
+.text-input-container-bg-grey-1 {
+	background: var(--colour-grey-one);
+}
+
+.text-input-container-bg-grey-2 {
+	background: var(--colour-grey-two);
+}
+
+.text-input-container-bg-grey-3 {
+	background: var(--colour-grey-three);
+}
+
+.text-input-container-bg-grey-4 {
+	background: var(--colour-grey-four);
+}
+
+.text-input-container-bg-grey-5 {
+	background: var(--colour-grey-five);
 }
