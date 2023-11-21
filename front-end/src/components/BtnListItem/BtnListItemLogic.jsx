@@ -34,6 +34,10 @@ export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundAct
 
 	useEffect(() => {
 		getBtnListItemClassName();
+		setTimeout(() => getBtnListItemClassName(), 10);
+		setTimeout(() => getBtnListItemClassName(), 25);
+		setTimeout(() => getBtnListItemClassName(), 50);
+		setTimeout(() => getBtnListItemClassName(), 75);
 	}, [getBtnListItemClassName]);
 
 	const getBtnListItemClassNameTimeout = useRef(false);
