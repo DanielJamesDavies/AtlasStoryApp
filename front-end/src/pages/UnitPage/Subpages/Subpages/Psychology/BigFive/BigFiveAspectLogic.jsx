@@ -1,6 +1,5 @@
 // Packages
-import { useEffect } from "react";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 
 // Components
 
@@ -19,6 +18,7 @@ export const BigFiveAspectLogic = ({ aspect }) => {
 	const { unitVersion, changeUnitVersion } = useContext(UnitPageContext);
 	const [aspectValueText, setAspectValueText] = useState("");
 
+	const lastGetAspectValueTextInputs = useRef({});
 	useEffect(() => {
 		function getAspectValueText() {
 			let newAspectValueText = "";
@@ -44,7 +44,11 @@ export const BigFiveAspectLogic = ({ aspect }) => {
 			}
 			setAspectValueText(newAspectValueText);
 		}
-		getAspectValueText();
+
+		if (JSON.stringify(lastGetAspectValueTextInputs.current) !== JSON.stringify({ aspect, unitVersion })) {
+			lastGetAspectValueTextInputs.current = JSON.parse(JSON.stringify({ aspect, unitVersion }));
+			getAspectValueText();
+		}
 	}, [aspect, unitVersion]);
 
 	function getPercentileText(percentile) {
