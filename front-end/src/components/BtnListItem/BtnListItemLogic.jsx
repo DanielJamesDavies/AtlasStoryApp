@@ -17,20 +17,17 @@ export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundAct
 	const setIsBtnListOpen = useContext(BtnListContainerContext)?.setIsBtnListOpen;
 
 	const [btnListItemClassName, setBtnListItemClassName] = useState(
-		(hasFoundActive !== false ? isActive : index === 0)
-			? "btn-list-item-active btn-list-item-loading"
-			: "btn-list-item-loading btn-list-item-list-closed"
+		"btn-list-item-loading " +
+			((hasFoundActive !== false ? isActive : index === 0) ? "btn-list-item-active" : "btn-list-item-list-closed") +
+			(!size ? "" : " btn-list-item-size-" + size)
 	);
 
 	const [hasOnClick, setHasOnClick] = useState(false);
-	const hasCheckedOnClickRecently = useRef(false);
+	const lastHasOnClick = useRef(false);
 	useEffect(() => {
-		if (onClick && hasCheckedOnClickRecently.current === false) {
-			setHasOnClick(true);
-			hasCheckedOnClickRecently.current = true;
-			setTimeout(() => {
-				hasCheckedOnClickRecently.current = false;
-			}, 500);
+		if ((onClick && !lastHasOnClick.current) || (!onClick && lastHasOnClick.current)) {
+			lastHasOnClick.current = onClick ? true : false;
+			setHasOnClick(lastHasOnClick.current);
 		}
 	}, [onClick]);
 
@@ -43,18 +40,6 @@ export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundAct
 		if (isBtnListOpen === false) newBtnListItemClassName += " btn-list-item-list-closed";
 		setBtnListItemClassName(newBtnListItemClassName);
 	}, [setBtnListItemClassName, className, size, index, isActive, hasFoundActive, hasOnClick, isBtnListOpen]);
-
-	const hasGotInitialClassName = useRef(false);
-	useEffect(() => {
-		if (hasGotInitialClassName.current === false) {
-			hasGotInitialClassName.current = true;
-			getBtnListItemClassName();
-			setTimeout(() => getBtnListItemClassName(), 10);
-			setTimeout(() => getBtnListItemClassName(), 25);
-			setTimeout(() => getBtnListItemClassName(), 50);
-			setTimeout(() => getBtnListItemClassName(), 75);
-		}
-	}, [getBtnListItemClassName, hasGotInitialClassName]);
 
 	useEffect(() => {
 		getBtnListItemClassName();
