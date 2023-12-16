@@ -73,7 +73,7 @@ const StoryProvider = ({ children }) => {
 
 			const split_path = window?.location?.pathname?.split("/")?.filter((e) => e.length !== 0);
 
-			if (!hasGotInitialForStory || (split_path[1] === "s" && split_path.length < 3)) {
+			if (!hasGotInitialForStory || (split_path[0] === "s" && split_path.length < 3)) {
 				getStoryMembers(newStory?.data?.members);
 				getStoryGenres(newStory?.data?.genres);
 			}
@@ -102,6 +102,7 @@ const StoryProvider = ({ children }) => {
 
 		function setStateToDefault() {
 			curr_story_uid.current = false;
+			hasGotInitialForStoryID.current = false;
 			setIsActuallyAuthorizedToEdit(false);
 			setIsAuthorizedToEdit(false);
 			setIsFollowingStory(false);
