@@ -6,6 +6,8 @@ import { UID } from "./UID/UID";
 import { Private } from "./Private/Private";
 import { Members } from "./Members/Members";
 import { Colours } from "./Colours/Colours";
+import { Pronunciations } from "./Pronunciations/Pronunciations";
+import { Download } from "./Download/Download";
 import { Delete } from "./Delete/Delete";
 
 // Logic
@@ -17,7 +19,6 @@ import { SettingsLogic } from "./SettingsLogic";
 
 // Styles
 import "./Settings.css";
-import { Pronunciations } from "./Pronunciations/Pronunciations";
 
 // Assets
 
@@ -54,6 +55,10 @@ export const Settings = () => {
 				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Pronunciations</div>
 					<Pronunciations />
+				</div>
+				<div className='story-settings-section-container'>
+					<div className='story-settings-section-label'>Download All Story Data</div>
+					<Download />
 				</div>
 				<div className='story-settings-section-container'>
 					<div className='story-settings-section-label'>Delete Story</div>
