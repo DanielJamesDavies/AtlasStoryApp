@@ -40,6 +40,7 @@
 
 .events-timeline-events {
 	position: relative;
+	z-index: 2;
 	display: flex;
 	min-width: 100%;
 	width: max-content;
