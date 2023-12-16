@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
 			break;
 		case JSON.stringify(["data", "images"]):
 			const oldImages = newPlot.data.images;
-			const newImages = req.body.newValue.substory_images;
+			const newImages = req.body.newValue.plot_images;
 
 			// Remove Removed Images
 			await Promise.all(
