@@ -86,7 +86,10 @@ export const SettingsCardBackgroundImage = () => {
 									}
 								>
 									<div
-										className='unit-page-subpage-settings-card-background-image-image'
+										className={
+											"unit-page-subpage-settings-card-background-image-image" +
+											(characterCardBackground ? "" : " unit-page-subpage-settings-card-background-image-image-no-image")
+										}
 										style={{
 											transform: `translate(${unit?.data?.cardBackgroundProperties?.position.join("px, ")}px)`,
 											width: isNaN(

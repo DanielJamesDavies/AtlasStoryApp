@@ -183,6 +183,7 @@
 }
 
 .characters-group-character-card-background img {
+	display: flex;
 	border-radius: inherit;
 	width: 100%;
 	height: 100%;

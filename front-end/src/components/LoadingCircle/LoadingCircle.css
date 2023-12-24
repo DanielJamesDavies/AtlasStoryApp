@@ -117,3 +117,12 @@
 	width: 30px;
 	height: 30px;
 }
+
+.loading-circle-label {
+	position: absolute;
+	top: 60px;
+	width: max-content;
+	max-width: 100vw;
+	text-align: center;
+	opacity: 0.5;
+}

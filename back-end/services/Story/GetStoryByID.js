@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
 	newStory.data.owner = { _id: owner._id, username: owner.username, nickname: owner?.data?.nickname };
 
 	if (!req?.query?.all)
-		res.status(200).send({
+		return res.status(200).send({
 			message: "Success",
 			data: { story: newStory, isAuthorizedToEdit: getIsAuthorizedToModify(req?.cookies?.AtlasStoryAppToken, newStory) },
 		});

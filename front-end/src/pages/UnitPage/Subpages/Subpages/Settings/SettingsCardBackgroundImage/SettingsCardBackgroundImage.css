@@ -19,6 +19,10 @@
 	overflow: hidden;
 }
 
+.unit-page-subpage-settings-card-background-image-image-no-image {
+	height: calc(((((100vw - 76px - 12px - 24px - 6px - 16px - 24px) / 2) * (607 / 441)) / 2) - 6px);
+}
+
 .unit-page-subpage-settings-card-background-image-image-alignment {
 	border-radius: inherit;
 	min-width: 100%;

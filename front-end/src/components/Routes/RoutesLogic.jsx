@@ -21,6 +21,7 @@ import { EventsContainer } from "../../pages/Events/EventsContainer";
 import { ObjectsContainer } from "../../pages/Objects/ObjectsContainer";
 import { LoreContainer } from "../../pages/Lore/LoreContainer";
 import { NotesContainer } from "../../pages/Notes/NotesContainer";
+import { Spotify } from "../../pages/Spotify/Spotify";
 
 // Logic
 
@@ -59,7 +60,7 @@ export const RoutesLogic = () => {
 			setShowUnauthorizedNavigationBar(false);
 
 			if (window !== window.parent) return null;
-			if (["authorize-spotify", "spotify"].includes(locationSplit[0])) return null;
+			if (["authorize-spotify"].includes(locationSplit[0])) return null;
 
 			if (locationSplit[0] !== "s") setFaviconToDefault();
 			switch (locationSplit[0]) {
@@ -124,6 +125,9 @@ export const RoutesLogic = () => {
 					changeAccentHoverColour("default");
 					setRenderComponent(<Home />);
 					document.title = "Home | Atlas Story App";
+					break;
+				case "spotify":
+					setRenderComponent(<Spotify />);
 					break;
 				case "s":
 					if (locationSplit.length > 2) {

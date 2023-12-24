@@ -14,7 +14,7 @@ import "./LoadingCircle.css";
 
 // Assets
 
-export const LoadingCircle = ({ className, size, center }) => {
+export const LoadingCircle = ({ className, size, center, label }) => {
 	const { loadingCircleContainerClassName } = LoadingCircleLogic({ className, size, center });
 
 	return (
@@ -31,6 +31,7 @@ export const LoadingCircle = ({ className, size, center }) => {
 					</div>
 				</div>
 			</div>
+			{label === undefined ? null : <div className='loading-circle-label'>{label}</div>}
 		</div>
 	);
 };

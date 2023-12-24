@@ -1,5 +1,5 @@
 // Packages
-import { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect, useRef, useCallback } from "react";
 
 // Components
 import { Gallery } from "./Subpages/Gallery/Gallery";
@@ -81,6 +81,23 @@ export const SubpagesLogic = () => {
 		}
 		setSubpage(getSubpage());
 	}, [unit_type, openSubpageID, allSubpages]);
+
+	const onScroll = useCallback((e) => {
+		if (subpageContainerRef?.current?.scrollTop === 0) return;
+		e.stopPropagation();
+	}, []);
+
+	useEffect(() => {
+		if (onScroll) {
+			setTimeout(() => {
+				subpageContainerRef?.current?.children[0]?.addEventListener("wheel", onScroll);
+			}, 10);
+		}
+		return () => {
+			// eslint-disable-next-line
+			if (onScroll) subpageContainerRef?.current?.children[0]?.removeEventListener("wheel", onScroll);
+		};
+	}, [openSubpageID, subpageContainerRef, onScroll]);
 
 	return { subpageContainerRef, subpage, unit };
 };
