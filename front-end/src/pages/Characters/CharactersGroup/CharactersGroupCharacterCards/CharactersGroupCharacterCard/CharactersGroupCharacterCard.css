@@ -189,6 +189,7 @@
 	height: 100%;
 	min-height: var(--characterCardHeight);
 	object-fit: cover;
+	overflow: visible;
 }
 
 .characters-group-character-card-background-alignment-top-left {
