@@ -10,7 +10,7 @@ import { Register } from "../../pages/Register/Register";
 import { Verify } from "../../pages/Verify/Verify";
 import { UserContainer } from "../../pages/User/UserContainer";
 import { SettingsContainer } from "../../pages/Settings/SettingsContainer";
-import { Home } from "../../pages/Home/Home";
+import { Explore } from "../../pages/Explore/Explore";
 import { Story } from "../../pages/Story/Story";
 import { UnitPageContainer } from "../../pages/UnitPage/UnitPageContainer";
 import { CharactersContainer } from "../../pages/Characters/CharactersContainer";
@@ -37,7 +37,7 @@ import { AppContext } from "../../context/AppContext";
 // Assets
 
 export const RoutesLogic = () => {
-	const { location, changeLocation } = useContext(RoutesContext);
+	const { location, changeLocationSimple } = useContext(RoutesContext);
 	const { APIRequest, user_id, setUserID, username, setUsername, setUserProfilePicture, setUserBanner } = useContext(APIContext);
 	const { changeAccentColour, changeAccentHoverColour, setUITheme } = useContext(AppContext);
 
@@ -72,7 +72,7 @@ export const RoutesLogic = () => {
 						setRenderComponent(<Login />);
 						document.title = "Login | Atlas Story App";
 					} else {
-						changeLocation("/u/" + username);
+						changeLocationSimple("/u/" + username);
 					}
 					break;
 				case "forgot-password":
@@ -99,7 +99,7 @@ export const RoutesLogic = () => {
 						setRenderComponent(<Register />);
 						document.title = "Register | Atlas Story App";
 					} else {
-						changeLocation("/u/" + username);
+						changeLocationSimple("/u/" + username);
 					}
 					break;
 				case "verify":
@@ -120,11 +120,11 @@ export const RoutesLogic = () => {
 					changeAccentHoverColour("default");
 					setRenderComponent(<SettingsContainer />);
 					break;
-				case "home":
+				case "explore":
 					changeAccentColour("default");
 					changeAccentHoverColour("default");
-					setRenderComponent(<Home />);
-					document.title = "Home | Atlas Story App";
+					setRenderComponent(<Explore />);
+					document.title = "Explore | Atlas Story App";
 					break;
 				case "spotify":
 					setRenderComponent(<Spotify />);
@@ -277,7 +277,7 @@ export const RoutesLogic = () => {
 					}
 					break;
 				default:
-					if (username) changeLocation("/home");
+					if (username) changeLocationSimple("/explore");
 					document.title = "Atlas Story App";
 
 					changeAccentColour("default");
@@ -289,7 +289,15 @@ export const RoutesLogic = () => {
 		}
 
 		updateRoutesState();
-	}, [username, location, changeLocation, setRenderComponent, setShowUnauthorizedNavigationBar, changeAccentColour, changeAccentHoverColour]);
+	}, [
+		username,
+		location,
+		changeLocationSimple,
+		setRenderComponent,
+		setShowUnauthorizedNavigationBar,
+		changeAccentColour,
+		changeAccentHoverColour,
+	]);
 
 	useEffect(() => {
 		async function getUser() {

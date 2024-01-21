@@ -1,7 +1,7 @@
 // Packages
 import { FaBook, FaMountain, FaPencilAlt } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookOpen, faGlobeEurope, faHouse, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBookOpen, faGlobeEurope, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 
@@ -24,7 +24,7 @@ export const NavigationBar = () => {
 		storyIcon,
 		getBtnClassName,
 		navigateToProfile,
-		navigateToHome,
+		navigateToExplore,
 		navigateToStory,
 		navigateToCharacters,
 		navigateToSubstories,
@@ -45,10 +45,10 @@ export const NavigationBar = () => {
 				<div className='navigation-bar-btn-label'>My Profile</div>
 			</div>
 			<div className='navigation-bar-btn-container'>
-				<button className={getBtnClassName("home", false)} onClick={navigateToHome} onAuxClick={navigateToHome}>
-					<FontAwesomeIcon icon={faHouse} />
+				<button className={getBtnClassName("explore", false)} onClick={navigateToExplore} onAuxClick={navigateToExplore}>
+					<FontAwesomeIcon icon={faSearch} />
 				</button>
-				<div className='navigation-bar-btn-label'>Home</div>
+				<div className='navigation-bar-btn-label'>Explore</div>
 			</div>
 			{!isOnStory ? (
 				<>

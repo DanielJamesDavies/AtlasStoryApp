@@ -33,6 +33,22 @@ const RoutesProvider = ({ children }) => {
 		return newLocation + (newParameters.length === 0 ? "" : "?" + newParameters.map(({ label, value }) => `${label}=${value}`).join("&"));
 	}, []);
 
+	const changeLocationSimple = useCallback(
+		async (newLocation, openInNewWindow, reload) => {
+			if (openInNewWindow) return window.open(domain + newLocation, "_blank");
+			if (reload) {
+				routerNavigate("");
+				setTimeout(() => routerNavigate(getNewURL(newLocation, [])), 100);
+			} else {
+				routerNavigate(getNewURL(newLocation, []));
+			}
+			locationPath.current = newLocation;
+			setLocation(newLocation);
+			window.history.replaceState("", "", getNewURL(newLocation, []));
+		},
+		[domain, routerNavigate, locationPath, getNewURL]
+	);
+
 	const changeLocation = useCallback(
 		async (newLocation, openInNewWindow, reload) => {
 			const new_parameters = JSON.parse(JSON.stringify(parameters)).filter((e) => e.label.length !== 0 && e.value.length !== 0);
@@ -86,6 +102,7 @@ const RoutesProvider = ({ children }) => {
 				locationPath,
 				locationParams,
 				parameters,
+				changeLocationSimple,
 				changeLocation,
 				changeLocationParameters,
 				changeLocationAndParameters,

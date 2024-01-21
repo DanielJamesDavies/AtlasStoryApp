@@ -39,8 +39,8 @@ export const NavigationBarLogic = () => {
 						newBtnClassName += " navigation-bar-btn-active";
 					}
 					break;
-				case "home":
-					if (locationSplit.length === 1 && locationSplit[0] === "home") {
+				case "explore":
+					if (locationSplit.length === 1 && locationSplit[0] === "explore") {
 						newBtnClassName += " navigation-bar-btn-active";
 					}
 					break;
@@ -106,9 +106,9 @@ export const NavigationBarLogic = () => {
 		}
 	}
 
-	function navigateToHome(e) {
+	function navigateToExplore(e) {
 		if (username) {
-			changeLocation("/home", e.button === 1);
+			changeLocation("/explore", e.button === 1);
 		} else {
 			changeLocation("/login", e.button === 1);
 		}
@@ -149,7 +149,7 @@ export const NavigationBarLogic = () => {
 		storyIcon,
 		getBtnClassName,
 		navigateToProfile,
-		navigateToHome,
+		navigateToExplore,
 		navigateToStory,
 		navigateToCharacters,
 		navigateToSubstories,

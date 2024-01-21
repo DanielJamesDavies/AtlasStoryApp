@@ -14,11 +14,11 @@ import { RoutesContext } from "../../context/RoutesContext";
 // Services
 
 // Styles
-import "./Home.css";
+import "./Explore.css";
 
 // Assets
 
-export const Home = () => {
+export const Explore = () => {
 	const { changeLocationParameters } = useContext(RoutesContext);
 
 	useEffect(() => {

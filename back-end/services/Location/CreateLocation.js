@@ -42,6 +42,8 @@ module.exports = async (req, res) => {
 	}
 	story.data.locationsHierarchy = newHierarchy;
 
+	newStory.data.locations.push(req.body._id);
+
 	try {
 		await location.save();
 	} catch (error) {

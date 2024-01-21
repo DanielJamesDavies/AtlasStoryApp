@@ -86,7 +86,5 @@ module.exports = async (req, res) => {
 		);
 	}
 
-	console.log(story?.data?.locations);
-
 	return res.status(200).send({ message: "Success", data: { locations, story_uid: req.query.story_uid } });
 };
