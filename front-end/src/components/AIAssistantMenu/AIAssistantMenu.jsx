@@ -48,7 +48,10 @@ export const AIAssistantMenu = () => {
 		story?.data?.substories?.length !== storySubstories?.length ||
 		!hasGotStoryCharacters ||
 		!GPT_API_Key ||
-		GPT_API_Key.trim().length === 0
+		GPT_API_Key.trim().length === 0 ||
+		(window.location.pathname.split("/").filter((e) => e.length !== 0).length === 4 &&
+			window.location.pathname.split("/").filter((e) => e.length !== 0)[0] === "s" &&
+			window.location.pathname.split("/").filter((e) => e.length !== 0)[2] === "locations")
 	)
 		return null;
 	return (
