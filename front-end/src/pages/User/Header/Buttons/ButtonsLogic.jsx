@@ -18,7 +18,7 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 
 export const ButtonsLogic = () => {
 	const { isAuthorizedToEdit, user, isFollowingUser, setIsFollowingUser, hasBlockedUser, setHasBlockedUser } = useContext(UserContext);
-	const { APIRequest, setUsername } = useContext(APIContext);
+	const { APIRequest, setUserID, setUsername, setUserProfilePicture } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 
 	function openSettings() {
@@ -27,7 +27,9 @@ export const ButtonsLogic = () => {
 
 	async function logOut() {
 		await APIRequest("/user/logout", "POST");
+		setUserID(false);
 		setUsername(false);
+		setUserProfilePicture(false);
 		changeLocation("/login");
 	}
 

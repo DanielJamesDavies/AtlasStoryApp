@@ -32,12 +32,12 @@ export const Explore = () => {
 			<Search />
 			{user_id ? (
 				<div className='home-content'>
-					<Stories />
+					<Stories isAuthorized={true} />
 					<Genres />
 				</div>
 			) : (
 				<div className='home-content home-content-unauthorized'>
-					<Stories isAuthorized={user_id !== false} />
+					<Stories isAuthorized={false} />
 				</div>
 			)}
 		</div>
