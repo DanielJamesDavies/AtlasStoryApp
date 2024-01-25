@@ -143,6 +143,8 @@ export const SurfaceMapLogic = () => {
 			if (locations?.length === 0) return false;
 			currentLocationId.current = JSON.parse(JSON.stringify(currentMapLocationId));
 
+			locationsSurfaceMapLoadingCircleContainerRef.current.classList.remove("locations-surface-map-loading-circle-container-loaded");
+
 			setLocationMapImage(false);
 
 			const location = locations?.find((e) => e?._id === currentMapLocationId);
@@ -192,8 +194,8 @@ export const SurfaceMapLogic = () => {
 			locationsSurfaceMapLoadingCircleContainerRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
 
 			setTimeout(() => {
-				surfaceMapImageNewComponentsRef?.current.setAttribute("width", surfaceMapImageRef?.current?.clientWidth);
-				surfaceMapImageNewComponentsRef?.current.setAttribute("height", surfaceMapImageRef?.current?.clientHeight);
+				surfaceMapImageNewComponentsRef?.current?.setAttribute("width", surfaceMapImageRef?.current?.clientWidth);
+				surfaceMapImageNewComponentsRef?.current?.setAttribute("height", surfaceMapImageRef?.current?.clientHeight);
 			}, 1200);
 
 			lastWindowWidth.current = window.innerWidth;

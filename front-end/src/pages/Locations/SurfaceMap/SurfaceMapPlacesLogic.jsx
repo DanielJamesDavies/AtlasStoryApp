@@ -34,9 +34,66 @@ export const SurfaceMapPlacesLogic = ({
 		setIsPositioningSurfaceMapPlace,
 		positioningPlaceID,
 		setPositioningPlaceID,
+		isDeletingSurfaceMapComponents,
+		isSelectingSurfaceMapComponents,
+		setSurfaceMapHoveringRegion,
+		setCurrentMapLocationId,
 	} = useContext(LocationsContext);
 
+	const clicks = useRef([]);
+	const clickTimeout = useRef(false);
 	const timeOfLastUpdateRegionNamesOnMap = useRef(false);
+
+	const onClickPlace = useCallback(
+		(e) => {
+			e.stopPropagation();
+
+			const place_location = e.target.getAttribute("data-location");
+			if (!place_location || place_location.length === 0) return false;
+
+			if (isPositioningSurfaceMapPlace || isDeletingSurfaceMapComponents || isSelectingSurfaceMapComponents) return false;
+
+			function getNewClicks(oldClicks, maxDelta) {
+				let newClicks = JSON.parse(JSON.stringify(oldClicks));
+
+				let startIndex = 0;
+				newClicks.map((curr_click, index) => {
+					if (index === newClicks.length - 1) return false;
+					const next_click = newClicks[index + 1];
+					if (next_click - curr_click > maxDelta) startIndex = index + 1;
+					return true;
+				});
+
+				return newClicks.filter((_, index) => index >= startIndex);
+			}
+
+			const maxDelta = 400;
+
+			clicks.current.push(Date.now());
+			clicks.current = getNewClicks(clicks.current, maxDelta);
+			switch (clicks.current.length) {
+				case 1:
+					clickTimeout.current = setTimeout(() => {
+						// Single Click
+					}, maxDelta);
+					break;
+				case 2:
+					clearTimeout(clickTimeout.current);
+					if (place_location) setCurrentMapLocationId(place_location);
+					setSurfaceMapHoveringRegion(false);
+					break;
+				default:
+					break;
+			}
+		},
+		[
+			isSelectingSurfaceMapComponents,
+			setSurfaceMapHoveringRegion,
+			isDeletingSurfaceMapComponents,
+			isPositioningSurfaceMapPlace,
+			setCurrentMapLocationId,
+		]
+	);
 
 	const updateSurfaceMapPlaces = useCallback(
 		(newLocations) => {
@@ -70,17 +127,26 @@ export const SurfaceMapPlacesLogic = ({
 						(place?.isMajor ? " locations-surface-map-place-container-is-major" : "")
 					}
 					style={{ top: place?.position[1] + "px", left: place?.position[0] + "px" }}
+					data-location={place?.location}
 				>
-					<div className='locations-surface-map-place'>
-						<div className='locations-surface-map-place-symbol'>{getPlaceSymbol(place?.symbol)}</div>
-						<div className='locations-surface-map-place-name'>{place?.name}</div>
+					<div
+						className={"locations-surface-map-place" + (place?.location ? " locations-surface-map-place-with-location" : "")}
+						data-location={place?.location}
+						onClick={onClickPlace}
+					>
+						<div className='locations-surface-map-place-symbol' data-location={place?.location} onClick={onClickPlace}>
+							{getPlaceSymbol(place?.symbol)}
+						</div>
+						<div className='locations-surface-map-place-name' data-location={place?.location} onClick={onClickPlace}>
+							{place?.name}
+						</div>
 					</div>
 				</div>
 			));
 
 			setSurfaceMapPlaces(newSurfaceMapPlaces);
 		},
-		[setSurfaceMapPlaces, currentMapLocationId, mapVersionID]
+		[setSurfaceMapPlaces, currentMapLocationId, mapVersionID, onClickPlace]
 	);
 
 	const surfaceMapPositioningPlaceDot = useRef(false);
@@ -88,8 +154,17 @@ export const SurfaceMapPlacesLogic = ({
 		(e) => {
 			if (!isPositioningSurfaceMapPlace) return false;
 
-			const posX = e?.clientX / zoom.current - pointX.current / zoom.current;
-			const posY = e?.clientY / zoom.current - pointY.current / zoom.current;
+			const imageContainerHeightDelta =
+				((surfaceMapImageContainerRef?.current?.clientHeight - surfaceMapImageRef?.current?.clientHeight) * zoom.current) / 2;
+			const min_y = -imageContainerHeightDelta - 1 * zoom.current;
+
+			let posX = e?.clientX / zoom.current - pointX.current / zoom.current;
+			let posY = e?.clientY / zoom.current - pointY.current / zoom.current;
+			if (min_y < 0) {
+				posY = e?.clientY / zoom.current + Math.abs(pointY.current - min_y) / zoom.current;
+			}
+			posX = Math.floor(posX);
+			posY = Math.floor(posY);
 
 			if (surfaceMapPositioningPlaceDot.current === false) {
 				surfaceMapPositioningPlaceDot.current = document.createElement("div");
@@ -99,7 +174,7 @@ export const SurfaceMapPlacesLogic = ({
 
 			surfaceMapPositioningPlaceDot.current.style = `top: ${posY}px; left: ${posX}px`;
 		},
-		[surfaceMapPositioningPlaceRef, isPositioningSurfaceMapPlace, zoom, pointX, pointY]
+		[surfaceMapPositioningPlaceRef, isPositioningSurfaceMapPlace, zoom, pointX, pointY, surfaceMapImageContainerRef, surfaceMapImageRef]
 	);
 
 	const onMouseClick = useCallback(
