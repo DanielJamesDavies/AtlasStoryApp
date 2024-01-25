@@ -3,6 +3,7 @@
 // Components
 import { Headline } from "./Headline/Headline";
 import { Subheadline } from "./Subheadline/Subheadline";
+import { ExploreBtn } from "./ExploreBtn/ExploreBtn";
 import { RegisterBtn } from "./RegisterBtn/RegisterBtn";
 
 // Logic
@@ -21,7 +22,10 @@ export const Hero = () => {
 		<div className='landing-hero'>
 			<Headline />
 			<Subheadline />
-			<RegisterBtn />
+			<div className='landing-hero-buttons'>
+				<ExploreBtn />
+				<RegisterBtn />
+			</div>
 		</div>
 	);
 };

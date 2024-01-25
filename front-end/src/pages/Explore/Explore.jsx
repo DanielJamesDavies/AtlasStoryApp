@@ -10,6 +10,7 @@ import { Genres } from "./Genres/Genres";
 
 // Context
 import { RoutesContext } from "../../context/RoutesContext";
+import { APIContext } from "../../context/APIContext";
 
 // Services
 
@@ -20,6 +21,7 @@ import "./Explore.css";
 
 export const Explore = () => {
 	const { changeLocationParameters } = useContext(RoutesContext);
+	const { user_id } = useContext(APIContext);
 
 	useEffect(() => {
 		changeLocationParameters([]);
@@ -28,10 +30,16 @@ export const Explore = () => {
 	return (
 		<div className='home-container'>
 			<Search />
-			<div className='home-content'>
-				<Stories />
-				<Genres />
-			</div>
+			{user_id ? (
+				<div className='home-content'>
+					<Stories />
+					<Genres />
+				</div>
+			) : (
+				<div className='home-content home-content-unauthorized'>
+					<Stories isAuthorized={user_id !== false} />
+				</div>
+			)}
 		</div>
 	);
 };

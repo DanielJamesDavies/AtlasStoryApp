@@ -1,0 +1,33 @@
+.landing-hero-explore-btn {
+	display: flex;
+	align-items: center;
+	gap: 0 10px;
+	margin: 0;
+	padding: 10px 18px;
+	border: 0;
+	border-radius: 32px;
+
+	height: fit-content;
+
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+	font-size: var(--font-size-h2);
+	font-weight: 500;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.landing-hero-explore-btn:hover {
+	background: var(--colour-grey-five);
+	color: #fff;
+}
+
+.landing-hero-explore-btn svg {
+	font-size: 18px;
+}
+
+@media (max-width: 756px) {
+	.landing-hero-explore-btn {
+		margin: 0 6px;
+	}
+}

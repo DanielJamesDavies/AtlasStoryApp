@@ -7,6 +7,15 @@
 	overflow-y: overlay;
 }
 
+.home-content-unauthorized .home-stories-container {
+	padding-right: 12px;
+	width: 100%;
+}
+
+.home-content-unauthorized .home-stories-following-container {
+	display: none;
+}
+
 @media (max-width: 750px) {
 	.home-stories-container {
 		width: 100%;

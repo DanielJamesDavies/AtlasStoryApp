@@ -107,11 +107,7 @@ export const NavigationBarLogic = () => {
 	}
 
 	function navigateToExplore(e) {
-		if (username) {
-			changeLocation("/explore", e.button === 1);
-		} else {
-			changeLocation("/login", e.button === 1);
-		}
+		changeLocation("/explore", e.button === 1);
 	}
 
 	function navigateToStory(e) {

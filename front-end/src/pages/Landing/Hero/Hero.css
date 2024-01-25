@@ -5,3 +5,9 @@
 	min-height: 500px;
 	text-align: left;
 }
+
+.landing-hero-buttons {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}

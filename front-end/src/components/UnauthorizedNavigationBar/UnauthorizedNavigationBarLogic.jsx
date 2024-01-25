@@ -19,6 +19,10 @@ export const UnauthorizedNavigationBarLogic = () => {
 		changeLocation("/");
 	}
 
+	function navigateToExplore() {
+		changeLocation("/explore");
+	}
+
 	function navigateToLogin() {
 		changeLocation("/login");
 	}
@@ -27,5 +31,5 @@ export const UnauthorizedNavigationBarLogic = () => {
 		changeLocation("/register");
 	}
 
-	return { navigateToLanding, navigateToLogin, navigateToRegister };
+	return { navigateToLanding, navigateToExplore, navigateToLogin, navigateToRegister };
 };

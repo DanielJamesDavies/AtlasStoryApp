@@ -15,11 +15,11 @@ import "./Stories.css";
 
 // Assets
 
-export const Stories = () => {
+export const Stories = ({ isAuthorized }) => {
 	return (
 		<div className='home-stories-container'>
 			<FollowingStories />
-			<RecommendedStories />
+			<RecommendedStories isAuthorized={isAuthorized} />
 		</div>
 	);
 };
