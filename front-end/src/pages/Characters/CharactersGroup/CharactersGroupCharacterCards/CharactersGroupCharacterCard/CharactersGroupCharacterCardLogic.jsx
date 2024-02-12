@@ -52,12 +52,14 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 		if (character?.data?.colour) {
 			newCardStyles["--characterColour"] = character.data.colour;
 			newCardStyles["--characterColourTint"] = getColourTint(character.data.colour);
+			newCardStyles["--characterCardNameColour"] = character?.data?.cardNameColour || "#0088ff";
 
 			const colours = getColourWithTint(character.data.colour);
 			newCardStyles["--characterColourGradient1"] = colours[0];
 			newCardStyles["--characterColourGradient2"] = colours[1];
 		} else {
 			newCardStyles["--characterColour"] = "#0044ff";
+			newCardStyles["--characterCardNameColour"] = "#0088ff";
 			newCardStyles["--characterColourTint"] = "#0044ff";
 			newCardStyles["--characterColourGradient1"] = "#0044ff";
 			newCardStyles["--characterColourGradient2"] = "#0044ff";

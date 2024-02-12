@@ -105,7 +105,7 @@
 	font-size: 28px;
 	font-weight: 600;
 	color: var(--colour-blue);
-	color: var(--characterColour);
+	color: var(--characterCardNameColour);
 }
 
 .characters-group-character-card-character-type {

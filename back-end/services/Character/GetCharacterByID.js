@@ -12,6 +12,7 @@ module.exports = async (req, res) => {
 			"data.name": 1,
 			"data.summaryItems": 1,
 			"data.colour": 1,
+			"data.cardNameColour": 1,
 			"data.cardBackground": 1,
 			"data.cardBackgroundProperties": 1,
 			"data.faceImage": 1,

@@ -15,6 +15,7 @@ import { SettingsOverviewBackgroundImage } from "./SettingsOverviewBackgroundIma
 import { SettingsOverviewForegroundImage } from "./SettingsOverviewForegroundImage/SettingsOverviewForegroundImage";
 import { SettingsMapImage } from "./SettingsMapImage/SettingsMapImage";
 import { SettingsCardBackgroundImage } from "./SettingsCardBackgroundImage/SettingsCardBackgroundImage";
+import { SettingsCardNameColour } from "./SettingsCardNameColour/SettingsCardNameColour";
 import { SettingsFaceImage } from "./SettingsFaceImage/SettingsFaceImage";
 import { SettingsListImage } from "./SettingsListImage/SettingsListImage";
 import { SettingsDelete } from "./SettingsDelete/SettingsDelete";
@@ -50,6 +51,7 @@ export const Settings = () => {
 				<SettingsMapImage />
 				<SettingsOverviewForegroundImage />
 				<SettingsOverviewBackgroundImage />
+				<SettingsCardNameColour />
 				<SettingsCardBackgroundImage />
 				<SettingsFaceImage />
 				<SettingsListImage />
