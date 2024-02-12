@@ -115,8 +115,8 @@ export const CreateLocationFormLogic = () => {
 
 	async function submitCreateHierarchyItem() {
 		setErrors([]);
-		if (itemType === "Unselected") return false;
-		if (itemParent === "Unselected") return false;
+		if (!itemType || itemType === "Unselected") return false;
+		if (!itemParent || itemParent === "Unselected") return false;
 
 		if (!story?._id) return false;
 

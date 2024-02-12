@@ -15,8 +15,15 @@ import { LocationsContext } from "../../../../LocationsContext";
 // Assets
 
 export const HierarchyListItemLogic = ({ item, locationTypes }) => {
-	const { selectedLocationId, setSelectedLocationId, hoverMapLocationId, currentMapLocationId, setCurrentMapLocationId } =
-		useContext(LocationsContext);
+	const {
+		selectedLocationId,
+		setSelectedLocationId,
+		hoverMapLocationId,
+		currentMapLocationId,
+		setCurrentMapLocationId,
+		isOnSpaceMap,
+		setIsOnSpaceMap,
+	} = useContext(LocationsContext);
 	const [icon, setIcon] = useState(null);
 
 	useEffect(() => {
@@ -59,6 +66,10 @@ export const HierarchyListItemLogic = ({ item, locationTypes }) => {
 				break;
 			case 2:
 				if (!["reality"].includes(item?.type)) setCurrentMapLocationId(item?._id);
+				const newIsOnSpaceMapValue = !["surfaceLocation"].includes(item?.type);
+				if (JSON.stringify(newIsOnSpaceMapValue) !== JSON.stringify(isOnSpaceMap)) {
+					setIsOnSpaceMap(newIsOnSpaceMapValue);
+				}
 				break;
 			default:
 				break;
@@ -68,6 +79,10 @@ export const HierarchyListItemLogic = ({ item, locationTypes }) => {
 	function onClickTravelToLocation(e) {
 		e.stopPropagation();
 		if (item?.type !== "reality") setCurrentMapLocationId(item._id);
+		const newIsOnSpaceMapValue = !["surfaceLocation"].includes(item?.type);
+		if (JSON.stringify(newIsOnSpaceMapValue) !== JSON.stringify(isOnSpaceMap)) {
+			setIsOnSpaceMap(newIsOnSpaceMapValue);
+		}
 	}
 
 	return { selectedLocationId, hoverMapLocationId, currentMapLocationId, icon, onClickItem, onClickTravelToLocation };
