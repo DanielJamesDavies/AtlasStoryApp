@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useRef, useLayoutEffect, useCallback } from "react";
 
 // Components
 
@@ -71,6 +71,26 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 	}, [character, characterType, setCardStyles]);
 
 	const cardBackgroundSizeRef = useRef();
+
+	const setCardBackgroundImgScale = useCallback(() => {
+		if (cardBackgroundSizeRef?.current?.children[0]?.children[0]?.children[0])
+			cardBackgroundSizeRef.current.children[0].children[0].children[0].style =
+				"scale: " +
+				cardBackgroundSizeRef?.current?.children[0]?.clientHeight / cardBackgroundSizeRef?.current?.children[0]?.children[0]?.clientHeight;
+	}, [cardBackgroundSizeRef]);
+
+	const updateCardBackgroundImgScale = useCallback(() => {
+		setCardBackgroundImgScale();
+		setTimeout(() => setCardBackgroundImgScale(), 5);
+		setTimeout(() => setCardBackgroundImgScale(), 100);
+		setTimeout(() => setCardBackgroundImgScale(), 105);
+	}, [cardBackgroundSizeRef]);
+
+	useLayoutEffect(() => {
+		updateCardBackgroundImgScale();
+		window.addEventListener("resize", updateCardBackgroundImgScale);
+		return () => window.removeEventListener("resize", updateCardBackgroundImgScale);
+	}, [character, updateCardBackgroundImgScale]);
 
 	return {
 		character,
