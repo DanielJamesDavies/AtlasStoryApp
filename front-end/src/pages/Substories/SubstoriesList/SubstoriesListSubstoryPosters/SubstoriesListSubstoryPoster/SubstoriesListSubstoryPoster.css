@@ -32,9 +32,9 @@
 	z-index: 1;
 	display: inline-block;
 	margin: 0;
-	border: 3px solid var(--colour-accent);
-	border-color: var(--substoryColour);
-	border-radius: 8px;
+	border: 2px solid var(--colour-grey-four);
+	border-color: var(--colour-grey-four);
+	border-radius: 10px;
 
 	width: var(--posterWidth);
 	height: var(--posterHeight);
@@ -192,7 +192,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	border-radius: inherit;
+	border-radius: 9px;
 	z-index: -1;
 	width: 100%;
 	height: 100%;

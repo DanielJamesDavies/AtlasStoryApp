@@ -17,7 +17,7 @@
 }
 
 .unit-page-subpage-plot-item-container:last-child .unit-page-subpage-plot-item {
-	min-height: 150px;
+	min-height: max(150px, 70dvh);
 }
 
 .unit-page-subpage-plot-item-content {
