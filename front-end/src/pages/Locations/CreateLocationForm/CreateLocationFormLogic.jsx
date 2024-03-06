@@ -23,6 +23,7 @@ export const CreateLocationFormLogic = () => {
 		isDisplayingCreateLocationForm,
 		setIsDisplayingCreateLocationForm,
 		locationTypes,
+		specificLocationTypes,
 		story,
 		changeStoryHierarchy,
 		locations,
@@ -85,28 +86,56 @@ export const CreateLocationFormLogic = () => {
 	function changeItemType(index) {
 		if (isSubmitting) return false;
 
-		const newItemType = locationTypes[index].type;
-		setItemType(newItemType);
+		const reversed_location_types_with_specific = [...locationTypes.concat(specificLocationTypes)].reverse();
 
-		const possibleParents = locationTypes.find((e) => e.type === newItemType)?.possibleParents;
-		const currItemParentLocation = locations.find((e) => e.id === itemParent);
-		if (!currItemParentLocation) return;
-		if (!possibleParents.includes(currItemParentLocation.type)) setItemParent("Unselected");
+		const newItem = reversed_location_types_with_specific[index];
+		if (newItem?.specificType) {
+			const newItemType = reversed_location_types_with_specific[index]?.specificType;
+			setItemType(newItemType);
+
+			const possibleParents = locationTypes.find((e) => e?.type === newItemType)?.possibleParents;
+			const currItemParentLocation = locations.find((e) => e.id === itemParent);
+			if (!currItemParentLocation) return;
+
+			if (!possibleParents.includes(currItemParentLocation.type)) setItemParent("Unselected");
+		} else {
+			const newItemType = reversed_location_types_with_specific[index]?.type;
+			setItemType(newItemType);
+
+			const possibleParents = locationTypes.find((e) => e?.type === newItemType)?.possibleParents;
+			const currItemParentLocation = locations.find((e) => e.id === itemParent);
+			if (!currItemParentLocation) return;
+
+			if (!possibleParents.includes(currItemParentLocation.type)) setItemParent("Unselected");
+		}
 	}
 
 	useEffect(() => {
 		function getParentOptions() {
-			const possibleParents = locationTypes.find((e) => e.type === itemType)?.possibleParents;
-			if (!possibleParents) return setParentOptions([]);
+			if (specificLocationTypes.findIndex((e) => e.specificType === itemType) === -1) {
+				const possibleParents = locationTypes.find((e) => e.type === itemType)?.possibleParents;
+				if (!possibleParents) return setParentOptions([]);
 
-			let newParentOptions = JSON.parse(JSON.stringify(locations)).filter((e) => possibleParents.includes(e.type));
+				let newParentOptions = JSON.parse(JSON.stringify(locations)).filter((e) => possibleParents.includes(e.type));
 
-			if (itemType === "reality") newParentOptions.splice(0, 0, { _id: "root", data: { name: "Root" } });
+				if (itemType === "reality" || locations.length === 0) newParentOptions.splice(0, 0, { _id: "root", data: { name: "Root" } });
 
-			setParentOptions(newParentOptions);
+				setParentOptions(newParentOptions);
+			} else {
+				const possibleParents = specificLocationTypes.find((e) => e.specificType === itemType)?.possibleParents;
+				const possibleSpecificParents = specificLocationTypes.find((e) => e.specificType === itemType)?.possibleSpecificParents;
+				if (!possibleParents || !possibleSpecificParents) return setParentOptions([]);
+
+				let newParentOptions = JSON.parse(JSON.stringify(locations)).filter((e) => possibleParents.includes(e.type));
+				newParentOptions = newParentOptions.filter((e) => !e?.specific_type || possibleSpecificParents.includes(e?.specific_type));
+
+				if (itemType === "reality" || locations.length === 0) newParentOptions.splice(0, 0, { _id: "root", data: { name: "Root" } });
+
+				setParentOptions(newParentOptions);
+			}
 		}
 		getParentOptions();
-	}, [locationTypes, locations, itemType]);
+	}, [locationTypes, specificLocationTypes, locations, itemType]);
 
 	function changeItemParent(index) {
 		if (isSubmitting) return false;
@@ -122,6 +151,13 @@ export const CreateLocationFormLogic = () => {
 
 		setIsSubmitting(true);
 
+		let newItemType = JSON.parse(JSON.stringify(itemType));
+		let newSpecificItemType = false;
+		if (specificLocationTypes.findIndex((e) => e.specificType === itemType) !== -1) {
+			newSpecificItemType = JSON.parse(JSON.stringify(itemType));
+			newItemType = specificLocationTypes.find((e) => e?.specificType === newSpecificItemType)?.type;
+		}
+
 		// Get New Location ID
 		const new_id_response = await APIRequest("/new-id/", "GET");
 		if (!new_id_response || new_id_response?.errors || !new_id_response?.data?._id) {
@@ -129,15 +165,16 @@ export const CreateLocationFormLogic = () => {
 			return false;
 		}
 
-		const scale = locationTypes.find((e) => e.type === itemType)?.defaultScale;
-		const points = locationTypes.find((e) => e.type === itemType)?.defaultPoints;
+		const scale = locationTypes.find((e) => e.type === newItemType)?.defaultScale;
+		const points = locationTypes.find((e) => e.type === newItemType)?.defaultPoints;
 
 		// New Location
 		const newLocation = {
 			_id: new_id_response?.data?._id,
 			story_id: story?._id,
 			uid: itemUid,
-			type: itemType,
+			type: newItemType,
+			specific_type: newSpecificItemType,
 			position: [0, 0, 0],
 			scale: scale ? scale : 1,
 			tilt: 0,
@@ -172,6 +209,7 @@ export const CreateLocationFormLogic = () => {
 			name: newLocation?.data?.name,
 			uid: newLocation?.uid,
 			type: newLocation?.type,
+			specific_type: newLocation?.specific_type,
 			item_parent: itemParent,
 		});
 		if (!response) return;
@@ -207,6 +245,7 @@ export const CreateLocationFormLogic = () => {
 		itemUid,
 		changeItemUid,
 		locationTypes,
+		specificLocationTypes,
 		itemType,
 		changeItemType,
 		parentOptions,

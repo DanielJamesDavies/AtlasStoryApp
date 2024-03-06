@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
 		story_id: req.body.story_id,
 		uid: req.body.uid,
 		type: req.body.type,
+		specific_type: req?.body?.specific_type || "",
 		data: { name: req.body.name },
 	});
 
@@ -67,6 +68,7 @@ function validateLocation(location) {
 		name: Joi.string().min(1).max(64).required(),
 		item_parent: Joi.string().required(),
 		type: Joi.string().required(),
+		specific_type: Joi.string(),
 	});
 
 	const locationValidationError = locationSchema.validate(location, { abortEarly: false })?.error?.details;

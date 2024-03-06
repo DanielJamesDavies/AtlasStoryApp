@@ -68,9 +68,16 @@ export const LocationsList = () => {
 									<div className='locations-list-item-name'>{location?.data?.name}</div>
 									<div className='locations-list-item-type'>
 										{locationTypes.find((e) => e?.type === location?.type)?.icon}
-										<div className='locations-list-item-type-text'>
-											{location?.type.charAt(0).toUpperCase() + location?.type.replace(/([A-Z])/g, " $1").slice(1)}
-										</div>
+										{location?.specific_type?.length !== 0 ? (
+											<div className='locations-list-item-type-text'>
+												{location?.specific_type.charAt(0).toUpperCase() +
+													location?.specific_type.replace(/([A-Z])/g, " $1").slice(1)}
+											</div>
+										) : (
+											<div className='locations-list-item-type-text'>
+												{location?.type.charAt(0).toUpperCase() + location?.type.replace(/([A-Z])/g, " $1").slice(1)}
+											</div>
+										)}
 									</div>
 								</div>
 							</div>

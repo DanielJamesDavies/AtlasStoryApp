@@ -31,6 +31,7 @@ export const CreateLocationForm = () => {
 		itemUid,
 		changeItemUid,
 		locationTypes,
+		specificLocationTypes,
 		itemType,
 		changeItemType,
 		parentOptions,
@@ -66,8 +67,15 @@ export const CreateLocationForm = () => {
 
 				<div className='locations-create-location-form-input-container'>
 					<div className='locations-create-location-form-subtitle'>Location Type</div>
-					<DropdownContainer value={locationTypes.find((e) => e.type === itemType)?.name} onChange={changeItemType} noBackground={true}>
-						{locationTypes.map((locationType, index) => (
+					<DropdownContainer
+						value={
+							locationTypes.find((e) => e.type === itemType)?.name ||
+							specificLocationTypes.find((e) => e.specificType === itemType)?.name
+						}
+						onChange={changeItemType}
+						noBackground={true}
+					>
+						{[...locationTypes.concat(specificLocationTypes)].reverse().map((locationType, index) => (
 							<div key={index}>{locationType.name}</div>
 						))}
 					</DropdownContainer>

@@ -104,6 +104,37 @@ const LocationsProvider = ({ children, story_uid }) => {
 		},
 	];
 
+	const specificLocationTypes = [
+		{
+			type: "surfaceLocation",
+			specificType: "continent",
+			name: "Continent",
+			possibleParents: ["reality", "planet", "moon", "artificialSatellite", "surfaceLocation"],
+			possibleSpecificParents: [],
+		},
+		{
+			type: "surfaceLocation",
+			specificType: "city",
+			name: "City",
+			possibleParents: ["reality", "planet", "moon", "artificialSatellite", "surfaceLocation"],
+			possibleSpecificParents: ["continent"],
+		},
+		{
+			type: "surfaceLocation",
+			specificType: "town",
+			name: "Town",
+			possibleParents: ["reality", "planet", "moon", "artificialSatellite", "surfaceLocation"],
+			possibleSpecificParents: ["continent"],
+		},
+		{
+			type: "surfaceLocation",
+			specificType: "village",
+			name: "Village",
+			possibleParents: ["reality", "planet", "moon", "artificialSatellite", "surfaceLocation"],
+			possibleSpecificParents: ["continent"],
+		},
+	];
+
 	const { location, changeLocation, locationPath } = useContext(RoutesContext);
 	const { APIRequest } = useContext(APIContext);
 	const { isAuthorizedToEdit, story, setStory, storyIcon, locations, setLocations, createUnitForm } = useContext(StoryContext);
@@ -437,6 +468,7 @@ const LocationsProvider = ({ children, story_uid }) => {
 			value={{
 				story_uid,
 				locationTypes,
+				specificLocationTypes,
 				isAuthorizedToEdit,
 				story,
 				setStory,
