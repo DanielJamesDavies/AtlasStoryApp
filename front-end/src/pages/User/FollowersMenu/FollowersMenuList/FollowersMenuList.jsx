@@ -16,8 +16,17 @@ import "./FollowersMenuList.css";
 // Assets
 
 export const FollowersMenuList = () => {
-	const { followersMenuSubpage, userFollowing, userFollowers, goToUser, unfollowUser, acceptUserFollow, denyUserFollow, cancelUserFollow } =
-		FollowersMenuListLogic();
+	const {
+		isAuthorizedToEdit,
+		followersMenuSubpage,
+		userFollowing,
+		userFollowers,
+		goToUser,
+		unfollowUser,
+		acceptUserFollow,
+		denyUserFollow,
+		cancelUserFollow,
+	} = FollowersMenuListLogic();
 
 	if (followersMenuSubpage === "following")
 		return (
@@ -35,12 +44,14 @@ export const FollowersMenuList = () => {
 										<div className='user-followers-menu-list-item-nickname'>{userFollow?.user?.data?.nickname}</div>
 										<div className='user-followers-menu-list-item-username'>@{userFollow?.user?.username}</div>
 									</div>
-									<button
-										className='user-followers-menu-list-item-unfollow-btn'
-										onClick={(e) => unfollowUser(e, userFollow?.user?._id)}
-									>
-										Unfollow
-									</button>
+									{!isAuthorizedToEdit ? null : (
+										<button
+											className='user-followers-menu-list-item-unfollow-btn'
+											onClick={(e) => unfollowUser(e, userFollow?.user?._id)}
+										>
+											Unfollow
+										</button>
+									)}
 								</div>
 							))}
 			</div>
@@ -81,18 +92,22 @@ export const FollowersMenuList = () => {
 										<div className='user-followers-menu-list-item-nickname'>{userFollow?.user?.data?.nickname}</div>
 										<div className='user-followers-menu-list-item-username'>@{userFollow?.user?.username}</div>
 									</div>
-									<button
-										className='user-followers-menu-list-item-accept-follow-btn'
-										onClick={(e) => acceptUserFollow(e, userFollow?.user?._id)}
-									>
-										Accept
-									</button>
-									<button
-										className='user-followers-menu-list-item-deny-follow-btn'
-										onClick={(e) => denyUserFollow(e, userFollow?.user?._id)}
-									>
-										Deny
-									</button>
+									{!isAuthorizedToEdit ? null : (
+										<>
+											<button
+												className='user-followers-menu-list-item-accept-follow-btn'
+												onClick={(e) => acceptUserFollow(e, userFollow?.user?._id)}
+											>
+												Accept
+											</button>
+											<button
+												className='user-followers-menu-list-item-deny-follow-btn'
+												onClick={(e) => denyUserFollow(e, userFollow?.user?._id)}
+											>
+												Deny
+											</button>
+										</>
+									)}
 								</div>
 							))}
 				{!userFollowing
@@ -111,12 +126,14 @@ export const FollowersMenuList = () => {
 									<div className='user-followers-menu-list-item-follow-request-symbol'>
 										<FaUserClock />
 									</div>
-									<button
-										className='user-followers-menu-list-item-cancel-follow-btn'
-										onClick={(e) => cancelUserFollow(e, userFollow?.user?._id)}
-									>
-										Cancel Request
-									</button>
+									{!isAuthorizedToEdit ? null : (
+										<button
+											className='user-followers-menu-list-item-cancel-follow-btn'
+											onClick={(e) => cancelUserFollow(e, userFollow?.user?._id)}
+										>
+											Cancel Request
+										</button>
+									)}
 								</div>
 							))}
 			</div>

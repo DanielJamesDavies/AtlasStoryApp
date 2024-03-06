@@ -17,7 +17,7 @@ import { RoutesContext } from "../../../../context/RoutesContext";
 // Assets
 
 export const FollowersMenuListLogic = () => {
-	const { followersMenuSubpage, userFollowing, setUserFollowing, userFollowers, setUserFollowers } = useContext(UserContext);
+	const { isAuthorizedToEdit, followersMenuSubpage, userFollowing, setUserFollowing, userFollowers, setUserFollowers } = useContext(UserContext);
 	const { APIRequest } = useContext(APIContext);
 	const { changeLocation } = useContext(RoutesContext);
 
@@ -71,5 +71,15 @@ export const FollowersMenuListLogic = () => {
 		});
 	}
 
-	return { followersMenuSubpage, userFollowing, userFollowers, goToUser, unfollowUser, acceptUserFollow, denyUserFollow, cancelUserFollow };
+	return {
+		isAuthorizedToEdit,
+		followersMenuSubpage,
+		userFollowing,
+		userFollowers,
+		goToUser,
+		unfollowUser,
+		acceptUserFollow,
+		denyUserFollow,
+		cancelUserFollow,
+	};
 };
