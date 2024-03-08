@@ -20,6 +20,8 @@ const APIProvider = ({ children }) => {
 					"Content-Type": "application/json",
 					withCredentials: true,
 				},
+				mode: "cors",
+				credentials: "include",
 			};
 			if (body) data.body = JSON.stringify(body);
 

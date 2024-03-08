@@ -10,7 +10,19 @@ const compression = require("compression");
 
 const port = process.env.PORT || 3001;
 
-app.use(cors());
+if (process.env.NODE_ENV === "development") {
+	app.use(
+		cors({
+			origin: "http://localhost:3000",
+			credentials: true,
+			methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+			optionsSuccessStatus: 204,
+		})
+	);
+} else {
+	app.use(cors());
+}
+
 app.use(compression());
 app.use(express.json({ limit: "500mb" }));
 app.use(cookieParser());
@@ -39,7 +51,18 @@ emailTransporter.verify((error, success) => {
 });
 
 app.use("*", (req, res, next) => {
-	// console.log(req?.originalUrl);
+	if (process.env.NODE_ENV === "development") {
+		res.set("Access-Control-Allow-Origin", "http://localhost:3000");
+		res.set("Access-Control-Allow-Credentials", "true");
+
+		if (req.method === "OPTIONS") {
+			res.set("Access-Control-Allow-Methods", "GET");
+			res.set("Access-Control-Allow-Headers", "Content-Type");
+			res.set("Access-Control-Max-Age", "3600");
+			return res.status(204).send("");
+		}
+	}
+
 	if (emailTransporter) req.emailTransporter = emailTransporter;
 	if (isEmailTransporterVerified) req.isEmailTransporterVerified = isEmailTransporterVerified;
 	req.cookieOptions = {
