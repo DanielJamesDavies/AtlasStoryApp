@@ -13,7 +13,7 @@ const port = process.env.PORT || 3001;
 if (process.env.NODE_ENV === "development") {
 	app.use(
 		cors({
-			origin: "http://localhost:3000",
+			origin: ["http://localhost:3000", "http://192.168.1.232:3000"],
 			credentials: true,
 			methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 			optionsSuccessStatus: 204,
@@ -46,13 +46,13 @@ const emailTransporter = nodemailer.createTransport({
 
 var isEmailTransporterVerified = false;
 emailTransporter.verify((error, success) => {
-	if (error) console.log("emailTransporterError", error);
+	if (error) console.log("!!! Email Transporter Error: ", error);
 	if (!error && success) isEmailTransporterVerified = true;
 });
 
 app.use("*", (req, res, next) => {
 	if (process.env.NODE_ENV === "development") {
-		res.set("Access-Control-Allow-Origin", "http://localhost:3000");
+		res.set("Access-Control-Allow-Origin", req?.get("origin"));
 		res.set("Access-Control-Allow-Credentials", "true");
 
 		if (req.method === "OPTIONS") {

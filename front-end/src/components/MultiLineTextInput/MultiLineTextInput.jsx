@@ -38,7 +38,6 @@ export const MultiLineTextInput = (props) => {
 					{props.icon ? <DynamicIconComponent /> : null}
 					<span onClick={selectAll}>{props.label}</span>
 				</div>
-
 				<textarea
 					ref={inputRef}
 					value={props.value === undefined ? [""] : props.value}

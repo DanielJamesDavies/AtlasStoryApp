@@ -1,5 +1,5 @@
 // Packages
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 // Components
 
@@ -13,32 +13,32 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 // Assets
 
-export const MultiLineTextInputLogic = (props) => {
+export const MultiLineTextInputLogic = ({ className, icon, value, isSaved, isDark, seamless, isLightText, onChange }) => {
 	const inputContainerRef = useRef();
 	const inputRef = useRef();
 	const inputHeightRef = useRef();
 
 	const [focused, setFocused] = useState(false);
 	const [inputClassName, setInputClassName] = useState(
-		props?.seamless ? "multi-line-text-input-container multi-line-text-input-container-seamless" : "multi-line-text-input-container"
+		seamless ? "multi-line-text-input-container multi-line-text-input-container-seamless" : "multi-line-text-input-container"
 	);
 
-	const DynamicIconComponent = props.icon;
+	const DynamicIconComponent = icon;
 
 	useEffect(() => {
 		function getInputClassName() {
 			let className = "multi-line-text-input-container";
-			if (props.className) className += " " + props.className;
+			if (className) className += " " + className;
 			if (focused) className += " multi-line-text-input-container-focused";
-			if (props.value === undefined || props.value === "") className += " multi-line-text-input-container-empty";
-			if (props.isSaved === false && !focused) className += " multi-line-text-input-container-unsaved";
-			if (props.isDark) className += " multi-line-text-input-container-dark";
-			if (props.seamless) className += " multi-line-text-input-container-seamless";
-			if (props?.isLightText) className += " multi-line-text-input-container-light-text";
+			if (value === undefined || value === "") className += " multi-line-text-input-container-empty";
+			if (isSaved === false && !focused) className += " multi-line-text-input-container-unsaved";
+			if (isDark) className += " multi-line-text-input-container-dark";
+			if (seamless) className += " multi-line-text-input-container-seamless";
+			if (isLightText) className += " multi-line-text-input-container-light-text";
 			return className;
 		}
 		setInputClassName(getInputClassName());
-	}, [props, focused]);
+	}, [className, icon, value, isSaved, isDark, seamless, isLightText, focused]);
 
 	function selectAll() {
 		if (inputRef && inputRef.current) inputRef.current.select();
@@ -56,30 +56,37 @@ export const MultiLineTextInputLogic = (props) => {
 		setFocused(false);
 	}
 
+	const resizeInput = useCallback(() => {
+		if (!inputContainerRef?.current || !inputRef?.current || !inputHeightRef?.current) return;
+
+		inputContainerRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
+		inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
+		inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
+
+		inputContainerRef.current.setAttribute(
+			"style",
+			"height: calc(" + inputHeightRef.current.clientHeight + "px); --multiLineTextInputWidth: " + inputRef.current.clientWidth + "px;"
+		);
+		inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
+		inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
+	}, [inputContainerRef, inputRef, inputHeightRef]);
+
+	useEffect(() => {
+		const interval = setInterval(() => resizeInput(), 50);
+		setTimeout(() => clearInterval(interval), 200);
+	}, [resizeInput]);
+
 	// Resize Input
 	useLayoutEffect(() => {
-		function resizeInput() {
-			if (!inputContainerRef?.current || !inputRef?.current || !inputHeightRef?.current) return;
-
-			inputContainerRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
-			inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
-			inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
-
-			inputContainerRef.current.setAttribute(
-				"style",
-				"height: calc(" + inputHeightRef.current.clientHeight + "px); --multiLineTextInputWidth: " + inputRef.current.clientWidth + "px;"
-			);
-			inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
-			inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
-		}
 		resizeInput();
-		let reloadTimer = setTimeout(() => resizeInput(), 10);
+	}, [resizeInput, value, focused, inputContainerRef, inputRef, inputHeightRef]);
+
+	useEffect(() => {
 		window.addEventListener("resize", resizeInput);
 		return () => {
-			clearTimeout(reloadTimer);
 			window.removeEventListener("resize", resizeInput);
 		};
-	}, [props, focused, inputContainerRef, inputRef, inputHeightRef]);
+	}, [resizeInput]);
 
 	function onKeyDownTextArea(e) {
 		if (e.key === "Tab") {
@@ -88,7 +95,7 @@ export const MultiLineTextInputLogic = (props) => {
 			inputRef.current.value =
 				inputRef.current.value.substring(0, start) + "\t" + inputRef.current.value.substring(inputRef.current.selectionEnd);
 			inputRef.current.selectionStart = inputRef.current.selectionEnd = start + 1;
-			props.onChange(e);
+			onChange(e);
 		}
 	}
 

@@ -20,13 +20,17 @@ const APIProvider = ({ children }) => {
 					"Content-Type": "application/json",
 					withCredentials: true,
 				},
-				mode: "cors",
-				credentials: "include",
 			};
+			if (process.env.NODE_ENV === "development") {
+				data.mode = "cors";
+				data.credentials = "include";
+			}
+
 			if (body) data.body = JSON.stringify(body);
 
 			try {
-				const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api" : "https://www.atlas-story.app/api";
+				const API_URL =
+					process.env.NODE_ENV === "development" ? `http://${window.location?.hostname}:3001/api` : "https://www.atlas-story.app/api";
 
 				const response = await fetch(API_URL + path, data);
 
