@@ -94,38 +94,40 @@ export const PlotItem = ({
 						onChange={changeItemText}
 						aiTools={true}
 					/>
-					<DragDropContainer
-						className='unit-page-subpage-plot-item-images'
-						enableDragDrop={isReorderingPlotItems}
-						onDropItem={reorderItemImages}
-					>
-						{!item?.images
-							? null
-							: item.images.map((image, imageIndex) => (
-									<DragDropItem key={imageIndex} index={imageIndex} className='unit-page-subpage-plot-item-image-item'>
-										{!unitImages.find((e) => e._id === image.image)?.image ? null : (
-											<img src={unitImages.find((e) => e._id === image.image).image} alt='' />
-										)}
-										<TextInput
-											className='unit-page-subpage-plot-item-image-item-caption'
-											seamless={true}
-											autoResize={true}
-											label='Caption'
-											value={image.caption}
-											onChange={(e) => changeImageCaption(e, imageIndex)}
-										/>
-										<div className='unit-page-subpage-plot-item-image-item-btns-container'>
-											<IconBtn
-												icon={<FaTimes />}
-												iconName='remove'
+					{!item?.images || item?.images?.length === 0 ? null : (
+						<DragDropContainer
+							className='unit-page-subpage-plot-item-images'
+							enableDragDrop={isReorderingPlotItems}
+							onDropItem={reorderItemImages}
+						>
+							{!item?.images
+								? null
+								: item.images.map((image, imageIndex) => (
+										<DragDropItem key={imageIndex} index={imageIndex} className='unit-page-subpage-plot-item-image-item'>
+											{!unitImages.find((e) => e._id === image.image)?.image ? null : (
+												<img src={unitImages.find((e) => e._id === image.image).image} alt='' />
+											)}
+											<TextInput
+												className='unit-page-subpage-plot-item-image-item-caption'
 												seamless={true}
-												size='s'
-												onClick={() => removeItemImage(imageIndex)}
+												autoResize={true}
+												label='Caption'
+												value={image.caption}
+												onChange={(e) => changeImageCaption(e, imageIndex)}
 											/>
-										</div>
-									</DragDropItem>
-							  ))}
-					</DragDropContainer>
+											<div className='unit-page-subpage-plot-item-image-item-btns-container'>
+												<IconBtn
+													icon={<FaTimes />}
+													iconName='remove'
+													seamless={true}
+													size='s'
+													onClick={() => removeItemImage(imageIndex)}
+												/>
+											</div>
+										</DragDropItem>
+								  ))}
+						</DragDropContainer>
+					)}
 				</div>
 				<div className='unit-page-subpage-plot-item-btns-container'>
 					<IconBtn icon={<FaTimes />} iconName='times' seamless={true} size='s' onClick={() => removePlotItem(item._id)} />

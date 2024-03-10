@@ -44,7 +44,7 @@ export const MultiLineTextInputLogic = ({ className, icon, value, isSaved, isDar
 		if (inputRef && inputRef.current) inputRef.current.select();
 	}
 
-	function focusOnInput() {
+	function onClick() {
 		if (inputRef && inputRef.current) inputRef.current.focus();
 	}
 
@@ -55,38 +55,6 @@ export const MultiLineTextInputLogic = ({ className, icon, value, isSaved, isDar
 	function onInputContainerBlur() {
 		setFocused(false);
 	}
-
-	const resizeInput = useCallback(() => {
-		if (!inputContainerRef?.current || !inputRef?.current || !inputHeightRef?.current) return;
-
-		inputContainerRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
-		inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
-		inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
-
-		inputContainerRef.current.setAttribute(
-			"style",
-			"height: calc(" + inputHeightRef.current.clientHeight + "px); --multiLineTextInputWidth: " + inputRef.current.clientWidth + "px;"
-		);
-		inputRef.current.setAttribute("style", "height: calc(" + inputHeightRef.current.clientHeight + "px);");
-		inputHeightRef.current.setAttribute("style", "width: calc(" + inputRef.current.clientWidth + "px);");
-	}, [inputContainerRef, inputRef, inputHeightRef]);
-
-	useEffect(() => {
-		const interval = setInterval(() => resizeInput(), 50);
-		setTimeout(() => clearInterval(interval), 200);
-	}, [resizeInput]);
-
-	// Resize Input
-	useLayoutEffect(() => {
-		resizeInput();
-	}, [resizeInput, value, focused, inputContainerRef, inputRef, inputHeightRef]);
-
-	useEffect(() => {
-		window.addEventListener("resize", resizeInput);
-		return () => {
-			window.removeEventListener("resize", resizeInput);
-		};
-	}, [resizeInput]);
 
 	function onKeyDownTextArea(e) {
 		if (e.key === "Tab") {
@@ -111,15 +79,19 @@ export const MultiLineTextInputLogic = ({ className, icon, value, isSaved, isDar
 	}, [inputRef, focused]);
 
 	const [inputContainerStyles, setInputContainerStyles] = useState({ "--multiLineTextInputWidth": "0px" });
+
+	const getInputContainerStyles = useCallback(() => {
+		if (!inputRef?.current?.clientWidth) return;
+		setInputContainerStyles({
+			"--multiLineTextInputWidth": inputRef.current.clientWidth + "px",
+		});
+	}, [setInputContainerStyles, inputRef]);
+
 	useLayoutEffect(() => {
-		function getInputContainerStyles() {
-			if (!inputRef?.current?.clientWidth) return;
-			setInputContainerStyles({ "--multiLineTextInputWidth": inputRef.current.clientWidth + "px" });
-		}
 		getInputContainerStyles();
 		window.addEventListener("resize", getInputContainerStyles);
 		return () => window.removeEventListener("resize", getInputContainerStyles);
-	}, [setInputContainerStyles, inputRef]);
+	}, [getInputContainerStyles]);
 
 	return {
 		inputContainerRef,
@@ -128,7 +100,7 @@ export const MultiLineTextInputLogic = ({ className, icon, value, isSaved, isDar
 		inputClassName,
 		DynamicIconComponent,
 		selectAll,
-		focusOnInput,
+		onClick,
 		onInputContainerFocus,
 		onInputContainerBlur,
 		onKeyDownTextArea,

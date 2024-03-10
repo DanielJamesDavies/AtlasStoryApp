@@ -125,14 +125,14 @@ export const EditableContainerLogic = ({
 		let isVerticalScrollInScrollFrom = false;
 		let isVerticalScrollInScrollTo = false;
 
-		let list_children = editableContainerRef?.current?.children?.[0]?.children?.[0];
+		let list = editableContainerRef?.current?.children?.[0]?.children?.[0];
 		Array(scrollItemsDepthFrom)
 			.fill(0)
 			.map((_, index) => {
-				list_children = list_children?.children;
-				if (index + 1 < scrollItemsDepthFrom && list_children?.[0]) list_children = list_children?.[0];
+				if (index + 1 < scrollItemsDepthFrom && list_children?.children?.[0]) list = list?.children?.[0];
 				return true;
 			});
+		let list_children = list?.children;
 
 		if (Array.from(list_children).length === 0 || (isVerticalScrollInScrollFrom && Array.from(list_children).length <= 2)) {
 			setIsEditing(new_is_editing_value);
@@ -144,7 +144,7 @@ export const EditableContainerLogic = ({
 				isVerticalScrollInScrollFrom = true;
 				return 0;
 			}
-			return child?.clientHeight + (scrollItemsGap === undefined ? 8 : scrollItemsGap);
+			return child?.getBoundingClientRect()?.height + (scrollItemsGap === undefined ? 8 : scrollItemsGap);
 		});
 
 		let list_scroll_container = editableContainerRef.current.children[0];
@@ -166,7 +166,11 @@ export const EditableContainerLogic = ({
 
 		setIsEditing(new_is_editing_value);
 
-		await new Promise((resolve) => setTimeout(resolve, 1));
+		const isOnMobile = [/Android/i, /webOS/i, /iPhone/i, /iPad/i, /iPod/i, /BlackBerry/i, /Windows Phone/i].some((toMatchItem) =>
+			navigator.userAgent.match(toMatchItem)
+		);
+
+		await new Promise((resolve) => setTimeout(resolve, isOnMobile ? 120 : 1));
 
 		let new_list_children = editableContainerRef.current.children[0].children[0];
 		Array(scrollItemsDepthTo)
@@ -182,7 +186,7 @@ export const EditableContainerLogic = ({
 				isVerticalScrollInScrollTo = true;
 				return 0;
 			}
-			return child?.clientHeight + (scrollItemsGap === undefined ? 8 : scrollItemsGap);
+			return child?.getBoundingClientRect()?.height + (scrollItemsGap === undefined ? 8 : scrollItemsGap);
 		});
 
 		if (Array.from(new_list_children).length === 0 || (isVerticalScrollInScrollTo && Array.from(new_list_children).length <= 2)) {
@@ -201,10 +205,12 @@ export const EditableContainerLogic = ({
 				return true;
 			});
 
-		new_scroll_height -= Math.abs(scrollTopRemaining);
+		new_scroll_height -= scrollTopRemaining * -1 - 8;
 		new_scroll_height = Math.max(new_scroll_height, 0);
 
 		changeContentScrollTop(new_scroll_height, scrollItemsDepthTo);
+		setTimeout(() => changeContentScrollTop(new_scroll_height, scrollItemsDepthTo), 1);
+		setTimeout(() => changeContentScrollTop(new_scroll_height, scrollItemsDepthTo), 5);
 
 		return true;
 	}

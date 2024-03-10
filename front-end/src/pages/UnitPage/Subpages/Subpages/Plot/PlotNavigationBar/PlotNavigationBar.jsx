@@ -20,6 +20,7 @@ export const PlotNavigationBar = ({
 	isDisplayingItemGroups,
 	toggleIsDisplayingItemGroups,
 }) => {
+	if (cluster?.isAll) return null;
 	return (
 		<div className='unit-page-subpage-plot-navigation-bar'>
 			<button

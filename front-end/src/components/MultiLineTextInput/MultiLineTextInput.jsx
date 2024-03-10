@@ -17,9 +17,7 @@ import "./MultiLineTextInput.css";
 
 export const MultiLineTextInput = (props) => {
 	const {
-		inputContainerRef,
 		inputRef,
-		inputHeightRef,
 		inputClassName,
 		DynamicIconComponent,
 		selectAll,
@@ -32,24 +30,15 @@ export const MultiLineTextInput = (props) => {
 	} = MultiLineTextInputLogic(props);
 
 	return (
-		<div ref={inputContainerRef} className={inputClassName} onClick={onClick} style={inputContainerStyles}>
+		<div className={inputClassName} onClick={onClick} style={inputContainerStyles}>
 			<div className='multi-line-text-input'>
 				<div className='multi-line-text-input-label'>
 					{props.icon ? <DynamicIconComponent /> : null}
 					<span onClick={selectAll}>{props.label}</span>
 				</div>
-				<textarea
-					ref={inputRef}
-					value={props.value === undefined ? [""] : props.value}
-					onChange={props.onChange}
-					autoComplete={props.autocomplete}
-					onFocus={onInputContainerFocus}
-					onBlur={onInputContainerBlur}
-					onKeyDown={onKeyDownTextArea}
-				/>
 
 				<div className='multi-line-text-input-height-element'>
-					<div ref={inputHeightRef}>
+					<div>
 						{props.value === undefined
 							? ""
 							: Array.isArray(props.value)
@@ -61,6 +50,16 @@ export const MultiLineTextInput = (props) => {
 							  })}
 					</div>
 				</div>
+
+				<textarea
+					ref={inputRef}
+					value={props.value === undefined ? [""] : props.value}
+					onChange={props.onChange}
+					autoComplete={props.autocomplete}
+					onFocus={onInputContainerFocus}
+					onBlur={onInputContainerBlur}
+					onKeyDown={onKeyDownTextArea}
+				/>
 			</div>
 
 			{!props?.aiTools ? null : (

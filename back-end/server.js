@@ -10,10 +10,17 @@ const compression = require("compression");
 
 const port = process.env.PORT || 3001;
 
+const os = require("os");
+const networkInterfaces = os.networkInterfaces();
+
 if (process.env.NODE_ENV === "development") {
 	app.use(
 		cors({
-			origin: ["http://localhost:3000", "http://192.168.1.232:3000"],
+			origin: ["http://localhost:3000"].concat(
+				Object.keys(networkInterfaces)
+					.map((key) => networkInterfaces[key].filter((e) => e.family === "IPv4")?.map((e) => "http://" + e?.address + ":3000"))
+					.flat()
+			),
 			credentials: true,
 			methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 			optionsSuccessStatus: 204,

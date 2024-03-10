@@ -57,7 +57,14 @@ export const Plot = () => {
 				isDisplayingItemGroups={isDisplayingItemGroups}
 				setIsDisplayingItemGroups={setIsDisplayingItemGroups}
 			/>
-			<PlotItems cluster={cluster} changeCluster={changeCluster} groupID={groupID} changeGroup={changeGroup} />
+			<PlotItems
+				cluster={cluster}
+				changeCluster={changeCluster}
+				groupID={groupID}
+				changeGroup={changeGroup}
+				isDisplayingClusters={isDisplayingClusters}
+				toggleIsDisplayingClusters={toggleIsDisplayingClusters}
+			/>
 		</div>
 	);
 };

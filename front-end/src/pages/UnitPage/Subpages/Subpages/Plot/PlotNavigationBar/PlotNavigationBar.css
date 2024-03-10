@@ -1,8 +1,7 @@
 .unit-page-subpage-plot-navigation-bar {
 	display: none;
 	margin-bottom: 8px;
-	margin-left: -4px;
-	width: calc(100% + 8px);
+	flex-direction: row-reverse;
 }
 
 .unit-page-subpage-plot-navigation-bar-btn {
@@ -34,6 +33,6 @@
 
 @media (max-width: 1200px) {
 	.unit-page-subpage-plot-navigation-bar {
-		display: block;
+		display: flex;
 	}
 }

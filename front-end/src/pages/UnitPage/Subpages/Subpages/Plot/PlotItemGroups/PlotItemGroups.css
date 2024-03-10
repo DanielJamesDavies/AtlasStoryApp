@@ -30,7 +30,7 @@
 	}
 
 	.unit-page-subpage-plot-item-groups-container-displaying {
-		height: calc(var(--vh) - var(--unitPagePaddingTop) - 36px - 6px - 29px);
+		height: calc(var(--vh) - var(--unitPagePaddingTop) - 36px - 6px - 107px);
 		opacity: 1;
 	}
 

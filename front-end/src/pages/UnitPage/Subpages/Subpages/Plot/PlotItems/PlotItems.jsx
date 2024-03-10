@@ -19,7 +19,7 @@ import "./PlotItems.css";
 
 // Assets
 
-export const PlotItems = ({ cluster, changeCluster, groupID }) => {
+export const PlotItems = ({ cluster, changeCluster, groupID, isDisplayingClusters, toggleIsDisplayingClusters }) => {
 	const {
 		isAuthorizedToEdit,
 		unit,
@@ -50,7 +50,19 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 	if (cluster?.isAll)
 		return (
 			<div className='unit-page-subpage-plot-items-container unit-page-subpage-plot-items-container-all' ref={plotItemsContainerRef}>
-				<div className='unit-page-subpage-plot-items-name'>{cluster?.name}</div>
+				<div className='unit-page-subpage-plot-items-name-container'>
+					<div className='unit-page-subpage-plot-items-name'>{cluster?.name}</div>
+					<button
+						className={
+							isDisplayingClusters
+								? "unit-page-subpage-plot-navigation-bar-btn unit-page-subpage-plot-navigation-bar-btn-active"
+								: "unit-page-subpage-plot-navigation-bar-btn"
+						}
+						onClick={toggleIsDisplayingClusters}
+					>
+						Clusters
+					</button>
+				</div>
 				<EditableContainer
 					className='unit-page-subpage-plot-items-list-container'
 					isAuthorizedToEdit={isAuthorizedToEdit}

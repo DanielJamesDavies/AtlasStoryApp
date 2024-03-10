@@ -10,6 +10,7 @@
 	width: 100%;
 	height: 100%;
 	vertical-align: top;
+	scroll-behavior: smooth;
 }
 
 .editable-container-is-authorized .editable-container-content {

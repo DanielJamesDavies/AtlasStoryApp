@@ -163,6 +163,10 @@ img {
 	color: var(--text-colour-primary);
 }
 
+.page {
+	position: fixed;
+}
+
 ::-webkit-scrollbar {
 	width: 6px;
 	background: transparent;
