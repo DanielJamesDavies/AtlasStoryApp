@@ -35,22 +35,14 @@ export const Moon = ({
 		if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
 
 		const rotation_speed = 0.1;
-		ref.current.rotation.x -= delta * 0.4 * Math.min(1 / (scale * scale), 3) * dayLength * rotation_speed;
+		ref.current.rotation.x -= delta * 0.4 * dayLength * rotation_speed;
 	});
 
 	return (
-		<group
-			ref={ref}
-			position={position}
-			scale={scale}
-			dispose={null}
-			onClick={onClick}
-			onPointerOver={onPointerOver}
-			onPointerOut={onPointerOut}
-		>
-			<group rotation={[0, tilt / 18.24 / Math.PI, 0]} scale={0.5}>
+		<group ref={ref} position={position} dispose={null} onClick={onClick} onPointerOver={onPointerOver} onPointerOut={onPointerOut}>
+			<group rotation={[0, tilt / 18.24 / Math.PI, 0]}>
 				<mesh rotation={[3 * (Math.PI / 2), 0, Math.PI / 2]}>
-					<sphereGeometry args={[21.5, 32, 16]} />
+					<sphereGeometry args={[4 * scale, 32, 16]} />
 					<meshStandardMaterial map={surfaceMap} />
 				</mesh>
 			</group>

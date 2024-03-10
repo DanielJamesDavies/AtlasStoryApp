@@ -62,11 +62,18 @@ export const PhysicalOutfitItems = ({
 				onSave={savePhysicalOutfitItems}
 				onScroll={onPhysicalOutfitItemsContainerScroll}
 				onCopyVersionValue={copyVersionValue}
-				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["physical", "outfits"]) ? undefined : pasteVersionValue}
+				onPasteVersionValue={
+					JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["physical", "outfits"]) ? undefined : pasteVersionValue
+				}
+				controlScrollDepth={[1, 2]}
+				scrollItemsDepth={[1, 2]}
 			>
 				<div ref={physicalOutfitItemsRef} className='unit-page-subpage-physical-outfit-items'>
 					{unitVersion?.physical?.outfits?.map((physicalOutfitItem, index) => (
-						<div key={index} className='unit-page-subpage-physical-outfit-item-container'>
+						<div
+							key={index}
+							className={"unit-page-subpage-physical-outfit-item-container unit-page-subpage-physical-outfit-item-container-" + index}
+						>
 							<PhysicalOutfitItem
 								index={index}
 								physicalOutfitItem={physicalOutfitItem}
@@ -86,7 +93,13 @@ export const PhysicalOutfitItems = ({
 						onDropItem={reorderPhysicalOutfitItems}
 					>
 						{unitVersion?.physical?.outfits?.map((physicalOutfitItem, index) => (
-							<DragDropItem className='unit-page-subpage-physical-outfit-item-container' key={index} index={index}>
+							<DragDropItem
+								className={
+									"unit-page-subpage-physical-outfit-item-container unit-page-subpage-physical-outfit-item-container-" + index
+								}
+								key={index}
+								index={index}
+							>
 								<PhysicalOutfitItem
 									index={index}
 									physicalOutfitItem={physicalOutfitItem}

@@ -19,3 +19,7 @@
 .drag-drop-scroll-bottom {
 	bottom: 0;
 }
+
+.drag-drop-list-absolute-vertical-drag > *:nth-child(2) {
+	margin-top: -15px;
+}

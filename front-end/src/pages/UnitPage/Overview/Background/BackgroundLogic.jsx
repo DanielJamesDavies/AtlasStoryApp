@@ -15,8 +15,18 @@ import { UnitPageContext } from "../../UnitPageContext";
 // Assets
 
 export const BackgroundLogic = () => {
-	const { unit_type, unit, unitOverviewForegrounds, unitOverviewBackground, unitVersion, locationMapImages } = useContext(UnitPageContext);
+	const { unit_type, unit, unitOverviewForegrounds, unitOverviewBackground, unitVersion, locationMapImages, isOnOverviewSection } =
+		useContext(UnitPageContext);
 	const overviewForegroundSizeRef = useRef();
 
-	return { unit_type, unit, unitOverviewForegrounds, unitOverviewBackground, unitVersion, overviewForegroundSizeRef, locationMapImages };
+	return {
+		unit_type,
+		unit,
+		unitOverviewForegrounds,
+		unitOverviewBackground,
+		unitVersion,
+		overviewForegroundSizeRef,
+		locationMapImages,
+		isOnOverviewSection,
+	};
 };

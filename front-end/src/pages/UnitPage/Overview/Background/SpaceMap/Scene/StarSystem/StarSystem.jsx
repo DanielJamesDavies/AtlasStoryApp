@@ -41,14 +41,14 @@ export const StarSystem = ({ locations, hierarchyItem }) => {
 									<Star
 										location_id={childLocation?._id}
 										position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
-										scale={childLocation?.scale / 18000000000}
+										scale={childLocation?.scale / 30000000000}
 									/>
 								)}
 								{childLocation?.type !== "planet" ? null : (
 									<Planet
 										location_id={childLocation?._id}
 										position={coordToPosition(childLocation?.position, { order: "yxz", multiplier: 0.05 })}
-										scale={childLocation?.scale / 360000000}
+										scale={childLocation?.scale / 15000000}
 										tilt={childLocation?.tilt}
 										dayLength={childLocation?.dayLength}
 										image={
@@ -80,7 +80,7 @@ export const StarSystem = ({ locations, hierarchyItem }) => {
 																order: "yxz",
 																multiplier: 0.05,
 															})}
-															scale={child2Location?.scale / 275000000}
+															scale={child2Location?.scale / 200000000}
 															tilt={child2Location?.tilt}
 															dayLength={child2Location?.dayLength}
 															image={

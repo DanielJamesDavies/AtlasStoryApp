@@ -54,7 +54,11 @@ export const PsychologyItems = () => {
 				onSave={savePsychologyItems}
 				onScroll={onPsychologyItemsContainerScroll}
 				onCopyVersionValue={copyVersionValue}
-				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["psychology", "items"]) ? undefined : pasteVersionValue}
+				onPasteVersionValue={
+					JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["psychology", "items"]) ? undefined : pasteVersionValue
+				}
+				controlScrollDepth={[1, 2]}
+				scrollItemsDepth={[1, 2]}
 			>
 				<div ref={psychologyItemsRef} className='unit-page-subpage-psychology-items'>
 					{unitVersion?.psychology?.items?.map((psychologyItem, index) => (

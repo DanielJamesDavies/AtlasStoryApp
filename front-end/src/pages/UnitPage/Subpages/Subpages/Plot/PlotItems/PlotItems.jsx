@@ -59,12 +59,16 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 					onRevert={revertPlotItems}
 					onSave={savePlotItems}
 					onScroll={onPlotItemsListContainerScroll}
+					scrollItemsDepth={1}
 				>
 					<div ref={plotItemsListRef} className='unit-page-subpage-plot-items-list'>
 						{!unit?.data?.plot?.items
 							? null
 							: unit.data.plot.items.map((item, index) => (
-									<div key={index} className='unit-page-subpage-plot-item-container'>
+									<div
+										key={index}
+										className={"unit-page-subpage-plot-item-container unit-page-subpage-plot-item-container-" + index}
+									>
 										<PlotItem
 											item={item}
 											plot_index={unit.data.plot.items.findIndex((e) => e?._id === item?._id)}
@@ -84,11 +88,17 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 						enableDragDrop={isReorderingPlotItems}
 						onDropItem={reorderPlotItems}
 						innerRef={plotItemsListRef}
+						includeVerticalDrag={true}
+						absoluteVerticalDrag={true}
 					>
 						{!unit?.data?.plot?.items
 							? null
 							: unit.data.plot.items.map((item, index) => (
-									<DragDropItem key={index} index={index} className='unit-page-subpage-plot-item-container'>
+									<DragDropItem
+										key={index}
+										index={index}
+										className={"unit-page-subpage-plot-item-container unit-page-subpage-plot-item-container-" + index}
+									>
 										<PlotItem
 											item={item}
 											plot_index={unit.data.plot.items.findIndex((e) => e?._id === item?._id)}
@@ -120,6 +130,7 @@ export const PlotItems = ({ cluster, changeCluster, groupID }) => {
 				onRevert={revertPlotItems}
 				onSave={savePlotItems}
 				onScroll={onPlotItemsListContainerScroll}
+				scrollItemsDepth={1}
 			>
 				<div ref={plotItemsListRef} className='unit-page-subpage-plot-items-list'>
 					{!unit?.data?.plot?.items || !cluster?.groups

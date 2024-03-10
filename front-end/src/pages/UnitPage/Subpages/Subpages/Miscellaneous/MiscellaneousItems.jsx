@@ -52,10 +52,14 @@ export const MiscellaneousItems = () => {
 			onSave={saveMiscellaneousItems}
 			onScroll={onMiscellaneousItemsContainerScroll}
 			controlScrollDepth={[1, 2]}
+			scrollItemsDepth={[1, 2]}
 		>
 			<div ref={miscellaneousItemsRef} className='unit-page-subpage-miscellaneous-items'>
 				{unit?.data?.miscellaneous?.items?.map((miscellaneousItem, index) => (
-					<div key={index} className='unit-page-subpage-miscellaneous-item-container'>
+					<div
+						key={index}
+						className={"unit-page-subpage-miscellaneous-item-container unit-page-subpage-miscellaneous-item-container-" + index}
+					>
 						<MiscellaneousItem index={index} miscellaneousItem={miscellaneousItem} isEditing={false} />
 					</div>
 				))}
@@ -74,7 +78,11 @@ export const MiscellaneousItems = () => {
 					includeVerticalDrag={true}
 				>
 					{unit?.data?.miscellaneous?.items?.map((miscellaneousItem, index) => (
-						<DragDropItem className='unit-page-subpage-miscellaneous-item-container' key={index} index={index}>
+						<DragDropItem
+							className={"unit-page-subpage-miscellaneous-item-container unit-page-subpage-miscellaneous-item-container-" + index}
+							key={index}
+							index={index}
+						>
 							<MiscellaneousItem
 								index={index}
 								miscellaneousItem={miscellaneousItem}

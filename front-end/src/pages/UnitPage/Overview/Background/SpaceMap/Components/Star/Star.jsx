@@ -24,21 +24,13 @@ export const Star = ({ location_id, position, scale = 1, onClick, onPointerOver,
 		if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
 
 		const rotation_speed = 0.02;
-		ref.current.rotation.x -= delta * Math.min(1 / (scale * scale), 3) * rotation_speed;
+		ref.current.rotation.x -= delta * rotation_speed;
 	});
 
 	return (
-		<group
-			ref={ref}
-			position={position}
-			scale={scale}
-			dispose={null}
-			onClick={onClick}
-			onPointerOver={onPointerOver}
-			onPointerOut={onPointerOut}
-		>
+		<group ref={ref} position={position} dispose={null} onClick={onClick} onPointerOver={onPointerOver} onPointerOut={onPointerOut}>
 			<mesh rotation={[0, 0, Math.PI / 2]} scale={0.46}>
-				<sphereGeometry args={[21.5, 32, 16]} />
+				<sphereGeometry args={[20 * scale, 32, 16]} />
 				<meshStandardMaterial map={starMap} />
 			</mesh>
 		</group>

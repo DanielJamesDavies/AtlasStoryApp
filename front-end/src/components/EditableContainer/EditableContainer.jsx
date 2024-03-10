@@ -1,5 +1,18 @@
 // Packages
-import { FaCodeBranch, FaCog, FaCopy, FaEyeSlash, FaMountain, FaPaste, FaPencilAlt, FaPlus, FaSave, FaSort, FaTimes, FaUndoAlt } from "react-icons/fa";
+import {
+	FaCodeBranch,
+	FaCog,
+	FaCopy,
+	FaEyeSlash,
+	FaMountain,
+	FaPaste,
+	FaPencilAlt,
+	FaPlus,
+	FaSave,
+	FaSort,
+	FaTimes,
+	FaUndoAlt,
+} from "react-icons/fa";
 
 // Components
 
@@ -37,6 +50,8 @@ export const EditableContainer = ({
 	isLight,
 	higherEditBtns,
 	controlScrollDepth,
+	scrollItemsDepth,
+	scrollItemsGap,
 }) => {
 	const {
 		isEditing,
@@ -76,6 +91,8 @@ export const EditableContainer = ({
 		isLight,
 		higherEditBtns,
 		controlScrollDepth,
+		scrollItemsDepth,
+		scrollItemsGap,
 	});
 
 	return (
@@ -152,18 +169,24 @@ export const EditableContainer = ({
 						</button>
 					)}
 					{onCopyVersionValue === undefined ? null : (
-						<button className='editable-container-edit-btn editable-container-edit-btn-copy-version-value' onClick={onCopyVersionValueBtnClick}>
+						<button
+							className='editable-container-edit-btn editable-container-edit-btn-copy-version-value'
+							onClick={onCopyVersionValueBtnClick}
+						>
 							<FaCopy />
-							<div className="editable-container-edit-btn-small-icon">
+							<div className='editable-container-edit-btn-small-icon'>
 								<FaCodeBranch />
 								<FaCodeBranch />
 							</div>
 						</button>
 					)}
 					{onPasteVersionValue === undefined ? null : (
-						<button className='editable-container-edit-btn editable-container-edit-btn-paste-version-value' onClick={onPasteVersionValueBtnClick}>
+						<button
+							className='editable-container-edit-btn editable-container-edit-btn-paste-version-value'
+							onClick={onPasteVersionValueBtnClick}
+						>
 							<FaPaste />
-							<div className="editable-container-edit-btn-small-icon">
+							<div className='editable-container-edit-btn-small-icon'>
 								<FaCodeBranch />
 								<FaCodeBranch />
 							</div>

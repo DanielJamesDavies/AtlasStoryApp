@@ -52,10 +52,11 @@ export const DetailsItems = () => {
 			onSave={saveDetailsItems}
 			onScroll={onDetailsItemsContainerScroll}
 			controlScrollDepth={[1, 2]}
+			scrollItemsDepth={[1, 2]}
 		>
 			<div ref={detailsItemsRef} className='unit-page-subpage-details-items'>
 				{unit?.data?.details?.items?.map((detailsItem, index) => (
-					<div key={index} className='unit-page-subpage-details-item-container'>
+					<div key={index} className={"unit-page-subpage-details-item-container unit-page-subpage-details-item-container-" + index}>
 						<DetailsItem index={index} detailsItem={detailsItem} isEditing={false} />
 					</div>
 				))}
@@ -74,7 +75,11 @@ export const DetailsItems = () => {
 					includeVerticalDrag={true}
 				>
 					{unit?.data?.details?.items?.map((detailsItem, index) => (
-						<DragDropItem className='unit-page-subpage-details-item-container' key={index} index={index}>
+						<DragDropItem
+							className={"unit-page-subpage-details-item-container unit-page-subpage-details-item-container-" + index}
+							key={index}
+							index={index}
+						>
 							<DetailsItem
 								index={index}
 								detailsItem={detailsItem}

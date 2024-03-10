@@ -66,12 +66,22 @@ export const PhysicalAttributeItems = ({
 				onReorder={toggleIsReorderingPhysicalAttributeItems}
 				onRevert={revertPhysicalAttributeItems}
 				onSave={savePhysicalAttributeItems}
-				onScroll={onPhysicalAttributeItemsContainerScroll}onCopyVersionValue={copyVersionValue}
-				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["physical", "attributes"]) ? undefined : pasteVersionValue}
+				onScroll={onPhysicalAttributeItemsContainerScroll}
+				onCopyVersionValue={copyVersionValue}
+				onPasteVersionValue={
+					JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["physical", "attributes"]) ? undefined : pasteVersionValue
+				}
+				controlScrollDepth={[1, 2]}
+				scrollItemsDepth={[1, 2]}
 			>
 				<div ref={physicalAttributeItemsRef} className='unit-page-subpage-physical-attribute-items'>
 					{unitVersion?.physical?.attributes?.map((physicalAttributeItem, index) => (
-						<div key={index} className='unit-page-subpage-physical-attribute-item-container'>
+						<div
+							key={index}
+							className={
+								"unit-page-subpage-physical-attribute-item-container unit-page-subpage-physical-attribute-item-container-" + index
+							}
+						>
 							<PhysicalAttributeItem
 								index={index}
 								physicalAttributeItem={physicalAttributeItem}
@@ -91,7 +101,14 @@ export const PhysicalAttributeItems = ({
 						onDropItem={reorderPhysicalAttributeItems}
 					>
 						{unitVersion?.physical?.attributes?.map((physicalAttributeItem, index) => (
-							<DragDropItem className='unit-page-subpage-physical-attribute-item-container' key={index} index={index}>
+							<DragDropItem
+								className={
+									"unit-page-subpage-physical-attribute-item-container unit-page-subpage-physical-attribute-item-container-" +
+									index
+								}
+								key={index}
+								index={index}
+							>
 								<PhysicalAttributeItem
 									index={index}
 									physicalAttributeItem={physicalAttributeItem}

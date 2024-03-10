@@ -52,10 +52,11 @@ export const EventsItems = () => {
 			onSave={saveEventsItems}
 			onScroll={onEventsItemsContainerScroll}
 			controlScrollDepth={[1, 2]}
+			scrollItemsDepth={[1, 2]}
 		>
 			<div ref={eventsItemsRef} className='unit-page-subpage-events-items'>
 				{unit?.data?.events?.items?.map((eventsItem, index) => (
-					<div key={index} className='unit-page-subpage-events-item-container'>
+					<div key={index} className={"unit-page-subpage-events-item-container unit-page-subpage-events-item-container-" + index}>
 						<EventsItem index={index} eventsItem={eventsItem} isEditing={false} />
 					</div>
 				))}
@@ -74,7 +75,11 @@ export const EventsItems = () => {
 					includeVerticalDrag={true}
 				>
 					{unit?.data?.events?.items?.map((eventsItem, index) => (
-						<DragDropItem className='unit-page-subpage-events-item-container' key={index} index={index}>
+						<DragDropItem
+							className={"unit-page-subpage-events-item-container unit-page-subpage-events-item-container-" + index}
+							key={index}
+							index={index}
+						>
 							<EventsItem
 								index={index}
 								eventsItem={eventsItem}

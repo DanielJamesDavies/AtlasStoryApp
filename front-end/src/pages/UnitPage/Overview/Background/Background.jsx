@@ -18,8 +18,16 @@ import "./Background.css";
 // Assets
 
 export const Background = () => {
-	const { unit_type, unit, unitOverviewForegrounds, unitOverviewBackground, unitVersion, overviewForegroundSizeRef, locationMapImages } =
-		BackgroundLogic();
+	const {
+		unit_type,
+		unit,
+		unitOverviewForegrounds,
+		unitOverviewBackground,
+		unitVersion,
+		overviewForegroundSizeRef,
+		locationMapImages,
+		isOnOverviewSection,
+	} = BackgroundLogic();
 
 	if (unitOverviewForegrounds === false) return null;
 	if (unit_type === "location" && (!unitOverviewBackground || unitOverviewBackground === "NO_IMAGE"))
@@ -31,13 +39,15 @@ export const Background = () => {
 							<img src={locationMapImages[0]?.image} alt='' />
 						)}
 					</div>
-				) : (
+				) : !isOnOverviewSection ? null : (
 					<div className='unit-page-overview-background-space-map-container'>
-						<Canvas gl={{ powerPreference: "high-performance", antialias: false }}>
-							<Physics gravity={[0, 0, 0]}>
-								<SpaceMap />
-							</Physics>
-						</Canvas>
+						{
+							<Canvas gl={{ powerPreference: "high-performance", antialias: false }}>
+								<Physics gravity={[0, 0, 0]}>
+									<SpaceMap />
+								</Physics>
+							</Canvas>
+						}
 					</div>
 				)}
 				<div className='unit-page-overview-background unit-page-overview-background-no-image'></div>

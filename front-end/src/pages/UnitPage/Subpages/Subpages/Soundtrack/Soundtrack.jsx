@@ -40,6 +40,7 @@ export const Soundtrack = () => {
 			onRevert={revertSoundtrack}
 			onSave={saveSoundtrack}
 			onScroll={onSoundtrackContainerScroll}
+			scrollItemsDepth={1}
 		>
 			<div ref={soundtrackRef} className='unit-page-subpage-soundtrack'>
 				<SoundtrackTracksList isEditing={false} />

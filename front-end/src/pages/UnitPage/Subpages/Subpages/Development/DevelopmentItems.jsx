@@ -52,10 +52,14 @@ export const DevelopmentItems = () => {
 			onSave={saveDevelopmentItems}
 			onScroll={onDevelopmentItemsContainerScroll}
 			controlScrollDepth={[1, 2]}
+			scrollItemsDepth={[1, 2]}
 		>
 			<div ref={developmentItemsRef} className='unit-page-subpage-development-items'>
 				{unit?.data?.development?.items?.map((developmentItem, index) => (
-					<div key={index} className='unit-page-subpage-development-item-container'>
+					<div
+						key={index}
+						className={"unit-page-subpage-development-item-container unit-page-subpage-development-item-container-" + index}
+					>
 						<DevelopmentItem index={index} developmentItem={developmentItem} isEditing={false} />
 					</div>
 				))}
@@ -72,9 +76,14 @@ export const DevelopmentItems = () => {
 					enableDragDrop={isReorderingDevelopmentItems}
 					onDropItem={reorderDevelopmentItems}
 					includeVerticalDrag={true}
+					absoluteVerticalDrag={true}
 				>
 					{unit?.data?.development?.items?.map((developmentItem, index) => (
-						<DragDropItem className='unit-page-subpage-development-item-container' key={index} index={index}>
+						<DragDropItem
+							className={"unit-page-subpage-development-item-container unit-page-subpage-development-item-container-" + index}
+							key={index}
+							index={index}
+						>
 							<DevelopmentItem
 								index={index}
 								developmentItem={developmentItem}
