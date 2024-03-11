@@ -16,7 +16,7 @@ import { RoutesContext } from "../../../../../context/RoutesContext";
 // Assets
 
 export const SubstoriesListSubstoryPosterLogic = ({ substoryID }) => {
-	const { story, storySubstories, substoriesPosterBackgrounds } = useContext(SubstoriesContext);
+	const { story, storySubstories, substoriesPosterBackgrounds, shine_svg } = useContext(SubstoriesContext);
 	const { changeLocation } = useContext(RoutesContext);
 
 	const [substory, setSubstory] = useState(false);
@@ -121,5 +121,6 @@ export const SubstoriesListSubstoryPosterLogic = ({ substoryID }) => {
 		posterContainerStyles,
 		posterTitleContainerRef,
 		posterTitleContainerStyles,
+		shine_svg,
 	};
 };

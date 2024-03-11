@@ -13,13 +13,20 @@ import { SubstoriesListSubstoryPosterLogic } from "./SubstoriesListSubstoryPoste
 import "./SubstoriesListSubstoryPoster.css";
 
 // Assets
-import Shine from "../../../../../content/shine.svg";
 
 export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
-	const { story, substory, navigateToSubstory, onSubstoryMouseDown, posterContainerStyles, posterTitleContainerRef, posterTitleContainerStyles } =
-		SubstoriesListSubstoryPosterLogic({
-			substoryID,
-		});
+	const {
+		story,
+		substory,
+		navigateToSubstory,
+		onSubstoryMouseDown,
+		posterContainerStyles,
+		posterTitleContainerRef,
+		posterTitleContainerStyles,
+		shine_svg,
+	} = SubstoriesListSubstoryPosterLogic({
+		substoryID,
+	});
 
 	if (!substory)
 		return (
@@ -65,9 +72,7 @@ export const SubstoriesListSubstoryPoster = ({ substoryID }) => {
 			) : (
 				<div className='substories-list-substories-poster-number-container'>
 					<div className='substories-list-substories-poster-number'>{substory?.data?.number}</div>
-					<div className='substories-list-substories-poster-number-background'>
-						<img src={Shine} alt='' />
-					</div>
+					<div className='substories-list-substories-poster-number-background'>{shine_svg}</div>
 				</div>
 			)}
 			<div className='substories-list-substories-poster-title-container'>
