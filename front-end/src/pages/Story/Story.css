@@ -37,6 +37,12 @@
 		padding: 6px;
 	}
 
+	.story-content {
+		margin-top: 16px;
+		flex-direction: column;
+		gap: 32px;
+	}
+
 	.story-section-1,
 	.story-section-2 {
 		margin: 0;

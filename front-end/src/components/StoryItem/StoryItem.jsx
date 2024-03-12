@@ -32,8 +32,10 @@ export const StoryItem = ({ story, className, size }) => {
 					<div className='story-item-primary'>
 						<div className='story-item-owner' onClick={onOwnerClick} onAuxClick={onOwnerClick} onMouseDown={(e) => e.preventDefault()}>
 							{story?.data?.owner?.nickname}
-							<div className='story-item-owner-label'>
-								<div className='story-item-owner-label-username'>@{story?.data?.owner?.username}</div>
+							<div className='story-item-owner-label-container'>
+								<div className='story-item-owner-label'>
+									<div className='story-item-owner-label-username'>@{story?.data?.owner?.username}</div>
+								</div>
 							</div>
 						</div>
 						<div ref={storyItemTitleContainerRef} className='story-item-title-container'>

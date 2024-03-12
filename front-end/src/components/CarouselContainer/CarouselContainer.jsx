@@ -16,7 +16,8 @@ import "./CarouselContainer.css";
 // Assets
 
 export const CarouselContainer = ({ children, className, speed, fallback, scrollStartOnDataChange, disableOnMobile, buttonScroll }) => {
-	const { carouselClassName, carouselContentRef, scrollCarousel, onScrollBtn } = CarouselContainerLogic({
+	const { carouselClassName, carouselContentRef, scrollCarousel, onScrollBtn, showingScrollButtons } = CarouselContainerLogic({
+		children,
 		className,
 		speed,
 		scrollStartOnDataChange,
@@ -60,14 +61,16 @@ export const CarouselContainer = ({ children, className, speed, fallback, scroll
 					></div>
 				</>
 			)}
-			<div className='carousel-scroll-buttons'>
-				<button className='carousel-scroll-btn carousel-scroll-btn-left' onClick={() => onScrollBtn(-1)}>
-					<FaChevronLeft />
-				</button>
-				<button className='carousel-scroll-btn carousel-scroll-btn-right' onClick={() => onScrollBtn(1)}>
-					<FaChevronRight />
-				</button>
-			</div>
+			{!showingScrollButtons ? null : (
+				<div className='carousel-scroll-buttons'>
+					<button className='carousel-scroll-btn carousel-scroll-btn-left' onClick={() => onScrollBtn(-1)}>
+						<FaChevronLeft />
+					</button>
+					<button className='carousel-scroll-btn carousel-scroll-btn-right' onClick={() => onScrollBtn(1)}>
+						<FaChevronRight />
+					</button>
+				</div>
+			)}
 		</div>
 	);
 };

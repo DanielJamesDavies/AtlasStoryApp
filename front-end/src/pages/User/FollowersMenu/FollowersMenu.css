@@ -1,24 +1,8 @@
-.user-followers-menu-subpage-buttons {
+.user-followers-menu-container {
 	display: flex;
-	gap: 4px;
-	justify-content: space-between;
-	align-items: center;
-	max-width: 250px;
+	overflow: hidden;
 }
 
-.user-followers-menu-subpage-btn {
-	border: 0;
-	background: transparent;
-	color: var(--text-colour-tertiary);
-	cursor: pointer;
-	transition: 0.1s;
-}
-
-.user-followers-menu-subpage-btn:hover {
-	color: var(--text-colour-secondary);
-}
-
-.user-followers-menu-subpage-btn-active,
-.user-followers-menu-subpage-btn-active:hover {
-	color: var(--text-colour-primary);
+.user-followers-menu-container .pop-up-content-container {
+	overflow: hidden;
 }

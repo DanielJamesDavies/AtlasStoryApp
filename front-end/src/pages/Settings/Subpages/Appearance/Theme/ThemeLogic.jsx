@@ -20,9 +20,8 @@ export const ThemeLogic = () => {
 	const { APIRequest } = useContext(APIContext);
 
 	const themes = [
-		{ id: "dark", label: "Dark", styles: { "--themeColour": "#01010a" } },
-		{ id: "dim", label: "Dim", styles: { "--themeColour": "#303030" } },
-		{ id: "light", label: "Light", styles: { "--themeColour": "#ffffff" } },
+		{ id: "dark", label: "Dark", styles: { "--themeColour": "#01010a" }, ids: ["dark", "dim"] },
+		{ id: "light", label: "Light", styles: { "--themeColour": "#ffffff" }, ids: ["light"] },
 	];
 	const [errors, setErrors] = useState([]);
 

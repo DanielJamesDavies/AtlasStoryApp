@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from "react";
 
 // Assets
 
-export const CarouselContainerLogic = ({ className, speed, scrollStartOnDataChange, disableOnMobile, buttonScroll }) => {
+export const CarouselContainerLogic = ({ children, className, speed, scrollStartOnDataChange, disableOnMobile, buttonScroll }) => {
 	const [carouselClassName, setCarouselClassName] = useState(className ? "carousel-container" + className : "carousel-container");
 
 	useEffect(() => {
@@ -125,5 +125,11 @@ export const CarouselContainerLogic = ({ className, speed, scrollStartOnDataChan
 		}, 700);
 	}
 
-	return { carouselClassName, carouselContentRef, scrollCarousel, onScrollBtn };
+	const [showingScrollButtons, setShowingScrollButtons] = useState(false);
+
+	useEffect(() => {
+		setShowingScrollButtons(carouselContentRef?.current?.scrollWidth - carouselContentRef?.current?.clientWidth > 0);
+	}, [children]);
+
+	return { carouselClassName, carouselContentRef, scrollCarousel, onScrollBtn, showingScrollButtons };
 };

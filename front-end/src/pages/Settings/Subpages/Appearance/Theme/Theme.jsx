@@ -27,9 +27,7 @@ export const Theme = () => {
 					<div key={index} className='user-settings-theme-btn-container'>
 						<div
 							className={
-								JSON.stringify(uiTheme) === JSON.stringify(theme?.id)
-									? "user-settings-theme-btn user-settings-theme-btn-active"
-									: "user-settings-theme-btn"
+								theme?.ids.includes(uiTheme) ? "user-settings-theme-btn user-settings-theme-btn-active" : "user-settings-theme-btn"
 							}
 							style={theme?.styles}
 							onClick={() => changeTheme(theme?.id)}

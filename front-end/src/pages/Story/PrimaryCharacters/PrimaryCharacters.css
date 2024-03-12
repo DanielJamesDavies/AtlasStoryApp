@@ -7,7 +7,7 @@
 .story-primary-characters-primary {
 	display: flex;
 	align-items: center;
-	margin-bottom: 24px;
+	margin-bottom: 16px;
 	width: 100%;
 }
 
@@ -30,13 +30,5 @@
 		margin: 0;
 		padding: 12px 6px;
 		padding-bottom: 0;
-	}
-
-	.story-primary-characters-primary {
-		margin-bottom: 12px;
-	}
-
-	.story-primary-characters-primary-title {
-		font-size: 17px;
 	}
 }
