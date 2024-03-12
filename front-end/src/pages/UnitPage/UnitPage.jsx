@@ -30,6 +30,7 @@ export const UnitPage = () => {
 		unitPageContainerRef,
 		unitOverviewContainerRef,
 		unitSubpagesContainerRef,
+		unitPagePrimaryRef,
 	} = UnitPageLogic();
 
 	return (
@@ -40,7 +41,20 @@ export const UnitPage = () => {
 					? "unit-page-container unit-page-container-is-on-overview unit-page-container-" + unit_type
 					: "unit-page-container unit-page-container-is-on-subpages unit-page-container-" + unit_type
 			}
-			style={unitPageStyle ? unitPageStyle : {}}
+			style={
+				unitPageStyle
+					? {
+							...unitPageStyle,
+							...{
+								"--unitPagePaddingTop":
+									unitPagePrimaryRef?.current?.clientHeight +
+									parseFloat(window.getComputedStyle(unitPagePrimaryRef?.current)?.marginTop) +
+									parseFloat(window.getComputedStyle(unitPagePrimaryRef?.current)?.marginBottom) +
+									"px",
+							},
+					  }
+					: {}
+			}
 		>
 			<div
 				className={

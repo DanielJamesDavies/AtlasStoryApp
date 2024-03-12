@@ -2,10 +2,6 @@
 	margin: 0;
 }
 
-.story-genres-container .label-label {
-	margin-bottom: 6px;
-}
-
 .story-genres-list {
 	display: flex;
 	flex-wrap: wrap;

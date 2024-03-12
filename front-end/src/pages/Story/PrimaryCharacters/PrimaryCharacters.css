@@ -7,13 +7,12 @@
 .story-primary-characters-primary {
 	display: flex;
 	align-items: center;
-	margin-bottom: 12px;
+	margin-bottom: 24px;
 	width: 100%;
-	height: 32px;
 }
 
 .story-primary-characters-primary-title {
-	font-size: 20px;
+	font-size: 32px;
 	font-weight: 600;
 	color: var(--text-colour-primary);
 }

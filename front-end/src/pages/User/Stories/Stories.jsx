@@ -8,6 +8,7 @@ import { DragDropContainer } from "../../../components/DragDropContainer/DragDro
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { StoryItem } from "../../../components/StoryItem/StoryItem";
 import { FirstAddButton } from "../../../components/FirstAddButton/FirstAddButton";
+import { CarouselContainer } from "../../../components/CarouselContainer/CarouselContainer";
 
 // Logic
 import { StoriesLogic } from "./StoriesLogic";
@@ -64,20 +65,22 @@ export const Stories = () => {
 					<FirstAddButton label='Create a New Story' onClick={openCreateStoryForm} />
 				</div>
 			) : !stories || !user?.data?.stories ? null : (
-				<DragDropContainer
-					className='user-stories-story-items-container'
-					inlineItems={true}
-					enableDragDrop={isReorderingStories}
-					onDropItem={changeStoriesOrder}
-				>
-					{user.data.stories
-						.filter((e) => !stories || stories?.findIndex((e2) => e2._id === e) !== -1)
-						.map((story_id, index) => (
-							<DragDropItem key={index} index={index} className='user-stories-story-item-container'>
-								<StoryItem story={stories?.find((e) => e._id === story_id)} size='m' />
-							</DragDropItem>
-						))}
-				</DragDropContainer>
+				<CarouselContainer className='user-stories-story-items-container' speed={0.7} buttonScroll={true}>
+					<DragDropContainer
+						className='user-stories-story-items'
+						inlineItems={true}
+						enableDragDrop={isReorderingStories}
+						onDropItem={changeStoriesOrder}
+					>
+						{user.data.stories
+							.filter((e) => !stories || stories?.findIndex((e2) => e2._id === e) !== -1)
+							.map((story_id, index) => (
+								<DragDropItem key={index} index={index} className='user-stories-story-item-container'>
+									<StoryItem story={stories?.find((e) => e._id === story_id)} size='m' />
+								</DragDropItem>
+							))}
+					</DragDropContainer>
+				</CarouselContainer>
 			)}
 			<CreateStoryForm />
 		</div>

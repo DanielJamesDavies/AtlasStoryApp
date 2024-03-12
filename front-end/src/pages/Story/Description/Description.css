@@ -6,6 +6,7 @@
 	width: 100%;
 }
 
-.story-description-container .label-label {
-	margin-bottom: 6px;
+.story-description-value .text-container {
+	color: var(--text-colour-secondary);
+	font-weight: 500;
 }

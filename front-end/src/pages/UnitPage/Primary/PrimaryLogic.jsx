@@ -7,10 +7,10 @@ import { useContext, useState, useRef, useEffect } from "react";
 
 // Context
 import { UnitPageContext } from "../UnitPageContext";
+import { AppContext } from "../../../context/AppContext";
 
 // Services
 import isLightBackground from "../../../services/IsLightBackground";
-import { AppContext } from "../../../context/AppContext";
 
 // Styles
 
@@ -23,6 +23,8 @@ export const PrimaryLogic = () => {
 	const unitPagePrimaryVersionRef = useRef();
 
 	useEffect(() => {
+		console.log("isAuthorizedToEdit");
+
 		async function getPrimaryStyles() {
 			let newPrimaryStoryStyles = {};
 			newPrimaryStoryStyles["--text-colour-primary"] = await getTextColour();
@@ -59,6 +61,8 @@ export const PrimaryLogic = () => {
 		}
 
 		getPrimaryStyles();
+		setTimeout(() => getPrimaryStyles(), 10);
+
 		window.addEventListener("resize", getPrimaryStyles);
 		return () => window.removeEventListener("resize", getPrimaryStyles);
 	}, [unit_type, unitOverviewBackground, isOnOverviewSection, setPrimaryStoryStyles, unitPagePrimaryRef, unitPagePrimaryVersionRef, uiTheme]);

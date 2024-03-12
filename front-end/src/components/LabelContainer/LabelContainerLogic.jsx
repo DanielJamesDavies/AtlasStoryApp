@@ -14,7 +14,7 @@ import { useRef, useState, useLayoutEffect } from "react";
 
 // Assets
 
-export const LabelContainerLogic = ({ label, className, isInline, isBold }) => {
+export const LabelContainerLogic = ({ label, className, isInline, isBold, bigLabel }) => {
 	const [labelContainerClassName, setLabelContainerClassName] = useState(
 		isInline ? "label-container label-container-is-inline" : "label-container"
 	);
@@ -24,11 +24,12 @@ export const LabelContainerLogic = ({ label, className, isInline, isBold }) => {
 			let newClassName = "label-container";
 			if (isInline) newClassName += " label-container-is-inline";
 			if (isBold) newClassName += " label-container-is-bold";
+			if (bigLabel) newClassName += " label-container-big-label";
 			if (className) newClassName += " " + className;
 			return newClassName;
 		}
 		setLabelContainerClassName(getLabelContainerClassName());
-	}, [setLabelContainerClassName, isInline, isBold, className]);
+	}, [setLabelContainerClassName, isInline, isBold, bigLabel, className]);
 
 	const labelLabelRef = useRef();
 

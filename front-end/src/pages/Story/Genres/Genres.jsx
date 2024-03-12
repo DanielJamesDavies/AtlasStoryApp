@@ -44,8 +44,8 @@ export const Genres = () => {
 
 	if (!story?.data?.genres)
 		return (
-			<ContentItem size='s' hasBg={true}>
-				<LabelContainer className='story-genres-container' label='Genres'>
+			<ContentItem size='s'>
+				<LabelContainer className='story-genres-container' label='Genres' bigLabel={true}>
 					<div className='story-genres'>
 						<div className='story-genres-list'>
 							<div className='story-genres-item-placeholder loading-background'></div>
@@ -59,8 +59,8 @@ export const Genres = () => {
 
 	if (story?.data?.genres && !storyGenres)
 		return (
-			<ContentItem size='s' hasBg={true}>
-				<LabelContainer className='story-genres-container' label='Genres'>
+			<ContentItem size='s'>
+				<LabelContainer className='story-genres-container' label='Genres' bigLabel={true}>
 					<div className='story-genres'>
 						<div className='story-genres-list'>
 							{story?.data?.genres.map((genre, index) => (
@@ -73,8 +73,8 @@ export const Genres = () => {
 		);
 
 	return (
-		<ContentItem size='s' hasBg={true}>
-			<LabelContainer className='story-genres-container' label='Genres'>
+		<ContentItem size='s'>
+			<LabelContainer className='story-genres-container' label='Genres' bigLabel={true}>
 				<EditableContainer
 					absolutePositionEditBtns={true}
 					isAuthorizedToEdit={isAuthorizedToEdit}

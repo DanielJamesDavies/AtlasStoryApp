@@ -112,12 +112,16 @@
 
 @media (max-width: 750px) {
 	.home-genres-list-item {
-		margin: 4px;
-		max-width: 250px;
+		margin: 0;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 350px;
 	}
 
-	.home-genres-list-item:nth-child(1),
-	.home-genres-list-item:nth-child(2) {
-		margin-left: 0;
+	.home-genres-list-item-content {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
 	}
 }

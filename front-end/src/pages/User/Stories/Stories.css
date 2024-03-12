@@ -12,16 +12,17 @@
 
 .user-stories-top-title {
 	display: inline-block;
-	font-size: 24px;
+	font-size: 32px;
 	font-weight: 600;
 	vertical-align: middle;
 }
 
 .user-stories-top-items-count {
 	display: inline-block;
+	margin-top: 3px;
 	margin-left: 12px;
 	font-size: 16px;
-	color: #dddddd;
+	color: var(--text-colour-tertiary);
 	vertical-align: middle;
 }
 
@@ -38,21 +39,12 @@
 }
 
 .user-stories-story-items-container {
-	display: flex;
-	flex-wrap: wrap;
 	margin-bottom: 32px;
-	margin-left: -10px;
-	width: calc(100% + 20px);
 }
 
-.user-stories-story-item-container {
-	position: relative;
-	margin: 10px;
-	transition: margin 0.3s;
-}
-
-.user-stories-story-item-container:hover {
-	margin-top: 4px;
+.user-stories-story-items {
+	display: flex;
+	gap: 8px;
 }
 
 .user-stories-add-first-story-container {
@@ -72,13 +64,17 @@
 
 	.user-stories-top-title {
 		display: inline-block;
-		font-size: 18px;
+		font-size: 24px;
 	}
 
 	.user-stories-top-items-count {
 		margin-top: 1px;
 		margin-left: 8px;
 		font-size: 13px;
+	}
+
+	.user-stories-story-items {
+		gap: 0;
 	}
 }
 

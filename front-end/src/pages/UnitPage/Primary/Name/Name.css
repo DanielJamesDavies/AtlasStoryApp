@@ -1,6 +1,7 @@
 .unit-page-primary-name-container {
 	align-items: flex-start;
 	overflow: visible;
+	width: 100%;
 	max-width: calc(100vw - 74px - 48px - 48px - 281px - 180px);
 	word-break: break-word;
 	overflow-wrap: anywhere;
@@ -29,12 +30,12 @@
 @media (max-width: 750px) {
 	.unit-page-primary-name-container {
 		margin: 4px 0;
-		max-width: calc(100% - 114px);
+		max-width: calc(100% - 24px);
 	}
 
 	.editable-container-is-authorized.unit-page-primary-name-container {
-		min-width: fit-content;
-		max-width: calc(100% - 146px);
+		width: 100%;
+		max-width: calc(100vw - 200px);
 	}
 
 	.unit-page-primary-name-container,
@@ -45,8 +46,15 @@
 		word-wrap: break-word;
 	}
 
-	.editable-container-is-editing.unit-page-primary-name-container {
-		margin-top: 2px;
-		margin-bottom: 4px;
+	.unit-page-primary-name {
+		max-width: calc(100vw - 657px);
+	}
+
+	.unit-page-primary-name input {
+		width: 100% !important;
+	}
+
+	.unit-page-primary-name-container .text-input-input {
+		max-width: calc(100vw - 211px) !important;
 	}
 }

@@ -27,6 +27,15 @@
 	--text-colour-primary: #eeeeee;
 	--text-colour-secondary: #bbbbbb;
 	--text-colour-tertiary: #999999;
+
+	--colour-grey-two: #18181e;
+	--colour-grey-three: #2f2f3a;
+	--colour-grey-four: #464656;
+	--colour-grey-five: #5d5d72;
+	--colour-grey-six: #74748e;
+	--text-colour-primary: #dddddd;
+	--text-colour-secondary: #bbbbbb;
+	--text-colour-tertiary: #999999;
 	--colour-scroll-bar-thumb-background: var(--colour-grey-six);
 }
 

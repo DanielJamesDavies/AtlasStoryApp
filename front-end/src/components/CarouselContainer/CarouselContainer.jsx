@@ -1,4 +1,5 @@
 // Packages
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Components
 
@@ -14,12 +15,13 @@ import "./CarouselContainer.css";
 
 // Assets
 
-export const CarouselContainer = ({ children, className, speed, fallback, scrollStartOnDataChange, disableOnMobile }) => {
-	const { carouselClassName, carouselContentRef, scrollCarousel } = CarouselContainerLogic({
+export const CarouselContainer = ({ children, className, speed, fallback, scrollStartOnDataChange, disableOnMobile, buttonScroll }) => {
+	const { carouselClassName, carouselContentRef, scrollCarousel, onScrollBtn } = CarouselContainerLogic({
 		className,
 		speed,
 		scrollStartOnDataChange,
 		disableOnMobile,
+		buttonScroll,
 	});
 
 	return (
@@ -31,26 +33,41 @@ export const CarouselContainer = ({ children, className, speed, fallback, scroll
 			<div ref={carouselContentRef} className='carousel-content'>
 				{children}
 			</div>
-			<div
-				className={carouselContentRef?.current?.scrollLeft === 0 ? "carousel-scroll-left carousel-scroll-hidden" : "carousel-scroll-left"}
-				onPointerEnter={() => scrollCarousel(speed ? -1 * speed : -1)}
-				onPointerLeave={() => scrollCarousel(0)}
-				onMouseLeave={() => scrollCarousel(0)}
-				onDragEnter={() => scrollCarousel(speed ? -1 * speed : -1)}
-				onDragLeave={() => scrollCarousel(0)}
-			></div>
-			<div
-				className={
-					carouselContentRef?.current?.scrollLeft === carouselContentRef?.current?.scrollWidth - carouselContentRef?.current?.clientWidth
-						? "carousel-scroll-right carousel-scroll-hidden"
-						: "carousel-scroll-right"
-				}
-				onPointerEnter={() => scrollCarousel(speed ? 1.25 * speed : 1.25)}
-				onPointerLeave={() => scrollCarousel(0)}
-				onMouseLeave={() => scrollCarousel(0)}
-				onDragEnter={() => scrollCarousel(speed ? 1.25 * speed : 1.25)}
-				onDragLeave={() => scrollCarousel(0)}
-			></div>
+			{buttonScroll ? null : (
+				<>
+					<div
+						className={
+							carouselContentRef?.current?.scrollLeft === 0 ? "carousel-scroll-left carousel-scroll-hidden" : "carousel-scroll-left"
+						}
+						onPointerEnter={() => scrollCarousel(speed ? -1 * speed : -1)}
+						onPointerLeave={() => scrollCarousel(0)}
+						onMouseLeave={() => scrollCarousel(0)}
+						onDragEnter={() => scrollCarousel(speed ? -1 * speed : -1)}
+						onDragLeave={() => scrollCarousel(0)}
+					></div>
+					<div
+						className={
+							carouselContentRef?.current?.scrollLeft ===
+							carouselContentRef?.current?.scrollWidth - carouselContentRef?.current?.clientWidth
+								? "carousel-scroll-right carousel-scroll-hidden"
+								: "carousel-scroll-right"
+						}
+						onPointerEnter={() => scrollCarousel(speed ? 1.25 * speed : 1.25)}
+						onPointerLeave={() => scrollCarousel(0)}
+						onMouseLeave={() => scrollCarousel(0)}
+						onDragEnter={() => scrollCarousel(speed ? 1.25 * speed : 1.25)}
+						onDragLeave={() => scrollCarousel(0)}
+					></div>
+				</>
+			)}
+			<div className='carousel-scroll-buttons'>
+				<button className='carousel-scroll-btn carousel-scroll-btn-left' onClick={() => onScrollBtn(-1)}>
+					<FaChevronLeft />
+				</button>
+				<button className='carousel-scroll-btn carousel-scroll-btn-right' onClick={() => onScrollBtn(1)}>
+					<FaChevronRight />
+				</button>
+			</div>
 		</div>
 	);
 };

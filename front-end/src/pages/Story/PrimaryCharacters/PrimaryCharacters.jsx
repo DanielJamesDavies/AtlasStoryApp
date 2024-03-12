@@ -23,7 +23,7 @@ export const PrimaryCharacters = () => {
 
 	if (!isAuthorizedToEdit && (!storyCharacters || storyCharacters.length === 0)) return null;
 	return (
-		<ContentItem size='s' hasBg={true}>
+		<ContentItem size='s'>
 			<div className='story-primary-characters'>
 				<div className='story-primary-characters-primary'>
 					<div className='story-primary-characters-primary-title'>Primary Characters</div>

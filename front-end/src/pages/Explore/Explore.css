@@ -3,7 +3,7 @@
 	margin: 0 auto;
 	padding: 0 24px;
 	width: calc(100% - 48px);
-	max-width: 1550px;
+	height: 100%;
 }
 
 .home-content {
@@ -11,7 +11,8 @@
 	top: calc(12px + 42px + 24px);
 	left: 50%;
 	transform: translateX(-50%);
-	width: calc(100% - 48px);
+	display: flex;
+	gap: 32px;
 }
 
 @media (max-width: 750px) {
@@ -23,5 +24,6 @@
 	.home-content {
 		top: calc(12px + 42px + 12px);
 		width: 100%;
+		flex-direction: column;
 	}
 }

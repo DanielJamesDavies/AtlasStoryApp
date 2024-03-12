@@ -21,6 +21,14 @@
 	background: var(--colour-scroll-bar-thumb-background);
 }
 
+.carousel-container-button-scroll .carousel-content {
+	scroll-behavior: smooth;
+}
+
+.carousel-container-button-scroll .carousel-content::-webkit-scrollbar {
+	display: none;
+}
+
 .carousel-scroll-left,
 .carousel-scroll-right {
 	position: absolute;
@@ -45,6 +53,44 @@
 
 .carousel-scroll-hidden {
 	display: none;
+}
+
+.carousel-container:not(.carousel-container-button-scroll) .carousel-scroll-buttons {
+	display: none;
+}
+
+.carousel-container-button-scroll .carousel-scroll-buttons {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 16px;
+}
+
+.carousel-scroll-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 0;
+	border-radius: 100%;
+	width: 40px;
+	height: 40px;
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+	font-size: 18px;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.carousel-scroll-btn:hover {
+	background: var(--colour-grey-four);
+}
+
+.carousel-scroll-btn-left svg {
+	margin-left: -2px;
+}
+
+.carousel-scroll-btn-right svg {
+	margin-left: 2px;
 }
 
 @media (max-width: 750px) {

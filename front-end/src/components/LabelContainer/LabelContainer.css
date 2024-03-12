@@ -39,6 +39,11 @@
 	font-weight: 600 !important;
 }
 
+.label-container-big-label .label-label {
+	margin-bottom: 16px;
+	font-size: 32px;
+}
+
 .label-value {
 	display: flex;
 	margin: 0;

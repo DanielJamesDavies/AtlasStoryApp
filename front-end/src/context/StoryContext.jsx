@@ -495,6 +495,7 @@ const StoryProvider = ({ children }) => {
 				isActuallyAuthorizedToEdit,
 				isAuthorizedToEdit,
 				setIsAuthorizedToEdit,
+				isInEditorModeState: isAuthorizedToEdit,
 				isInEditorMode,
 				isFollowingStory,
 				setIsFollowingStory,

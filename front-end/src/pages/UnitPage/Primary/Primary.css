@@ -75,8 +75,11 @@
 
 	.unit-page-primary-name-and-type-container {
 		flex-direction: column;
-		min-width: 50vw;
-		width: max-content;
+		width: 100%;
+		max-width: calc(100vw - 100px);
+		min-height: 47px;
+		display: flex;
+		justify-content: center;
 	}
 
 	.unit-page-container-location .unit-page-primary-name-and-type-container {

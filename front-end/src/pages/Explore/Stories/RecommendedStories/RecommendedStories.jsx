@@ -29,7 +29,7 @@ export const RecommendedStories = ({ isAuthorized }) => {
 					<LoadingCircle center={true} size='s' />
 				</div>
 			) : isAuthorized ? (
-				<CarouselContainer speed={1}>
+				<CarouselContainer speed={0.7} buttonScroll={true}>
 					<div className='home-stories-recommended-list'>
 						{recommendedStories.map((story, index) => (
 							<div key={index} className='home-stories-recommended-list-item-container'>

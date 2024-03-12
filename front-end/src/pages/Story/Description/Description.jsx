@@ -27,15 +27,15 @@ export const Description = () => {
 
 	if (!story?.data?.description)
 		return (
-			<ContentItem size='s' hasBg={true}>
-				<LabelContainer className='story-description-container' label='Description'>
+			<ContentItem size='s'>
+				<LabelContainer className='story-description-container' label='Description' bigLabel={true}>
 					<div className='story-description'></div>
 				</LabelContainer>
 			</ContentItem>
 		);
 	return (
-		<ContentItem size='s' hasBg={true}>
-			<LabelContainer className='story-description-container' label='Description'>
+		<ContentItem size='s'>
+			<LabelContainer className='story-description-container' label='Description' bigLabel={true}>
 				<div className='story-description'>
 					<EditableContainer
 						className='story-description-value-container'

@@ -18,7 +18,7 @@ import "./GenreItem.css";
 export const GenreItem = ({ genre, isFavourited, favouriteGenre, unfavouriteGenre, user_id, deleteGenre }) => {
 	return (
 		<div className={isFavourited ? "home-genres-list-item home-genres-list-item-favourited" : "home-genres-list-item"}>
-			<div>
+			<div className='home-genres-list-item-content'>
 				<div className='home-genres-list-item-title'>{genre?.name}</div>
 				<div className='home-genres-list-item-info'>
 					<div className='home-genres-list-item-stat'>

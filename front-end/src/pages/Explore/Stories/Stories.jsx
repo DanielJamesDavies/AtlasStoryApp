@@ -18,8 +18,10 @@ import "./Stories.css";
 export const Stories = ({ isAuthorized }) => {
 	return (
 		<div className='home-stories-container'>
-			<FollowingStories />
-			<RecommendedStories isAuthorized={isAuthorized} />
+			<div className='home-stories'>
+				<FollowingStories />
+				<RecommendedStories isAuthorized={isAuthorized} />
+			</div>
 		</div>
 	);
 };

@@ -2,9 +2,21 @@
 	display: inline-block;
 	vertical-align: top;
 	margin: 0;
+	padding-right: 8px;
+	box-sizing: border-box;
 	width: calc(100% - 224px - 32px);
 	max-height: calc(var(--vh) - (12px + 42px + 12px) - 12px - 12px);
 	overflow-y: overlay;
+	max-width: calc(100% / 2 + 0.5 * (1550px - 32px - 224px - 224px - 8px - 6px - 8px - 6px));
+}
+
+.home-stories {
+	display: flex;
+	flex-direction: column;
+	gap: 64px;
+	margin-left: auto;
+	padding-bottom: 64px;
+	max-width: calc(1550px - 32px - 224px - 8px - 6px);
 }
 
 .home-content-unauthorized .home-stories-container {

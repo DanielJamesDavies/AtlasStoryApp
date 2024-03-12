@@ -29,7 +29,7 @@ export const FollowingStories = () => {
 					<LoadingCircle center={true} size='s' />
 				</div>
 			) : (
-				<CarouselContainer speed={1}>
+				<CarouselContainer speed={0.7} buttonScroll={true}>
 					<div className='home-stories-following-list'>
 						{followingStories.map((story, index) => (
 							<div key={index} className='home-stories-following-list-item-container'>

@@ -1,6 +1,7 @@
 import { useContext, useCallback, useEffect, useRef } from "react";
 
 import { APIContext } from "../../context/APIContext";
+import { StoryContext } from "../../context/StoryContext";
 import { RecentDataContext } from "../../context/RecentDataContext";
 import { SpotifyContext } from "../../context/SpotifyContext";
 
@@ -40,6 +41,7 @@ export const GetUnitServices = ({
 	setLocationMapComponents,
 }) => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
+	const { isInEditorModeState } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
 	const { spotify_access_token, spotify_refresh_token, SpotifyRequest } = useContext(SpotifyContext);
 
@@ -102,7 +104,7 @@ export const GetUnitServices = ({
 		return () => {
 			window.removeEventListener("resize", getUnitStyles);
 		};
-	}, [getUnitStyles, unit]);
+	}, [getUnitStyles, unit, isInEditorModeState]);
 
 	// Get Primary Images
 	const getUnitPrimaryImages = useCallback(
