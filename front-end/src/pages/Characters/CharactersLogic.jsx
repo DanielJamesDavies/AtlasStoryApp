@@ -21,7 +21,6 @@ export const CharactersLogic = () => {
 	const [activeGroupColourTint, setActiveGroupColourTint] = useState(false);
 
 	useEffect(() => {
-		console.log(group);
 		if (group?.data?.colour) {
 			try {
 				const colours = getColourWithTint(group?.data?.colour);

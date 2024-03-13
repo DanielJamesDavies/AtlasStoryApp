@@ -23,6 +23,10 @@
 	max-width: calc(100vw - var(--navbar-width) - 2 * 24px - 64px);
 }
 
+.unit-page-primary-name {
+	max-width: calc(100vw - 657px);
+}
+
 .unit-page-container-location .unit-page-primary-name {
 	width: max-content;
 }
@@ -47,11 +51,7 @@
 	}
 
 	.unit-page-primary-name {
-		max-width: calc(100vw - 657px);
-	}
-
-	.unit-page-primary-name input {
-		width: 100% !important;
+		max-width: calc(100vw - 232px);
 	}
 
 	.unit-page-primary-name-container .text-input-input {
