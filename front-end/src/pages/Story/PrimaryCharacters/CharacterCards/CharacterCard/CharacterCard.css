@@ -68,6 +68,7 @@
 
 	width: 305px;
 	height: 420px;
+	overflow: hidden;
 
 	background: var(--colour-grey-one);
 	transition: margin 0.4s;
@@ -123,6 +124,7 @@
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
+	gap: 0 16px;
 
 	width: calc(100% - 16px);
 	max-height: calc(100% - 224px);

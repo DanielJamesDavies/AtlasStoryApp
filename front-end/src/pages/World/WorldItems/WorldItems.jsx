@@ -25,10 +25,12 @@ export const WorldItems = () => {
 	];
 
 	return (
-		<div className='world-items'>
-			{items.map((item, index) => (
-				<WorldItem key={index} item={item} />
-			))}
+		<div className='world-items-container'>
+			<div className='world-items'>
+				{items.map((item, index) => (
+					<WorldItem key={index} item={item} />
+				))}
+			</div>
 		</div>
 	);
 };

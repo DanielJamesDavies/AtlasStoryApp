@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 
 // Components
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 
 // Logic
 
@@ -39,5 +38,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 		</APIProvider>
 	</BrowserRouter>
 );
-
-reportWebVitals();

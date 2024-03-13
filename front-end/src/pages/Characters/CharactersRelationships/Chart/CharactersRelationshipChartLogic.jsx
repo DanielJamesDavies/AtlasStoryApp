@@ -109,6 +109,7 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 				ctx.strokeStyle = "#0044ff";
 			}
 			if (!isCurrent) ctx.strokeStyle += "22";
+			if (selectedCharacterRelationshipsCharacterId === false) ctx.strokeStyle += "88";
 			const character_indexs = [
 				charactersOrder.findIndex((e) => e === relationship.character_ids[0]),
 				charactersOrder.findIndex((e) => e === relationship.character_ids[1]),

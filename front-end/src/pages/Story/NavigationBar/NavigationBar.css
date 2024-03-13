@@ -29,10 +29,10 @@
 	min-width: 110px;
 	width: 110px;
 	user-select: none;
+	cursor: pointer;
 }
 
 .story-navigation-bar-item:hover {
-	cursor: pointer;
 	color: var(--storyColour);
 }
 

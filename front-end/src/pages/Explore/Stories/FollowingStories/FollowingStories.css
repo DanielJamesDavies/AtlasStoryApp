@@ -40,16 +40,10 @@
 	}
 
 	.home-stories-following-loading-circle-container {
-		height: 305px;
+		height: 431px;
 	}
 
 	.home-stories-following-list {
 		flex-wrap: nowrap;
-	}
-}
-
-@media (max-width: 484px) {
-	.home-stories-following-loading-circle-container {
-		height: calc(((((50vw - 22px) * 3) / 2) - 30px) + (5px * 2));
 	}
 }

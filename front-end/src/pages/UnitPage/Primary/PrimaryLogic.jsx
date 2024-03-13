@@ -23,8 +23,6 @@ export const PrimaryLogic = () => {
 	const unitPagePrimaryVersionRef = useRef();
 
 	useEffect(() => {
-		console.log("isAuthorizedToEdit");
-
 		async function getPrimaryStyles() {
 			let newPrimaryStoryStyles = {};
 			newPrimaryStoryStyles["--text-colour-primary"] = await getTextColour();

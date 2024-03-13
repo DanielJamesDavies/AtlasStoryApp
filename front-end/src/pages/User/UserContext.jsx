@@ -34,6 +34,7 @@ const UserProvider = ({ children, user_username }) => {
 
 			getIsFollowingUser(user_username);
 			getUserBlockedStatus(user_username);
+
 			const newUser = await getUser();
 
 			// Document Title

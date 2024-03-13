@@ -129,6 +129,7 @@ export const CarouselContainerLogic = ({ children, className, speed, scrollStart
 
 	useEffect(() => {
 		setShowingScrollButtons(carouselContentRef?.current?.scrollWidth - carouselContentRef?.current?.clientWidth > 0);
+		setTimeout(() => setShowingScrollButtons(carouselContentRef?.current?.scrollWidth - carouselContentRef?.current?.clientWidth > 0), 1);
 	}, [children]);
 
 	return { carouselClassName, carouselContentRef, scrollCarousel, onScrollBtn, showingScrollButtons };

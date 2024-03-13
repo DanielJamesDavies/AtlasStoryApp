@@ -87,16 +87,6 @@
 	font-size: 24px;
 }
 
-.story-item-size-l .story-item-title-container {
-	top: 78px;
-	font-size: 32px;
-}
-
-.story-item-size-s .story-item-title-container {
-	top: 55px;
-	font-size: 18px;
-}
-
 .story-item-title {
 	width: fit-content;
 }
@@ -155,7 +145,15 @@
 		padding: 24px 24px;
 		border-radius: 16px;
 
-		width: 190px;
-		height: 270px;
+		width: 200px;
+		height: 307px;
+	}
+
+	.story-item-title-container {
+		font-size: 20px;
+	}
+
+	.story-item-owner-label {
+		font-size: 13px;
 	}
 }
