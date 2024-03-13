@@ -22,6 +22,7 @@ const DropdownProvider = ({ children }) => {
 					display: "fixed",
 					top: dropdownContainerRefCurrentRect.y + dropdownContainerRefCurrentRect.height + "px",
 					left: dropdownContainerRefCurrentRect.x + "px",
+					width: dropdownContainerRefCurrent?.clientWidth + "px",
 				};
 				setDropdownOptionsStyles(newDropdownOptionsStyles);
 			}, 4);

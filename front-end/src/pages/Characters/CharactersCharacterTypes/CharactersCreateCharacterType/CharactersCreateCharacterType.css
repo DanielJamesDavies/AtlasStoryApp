@@ -1,5 +1,15 @@
+.characters-create-character-type-container .pop-up-content-container {
+	overflow-x: hidden;
+}
+
+.characters-create-character-type-form {
+	display: flex;
+	gap: 32px;
+	flex-direction: column;
+}
+
 .characters-create-character-type-form-input-container {
-	margin: 12px 0;
+	margin: 0;
 }
 
 .characters-create-character-type-form-input-label {
@@ -9,8 +19,11 @@
 	color: var(--text-colour-secondary);
 }
 
+.characters-create-character-type-form-input-label {
+	margin-bottom: 8px;
+}
+
 .characters-create-character-type-form-submit-container {
-	margin-top: 20px;
 	text-align: right;
 }
 

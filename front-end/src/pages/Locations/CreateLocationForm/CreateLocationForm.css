@@ -1,5 +1,11 @@
+.locations-create-location-form {
+	display: flex;
+	gap: 32px;
+	flex-direction: column;
+}
+
 .locations-create-location-form-input-container {
-	margin: 12px 0;
+	margin: 0;
 }
 
 .locations-create-location-form-subtitle {

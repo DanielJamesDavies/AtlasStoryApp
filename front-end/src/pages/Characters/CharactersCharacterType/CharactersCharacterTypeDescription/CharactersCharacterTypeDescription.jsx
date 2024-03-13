@@ -29,10 +29,10 @@ export const CharactersCharacterTypeDescription = () => {
 			onRevert={revertCharacterTypeDescription}
 			onSave={saveCharacterTypeDescription}
 		>
-			<ContentItem className='characters-character-type-description' hasBg={true}>
+			<ContentItem className='characters-character-type-description'>
 				{!characterType?.data?.description ? null : <Text value={characterType.data.description} />}
 			</ContentItem>
-			<ContentItem className='characters-character-type-description' hasBg={true}>
+			<ContentItem className='characters-character-type-description'>
 				{
 					<MultiLineTextInput
 						label='Description'

@@ -1,9 +1,6 @@
 .characters-character-types-container {
-	display: inline-block;
-	flex-shrink: 0;
+	margin-bottom: 16px;
 	border-radius: 4px;
-	width: calc(275px + 12px);
-	min-height: calc(200px + (var(--vh) / 2));
 	vertical-align: top;
 }
 
@@ -11,37 +8,40 @@
 	width: 100%;
 }
 
-.characters-character-types-primary {
+.characters-character-types {
 	display: flex;
+	gap: 16px;
 	align-items: center;
-	margin-bottom: 12px;
-	padding-right: 12px;
-	height: 40px;
+	width: 100%;
 }
 
-.characters-character-types-primary-title {
+.characters-character-types-title {
 	margin-top: -1px;
-	font-size: 22px;
+	margin-bottom: 16px;
+	font-size: 32px;
 	font-weight: 600;
 	vertical-align: middle;
 }
 
-.characters-character-types-primary-modify-buttons-container {
-	margin-left: auto;
-}
-
-.characters-character-types-primary-modify-btn {
+.characters-character-types-modify-btn {
 	margin: 0 8px;
 }
 
-.characters-character-types-primary-modify-btn:last-child {
+.characters-character-types-modify-btn:last-child {
 	margin-right: 0;
 }
 
 .characters-character-types-character-type-items-container {
-	padding-right: 12px;
-	max-height: 635px;
-	overflow-y: overlay;
+	display: flex;
+	gap: 8px;
+	padding: 4px 24px;
+	border-radius: 32px;
+
+	width: max-content;
+	height: fit-content;
+	overflow-x: auto;
+
+	background: var(--colour-grey-two);
 }
 
 .characters-character-types-character-type-items-container::-webkit-scrollbar {
@@ -108,6 +108,10 @@
 	border-radius: 5px;
 }
 
+.characters-character-types-character-type-item-container .btn-list-item-value {
+	user-select: none;
+}
+
 @media (max-width: 950px) {
 	.characters-character-types-container {
 		width: 100%;
@@ -130,7 +134,34 @@
 
 @media (max-width: 750px) {
 	.characters-character-types-character-type-items-container {
-		padding-right: 4px;
-		overflow: hidden;
+		flex-shrink: 1;
+		z-index: 2;
+		flex-direction: column;
+		padding: 0;
+
+		width: 100%;
+		max-width: calc(100vw - 236px);
+		height: 35px;
+		overflow: visible;
+	}
+
+	.characters-character-types-character-type-item-container {
+		border-radius: 24px;
+		width: 100%;
+		background: unset;
+	}
+
+	.characters-character-types-character-type-item-container .btn-list-item {
+		margin: 0;
+		border-radius: 24px;
+	}
+
+	.characters-character-types-character-type-item-container-active {
+		order: -1;
+	}
+
+	.characters-character-types-character-type-item-container:not(.characters-character-types-character-type-item-container-active)
+		.btn-list-item.btn-list-item-list-closed {
+		display: none;
 	}
 }

@@ -19,7 +19,6 @@
 .substories-list-primary-buttons-container {
 	display: flex;
 	align-items: center;
-	margin-left: auto;
 }
 
 .substories-list-primary-buttons-container-authorized-to-edit {

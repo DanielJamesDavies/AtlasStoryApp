@@ -61,7 +61,7 @@ export const CharactersCreateCharacter = () => {
 					)}
 					<ErrorMessage errors={errors} attribute='uid' />
 				</div>
-				<div className='user-stories-create-story-form-input-container'>
+				<div className='characters-create-character-form-input-container'>
 					<ToggleInput
 						label='Primary Character'
 						value={characterIsPrimaryCharacter}

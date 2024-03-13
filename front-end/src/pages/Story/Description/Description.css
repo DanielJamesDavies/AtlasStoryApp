@@ -6,7 +6,9 @@
 	width: 100%;
 }
 
-.story-description-value .text-container {
-	color: var(--text-colour-secondary);
+.story-description-container .text-container,
+.story-description-container textarea,
+.story-description-container .multi-line-text-input-height-element {
 	font-weight: 500;
+	color: var(--text-colour-secondary);
 }

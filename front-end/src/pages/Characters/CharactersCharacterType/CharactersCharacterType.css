@@ -2,22 +2,29 @@
 	display: inline-block;
 	flex-shrink: 0;
 	margin-left: 8px;
-	width: calc(100% - (275px + 12px) - 8px);
+	max-width: 1200px;
+	min-height: calc(100dvh - 53px - 16px - 24px - 92px);
 	vertical-align: top;
 }
 
 .characters-character-type-primary {
-	margin-bottom: 18px;
 	width: 100%;
 	height: 40px;
+}
+
+.characters-character-type {
+	display: flex;
+	gap: 16px;
+	flex-direction: column;
 }
 
 @media (max-width: 950px) {
 	.characters-character-type-container {
 		margin: 0;
 		margin-top: 6px;
+		padding: 0 6px;
+		box-sizing: border-box;
 		width: 100%;
-		min-height: 0;
 	}
 
 	.characters-character-type-delete-container {

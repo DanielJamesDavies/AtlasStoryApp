@@ -51,30 +51,28 @@ export const CharactersCharacterTypes = () => {
 				"--charactersCharacterTypeActiveColourGradient2": activeTypeColours[1],
 			}}
 		>
+			<div className='characters-character-types-title'>Character Types</div>
 			<ContentItem className='characters-character-types'>
-				<div className='characters-character-types-primary'>
-					<div className='characters-character-types-primary-title'>Character Types</div>
-					{!isAuthorizedToEdit ? null : (
-						<div className='characters-character-types-primary-modify-buttons-container'>
-							<IconBtn
-								className='characters-character-types-primary-modify-btn'
-								seamless={true}
-								icon={<FaPlus />}
-								iconName='plus'
-								onClick={openCreateCharacterTypeForm}
-								label='Create Character Type'
-							/>
-							<IconBtn
-								className='characters-character-types-primary-modify-btn'
-								seamless={true}
-								icon={<FaSort />}
-								iconName='sort'
-								onClick={toggleIsReorderingCharacterTypes}
-								label='Reorder Character Types'
-							/>
-						</div>
-					)}
-				</div>
+				{!isAuthorizedToEdit ? null : (
+					<div className='characters-character-types-modify-buttons-container'>
+						<IconBtn
+							className='characters-character-types-modify-btn'
+							seamless={true}
+							icon={<FaPlus />}
+							iconName='plus'
+							onClick={openCreateCharacterTypeForm}
+							label='Create Character Type'
+						/>
+						<IconBtn
+							className='characters-character-types-modify-btn'
+							seamless={true}
+							icon={<FaSort />}
+							iconName='sort'
+							onClick={toggleIsReorderingCharacterTypes}
+							label='Reorder Character Types'
+						/>
+					</div>
+				)}
 				{story?.data?.characterTypes?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
 					<div className='characters-character-types-add-first-group-container'>
 						<FirstAddButton label='Create Character Type' onClick={openCreateCharacterTypeForm} />
@@ -94,7 +92,16 @@ export const CharactersCharacterTypes = () => {
 							onDropItem={changeCharacterTypesOrder}
 						>
 							{story.data.characterTypes.map((characterTypeID, index) => (
-								<DragDropItem key={index} index={index} className='characters-character-types-character-type-item-container'>
+								<DragDropItem
+									key={index}
+									index={index}
+									className={
+										"characters-character-types-character-type-item-container" +
+										(characterType._id === characterTypeID
+											? " characters-character-types-character-type-item-container-active"
+											: "")
+									}
+								>
 									<BtnListItem
 										value={storyCharacterTypes.find((e) => e._id === characterTypeID)?.data?.name}
 										index={index}

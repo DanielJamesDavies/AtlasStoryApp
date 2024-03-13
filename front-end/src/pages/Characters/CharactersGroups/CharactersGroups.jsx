@@ -48,7 +48,7 @@ export const CharactersGroups = () => {
 					: "characters-groups-container"
 			}
 		>
-			<ContentItem className='characters-groups'>
+			<ContentItem className={"characters-groups" + (isAuthorizedToEdit ? " characters-groups-is-authorized" : "")}>
 				{!isAuthorizedToEdit ? null : (
 					<div className='characters-groups-modify-buttons-container'>
 						<IconBtn

@@ -1,0 +1,19 @@
+.unit-page-settings-group .editable-container {
+	width: 100%;
+}
+
+.unit-page-settings-group .editable-container-content {
+	display: flex;
+	justify-content: flex-end;
+	margin: auto 0;
+	width: 100%;
+	height: 100%;
+}
+
+.unit-page-settings-group .dropdown-container {
+	width: 100%;
+}
+
+.unit-page-settings-group .dropdown-value-container {
+	margin-left: auto;
+}

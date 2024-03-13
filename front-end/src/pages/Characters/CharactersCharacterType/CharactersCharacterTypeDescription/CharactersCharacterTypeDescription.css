@@ -1,3 +1,10 @@
 .characters-character-type-description {
 	margin: 0;
 }
+
+.characters-character-type-description .text-container,
+.characters-character-type-description textarea,
+.characters-character-type-description .multi-line-text-input-height-element {
+	font-weight: 500;
+	color: var(--text-colour-secondary);
+}

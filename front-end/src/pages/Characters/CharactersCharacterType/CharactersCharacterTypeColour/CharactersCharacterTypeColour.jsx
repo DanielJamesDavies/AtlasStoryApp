@@ -28,10 +28,10 @@ export const CharactersCharacterTypeColour = () => {
 			onRevert={revertCharacterTypeColour}
 			onSave={saveCharacterTypeColour}
 		>
-			<ContentItem className='characters-character-type-colour' hasBg={true}>
+			<ContentItem className='characters-character-type-colour'>
 				<ColourPicker value={characterType.data.colour} onChange={changeCharacterTypeColour} enableEdit={false} />
 			</ContentItem>
-			<ContentItem className='characters-character-type-colour' hasBg={true}>
+			<ContentItem className='characters-character-type-colour'>
 				<ColourPicker value={characterType.data.colour} onChange={changeCharacterTypeColour} enableEdit={true} />
 			</ContentItem>
 		</EditableContainer>

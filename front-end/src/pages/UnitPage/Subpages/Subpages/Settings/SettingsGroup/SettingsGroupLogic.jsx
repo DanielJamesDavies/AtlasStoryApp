@@ -49,24 +49,18 @@ export const SettingsGroupLogic = () => {
 		return true;
 	}
 
-	const [errors, setErrors] = useState([]);
-
 	async function saveGroup() {
 		if (!group) return false;
 
-		setErrors([]);
 		if (!unit?._id) return;
 		const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
 			story_id: story._id,
 			path: ["group_id"],
 			newValue: group,
 		});
-		if (!response || response?.errors) {
-			if (response?.errors) setErrors(response.errors);
-			return false;
-		}
+		if (!response || response?.errors) return false;
 		return true;
 	}
 
-	return { unit_type, isAuthorizedToEdit, storyGroups, group, changeGroup, revertGroup, saveGroup, errors };
+	return { unit_type, isAuthorizedToEdit, storyGroups, group, changeGroup, revertGroup, saveGroup };
 };

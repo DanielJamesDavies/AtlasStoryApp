@@ -1,9 +1,14 @@
+.substories-create-substory-form {
+	display: flex;
+	gap: 32px;
+	flex-direction: column;
+}
+
 .substories-create-substory-form-input-container {
-	margin: 12px 0;
+	margin: 0;
 }
 
 .substories-create-substory-form-submit-container {
-	margin-top: 20px;
 	margin-bottom: 4px;
 	text-align: right;
 }

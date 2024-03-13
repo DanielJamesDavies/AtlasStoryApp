@@ -1,9 +1,14 @@
+.characters-create-group-form {
+	display: flex;
+	gap: 32px;
+	flex-direction: column;
+}
+
 .characters-create-group-form-input-container {
-	margin: 12px 0;
+	margin: 0;
 }
 
 .characters-create-group-form-submit-container {
-	margin-top: 20px;
 	text-align: right;
 }
 

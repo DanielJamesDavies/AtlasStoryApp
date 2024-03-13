@@ -1,5 +1,15 @@
+.characters-create-character-form {
+	display: flex;
+	gap: 32px;
+	flex-direction: column;
+}
+
 .characters-create-character-form-input-container {
-	margin: 12px 0;
+	margin: 0;
+}
+
+.characters-create-character-form-input-container .toggle-input-container {
+	padding: 0 8px;
 }
 
 .characters-create-character-form {
@@ -8,7 +18,6 @@
 }
 
 .characters-create-character-form-submit-container {
-	margin-top: 20px;
 	margin-bottom: 5px;
 	text-align: right;
 }
