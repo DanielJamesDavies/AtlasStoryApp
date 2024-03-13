@@ -49,68 +49,70 @@ export const CharactersGroups = () => {
 			}
 		>
 			<ContentItem className={"characters-groups" + (isAuthorizedToEdit ? " characters-groups-is-authorized" : "")}>
-				{!isAuthorizedToEdit ? null : (
-					<div className='characters-groups-modify-buttons-container'>
-						<IconBtn
-							className='characters-groups-modify-btn'
-							seamless={true}
-							icon={<FaPlus />}
-							iconName='plus'
-							onClick={openCreateGroupForm}
-							label='Create Group'
-						/>
-						<IconBtn
-							className='characters-groups-modify-btn'
-							seamless={true}
-							icon={<FaSort />}
-							iconName='sort'
-							onClick={toggleIsReorderingGroups}
-							label='Reorder Groups'
-						/>
-					</div>
-				)}
-				{story?.data?.groups?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
-					<div className='characters-groups-add-first-group-container'>
-						<FirstAddButton label='Create Character Group' onClick={openCreateGroupForm} />
-					</div>
-				) : !story?.data?.groups || !storyGroups ? (
-					<div className='characters-groups-group-items-container characters-groups-group-items-container-placeholder'>
-						<BtnListItem />
-						<BtnListItem />
-						<BtnListItem />
-						<BtnListItem />
-						<BtnListItem />
-					</div>
-				) : (
-					<BtnListContainer>
-						<DragDropContainer
-							className='characters-groups-group-items-container'
-							inlineItems={false}
-							enableDragDrop={isReorderingGroups}
-							onDropItem={changeGroupsOrder}
-						>
-							{story.data.groups.map((groupID, index) => (
-								<DragDropItem
-									key={index}
-									index={index}
-									dragDropListId='characters-groups-group-items'
-									className={
-										"characters-groups-group-item-container" +
-										(group._id === groupID ? " characters-groups-group-item-container-active" : "")
-									}
-								>
-									<BtnListItem
-										value={storyGroups.find((e) => e._id === groupID)?.data?.name}
+				<div className='characters-groups-primary'>
+					{!isAuthorizedToEdit ? null : (
+						<div className='characters-groups-modify-buttons-container'>
+							<IconBtn
+								className='characters-groups-modify-btn'
+								seamless={true}
+								icon={<FaPlus />}
+								iconName='plus'
+								onClick={openCreateGroupForm}
+								label='Create Group'
+							/>
+							<IconBtn
+								className='characters-groups-modify-btn'
+								seamless={true}
+								icon={<FaSort />}
+								iconName='sort'
+								onClick={toggleIsReorderingGroups}
+								label='Reorder Groups'
+							/>
+						</div>
+					)}
+					{story?.data?.groups?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+						<div className='characters-groups-add-first-group-container'>
+							<FirstAddButton label='Create Character Group' onClick={openCreateGroupForm} />
+						</div>
+					) : !story?.data?.groups || !storyGroups ? (
+						<div className='characters-groups-group-items-container characters-groups-group-items-container-placeholder'>
+							<BtnListItem />
+							<BtnListItem />
+							<BtnListItem />
+							<BtnListItem />
+							<BtnListItem />
+						</div>
+					) : (
+						<BtnListContainer>
+							<DragDropContainer
+								className='characters-groups-group-items-container'
+								inlineItems={false}
+								enableDragDrop={isReorderingGroups}
+								onDropItem={changeGroupsOrder}
+							>
+								{story.data.groups.map((groupID, index) => (
+									<DragDropItem
+										key={index}
 										index={index}
-										isActive={group._id === groupID}
-										hasFoundActive={group?._id !== undefined}
-										onClick={(e) => (e?.button === 2 ? null : changeGroup(groupID))}
-									/>
-								</DragDropItem>
-							))}
-						</DragDropContainer>
-					</BtnListContainer>
-				)}
+										dragDropListId='characters-groups-group-items'
+										className={
+											"characters-groups-group-item-container" +
+											(group._id === groupID ? " characters-groups-group-item-container-active" : "")
+										}
+									>
+										<BtnListItem
+											value={storyGroups.find((e) => e._id === groupID)?.data?.name}
+											index={index}
+											isActive={group._id === groupID}
+											hasFoundActive={group?._id !== undefined}
+											onClick={(e) => (e?.button === 2 ? null : changeGroup(groupID))}
+										/>
+									</DragDropItem>
+								))}
+							</DragDropContainer>
+						</BtnListContainer>
+					)}
+				</div>
 				<div className='characters-group-primary'>
 					<div
 						className={

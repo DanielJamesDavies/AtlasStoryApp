@@ -23,6 +23,12 @@
 	vertical-align: middle;
 }
 
+.characters-character-types-modify-buttons-container {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+}
+
 .characters-character-types-modify-btn {
 	margin: 0 8px;
 }
@@ -109,15 +115,36 @@
 	animation-delay: 0.1s;
 }
 
-.characters-character-types-add-first-group-container {
-	height: calc(200px + (var(--vh) / 2));
+.characters-character-types-add-first-character-type-container {
+	width: 100%;
+	max-width: 500px;
+	height: 43px;
+	max-height: 43px;
 }
 
-.characters-character-types-add-first-group-container .first-add-btn {
-	border-radius: 5px;
+.characters-character-types-add-first-character-type-container .first-add-btn {
+	gap: 12px;
+	flex-direction: row;
+	padding: 4px 24px;
+	border-radius: 24px;
+
+	width: calc(100% - 2 * 24px);
+	height: 35px;
+	max-height: 35px;
+
+	background: var(--colour-grey-two);
+}
+
+.characters-character-types-add-first-character-type-container .first-add-btn:hover {
+	background: var(--colour-grey-three);
+}
+
+.characters-character-types-add-first-character-type-container .first-add-btn-plus {
+	font-size: 18px;
 }
 
 .characters-character-types-character-type-item-container .btn-list-item-value {
+	white-space: pre;
 	user-select: none;
 }
 

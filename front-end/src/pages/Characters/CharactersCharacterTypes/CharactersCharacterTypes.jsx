@@ -74,7 +74,7 @@ export const CharactersCharacterTypes = () => {
 					</div>
 				)}
 				{story?.data?.characterTypes?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
-					<div className='characters-character-types-add-first-group-container'>
+					<div className='characters-character-types-add-first-character-type-container'>
 						<FirstAddButton label='Create Character Type' onClick={openCreateCharacterTypeForm} />
 					</div>
 				) : !story?.data?.characterTypes || !storyCharacterTypes ? (
