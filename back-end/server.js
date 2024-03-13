@@ -82,6 +82,8 @@ app.use("*", (req, res, next) => {
 	next();
 });
 
+app.get("/api/prevent-idling", (req, res) => res.send("Success"));
+
 // Routes
 app.use("/api/new-id", require("./routes/NewIdRoute"));
 app.use("/api/cookies-consent", require("./routes/CookiesConsentRoute"));
@@ -111,3 +113,10 @@ app.get("*", (req, res) => {
 });
 
 app.listen(port, () => {});
+
+if (process.env.NODE_ENV !== "development") {
+	setInterval(() => {
+		console.log("Preventing Idling");
+		fetch("https://www.atlas-story.app/api/prevent-idling", { method: "GET" });
+	}, 1000 * 60 * 25);
+}
