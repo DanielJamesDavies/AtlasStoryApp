@@ -137,7 +137,7 @@
 }
 
 .drag-drop-item-enable-drag-drop.characters-groups-group-item-container .btn-list-item {
-	animation: wiggle-medium infinite 0.5s linear;
+	animation: wiggle-large infinite 0.5s linear;
 }
 
 .drag-drop-item-enable-drag-drop:nth-child(even).characters-groups-group-item-container .btn-list-item {

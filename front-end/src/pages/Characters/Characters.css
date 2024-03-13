@@ -16,6 +16,7 @@
 }
 
 .characters-relationship-chart-content-container {
+	margin-bottom: 24px;
 	width: 100%;
 	max-width: 100%;
 }
