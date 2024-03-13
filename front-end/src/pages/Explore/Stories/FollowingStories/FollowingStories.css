@@ -2,8 +2,16 @@
 	width: 100%;
 }
 
-.home-stories-following-title {
+.home-stories-following-primary {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	margin-bottom: 16px;
+	padding-right: 8px;
+	box-sizing: border-box;
+}
+
+.home-stories-following-title {
 	font-size: 32px;
 	font-weight: 600;
 }

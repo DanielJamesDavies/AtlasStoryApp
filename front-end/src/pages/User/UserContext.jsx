@@ -6,7 +6,16 @@ import { RoutesContext } from "../../context/RoutesContext";
 export const UserContext = createContext();
 
 const UserProvider = ({ children, user_username }) => {
-	const { APIRequest, username, userProfilePicture, setUserProfilePicture, userBanner, setUserBanner } = useContext(APIContext);
+	const {
+		APIRequest,
+		authorized_user_id,
+		username,
+		userProfilePicture,
+		setUserProfilePicture,
+		userBanner,
+		setUserBanner,
+		setUserFollowingStories,
+	} = useContext(APIContext);
 	const { location, changeLocationParameters } = useContext(RoutesContext);
 	const [isAuthorizedToEdit, setIsAuthorizedToEdit] = useState(false);
 	const [profilePicture, setProfilePicture] = useState(false);
@@ -86,6 +95,7 @@ const UserProvider = ({ children, user_username }) => {
 			curr_username.current = response?.data?.user?.username;
 			setIsAuthorizedToEdit(response?.data?.isAuthorizedToEdit);
 			setUser(response?.data?.user);
+			setUserFollowingStories(response?.data?.user?.data?.followingStories);
 			return response?.data?.user;
 		}
 
@@ -158,6 +168,7 @@ const UserProvider = ({ children, user_username }) => {
 		setIsAuthorizedToEdit,
 		user,
 		setUser,
+		setUserFollowingStories,
 		setProfilePicture,
 		setUserProfilePicture,
 		setBanner,
@@ -175,6 +186,7 @@ const UserProvider = ({ children, user_username }) => {
 	return (
 		<UserContext.Provider
 			value={{
+				authorized_user_id,
 				authorized_username: username,
 				user_username,
 				isAuthorizedToEdit,

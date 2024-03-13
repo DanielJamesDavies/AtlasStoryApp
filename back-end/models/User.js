@@ -46,6 +46,10 @@ const UserSchema = mongoose.Schema({
 			type: [{ type: mongoose.Schema.Types.ObjectId }],
 			default: [],
 		},
+		followingStories: {
+			type: [mongoose.Schema.Types.ObjectId],
+			default: [],
+		},
 		favouritedGenres: {
 			type: [mongoose.Schema.Types.ObjectId],
 			default: [],

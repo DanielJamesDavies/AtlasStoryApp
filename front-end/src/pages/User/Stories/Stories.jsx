@@ -25,6 +25,7 @@ import "./Stories.css";
 export const Stories = () => {
 	const {
 		isAuthorizedToEdit,
+		authorized_user_id,
 		authorized_username,
 		user,
 		stories,
@@ -38,7 +39,19 @@ export const Stories = () => {
 		<div className='user-stories'>
 			<div className='user-stories-top'>
 				{!user ? null : <div className='user-stories-top-title'>Stories</div>}
-				<div className='user-stories-top-items-count'>{!stories ? (!user ? null : "(0)") : "(" + stories.length + ")"}</div>
+				<div className='user-stories-top-items-count'>
+					{!stories
+						? !user
+							? null
+							: "(0)"
+						: "(" +
+						  user.data.stories.filter((e) =>
+								["owner", "collaborator"].includes(
+									stories?.find((e2) => e2._id === e)?.data?.members?.find((e2) => e2?.user_id === authorized_user_id)?.type
+								)
+						  ).length +
+						  ")"}
+				</div>
 				{!isAuthorizedToEdit ? null : (
 					<div className='user-stories-top-modify-btns-container'>
 						<IconBtn
@@ -74,6 +87,11 @@ export const Stories = () => {
 					>
 						{user.data.stories
 							.filter((e) => !stories || stories?.findIndex((e2) => e2._id === e) !== -1)
+							.filter((e) =>
+								["owner", "collaborator"].includes(
+									stories?.find((e2) => e2._id === e)?.data?.members?.find((e2) => e2?.user_id === authorized_user_id)?.type
+								)
+							)
 							.map((story_id, index) => (
 								<DragDropItem key={index} index={index} className='user-stories-story-item-container'>
 									<StoryItem story={stories?.find((e) => e._id === story_id)} size='m' />

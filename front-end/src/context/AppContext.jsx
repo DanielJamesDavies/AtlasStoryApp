@@ -5,7 +5,8 @@ import { APIContext } from "./APIContext";
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-	const { APIRequest, user_id, setUserID, username, setUsername, setUserProfilePicture, setUserBanner } = useContext(APIContext);
+	const { APIRequest, user_id, setUserID, username, setUsername, setUserProfilePicture, setUserBanner, setUserFollowingStories } =
+		useContext(APIContext);
 	const [uiTheme, setUITheme] = useState("dim");
 	const [fontSize, setFontSize] = useState("m");
 	const [fontSizeMultiplier, setFontSizeMultiplier] = useState(1);
@@ -46,6 +47,7 @@ const AppProvider = ({ children }) => {
 			if (user?.username && user.username !== username) setUsername(user.username);
 			if (user?.data?.uiTheme) setUITheme(user.data.uiTheme);
 			setIsDisplayingAiAssistant(user?.data?.isDisplayingAiAssistant);
+			setUserFollowingStories(user?.data?.followingStories);
 
 			getUserProfilePicture(user?.data?.profilePicture);
 			getUserBanner(user?.data?.banner);
@@ -70,7 +72,7 @@ const AppProvider = ({ children }) => {
 		}
 
 		getUser();
-	}, [APIRequest, user_id, setUserID, username, setUsername, setUITheme, setUserProfilePicture, setUserBanner]);
+	}, [APIRequest, user_id, setUserID, username, setUsername, setUITheme, setUserProfilePicture, setUserBanner, setUserFollowingStories]);
 
 	return (
 		<AppContext.Provider

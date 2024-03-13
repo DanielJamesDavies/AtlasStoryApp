@@ -9,6 +9,7 @@ const APIProvider = ({ children }) => {
 	const [userBanner, setUserBanner] = useState(false);
 	const [cookiesConsent, setCookiesConsent] = useState(false);
 	const [showCookiesConsentPopUp, setShowCookiesConsentPopUp] = useState(false);
+	const [userFollowingStories, setUserFollowingStories] = useState(false);
 
 	const APIRequest = useCallback(
 		async (path, method, body) => {
@@ -66,6 +67,8 @@ const APIProvider = ({ children }) => {
 				setCookiesConsent,
 				showCookiesConsentPopUp,
 				setShowCookiesConsentPopUp,
+				userFollowingStories,
+				setUserFollowingStories,
 			}}
 		>
 			{children}
