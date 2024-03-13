@@ -54,6 +54,15 @@
 	background: var(--colour-scroll-bar-thumb-background);
 }
 
+.characters-character-types-character-type-item-container .btn-list-item {
+	margin: 0;
+	background: transparent;
+}
+
+.characters-character-types-character-type-item-container .btn-list-item:hover {
+	background: var(--colour-grey-three);
+}
+
 .characters-character-types-character-type-item-container .btn-list-item-active {
 	position: relative;
 	z-index: 2;
@@ -93,7 +102,7 @@
 }
 
 .drag-drop-item-enable-drag-drop.characters-character-types-character-type-item-container .btn-list-item {
-	animation: wiggle-medium infinite 0.5s linear;
+	animation: wiggle-large infinite 0.5s linear;
 }
 
 .drag-drop-item-enable-drag-drop:nth-child(even).characters-character-types-character-type-item-container .btn-list-item {
@@ -148,7 +157,7 @@
 	.characters-character-types-character-type-item-container {
 		border-radius: 24px;
 		width: 100%;
-		background: unset;
+		background: var(--colour-grey-two);
 	}
 
 	.characters-character-types-character-type-item-container .btn-list-item {
