@@ -58,6 +58,11 @@ const UserSchema = mongoose.Schema({
 			type: String,
 			default: "m",
 		},
+		isDisplayingAiAssistant: {
+			type: Boolean,
+			required: true,
+			default: false,
+		},
 	},
 	verified: { type: Boolean, require: true },
 	date_created: { type: Date, default: Date.now },

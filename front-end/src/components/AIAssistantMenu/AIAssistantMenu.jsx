@@ -18,6 +18,7 @@ import "./AIAssistantMenu.css";
 
 export const AIAssistantMenu = () => {
 	const {
+		isDisplayingAiAssistant,
 		story,
 		hasGotStoryCharacters,
 		storyGroups,
@@ -42,6 +43,7 @@ export const AIAssistantMenu = () => {
 	} = AIAssistantMenuLogic();
 
 	if (
+		!isDisplayingAiAssistant ||
 		!story ||
 		story?.data?.groups?.length !== storyGroups?.length ||
 		story?.data?.characterTypes?.length !== storyCharacterTypes?.length ||

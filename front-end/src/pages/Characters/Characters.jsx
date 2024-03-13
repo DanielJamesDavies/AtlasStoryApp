@@ -9,6 +9,7 @@ import { CharactersCharacterTypes } from "./CharactersCharacterTypes/CharactersC
 import { CharactersCharacterType } from "./CharactersCharacterType/CharactersCharacterType";
 
 // Logic
+import { CharactersLogic } from "./CharactersLogic";
 
 // Context
 
@@ -20,8 +21,24 @@ import "./Characters.css";
 // Assets
 
 export const Characters = () => {
+	const { story, activeGroupColour, activeGroupColourTint } = CharactersLogic();
+
 	return (
-		<div className='characters'>
+		<div
+			className='characters'
+			style={{
+				"--characters-groups-active-group-colour": !activeGroupColour
+					? !story?.data?.colour
+						? "#0044ff"
+						: story?.data?.colour
+					: activeGroupColour,
+				"--characters-groups-active-group-colour-tint": !activeGroupColourTint
+					? !story?.data?.colour
+						? "#0044ff"
+						: story?.data?.colour
+					: activeGroupColourTint,
+			}}
+		>
 			<CharactersTitle />
 			<div className='characters-content-container'>
 				<div className='characters-groups-content-container'>

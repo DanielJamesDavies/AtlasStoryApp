@@ -1,41 +1,29 @@
-.story-primary-character-card-container {
-	margin-left: -115px;
-	transition: margin 0.4s;
-}
-
-.story-primary-character-card-container:first-child {
-	margin-left: 0;
-}
-
-.story-primary-character-card-container:last-child {
-	margin-right: 0;
-}
-
-.story-primary-character-card-container:hover + .story-primary-character-card-container {
-	margin-left: 4px;
-}
-
-.story-primary-characters-cards-container .drag-drop-item-enable-drag-drop {
-	margin: 0 4px;
-}
-
+.story-primary-character-card,
 .story-primary-character-card-placeholder {
 	flex-shrink: 0;
 	position: relative;
 	z-index: 1;
 	display: inline-block;
-	margin: 4px;
-	margin-bottom: 0;
+	margin: 8px;
 	border: 5px solid var(--colour-accent);
-	border-color: var(--colour-grey-two);
+	border-color: var(--characterColour);
 	border-radius: 16px;
 
 	width: 305px;
 	height: 420px;
+	overflow: hidden;
 
 	background: var(--colour-grey-one);
-	transition: margin 0.4s;
+	transition: scale 0.2s;
 	cursor: pointer;
+}
+
+.story-primary-character-card:hover {
+	scale: 1.02;
+}
+
+.story-primary-character-card-placeholder {
+	margin-bottom: 0;
 	animation: story-primary-character-card-placeholder 1.5s infinite;
 }
 
@@ -54,25 +42,6 @@
 		border-color: var(--colour-grey-two);
 		background: var(--colour-grey-two);
 	}
-}
-
-.story-primary-character-card {
-	flex-shrink: 0;
-	position: relative;
-	z-index: 1;
-	display: inline-block;
-	margin: 4px;
-	border: 5px solid var(--colour-accent);
-	border-color: var(--characterColour);
-	border-radius: 16px;
-
-	width: 305px;
-	height: 420px;
-	overflow: hidden;
-
-	background: var(--colour-grey-one);
-	transition: margin 0.4s;
-	cursor: pointer;
 }
 
 .drag-drop-item-enable-drag-drop .story-primary-character-card {
@@ -189,18 +158,14 @@
 }
 
 @media (max-width: 750px) {
-	.story-primary-character-card-container {
-		margin-left: -130px;
-	}
-
 	.story-primary-character-card,
 	.story-primary-character-card-placeholder {
-		border-width: 5px;
+		border-width: 4px;
 
 		width: calc(100vw - 24px - 10px - 24px);
-		max-width: min(441px, calc((var(--vh) - var(--navbar-mobile-height) - 8px - 12px - 10px - 24px - 39px - 24px) * (441 / 607)));
+		max-width: min(441px * 0.7, calc((var(--vh) - var(--navbar-mobile-height) - 8px - 12px - 10px - 24px - 39px - 24px) * (441 / 607)));
 		height: calc((100vw - 24px - 10px - 24px) * (607 / 441));
-		max-height: min(607px, calc(var(--vh) - var(--navbar-mobile-height) - 8px - 12px - 10px - 24px - 39px - 24px));
+		max-height: min(607px * 0.7, calc(var(--vh) - var(--navbar-mobile-height) - 8px - 12px - 10px - 24px - 39px - 24px));
 	}
 
 	.story-primary-character-card-top-container {

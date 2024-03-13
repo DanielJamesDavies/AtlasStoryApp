@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 export const RoutesContext = createContext();
 
 const RoutesProvider = ({ children }) => {
-	const domain = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://www.atlas-story.app";
+	const domain = process.env.NODE_ENV === "development" ? `http://${window.location?.hostname}:3000` : "https://www.atlas-story.app";
 	const [location, setLocation] = useState("/");
 	const [parameters, setParameters] = useState([]);
 	const locationPath = useRef("");

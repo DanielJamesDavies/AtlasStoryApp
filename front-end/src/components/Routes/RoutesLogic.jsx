@@ -38,8 +38,8 @@ import { AppContext } from "../../context/AppContext";
 
 export const RoutesLogic = () => {
 	const { location, changeLocationSimple } = useContext(RoutesContext);
-	const { APIRequest, user_id, setUserID, username, setUsername, setUserProfilePicture, setUserBanner } = useContext(APIContext);
-	const { changeAccentColour, changeAccentHoverColour, setUITheme } = useContext(AppContext);
+	const { username } = useContext(APIContext);
+	const { changeAccentColour, changeAccentHoverColour } = useContext(AppContext);
 
 	const contentContainerRef = useRef();
 	const [renderComponent, setRenderComponent] = useState(null);
@@ -298,41 +298,6 @@ export const RoutesLogic = () => {
 		changeAccentColour,
 		changeAccentHoverColour,
 	]);
-
-	useEffect(() => {
-		async function getUser() {
-			const response = await APIRequest("/user/me", "GET");
-			if (!response || response?.errors || !response?.data?.user) return false;
-
-			const user = response.data.user;
-			if (user?._id && user._id !== user_id) setUserID(user._id);
-			if (user?.username && user.username !== username) setUsername(user.username);
-			if (user?.data?.uiTheme) setUITheme(user.data.uiTheme);
-
-			getUserProfilePicture(user?.data?.profilePicture);
-			getUserBanner(user?.data?.banner);
-
-			return response?.data?.user;
-		}
-
-		async function getUserProfilePicture(profilePictureID) {
-			if (!profilePictureID) return false;
-			const response = await APIRequest("/image/" + profilePictureID, "GET");
-			if (response?.error || !response?.data?.image?.image) return false;
-			setUserProfilePicture(response.data.image.image);
-			return response.data.image.image;
-		}
-
-		async function getUserBanner(bannerID) {
-			if (!bannerID) return false;
-			const response = await APIRequest("/image/" + bannerID, "GET");
-			if (response?.error || !response?.data?.image?.image) return false;
-			setUserBanner(response.data.image.image);
-			return response.data.image.image;
-		}
-
-		getUser();
-	}, [APIRequest, user_id, setUserID, username, setUsername, setUITheme, setUserProfilePicture, setUserBanner]);
 
 	useEffect(() => {
 		contentContainerRef.current.scrollTop = 0;

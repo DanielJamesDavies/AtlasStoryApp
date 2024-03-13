@@ -168,13 +168,13 @@
 .ai-assistant-btn {
 	flex-shrink: 0;
 	position: relative;
-	border: 0;
+	border: 1px solid var(--text-colour-tertiary);
 	border-radius: 100%;
 	width: var(--btnSize);
 	height: var(--btnSize);
-	background: var(--colour-grey-three);
+	background: var(--colour-grey-one);
 	cursor: pointer;
-	color: var(--text-colour-secondary);
+	color: var(--text-colour-tertiary);
 	pointer-events: all;
 }
 

@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 // Components
 
@@ -8,9 +8,9 @@ import { useContext, useEffect, useState } from "react";
 // Context
 import { CharactersContext } from "../CharactersContext";
 import { APIContext } from "../../../context/APIContext";
+import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
-import getColourWithTint from "../../../services/GetColourWithTint";
 
 // Styles
 
@@ -28,8 +28,11 @@ export const CharactersGroupsLogic = () => {
 		setIsDisplayingCreateGroupForm,
 		isReorderingGroups,
 		toggleIsReorderingGroups,
+		toggleIsReorderingCharacters,
+		setIsDisplayingCreateCharacterForm,
 	} = useContext(CharactersContext);
 	const { authorized_user_id, APIRequest } = useContext(APIContext);
+	const { changeLocation } = useContext(RoutesContext);
 
 	function openCreateGroupForm() {
 		setIsDisplayingCreateGroupForm(true);
@@ -55,21 +58,13 @@ export const CharactersGroupsLogic = () => {
 		});
 	}
 
-	const [activeGroupColour, setActiveGroupColour] = useState(false);
-	const [activeGroupColourTint, setActiveGroupColourTint] = useState(false);
+	function navigateToGroup(e) {
+		if (story?.uid && group?.uid) changeLocation("/s/" + story.uid + "/g/" + group.uid, e.button === 1);
+	}
 
-	useEffect(() => {
-		if (group?.data?.colour) {
-			try {
-				const colours = getColourWithTint(group?.data?.colour);
-				setActiveGroupColour(colours[0]);
-				setActiveGroupColourTint(colours[1]);
-			} catch {
-				setActiveGroupColour(group?.data?.colour);
-				setActiveGroupColourTint(group?.data?.colour);
-			}
-		}
-	}, [group]);
+	function openCreateCharacterForm() {
+		setIsDisplayingCreateCharacterForm(true);
+	}
 
 	return {
 		isAuthorizedToEdit,
@@ -82,7 +77,8 @@ export const CharactersGroupsLogic = () => {
 		isReorderingGroups,
 		toggleIsReorderingGroups,
 		changeGroupsOrder,
-		activeGroupColour,
-		activeGroupColourTint,
+		openCreateCharacterForm,
+		navigateToGroup,
+		toggleIsReorderingCharacters,
 	};
 };

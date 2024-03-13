@@ -9,6 +9,7 @@ import { AIAssistantGetCommandsLogic } from "./AIAssistantGetCommandsLogic";
 import { AIAssistantExecuteCommandsLogic } from "./AIAssistantExecuteCommandsLogic";
 
 // Context
+import { AppContext } from "../../context/AppContext";
 import { AIContext } from "../../context/AIContext";
 import { StoryContext } from "../../context/StoryContext";
 
@@ -19,6 +20,7 @@ import { StoryContext } from "../../context/StoryContext";
 // Assets
 
 export const AIAssistantMenuLogic = () => {
+	const { isDisplayingAiAssistant } = useContext(AppContext);
 	const { GPT_API_Key, AI_Whisper_Request, AI_TTS_Request } = useContext(AIContext);
 	const { story, isAuthorizedToEdit, storyCharacters, hasGotStoryCharacters, storyGroups, storyCharacterTypes, storySubstories } =
 		useContext(StoryContext);
@@ -250,6 +252,7 @@ export const AIAssistantMenuLogic = () => {
 	}
 
 	return {
+		isDisplayingAiAssistant,
 		story,
 		hasGotStoryCharacters,
 		storyGroups,

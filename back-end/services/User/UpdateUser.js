@@ -8,7 +8,11 @@ const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 const { createUserVerification, sendVerificaionEmail } = require("./UserVerification");
 
 module.exports = async (req, res) => {
-	if (!req?.body?.path || req?.body?.path === ["_id"] || req?.body?.path === ["verified"])
+	if (
+		!req?.body?.path ||
+		JSON.stringify(req?.body?.path) === JSON.stringify(["_id"]) ||
+		JSON.stringify(req?.body?.path) === JSON.stringify(["verified"])
+	)
 		return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
 
 	try {
