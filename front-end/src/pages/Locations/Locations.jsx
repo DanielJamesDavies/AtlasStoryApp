@@ -60,14 +60,16 @@ export const Locations = () => {
 	return (
 		<div className='locations'>
 			<LocationsTitle />
-			<button className='locations-map-btn' onClick={() => setIsOnMap(true)}>
-				<div className='locations-map-btn-label'>
-					<FontAwesomeIcon icon={faMap} />
-					<div className='locations-map-btn-label-text'>Map</div>
-				</div>
-				<img src={MapBtnBackground} alt='' />
-			</button>
-			<LocationsList />
+			<div className='locations-content'>
+				<button className='locations-map-btn' onClick={() => setIsOnMap(true)}>
+					<div className='locations-map-btn-label'>
+						<FontAwesomeIcon icon={faMap} />
+						<div className='locations-map-btn-label-text'>Map</div>
+					</div>
+					<img src={MapBtnBackground} alt='' />
+				</button>
+				<LocationsList />
+			</div>
 			<CreateLocationForm />
 		</div>
 	);

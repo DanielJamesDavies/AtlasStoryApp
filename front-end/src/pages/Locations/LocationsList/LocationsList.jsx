@@ -57,28 +57,27 @@ export const LocationsList = () => {
 					searchedLocations
 						?.sort((a, b) => b.views - a.views)
 						?.map((location, index) => (
-							<div key={index}>
-								{index === 0 ? null : <div className='locations-list-item-divider'></div>}
-								<div
-									className='locations-list-item'
-									onMouseDown={(e) => e.preventDefault()}
-									onClick={(e) => onClickLocation(e, location)}
-									onAuxClick={(e) => onClickLocation(e, location)}
-								>
-									<div className='locations-list-item-name'>{location?.data?.name}</div>
-									<div className='locations-list-item-type'>
-										{locationTypes.find((e) => e?.type === location?.type)?.icon}
-										{location?.specific_type?.length !== 0 ? (
-											<div className='locations-list-item-type-text'>
-												{location?.specific_type.charAt(0).toUpperCase() +
-													location?.specific_type.replace(/([A-Z])/g, " $1").slice(1)}
-											</div>
-										) : (
-											<div className='locations-list-item-type-text'>
-												{location?.type.charAt(0).toUpperCase() + location?.type.replace(/([A-Z])/g, " $1").slice(1)}
-											</div>
-										)}
-									</div>
+							<div
+								key={index}
+								className='locations-list-item'
+								onMouseDown={(e) => e.preventDefault()}
+								onClick={(e) => onClickLocation(e, location)}
+								onAuxClick={(e) => onClickLocation(e, location)}
+							>
+								<div className='locations-list-item-icon'>{locationTypes.find((e) => e?.type === location?.type)?.icon}</div>
+								<div className='locations-list-item-name'>{location?.data?.name}</div>
+								<div className='location-list-item-bullet'></div>
+								<div className='locations-list-item-type'>
+									{location?.specific_type?.length !== 0 ? (
+										<div className='locations-list-item-type-text'>
+											{location?.specific_type.charAt(0).toUpperCase() +
+												location?.specific_type.replace(/([A-Z])/g, " $1").slice(1)}
+										</div>
+									) : (
+										<div className='locations-list-item-type-text'>
+											{location?.type.charAt(0).toUpperCase() + location?.type.replace(/([A-Z])/g, " $1").slice(1)}
+										</div>
+									)}
 								</div>
 							</div>
 						))
