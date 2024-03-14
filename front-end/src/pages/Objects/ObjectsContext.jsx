@@ -8,10 +8,9 @@ export const ObjectsContext = createContext();
 
 const ObjectsProvider = ({ children, story_uid }) => {
 	const { location, changeLocationParameters } = useContext(RoutesContext);
-	const { isAuthorizedToEdit, story, setStory, storyIcon, createUnitForm } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, createUnitForm, objects, setObjects, objectsImages, setObjectsImages } =
+		useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
-	const [objects, setObjects] = useState(false);
-	const [objectsImages, setObjectsImages] = useState(false);
 
 	const [createObjectsValues, setCreateObjectsValues] = useState({});
 
@@ -70,7 +69,7 @@ const ObjectsProvider = ({ children, story_uid }) => {
 		}
 
 		getInitial();
-	}, [location, story_uid, curr_story_uid, story, APIRequest]);
+	}, [location, story_uid, curr_story_uid, story, APIRequest, setObjects, setObjectsImages]);
 
 	useEffect(() => {
 		changeLocationParameters([]);

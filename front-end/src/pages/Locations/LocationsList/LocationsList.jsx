@@ -21,6 +21,7 @@ import "./LocationsList.css";
 
 export const LocationsList = () => {
 	const {
+		isAuthorizedToEdit,
 		authorized_user_id,
 		story,
 		locations,
@@ -36,7 +37,8 @@ export const LocationsList = () => {
 		<div className='locations-list'>
 			<div className='locations-list-primary'>
 				<SearchInput label='Search Locations' value={searchValue} onChange={changeSearchValue} />
-				{story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id && e?.type !== "viewer") === -1 ? null : (
+				{!isAuthorizedToEdit ||
+				story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id && e?.type !== "viewer") === -1 ? null : (
 					<IconBtn
 						icon={<FaPlus />}
 						iconName='plus'
@@ -47,7 +49,8 @@ export const LocationsList = () => {
 				)}
 			</div>
 			<div className='locations-list-items'>
-				{story?.data?.locations?.length === 0 &&
+				{isAuthorizedToEdit &&
+				story?.data?.locations?.length === 0 &&
 				story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id && e?.type !== "viewer") !== -1 ? (
 					<div className='objects-list-add-first-container'>
 						<FirstAddButton label='Create Location' onClick={() => setIsDisplayingCreateLocationForm(true)} />

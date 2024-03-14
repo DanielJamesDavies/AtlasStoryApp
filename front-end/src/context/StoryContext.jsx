@@ -35,6 +35,10 @@ const StoryProvider = ({ children }) => {
 	const [storyCharacterTypes, setStoryCharacterTypes] = useState([]);
 	const [storySubstories, setStorySubstories] = useState([]);
 	const [locations, setLocations] = useState(false);
+	const [lore, setLore] = useState(false);
+	const [loreImages, setLoreImages] = useState(false);
+	const [objects, setObjects] = useState(false);
+	const [objectsImages, setObjectsImages] = useState(false);
 
 	const [unitValueToChange, setUnitValueToChange] = useState(false);
 	const getUnitValue = useRef(() => {
@@ -117,6 +121,10 @@ const StoryProvider = ({ children }) => {
 			setStoryCharacterTypes([]);
 			setStorySubstories([]);
 			setLocations([]);
+			setLore(false);
+			setLoreImages(false);
+			setObjects(false);
+			setObjectsImages(false);
 		}
 
 		function getStoryUID() {
@@ -475,6 +483,10 @@ const StoryProvider = ({ children }) => {
 		setStoryCharacterTypes,
 		setStorySubstories,
 		setLocations,
+		setLore,
+		setLoreImages,
+		setObjects,
+		setObjectsImages,
 	]);
 
 	const [isDisplayingSettings, setIsDisplayingSettings] = useState(false);
@@ -525,6 +537,14 @@ const StoryProvider = ({ children }) => {
 				setStorySubstories,
 				locations,
 				setLocations,
+				lore,
+				setLore,
+				loreImages,
+				setLoreImages,
+				objects,
+				setObjects,
+				objectsImages,
+				setObjectsImages,
 				isDisplayingSettings,
 				setIsDisplayingSettings,
 				isReorderingCharacters,

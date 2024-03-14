@@ -18,7 +18,7 @@ import { APIContext } from "../../../context/APIContext";
 // Assets
 
 export const LocationsListLogic = () => {
-	const { story_uid, story, locations, locationTypes, setIsDisplayingCreateLocationForm } = useContext(LocationsContext);
+	const { isAuthorizedToEdit, story_uid, story, locations, locationTypes, setIsDisplayingCreateLocationForm } = useContext(LocationsContext);
 	const { changeLocation } = useContext(RoutesContext);
 	const { authorized_user_id } = useContext(APIContext);
 	const [searchedLocations, setSearchedLocations] = useState([]);
@@ -47,6 +47,7 @@ export const LocationsListLogic = () => {
 	}
 
 	return {
+		isAuthorizedToEdit,
 		authorized_user_id,
 		story,
 		locations,

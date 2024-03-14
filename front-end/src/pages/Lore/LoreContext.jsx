@@ -8,10 +8,8 @@ export const LoreContext = createContext();
 
 const LoreProvider = ({ children, story_uid }) => {
 	const { location, changeLocationParameters } = useContext(RoutesContext);
-	const { isAuthorizedToEdit, story, setStory, storyIcon, createUnitForm } = useContext(StoryContext);
+	const { isAuthorizedToEdit, story, setStory, storyIcon, createUnitForm, lore, setLore, loreImages, setLoreImages } = useContext(StoryContext);
 	const { APIRequest } = useContext(APIContext);
-	const [lore, setLore] = useState(false);
-	const [loreImages, setLoreImages] = useState(false);
 
 	const [createLoreItemValues, setCreateLoreItemValues] = useState({});
 
@@ -70,7 +68,7 @@ const LoreProvider = ({ children, story_uid }) => {
 		}
 
 		getInitial();
-	}, [location, story_uid, curr_story_uid, story, APIRequest]);
+	}, [location, story_uid, curr_story_uid, story, APIRequest, setLore, setLoreImages]);
 
 	useEffect(() => {
 		changeLocationParameters([]);
