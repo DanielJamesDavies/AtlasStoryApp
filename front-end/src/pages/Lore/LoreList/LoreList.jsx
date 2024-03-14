@@ -4,6 +4,7 @@
 import { LoreListItem } from "./LoreListItem/LoreListItem";
 import { LoreListPrimary } from "./LoreListPrimary/LoreListPrimary";
 import { LoreListCreateLoreItem } from "./LoreListCreateLoreItem/LoreListCreateLoreItem";
+import { CarouselContainer } from "../../../components/CarouselContainer/CarouselContainer";
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
@@ -39,13 +40,20 @@ export const LoreList = () => {
 							<FirstAddButton label='Create World Item' onClick={() => setIsDisplayingCreateLoreItemForm(true)} />
 						</div>
 					) : (
-						<DragDropContainer className='lore-list' inlineItems={true} enableDragDrop={isReorderingLore} onDropItem={changeLoreOrder}>
-							{story?.data?.lore.map((lore_item_id, index) => (
-								<DragDropItem key={index} index={index} className='lore-list-item-container'>
-									<LoreListItem lore_item={lore.find((e) => e._id === lore_item_id)} />
-								</DragDropItem>
-							))}
-						</DragDropContainer>
+						<CarouselContainer speed={0.7} buttonScroll={true}>
+							<DragDropContainer
+								className='lore-list'
+								inlineItems={true}
+								enableDragDrop={isReorderingLore}
+								onDropItem={changeLoreOrder}
+							>
+								{story?.data?.lore.map((lore_item_id, index) => (
+									<DragDropItem key={index} index={index} className='lore-list-item-container'>
+										<LoreListItem lore_item={lore.find((e) => e._id === lore_item_id)} />
+									</DragDropItem>
+								))}
+							</DragDropContainer>
+						</CarouselContainer>
 					)}
 				</>
 			)}

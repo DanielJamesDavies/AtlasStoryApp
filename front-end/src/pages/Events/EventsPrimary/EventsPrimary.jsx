@@ -21,18 +21,6 @@ export const EventsPrimary = () => {
 
 	return (
 		<div className='events-primary'>
-			<div className='events-primary-roman-numerals-container'>
-				<div className='events-primary-roman-numerals'>
-					{romanNumeralHours
-						?.concat(romanNumeralHours)
-						?.concat(romanNumeralHours)
-						?.concat(romanNumeralHours)
-						?.concat([""])
-						?.map((hour, index) => (
-							<div key={index}>{hour}</div>
-						))}
-				</div>
-			</div>
 			<div
 				className={
 					isAuthorizedToEdit
@@ -52,6 +40,18 @@ export const EventsPrimary = () => {
 						/>
 					</div>
 				)}
+			</div>
+			<div className='events-primary-roman-numerals-container'>
+				<div className='events-primary-roman-numerals'>
+					{romanNumeralHours
+						?.concat(romanNumeralHours)
+						?.concat(romanNumeralHours)
+						?.concat(romanNumeralHours)
+						?.concat([""])
+						?.map((hour, index) => (
+							<div key={index}>{hour}</div>
+						))}
+				</div>
 			</div>
 		</div>
 	);

@@ -24,15 +24,18 @@ export const ObjectsListItem = ({ object }) => {
 			onClick={onClick}
 			onAuxClick={onClick}
 		>
+			<div className='objects-list-item-name'>{object?.data?.name}</div>
 			<div className='objects-list-item-image-container'>
 				<div className='objects-list-item-image'>
 					{objectsImages === false ? null : !objectsImages.find((e) => JSON.stringify(e._id) === JSON.stringify(object?.data?.listImage))
 							?.image ? null : (
-						<img src={objectsImages.find((e) => JSON.stringify(e._id) === JSON.stringify(object?.data?.listImage))?.image} alt='' />
+						<>
+							<img src={objectsImages.find((e) => JSON.stringify(e._id) === JSON.stringify(object?.data?.listImage))?.image} alt='' />
+							<img src={objectsImages.find((e) => JSON.stringify(e._id) === JSON.stringify(object?.data?.listImage))?.image} alt='' />
+						</>
 					)}
 				</div>
 			</div>
-			<div className='objects-list-item-name'>{object?.data?.name}</div>
 		</div>
 	);
 };

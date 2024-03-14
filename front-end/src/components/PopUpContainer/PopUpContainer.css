@@ -48,7 +48,7 @@
 	}
 }
 
-.pop-up-container-open .pop-up-content {
+.pop-up-container-open .pop-up-content-container {
 	animation: pop-up-container-open-pop-up-content 0.4s;
 	animation-fill-mode: forwards;
 }
@@ -64,7 +64,7 @@
 	}
 }
 
-.pop-up-container-close .pop-up-content {
+.pop-up-container-close .pop-up-content-container {
 	animation: pop-up-container-close-pop-up-content 0.2s;
 }
 

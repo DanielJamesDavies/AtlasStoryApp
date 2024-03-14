@@ -1,7 +1,5 @@
 .lore-list {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 12px;
 }
 
 .lore-list-loading-container {
@@ -18,10 +16,4 @@
 
 .lore-list-add-first-container .first-add-btn {
 	border-radius: 5px;
-}
-
-@media (max-width: 400px) {
-	.lore-list {
-		justify-content: center;
-	}
 }

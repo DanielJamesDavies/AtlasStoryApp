@@ -2,7 +2,7 @@
 	position: relative;
 	display: flex;
 	align-items: center;
-	margin-bottom: 12px;
+	margin-bottom: 8px;
 	width: 100%;
 	min-height: 40px;
 	z-index: 4;
@@ -19,7 +19,6 @@
 .objects-list-primary-buttons-container {
 	display: flex;
 	align-items: center;
-	margin-left: auto;
 }
 
 .objects-list-primary-buttons-container-authorized-to-edit {

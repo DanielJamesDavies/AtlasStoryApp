@@ -1,7 +1,5 @@
 .objects-list {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 12px;
 }
 
 .objects-list-loading-container {
@@ -18,10 +16,4 @@
 
 .objects-list-add-first-container .first-add-btn {
 	border-radius: 5px;
-}
-
-@media (max-width: 400px) {
-	.objects-list {
-		justify-content: center;
-	}
 }

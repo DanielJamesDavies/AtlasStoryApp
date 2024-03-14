@@ -24,15 +24,18 @@ export const LoreListItem = ({ lore_item, lore_itemImage }) => {
 			onClick={onClick}
 			onAuxClick={onClick}
 		>
+			<div className='lore-list-item-name'>{lore_item?.data?.name}</div>
 			<div className='lore-list-item-image-container'>
 				<div className='lore-list-item-image'>
 					{loreImages === false ? null : !loreImages.find((e) => JSON.stringify(e._id) === JSON.stringify(lore_item?.data?.listImage))
 							?.image ? null : (
-						<img src={loreImages.find((e) => JSON.stringify(e._id) === JSON.stringify(lore_item?.data?.listImage))?.image} alt='' />
+						<>
+							<img src={loreImages.find((e) => JSON.stringify(e._id) === JSON.stringify(lore_item?.data?.listImage))?.image} alt='' />
+							<img src={loreImages.find((e) => JSON.stringify(e._id) === JSON.stringify(lore_item?.data?.listImage))?.image} alt='' />
+						</>
 					)}
 				</div>
 			</div>
-			<div className='lore-list-item-name'>{lore_item?.data?.name}</div>
 		</div>
 	);
 };

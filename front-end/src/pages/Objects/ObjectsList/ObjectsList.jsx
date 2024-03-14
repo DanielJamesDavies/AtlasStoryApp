@@ -4,6 +4,7 @@
 import { ObjectsListItem } from "./ObjectsListItem/ObjectsListItem";
 import { ObjectsListPrimary } from "./ObjectsListPrimary/ObjectsListPrimary";
 import { ObjectsListCreateObject } from "./ObjectsListCreateObject/ObjectsListCreateObject";
+import { CarouselContainer } from "../../../components/CarouselContainer/CarouselContainer";
 import { DragDropContainer } from "../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../components/DragDropItem/DragDropItem";
 import { LoadingCircle } from "../../../components/LoadingCircle/LoadingCircle";
@@ -40,18 +41,20 @@ export const ObjectsList = () => {
 							<FirstAddButton label='Create Object' onClick={() => setIsDisplayingCreateObjectForm(true)} />
 						</div>
 					) : (
-						<DragDropContainer
-							className='objects-list'
-							inlineItems={true}
-							enableDragDrop={isReorderingObjects}
-							onDropItem={changeObjectsOrder}
-						>
-							{story?.data?.objects.map((object_id, index) => (
-								<DragDropItem key={index} index={index} className='lore-list-item-container'>
-									<ObjectsListItem object={objects.find((e) => e._id === object_id)} />
-								</DragDropItem>
-							))}
-						</DragDropContainer>
+						<CarouselContainer speed={0.7} buttonScroll={true}>
+							<DragDropContainer
+								className='objects-list'
+								inlineItems={true}
+								enableDragDrop={isReorderingObjects}
+								onDropItem={changeObjectsOrder}
+							>
+								{story?.data?.objects.map((object_id, index) => (
+									<DragDropItem key={index} index={index} className='lore-list-item-container'>
+										<ObjectsListItem object={objects.find((e) => e._id === object_id)} />
+									</DragDropItem>
+								))}
+							</DragDropContainer>
+						</CarouselContainer>
 					)}
 				</>
 			)}
