@@ -12,11 +12,11 @@
 
 	width: var(--posterWidth);
 
-	transition: margin-top 0.4s;
+	transition: scale 0.4s;
 }
 
 .substories-list-substories-poster-container:hover {
-	margin-top: 16px;
+	scale: 1.01;
 }
 
 @media (max-width: 768px) {
@@ -70,7 +70,7 @@
 }
 
 .substories-list-substories-poster-container:hover .substories-list-substories-poster {
-	box-shadow: 0 0 20px var(--substoryColour);
+	box-shadow: 0 0 32px -8px var(--substoryColour);
 }
 
 .drag-drop-item-enable-drag-drop .substories-list-substories-poster {

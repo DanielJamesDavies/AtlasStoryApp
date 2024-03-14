@@ -13,7 +13,15 @@ import { useEffect, useRef, useState } from "react";
 
 // Assets
 
-export const CarouselContainerLogic = ({ children, className, speed, scrollStartOnDataChange, disableOnMobile, buttonScroll }) => {
+export const CarouselContainerLogic = ({
+	children,
+	className,
+	speed,
+	scrollStartOnDataChange,
+	disableOnMobile,
+	buttonScroll,
+	horizontalMouseScroll,
+}) => {
 	const [carouselClassName, setCarouselClassName] = useState(className ? "carousel-container" + className : "carousel-container");
 
 	useEffect(() => {
@@ -131,6 +139,21 @@ export const CarouselContainerLogic = ({ children, className, speed, scrollStart
 		setShowingScrollButtons(carouselContentRef?.current?.scrollWidth - carouselContentRef?.current?.clientWidth > 0);
 		setTimeout(() => setShowingScrollButtons(carouselContentRef?.current?.scrollWidth - carouselContentRef?.current?.clientWidth > 0), 1);
 	}, [children]);
+
+	useEffect(() => {
+		const carouselContentRefCurrent = carouselContentRef?.current;
+
+		function onHorizontalMouseScroll(e) {
+			carouselContentRefCurrent.scrollLeft += e.deltaY;
+		}
+
+		if (horizontalMouseScroll) {
+			carouselContentRefCurrent?.addEventListener("wheel", onHorizontalMouseScroll);
+		}
+		return () => {
+			carouselContentRefCurrent?.removeEventListener("wheel", onHorizontalMouseScroll);
+		};
+	}, [horizontalMouseScroll]);
 
 	return { carouselClassName, carouselContentRef, scrollCarousel, onScrollBtn, showingScrollButtons };
 };

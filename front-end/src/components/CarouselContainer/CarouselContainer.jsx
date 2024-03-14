@@ -15,7 +15,16 @@ import "./CarouselContainer.css";
 
 // Assets
 
-export const CarouselContainer = ({ children, className, speed, fallback, scrollStartOnDataChange, disableOnMobile, buttonScroll }) => {
+export const CarouselContainer = ({
+	children,
+	className,
+	speed,
+	fallback,
+	scrollStartOnDataChange,
+	disableOnMobile,
+	buttonScroll,
+	horizontalMouseScroll,
+}) => {
 	const { carouselClassName, carouselContentRef, scrollCarousel, onScrollBtn, showingScrollButtons } = CarouselContainerLogic({
 		children,
 		className,
@@ -23,6 +32,7 @@ export const CarouselContainer = ({ children, className, speed, fallback, scroll
 		scrollStartOnDataChange,
 		disableOnMobile,
 		buttonScroll,
+		horizontalMouseScroll,
 	});
 
 	return (

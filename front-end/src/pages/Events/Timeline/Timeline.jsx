@@ -20,7 +20,7 @@ export const Timeline = () => {
 
 	return (
 		<div className='events-timeline-container'>
-			<CarouselContainer className='events-timeline' speed={1} fallback={true} disableOnMobile={true}>
+			<CarouselContainer className='events-timeline' speed={1} fallback={true} disableOnMobile={true} horizontalMouseScroll={true}>
 				<div className='events-timeline-events'>
 					{events
 						?.sort((a, b) => {
