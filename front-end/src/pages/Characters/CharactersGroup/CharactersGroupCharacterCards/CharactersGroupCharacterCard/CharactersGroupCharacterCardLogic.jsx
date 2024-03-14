@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect, useRef, useLayoutEffect, useCallback } from "react";
+import { useContext, useState, useEffect, useRef, useCallback } from "react";
 
 // Components
 
@@ -72,36 +72,25 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 		setCardStyles(newCardStyles);
 	}, [character, characterType, setCardStyles]);
 
-	const cardBackgroundSizeRef = useRef();
+	const [cardSize, setCardSize] = useState({});
 
-	const setCardBackgroundImgScale = useCallback(() => {
-		if (cardBackgroundSizeRef?.current?.children[0]?.children[0]?.children[0])
-			cardBackgroundSizeRef.current.children[0].children[0].children[0].style =
-				"--scale: " +
-				cardBackgroundSizeRef?.current?.children[0]?.clientHeight / cardBackgroundSizeRef?.current?.children[0]?.children[0]?.clientHeight;
-	}, [cardBackgroundSizeRef]);
+	const cardRef = useRef();
 
-	const updateCardBackgroundImgScale = useCallback(() => {
-		setCardBackgroundImgScale();
-		setTimeout(() => setCardBackgroundImgScale(), 2);
-		setTimeout(() => setCardBackgroundImgScale(), 5);
-		setTimeout(() => setCardBackgroundImgScale(), 50);
-		setTimeout(() => setCardBackgroundImgScale(), 100);
-		setTimeout(() => setCardBackgroundImgScale(), 105);
-	}, [setCardBackgroundImgScale]);
+	const cardSizeRef = useCallback((node) => {
+		if (node) setCardSize({ width: node?.clientWidth, height: node?.clientHeight });
+		cardRef.current = node;
+	}, []);
 
-	useLayoutEffect(() => {
-		updateCardBackgroundImgScale();
-		window.addEventListener("resize", updateCardBackgroundImgScale);
-		return () => window.removeEventListener("resize", updateCardBackgroundImgScale);
-	}, [character, updateCardBackgroundImgScale]);
+	const updateCardSize = useCallback(() => {
+		setCardSize({ width: cardRef?.current?.clientWidth, height: cardRef?.current?.clientHeight });
+	}, [cardRef, setCardSize]);
 
-	return {
-		character,
-		characterType,
-		navigateToCharacter,
-		onCharacterCardMouseDown,
-		cardStyles,
-		cardBackgroundSizeRef,
-	};
+	useEffect(() => {
+		window.addEventListener("resize", updateCardSize);
+		return () => window.removeEventListener("resize", updateCardSize);
+	}, [updateCardSize]);
+
+	const backgroundImageSizeRef = useRef();
+
+	return { character, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles, cardSizeRef, cardSize, backgroundImageSizeRef };
 };

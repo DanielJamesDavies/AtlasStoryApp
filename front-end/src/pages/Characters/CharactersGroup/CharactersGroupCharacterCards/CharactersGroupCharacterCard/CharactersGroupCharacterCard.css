@@ -196,6 +196,14 @@
 	scale: var(--scale);
 }
 
+.characters-group-character-card-background-image-size {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	pointer-events: none;
+	user-select: none;
+}
+
 .characters-group-character-card-background-alignment-top-left {
 	position: absolute;
 	top: 0;
