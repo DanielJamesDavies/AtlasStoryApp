@@ -7,6 +7,10 @@
 	width: 100%;
 	min-height: 631px;
 	vertical-align: top;
+	/* animation: fade-in 0.2s;
+	animation-fill-mode: forwards;
+	animation-delay: 0.2s;
+	opacity: 0; */
 }
 
 .characters-group-container-no-groups {

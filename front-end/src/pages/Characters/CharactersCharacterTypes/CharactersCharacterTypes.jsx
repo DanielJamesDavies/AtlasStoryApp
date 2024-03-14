@@ -79,9 +79,8 @@ export const CharactersCharacterTypes = () => {
 					</div>
 				) : !story?.data?.characterTypes || !storyCharacterTypes ? (
 					<div className='characters-character-types-character-type-items-container'>
-						<BtnListItem />
-						<BtnListItem />
-						<BtnListItem />
+						<BtnListItem hasBackground={false} />
+						<BtnListItem hasBackground={false} />
 					</div>
 				) : (
 					<BtnListContainer>
@@ -108,6 +107,7 @@ export const CharactersCharacterTypes = () => {
 										isActive={characterType._id === characterTypeID}
 										hasFoundActive={characterType?._id !== undefined}
 										onClick={(e) => (e?.button === 2 ? null : changeCharacterType(characterTypeID))}
+										hasBackground={false}
 									/>
 								</DragDropItem>
 							))}

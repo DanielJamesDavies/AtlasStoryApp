@@ -76,11 +76,11 @@ export const CharactersGroups = () => {
 						</div>
 					) : !story?.data?.groups || !storyGroups ? (
 						<div className='characters-groups-group-items-container characters-groups-group-items-container-placeholder'>
-							<BtnListItem />
-							<BtnListItem />
-							<BtnListItem />
-							<BtnListItem />
-							<BtnListItem />
+							<BtnListItem hasBackground={false} />
+							<BtnListItem hasBackground={false} />
+							<BtnListItem hasBackground={false} />
+							<BtnListItem hasBackground={false} />
+							<BtnListItem hasBackground={false} />
 						</div>
 					) : (
 						<BtnListContainer>
@@ -106,6 +106,7 @@ export const CharactersGroups = () => {
 											isActive={group._id === groupID}
 											hasFoundActive={group?._id !== undefined}
 											onClick={(e) => (e?.button === 2 ? null : changeGroup(groupID))}
+											hasBackground={false}
 										/>
 									</DragDropItem>
 								))}

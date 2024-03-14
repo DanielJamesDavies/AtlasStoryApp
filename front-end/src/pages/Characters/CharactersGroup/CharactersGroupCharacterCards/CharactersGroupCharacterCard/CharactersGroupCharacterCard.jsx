@@ -47,11 +47,6 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 							  ))}
 					</div>
 				</div>
-				{/* {!character?.data?.cardBackground?.image ? null : (
-					<div className='characters-group-character-card-background'>
-						<img src={character.data.cardBackground.image} alt='' />
-					</div>
-				)} */}
 				{!character?.data?.cardBackground?.image ? null : (
 					<div ref={cardBackgroundSizeRef} className='characters-group-character-card-background-container'>
 						<div

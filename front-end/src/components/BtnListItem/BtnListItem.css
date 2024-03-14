@@ -7,6 +7,10 @@
 	border-radius: 20px;
 	box-sizing: border-box;
 	min-height: 35px;
+}
+
+.btn-list-item-list-has-background.btn-list-item,
+.btn-list-item-list-has-background.btn-list-item-loading {
 	background: var(--colour-grey-three);
 }
 
@@ -18,16 +22,16 @@
 	cursor: pointer;
 }
 
-.btn-list-item-clickable:hover {
+.btn-list-item-list-has-background.btn-list-item-clickable:hover {
 	background: var(--colour-grey-four);
 }
 
-.btn-list-item-active {
+.btn-list-item-list-has-background.btn-list-item-active {
 	background: var(--colour-grey-four);
 	border-color: var(--colour-white);
 }
 
-.btn-list-item-active:hover {
+.btn-list-item-list-has-background.btn-list-item-active:hover {
 	background: var(--colour-grey-five);
 	border-color: var(--colour-white);
 }

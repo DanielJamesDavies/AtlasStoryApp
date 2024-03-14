@@ -12,7 +12,7 @@ import { BtnListContainerContext } from "../BtnListContainer/BtnListContainerCon
 
 // Assets
 
-export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundActive, onClick, onRemove }) => {
+export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundActive, hasBackground, onClick, onRemove }) => {
 	const isBtnListOpen = useContext(BtnListContainerContext)?.isBtnListOpen;
 	const setIsBtnListOpen = useContext(BtnListContainerContext)?.setIsBtnListOpen;
 
@@ -38,8 +38,9 @@ export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundAct
 		if (className) newBtnListItemClassName += " " + className;
 		if (size) newBtnListItemClassName += " btn-list-item-size-" + size;
 		if (isBtnListOpen === false) newBtnListItemClassName += " btn-list-item-list-closed";
+		if (hasBackground !== false) newBtnListItemClassName += " btn-list-item-list-has-background";
 		setBtnListItemClassName(newBtnListItemClassName);
-	}, [setBtnListItemClassName, className, size, index, isActive, hasFoundActive, hasOnClick, isBtnListOpen]);
+	}, [setBtnListItemClassName, className, size, index, isActive, hasFoundActive, hasBackground, hasOnClick, isBtnListOpen]);
 
 	useEffect(() => {
 		getBtnListItemClassName();

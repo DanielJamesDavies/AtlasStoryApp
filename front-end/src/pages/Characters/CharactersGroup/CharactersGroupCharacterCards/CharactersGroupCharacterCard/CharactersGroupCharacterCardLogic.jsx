@@ -77,16 +77,18 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 	const setCardBackgroundImgScale = useCallback(() => {
 		if (cardBackgroundSizeRef?.current?.children[0]?.children[0]?.children[0])
 			cardBackgroundSizeRef.current.children[0].children[0].children[0].style =
-				"scale: " +
+				"--scale: " +
 				cardBackgroundSizeRef?.current?.children[0]?.clientHeight / cardBackgroundSizeRef?.current?.children[0]?.children[0]?.clientHeight;
 	}, [cardBackgroundSizeRef]);
 
 	const updateCardBackgroundImgScale = useCallback(() => {
 		setCardBackgroundImgScale();
+		setTimeout(() => setCardBackgroundImgScale(), 2);
 		setTimeout(() => setCardBackgroundImgScale(), 5);
+		setTimeout(() => setCardBackgroundImgScale(), 50);
 		setTimeout(() => setCardBackgroundImgScale(), 100);
 		setTimeout(() => setCardBackgroundImgScale(), 105);
-	}, [cardBackgroundSizeRef]);
+	}, [setCardBackgroundImgScale]);
 
 	useLayoutEffect(() => {
 		updateCardBackgroundImgScale();

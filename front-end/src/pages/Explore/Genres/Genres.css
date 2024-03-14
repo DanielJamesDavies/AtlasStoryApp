@@ -9,15 +9,15 @@
 }
 
 .home-genres-list-title {
-	margin-bottom: 8px;
-	font-size: 22px;
+	margin-bottom: 16px;
+	font-size: 32px;
 	font-weight: 600;
 }
 
 .home-genres-content {
 	padding-right: 12px;
 	width: calc(100% - 12px);
-	max-height: calc(var(--vh) - (12px + 42px + 12px) - 26px - 8px - 12px - 12px);
+	max-height: calc(var(--vh) - (12px + 42px + 12px) - 26px - 8px - 12px - 12px - 9px - 8px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }

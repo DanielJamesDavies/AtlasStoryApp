@@ -192,6 +192,8 @@
 	object-fit: cover; */
 	overflow: visible;
 	transform-origin: top;
+	--scale: 1;
+	scale: var(--scale);
 }
 
 .characters-group-character-card-background-alignment-top-left {

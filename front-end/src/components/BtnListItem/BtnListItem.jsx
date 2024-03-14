@@ -17,13 +17,14 @@ import "./BtnListItem.css";
 
 // Assets
 
-export const BtnListItem = ({ className, size, value, index, isActive, hasFoundActive, onClick, onChange, onRemove }) => {
+export const BtnListItem = ({ className, size, value, index, isActive, hasFoundActive, hasBackground, onClick, onChange, onRemove }) => {
 	const { btnListItemClassName, onBtnListItemClick, onRemoveBtnClick } = BtnListItemLogic({
 		className,
 		size,
 		index,
 		isActive,
 		hasFoundActive,
+		hasBackground,
 		onClick,
 		onRemove,
 	});
