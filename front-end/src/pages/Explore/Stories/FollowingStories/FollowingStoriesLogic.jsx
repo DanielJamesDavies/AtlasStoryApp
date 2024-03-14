@@ -24,13 +24,10 @@ export const FollowingStoriesLogic = () => {
 			if (!response || response?.errors || !response?.data?.stories) return false;
 			setFollowingStories(response.data.stories);
 			setUserFollowingStories((oldValue) => {
-				if (
-					(oldValue === false || JSON.stringify(oldValue) === JSON.stringify([null]) || oldValue.length === 0) &&
-					response.data.stories.length > 0
-				) {
+				if (oldValue === false) {
 					return response.data.stories?.map((e) => e?._id);
 				}
-				return oldValue;
+				return oldValue.concat(response.data.stories?.map((e) => e?._id).filter((e) => !oldValue.includes(e)));
 			});
 		}
 		getFollowingStories();
@@ -47,9 +44,9 @@ export const FollowingStoriesLogic = () => {
 
 		let newUserFollowingStories = JSON.parse(JSON.stringify(userFollowingStories));
 
-		if (newUserFollowingStories.length === 0 && followingStories.length > 0) {
-			newUserFollowingStories = JSON.parse(JSON.stringify(newUserFollowingStories?.map((e) => e?._id)));
-		}
+		newUserFollowingStories = newUserFollowingStories.concat(
+			followingStories?.map((e) => e?._id).filter((e) => !newUserFollowingStories.includes(e))
+		);
 
 		const tempStory = newUserFollowingStories.splice(res.from, 1)[0];
 		newUserFollowingStories.splice(res.to, 0, tempStory);

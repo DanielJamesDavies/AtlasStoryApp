@@ -25,7 +25,6 @@ import "./Stories.css";
 export const Stories = () => {
 	const {
 		isAuthorizedToEdit,
-		authorized_user_id,
 		authorized_username,
 		user,
 		stories,
@@ -45,11 +44,15 @@ export const Stories = () => {
 							? null
 							: "(0)"
 						: "(" +
-						  user.data.stories.filter((e) =>
-								["owner", "collaborator"].includes(
-									stories?.find((e2) => e2._id === e)?.data?.members?.find((e2) => e2?.user_id === authorized_user_id)?.type
-								)
-						  ).length +
+						  user.data.stories
+								.filter((e) => !stories || stories?.findIndex((e2) => e2._id === e) !== -1)
+								.filter(
+									(e) =>
+										stories?.find((e2) => e2._id === e)?.owner === user?._id ||
+										["owner", "collaborator"].includes(
+											stories?.find((e2) => e2._id === e)?.data?.members?.find((e2) => e2?.user_id === user?._id)?.type
+										)
+								).length +
 						  ")"}
 				</div>
 				{!isAuthorizedToEdit ? null : (
@@ -73,6 +76,7 @@ export const Stories = () => {
 					</div>
 				)}
 			</div>
+			{console.log(stories[1])}
 			{user?.data?.stories?.length === 0 && authorized_username === user?.username ? (
 				<div className='user-stories-add-first-story-container'>
 					<FirstAddButton label='Create a New Story' onClick={openCreateStoryForm} />
@@ -87,10 +91,12 @@ export const Stories = () => {
 					>
 						{user.data.stories
 							.filter((e) => !stories || stories?.findIndex((e2) => e2._id === e) !== -1)
-							.filter((e) =>
-								["owner", "collaborator"].includes(
-									stories?.find((e2) => e2._id === e)?.data?.members?.find((e2) => e2?.user_id === authorized_user_id)?.type
-								)
+							.filter(
+								(e) =>
+									stories?.find((e2) => e2._id === e)?.owner === user?._id ||
+									["owner", "collaborator"].includes(
+										stories?.find((e2) => e2._id === e)?.data?.members?.find((e2) => e2?.user_id === user?._id)?.type
+									)
 							)
 							.map((story_id, index) => (
 								<DragDropItem key={index} index={index} className='user-stories-story-item-container'>

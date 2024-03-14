@@ -22,9 +22,15 @@
 	overflow-x: hidden;
 }
 
+.home-genres-items {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
 .home-genres-list-search-container {
-	margin-top: 24px;
-	margin-bottom: 8px;
+	margin-top: 16px;
+	margin-bottom: 16px;
 }
 
 .home-genres-list-search-container .text-input {
