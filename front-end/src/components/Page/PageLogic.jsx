@@ -15,7 +15,7 @@ import { AppContext } from "../../context/AppContext";
 // Assets
 
 export const PageLogic = () => {
-	const { uiTheme, fontSize, accentColour, accentHoverColour } = useContext(AppContext);
+	const { uiTheme, fontSize, accentColour, accentHoverColour, accentHSL_H } = useContext(AppContext);
 	const [pageClassName, setPageClassName] = useState("page theme-dark");
 
 	useEffect(() => {
@@ -32,6 +32,7 @@ export const PageLogic = () => {
 		"--vh": window.innerHeight + "px",
 		"--colour-accent": accentColour,
 		"--colour-accent-hover": accentHoverColour,
+		"--colour-accent-hsl-h": accentHSL_H,
 	});
 
 	useEffect(() => {
@@ -40,12 +41,13 @@ export const PageLogic = () => {
 				"--vh": window.innerHeight + "px",
 				"--colour-accent": accentColour,
 				"--colour-accent-hover": accentHoverColour,
+				"--colour-accent-hsl-h": accentHSL_H,
 			});
 		}
 		getPageStyles();
 		window.addEventListener("resize", getPageStyles);
 		return () => window.removeEventListener("resize", getPageStyles);
-	}, [setPageStyles, accentColour, accentHoverColour]);
+	}, [setPageStyles, accentColour, accentHoverColour, accentHSL_H]);
 
 	return { pageClassName, pageStyles };
 };

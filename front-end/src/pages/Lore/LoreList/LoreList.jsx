@@ -35,7 +35,8 @@ export const LoreList = () => {
 				<>
 					<LoreListPrimary />
 					<LoreListCreateLoreItem />
-					{story?.data?.lore?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+					{story?.data?.lore?.length === 0 &&
+					story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id && e?.type !== "viewer") !== -1 ? (
 						<div className='lore-list-add-first-container'>
 							<FirstAddButton label='Create World Item' onClick={() => setIsDisplayingCreateLoreItemForm(true)} />
 						</div>

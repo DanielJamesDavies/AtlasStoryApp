@@ -42,7 +42,8 @@ export const CharactersCharacterTypes = () => {
 	return (
 		<div
 			className={
-				story?.data?.characterTypes?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1
+				story?.data?.characterTypes?.length === 0 &&
+				story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id && e?.type !== "viewer") !== -1
 					? "characters-character-types-container characters-character-types-container-no-types"
 					: "characters-character-types-container"
 			}
@@ -73,7 +74,8 @@ export const CharactersCharacterTypes = () => {
 						/>
 					</div>
 				)}
-				{story?.data?.characterTypes?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+				{story?.data?.characterTypes?.length === 0 &&
+				story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id && e?.type !== "viewer") !== -1 ? (
 					<div className='characters-character-types-add-first-character-type-container'>
 						<FirstAddButton label='Create Character Type' onClick={openCreateCharacterTypeForm} />
 					</div>

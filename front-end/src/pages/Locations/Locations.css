@@ -95,6 +95,11 @@
 	color: var(--text-colour-primary);
 	box-shadow: 0 0 20px transparent;
 	transition: 0.4s;
+
+	opacity: 0;
+	animation: fade-in 0.6s;
+	animation-delay: 0.2s;
+	animation-fill-mode: forwards;
 }
 
 .locations-map-btn::after {
@@ -128,14 +133,11 @@
 	transform: translateX(-50%);
 	width: calc(100% + 5px);
 	min-height: calc(100% + 5px);
-	/* filter: blur(3px) brightness(50%); */
-	filter: blur(0px) brightness(60%);
+
+	--hue-rotation: var(--colour-accent-hsl-h);
+	filter: sepia(1) saturate(3.25) brightness(0.65) hue-rotate(calc(1deg * (var(--hue-rotation) - 38)));
 	transition: filter 0.4s;
 	object-fit: cover;
-}
-
-.locations-map-btn:hover img {
-	filter: blur(0px) brightness(60%);
 }
 
 .locations-map-btn-label {

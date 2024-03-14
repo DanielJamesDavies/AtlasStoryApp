@@ -78,11 +78,11 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 											Math.max(
 												cardSize?.height,
 												cardSize?.width *
-													parseFloat(character?.data?.cardBackgroundProperties?.scale) *
+													(parseFloat(character?.data?.cardBackgroundProperties?.scale) || 1) *
 													(backgroundImageSizeRef?.current?.clientHeight / backgroundImageSizeRef?.current?.clientWidth)
 											) /
 											(cardSize?.width *
-												parseFloat(character?.data?.cardBackgroundProperties?.scale) *
+												(parseFloat(character?.data?.cardBackgroundProperties?.scale) || 1) *
 												(backgroundImageSizeRef?.current?.clientHeight / backgroundImageSizeRef?.current?.clientWidth)),
 									}}
 								/>

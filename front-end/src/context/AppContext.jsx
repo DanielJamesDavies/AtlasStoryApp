@@ -2,6 +2,8 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 
 import { APIContext } from "./APIContext";
 
+import hexToHSL from "../services/HexToHSL";
+
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
@@ -14,6 +16,7 @@ const AppProvider = ({ children }) => {
 	const defaultAccentHoverColour = "#0088ff";
 	const [accentColour, setAccentColour] = useState(defaultAccentColour);
 	const [accentHoverColour, setAccentHoverColour] = useState(defaultAccentHoverColour);
+	const [accentHSL_H, setAccentHSL_H] = useState(0);
 	const [coverImage, setCoverImage] = useState(false);
 	const [isDisplayingAiAssistant, setIsDisplayingAiAssistant] = useState(false);
 
@@ -29,6 +32,7 @@ const AppProvider = ({ children }) => {
 
 	function changeAccentColour(newAccentColour) {
 		if (newAccentColour === "default") return setAccentColour(defaultAccentColour);
+		setAccentHSL_H(hexToHSL(newAccentColour)[0]);
 		setAccentColour(newAccentColour);
 	}
 
@@ -85,6 +89,7 @@ const AppProvider = ({ children }) => {
 				setFontSizeMultiplier,
 				accentColour,
 				accentHoverColour,
+				accentHSL_H,
 				changeAccentColour,
 				changeAccentHoverColour,
 				coverImage,

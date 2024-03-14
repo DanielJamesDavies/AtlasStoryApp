@@ -43,7 +43,8 @@ export const CharactersGroups = () => {
 	return (
 		<div
 			className={
-				story?.data?.groups?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1
+				story?.data?.groups?.length === 0 &&
+				story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id && e?.type !== "viewer") !== -1
 					? "characters-groups-container characters-groups-container-no-groups"
 					: "characters-groups-container"
 			}
@@ -70,7 +71,8 @@ export const CharactersGroups = () => {
 							/>
 						</div>
 					)}
-					{story?.data?.groups?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+					{story?.data?.groups?.length === 0 &&
+					story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id && e?.type !== "viewer") !== -1 ? (
 						<div className='characters-groups-add-first-group-container'>
 							<FirstAddButton label='Create Character Group' onClick={openCreateGroupForm} />
 						</div>
