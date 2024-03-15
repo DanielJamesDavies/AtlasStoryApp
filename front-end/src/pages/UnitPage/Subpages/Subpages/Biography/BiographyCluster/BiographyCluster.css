@@ -1,14 +1,11 @@
 .unit-page-subpage-biography-cluster {
 	display: inline-block;
-	padding-right: 8px;
-	width: calc(100% - 310px - 24px - 8px);
-	overflow-y: overlay;
-	overflow-x: hidden;
+	width: calc(100% - 310px - 24px);
 	vertical-align: top;
 }
 
 @media (max-width: 750px) {
 	.unit-page-subpage-biography-cluster {
-		width: calc(100% - 8px);
+		width: 100%;
 	}
 }

@@ -1,13 +1,9 @@
 .unit-page-subpage-plot-items-container {
 	display: inline-block;
-	padding-right: 12px;
 
 	width: calc(100% - 236px - 356px);
-	overflow-y: overlay;
-	overflow-x: hidden;
 
 	vertical-align: top;
-	overflow: hidden;
 }
 
 .unit-page-subpage-plot-items-container-all {
@@ -20,10 +16,7 @@
 }
 
 .unit-page-subpage-plot-items-list {
-	padding-right: 12px;
-	width: calc(100% - 12px);
-	overflow-y: overlay;
-	overflow-x: hidden;
+	width: 100%;
 }
 
 .unit-page-subpage-plot-items-name-container {

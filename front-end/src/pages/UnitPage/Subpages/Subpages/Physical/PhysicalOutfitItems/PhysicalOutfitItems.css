@@ -5,11 +5,7 @@
 }
 
 .unit-page-subpage-physical-outfit-items {
-	padding-right: 12px;
-	width: calc(100% - 12px);
-	/* max-height: calc(var(--unitPageSubpageMaxHeight) - 24px - 8px); */
-	overflow-y: overlay;
-	overflow-x: hidden;
+	width: 100%;
 }
 
 @media (max-width: 750px) {

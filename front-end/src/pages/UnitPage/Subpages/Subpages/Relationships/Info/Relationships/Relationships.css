@@ -22,6 +22,6 @@
 
 @media (max-height: 750px) {
 	.unit-page-relationship-info-home-selected-unit-page-relationships {
-		height: 250px;
+		height: unset;
 	}
 }

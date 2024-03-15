@@ -7,8 +7,6 @@
 
 .unit-page-subpage-abilities-list-items {
 	padding-right: 8px;
-	overflow-y: overlay;
-	overflow-x: hidden;
 }
 
 .unit-page-subpage-abilities-list-item-container:first-child,

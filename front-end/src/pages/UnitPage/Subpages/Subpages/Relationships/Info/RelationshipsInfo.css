@@ -6,6 +6,13 @@
 	width: 400px;
 }
 
+.unit-page-subpage-relationships-info {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 16px 20px;
+}
+
 @media (max-width: 1100px) {
 	.unit-page-subpage-relationships-info-container {
 		position: absolute;
@@ -33,6 +40,6 @@
 
 @media (max-width: 750px) {
 	.unit-page-subpage-relationships-info-container {
-		width: calc(100vw - 8px - 6px);
+		width: 100%;
 	}
 }

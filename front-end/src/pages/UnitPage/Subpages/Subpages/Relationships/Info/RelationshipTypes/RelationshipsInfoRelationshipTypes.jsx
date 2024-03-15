@@ -33,8 +33,8 @@ export const RelationshipsInfoRelationshipTypes = () => {
 	} = RelationshipsInfoRelationshipTypesLogic();
 
 	return (
-		<div className='characters-relationship-info-home-relationship-types-container'>
-			<div className='characters-relationship-info-home-relationship-types-title'>Relationship Types</div>
+		<div className='unit-page-relationship-info-home-relationship-types-container'>
+			<div className='unit-page-relationship-info-home-relationship-types-title'>Relationship Types</div>
 			<EditableContainer
 				isAuthorizedToEdit={isAuthorizedToEdit}
 				onAdd={addRelationshipType}
@@ -43,21 +43,21 @@ export const RelationshipsInfoRelationshipTypes = () => {
 				onSave={saveRelationshipTypes}
 				onScroll={onRelationshipTypesScroll}
 			>
-				<div ref={relationshipTypesRef} className='characters-relationship-info-home-relationship-types'>
+				<div ref={relationshipTypesRef} className='unit-page-relationship-info-home-relationship-types'>
 					{story?.data?.characterRelationshipTypes.map((relationship, index) => (
-						<div key={index} className='characters-relationship-info-home-relationship-type-item-container'>
+						<div key={index} className='unit-page-relationship-info-home-relationship-type-item-container'>
 							<RelationshipsInfoHomeRelationshipTypeItem relationship={relationship} isEditing={false} />
 						</div>
 					))}
 				</div>
 				<DragDropContainer
 					innerRef={relationshipTypesRef}
-					className='characters-relationship-info-home-relationship-types'
+					className='unit-page-relationship-info-home-relationship-types'
 					enableDragDrop={isReorderingRelationshipTypes}
 					onDropItem={changeRelationshipTypesOrder}
 				>
 					{story?.data?.characterRelationshipTypes.map((relationship, index) => (
-						<DragDropItem key={index} index={index} className='characters-relationship-info-home-relationship-type-item-container'>
+						<DragDropItem key={index} index={index} className='unit-page-relationship-info-home-relationship-type-item-container'>
 							<RelationshipsInfoHomeRelationshipTypeItem relationship={relationship} isEditing={true} />
 						</DragDropItem>
 					))}

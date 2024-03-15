@@ -63,7 +63,6 @@ export const Relationships = () => {
 						))}
 				</div>
 			</EditableContainer>
-			<div className='unit-page-relationship-info-home-selected-unit-page-divider' />
 		</div>
 	);
 };

@@ -7,8 +7,6 @@
 
 .unit-page-subpage-biography-cluster-list-items {
 	padding-right: 8px;
-	overflow-y: overlay;
-	overflow-x: hidden;
 }
 
 .unit-page-subpage-biography-cluster-list-item-container:first-child,

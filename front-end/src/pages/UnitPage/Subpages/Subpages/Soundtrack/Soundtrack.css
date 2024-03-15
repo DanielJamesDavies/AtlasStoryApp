@@ -1,17 +1,3 @@
 .unit-page-subpage-soundtrack {
-	padding-right: 12px;
-
-	width: calc(100% - 12px);
-	overflow-y: overlay;
-	overflow-x: hidden;
-}
-
-@media (max-width: 750px) {
-	.unit-page-subpage-soundtrack {
-		padding-right: 12px;
-
-		width: calc(100% - 12px);
-		overflow-y: overlay;
-		overflow-x: hidden;
-	}
+	width: 100%;
 }

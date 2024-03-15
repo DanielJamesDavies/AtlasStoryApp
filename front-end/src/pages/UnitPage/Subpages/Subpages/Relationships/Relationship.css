@@ -21,18 +21,7 @@
 }
 
 @media (max-width: 1100px) {
-	.unit-page-subpage-relationships {
-		height: var(--unitPageSubpageMaxHeight);
-		overflow-y: overlay;
-	}
-
 	.unit-page-subpage-relationships-primary-buttons-container {
 		display: flex;
-	}
-}
-
-@media (max-width: 750px) {
-	.unit-page-subpage-relationships {
-		overflow-y: overlay;
 	}
 }

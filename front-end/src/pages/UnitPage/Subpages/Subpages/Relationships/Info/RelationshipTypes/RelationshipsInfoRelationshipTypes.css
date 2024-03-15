@@ -1,16 +1,20 @@
-.characters-relationship-info-home-relationship-types-title {
+.unit-page-relationship-info-home-relationship-types-title {
+	margin-bottom: 6px;
 	font-size: 16px;
 	font-weight: 600;
 }
 
-.characters-relationship-info-home-relationship-types {
+.unit-page-relationship-info-home-relationship-types {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 	padding-right: 12px;
 	max-height: 350px;
 	overflow-y: overlay;
 }
 
 @media (max-height: 750px) {
-	.characters-relationship-info-home-relationship-types {
-		max-height: 250px;
+	.unit-page-relationship-info-home-relationship-types {
+		max-height: unset;
 	}
 }

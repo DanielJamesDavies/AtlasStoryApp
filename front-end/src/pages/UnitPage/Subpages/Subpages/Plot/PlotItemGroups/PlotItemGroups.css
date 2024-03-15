@@ -9,9 +9,7 @@
 
 .unit-page-subpage-plot-item-groups {
 	padding-right: 12px;
-	max-height: calc(var(--vh) - var(--unitPagePaddingTop) - 36px - 24px - 6px);
-	overflow-y: overlay;
-	overflow-x: hidden;
+	width: 100%;
 }
 
 @media (max-width: 1200px) {

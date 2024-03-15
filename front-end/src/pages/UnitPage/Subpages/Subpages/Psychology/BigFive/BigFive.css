@@ -3,11 +3,8 @@
 	flex-wrap: wrap;
 	gap: 8px;
 	margin-bottom: 64px;
-	padding: 12px 8px;
-	width: calc(100% - 12px);
-	max-height: calc(var(--unitPageSubpageMaxHeight) - 24px - 8px);
-	overflow-y: overlay;
-	overflow-x: hidden;
+	padding: 12px 0;
+	width: 100%;
 }
 
 .unit-page-subpage-psychology-big-five-show-container {
