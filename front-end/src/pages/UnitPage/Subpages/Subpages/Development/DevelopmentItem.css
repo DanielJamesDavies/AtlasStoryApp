@@ -33,6 +33,28 @@
 	animation-delay: 0.1s;
 }
 
+.unit-page-subpage-development-item-container {
+	position: relative;
+}
+
+.unit-page-subpage-development-item-container::after {
+	position: absolute;
+	bottom: 1px;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 1px;
+	background: var(--colour-grey-three);
+}
+
+.unit-page-subpage-development-item-container:last-child:after {
+	display: none;
+}
+
+.unit-page-subpage-development-item {
+	padding: 13px 0;
+}
+
 .unit-page-subpage-development-item-content {
 	display: inline-block;
 	width: calc(100% - 32px);

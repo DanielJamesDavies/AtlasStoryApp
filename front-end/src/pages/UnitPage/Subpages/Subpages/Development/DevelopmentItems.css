@@ -3,14 +3,6 @@
 	flex-flow: column wrap;
 	padding-right: 12px;
 
-	width: calc(100% - 12px);
-	height: calc(var(--unitPageSubpageMaxHeight) - 4px);
 	overflow-y: overlay;
 	overflow-x: hidden;
-}
-
-@media (max-width: 750px) {
-	.unit-page-subpage-development-items {
-		height: calc(var(--unitPageSubpageMaxHeight) - 4px);
-	}
 }

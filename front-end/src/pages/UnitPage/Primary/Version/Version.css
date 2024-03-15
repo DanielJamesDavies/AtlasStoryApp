@@ -47,7 +47,7 @@
 @media (max-width: 750px) {
 	.unit-page-primary-version-container {
 		position: fixed;
-		top: 6px;
+		top: 0px;
 		right: 6px;
 		min-height: 39px;
 		transition: 0.3s linear;

@@ -1,30 +1,9 @@
 .unit-page-subpage-psychology-big-five-visible {
 	display: flex;
+	flex-direction: column;
 	gap: 16px;
 }
 
-.unit-page-subpage-psychology-big-five-visible .unit-page-subpage-psychology-section-1 {
-	width: calc(100% - 650px);
-}
-
-.unit-page-subpage-psychology-big-five-visible .unit-page-subpage-psychology-section-2 {
-	width: 650px;
-}
-
-@media (max-width: 1100px) {
-	.unit-page-subpage-psychology-section-1,
-	.unit-page-subpage-psychology-section-2 {
-		margin: 0;
-		padding: 0;
-		width: 100% !important;
-	}
-
-	.unit-page-subpage-psychology-section-2 {
-		margin: 24px 0;
-	}
-
-	.unit-page-subpage-psychology-big-five-visible {
-		flex-direction: column;
-		gap: 0;
-	}
+.unit-page-subpage-psychology-section-2 {
+	margin-bottom: 40dvh;
 }

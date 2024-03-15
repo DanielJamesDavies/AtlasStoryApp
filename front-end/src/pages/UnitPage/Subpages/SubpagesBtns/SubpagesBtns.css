@@ -1,19 +1,20 @@
 .unit-page-subpages-btns-container {
 	display: flex;
-	flex-direction: column;
 	gap: 12px;
+	justify-content: center;
 	align-items: center;
-	align-items: flex-start;
 	margin-top: 12px;
+	margin-bottom: 12px;
 	margin-left: calc(8px + 8px);
 	width: max-content;
+	width: 100%;
 }
 
 .unit-page-subpages-btns {
 	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 6px;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
 	overflow-y: hidden;
 	overflow-x: overlay;
 	scroll-behavior: smooth;
@@ -25,12 +26,67 @@
 }
 
 .unit-page-subpages-btn {
+	flex: 1 0;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	justify-content: center;
+	align-items: center;
+	min-width: 110px;
+	width: 110px;
+	color: var(--text-colour-tertiary);
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.unit-page-container-subpages-header-not-full-size .unit-page-subpages-btn {
+	gap: 0;
+}
+
+.unit-page-subpages-btn:hover {
+	color: var(--text-colour-secondary);
+}
+
+.unit-page-subpages-btn-icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 28px;
+	transition: 0.2s;
+}
+
+.unit-page-container-subpages-header-not-full-size .unit-page-subpages-btn .unit-page-subpages-btn-icon {
+	flex-shrink: 1;
+	min-height: 0;
+	height: 0px;
+	overflow: hidden;
+	opacity: 0;
+}
+
+.unit-page-subpages-btn svg {
+	font-size: 28px;
+}
+
+.unit-page-subpages-btn-relationships svg {
+	font-size: 36px;
+}
+
+.unit-page-subpages-btn-name {
+	font-size: 13px;
+	user-select: none;
+}
+
+.unit-page-subpages-btn-active,
+.unit-page-subpages-btn-active:hover {
+	color: var(--text-colour-primary);
+}
+
+/* .unit-page-subpages-btn {
 	flex-shrink: 0;
 	margin: 0;
 	padding-right: 28px;
 	border-radius: 14px;
 
-	min-width: 100%;
 	width: max-content;
 }
 
@@ -45,7 +101,7 @@
 .unit-page-subpages-btn.btn-list-item-active:hover {
 	background: linear-gradient(0deg, var(--unitColour), var(--unitColourTint));
 	color: #fff;
-}
+} */
 
 .unit-page-subpages-btn-scroll-btn {
 	display: none;
@@ -61,6 +117,7 @@
 	}
 
 	.unit-page-subpages-btns {
+		justify-content: flex-start;
 		width: calc(100% - 28px - 28px);
 		flex-direction: row;
 	}

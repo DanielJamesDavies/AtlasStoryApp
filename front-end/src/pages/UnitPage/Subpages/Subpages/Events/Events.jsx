@@ -15,7 +15,7 @@ import { EventsItems } from "./EventsItems";
 
 export const Events = () => {
 	return (
-		<div className='unit-page-subpage-events'>
+		<div className='unit-page-subpage unit-page-subpage-events'>
 			<EventsItems />
 		</div>
 	);

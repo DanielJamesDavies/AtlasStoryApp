@@ -33,7 +33,7 @@ import "./Settings.css";
 
 export const Settings = () => {
 	return (
-		<div className='unit-page-subpage-settings'>
+		<div className='unit-page-subpage unit-page-subpage-settings'>
 			<div className='unit-page-subpage-settings-section-1'>
 				<SettingsUID />
 				<SettingsGroup />

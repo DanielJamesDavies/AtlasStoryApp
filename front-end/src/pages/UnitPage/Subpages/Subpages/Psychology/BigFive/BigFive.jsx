@@ -33,7 +33,7 @@ export const BigFive = () => {
 		onBigFiveContainerScroll,
 		unitVersionItemCopying,
 		copyVersionValue,
-		pasteVersionValue
+		pasteVersionValue,
 	} = BigFiveLogic();
 
 	if (!isAuthorizedToEdit && unitVersion?.psychology?.isBigFiveVisible === false) return null;
@@ -45,7 +45,12 @@ export const BigFive = () => {
 			</div>
 		);
 	return (
-		<OpenableComponent className='unit-page-subpage-psychology-big-five-container' title='Big Five Personality Traits' onlyOnMobile={true}>
+		<OpenableComponent
+			className='unit-page-subpage-psychology-big-five-container'
+			title='Big Five Personality Traits'
+			onlyOnMobile={true}
+			largeTitle={true}
+		>
 			<EditableContainer
 				className='unit-page-subpage-psychology-big-five'
 				isAuthorizedToEdit={isAuthorizedToEdit}
@@ -54,7 +59,9 @@ export const BigFive = () => {
 				onSave={saveBigFive}
 				onScroll={onBigFiveContainerScroll}
 				onCopyVersionValue={copyVersionValue}
-				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["psychology", "bigFive"]) ? undefined : pasteVersionValue}
+				onPasteVersionValue={
+					JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["psychology", "bigFive"]) ? undefined : pasteVersionValue
+				}
 			>
 				<div ref={bigFiveRef} className='unit-page-subpage-psychology-big-five-traits-container'>
 					{bigFiveTraits.map((trait, index) => (

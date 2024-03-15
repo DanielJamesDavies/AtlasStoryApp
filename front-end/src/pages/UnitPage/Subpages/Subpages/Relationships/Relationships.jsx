@@ -39,7 +39,7 @@ export const Relationships = () => {
 	return (
 		<div
 			ref={characterSubpageRelationshipsRef}
-			className='unit-page-subpage-relationships'
+			className='unit-page-subpage unit-page-subpage-relationships'
 			style={{
 				"--characterRelationshipsChartWidth": characterRelationshipsChartWidth + "px",
 				"--characterRelationshipsChartItemWidth": characterRelationshipsChartItemWidth + "px",

@@ -43,7 +43,7 @@ export const PsychologyItems = () => {
 	} = PsychologyItemsLogic();
 
 	return (
-		<OpenableComponent title='Psychology Items' onlyOnMobile={true} showTitleOnlyOnMobile={true}>
+		<OpenableComponent title='Psychology Items' onlyOnMobile={true} largeTitle={true}>
 			<EditableContainer
 				className='unit-page-subpage-psychology-items-container'
 				isAuthorizedToEdit={isAuthorizedToEdit}

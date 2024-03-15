@@ -15,7 +15,7 @@ import { DevelopmentItems } from "./DevelopmentItems";
 
 export const Development = () => {
 	return (
-		<div className='unit-page-subpage-development'>
+		<div className='unit-page-subpage unit-page-subpage-development'>
 			<DevelopmentItems />
 		</div>
 	);

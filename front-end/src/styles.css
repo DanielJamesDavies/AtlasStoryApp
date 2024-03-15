@@ -208,6 +208,32 @@ img {
 	}
 }
 
+@keyframes fade-in-1 {
+	0% {
+		opacity: 0;
+		pointer-events: none;
+		user-select: none;
+	}
+	100% {
+		opacity: 1;
+		pointer-events: all;
+		user-select: all;
+	}
+}
+
+@keyframes fade-in-2 {
+	0% {
+		opacity: 0;
+		pointer-events: none;
+		user-select: none;
+	}
+	100% {
+		opacity: 1;
+		pointer-events: all;
+		user-select: all;
+	}
+}
+
 @keyframes fade-out {
 	0% {
 		opacity: 1;

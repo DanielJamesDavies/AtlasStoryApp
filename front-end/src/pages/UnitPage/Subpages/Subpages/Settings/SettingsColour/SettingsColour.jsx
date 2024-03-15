@@ -1,7 +1,6 @@
 // Packages
 
 // Components
-import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { ErrorMessage } from "../../../../../../components/ErrorMessage/ErrorMessage";
@@ -22,24 +21,22 @@ export const SettingsColour = () => {
 	const { isAuthorizedToEdit, unit, changeColour, revertColour, saveColour, errors } = SettingsColourLogic();
 
 	return (
-		<ContentItem hasBg={true} size='s'>
-			<LabelContainer label='Colour' isInline={true}>
-				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertColour} onSave={saveColour}>
-					<div>
-						<ColourPicker value={unit?.data?.colour} onChange={changeColour} enableEdit={false} horizontalAlignment='right' />
-					</div>
-					<div>
-						<ColourPicker
-							value={unit?.data?.colour}
-							onChange={changeColour}
-							enableEdit={true}
-							pickerVerticalPlacement='bottom'
-							horizontalAlignment='right'
-						/>
-						<ErrorMessage errors={errors} />
-					</div>
-				</EditableContainer>
-			</LabelContainer>
-		</ContentItem>
+		<LabelContainer className='unit-page-subpage-settings-item' label='Colour' isInline={true}>
+			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertColour} onSave={saveColour}>
+				<div>
+					<ColourPicker value={unit?.data?.colour} onChange={changeColour} enableEdit={false} horizontalAlignment='right' />
+				</div>
+				<div>
+					<ColourPicker
+						value={unit?.data?.colour}
+						onChange={changeColour}
+						enableEdit={true}
+						pickerVerticalPlacement='bottom'
+						horizontalAlignment='right'
+					/>
+					<ErrorMessage errors={errors} />
+				</div>
+			</EditableContainer>
+		</LabelContainer>
 	);
 };

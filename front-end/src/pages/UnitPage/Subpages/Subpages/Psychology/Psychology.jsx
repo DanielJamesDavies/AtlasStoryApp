@@ -23,15 +23,15 @@ export const Psychology = () => {
 		<div
 			className={
 				unitVersion?.psychology?.isBigFiveVisible
-					? "unit-page-subpage-psychology unit-page-subpage-psychology-big-five-visible"
-					: "unit-page-subpage-psychology"
+					? "unit-page-subpage unit-page-subpage-psychology unit-page-subpage-psychology-big-five-visible"
+					: "unit-page-subpage unit-page-subpage-psychology"
 			}
 		>
 			<div className='unit-page-subpage-psychology-section-1'>
-				<PsychologyItems />
+				<BigFive />
 			</div>
 			<div className='unit-page-subpage-psychology-section-2'>
-				<BigFive />
+				<PsychologyItems />
 			</div>
 		</div>
 	);

@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useEffect, useRef, useCallback } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 
 // Components
 
@@ -12,15 +12,9 @@ import { BtnListContainerContext } from "../BtnListContainer/BtnListContainerCon
 
 // Assets
 
-export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundActive, hasBackground, onClick, onRemove }) => {
+export const BtnListItemLogic = ({ index, onClick, onRemove }) => {
 	const isBtnListOpen = useContext(BtnListContainerContext)?.isBtnListOpen;
 	const setIsBtnListOpen = useContext(BtnListContainerContext)?.setIsBtnListOpen;
-
-	const [btnListItemClassName, setBtnListItemClassName] = useState(
-		"btn-list-item-loading " +
-			((hasFoundActive !== false ? isActive : index === 0) ? "btn-list-item-active" : "btn-list-item-list-closed") +
-			(!size ? "" : " btn-list-item-size-" + size)
-	);
 
 	const [hasOnClick, setHasOnClick] = useState(false);
 	const lastHasOnClick = useRef(false);
@@ -30,21 +24,6 @@ export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundAct
 			setHasOnClick(lastHasOnClick.current);
 		}
 	}, [onClick]);
-
-	const getBtnListItemClassName = useCallback(() => {
-		let newBtnListItemClassName = "btn-list-item";
-		if (hasFoundActive !== false ? isActive : index === 0) newBtnListItemClassName += " btn-list-item-active";
-		if (hasOnClick) newBtnListItemClassName += " btn-list-item-clickable";
-		if (className) newBtnListItemClassName += " " + className;
-		if (size) newBtnListItemClassName += " btn-list-item-size-" + size;
-		if (isBtnListOpen === false) newBtnListItemClassName += " btn-list-item-list-closed";
-		if (hasBackground !== false) newBtnListItemClassName += " btn-list-item-list-has-background";
-		setBtnListItemClassName(newBtnListItemClassName);
-	}, [setBtnListItemClassName, className, size, index, isActive, hasFoundActive, hasBackground, hasOnClick, isBtnListOpen]);
-
-	useEffect(() => {
-		getBtnListItemClassName();
-	}, [getBtnListItemClassName, className, size, index, isActive, hasFoundActive, hasOnClick, isBtnListOpen]);
 
 	async function onBtnListItemClick(e) {
 		if (setIsBtnListOpen) setIsBtnListOpen((oldIsBtnListOpen) => !oldIsBtnListOpen);
@@ -56,5 +35,5 @@ export const BtnListItemLogic = ({ className, size, index, isActive, hasFoundAct
 		await onRemove(e, index);
 	}
 
-	return { btnListItemClassName, onBtnListItemClick, onRemoveBtnClick };
+	return { isBtnListOpen, hasOnClick, onBtnListItemClick, onRemoveBtnClick };
 };

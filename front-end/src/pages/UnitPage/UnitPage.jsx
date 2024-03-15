@@ -31,22 +31,28 @@ export const UnitPage = () => {
 		unitOverviewContainerRef,
 		unitSubpagesContainerRef,
 		unitPagePrimaryRef,
+		isUnitPageSubpagesHeaderFullSize,
 	} = UnitPageLogic();
 
 	return (
 		<div
 			ref={unitPageContainerRef}
 			className={
-				isOnOverviewSection
-					? "unit-page-container unit-page-container-is-on-overview unit-page-container-" + unit_type
-					: "unit-page-container unit-page-container-is-on-subpages unit-page-container-" + unit_type
+				"unit-page-container" +
+				(isOnOverviewSection ? " unit-page-container-is-on-overview" : " unit-page-container-is-on-subpages") +
+				(isUnitPageSubpagesHeaderFullSize
+					? " unit-page-container-subpages-header-full-size"
+					: " unit-page-container-subpages-header-not-full-size") +
+				" unit-page-container-" +
+				unit_type
 			}
 			style={
 				unitPageStyle
 					? {
 							...unitPageStyle,
 							...{
-								"--unitPagePaddingTop":
+								"--unitPagePaddingTop": isUnitPageSubpagesHeaderFullSize ? "275px" : "107px",
+								"--unitPagePaddingTopVariable":
 									unitPagePrimaryRef?.current?.clientHeight +
 									parseFloat(window.getComputedStyle(unitPagePrimaryRef?.current)?.marginTop) +
 									parseFloat(window.getComputedStyle(unitPagePrimaryRef?.current)?.marginBottom) +

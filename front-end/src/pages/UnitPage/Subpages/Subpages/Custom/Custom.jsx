@@ -15,7 +15,7 @@ import { CustomItems } from "./CustomItems";
 
 export const Custom = () => {
 	return (
-		<div className='unit-page-subpage-custom'>
+		<div className='unit-page-subpage unit-page-subpage-custom'>
 			<CustomItems />
 		</div>
 	);

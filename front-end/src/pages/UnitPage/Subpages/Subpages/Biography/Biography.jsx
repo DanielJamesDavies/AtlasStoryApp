@@ -19,8 +19,12 @@ export const Biography = () => {
 	const { biographyCluster, changeBiographyCluster, switchBiographyCluster } = BiographyLogic();
 
 	return (
-		<div className='unit-page-subpage-abilities'>
-			<BiographyClusterList currBiographyCluster={biographyCluster} changeBiographyCluster={changeBiographyCluster} switchBiographyCluster={switchBiographyCluster} />
+		<div className='unit-page-subpage unit-page-subpage-abilities'>
+			<BiographyClusterList
+				currBiographyCluster={biographyCluster}
+				changeBiographyCluster={changeBiographyCluster}
+				switchBiographyCluster={switchBiographyCluster}
+			/>
 			<BiographyCluster biographyCluster={biographyCluster} changeBiographyCluster={changeBiographyCluster} />
 		</div>
 	);

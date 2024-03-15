@@ -7,7 +7,6 @@
 
 .unit-page-subpage-abilities-list-items {
 	padding-right: 8px;
-	max-height: var(--unitPageSubpageMaxHeight);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
@@ -21,9 +20,10 @@
 	border-radius: 32px;
 }
 
-.unit-page-subpage-abilities-list-item-container .btn-list-item-active {
+.unit-page-subpage-abilities-list-item-container .btn-list-item-active,
+.unit-page-subpage-abilities-list-item-container .btn-list-item-active:hover {
 	position: relative;
-	background: linear-gradient(0deg, var(--unitColour), var(--unitColourTint));
+	background: linear-gradient(0deg, var(--unitColour), var(--unitColourTint)) !important;
 	color: #fff;
 }
 

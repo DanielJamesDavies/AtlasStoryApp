@@ -53,7 +53,12 @@ export const PhysicalOutfitItems = ({
 	} = PhysicalOutfitItemsLogic();
 
 	return (
-		<OpenableComponent title='Outfits' onlyOnMobile={true} isDisplaying={isAuthorizedToEdit || unitVersion?.physical?.outfits?.length !== 0}>
+		<OpenableComponent
+			title='Outfits'
+			onlyOnMobile={true}
+			isDisplaying={isAuthorizedToEdit || unitVersion?.physical?.outfits?.length !== 0}
+			largeTitle={true}
+		>
 			<EditableContainer
 				isAuthorizedToEdit={isAuthorizedToEdit}
 				onAdd={addPhysicalOutfitItem}

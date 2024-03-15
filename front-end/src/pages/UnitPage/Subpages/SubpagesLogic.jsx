@@ -1,5 +1,5 @@
 // Packages
-import { useState, useContext, useEffect, useRef, useCallback } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 
 // Components
 import { Gallery } from "./Subpages/Gallery/Gallery";
@@ -29,7 +29,16 @@ import { UnitPageContext } from "../UnitPageContext";
 // Assets
 
 export const SubpagesLogic = () => {
-	const { unit_type, openSubpageID, allSubpages, unit } = useContext(UnitPageContext);
+	const {
+		unit_type,
+		openSubpageID,
+		allSubpages,
+		unit,
+		isOnOverviewSection,
+		setIsOnOverviewSection,
+		isUnitPageSubpagesHeaderFullSize,
+		setIsUnitPageSubpagesHeaderFullSize,
+	} = useContext(UnitPageContext);
 
 	const subpageContainerRef = useRef();
 
@@ -47,6 +56,7 @@ export const SubpagesLogic = () => {
 
 	useEffect(() => {
 		function getSubpage() {
+			if (subpageContainerRef?.current) subpageContainerRef.current.scrollTop = 0;
 			if (!allSubpages.find((e) => e.id === openSubpageID)?.unit_types?.includes(unit_type)) return null;
 			switch (openSubpageID) {
 				case "gallery":
@@ -80,24 +90,55 @@ export const SubpagesLogic = () => {
 			}
 		}
 		setSubpage(getSubpage());
-	}, [unit_type, openSubpageID, allSubpages]);
+	}, [unit_type, openSubpageID, allSubpages, subpageContainerRef]);
 
-	const onScroll = useCallback((e) => {
-		if (subpageContainerRef?.current?.scrollTop === 0) return;
-		e.stopPropagation();
-	}, []);
+	const timeLastSetSubpagesHeaderToFullSize = useRef(0);
+	const [allowSubpageScroll, setAllowSubpageScroll] = useState(false);
+
+	function onSubpagesScrollWheel(e) {
+		if (window?.innerWidth > 750) {
+			const oldIsUnitPageSubpagesHeaderFullSize = JSON.parse(JSON.stringify(isUnitPageSubpagesHeaderFullSize));
+
+			setIsUnitPageSubpagesHeaderFullSize(subpageContainerRef.current.scrollTop === 0 && e?.deltaY < 0);
+
+			if (subpageContainerRef.current.scrollTop === 0 && e?.deltaY < 0 && !oldIsUnitPageSubpagesHeaderFullSize) {
+				timeLastSetSubpagesHeaderToFullSize.current = Date.now();
+			}
+
+			if (oldIsUnitPageSubpagesHeaderFullSize && e?.deltaY < 0 && Date.now() - timeLastSetSubpagesHeaderToFullSize.current > 400) {
+				setIsOnOverviewSection(true);
+			}
+
+			if (oldIsUnitPageSubpagesHeaderFullSize || (subpageContainerRef.current.scrollTop === 0 && e?.deltaY < 0)) {
+				setTimeout(() => {
+					setAllowSubpageScroll(!(subpageContainerRef.current.scrollTop === 0 && e?.deltaY < 0));
+				}, 400);
+			} else {
+				setAllowSubpageScroll(true);
+			}
+		} else {
+			setIsUnitPageSubpagesHeaderFullSize(false);
+			setAllowSubpageScroll(true);
+		}
+	}
 
 	useEffect(() => {
-		if (onScroll) {
-			setTimeout(() => {
-				subpageContainerRef?.current?.children[0]?.addEventListener("wheel", onScroll);
-			}, 10);
+		function onWindowResize() {
+			if (window?.innerWidth <= 750) {
+				setIsUnitPageSubpagesHeaderFullSize(false);
+				setAllowSubpageScroll(true);
+			} else {
+				if (isOnOverviewSection) {
+					setIsUnitPageSubpagesHeaderFullSize(true);
+					setAllowSubpageScroll(false);
+				}
+			}
 		}
-		return () => {
-			// eslint-disable-next-line
-			if (onScroll) subpageContainerRef?.current?.children[0]?.removeEventListener("wheel", onScroll);
-		};
-	}, [openSubpageID, subpageContainerRef, onScroll]);
 
-	return { subpageContainerRef, subpage, unit };
+		onWindowResize();
+		window?.addEventListener("resize", onWindowResize);
+		return () => window?.removeEventListener("resize", onWindowResize);
+	}, [isOnOverviewSection, setIsUnitPageSubpagesHeaderFullSize]);
+
+	return { subpageContainerRef, subpage, unit, allowSubpageScroll, onSubpagesScrollWheel };
 };

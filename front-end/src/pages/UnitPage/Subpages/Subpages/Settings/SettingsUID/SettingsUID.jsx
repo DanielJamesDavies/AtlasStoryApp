@@ -1,7 +1,6 @@
 // Packages
 
 // Components
-import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { TextInput } from "../../../../../../components/TextInput/TextInput";
@@ -23,19 +22,17 @@ export const SettingsUID = () => {
 	const { isAuthorizedToEdit, uid, changeUid, revertUid, saveUid, errors } = SettingsUIDLogic();
 
 	return (
-		<ContentItem hasBg={true} size='s'>
-			<LabelContainer label='Unique Identifier (UID)' isInline={true}>
-				<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertUid} onSave={saveUid}>
-					<div>{uid}</div>
-					<div className='chararcter-settings-uid-editing'>
-						<div className='chararcter-settings-uid-editing-input'>
-							<TextInput seamless={true} value={uid} onChange={changeUid} autoResize={true} />
-						</div>
-						<ErrorMessage errors={errors} />
-						<ErrorMessage errors={errors} attribute='uid' />
+		<LabelContainer className='unit-page-subpage-settings-item' label='Unique Identifier (UID)' isInline={true}>
+			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRevert={revertUid} onSave={saveUid}>
+				<div>{uid}</div>
+				<div className='chararcter-settings-uid-editing'>
+					<div className='chararcter-settings-uid-editing-input'>
+						<TextInput seamless={true} value={uid} onChange={changeUid} autoResize={true} />
 					</div>
-				</EditableContainer>
-			</LabelContainer>
-		</ContentItem>
+					<ErrorMessage errors={errors} />
+					<ErrorMessage errors={errors} attribute='uid' />
+				</div>
+			</EditableContainer>
+		</LabelContainer>
 	);
 };

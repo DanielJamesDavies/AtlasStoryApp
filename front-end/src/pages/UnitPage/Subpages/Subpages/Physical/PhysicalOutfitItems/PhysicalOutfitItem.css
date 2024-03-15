@@ -26,6 +26,29 @@
 	animation-delay: 0.1s;
 }
 
+.unit-page-subpage-physical-outfit-item-container {
+	position: relative;
+}
+
+.unit-page-subpage-physical-outfit-item-container::after {
+	position: absolute;
+	bottom: 1px;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 1px;
+	background: var(--colour-grey-three);
+}
+
+.unit-page-subpage-physical-outfit-item-container:last-child:after {
+	display: none;
+}
+
+.unit-page-subpage-physical-outfit-item {
+	padding: 12px 8px;
+	padding-bottom: 13px;
+}
+
 .unit-page-subpage-physical-outfit-item-content {
 	display: inline-block;
 	width: calc(100% - 32px);

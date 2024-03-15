@@ -58,6 +58,7 @@ export const PhysicalAttributeItems = ({
 			title='Physical Attributes'
 			onlyOnMobile={true}
 			isDisplaying={isAuthorizedToEdit || unitVersion?.physical?.attributes?.length !== 0}
+			largeTitle={true}
 		>
 			<EditableContainer
 				isAuthorizedToEdit={isAuthorizedToEdit}

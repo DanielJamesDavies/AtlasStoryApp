@@ -23,3 +23,12 @@
 .confirm-delete-btn-delete:hover {
 	color: var(--colour-red);
 }
+
+.confirm-delete-hidden-container {
+	display: flex;
+	align-items: center;
+	padding-right: 12px;
+	pointer-events: none;
+	user-select: none;
+	opacity: 0;
+}

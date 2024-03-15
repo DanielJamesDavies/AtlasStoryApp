@@ -7,7 +7,6 @@
 
 .unit-page-subpage-biography-cluster-list-items {
 	padding-right: 8px;
-	max-height: var(--unitPageSubpageMaxHeight);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
@@ -23,7 +22,7 @@
 
 .unit-page-subpage-biography-cluster-list-item-container .btn-list-item-active {
 	position: relative;
-	background: linear-gradient(0deg, var(--unitColour), var(--unitColourTint));
+	background: linear-gradient(0deg, var(--unitColour), var(--unitColourTint)) !important;
 	color: #fff;
 }
 

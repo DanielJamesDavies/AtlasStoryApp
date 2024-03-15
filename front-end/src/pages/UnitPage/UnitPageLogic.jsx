@@ -24,6 +24,7 @@ export const UnitPageLogic = () => {
 		isOnOverviewSection,
 		setIsOnOverviewSection,
 		unitPagePrimaryRef,
+		isUnitPageSubpagesHeaderFullSize,
 	} = useContext(UnitPageContext);
 
 	const unitPageContainerRef = useRef();
@@ -32,7 +33,8 @@ export const UnitPageLogic = () => {
 
 	const touchStartCoords = useRef({ x: 0, y: 0 });
 	useEffect(() => {
-		const onWheel = (e) => (!unit || !unitPageStyle || e?.ctrlKey ? null : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1));
+		const onWheel = (e) =>
+			!unit || !unitPageStyle || e?.ctrlKey || Math.sign(e?.deltaY) === -1 ? null : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1);
 		const onTouchStart = (e) => {
 			touchStartCoords.current = { x: e.touches[0].pageX, y: e.touches[0].pageY };
 		};
@@ -91,5 +93,6 @@ export const UnitPageLogic = () => {
 		unitOverviewContainerRef,
 		unitSubpagesContainerRef,
 		unitPagePrimaryRef,
+		isUnitPageSubpagesHeaderFullSize,
 	};
 };

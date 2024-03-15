@@ -35,7 +35,7 @@ export const Plot = () => {
 	} = PlotLogic();
 
 	return (
-		<div className='unit-page-subpage-plot'>
+		<div className='unit-page-subpage unit-page-subpage-plot'>
 			<PlotNavigationBar
 				cluster={cluster}
 				isDisplayingClusters={isDisplayingClusters}

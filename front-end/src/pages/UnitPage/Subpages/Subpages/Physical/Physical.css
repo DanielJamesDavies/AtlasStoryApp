@@ -1,12 +1,14 @@
-.unit-page-subpage-physical-section-1,
-.unit-page-subpage-physical-section-2 {
-	display: inline-block;
-	vertical-align: top;
-	width: calc(50% - 8px);
+.unit-page-subpage-physical {
 }
 
-.unit-page-subpage-physical-section-1 {
-	padding-right: 16px;
+.unit-page-subpage-physical-section-1,
+.unit-page-subpage-physical-section-2 {
+	vertical-align: top;
+}
+
+.unit-page-subpage-physical-section-2 {
+	margin-top: 64px;
+	margin-bottom: 40dvh;
 }
 
 @media (max-width: 750px) {

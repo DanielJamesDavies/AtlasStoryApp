@@ -1,7 +1,6 @@
 // Packages
 
 // Components
-import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { ImageInput } from "../../../../../../components/ImageInput/ImageInput";
@@ -25,25 +24,18 @@ export const SettingsListImage = () => {
 
 	if (!["object", "lore"].includes(unit_type)) return null;
 	return (
-		<ContentItem hasBg={true} size='s'>
-			<LabelContainer className='unit-page-subpage-settings-list-image-container' label='List Image'>
-				<EditableContainer
-					isAuthorizedToEdit={isAuthorizedToEdit}
-					onRemove={removeListImage}
-					onRevert={revertListImage}
-					onSave={saveListImage}
-				>
+		<LabelContainer className='unit-page-subpage-settings-item unit-page-subpage-settings-list-image-container' label='List Image'>
+			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRemove={removeListImage} onRevert={revertListImage} onSave={saveListImage}>
+				<div className='unit-page-subpage-settings-list-image-image'>
+					{!unitListImage || unitListImage === "NO_IMAGE" ? null : <img src={unitListImage} alt='' />}
+				</div>
+				<div>
 					<div className='unit-page-subpage-settings-list-image-image'>
-						{!unitListImage || unitListImage === "NO_IMAGE" ? null : <img src={unitListImage} alt='' />}
+						<ImageInput value={unitListImage} onChange={changeListImage} maxFileSizeInKBs={50} />
 					</div>
-					<div>
-						<div className='unit-page-subpage-settings-list-image-image'>
-							<ImageInput value={unitListImage} onChange={changeListImage} maxFileSizeInKBs={50} />
-						</div>
-						<ErrorMessage errors={errors} />
-					</div>
-				</EditableContainer>
-			</LabelContainer>
-		</ContentItem>
+					<ErrorMessage errors={errors} />
+				</div>
+			</EditableContainer>
+		</LabelContainer>
 	);
 };

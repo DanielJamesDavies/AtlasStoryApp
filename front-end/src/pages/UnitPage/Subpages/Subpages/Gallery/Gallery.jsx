@@ -45,64 +45,62 @@ export const Gallery = () => {
 	} = GalleryLogic();
 
 	return (
-		<div>
-			<EditableContainer
-				innerRef={galleryRef}
-				className='unit-page-subpage-gallery'
-				isAuthorizedToEdit={isAuthorizedToEdit}
-				onReorder={toggleIsReorderingGalleryItems}
-				onRevert={revertGalleryItems}
-				onSave={saveGalleryItems}
-				onAdd={toggleIsDisplayingCharactersImages}
-				onScroll={onGalleryScroll}
-				onCopyVersionValue={copyVersionValue}
-				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["gallery"]) ? undefined : pasteVersionValue}
-			>
+		<EditableContainer
+			innerRef={galleryRef}
+			className='unit-page-subpage unit-page-subpage-gallery'
+			isAuthorizedToEdit={isAuthorizedToEdit}
+			onReorder={toggleIsReorderingGalleryItems}
+			onRevert={revertGalleryItems}
+			onSave={saveGalleryItems}
+			onAdd={toggleIsDisplayingCharactersImages}
+			onScroll={onGalleryScroll}
+			onCopyVersionValue={copyVersionValue}
+			onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["gallery"]) ? undefined : pasteVersionValue}
+		>
+			<div className='unit-page-subpage-gallery-items-container'>
+				<div className='unit-page-subpage-gallery-items'>
+					{["character", "group"].includes(unit_type)
+						? !unitVersion
+							? null
+							: unitVersion.gallery.map((image, index) => (
+									<GalleryItem key={index} index={index} image={image} isEditing={false} onClick={onGalleryItemClick} />
+							  ))
+						: !unit?.data?.gallery
+						? null
+						: unit.data.gallery.map((image, index) => (
+								<GalleryItem key={index} index={index} image={image} isEditing={false} onClick={onGalleryItemClick} />
+						  ))}
+				</div>
+			</div>
+			<div className='unit-page-subpage-gallery-edit'>
 				<div className='unit-page-subpage-gallery-items-container'>
-					<div className='unit-page-subpage-gallery-items'>
+					<DragDropContainer
+						className='unit-page-subpage-gallery-items'
+						enableDragDrop={isReorderingGalleryItems}
+						onDropItem={reorderGalleryItems}
+					>
 						{["character", "group"].includes(unit_type)
 							? !unitVersion
 								? null
 								: unitVersion.gallery.map((image, index) => (
-										<GalleryItem key={index} index={index} image={image} isEditing={false} onClick={onGalleryItemClick} />
+										<DragDropItem key={index} index={index}>
+											<GalleryItem image={image} index={index} isEditing={true} removeGalleryItem={removeGalleryItem} />
+										</DragDropItem>
 								  ))
 							: !unit?.data?.gallery
 							? null
 							: unit.data.gallery.map((image, index) => (
-									<GalleryItem key={index} index={index} image={image} isEditing={false} onClick={onGalleryItemClick} />
+									<DragDropItem key={index} index={index}>
+										<GalleryItem image={image} index={index} isEditing={true} removeGalleryItem={removeGalleryItem} />
+									</DragDropItem>
 							  ))}
-					</div>
+					</DragDropContainer>
+					<ErrorMessage errors={errors} />
 				</div>
-				<div className='unit-page-subpage-gallery-edit'>
-					<div className='unit-page-subpage-gallery-items-container'>
-						<DragDropContainer
-							className='unit-page-subpage-gallery-items'
-							enableDragDrop={isReorderingGalleryItems}
-							onDropItem={reorderGalleryItems}
-						>
-							{["character", "group"].includes(unit_type)
-								? !unitVersion
-									? null
-									: unitVersion.gallery.map((image, index) => (
-											<DragDropItem key={index} index={index}>
-												<GalleryItem image={image} index={index} isEditing={true} removeGalleryItem={removeGalleryItem} />
-											</DragDropItem>
-									  ))
-								: !unit?.data?.gallery
-								? null
-								: unit.data.gallery.map((image, index) => (
-										<DragDropItem key={index} index={index}>
-											<GalleryItem image={image} index={index} isEditing={true} removeGalleryItem={removeGalleryItem} />
-										</DragDropItem>
-								  ))}
-						</DragDropContainer>
-						<ErrorMessage errors={errors} />
-					</div>
-					{!isDisplayingCharactersImages ? null : (
-						<UnitImages onAddImage={addImageToVersionGallery} onClose={toggleIsDisplayingCharactersImages} />
-					)}
-				</div>
-			</EditableContainer>
-		</div>
+				{!isDisplayingCharactersImages ? null : (
+					<UnitImages onAddImage={addImageToVersionGallery} onClose={toggleIsDisplayingCharactersImages} />
+				)}
+			</div>
+		</EditableContainer>
 	);
 };

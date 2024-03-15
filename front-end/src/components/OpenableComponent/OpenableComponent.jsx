@@ -22,18 +22,24 @@ export const OpenableComponent = ({
 	isDisplaying,
 	onlyOnMobile,
 	showTitleOnlyOnMobile,
+	largeTitle,
 }) => {
-	const { openableComponentlassName, toggleIsOpen } = OpenableComponentLogic({
-		className,
-		defaultShowValue,
-		isDisplaying,
-		onlyOnMobile,
-		showTitleOnlyOnMobile,
-	});
+	const { isOpen, toggleIsOpen } = OpenableComponentLogic({ defaultShowValue });
 
 	if (!children) return null;
 	return (
-		<div ref={innerRef} className={openableComponentlassName}>
+		<div
+			ref={innerRef}
+			className={
+				"openable-component-container" +
+				(isOpen ? " openable-component-container-is-open" : "") +
+				(isDisplaying === false ? " openable-component-container-hide" : "") +
+				(onlyOnMobile ? " openable-component-container-only-on-mobile" : "") +
+				(showTitleOnlyOnMobile ? " openable-component-container-show-title-only-on-mobile" : "") +
+				(largeTitle ? " openable-component-container-large-title" : "") +
+				(className ? " " + className : "")
+			}
+		>
 			<div className='openable-component-header' onClick={toggleIsOpen}>
 				<div className='openable-component-header-title'>{title}</div>
 				<div className='openable-component-header-arrow'>

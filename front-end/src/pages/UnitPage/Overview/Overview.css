@@ -34,6 +34,11 @@
 
 .unit-page-overview-content {
 	display: flex;
+	transition: opacity 0.6s;
+}
+
+.unit-page-content-container-is-on-subpages .unit-page-overview-content {
+	opacity: 0;
 }
 
 .unit-page-overview-content-section-1 {
@@ -70,11 +75,20 @@
 	}
 }
 
-@media (max-width: 750px) {
+/* @media (max-width: 750px) {
 	.unit-page-overview-container {
 		padding-top: calc(6px + 61px + 12px + 12px);
 		padding-left: 6px;
 		width: calc(100vw - 6px);
 		height: calc(100% - (6px + 61px + 12px + 12px));
+	}
+} */
+
+@media (max-width: 750px) {
+	.unit-page-overview-container {
+		height: calc(100% - 91px);
+		padding-left: 6px;
+		padding-top: 91px;
+		width: calc(100vw - 6px);
 	}
 }

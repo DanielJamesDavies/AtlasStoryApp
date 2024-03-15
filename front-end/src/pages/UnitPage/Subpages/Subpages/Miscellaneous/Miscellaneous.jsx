@@ -15,7 +15,7 @@ import { MiscellaneousItems } from "./MiscellaneousItems";
 
 export const Miscellaneous = () => {
 	return (
-		<div className='unit-page-subpage-miscellaneous'>
+		<div className='unit-page-subpage unit-page-subpage-miscellaneous'>
 			<MiscellaneousItems />
 		</div>
 	);

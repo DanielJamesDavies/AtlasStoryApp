@@ -1,7 +1,6 @@
 // Packages
 
 // Components
-import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { LabelContainer } from "../../../../../../components/LabelContainer/LabelContainer";
 import { ConfirmDelete } from "../../../../../../components/ConfirmDelete/ConfirmDelete";
 import { ErrorMessage } from "../../../../../../components/ErrorMessage/ErrorMessage";
@@ -21,7 +20,7 @@ export const SettingsDelete = () => {
 	const { unit_type_title, isAuthorizedToEdit, deleteUnit, errors } = SettingsDeleteLogic();
 
 	return (
-		<ContentItem hasBg={true} size='s' className='unit-page-settings-delete-container'>
+		<div className='unit-page-subpage-settings-item unit-page-settings-delete-container'>
 			<LabelContainer label={"Delete " + unit_type_title} isInline={true}>
 				<ConfirmDelete
 					onDelete={deleteUnit}
@@ -31,6 +30,6 @@ export const SettingsDelete = () => {
 				/>
 				<ErrorMessage errors={errors} />
 			</LabelContainer>
-		</ContentItem>
+		</div>
 	);
 };

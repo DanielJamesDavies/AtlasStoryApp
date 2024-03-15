@@ -25,6 +25,29 @@
 	min-height: max(150px, 70dvh);
 }
 
+.unit-page-subpage-plot-item-container {
+	position: relative;
+}
+
+.unit-page-subpage-plot-item-container::after {
+	position: absolute;
+	bottom: 1px;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 1px;
+	background: var(--colour-grey-three);
+}
+
+.unit-page-subpage-plot-item-container:last-child:after {
+	display: none;
+}
+
+.unit-page-subpage-plot-item {
+	padding: 12px 8px;
+	padding-bottom: 13px;
+}
+
 .unit-page-subpage-plot-item-content {
 	display: inline-block;
 	vertical-align: top;

@@ -23,10 +23,10 @@ export const Physical = () => {
 		<div
 			className={
 				unitImagesCurrItem === false
-					? "unit-page-subpage-physical"
+					? "unit-page-subpage unit-page-subpage-physical"
 					: unitImagesCurrItem?.type === "attributes"
-					? "unit-page-subpage-physical unit-page-subpage-physical-attribute-unit-page-images-open"
-					: "unit-page-subpage-physical unit-page-subpage-physical-outfit-unit-page-images-open"
+					? "unit-page-subpage unit-page-subpage-physical unit-page-subpage-physical-attribute-unit-page-images-open"
+					: "unit-page-subpage unit-page-subpage-physical unit-page-subpage-physical-outfit-unit-page-images-open"
 			}
 		>
 			<div className='unit-page-subpage-physical-section-1'>

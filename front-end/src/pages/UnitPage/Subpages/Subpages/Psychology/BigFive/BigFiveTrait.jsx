@@ -1,7 +1,6 @@
 // Packages
 
 // Components
-import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { BigFiveAspect } from "./BigFiveAspect";
 
 // Logic
@@ -18,14 +17,12 @@ import "./BigFiveTrait.css";
 export const BigFiveTrait = ({ trait, isEditing }) => {
 	return (
 		<div className='unit-page-subpage-psychology-big-five-trait-container'>
-			<ContentItem hasBg={true}>
-				<div className='unit-page-subpage-psychology-big-five-trait-name'>{trait?.name}</div>
-				<div className='unit-page-subpage-psychology-big-five-trait-aspects-container'>
-					{trait?.aspects.map((aspect, index) => (
-						<BigFiveAspect key={index} trait={trait} aspect={aspect} isEditing={isEditing} />
-					))}
-				</div>
-			</ContentItem>
+			<div className='unit-page-subpage-psychology-big-five-trait-name'>{trait?.name}</div>
+			<div className='unit-page-subpage-psychology-big-five-trait-aspects-container'>
+				{trait?.aspects.map((aspect, index) => (
+					<BigFiveAspect key={index} trait={trait} aspect={aspect} isEditing={isEditing} />
+				))}
+			</div>
 		</div>
 	);
 };

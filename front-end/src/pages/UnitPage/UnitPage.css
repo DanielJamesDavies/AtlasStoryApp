@@ -7,7 +7,7 @@
 	overflow: hidden;
 }
 
-.unit-page-container::before {
+/* .unit-page-container::before {
 	position: absolute;
 	z-index: -100;
 	top: -24px;
@@ -39,7 +39,7 @@
 	background: linear-gradient(180deg, var(--unitColour), var(--colour-grey-one));
 	opacity: 0.35;
 	transition: opacity 0.2s;
-}
+} */
 
 .theme-light .unit-page-container::after {
 	opacity: 1;

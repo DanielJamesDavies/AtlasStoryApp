@@ -11,6 +11,29 @@
 	animation-delay: 0.1s;
 }
 
+.unit-page-subpage-abilities-ability-item-container {
+	position: relative;
+}
+
+.unit-page-subpage-abilities-ability-item-container::after {
+	position: absolute;
+	bottom: 1px;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 1px;
+	background: var(--colour-grey-three);
+}
+
+.unit-page-subpage-abilities-ability-item-container:last-child:after {
+	display: none;
+}
+
+.unit-page-subpage-abilities-ability-item {
+	padding: 12px 8px;
+	padding-bottom: 13px;
+}
+
 .editable-container-is-editing .unit-page-subpage-abilities-ability-item-content {
 	display: inline-block;
 	width: calc(100% - 24px - 8px);

@@ -7,6 +7,21 @@ import { GetUnitServices } from "./GetUnitServices";
 
 import getValueInNestedObject from "../../services/GetValueInNestedObject";
 import changeValueInNestedObject from "../../services/ChangeValueInNestedObject";
+import {
+	FaBookReader,
+	FaBrain,
+	FaCalendarAlt,
+	FaCog,
+	FaCommentDots,
+	FaEye,
+	FaFeatherAlt,
+	FaFileAlt,
+	FaHardHat,
+	FaImages,
+	FaMusic,
+	FaTools,
+	FaUsers,
+} from "react-icons/fa";
 
 export const UnitPageContext = createContext();
 
@@ -56,33 +71,42 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 
 	const allSubpages = useMemo(
 		() => [
-			{ id: "physical", name: "Appearance", isEnabled: true, unit_types: ["character"] },
-			{ id: "psychology", name: "Personality", isEnabled: true, unit_types: ["character"] },
-			{ id: "biography", name: "Background", isEnabled: true, unit_types: ["character"] },
-			{ id: "abilities", name: "Abilities & Equipment", isEnabled: true, unit_types: ["character"] },
-			{ id: "relationships", name: "Relationships", isEnabled: true, unit_types: ["character"] },
-			{ id: "details", name: "Details", isEnabled: true, unit_types: ["location", "object", "lore", "event"] },
-			{ id: "events", name: "Events", isEnabled: true, unit_types: ["location", "lore"] },
-			{ id: "plot", name: "Plot", isEnabled: true, unit_types: ["plot"] },
-			{ id: "soundtrack", name: "Soundtrack", isEnabled: true, unit_types: ["plot"] },
-			{ id: "gallery", name: "Gallery", isEnabled: true, unit_types: ["character", "plot", "group", "location", "object", "lore", "event"] },
+			{ id: "physical", name: "Appearance", isEnabled: true, unit_types: ["character"], icon: <FaEye /> },
+			{ id: "psychology", name: "Personality", isEnabled: true, unit_types: ["character"], icon: <FaBrain /> },
+			{ id: "biography", name: "Background", isEnabled: true, unit_types: ["character"], icon: <FaBookReader /> },
+			{ id: "abilities", name: "Abilities", isEnabled: true, unit_types: ["character"], icon: <FaTools /> },
+			{ id: "relationships", name: "Relationships", isEnabled: true, unit_types: ["character"], icon: <FaUsers /> },
+			{ id: "details", name: "Details", isEnabled: true, unit_types: ["location", "object", "lore", "event"], icon: <FaFileAlt /> },
+			{ id: "events", name: "Events", isEnabled: true, unit_types: ["location", "lore"], icon: <FaCalendarAlt /> },
+			{ id: "plot", name: "Plot", isEnabled: true, unit_types: ["plot"], icon: <FaFeatherAlt /> },
+			{ id: "soundtrack", name: "Soundtrack", isEnabled: true, unit_types: ["plot"], icon: <FaMusic /> },
+			{
+				id: "gallery",
+				name: "Gallery",
+				isEnabled: true,
+				unit_types: ["character", "plot", "group", "location", "object", "lore", "event"],
+				icon: <FaImages />,
+			},
 			{
 				id: "miscellaneous",
 				name: "Miscellaneous",
 				isEnabled: true,
 				unit_types: ["character", "plot", "group", "location", "object", "lore", "event"],
+				icon: <FaCommentDots />,
 			},
 			{
 				id: "development",
 				name: "Development",
 				isEnabled: true,
 				unit_types: ["character", "plot", "group", "location", "object", "lore", "event"],
+				icon: <FaHardHat />,
 			},
 			{
 				id: "settings",
 				name: "Settings",
 				isEnabled: true,
 				unit_types: ["character", "plot", "group", "location", "object", "lore", "event"],
+				icon: <FaCog />,
 			},
 		],
 		[]
@@ -90,6 +114,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 	const [subpages, setSubpages] = useState([]);
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
+	const [isUnitPageSubpagesHeaderFullSize, setIsUnitPageSubpagesHeaderFullSize] = useState(true);
 
 	useEffect(() => {
 		if (routesUnitSubpageID) {
@@ -488,6 +513,8 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				unitPagePrimaryRef,
 				isOnOverviewSection,
 				setIsOnOverviewSection,
+				isUnitPageSubpagesHeaderFullSize,
+				setIsUnitPageSubpagesHeaderFullSize,
 				decrementUnitVersion,
 				incrementUnitVersion,
 				changeUnitVersion,

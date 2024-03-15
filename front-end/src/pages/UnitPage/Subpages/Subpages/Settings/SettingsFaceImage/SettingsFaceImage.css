@@ -25,6 +25,11 @@
 	height: 120px;
 }
 
+.unit-page-subpage-settings-face-image-container .editable-container-content {
+	display: flex;
+	justify-content: center;
+}
+
 @media (max-width: 1100px) {
 	.unit-page-subpage-settings-face-image-container {
 		margin-right: 0;

@@ -7,13 +7,3 @@
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
-
-.unit-page-subpage-psychology-big-five-visible .unit-page-subpage-psychology-items {
-	max-height: calc(var(--unitPageSubpageMaxHeight));
-}
-
-@media (max-width: 750px) {
-	.unit-page-subpage-psychology-items {
-		max-height: unset;
-	}
-}

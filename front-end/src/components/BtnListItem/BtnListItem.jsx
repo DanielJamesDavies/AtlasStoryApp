@@ -18,19 +18,23 @@ import "./BtnListItem.css";
 // Assets
 
 export const BtnListItem = ({ className, size, value, index, isActive, hasFoundActive, hasBackground, onClick, onChange, onRemove }) => {
-	const { btnListItemClassName, onBtnListItemClick, onRemoveBtnClick } = BtnListItemLogic({
-		className,
-		size,
-		index,
-		isActive,
-		hasFoundActive,
-		hasBackground,
-		onClick,
-		onRemove,
-	});
+	const { isBtnListOpen, hasOnClick, onBtnListItemClick, onRemoveBtnClick } = BtnListItemLogic({ index, onClick, onRemove });
 
 	return (
-		<div tabIndex='1' className={btnListItemClassName} onClick={onBtnListItemClick} onAuxClick={onClick}>
+		<div
+			tabIndex='1'
+			className={
+				"btn-list-item" +
+				((hasFoundActive !== false ? isActive : index === 0) ? " btn-list-item-active" : "") +
+				(hasOnClick ? " btn-list-item-clickable" : "") +
+				(className ? " " + className : "") +
+				(size ? " btn-list-item-size-" + size : "") +
+				(isBtnListOpen === false ? " btn-list-item-list-closed" : "") +
+				(hasBackground !== false ? " btn-list-item-list-has-background" : "")
+			}
+			onClick={onBtnListItemClick}
+			onAuxClick={onClick}
+		>
 			{value === undefined ? (
 				<div className='btn-list-item-value-placeholder loading-background'></div>
 			) : onChange === undefined ? (

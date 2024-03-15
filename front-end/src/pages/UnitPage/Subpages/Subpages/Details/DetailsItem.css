@@ -33,6 +33,29 @@
 	animation-delay: 0.1s;
 }
 
+.unit-page-subpage-details-item-container {
+	position: relative;
+}
+
+.unit-page-subpage-details-item-container::after {
+	position: absolute;
+	bottom: 1px;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 1px;
+	background: var(--colour-grey-three);
+}
+
+.unit-page-subpage-details-item-container:last-child:after {
+	display: none;
+}
+
+.unit-page-subpage-details-item {
+	padding: 12px 8px;
+	padding-bottom: 13px;
+}
+
 .unit-page-subpage-details-item-content {
 	display: inline-block;
 	width: calc(100% - 32px);

@@ -2,15 +2,18 @@
 	margin-top: 6px;
 }
 
-.unit-page-subpage-settings-versions-item .content-item {
-	margin-left: 0;
-	margin-right: 0;
-	padding-top: 13px;
+.unit-page-subpage-settings-versions-item {
+	display: flex;
+	align-items: center;
+	margin-left: -16px;
+	padding: 4px 16px;
+	border-radius: 8px;
+	min-height: 40px;
+	box-sizing: border-box;
 }
 
-.unit-page-subpage-settings-versions-container .editable-container-is-editing .unit-page-subpage-settings-versions-item .content-item {
-	padding-top: 4px;
-	padding-bottom: 4px;
+.unit-page-subpage-settings-versions-item:hover {
+	background: var(--colour-grey-two);
 }
 
 .unit-page-subpage-settings-versions-item,

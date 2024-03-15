@@ -35,7 +35,7 @@ export const Soundtrack = () => {
 
 	return (
 		<EditableContainer
-			className='unit-page-subpage-soundtrack-container'
+			className='unit-page-subpage unit-page-subpage-soundtrack-container'
 			isAuthorizedToEdit={isAuthorizedToEdit}
 			onRevert={revertSoundtrack}
 			onSave={saveSoundtrack}

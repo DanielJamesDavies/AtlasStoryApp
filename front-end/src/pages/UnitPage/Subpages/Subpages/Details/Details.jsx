@@ -15,7 +15,7 @@ import { DetailsItems } from "./DetailsItems";
 
 export const Details = () => {
 	return (
-		<div className='unit-page-subpage-details'>
+		<div className='unit-page-subpage unit-page-subpage-details'>
 			<DetailsItems />
 		</div>
 	);
