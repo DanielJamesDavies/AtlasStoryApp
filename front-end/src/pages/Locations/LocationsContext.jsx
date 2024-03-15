@@ -7,6 +7,7 @@ import { RecentDataContext } from "../../context/RecentDataContext";
 import { StoryContext } from "../../context/StoryContext";
 
 import { HierarchyFunctions } from "./HierarchyFunctions";
+import resizeBase64Image from "../../services/ResizeBase64Image";
 
 export const LocationsContext = createContext();
 
@@ -305,7 +306,8 @@ const LocationsProvider = ({ children, story_uid }) => {
 
 							addImagesToRecentImages([mapImage]);
 						}
-						return { ...mapImage, ...{ location_id: location?._id } };
+						const mapImageReduced = await resizeBase64Image(mapImage?.image, 700, 700);
+						return { ...mapImage, ...{ mapImageReduced }, ...{ location_id: location?._id } };
 					})
 				)
 			).filter((e) => e !== false);

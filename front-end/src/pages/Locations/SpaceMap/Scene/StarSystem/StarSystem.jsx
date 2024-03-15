@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 // Components
 import { OrbitContainer } from "../../Components/OrbitContainer/OrbitContainer";
@@ -35,17 +35,23 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 	const ref = useRef();
 	const [isHovering, setIsHovering] = useState(false);
 
-	function onPointerOver(e, location_id) {
-		e.stopPropagation();
-		setHoverMapLocationId(location_id);
-		setIsHovering(true);
-	}
+	const onPointerOver = useCallback(
+		(e, location_id) => {
+			e.stopPropagation();
+			setHoverMapLocationId(location_id);
+			setIsHovering(true);
+		},
+		[setHoverMapLocationId, setIsHovering]
+	);
 
-	function onPointerOut(e) {
-		e.stopPropagation();
-		setHoverMapLocationId(false);
-		setIsHovering(false);
-	}
+	const onPointerOut = useCallback(
+		(e) => {
+			e.stopPropagation();
+			setHoverMapLocationId(false);
+			setIsHovering(false);
+		},
+		[setHoverMapLocationId, setIsHovering]
+	);
 
 	useEffect(() => {
 		setCursorPointer(isHovering);
@@ -54,7 +60,7 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 	const clicks = useRef([]);
 	const clickTimeout = useRef(false);
 
-	function getNewClicks(oldClicks, maxDelta) {
+	const getNewClicks = useCallback((oldClicks, maxDelta) => {
 		let newClicks = JSON.parse(JSON.stringify(oldClicks));
 
 		let startIndex = 0;
@@ -66,37 +72,40 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 		});
 
 		return newClicks.filter((_, index) => index >= startIndex);
-	}
+	}, []);
 
-	function onClickLocation(e, input_location) {
-		if (e?.stopPropagation !== undefined) e.stopPropagation();
+	const onClickLocation = useCallback(
+		(e, input_location) => {
+			if (e?.stopPropagation !== undefined) e.stopPropagation();
 
-		const maxDelta = 400;
+			const maxDelta = 400;
 
-		clicks.current.push(Date.now());
-		clicks.current = getNewClicks(clicks.current, maxDelta);
-		switch (clicks.current.length) {
-			case 1:
-				clickTimeout.current = setTimeout(() => {
-					setIsDisplayingHierarchy(true);
-					setSelectedLocationId(input_location?._id);
-				}, maxDelta);
-				break;
-			case 2:
-				clearTimeout(clickTimeout.current);
-				setIsDisplayingHierarchy(false);
-				setSelectedLocationId(false);
+			clicks.current.push(Date.now());
+			clicks.current = getNewClicks(clicks.current, maxDelta);
+			switch (clicks.current.length) {
+				case 1:
+					clickTimeout.current = setTimeout(() => {
+						setIsDisplayingHierarchy(true);
+						setSelectedLocationId(input_location?._id);
+					}, maxDelta);
+					break;
+				case 2:
+					clearTimeout(clickTimeout.current);
+					setIsDisplayingHierarchy(false);
+					setSelectedLocationId(false);
 
-				let forwardDelta = 0;
-				if (input_location?.type === "star") forwardDelta = -4.5;
-				if (input_location?.type === "planet") forwardDelta = -3.2;
-				if (input_location?.type === "moon") forwardDelta = -2;
-				changeCurrentMapLocationId(input_location?._id, forwardDelta);
-				break;
-			default:
-				break;
-		}
-	}
+					let forwardDelta = 0;
+					if (input_location?.type === "star") forwardDelta = -4.5;
+					if (input_location?.type === "planet") forwardDelta = -3.2;
+					if (input_location?.type === "moon") forwardDelta = -2;
+					changeCurrentMapLocationId(input_location?._id, forwardDelta);
+					break;
+				default:
+					break;
+			}
+		},
+		[changeCurrentMapLocationId, getNewClicks, setIsDisplayingHierarchy, setSelectedLocationId]
+	);
 
 	return (
 		<group ref={ref}>
@@ -167,7 +176,8 @@ export const StarSystem = ({ locations, hierarchyItem, setCursorPointer }) => {
 											image={
 												locations3DMapImages === false
 													? undefined
-													: locations3DMapImages?.find((e) => e._id === childLocation?.data?.mapImage)?.image || false
+													: locations3DMapImages?.find((e) => e?._id === childLocation?.data?.mapVersions?.[0]?.mapImage)
+															?.mapImageReduced || false
 											}
 										/>
 									</OutlineContainer>

@@ -135,7 +135,7 @@
 	min-height: calc(100% + 5px);
 
 	--hue-rotation: var(--colour-accent-hsl-h);
-	filter: sepia(1) saturate(3.25) brightness(0.65) hue-rotate(calc(1deg * (var(--hue-rotation) - 38)));
+	filter: sepia(1) saturate(3.5) brightness(0.6) hue-rotate(calc(1deg * (var(--hue-rotation) - 38)));
 	transition: filter 0.4s;
 	object-fit: cover;
 }

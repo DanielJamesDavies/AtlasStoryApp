@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 // Components
 
@@ -34,25 +34,31 @@ export const SpaceMapLogic = () => {
 		if (travellingToMapLocationId !== false) setIsPlayerMovementEnabled(false);
 	}, [travellingToMapLocationId, setIsPlayerMovementEnabled]);
 
-	function onMouseEnter() {
+	const onMouseEnter = useCallback(() => {
 		setIsMouseOverMap(true);
 		setIsPlayerMovementEnabled(true);
-	}
+	}, [setIsMouseOverMap, setIsPlayerMovementEnabled]);
 
-	function onMouseLeave() {
+	const onMouseLeave = useCallback(() => {
 		setIsMouseOverMap(false);
 		setIsPlayerMovementEnabled(false);
-	}
+	}, [setIsMouseOverMap, setIsPlayerMovementEnabled]);
 
-	function setCursorPointer(value) {
-		if (locationsMapRef?.current && !isMouseControllingPlayer) locationsMapRef.current.style.cursor = value ? "pointer" : "auto";
-	}
+	const setCursorPointer = useCallback(
+		(value) => {
+			if (locationsMapRef?.current && !isMouseControllingPlayer) locationsMapRef.current.style.cursor = value ? "pointer" : "auto";
+		},
+		[locationsMapRef, isMouseControllingPlayer]
+	);
 
 	const [locationsMapLabelStyles, setLocationsMapLabelStyles] = useState({});
 
-	function onMouseMove(e) {
-		setLocationsMapLabelStyles({ left: e?.clientX, top: e?.clientY });
-	}
+	const onMouseMove = useCallback(
+		(e) => {
+			setLocationsMapLabelStyles({ left: e?.clientX, top: e?.clientY });
+		},
+		[setLocationsMapLabelStyles]
+	);
 
 	return {
 		locations,

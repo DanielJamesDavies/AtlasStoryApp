@@ -39,6 +39,8 @@ export const Scene = ({ setCursorPointer }) => {
 
 	useEffect(() => {
 		async function initializeScenes() {
+			if (hasInitializedScenes) return false;
+
 			const placeholderLocationsHierarchy = [
 				{
 					_id: "reality",
@@ -91,7 +93,7 @@ export const Scene = ({ setCursorPointer }) => {
 			setTimeout(() => setHasInitializedScenes(true), 1000);
 		}
 		initializeScenes();
-	}, [scenes, getItemFromIdInHierarchy, setCursorPointer]);
+	}, [hasInitializedScenes, setHasInitializedScenes, scenes, getItemFromIdInHierarchy, setCursorPointer]);
 
 	useEffect(() => {
 		function getScene() {
@@ -127,18 +129,18 @@ export const Scene = ({ setCursorPointer }) => {
 		getScene();
 	}, [
 		setScene,
+		hasInitializedScenes,
 		story,
 		locations,
 		currentMapLocationId,
 		getItemFromIdInHierarchy,
-		setCursorPointer,
 		scenes,
-		hasInitializedScenes,
 		currSceneLocationId,
 		playerApi,
 		changeCameraRotation,
 		scenesChangePlayerInitial,
 		setMapObjectLocations,
+		setCursorPointer,
 	]);
 
 	return scene;

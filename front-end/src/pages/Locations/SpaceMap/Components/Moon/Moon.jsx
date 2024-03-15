@@ -31,8 +31,14 @@ export const Moon = ({
 
 	const surfaceMap = useLoader(TextureLoader, !image ? "/Assets/Map/Moon1/2k_moon.jpg" : image);
 
+	const delta_buffer = useRef(0);
+
 	useFrame((_, delta) => {
-		if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
+		delta_buffer.current += delta;
+		if (delta_buffer?.current > 0.1) {
+			delta_buffer.current = 0;
+			if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
+		}
 
 		const rotation_speed = 0.1;
 		ref.current.rotation.x -= delta * 0.4 * Math.min(1 / (scale * scale), 3) * dayLength * rotation_speed;

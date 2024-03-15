@@ -26,8 +26,14 @@ export const Planet = ({ location_id, position, scale = 1, tilt = 0, dayLength =
 		setNewScale(Math.min(Math.max(scale, 0.001), 0.05));
 	}, [scale, setNewScale]);
 
+	const delta_buffer = useRef(0);
+
 	useFrame((_, delta) => {
-		if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
+		delta_buffer.current += delta;
+		if (delta_buffer?.current > 0.1) {
+			delta_buffer.current = 0;
+			if (addToMapObjectLocations) addToMapObjectLocations({ _id: location_id, pos: ref.current.getWorldPosition(new Vector3()) });
+		}
 
 		const rotation_speed = 0.1;
 		ref.current.rotation.x -= delta * 0.4 * Math.min(1 / (new_scale * new_scale), 3) * dayLength * rotation_speed;
