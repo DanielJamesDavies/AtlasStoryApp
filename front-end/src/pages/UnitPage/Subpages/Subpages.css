@@ -62,6 +62,10 @@
 		height: calc(100% - var(--unitPagePaddingTopVariable));
 	}
 
+	.unit-page-subpages-container:before {
+		display: none !important;
+	}
+
 	.unit-page-subpages {
 		flex-direction: column;
 	}
