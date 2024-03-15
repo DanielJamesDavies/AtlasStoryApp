@@ -17,7 +17,19 @@
 }
 
 .unit-page-subpage-abilities-ability-statistics-title {
+	position: relative;
+	margin-top: 6px;
 	margin-bottom: 3px;
 	font-size: 14px;
 	font-weight: 600;
+}
+
+.unit-page-subpage-abilities-ability-statistics-title::after {
+	position: absolute;
+	top: -12px;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 1px;
+	background: var(--colour-grey-three);
 }

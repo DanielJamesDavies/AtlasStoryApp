@@ -7,40 +7,6 @@
 	overflow: hidden;
 }
 
-/* .unit-page-container::before {
-	position: absolute;
-	z-index: -100;
-	top: -24px;
-	left: 0;
-	display: block;
-	content: "";
-	width: calc(100% + (7px));
-	height: calc(var(--unitPagePaddingTop) + 12px);
-	background: linear-gradient(0deg, var(--unitColour), var(--colour-grey-one));
-	opacity: 0.6;
-	transition: opacity 0.2s;
-}
-
-.theme-light .unit-page-container::before {
-	top: calc(-24px + -96px);
-	height: calc(var(--unitPagePaddingTop) + 12px + 96px);
-	opacity: 1;
-}
-
-.unit-page-container::after {
-	position: absolute;
-	z-index: -100;
-	top: calc(var(--unitPagePaddingTop) - 12px);
-	left: 0;
-	display: block;
-	content: "";
-	width: calc(100% + (7px));
-	height: calc(6px + 6px + 36px);
-	background: linear-gradient(180deg, var(--unitColour), var(--colour-grey-one));
-	opacity: 0.35;
-	transition: opacity 0.2s;
-} */
-
 .theme-light .unit-page-container::after {
 	opacity: 1;
 }

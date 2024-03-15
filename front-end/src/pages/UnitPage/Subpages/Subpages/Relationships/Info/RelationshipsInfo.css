@@ -3,11 +3,7 @@
 	z-index: 1;
 	display: inline-block;
 	vertical-align: top;
-	margin-left: 12px;
 	width: 400px;
-	max-height: var(--unitPageSubpageMaxHeight);
-	overflow-y: scroll;
-	overflow-x: hidden;
 }
 
 @media (max-width: 1100px) {

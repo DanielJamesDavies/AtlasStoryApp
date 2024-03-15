@@ -1,7 +1,5 @@
 .unit-page-subpage-relationships {
 	position: relative;
-	max-height: calc(var(--vh) - var(--characterPaddingTop) - 24px);
-	overflow-x: hidden;
 }
 
 .unit-page-subpage-relationships-primary-buttons-container {
@@ -17,23 +15,19 @@
 
 .unit-page-subpage-relationships-content {
 	position: relative;
+	display: flex;
+	gap: 48px;
 	min-height: 80px;
-	height: var(--unitPageSubpageMaxHeight);
 }
 
 @media (max-width: 1100px) {
 	.unit-page-subpage-relationships {
 		height: var(--unitPageSubpageMaxHeight);
-		max-height: var(--unitPageSubpageMaxHeight);
 		overflow-y: overlay;
 	}
 
 	.unit-page-subpage-relationships-primary-buttons-container {
 		display: flex;
-	}
-
-	.unit-page-subpage-relationships-content {
-		height: calc(var(--unitPageSubpageMaxHeight) - 24px - 8px);
 	}
 }
 

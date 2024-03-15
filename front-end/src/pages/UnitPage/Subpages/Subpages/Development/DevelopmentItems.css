@@ -1,8 +1,5 @@
 .unit-page-subpage-development-items {
 	display: inline-block;
 	flex-flow: column wrap;
-	padding-right: 12px;
-
-	overflow-y: overlay;
-	overflow-x: hidden;
+	width: 100%;
 }

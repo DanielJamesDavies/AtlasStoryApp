@@ -3,8 +3,6 @@
 	padding-right: 8px;
 
 	width: calc(100% - 310px - 24px - 8px);
-	overflow-y: overlay;
-	overflow-x: hidden;
 	vertical-align: top;
 }
 

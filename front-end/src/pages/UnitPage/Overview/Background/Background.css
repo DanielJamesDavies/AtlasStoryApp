@@ -44,7 +44,7 @@
 
 	.unit-page-container-subpages-header-not-full-size.unit-page-container-is-on-subpages .unit-page-overview-background-container {
 		max-width: 1200px;
-		height: calc(140px);
+		height: calc(110px);
 		transform: translate(calc(-50% + (var(--navbar-width) / 2 - 23px)), calc(-50% + 589px - 100px));
 	}
 
@@ -56,7 +56,7 @@
 		.unit-page-content-container-is-on-subpages
 		.unit-page-overview-background-wrapper {
 		transform: translateY(calc(235px + 80px));
-		filter: blur(4px);
+		filter: blur(3px);
 	}
 
 	.unit-page-content-container-is-on-subpages .unit-page-overview-background-wrapper .unit-page-overview-background-space-map-container {

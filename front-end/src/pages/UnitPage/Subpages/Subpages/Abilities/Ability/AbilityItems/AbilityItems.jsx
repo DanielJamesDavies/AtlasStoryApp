@@ -14,7 +14,6 @@ import { AbilityItemsLogic } from "./AbilityItemsLogic";
 // Services
 
 // Styles
-import "./AbilityItems.css";
 
 // Assets
 

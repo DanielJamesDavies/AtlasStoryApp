@@ -51,7 +51,7 @@ export const UnitPage = () => {
 					? {
 							...unitPageStyle,
 							...{
-								"--unitPagePaddingTop": isUnitPageSubpagesHeaderFullSize ? "275px" : "107px",
+								"--unitPagePaddingTop": isUnitPageSubpagesHeaderFullSize ? "275px" : "95px",
 								"--unitPagePaddingTopVariable":
 									unitPagePrimaryRef?.current?.clientHeight +
 									parseFloat(window.getComputedStyle(unitPagePrimaryRef?.current)?.marginTop) +
