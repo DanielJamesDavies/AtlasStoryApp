@@ -32,8 +32,10 @@ export const Members = () => {
 					>
 						{member?.nickname}
 						{storyMembers.filter((e) => e.type !== "viewer").length - 1 === index ? null : ","}
-						<div className='story-header-main-info-member-label'>
-							<div className='ustory-header-main-info-member-label-username'>@{member?.username}</div>
+						<div className='story-header-main-info-member-label-container'>
+							<div className='story-header-main-info-member-label'>
+								<div className='ustory-header-main-info-member-label-username'>@{member?.username}</div>
+							</div>
 						</div>
 					</div>
 				))}
