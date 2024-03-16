@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 // Components
 
@@ -21,13 +21,17 @@ export const CharacterTypeLogic = () => {
 
 	const [characterType, setUnitType] = useState({});
 
+	const prevCharacterTypeID = useRef();
 	useEffect(() => {
-		setUnitType(
+		const newCharacterType =
 			storyCharacterTypes.findIndex((e) => e._id === unit?.character_type_id) === -1
 				? {}
-				: storyCharacterTypes.find((e) => e._id === unit?.character_type_id)
-		);
-	}, [unit, storyCharacterTypes, setUnitType]);
+				: storyCharacterTypes.find((e) => e._id === unit?.character_type_id);
+		if (newCharacterType !== prevCharacterTypeID.current) {
+			setUnitType(newCharacterType);
+			prevCharacterTypeID.current = newCharacterType;
+		}
+	}, [prevCharacterTypeID, unit, storyCharacterTypes, setUnitType]);
 
 	function changeCharacterType(index) {
 		setUnit((oldCharacter) => {

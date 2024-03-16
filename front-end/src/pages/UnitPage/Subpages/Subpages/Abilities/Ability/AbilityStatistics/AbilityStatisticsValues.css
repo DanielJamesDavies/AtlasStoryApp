@@ -71,6 +71,7 @@
 	margin-left: auto;
 	margin-right: 5px;
 	width: fit-content;
+	min-width: 15px;
 }
 
 .unit-page-subpage-abilities-ability-statistics-max-value-value {
