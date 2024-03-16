@@ -1,14 +1,12 @@
 .unit-page-subpage-abilities-ability {
 	display: inline-block;
-	padding-right: 8px;
 
-	width: calc(100% - 310px - 24px - 8px);
+	width: calc(100% - 260px - 24px);
 	vertical-align: top;
 }
 
 @media (max-width: 750px) {
 	.unit-page-subpage-abilities-ability {
-		padding-right: 8px;
-		width: calc(100% - 8px);
+		width: 100%;
 	}
 }
