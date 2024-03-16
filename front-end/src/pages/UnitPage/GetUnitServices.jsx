@@ -450,7 +450,7 @@ export const GetUnitServices = ({
 			});
 			getCharacterRelationshipsCharacters();
 		}
-	}, [unit_type, unit, storyCharacters, getCharacterRelationships, getCharacterRelationshipsCharacters]);
+	}, [unit_type, unit, storyCharacters, storyCharacterRelationships, getCharacterRelationships, getCharacterRelationshipsCharacters]);
 
 	// Get Unit Soundtrack
 	const getUnitSoundtrack = useCallback(

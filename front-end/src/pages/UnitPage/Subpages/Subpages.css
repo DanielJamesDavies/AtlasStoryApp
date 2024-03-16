@@ -44,7 +44,9 @@
 .unit-page-subpage-container {
 	--unitPageSubpageMaxHeight: calc(var(--vh) - var(--unitPagePaddingTop) - 60px - 8px);
 	padding: 12px 8px;
-	width: calc(100% - 16px);
+	padding-right: 2px;
+	box-sizing: border-box;
+	width: 100%;
 	min-height: calc(100% - 60px - 8px);
 	max-height: var(--unitPageSubpageMaxHeight);
 	overflow-y: scroll;
