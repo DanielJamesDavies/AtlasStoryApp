@@ -437,19 +437,14 @@ export const GetUnitServices = ({
 		setCharacterRelationshipsCharacters(newRelationshipsCharacters);
 	}, [setCharacterRelationshipsCharacters, unit, storyCharacters, characterRelationships, storyGroups, unit_uid]);
 
-	const isReadyToGetCharacterRelationships = useRef(true);
 	useEffect(() => {
-		if (["character"].includes(unit_type) && isReadyToGetCharacterRelationships.current) {
-			getCharacterRelationships().then((e) => {
-				if (e.length === 0) {
-					isReadyToGetCharacterRelationships.current = false;
-					setTimeout(() => {
-						isReadyToGetCharacterRelationships.current = true;
-					}, 3000);
-				}
-			});
-			getCharacterRelationshipsCharacters();
+		async function runGetCharacterRelationshipsAndCharacters() {
+			if (["character"].includes(unit_type) && storyCharacterRelationships !== false) {
+				await getCharacterRelationships();
+				getCharacterRelationshipsCharacters();
+			}
 		}
+		runGetCharacterRelationshipsAndCharacters();
 	}, [unit_type, unit, storyCharacters, storyCharacterRelationships, getCharacterRelationships, getCharacterRelationshipsCharacters]);
 
 	// Get Unit Soundtrack

@@ -31,7 +31,7 @@ const StoryProvider = ({ children }) => {
 	const [storyGroups, setStoryGroups] = useState([]);
 	const [storyCharacters, setStoryCharacters] = useState([]);
 	const [hasGotStoryCharacters, setHasGotStoryCharacters] = useState(false);
-	const [storyCharacterRelationships, setStoryCharacterRelationships] = useState([]);
+	const [storyCharacterRelationships, setStoryCharacterRelationships] = useState(false);
 	const [storyCharacterTypes, setStoryCharacterTypes] = useState([]);
 	const [storySubstories, setStorySubstories] = useState([]);
 	const [locations, setLocations] = useState(false);
