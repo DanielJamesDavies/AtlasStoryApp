@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useRef } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 
 // Components
 
@@ -15,8 +15,8 @@ import { APIContext } from "../../../../../../context/APIContext";
 
 // Assets
 
-export const PlotClustersLogic = ({ switchCluster, setIsDisplayingClusters }) => {
-	const { unit_type, isAuthorizedToEdit, story, unit, setUnit } = useContext(UnitPageContext);
+export const PlotClustersLogic = ({ currCluster, switchCluster, setIsDisplayingClusters }) => {
+	const { unit_type, isAuthorizedToEdit, story, unit, setUnit, subpageContainerRef, getSubpageItemTopOffset } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 
 	async function addCluster() {
@@ -96,10 +96,22 @@ export const PlotClustersLogic = ({ switchCluster, setIsDisplayingClusters }) =>
 	}
 
 	const plotClustersRef = useRef();
-	function onPlotClustersContainerScroll(e) {
-		if (plotClustersRef?.current?.scrollTop === 0) return;
-		e.stopPropagation();
-	}
+	useEffect(() => {
+		async function getTopOffset(e) {
+			if (plotClustersRef?.current) {
+				if (window?.innerWidth > 750) {
+					plotClustersRef.current.style.marginTop =
+						getSubpageItemTopOffset(plotClustersRef?.current?.clientHeight, e?.deltaY || 0) + "px";
+				} else {
+					plotClustersRef.current.style.marginTop = "0px";
+				}
+			}
+		}
+		getTopOffset();
+		const subpageContainerRefCurrent = subpageContainerRef?.current;
+		if (subpageContainerRefCurrent) subpageContainerRefCurrent?.addEventListener("scroll", getTopOffset);
+		return () => subpageContainerRefCurrent?.removeEventListener("scroll", getTopOffset);
+	}, [currCluster, subpageContainerRef, plotClustersRef, getSubpageItemTopOffset]);
 
 	return {
 		isAuthorizedToEdit,
@@ -114,6 +126,5 @@ export const PlotClustersLogic = ({ switchCluster, setIsDisplayingClusters }) =>
 		removeCluster,
 		changeClusterName,
 		plotClustersRef,
-		onPlotClustersContainerScroll,
 	};
 };

@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 
 // Components
 
@@ -16,7 +16,19 @@ import { APIContext } from "../../../../../../context/APIContext";
 // Assets
 
 export const AbilitiesListLogic = ({ currAbility, changeAbility, switchAbility }) => {
-	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion, unitVersionItemCopying, changeUnitVersionItemCopying, pasteVersionItemCopying } = useContext(UnitPageContext);
+	const {
+		unit_type,
+		isAuthorizedToEdit,
+		story,
+		unit,
+		unitVersion,
+		changeUnitVersion,
+		unitVersionItemCopying,
+		changeUnitVersionItemCopying,
+		pasteVersionItemCopying,
+		subpageContainerRef,
+		getSubpageItemTopOffset,
+	} = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 
 	const [abilitiesPasted, setAbilitiesPasted] = useState([]);
@@ -139,6 +151,24 @@ export const AbilitiesListLogic = ({ currAbility, changeAbility, switchAbility }
 		});
 	}
 
+	const abilitiesListRef = useRef();
+	useEffect(() => {
+		async function getTopOffset(e) {
+			if (abilitiesListRef?.current) {
+				if (window?.innerWidth > 750) {
+					abilitiesListRef.current.style.marginTop =
+						getSubpageItemTopOffset(abilitiesListRef?.current?.clientHeight, e?.deltaY || 0) + "px";
+				} else {
+					abilitiesListRef.current.style.marginTop = "0px";
+				}
+			}
+		}
+		getTopOffset();
+		const subpageContainerRefCurrent = subpageContainerRef?.current;
+		if (subpageContainerRefCurrent) subpageContainerRefCurrent?.addEventListener("scroll", getTopOffset);
+		return () => subpageContainerRefCurrent?.removeEventListener("scroll", getTopOffset);
+	}, [currAbility, subpageContainerRef, abilitiesListRef, getSubpageItemTopOffset]);
+
 	return {
 		isAuthorizedToEdit,
 		unitVersion,
@@ -155,5 +185,6 @@ export const AbilitiesListLogic = ({ currAbility, changeAbility, switchAbility }
 		unitVersionItemCopying,
 		copyVersionValue,
 		pasteVersionValue,
+		abilitiesListRef,
 	};
 };

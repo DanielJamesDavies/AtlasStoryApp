@@ -115,6 +115,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 	const [openSubpageID, setOpenSubpageID] = useState(false);
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	const [isUnitPageSubpagesHeaderFullSize, setIsUnitPageSubpagesHeaderFullSize] = useState(true);
+	const subpageContainerRef = useRef();
 
 	useEffect(() => {
 		if (routesUnitSubpageID) {
@@ -450,6 +451,17 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		[unitVersionItemCopying, unit, unitVersion, changeUnitVersion]
 	);
 
+	const getSubpageItemTopOffset = useCallback(
+		(item_height, delta_y) => {
+			const new_scroll_top = Math.min(
+				subpageContainerRef?.current?.scrollHeight - subpageContainerRef?.current?.clientHeight,
+				isUnitPageSubpagesHeaderFullSize ? 0 : Math.max(0, subpageContainerRef?.current?.scrollTop + delta_y)
+			);
+			return Math.max(0, new_scroll_top - Math.max(0, item_height - subpageContainerRef?.current?.clientHeight + 12));
+		},
+		[isUnitPageSubpagesHeaderFullSize, subpageContainerRef]
+	);
+
 	return (
 		<UnitPageContext.Provider
 			value={{
@@ -515,6 +527,8 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				setIsOnOverviewSection,
 				isUnitPageSubpagesHeaderFullSize,
 				setIsUnitPageSubpagesHeaderFullSize,
+				subpageContainerRef,
+				getSubpageItemTopOffset,
 				decrementUnitVersion,
 				incrementUnitVersion,
 				changeUnitVersion,

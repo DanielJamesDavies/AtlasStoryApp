@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState, useRef } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 
 // Components
 
@@ -15,8 +15,8 @@ import { APIContext } from "../../../../../../context/APIContext";
 
 // Assets
 
-export const PlotItemGroupsLogic = ({ cluster, changeCluster, setGroupID, setIsDisplayingItemGroups }) => {
-	const { unit_type, isAuthorizedToEdit, story, unit } = useContext(UnitPageContext);
+export const PlotItemGroupsLogic = ({ currGroupID, cluster, changeCluster, setGroupID, setIsDisplayingItemGroups }) => {
+	const { unit_type, isAuthorizedToEdit, story, unit, subpageContainerRef, getSubpageItemTopOffset } = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 
 	const [isReorderingItemGroups, setIsReorderingItemGroups] = useState(false);
@@ -96,10 +96,22 @@ export const PlotItemGroupsLogic = ({ cluster, changeCluster, setGroupID, setIsD
 	}
 
 	const plotItemGroupsRef = useRef();
-	function onPlotItemGroupsContainerScroll(e) {
-		if (plotItemGroupsRef?.current?.scrollTop === 0) return;
-		e.stopPropagation();
-	}
+	useEffect(() => {
+		async function getTopOffset(e) {
+			if (plotItemGroupsRef?.current) {
+				if (window?.innerWidth > 750) {
+					plotItemGroupsRef.current.style.marginTop =
+						getSubpageItemTopOffset(plotItemGroupsRef?.current?.clientHeight, e?.deltaY || 0) + "px";
+				} else {
+					plotItemGroupsRef.current.style.marginTop = "0px";
+				}
+			}
+		}
+		getTopOffset();
+		const subpageContainerRefCurrent = subpageContainerRef?.current;
+		if (subpageContainerRefCurrent) subpageContainerRefCurrent?.addEventListener("scroll", getTopOffset);
+		return () => subpageContainerRefCurrent?.removeEventListener("scroll", getTopOffset);
+	}, [cluster, currGroupID, subpageContainerRef, plotItemGroupsRef, getSubpageItemTopOffset]);
 
 	return {
 		isAuthorizedToEdit,
@@ -113,6 +125,5 @@ export const PlotItemGroupsLogic = ({ cluster, changeCluster, setGroupID, setIsD
 		removeItemGroup,
 		changeItemGroupName,
 		plotItemGroupsRef,
-		onPlotItemGroupsContainerScroll,
 	};
 };

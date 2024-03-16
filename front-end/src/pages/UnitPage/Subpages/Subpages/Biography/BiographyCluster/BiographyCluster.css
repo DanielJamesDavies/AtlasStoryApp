@@ -1,6 +1,7 @@
 .unit-page-subpage-biography-cluster {
 	display: inline-block;
 	width: calc(100% - 310px - 24px);
+	overflow-y: auto;
 	vertical-align: top;
 }
 

@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 // Components
 
@@ -16,7 +16,19 @@ import { APIContext } from "../../../../../../context/APIContext";
 // Assets
 
 export const BiographyClusterListLogic = ({ currBiographyCluster, changeBiographyCluster, switchBiographyCluster }) => {
-	const { unit_type, isAuthorizedToEdit, story, unit, unitVersion, changeUnitVersion, unitVersionItemCopying, changeUnitVersionItemCopying, pasteVersionItemCopying } = useContext(UnitPageContext);
+	const {
+		unit_type,
+		isAuthorizedToEdit,
+		story,
+		unit,
+		unitVersion,
+		changeUnitVersion,
+		unitVersionItemCopying,
+		changeUnitVersionItemCopying,
+		pasteVersionItemCopying,
+		subpageContainerRef,
+		getSubpageItemTopOffset,
+	} = useContext(UnitPageContext);
 	const { APIRequest } = useContext(APIContext);
 
 	const [biographyClustersPasted, setBiographyClustersPasted] = useState([]);
@@ -160,6 +172,24 @@ export const BiographyClusterListLogic = ({ currBiographyCluster, changeBiograph
 		});
 	}
 
+	const biologyClusterListRef = useRef();
+	useEffect(() => {
+		async function getBiologyClusterListTopOffset(e) {
+			if (biologyClusterListRef?.current) {
+				if (window?.innerWidth > 750) {
+					biologyClusterListRef.current.style.marginTop =
+						getSubpageItemTopOffset(biologyClusterListRef?.current?.clientHeight, e?.deltaY || 0) + "px";
+				} else {
+					biologyClusterListRef.current.style.marginTop = "0px";
+				}
+			}
+		}
+		getBiologyClusterListTopOffset();
+		const subpageContainerRefCurrent = subpageContainerRef?.current;
+		if (subpageContainerRefCurrent) subpageContainerRefCurrent?.addEventListener("scroll", getBiologyClusterListTopOffset);
+		return () => subpageContainerRefCurrent?.removeEventListener("scroll", getBiologyClusterListTopOffset);
+	}, [currBiographyCluster, subpageContainerRef, biologyClusterListRef, getSubpageItemTopOffset]);
+
 	return {
 		isAuthorizedToEdit,
 		unitVersion,
@@ -177,5 +207,6 @@ export const BiographyClusterListLogic = ({ currBiographyCluster, changeBiograph
 		unitVersionItemCopying,
 		copyVersionValue,
 		pasteVersionValue,
+		biologyClusterListRef,
 	};
 };

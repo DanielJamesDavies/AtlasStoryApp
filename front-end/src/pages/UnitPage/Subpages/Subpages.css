@@ -48,7 +48,7 @@
 	box-sizing: border-box;
 	width: 100%;
 	min-height: calc(100% - 60px - 8px);
-	max-height: var(--unitPageSubpageMaxHeight);
+	max-height: calc(var(--unitPageSubpageMaxHeight) + 24px);
 	overflow-y: scroll;
 }
 

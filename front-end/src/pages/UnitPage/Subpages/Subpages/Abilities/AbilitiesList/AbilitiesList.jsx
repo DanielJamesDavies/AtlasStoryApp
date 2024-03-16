@@ -36,10 +36,11 @@ export const AbilitiesList = ({ currAbility, changeAbility, switchAbility }) => 
 		unitVersionItemCopying,
 		copyVersionValue,
 		pasteVersionValue,
+		abilitiesListRef,
 	} = AbilitiesListLogic({ currAbility, changeAbility, switchAbility });
 
 	return (
-		<div className='unit-page-subpage-abilities-list'>
+		<div ref={abilitiesListRef} className='unit-page-subpage-abilities-list'>
 			<EditableContainer
 				isAuthorizedToEdit={isAuthorizedToEdit}
 				onAdd={addAbility}

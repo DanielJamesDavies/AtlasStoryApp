@@ -38,9 +38,8 @@ export const SubpagesLogic = () => {
 		setIsOnOverviewSection,
 		isUnitPageSubpagesHeaderFullSize,
 		setIsUnitPageSubpagesHeaderFullSize,
+		subpageContainerRef,
 	} = useContext(UnitPageContext);
-
-	const subpageContainerRef = useRef();
 
 	useEffect(() => {
 		const subpageContainerRefCurrent = subpageContainerRef?.current;

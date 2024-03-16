@@ -4,6 +4,7 @@
 import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
+import { BtnListContainer } from "../../../../../../components/BtnListContainer/BtnListContainer";
 import { BtnListItem } from "../../../../../../components/BtnListItem/BtnListItem";
 
 // Logic
@@ -15,7 +16,6 @@ import { BiographyClusterListLogic } from "./BiographyClusterListLogic";
 
 // Styles
 import "./BiographyClusterList.css";
-import { BtnListContainer } from "../../../../../../components/BtnListContainer/BtnListContainer";
 
 // Assets
 
@@ -37,10 +37,11 @@ export const BiographyClusterList = ({ currBiographyCluster, changeBiographyClus
 		unitVersionItemCopying,
 		copyVersionValue,
 		pasteVersionValue,
+		biologyClusterListRef,
 	} = BiographyClusterListLogic({ currBiographyCluster, changeBiographyCluster, switchBiographyCluster });
 
 	return (
-		<div className='unit-page-subpage-biography-cluster-list'>
+		<div ref={biologyClusterListRef} className='unit-page-subpage-biography-cluster-list'>
 			<EditableContainer
 				isAuthorizedToEdit={isAuthorizedToEdit}
 				onAdd={addBiographyCluster}
@@ -48,7 +49,8 @@ export const BiographyClusterList = ({ currBiographyCluster, changeBiographyClus
 				onRevert={revertBiographyClusters}
 				onSave={saveBiographyClusters}
 				onDefault={defaultBiographyClusters}
-				onScroll={onBiographyClusterListScroll}onCopyVersionValue={copyVersionValue}
+				onScroll={onBiographyClusterListScroll}
+				onCopyVersionValue={copyVersionValue}
 				onPasteVersionValue={JSON.stringify(unitVersionItemCopying?.item) !== JSON.stringify(["biography"]) ? undefined : pasteVersionValue}
 			>
 				<BtnListContainer>
