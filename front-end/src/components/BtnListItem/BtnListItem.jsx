@@ -30,7 +30,8 @@ export const BtnListItem = ({ className, size, value, index, isActive, hasFoundA
 				(className ? " " + className : "") +
 				(size ? " btn-list-item-size-" + size : "") +
 				(isBtnListOpen === false ? " btn-list-item-list-closed" : "") +
-				(hasBackground !== false ? " btn-list-item-list-has-background" : "")
+				(hasBackground !== false ? " btn-list-item-list-has-background" : "") +
+				(value === undefined ? " btn-list-item-list-loading" : "")
 			}
 			onClick={onBtnListItemClick}
 			onAuxClick={onClick}

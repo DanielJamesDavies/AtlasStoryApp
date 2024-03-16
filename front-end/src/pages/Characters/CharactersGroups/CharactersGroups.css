@@ -104,6 +104,10 @@
 	user-select: none;
 }
 
+.characters-groups-group-item-container .btn-list-item-list-loading {
+	min-width: 100px;
+}
+
 .characters-groups-group-item-container .btn-list-item-active {
 	position: relative;
 	z-index: 1;

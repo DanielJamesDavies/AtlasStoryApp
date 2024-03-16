@@ -15,10 +15,20 @@ import "./CharactersGroupCharacterCard.css";
 // Assets
 
 export const CharactersGroupCharacterCard = ({ characterID }) => {
-	const { character, characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles, cardSizeRef, cardSize, backgroundImageSizeRef } =
-		CharactersGroupCharacterCardLogic({
-			characterID,
-		});
+	const {
+		character,
+		characterType,
+		navigateToCharacter,
+		onCharacterCardMouseDown,
+		cardStyles,
+		cardSizeRef,
+		cardSize,
+		backgroundImageSizeRef,
+		backgroundImageSize,
+		backgroundImageRef,
+	} = CharactersGroupCharacterCardLogic({
+		characterID,
+	});
 
 	if (!character) return <div ref={cardSizeRef} className='characters-group-character-card-placeholder' />;
 	return (
@@ -76,14 +86,17 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 									style={{
 										"--scale":
 											Math.max(
-												cardSize?.height,
-												cardSize?.width *
-													(parseFloat(character?.data?.cardBackgroundProperties?.scale) || 1) *
-													(backgroundImageSizeRef?.current?.clientHeight / backgroundImageSizeRef?.current?.clientWidth)
-											) /
-											(cardSize?.width *
 												(parseFloat(character?.data?.cardBackgroundProperties?.scale) || 1) *
-												(backgroundImageSizeRef?.current?.clientHeight / backgroundImageSizeRef?.current?.clientWidth)),
+													(cardSize?.height || (window?.innerWidth > 750 ? 585 : 1)),
+												(cardSize?.width || 412) *
+													(parseFloat(character?.data?.cardBackgroundProperties?.scale) || 1) *
+													(backgroundImageRef?.current?.clientHeight /
+														(backgroundImageSize?.width || backgroundImageRef?.current?.clientWidth))
+											) /
+											((cardSize?.width || (window?.innerWidth > 750 ? 412 : 1)) *
+												(parseFloat(character?.data?.cardBackgroundProperties?.scale) || 1) *
+												((backgroundImageSize?.height || backgroundImageRef?.current?.clientHeight) /
+													(backgroundImageSize?.width || backgroundImageRef?.current?.clientWidth))),
 									}}
 								/>
 							</div>
