@@ -21,11 +21,15 @@ import "./Primary.css";
 
 // Assets
 
-export const Primary = () => {
+export const Primary = ({ isMobile }) => {
 	const { unit_type, unitPagePrimaryRef, unitPagePrimaryVersionRef, primaryStoryStyles, toOverviewSection, toSubpagesSection } = PrimaryLogic();
 
 	return (
-		<div ref={unitPagePrimaryRef} className='unit-page-primary-container' style={primaryStoryStyles}>
+		<div
+			ref={unitPagePrimaryRef}
+			className={"unit-page-primary-container" + (isMobile ? " unit-page-primary-is-mobile" : "")}
+			style={primaryStoryStyles}
+		>
 			<button
 				className='unit-page-primary-section-switcher-btn unit-page-primary-section-switcher-btn-to-overview'
 				onClick={toOverviewSection}

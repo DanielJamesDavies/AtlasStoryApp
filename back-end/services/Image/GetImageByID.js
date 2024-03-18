@@ -1,5 +1,5 @@
 const Image = require("../../models/Image");
-// const sharp = require("sharp");
+const sharp = require("sharp");
 
 const { storage, ref, uploadString, getDownloadURL } = require("../FirebaseConfig");
 
@@ -26,26 +26,26 @@ module.exports = async (req, res) => {
 			if (image?.image?.split(",")[0].split("/")[1].split(";")[0].trim() === "png") {
 				console.log("PNG Image Not On Firebase Storage: ", req?.params?.id, image?.image?.split(",")[0]);
 
-				// const webp_base64 = await new Promise((resolve) => {
-				// 	sharp(Buffer.from(image?.image.split(",")[1], "base64"))
-				// 		.webp()
-				// 		.toBuffer()
-				// 		.then((output_buffer) => {
-				// 			resolve(output_buffer.toString("base64"));
-				// 		})
-				// 		.catch((e) => {
-				// 			console.error("Error:", e);
-				// 			resolve(false);
-				// 		});
-				// });
+				try {
+					const webp_base64 = await new Promise((resolve) => {
+						sharp(Buffer.from(image?.image.split(",")[1], "base64"))
+							.webp()
+							.toBuffer()
+							.then((output_buffer) => {
+								resolve(output_buffer.toString("base64"));
+							})
+							.catch((e) => {
+								console.error("Error:", e);
+								resolve(false);
+							});
+					});
 
-				// const storageRef = ref(storage, `images/${req?.params?.id}.webp`);
-				// try {
-				// 	uploadString(storageRef, webp_base64, "base64");
-				// } catch (e) {
-				// 	console.log(image?.image);
-				// 	console.log(e);
-				// }
+					const storageRef = ref(storage, `images/${req?.params?.id}.webp`);
+					uploadString(storageRef, webp_base64, "base64");
+				} catch (e) {
+					console.log(image?.image);
+					console.log("ERROR:", e);
+				}
 			} else {
 				console.log("Image Not On Firebase Storage: ", req?.params?.id, image?.image?.split(",")[0]);
 

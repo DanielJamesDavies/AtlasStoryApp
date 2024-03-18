@@ -16,6 +16,7 @@
     "jwt-decode": "^3.1.2",
     "mongoose": "^6.6.7",
     "nodemailer": "^6.7.5",
+    "sharp": "^0.33.2",
     "storyapp": "file:..",
     "uuid": "^8.3.2"
   },

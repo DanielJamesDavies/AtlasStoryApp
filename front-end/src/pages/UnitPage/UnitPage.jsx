@@ -78,7 +78,7 @@ export const UnitPage = () => {
 						: "unit-page unit-page-hidden"
 				}
 			>
-				<Primary />
+				<Primary isMobile={true} />
 				<div
 					className={
 						isOnOverviewSection
@@ -86,6 +86,7 @@ export const UnitPage = () => {
 							: "unit-page-content-container unit-page-content-container-is-on-subpages"
 					}
 				>
+					<Primary isMobile={false} />
 					<Overview innerRef={unitOverviewContainerRef} />
 					<SectionSwitcher />
 					<Subpages innerRef={unitSubpagesContainerRef} />
