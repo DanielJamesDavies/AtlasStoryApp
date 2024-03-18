@@ -90,8 +90,12 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 		setTimeout(() => updateCardSize(), 3);
 		setTimeout(() => updateCardSize(), 4);
 		setTimeout(() => updateCardSize(), 5);
+		document.addEventListener("visibilitychange", updateCardSize);
 		window.addEventListener("resize", updateCardSize);
-		return () => window.removeEventListener("resize", updateCardSize);
+		return () => {
+			document.removeEventListener("visibilitychange", updateCardSize);
+			window.removeEventListener("resize", updateCardSize);
+		};
 	}, [characterID, updateCardSize]);
 
 	const cardSizeRef = useCallback((node) => {
