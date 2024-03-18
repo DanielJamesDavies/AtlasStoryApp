@@ -4,7 +4,6 @@ import { FaTimes, FaImage, FaPlus } from "react-icons/fa";
 // Components
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
-import { ContentItem } from "../../../../../../components/ContentItem/ContentItem";
 import { Text } from "../../../../../../components/Text/Text";
 import { TextInput } from "../../../../../../components/TextInput/TextInput";
 import { MultiLineTextInput } from "../../../../../../components/MultiLineTextInput/MultiLineTextInput";

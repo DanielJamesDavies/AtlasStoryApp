@@ -3,7 +3,6 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Components
 import { IconBtn } from "../../../../components/IconBtn/IconBtn";
-import { BtnListItem } from "../../../../components/BtnListItem/BtnListItem";
 
 // Logic
 import { SubpagesBtnsLogic } from "./SubpagesBtnsLogic";

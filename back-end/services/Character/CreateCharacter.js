@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const Character = require("../../models/Character");
+const CharacterCard = require("../../models/CharacterCard");
 const Group = require("../../models/Group");
 const Story = require("../../models/Story");
 
@@ -25,6 +26,8 @@ module.exports = async (req, res) => {
 			summaryItems: default_summary_items_labels.map((label) => {
 				return { label, text: "" };
 			}),
+			cardBackground: new mongoose.Types.ObjectId(),
+			cardBackgroundProperties: new mongoose.Types.ObjectId(),
 		},
 	});
 
@@ -36,6 +39,27 @@ module.exports = async (req, res) => {
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Character Could Not Be Created" }] });
 	}
+
+	try {
+		const character_card = new CharacterCard({
+			_id: character?._id,
+			story_id: character?.story_id,
+			group_id: character?.group_id,
+			uid: character?.uid,
+			isPrimaryCharacter: character?.isPrimaryCharacter,
+			data: {
+				name: character?.data?.name,
+				summaryItems: character?.data?.summaryItems,
+				colour: character?.data?.colour,
+				cardNameColour: character?.data?.cardNameColour,
+				cardBackground: character?.data?.cardBackground,
+				cardBackgroundProperties: character?.data?.cardBackgroundProperties,
+				faceImage: character?.data?.faceImage,
+			},
+		});
+
+		await character_card.save();
+	} catch (error) {}
 
 	if (req?.body?.isPrimaryCharacter === true) {
 		const addCharacterToStoryPrimaryCharactersResult = await addCharacterToStoryPrimaryCharacters(character._id, req.body.story_id);

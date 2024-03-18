@@ -2,6 +2,8 @@ const Image = require("../../models/Image");
 
 const validateImage = require("./validateImage");
 
+const { storage, ref, uploadString } = require("../FirebaseConfig");
+
 module.exports = async (req, res) => {
 	if (!req?.params?.id) return res.status(200).send({ errors: [{ message: "Image Not Found" }] });
 	if (typeof req?.body?.newValue !== "string" && req?.body?.newValue !== undefined)
@@ -11,6 +13,10 @@ module.exports = async (req, res) => {
 		const imageValidationResult = validateImage(req.body.newValue);
 		if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
 	}
+
+	const firebase_path = `images/${req.params.id}.webp`;
+	const storageRef = ref(storage, firebase_path);
+	uploadString(storageRef, req.body.newValue.substring(23), "base64");
 
 	const oldImage = await Image.findById(req.params.id)
 		.exec()

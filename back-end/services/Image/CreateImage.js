@@ -4,12 +4,20 @@ const Image = require("../../models/Image");
 
 const validateImage = require("./validateImage");
 
+const { storage, ref, uploadString } = require("../FirebaseConfig");
+
 module.exports = async (req, res) => {
 	const imageValidationResult = validateImage(req.body.image);
 	if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
 
+	const image_id = new mongoose.Types.ObjectId();
+
+	const firebase_path = `images/${image_id}.webp`;
+	const storageRef = ref(storage, firebase_path);
+	uploadString(storageRef, req.body.newValue.substring(23), "base64");
+
 	const image = new Image({
-		_id: new mongoose.Types.ObjectId(),
+		_id: image_id,
 		image: req.body.image,
 		user_id: req.body.user_id,
 		story_id: req.body.story_id,

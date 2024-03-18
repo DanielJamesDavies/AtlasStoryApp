@@ -15,7 +15,7 @@ import { LightboxContext } from "../../context/LightboxContext";
 // Assets
 
 export const LightboxLogic = () => {
-	const { lightboxImageIDs, setLightboxImageIDs, lightboxImages, setLightboxImages, lightboxIndex, setLightboxIndex } =
+	const { lightboxImageIDs, setLightboxImageIDs, lightboxImages, setLightboxImages, lightboxIndex, setLightboxIndex, lightboxImageSizes } =
 		useContext(LightboxContext);
 	const [isImagePixelated, setIsImagePixelated] = useState(false);
 
@@ -267,5 +267,6 @@ export const LightboxLogic = () => {
 		onTouchStart,
 		onTouchMove,
 		isImagePixelated,
+		lightboxImageSizes,
 	};
 };

@@ -6,6 +6,7 @@ import { RecentDataContext } from "../../context/RecentDataContext";
 import { SpotifyContext } from "../../context/SpotifyContext";
 
 import getColourWithTint from "../../services/GetColourWithTint";
+import firebaseUrlToLocalUrl from "../../services/FirebaseUrlToLocalUrl";
 
 export const GetUnitServices = ({
 	story_uid,
@@ -267,7 +268,13 @@ export const GetUnitServices = ({
 			} else {
 				const card_background_image_response = await APIRequest("/image/" + cardBackgroundID, "GET");
 				if (card_background_image_response?.errors || !card_background_image_response?.data?.image?.image) return false;
-				cardBackground = card_background_image_response?.data?.image;
+
+				if (card_background_image_response?.data?.is_download_url) {
+					const image_url = await firebaseUrlToLocalUrl(card_background_image_response?.data?.image?.image);
+					cardBackground = { _id: card_background_image_response.data.image?._id, image: image_url };
+				} else {
+					cardBackground = card_background_image_response.data.image;
+				}
 			}
 
 			addImagesToRecentImages([cardBackground]);

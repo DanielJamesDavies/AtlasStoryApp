@@ -29,6 +29,7 @@ export const Lightbox = () => {
 		onTouchStart,
 		onTouchMove,
 		isImagePixelated,
+		lightboxImageSizes,
 	} = LightboxLogic();
 
 	return (
@@ -70,12 +71,15 @@ export const Lightbox = () => {
 							</div>
 						)}
 						<div className='lightbox-text-image-file-size'>
-							{Math.floor(
-								(lightboxImages[lightboxIndex]?.image.length * (3 / 4) -
-									(lightboxImages[lightboxIndex]?.image.slice(-2) === "==" ? 2 : 1)) /
-									1000
-							)}
-							KB
+							{lightboxImages[lightboxIndex]?.image?.split("ata:image/").length >= 2
+								? Math.floor(
+										(lightboxImages[lightboxIndex]?.image.length * (3 / 4) -
+											(lightboxImages[lightboxIndex]?.image.slice(-2) === "==" ? 2 : 1)) /
+											1000
+								  ) + "KB"
+								: isNaN(Math.floor(lightboxImageSizes[lightboxIndex]?.size / 1000))
+								? ""
+								: Math.floor(lightboxImageSizes[lightboxIndex]?.size / 1000) + "KB"}
 						</div>
 					</div>
 					<button

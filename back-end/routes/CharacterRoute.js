@@ -13,8 +13,10 @@ const GetCharacterValueByID = require("../services/Character/GetCharacterValueBy
 const CreateCharacter = require("../services/Character/CreateCharacter");
 const UpdateCharacter = require("../services/Character/UpdateCharacter");
 const DeleteCharacter = require("../services/Character/DeleteCharacter");
+const GetStoryCharacterCards = require("../services/Character/GetStoryCharacterCards");
 
 router.get("/", StoryViewAuthentication, GetCharacter);
+router.get("/cards", StoryViewAuthentication, GetStoryCharacterCards);
 router.get("/primary-character", StoryViewAuthentication, GetPrimaryCharacter);
 router.get("/:id", StoryViewAuthentication, GetCharacterByID);
 router.post("/get-value/:id", StoryViewAuthentication, GetCharacterValueByID);

@@ -76,7 +76,6 @@ export const Stories = () => {
 					</div>
 				)}
 			</div>
-			{console.log(stories[1])}
 			{user?.data?.stories?.length === 0 && authorized_username === user?.username ? (
 				<div className='user-stories-add-first-story-container'>
 					<FirstAddButton label='Create a New Story' onClick={openCreateStoryForm} />

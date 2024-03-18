@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const Character = require("../../models/Character");
+const CharacterCard = require("../../models/CharacterCard");
 const Group = require("../../models/Group");
 const Story = require("../../models/Story");
 const Image = require("../../models/Image");
@@ -207,7 +208,8 @@ module.exports = async (req, res) => {
 							const biographyClusterIndex = newCharacter.data.versions[versionIndex].biography.findIndex(
 								(e) => JSON.stringify(e._id) === JSON.stringify(biographyCluster._id)
 							);
-							if (biographyClusterIndex === -1 && !shouldSaveClusterItems) return { _id: biographyCluster?._id, name: biographyCluster?.name };
+							if (biographyClusterIndex === -1 && !shouldSaveClusterItems)
+								return { _id: biographyCluster?._id, name: biographyCluster?.name };
 							if (shouldSaveClusterItems) return biographyCluster;
 							return newCharacter.data.versions[versionIndex].biography[biographyClusterIndex];
 						});
@@ -244,6 +246,56 @@ module.exports = async (req, res) => {
 		await Character.findOneAndReplace({ _id: req.params.id }, newCharacter, { upsert: true });
 	} catch (error) {
 		return res.status(200).send({ errors: [{ message: "Character Could Not Be Saved" }] });
+	}
+
+	// Update Character Card
+	const character_card = await CharacterCard.findById(req.params.id)
+		.exec()
+		.catch(() => false);
+
+	if (!character_card) {
+		try {
+			const new_character_card = new CharacterCard({
+				_id: newCharacter?._id,
+				story_id: newCharacter?.story_id,
+				group_id: newCharacter?.group_id,
+				uid: newCharacter?.uid,
+				isPrimaryCharacter: newCharacter?.isPrimaryCharacter,
+				data: {
+					name: newCharacter?.data?.name,
+					summaryItems: newCharacter?.data?.summaryItems,
+					colour: newCharacter?.data?.colour,
+					cardNameColour: newCharacter?.data?.cardNameColour,
+					cardBackground: newCharacter?.data?.cardBackground,
+					cardBackgroundProperties: newCharacter?.data?.cardBackgroundProperties,
+					faceImage: newCharacter?.data?.faceImage,
+				},
+			});
+			await new_character_card.save();
+		} catch (error) {}
+	} else {
+		try {
+			await CharacterCard.updateOne(
+				{ _id: req.params.id },
+				{
+					$set: {
+						group_id: newCharacter?.group_id,
+						uid: newCharacter?.uid,
+						isPrimaryCharacter: newCharacter?.isPrimaryCharacter,
+						"data.name": newCharacter?.data?.name,
+						"data.summaryItems": newCharacter?.data?.summaryItems,
+						"data.colour": newCharacter?.data?.colour,
+						"data.cardNameColour": newCharacter?.data?.cardNameColour,
+						"data.cardBackground": newCharacter?.data?.cardBackground,
+						"data.cardBackgroundProperties": newCharacter?.data?.cardBackgroundProperties,
+						"data.faceImage": newCharacter?.data?.faceImage,
+					},
+				},
+				{ upsert: true }
+			);
+		} catch (error) {
+			console.log("ERROR:", error);
+		}
 	}
 
 	return res.status(200).send({ message: "Success", data: { character: newCharacter } });

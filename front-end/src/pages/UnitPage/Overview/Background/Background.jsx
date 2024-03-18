@@ -18,16 +18,8 @@ import "./Background.css";
 // Assets
 
 export const Background = () => {
-	const {
-		unit_type,
-		unit,
-		unitOverviewForegrounds,
-		unitOverviewBackground,
-		unitVersion,
-		overviewForegroundSizeRef,
-		locationMapImages,
-		isOnOverviewSection,
-	} = BackgroundLogic();
+	const { unit_type, unit, unitOverviewForegrounds, unitOverviewBackground, unitVersion, overviewForegroundSizeRef, locationMapImages } =
+		BackgroundLogic();
 
 	if (unitOverviewForegrounds === false) return null;
 	if (unit_type === "location" && (!unitOverviewBackground || unitOverviewBackground === "NO_IMAGE"))
