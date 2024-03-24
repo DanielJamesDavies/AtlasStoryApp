@@ -83,6 +83,36 @@ const SubstorySchema = mongoose.Schema({
 					default: [],
 				},
 			},
+			storyboard: {
+				type: {
+					layers: {
+						type: [
+							{
+								pieces: { type: [String], default: [] },
+							},
+						],
+						default: [],
+					},
+					pieces: {
+						type: [
+							{
+								id: { type: String, default: mongoose.Schema.Types.ObjectId },
+								piece_type: { type: String, default: "text" },
+								name: { type: String, default: "Text" },
+								content: { type: String, default: "Text" },
+								start_time: { type: Number, default: 0 },
+								end_time: { type: Number, default: 20 },
+								posX: { type: Number, default: 0 },
+								posY: { type: Number, default: 0 },
+								width: { type: Number, default: 0 },
+								height: { type: Number, default: 0 },
+							},
+						],
+						default: [],
+					},
+				},
+				default: {},
+			},
 			miscellaneous: {
 				type: {
 					items: {

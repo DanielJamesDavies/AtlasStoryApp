@@ -18,7 +18,6 @@ const AppProvider = ({ children }) => {
 	const [accentHoverColour, setAccentHoverColour] = useState(defaultAccentHoverColour);
 	const [accentHSL_H, setAccentHSL_H] = useState(0);
 	const [coverImage, setCoverImage] = useState(false);
-	const [isDisplayingAiAssistant, setIsDisplayingAiAssistant] = useState(false);
 
 	useEffect(() => {
 		if (username === false) {
@@ -50,7 +49,6 @@ const AppProvider = ({ children }) => {
 			if (user?._id && user._id !== user_id) setUserID(user._id);
 			if (user?.username && user.username !== username) setUsername(user.username);
 			if (user?.data?.uiTheme) setUITheme(user.data.uiTheme);
-			setIsDisplayingAiAssistant(user?.data?.isDisplayingAiAssistant);
 			setUserFollowingStories(user?.data?.followingStories);
 
 			getUserProfilePicture(user?.data?.profilePicture);
@@ -94,8 +92,6 @@ const AppProvider = ({ children }) => {
 				changeAccentHoverColour,
 				coverImage,
 				setCoverImage,
-				isDisplayingAiAssistant,
-				setIsDisplayingAiAssistant,
 			}}
 		>
 			{children}

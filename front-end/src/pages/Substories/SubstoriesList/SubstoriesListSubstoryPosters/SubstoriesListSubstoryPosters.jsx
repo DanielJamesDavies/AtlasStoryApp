@@ -25,7 +25,8 @@ export const SubstoriesListSubstoryPosters = () => {
 
 	return (
 		<div className='substories-list-substories-posters-container'>
-			{story?.data?.substories?.length === 0 && story?.data?.members.findIndex((e) => e?.user_id === authorized_user_id) !== -1 ? (
+			{story?.data?.substories?.length === 0 &&
+			story?.data?.members.findIndex((e) => e?.type !== "viewer" && e?.user_id === authorized_user_id) !== -1 ? (
 				<div className='substories-list-substories-posters-add-first-container'>
 					<FirstAddButton label='Create Plot' onClick={() => setIsDisplayingCreateSubstoryForm(true)} />
 				</div>

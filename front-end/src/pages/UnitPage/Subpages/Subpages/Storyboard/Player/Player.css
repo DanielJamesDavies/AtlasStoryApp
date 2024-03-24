@@ -1,0 +1,32 @@
+.unit-page-storyboard-player-container {
+	position: relative;
+	height: var(--player_height);
+}
+
+.unit-page-storyboard-player-container-is-fullscreen .unit-page-storyboard-player {
+	margin: 0 auto;
+	transform-origin: center left;
+}
+
+.unit-page-storyboard-player-container-hide-controls.unit-page-storyboard-player-container-is-playing {
+	cursor: none;
+}
+
+.unit-page-storyboard-player-container:not(.unit-page-storyboard-player-container-are-black-bars-on-side) .unit-page-storyboard-player-wrapper {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	height: var(--player_height);
+}
+
+.unit-page-storyboard-player {
+	position: relative;
+	transform-origin: top left;
+	width: 1920px;
+	height: 1080px;
+	scale: var(--player_scale);
+}
+
+.unit-page-storyboard-player-container:not(.unit-page-storyboard-player-container-are-black-bars-on-side) .unit-page-storyboard-player {
+	transform-origin: top left;
+}

@@ -110,24 +110,9 @@ export const NavigationBarLogic = () => {
 		changeLocation("/explore", e.button === 1);
 	}
 
-	function navigateToStory(e) {
+	function navigateToStoryPage(e, path) {
 		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
-		changeLocation("/s/" + location.split("/")[2], e.button === 1);
-	}
-
-	function navigateToCharacters(e) {
-		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
-		changeLocation("/s/" + location.split("/")[2] + "/characters", e.button === 1);
-	}
-
-	function navigateToSubstories(e) {
-		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
-		changeLocation("/s/" + location.split("/")[2] + "/plots", e.button === 1);
-	}
-
-	function navigateToWorld(e) {
-		if (location.split("/")[1] === "s" && location.split("/").length < 3) return;
-		changeLocation("/s/" + location.split("/")[2] + "/world", e.button === 1);
+		changeLocation("/s/" + location.split("/")[2] + path, e.button === 1);
 	}
 
 	function toggleIsAuthorizedToEdit() {
@@ -146,10 +131,7 @@ export const NavigationBarLogic = () => {
 		getBtnClassName,
 		navigateToProfile,
 		navigateToExplore,
-		navigateToStory,
-		navigateToCharacters,
-		navigateToSubstories,
-		navigateToWorld,
+		navigateToStoryPage,
 		toggleIsAuthorizedToEdit,
 	};
 };

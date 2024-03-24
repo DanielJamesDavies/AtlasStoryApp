@@ -1,0 +1,24 @@
+.unit-page-storyboard-editor-multi-tab-pane-tabs {
+	display: flex;
+	gap: 4px;
+	margin-bottom: 8px;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-tab {
+	padding: 5px 15px;
+	border: 0;
+	border-radius: 32px;
+	background: transparent;
+	color: var(--text-colour-secondary);
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-tab:hover {
+	color: var(--text-colour-primary);
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-tab-active {
+	background: var(--colour-grey-two);
+	color: var(--text-colour-primary);
+}

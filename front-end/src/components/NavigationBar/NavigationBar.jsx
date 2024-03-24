@@ -25,16 +25,13 @@ export const NavigationBar = () => {
 		getBtnClassName,
 		navigateToProfile,
 		navigateToExplore,
-		navigateToStory,
-		navigateToCharacters,
-		navigateToSubstories,
-		navigateToWorld,
+		navigateToStoryPage,
 		toggleIsAuthorizedToEdit,
 	} = NavigationBarLogic();
 
 	return (
-		<div className='navigation-bar'>
-			<div className='navigation-bar-btn-container'>
+		<div className={"navigation-bar" + (isOnStory ? " navigation-bar-is-on-story" : "")}>
+			<div className='navigation-bar-btn-container navigation-bar-btn-container-user'>
 				<button className={getBtnClassName("user", userProfilePicture)} onClick={navigateToProfile} onAuxClick={navigateToProfile}>
 					{!userProfilePicture ? (
 						<div className='navigation-bar-btn-user-placeholder' />
@@ -50,35 +47,44 @@ export const NavigationBar = () => {
 				</button>
 				<div className='navigation-bar-btn-label'>Explore</div>
 			</div>
-			{!isOnStory ? (
-				<>
-					<div className='navigation-bar-btn-container navigation-bar-btn-container-placeholder'></div>
-					<div className='navigation-bar-btn-container navigation-bar-btn-container-placeholder'></div>
-					<div className='navigation-bar-btn-container navigation-bar-btn-container-placeholder'></div>
-					<div className='navigation-bar-btn-container navigation-bar-btn-container-placeholder'></div>
-				</>
-			) : (
+			{!isOnStory ? null : (
 				<>
 					<div className='navigation-bar-btn-container navigation-bar-btn-container-story'>
-						<button className={getBtnClassName("story", storyIcon)} onClick={navigateToStory} onAuxClick={navigateToStory}>
+						<button
+							className={getBtnClassName("story", storyIcon)}
+							onClick={(e) => navigateToStoryPage(e, "")}
+							onAuxClick={(e) => navigateToStoryPage(e, "")}
+						>
 							{!storyIcon ? <FaBook /> : <img src={storyIcon} alt='' draggable={false} />}
 						</button>
 						<div className='navigation-bar-btn-label'>Story</div>
 					</div>
 					<div className='navigation-bar-btn-container navigation-bar-btn-container-story'>
-						<button className={getBtnClassName("characters", false)} onClick={navigateToCharacters} onAuxClick={navigateToCharacters}>
+						<button
+							className={getBtnClassName("characters", false)}
+							onClick={(e) => navigateToStoryPage(e, "/characters")}
+							onAuxClick={(e) => navigateToStoryPage(e, "/characters")}
+						>
 							<FontAwesomeIcon icon={faUser} />
 						</button>
 						<div className='navigation-bar-btn-label'>Characters</div>
 					</div>
 					<div className='navigation-bar-btn-container navigation-bar-btn-container-story'>
-						<button className={getBtnClassName("plots", false)} onClick={navigateToSubstories} onAuxClick={navigateToSubstories}>
+						<button
+							className={getBtnClassName("plots", false)}
+							onClick={(e) => navigateToStoryPage(e, "/plots")}
+							onAuxClick={(e) => navigateToStoryPage(e, "/plots")}
+						>
 							<FontAwesomeIcon icon={faBookOpen} />
 						</button>
 						<div className='navigation-bar-btn-label'>Plots</div>
 					</div>
 					<div className='navigation-bar-btn-container navigation-bar-btn-container-story'>
-						<button className={getBtnClassName("world", false)} onClick={navigateToWorld} onAuxClick={navigateToWorld}>
+						<button
+							className={getBtnClassName("world", false)}
+							onClick={(e) => navigateToStoryPage(e, "/world")}
+							onAuxClick={(e) => navigateToStoryPage(e, "/world")}
+						>
 							<FontAwesomeIcon icon={faGlobeEurope} />
 						</button>
 						<div className='navigation-bar-btn-label'>World</div>

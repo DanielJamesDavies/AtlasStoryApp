@@ -1,5 +1,6 @@
 // Packages
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Components
 import { IconBtn } from "../../../../components/IconBtn/IconBtn";
@@ -44,7 +45,9 @@ export const SubpagesBtns = () => {
 							}
 							onClick={() => setOpenSubpageID(subpage.id)}
 						>
-							<div className='unit-page-subpages-btn-icon'>{subpage?.icon}</div>
+							<div className='unit-page-subpages-btn-icon'>
+								<FontAwesomeIcon icon={subpage?.icon} />
+							</div>
 							<div className='unit-page-subpages-btn-name'>{subpage?.name}</div>
 						</div>
 					))}

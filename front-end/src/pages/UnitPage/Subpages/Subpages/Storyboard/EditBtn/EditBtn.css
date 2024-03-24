@@ -1,0 +1,48 @@
+.unit-page-storyboard-edit-btn-container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin: 24px 0;
+}
+
+.unit-page-storyboard-edit-btn {
+	position: relative;
+	display: inline-block;
+	border: 0;
+	border-radius: 32px;
+	background: linear-gradient(135deg, #ff88ff, #8844ff, #4466ff, #ff2222);
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.unit-page-storyboard-edit-btn:hover {
+	scale: 1.1;
+}
+
+.unit-page-storyboard-edit-btn::before {
+	position: absolute;
+	top: 2px;
+	bottom: 2px;
+	left: 2px;
+	right: 2px;
+	display: block;
+	content: "";
+	background: var(--colour-grey-one);
+	border-radius: inherit;
+}
+
+.unit-page-storyboard-edit-btn div {
+	position: relative;
+	display: inline-block;
+	padding: 10px 30px;
+	border: 0;
+	border-radius: 32px;
+	background: linear-gradient(135deg, #ff88ff, #ff88ff, #ff88ff, #ff88ff, #8844ff, #4466ff, #ff2222, #ff2222, #ff2222, #ff2222);
+	background-clip: border-box;
+	background-clip: text;
+	color: transparent;
+	font-size: 14px;
+	font-weight: 700;
+}

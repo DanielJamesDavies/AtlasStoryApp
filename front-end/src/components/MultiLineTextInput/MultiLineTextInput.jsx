@@ -1,7 +1,6 @@
 // Packages
 
 // Components
-import { AITools } from "../AIToolsMenu/AITools";
 
 // Logic
 import { MultiLineTextInputLogic } from "./MultiLineTextInputLogic";
@@ -15,10 +14,9 @@ import "./MultiLineTextInput.css";
 
 // Assets
 
-export const MultiLineTextInput = (props) => {
+export const MultiLineTextInput = ({ className, icon, value, label, autocomplete, isSaved, isDark, seamless, isLightText, onChange }) => {
 	const {
 		inputRef,
-		inputClassName,
 		DynamicIconComponent,
 		selectAll,
 		onClick,
@@ -27,25 +25,38 @@ export const MultiLineTextInput = (props) => {
 		onKeyDownTextArea,
 		focused,
 		inputContainerStyles,
-	} = MultiLineTextInputLogic(props);
+	} = MultiLineTextInputLogic({ className, icon, value, isSaved, isDark, seamless, isLightText, onChange });
 
 	return (
-		<div className={inputClassName} onClick={onClick} style={inputContainerStyles}>
+		<div
+			className={
+				"multi-line-text-input-container" +
+				(className ? " " + className : "") +
+				(focused ? " multi-line-text-input-container-focused" : "") +
+				(value === undefined || value === "" ? " multi-line-text-input-container-empty" : "") +
+				(isSaved === false && !focused ? " multi-line-text-input-container-unsaved" : "") +
+				(isDark ? " multi-line-text-input-container-dark" : "") +
+				(seamless ? " multi-line-text-input-container-seamless" : "") +
+				(isLightText ? " multi-line-text-input-container-light-text" : "")
+			}
+			onClick={onClick}
+			style={inputContainerStyles}
+		>
 			<div className='multi-line-text-input'>
 				<div className='multi-line-text-input-label'>
-					{props.icon ? <DynamicIconComponent /> : null}
-					<span onClick={selectAll}>{props.label}</span>
+					{icon ? <DynamicIconComponent /> : null}
+					<span onClick={selectAll}>{label}</span>
 				</div>
 
 				<div className='multi-line-text-input-height-element'>
 					<div>
-						{props.value === undefined
+						{value === undefined
 							? ""
-							: Array.isArray(props.value)
-							? props.value.map((paragraph, index) => {
+							: Array.isArray(value)
+							? value.map((paragraph, index) => {
 									return <p key={index}>{paragraph}</p>;
 							  })
-							: props.value.split("\n").map((paragraph, index) => {
+							: value.split("\n").map((paragraph, index) => {
 									return <p key={index}>{paragraph}</p>;
 							  })}
 					</div>
@@ -53,20 +64,14 @@ export const MultiLineTextInput = (props) => {
 
 				<textarea
 					ref={inputRef}
-					value={props.value === undefined ? [""] : props.value}
-					onChange={props.onChange}
-					autoComplete={props.autocomplete}
+					value={value === undefined ? [""] : value}
+					onChange={onChange}
+					autoComplete={autocomplete}
 					onFocus={onInputContainerFocus}
 					onBlur={onInputContainerBlur}
 					onKeyDown={onKeyDownTextArea}
 				/>
 			</div>
-
-			{!props?.aiTools ? null : (
-				<div className='multi-line-text-input-ai-tools-container'>
-					<AITools type='text' context={{ text: props.value }} isDisplayingButtons={focused} />
-				</div>
-			)}
 		</div>
 	);
 };

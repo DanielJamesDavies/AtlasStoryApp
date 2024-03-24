@@ -1,0 +1,19 @@
+.unit-page-storyboard-player-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.unit-page-storyboard-player-container-is-editor-player .unit-page-storyboard-player-content {
+	border: 4px solid var(--colour-grey-three);
+}
+
+.unit-page-storyboard-player-content-pieces {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}

@@ -172,7 +172,7 @@
 
 	.navigation-bar-btn-container:nth-child(3) {
 		margin-top: 0;
-		margin-left: 12px;
+		margin-left: 0;
 	}
 
 	.navigation-bar-btn-container-placeholder {
@@ -196,6 +196,14 @@
 	}
 
 	.navigation-bar-btn-label {
+		display: none;
+	}
+
+	.navigation-bar-btn-container-user {
+		order: 1;
+	}
+
+	.navigation-bar-is-on-story .navigation-bar-btn-container-user {
 		display: none;
 	}
 }

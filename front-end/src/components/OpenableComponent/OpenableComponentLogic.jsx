@@ -11,11 +11,12 @@ import { useState } from "react";
 
 // Assets
 
-export const OpenableComponentLogic = ({ defaultShowValue }) => {
+export const OpenableComponentLogic = ({ defaultShowValue, onClick }) => {
 	const [isOpen, setIsOpen] = useState(defaultShowValue === undefined ? false : defaultShowValue);
 
-	function toggleIsOpen() {
+	function toggleIsOpen(e) {
 		setIsOpen((oldIsOpen) => !oldIsOpen);
+		if (onClick !== undefined) onClick(e);
 	}
 
 	return { isOpen, toggleIsOpen };

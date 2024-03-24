@@ -1,0 +1,9 @@
+.unit-page-storyboard-editor-multi-tab-pane-content-details {
+	display: flex;
+	gap: 24px;
+	flex-direction: column;
+	padding: 16px;
+	box-sizing: border-box;
+	max-height: calc(var(--player_height) - 26px - 8px);
+	overflow-y: auto;
+}

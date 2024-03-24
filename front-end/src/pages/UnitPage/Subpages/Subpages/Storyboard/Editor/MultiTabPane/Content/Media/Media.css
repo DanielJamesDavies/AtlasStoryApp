@@ -1,0 +1,58 @@
+.unit-page-storyboard-editor-multi-tab-pane-content-media {
+	display: flex;
+	gap: 24px;
+	flex-direction: column;
+	padding: 16px;
+	box-sizing: border-box;
+	max-height: calc(var(--player_height) - 26px - 8px);
+	overflow-y: auto;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section .openable-component-header {
+	position: relative;
+	justify-content: space-between;
+	margin-bottom: 12px;
+	user-select: none;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section .openable-component-header:before {
+	position: absolute;
+	bottom: -4px;
+	left: 0;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 1px;
+	background: var(--colour-grey-four);
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list {
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item {
+	width: 130px;
+	cursor: pointer;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-preview {
+	display: block;
+	border-radius: 5px;
+	width: 100%;
+	height: 70px;
+	background: var(--colour-grey-three);
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-name {
+	font-size: 13px;
+	color: var(--text-colour-secondary);
+	transition: 0.2s;
+	user-select: none;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item:hover
+	.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-name {
+	color: var(--text-colour-primary);
+}

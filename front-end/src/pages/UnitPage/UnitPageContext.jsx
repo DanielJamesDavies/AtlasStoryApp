@@ -7,21 +7,23 @@ import { GetUnitServices } from "./GetUnitServices";
 
 import getValueInNestedObject from "../../services/GetValueInNestedObject";
 import changeValueInNestedObject from "../../services/ChangeValueInNestedObject";
+
 import {
-	FaBookReader,
-	FaBrain,
-	FaCalendarAlt,
-	FaCog,
-	FaCommentDots,
-	FaEye,
-	FaFeatherAlt,
-	FaFileAlt,
-	FaHardHat,
-	FaImages,
-	FaMusic,
-	FaTools,
-	FaUsers,
-} from "react-icons/fa";
+	faBookReader,
+	faBrain,
+	faCalendarAlt,
+	faCog,
+	faCommentDots,
+	faEye,
+	faFeatherAlt,
+	faFileAlt,
+	faFilm,
+	faHardHat,
+	faImages,
+	faMusic,
+	faTools,
+	faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const UnitPageContext = createContext();
 
@@ -71,42 +73,43 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 
 	const allSubpages = useMemo(
 		() => [
-			{ id: "physical", name: "Appearance", isEnabled: true, unit_types: ["character"], icon: <FaEye /> },
-			{ id: "psychology", name: "Personality", isEnabled: true, unit_types: ["character"], icon: <FaBrain /> },
-			{ id: "biography", name: "Background", isEnabled: true, unit_types: ["character"], icon: <FaBookReader /> },
-			{ id: "abilities", name: "Abilities", isEnabled: true, unit_types: ["character"], icon: <FaTools /> },
-			{ id: "relationships", name: "Relationships", isEnabled: true, unit_types: ["character"], icon: <FaUsers /> },
-			{ id: "details", name: "Details", isEnabled: true, unit_types: ["location", "object", "lore", "event"], icon: <FaFileAlt /> },
-			{ id: "events", name: "Events", isEnabled: true, unit_types: ["location", "lore"], icon: <FaCalendarAlt /> },
-			{ id: "plot", name: "Plot", isEnabled: true, unit_types: ["plot"], icon: <FaFeatherAlt /> },
-			{ id: "soundtrack", name: "Soundtrack", isEnabled: true, unit_types: ["plot"], icon: <FaMusic /> },
+			{ id: "physical", name: "Appearance", isEnabled: true, unit_types: ["character"], icon: faEye },
+			{ id: "psychology", name: "Personality", isEnabled: true, unit_types: ["character"], icon: faBrain },
+			{ id: "biography", name: "Background", isEnabled: true, unit_types: ["character"], icon: faBookReader },
+			{ id: "abilities", name: "Abilities", isEnabled: true, unit_types: ["character"], icon: faTools },
+			{ id: "relationships", name: "Relationships", isEnabled: true, unit_types: ["character"], icon: faUsers },
+			{ id: "details", name: "Details", isEnabled: true, unit_types: ["location", "object", "lore", "event"], icon: faFileAlt },
+			{ id: "events", name: "Events", isEnabled: true, unit_types: ["location", "lore"], icon: faCalendarAlt },
+			{ id: "plot", name: "Plot", isEnabled: true, unit_types: ["plot"], icon: faFeatherAlt },
+			{ id: "soundtrack", name: "Soundtrack", isEnabled: true, unit_types: ["plot"], icon: faMusic },
+			{ id: "storyboard", name: "Storyboard", isEnabled: true, unit_types: ["plot"], icon: faFilm },
 			{
 				id: "gallery",
 				name: "Gallery",
 				isEnabled: true,
 				unit_types: ["character", "plot", "group", "location", "object", "lore", "event"],
-				icon: <FaImages />,
+				icon: faImages,
 			},
 			{
 				id: "miscellaneous",
 				name: "Miscellaneous",
 				isEnabled: true,
 				unit_types: ["character", "plot", "group", "location", "object", "lore", "event"],
-				icon: <FaCommentDots />,
+				icon: faCommentDots,
 			},
 			{
 				id: "development",
 				name: "Development",
 				isEnabled: true,
 				unit_types: ["character", "plot", "group", "location", "object", "lore", "event"],
-				icon: <FaHardHat />,
+				icon: faHardHat,
 			},
 			{
 				id: "settings",
 				name: "Settings",
 				isEnabled: true,
 				unit_types: ["character", "plot", "group", "location", "object", "lore", "event"],
-				icon: <FaCog />,
+				icon: faCog,
 			},
 		],
 		[]
@@ -372,6 +375,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 	const hasReadInitialLocationParameters = useRef(false);
 
 	useEffect(() => {
+		let interval = false;
 		if (unit) {
 			if (!hasReadInitialLocationParameters.current) {
 				if (locationParams.current.findIndex((e) => e.label === "subpage") !== -1) {
@@ -395,20 +399,25 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			}
 			if (["plot"].includes(unit_type)) {
 				if (unit?.data?.title && story?.data?.title) {
-					setTimeout(
+					interval = setInterval(
 						() => (document.title = unit?.data?.title + " | " + story?.data?.title + " | " + unit_type_title + " | Atlas Story App"),
-						100
+						50
 					);
+					setTimeout(() => clearInterval(interval), 1000);
 				}
 			} else {
 				if (unit?.data?.name && story?.data?.title) {
-					setTimeout(
+					interval = setInterval(
 						() => (document.title = unit?.data?.name + " | " + story?.data?.title + " | " + unit_type_title + " | Atlas Story App"),
-						100
+						50
 					);
+					setTimeout(() => clearInterval(interval), 1000);
 				}
 			}
 		}
+		return () => {
+			clearInterval(interval);
+		};
 	}, [
 		locationParams,
 		changeLocationParameters,
@@ -533,6 +542,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				incrementUnitVersion,
 				changeUnitVersion,
 				subpages,
+				setSubpages,
 				openSubpageID,
 				setOpenSubpageID,
 				allSubpages,

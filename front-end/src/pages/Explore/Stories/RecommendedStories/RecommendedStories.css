@@ -26,12 +26,6 @@
 	user-select: none;
 }
 
-.home-stories-recommended-list-item-container-extra-space {
-	opacity: 0;
-	pointer-events: none;
-	user-select: none;
-}
-
 .home-stories-recommended-list {
 	display: flex;
 	gap: 8px;

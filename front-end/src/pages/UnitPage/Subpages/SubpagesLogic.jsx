@@ -10,6 +10,7 @@ import { Physical } from "./Subpages/Physical/Physical";
 import { Relationships } from "./Subpages/Relationships/Relationships";
 import { Plot } from "./Subpages/Plot/Plot";
 import { Soundtrack } from "./Subpages/Soundtrack/Soundtrack";
+import { StoryboardContainer } from "./Subpages/Storyboard/StoryboardContainer";
 import { Details } from "./Subpages/Details/Details";
 import { Events } from "./Subpages/Events/Events";
 import { Miscellaneous } from "./Subpages/Miscellaneous/Miscellaneous";
@@ -74,6 +75,8 @@ export const SubpagesLogic = () => {
 					return <Plot />;
 				case "soundtrack":
 					return <Soundtrack />;
+				case "storyboard":
+					return <StoryboardContainer />;
 				case "details":
 					return <Details />;
 				case "events":

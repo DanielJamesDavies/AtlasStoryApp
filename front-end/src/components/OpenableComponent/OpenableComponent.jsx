@@ -23,8 +23,9 @@ export const OpenableComponent = ({
 	onlyOnMobile,
 	showTitleOnlyOnMobile,
 	largeTitle,
+	onClick,
 }) => {
-	const { isOpen, toggleIsOpen } = OpenableComponentLogic({ defaultShowValue });
+	const { isOpen, toggleIsOpen } = OpenableComponentLogic({ defaultShowValue, onClick });
 
 	if (!children) return null;
 	return (

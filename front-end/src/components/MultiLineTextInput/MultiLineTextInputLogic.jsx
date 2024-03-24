@@ -13,32 +13,14 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 
 // Assets
 
-export const MultiLineTextInputLogic = ({ className, icon, value, isSaved, isDark, seamless, isLightText, onChange }) => {
+export const MultiLineTextInputLogic = ({ icon, onChange }) => {
 	const inputContainerRef = useRef();
 	const inputRef = useRef();
 	const inputHeightRef = useRef();
 
 	const [focused, setFocused] = useState(false);
-	const [inputClassName, setInputClassName] = useState(
-		seamless ? "multi-line-text-input-container multi-line-text-input-container-seamless" : "multi-line-text-input-container"
-	);
 
 	const DynamicIconComponent = icon;
-
-	useEffect(() => {
-		function getInputClassName() {
-			let className = "multi-line-text-input-container";
-			if (className) className += " " + className;
-			if (focused) className += " multi-line-text-input-container-focused";
-			if (value === undefined || value === "") className += " multi-line-text-input-container-empty";
-			if (isSaved === false && !focused) className += " multi-line-text-input-container-unsaved";
-			if (isDark) className += " multi-line-text-input-container-dark";
-			if (seamless) className += " multi-line-text-input-container-seamless";
-			if (isLightText) className += " multi-line-text-input-container-light-text";
-			return className;
-		}
-		setInputClassName(getInputClassName());
-	}, [className, icon, value, isSaved, isDark, seamless, isLightText, focused]);
 
 	function selectAll() {
 		if (inputRef && inputRef.current) inputRef.current.select();
@@ -97,7 +79,6 @@ export const MultiLineTextInputLogic = ({ className, icon, value, isSaved, isDar
 		inputContainerRef,
 		inputRef,
 		inputHeightRef,
-		inputClassName,
 		DynamicIconComponent,
 		selectAll,
 		onClick,

@@ -3,7 +3,6 @@
 // Components
 import { UnauthorizedNavigationBar } from "../UnauthorizedNavigationBar/UnauthorizedNavigationBar";
 import { NavigationBar } from "../NavigationBar/NavigationBar";
-import { AIAssistantMenu } from "../AIAssistantMenu/AIAssistantMenu";
 import { CookiesConsentPopUp } from "../CookiesConsentPopUp/CookiesConsentPopUp";
 
 // Logic
@@ -32,7 +31,6 @@ export const Routes = () => {
 				>
 					<RenderComponent renderComponent={renderComponent} />
 				</div>
-				<AIAssistantMenu />
 				<CookiesConsentPopUp />
 			</StoryProvider>
 		</div>

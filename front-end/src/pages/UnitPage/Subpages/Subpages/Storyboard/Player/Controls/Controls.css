@@ -1,0 +1,144 @@
+.unit-page-storyboard-player-controls-container {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: var(--player_width);
+	height: var(--player_height);
+	scale: calc(1 / var(--player_scale));
+	transform-origin: bottom left;
+	display: flex;
+	flex-direction: column;
+	transition: opacity 0.2s;
+}
+
+.unit-page-storyboard-player-controls-container:focus {
+	outline: 0;
+}
+
+.unit-page-storyboard-player-container-is-editor-player .unit-page-storyboard-player-controls-container {
+	bottom: -150px;
+	height: unset;
+}
+
+.unit-page-storyboard-player-container-is-fullscreen .unit-page-storyboard-player-controls-container {
+	position: fixed;
+	width: 100dvw;
+}
+
+.unit-page-storyboard-player-container-are-black-bars-on-side.unit-page-storyboard-player-container-is-fullscreen
+	.unit-page-storyboard-player-controls-container {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.unit-page-storyboard-player-controls-container.unit-page-storyboard-player-controls-container-is-playing:not(:hover),
+.unit-page-storyboard-player-container-hide-controls.unit-page-storyboard-player-container-is-fullscreen
+	.unit-page-storyboard-player-controls-container.unit-page-storyboard-player-controls-container-is-playing {
+	opacity: 0;
+	transition: opacity 0.4s;
+}
+
+.unit-page-storyboard-player-container-is-editor-player .unit-page-storyboard-player-controls-container {
+	opacity: 1 !important;
+}
+
+.unit-page-storyboard-player-control-view {
+	flex-shrink: 1;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 100%;
+}
+
+.unit-page-storyboard-player-container-is-editor-player .unit-page-storyboard-player-control-view {
+	display: none;
+}
+
+.unit-page-storyboard-player-controls {
+	position: relative;
+	flex-shrink: 0;
+	width: 100%;
+	height: 50px;
+	margin: 0 auto;
+	max-width: calc(100dvw - 16px);
+}
+
+.unit-page-storyboard-player-controls::after {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	z-index: -1;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 80px;
+	background: linear-gradient(180deg, transparent, #000);
+	opacity: 0.7;
+}
+
+.unit-page-storyboard-player-container-is-editor-player .unit-page-storyboard-player-controls::after {
+	display: none;
+}
+
+.unit-page-storyboard-player-controls-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	box-sizing: border-box;
+	width: 100%;
+	height: calc(100% - 12px);
+}
+
+.unit-page-storyboard-player-controls-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-shrink: 0;
+	padding: 0;
+	border: 0;
+
+	min-width: 64px;
+	width: 64px;
+	min-height: 100%;
+	height: 100%;
+
+	background: transparent;
+	color: #fff;
+	cursor: pointer;
+}
+
+.unit-page-storyboard-player-controls-btn-icon-container {
+	font-size: 24px;
+}
+
+.unit-page-storyboard-player-controls-btn-state-is-paused .unit-page-storyboard-player-controls-btn-icon-container {
+	font-size: 20px;
+}
+
+.unit-page-storyboard-player-controls-duration-text {
+	margin: 0 12px;
+	font-size: 13px;
+	color: #bbb;
+}
+
+.unit-page-storyboard-player-controls-btn-full-screen {
+	margin-left: auto;
+	font-size: 18px;
+	transition: 0.2s;
+}
+
+.unit-page-storyboard-player-controls-btn-full-screen:hover {
+	scale: 1.2;
+}
+
+.unit-page-storyboard-player-container-is-fullscreen .unit-page-storyboard-player-controls-btn-full-screen {
+	scale: 1.2;
+}
+
+.unit-page-storyboard-player-container-is-fullscreen .unit-page-storyboard-player-controls-btn-full-screen:hover {
+	scale: 1;
+}
+
+.unit-page-storyboard-editor-player-container .unit-page-storyboard-player-controls-btn-full-screen {
+	display: none;
+}
