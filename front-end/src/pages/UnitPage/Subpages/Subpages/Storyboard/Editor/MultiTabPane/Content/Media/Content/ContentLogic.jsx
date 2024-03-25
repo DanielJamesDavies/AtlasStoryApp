@@ -14,16 +14,18 @@ import { StoryboardContext } from "../../../../../StoryboardContext";
 
 // Assets
 
-export const ContentLogic = ({ content_item }) => {
+export const ContentLogic = ({ content_item, type }) => {
 	const { setFromMediaDraggingContent, setFromMediaDraggingContentID } = useContext(StoryboardContext);
 
 	function onDragStart() {
-		setFromMediaDraggingContent(content_item?.id);
+		if (!["playlist"].includes(type)) setFromMediaDraggingContent({ id: content_item?.id, type, content_item });
 	}
 
 	function onDragEnd() {
-		setFromMediaDraggingContent(false);
-		setFromMediaDraggingContentID(false);
+		if (!["playlist"].includes(type)) {
+			setFromMediaDraggingContent(false);
+			setFromMediaDraggingContentID(false);
+		}
 	}
 
 	return { onDragStart, onDragEnd };

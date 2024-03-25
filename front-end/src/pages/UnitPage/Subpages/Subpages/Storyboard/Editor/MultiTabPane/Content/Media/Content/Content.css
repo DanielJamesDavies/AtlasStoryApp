@@ -33,7 +33,7 @@
 }
 
 .unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item {
-	width: 130px;
+	width: 150px;
 	cursor: pointer;
 }
 
@@ -41,11 +41,28 @@
 	display: block;
 	border-radius: 5px;
 	width: 100%;
-	height: 70px;
+	height: 75px;
 	background: var(--colour-grey-three);
+	overflow: hidden;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-preview img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	transform-origin: center;
+	transition: 0.2s;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item:hover
+	.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-preview
+	img {
+	scale: 1.2;
 }
 
 .unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-name {
+	margin-top: 2px;
 	font-size: 13px;
 	color: var(--text-colour-secondary);
 	transition: 0.2s;
@@ -54,5 +71,18 @@
 
 .unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item:hover
 	.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-name {
+	color: var(--text-colour-primary);
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-type {
+	margin-top: 2px;
+	font-size: 12px;
+	color: var(--text-colour-secondary);
+	transition: 0.2s;
+	user-select: none;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item:hover
+	.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-type {
 	color: var(--text-colour-primary);
 }

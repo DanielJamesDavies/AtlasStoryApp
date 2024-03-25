@@ -7,6 +7,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 // Context
 import { StoryboardContext } from "../../../StoryboardContext";
+import { SpotifyContext } from "../../../../../../../../context/SpotifyContext";
 
 // Services
 
@@ -15,7 +16,9 @@ import { StoryboardContext } from "../../../StoryboardContext";
 // Assets
 
 export const PieceLogic = ({ piece, piecesRef }) => {
-	const { isPlaying, elapsedTime, layers, openPieceID, setOpenPieceID, pieces, setPieces } = useContext(StoryboardContext);
+	const { isPlaying, elapsedTime, elapsedTimeRef, layers, openPieceID, setOpenPieceID, pieces, setPieces, lastTimeReleaseTimeline } =
+		useContext(StoryboardContext);
+	const { playSpotifyTrack } = useContext(SpotifyContext);
 
 	const pieceContainerRef = useRef();
 
@@ -51,6 +54,38 @@ export const PieceLogic = ({ piece, piecesRef }) => {
 		getNewTimeout();
 		return () => clearTimeout(timeout.current);
 	}, [isPlaying, piece, getNewTimeout]);
+
+	const [pieceSlow, setPieceSlow] = useState(piece);
+	const pieceSlowLastTimeUpdated = useRef(0);
+	const pieceSlowTimeout = useRef(false);
+
+	useEffect(() => {
+		const max_update_interval_ms = 500;
+		if (Date.now() - pieceSlowLastTimeUpdated?.current > max_update_interval_ms) {
+			setPieceSlow(piece);
+		} else {
+			if (pieceSlowTimeout.current !== false) clearTimeout(pieceSlowTimeout.current);
+			pieceSlowTimeout.current = setTimeout(() => {
+				setPieceSlow(piece);
+				pieceSlowTimeout.current = false;
+			}, max_update_interval_ms - (Date.now() - pieceSlowLastTimeUpdated?.current));
+			return () => {
+				clearTimeout(pieceSlowTimeout.current);
+			};
+		}
+		pieceSlowLastTimeUpdated.current = Date.now();
+	}, [piece]);
+
+	useEffect(() => {
+		if (pieceSlow?.piece_type === "track") {
+			if (elapsedTimeRef?.current >= pieceSlow?.start_time - 0.05 && elapsedTimeRef?.current < pieceSlow?.end_time - 0.05) {
+				playSpotifyTrack("spotify:track:" + pieceSlow?.content, {
+					position_ms: (elapsedTimeRef?.current - pieceSlow?.start_time) * 1000,
+					pause: !isPlaying,
+				});
+			}
+		}
+	}, [isInPieceTime, isPlaying, lastTimeReleaseTimeline, playSpotifyTrack, elapsedTimeRef, pieceSlow]);
 
 	function onClick() {
 		setOpenPieceID(piece?.id);

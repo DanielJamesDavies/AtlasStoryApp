@@ -15,7 +15,7 @@ import { StoryboardContext } from "../../../StoryboardContext";
 // Assets
 
 export const TimelineLogic = () => {
-	const { elapsedTime, setElapsedTime, fullDuration, setLastTimeUpdatedElapsedTime } = useContext(StoryboardContext);
+	const { elapsedTime, setElapsedTime, fullDuration, setLastTimeUpdatedElapsedTime, setLastTimeReleaseTimeline } = useContext(StoryboardContext);
 
 	const timelineContainerRef = useRef(null);
 
@@ -55,5 +55,13 @@ export const TimelineLogic = () => {
 		handleInteractionStart(event.touches[0].clientX);
 	};
 
-	return { elapsedTime, fullDuration, timelineContainerRef, handleMouseDown, handleTouchStart };
+	const handleMouseUp = () => {
+		setLastTimeReleaseTimeline(Date.now());
+	};
+
+	const handleTouchEnd = () => {
+		setLastTimeReleaseTimeline(Date.now());
+	};
+
+	return { elapsedTime, fullDuration, timelineContainerRef, handleMouseDown, handleTouchStart, handleMouseUp, handleTouchEnd };
 };

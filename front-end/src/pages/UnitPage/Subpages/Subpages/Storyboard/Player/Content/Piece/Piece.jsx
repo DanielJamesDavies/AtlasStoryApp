@@ -17,6 +17,8 @@ import "./Piece.css";
 export const Piece = ({ piece, piecesRef }) => {
 	const { pieceContainerRef, isInPieceTime, layers, openPieceID, onClick, handleMouseDown, handleTouchStart } = PieceLogic({ piece, piecesRef });
 
+	if (piece?.piece_type === "track") return null;
+
 	return (
 		<div
 			ref={pieceContainerRef}
@@ -29,8 +31,8 @@ export const Piece = ({ piece, piecesRef }) => {
 				"--z-index": layers?.length + 1 - layers?.findIndex((e) => e.pieces.includes(piece?.id)),
 				"--transformX": (piece?.posX || 0) + "px",
 				"--transformY": (piece?.posY || 0) + "px",
-				"--width": piece?.width + "px" || "unset",
-				"--height": piece?.height + "px" || "unset",
+				"--width": piece?.width ? piece?.width + "px" : "unset",
+				"--height": piece?.height ? piece?.height + "px" : "unset",
 			}}
 			onClick={onClick}
 			onMouseDown={handleMouseDown}

@@ -23,6 +23,9 @@ export const LayersLogic = () => {
 		setPieces,
 		elapsedTime,
 		setElapsedTime,
+		elapsedTimeRef,
+		setLastTimeUpdatedElapsedTime,
+		setLastTimeReleaseTimeline,
 		fullDuration,
 		fromMediaDraggingContent,
 		fromMediaDraggingContentID,
@@ -39,6 +42,8 @@ export const LayersLogic = () => {
 		let newElapsedTime = ((clientX - left) / (fullDuration * 32)) * fullDuration;
 		newElapsedTime = Math.min(Math.max(0, newElapsedTime), fullDuration);
 		setElapsedTime(newElapsedTime);
+		elapsedTimeRef.current = newElapsedTime;
+		setLastTimeUpdatedElapsedTime(Date.now());
 
 		const scrollAmountLeft = Math.min(0, clientX - left - 40 - layersContainerRef?.current?.scrollLeft);
 		const scrollAmountRight = Math.max(
@@ -56,6 +61,7 @@ export const LayersLogic = () => {
 		};
 
 		const handleInteractionEnd = () => {
+			setLastTimeReleaseTimeline(Date.now());
 			document.removeEventListener("mousemove", handleInteractionMove);
 			document.removeEventListener("mouseup", handleInteractionEnd);
 			document.removeEventListener("touchmove", handleInteractionMove);
@@ -112,25 +118,42 @@ export const LayersLogic = () => {
 
 	function onLayerDragOver(layer_index) {
 		// From Media Dragging Content
-		if (fromMediaDraggingContent !== false) {
+		const newFromMediaDraggingContent = JSON.parse(JSON.stringify(fromMediaDraggingContent));
+		if (newFromMediaDraggingContent !== false) {
 			let newFromMediaDraggingContentID = JSON.parse(JSON.stringify(fromMediaDraggingContentID));
 			if (newFromMediaDraggingContentID === false) {
 				newFromMediaDraggingContentID = uuidv4();
 				setFromMediaDraggingContentID(newFromMediaDraggingContentID);
 				setPieces((oldValue) => {
 					let newValue = JSON.parse(JSON.stringify(oldValue));
+					let min_length = 1;
 					try {
-						let new_start_time = elapsedTime;
-						let new_end_time = elapsedTime + 30;
-						if (fullDuration - elapsedTime < 30) {
-							new_start_time = fullDuration;
-							new_end_time = Math.max(0, fullDuration - 30);
+						let newContent = "";
+						switch (newFromMediaDraggingContent?.type) {
+							case "text":
+								newContent = "Text";
+								break;
+							case "track":
+								min_length = Math.max(1, (newFromMediaDraggingContent?.content_item?.duration_ms || 0) / 1000);
+								newContent = newFromMediaDraggingContent?.id;
+								break;
+							default:
+								break;
 						}
+
+						let new_start_time = elapsedTime;
+						let new_end_time = elapsedTime + min_length;
+
+						if (fullDuration - elapsedTime < min_length) {
+							new_start_time = Math.max(0, fullDuration - min_length);
+							new_end_time = fullDuration;
+						}
+
 						newValue.push({
 							id: newFromMediaDraggingContentID,
 							name: "",
-							piece_type: "text",
-							content: "Text",
+							piece_type: newFromMediaDraggingContent?.type,
+							content: newContent,
 							start_time: new_start_time,
 							end_time: new_end_time,
 						});
@@ -193,6 +216,12 @@ export const LayersLogic = () => {
 			newValue = Array(Math.max(0, 4 - newValue.length))
 				.fill({ pieces: [] })
 				.concat(newValue);
+
+		newValue = newValue.map((oldLayer) => {
+			let newLayer = JSON.parse(JSON.stringify(oldLayer));
+			newLayer.pieces = [...new Set(newLayer?.pieces)];
+			return newLayer;
+		});
 
 		return newValue;
 	}

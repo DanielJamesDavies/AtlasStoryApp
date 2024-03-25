@@ -133,6 +133,12 @@
 	overflow: hidden;
 }
 
+.unit-page-storyboard-editor-layer-piece-content img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
 .unit-page-storyboard-editor-layer-piece-context-menu {
 	position: absolute;
 	top: 10px;

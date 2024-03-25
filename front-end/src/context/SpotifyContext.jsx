@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from "react";
+import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from "react";
 
 import { APIContext } from "./APIContext";
 import { RoutesContext } from "./RoutesContext";
@@ -9,11 +9,13 @@ const SpofityProvider = ({ children }) => {
 	const { APIRequest } = useContext(APIContext);
 	const { locationParams, changeLocationAndParameters } = useContext(RoutesContext);
 	const redirect_uri = process.env.NODE_ENV === "development" ? "http://localhost:3000/spotify" : "https://www.atlas-story.app/spotify";
-	const scope = "user-read-private user-read-playback-state user-modify-playback-state playlist-read-private";
+	const scope =
+		"streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state playlist-read-private app-remote-control ";
 	const [spotify_access_token, setSpotifyAccessToken] = useState(false);
 	const [spotify_refresh_token, setSpotifyRefreshToken] = useState(false);
 	const isAuthorized = useRef(false);
 	const [connectDeviceToSpotify, setConnectDeviceToSpotify] = useState(false);
+	const [device_id, setSpotifyDeviceID] = useState(false);
 	const hasAttemptedAuthorization = useRef(false);
 	const attempts = useRef(0);
 
@@ -240,6 +242,69 @@ const SpofityProvider = ({ children }) => {
 		}
 	};
 
+	const isCreatingPlayer = useRef(false);
+	const player = useRef(false);
+	const isSpotifyPlaying = useRef(false);
+
+	useEffect(() => {
+		if (spotify_access_token && window.Spotify && isCreatingPlayer?.current === false) {
+			isCreatingPlayer.current = true;
+			player.current = new window.Spotify.Player({
+				name: "Atlas Story App",
+				getOAuthToken: (callback) => {
+					callback(spotify_access_token);
+				},
+				volume: 0.5,
+			});
+
+			player.current.addListener("ready", ({ device_id }) => {
+				setSpotifyDeviceID(device_id);
+			});
+
+			player.current.connect();
+
+			const handleBeforeUnload = () => player.current.disconnect();
+
+			window.addEventListener("beforeunload", handleBeforeUnload);
+
+			return () => {
+				window.removeEventListener("beforeunload", handleBeforeUnload);
+			};
+		}
+	}, [spotify_access_token]);
+
+	const playSpotifyTrack = useCallback(
+		async (track_uri, options) => {
+			if (device_id === false) return false;
+
+			const { position_ms, pause } = options;
+
+			try {
+				if (pause) {
+					SpotifyRequest(`/me/player/pause?device_id=${device_id}`, "PUT");
+					isSpotifyPlaying.current = false;
+					return false;
+				}
+
+				let body = { uris: [track_uri] };
+				if (position_ms !== undefined) body.position_ms = position_ms;
+
+				SpotifyRequest(`/me/player/play?device_id=${device_id}`, "PUT", body);
+				isSpotifyPlaying.current = true;
+			} catch {}
+		}, // eslint-disable-next-line
+		[device_id, SpotifyRequest, spotify_access_token]
+	);
+
+	const changeSpotifyPlayerVolume = useCallback(
+		async (volume) => {
+			if (device_id === false) return false;
+
+			player.current.setVolume(volume);
+		},
+		[device_id, player]
+	);
+
 	return (
 		<SpotifyContext.Provider
 			value={{
@@ -248,6 +313,9 @@ const SpofityProvider = ({ children }) => {
 				spotify_refresh_token,
 				connectDeviceToSpotify,
 				setConnectDeviceToSpotify,
+				isSpotifyPlaying,
+				playSpotifyTrack,
+				changeSpotifyPlayerVolume,
 			}}
 		>
 			{children}

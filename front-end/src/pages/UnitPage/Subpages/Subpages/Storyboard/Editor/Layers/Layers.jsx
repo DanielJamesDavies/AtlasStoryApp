@@ -37,8 +37,8 @@ export const Layers = () => {
 				<div
 					ref={timeSliderRef}
 					className='unit-page-storyboard-editor-layers-time-slider'
-					onMouseDown={(e) => handleMouseDown(e)}
-					onTouchStart={(e) => handleTouchStart(e)}
+					onMouseDown={handleMouseDown}
+					onTouchStart={handleTouchStart}
 				></div>
 				<div
 					className='unit-page-storyboard-editor-layers-playhead'

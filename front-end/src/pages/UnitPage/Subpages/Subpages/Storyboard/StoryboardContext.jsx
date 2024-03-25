@@ -1,16 +1,20 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { UnitPageContext } from "../../../UnitPageContext";
+import { SpotifyContext } from "../../../../../context/SpotifyContext";
 
 export const StoryboardContext = createContext();
 
 const StoryboardProvider = ({ children }) => {
 	const { unit } = useContext(UnitPageContext);
+	const { SpotifyRequest, spotify_access_token, isSpotifyPlaying, playSpotifyTrack } = useContext(SpotifyContext);
 
 	const [isPlaying, setIsPlaying] = useState(false);
 
 	const [elapsedTime, setElapsedTime] = useState(0);
-	const [fullDuration, setFullDuration] = useState(120);
+	const elapsedTimeRef = useRef(0);
+	const [fullDuration, setFullDuration] = useState(300);
 	const [lastTimeUpdatedElapsedTime, setLastTimeUpdatedElapsedTime] = useState(0);
+	const [lastTimeReleaseTimeline, setLastTimeReleaseTimeline] = useState(0);
 
 	const [volume, setVolume] = useState(0.5);
 	const [isMuted, setIsMuted] = useState(false);
@@ -24,6 +28,8 @@ const StoryboardProvider = ({ children }) => {
 
 	const [layers, setLayers] = useState([]);
 	const [pieces, setPieces] = useState([]);
+	const [playlists, setPlaylists] = useState([]);
+	const [tracks, setTracks] = useState([]);
 
 	const content_simple = [
 		{ id: "1", name: "Text" },
@@ -31,7 +37,64 @@ const StoryboardProvider = ({ children }) => {
 		{ id: "3", name: "Gradient" },
 	];
 	const content_images = [{ id: "4", name: "Image" }];
-	const content_music = [{ id: "5", name: "Track" }];
+
+	const [spotifyPlaylists, setSpotifyPlaylists] = useState([]);
+	const spotifyPlaylistsRef = useRef([]);
+
+	const updateSpotifyPlaylists = useCallback(async () => {
+		const playlists_to_get = playlists.filter(
+			(e) => e?.source === "spotify" && spotifyPlaylistsRef?.current?.findIndex((e2) => e2?.id === e?.id) === -1
+		);
+
+		const new_playlists = await Promise.all(
+			playlists_to_get?.map(async (playlist_to_get) => {
+				const playlist_res = await SpotifyRequest("/playlists/" + playlist_to_get?.id);
+				return playlist_res;
+			})
+		);
+
+		setSpotifyPlaylists((oldValue) => {
+			const newValue = oldValue
+				.filter((e) => new_playlists?.findIndex((e2) => e2?.id === e?.id) === -1)
+				.concat(new_playlists)
+				?.filter((e) => e !== false);
+			spotifyPlaylistsRef.current = newValue;
+			return newValue;
+		});
+	}, [spotifyPlaylistsRef, playlists, SpotifyRequest]);
+
+	useEffect(() => {
+		updateSpotifyPlaylists();
+	}, [playlists, updateSpotifyPlaylists, spotify_access_token]);
+
+	const [spotifyTracks, setSpotifyTracks] = useState([]);
+	const spotifyTracksRef = useRef([]);
+
+	const updateSpotifyTracks = useCallback(async () => {
+		const tracks_to_get = tracks.filter(
+			(e) => e?.source === "spotify" && spotifyTracksRef?.current?.findIndex((e2) => e2?.id === e?.id) === -1
+		);
+
+		const new_tracks = await Promise.all(
+			tracks_to_get?.map(async (track_to_get) => {
+				const track_res = await SpotifyRequest("/tracks/" + track_to_get?.id);
+				return track_res;
+			})
+		);
+
+		setSpotifyTracks((oldValue) => {
+			const newValue = oldValue
+				.filter((e) => new_tracks?.findIndex((e2) => e2?.id === e?.id) === -1)
+				.concat(new_tracks)
+				?.filter((e) => e !== false);
+			spotifyTracksRef.current = newValue;
+			return newValue;
+		});
+	}, [spotifyTracksRef, tracks, SpotifyRequest]);
+
+	useEffect(() => {
+		updateSpotifyTracks();
+	}, [tracks, updateSpotifyTracks, spotify_access_token]);
 
 	const [fromMediaDraggingContent, setFromMediaDraggingContent] = useState(false);
 	const [fromMediaDraggingContentID, setFromMediaDraggingContentID] = useState(false);
@@ -43,13 +106,40 @@ const StoryboardProvider = ({ children }) => {
 	}, [isEditingStoryboard]);
 
 	useEffect(() => {
+		elapsedTimeRef.current = elapsedTime;
+	}, [elapsedTime, elapsedTimeRef]);
+
+	useEffect(() => {
 		setLayers(
 			Array(Math.max(0, 4 - unit?.data?.storyboard?.layers.length))
 				.fill({ pieces: [] })
 				.concat(unit?.data?.storyboard?.layers)
 		);
 		setPieces(unit?.data?.storyboard?.pieces);
-	}, [unit, setLayers, setPieces]);
+		setPlaylists(unit?.data?.storyboard?.playlists);
+		setTracks(unit?.data?.storyboard?.tracks);
+	}, [unit, setLayers, setPieces, setPlaylists, setTracks]);
+
+	// Pause Spotify If No Tracks Playing
+	const hasPausedSpotify = useRef(false);
+	useEffect(() => {
+		if (isSpotifyPlaying?.current && !isPlaying) {
+			isSpotifyPlaying.current = false;
+			playSpotifyTrack("", { pause: true });
+		} else if (isSpotifyPlaying?.current) {
+			const playing_tracks = pieces?.filter((e) => e?.piece_type === "track" && e?.start_time <= elapsedTime && e?.end_time >= elapsedTime);
+			if (playing_tracks?.length === 0) {
+				isSpotifyPlaying.current = false;
+				playSpotifyTrack("", { pause: true });
+			}
+		} else {
+			if (hasPausedSpotify?.current === false) {
+				isSpotifyPlaying.current = false;
+				hasPausedSpotify.current = true;
+				playSpotifyTrack("", { pause: true });
+			}
+		}
+	}, [elapsedTime, isSpotifyPlaying, playSpotifyTrack, pieces, isPlaying]);
 
 	return (
 		<StoryboardContext.Provider
@@ -58,10 +148,13 @@ const StoryboardProvider = ({ children }) => {
 				setIsPlaying,
 				elapsedTime,
 				setElapsedTime,
+				elapsedTimeRef,
 				fullDuration,
 				setFullDuration,
 				lastTimeUpdatedElapsedTime,
 				setLastTimeUpdatedElapsedTime,
+				lastTimeReleaseTimeline,
+				setLastTimeReleaseTimeline,
 				volume,
 				setVolume,
 				isMuted,
@@ -78,9 +171,16 @@ const StoryboardProvider = ({ children }) => {
 				setLayers,
 				pieces,
 				setPieces,
+				playlists,
+				setPlaylists,
+				tracks,
+				setTracks,
 				content_simple,
 				content_images,
-				content_music,
+				spotifyPlaylists,
+				setSpotifyPlaylists,
+				spotifyTracks,
+				setSpotifyTracks,
 				fromMediaDraggingContent,
 				setFromMediaDraggingContent,
 				fromMediaDraggingContentID,

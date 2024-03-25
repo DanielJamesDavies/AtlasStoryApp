@@ -15,8 +15,17 @@ import { StoryboardContext } from "../../../StoryboardContext";
 // Assets
 
 export const PieceLogic = ({ piece }) => {
-	const { setPieces, setLayers, elapsedTime, fullDuration, setDraggingLayerPiece, openPieceID, setOpenPieceID, setOpenMultiTabPane } =
-		useContext(StoryboardContext);
+	const {
+		setPieces,
+		setLayers,
+		elapsedTime,
+		fullDuration,
+		setDraggingLayerPiece,
+		openPieceID,
+		setOpenPieceID,
+		setOpenMultiTabPane,
+		spotifyTracks,
+	} = useContext(StoryboardContext);
 
 	const pieceContainerRef = useRef();
 
@@ -147,7 +156,7 @@ export const PieceLogic = ({ piece }) => {
 			while (element) {
 				if (
 					element.classList &&
-					(element.classList.contains("unit-page-storyboard-editor-multi-tab-pane") ||
+					(element.classList.contains("unit-page-storyboard-editor-multi-tab-pane-content-details") ||
 						element.classList.contains("unit-page-storyboard-editor-top-bar-save-btn") ||
 						element.classList.contains("unit-page-storyboard-player") ||
 						element.classList.contains("unit-page-storyboard-editor-layers-time-slider"))
@@ -198,8 +207,10 @@ export const PieceLogic = ({ piece }) => {
 		return () => window.removeEventListener("click", onClick);
 	}, [isDisplayingContextMenu]);
 
-	function removePiece() {
-		if (openPieceID === piece?.id) {
+	function removePiece(e) {
+		e.stopPropagation();
+
+		if (JSON.stringify(openPieceID) === JSON.stringify(piece?.id)) {
 			setOpenPieceID(false);
 			setOpenMultiTabPane("media");
 		}
@@ -244,5 +255,6 @@ export const PieceLogic = ({ piece }) => {
 		isDisplayingContextMenu,
 		contextMenuLeft,
 		removePiece,
+		spotifyTracks,
 	};
 };

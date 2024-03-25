@@ -15,7 +15,7 @@ import "./Timeline.css";
 // Assets
 
 export const Timeline = () => {
-	const { elapsedTime, fullDuration, timelineContainerRef, handleMouseDown, handleTouchStart } = TimelineLogic();
+	const { elapsedTime, fullDuration, timelineContainerRef, handleMouseDown, handleTouchStart, handleMouseUp, handleTouchEnd } = TimelineLogic();
 
 	return (
 		<div
@@ -23,6 +23,8 @@ export const Timeline = () => {
 			className='unit-page-storyboard-player-timeline-container'
 			onMouseDown={handleMouseDown}
 			onTouchStart={handleTouchStart}
+			onMouseUp={handleMouseUp}
+			onTouchEnd={handleTouchEnd}
 		>
 			<div className='unit-page-storyboard-player-timeline'>
 				<div

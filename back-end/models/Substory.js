@@ -110,6 +110,30 @@ const SubstorySchema = mongoose.Schema({
 						],
 						default: [],
 					},
+					images: {
+						type: [mongoose.Schema.Types.ObjectId],
+						default: [],
+					},
+					playlists: {
+						type: [
+							{
+								id: { type: String, default: "" },
+								uri: { type: String, default: "" },
+								source: { type: String, default: "spotify" },
+							},
+						],
+						default: [],
+					},
+					tracks: {
+						type: [
+							{
+								id: { type: String, default: "" },
+								uri: { type: String, default: "" },
+								source: { type: String, default: "spotify" },
+							},
+						],
+						default: [],
+					},
 				},
 				default: {},
 			},

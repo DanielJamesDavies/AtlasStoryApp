@@ -29,6 +29,7 @@ export const Piece = ({ piece }) => {
 		isDisplayingContextMenu,
 		contextMenuLeft,
 		removePiece,
+		spotifyTracks,
 	} = PieceLogic({ piece });
 
 	if (!piece) return null;
@@ -64,7 +65,11 @@ export const Piece = ({ piece }) => {
 			>
 				<div className='unit-page-storyboard-editor-layer-piece-name-container'>
 					<div className='unit-page-storyboard-editor-layer-piece-name'>
-						{piece?.piece_type === "text" ? 'Text "' + piece?.content + '"' : piece?.name}
+						{piece?.piece_type === "text"
+							? 'Text "' + piece?.content + '"'
+							: piece?.piece_type === "track"
+							? 'Track "' + spotifyTracks?.find((e) => e?.id === piece?.content)?.name + '"'
+							: piece?.name}
 					</div>
 				</div>
 				<div className='unit-page-storyboard-editor-layer-piece-content-container'>
@@ -72,7 +77,17 @@ export const Piece = ({ piece }) => {
 						.fill(0)
 						.map((_, index) => (
 							<div key={index} className='unit-page-storyboard-editor-layer-piece-content'>
-								{piece?.content}
+								{piece?.piece_type === "text" ? (
+									piece?.content
+								) : piece?.piece_type === "track" ? (
+									spotifyTracks?.find((e) => e?.id === piece?.content)?.album?.images?.[0]?.url ? (
+										<img src={spotifyTracks?.find((e) => e?.id === piece?.content)?.album?.images?.[0]?.url} alt='' />
+									) : (
+										""
+									)
+								) : (
+									piece?.content
+								)}
 							</div>
 						))}
 				</div>

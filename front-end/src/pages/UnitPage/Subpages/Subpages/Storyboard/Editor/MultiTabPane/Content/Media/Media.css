@@ -32,27 +32,97 @@
 	flex-wrap: wrap;
 }
 
-.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item {
-	width: 130px;
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music {
+	padding: 8px 0;
+	gap: 8px;
+	flex-direction: column;
+}
+
+/* Music Section */
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-music .openable-component-content {
+	display: flex;
+	gap: 8px;
+	flex-direction: column;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-result {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	transition: 0.2s;
+	color: var(--text-colour-secondary);
 	cursor: pointer;
 }
 
-.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-preview {
-	display: block;
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-result:hover {
+	color: var(--text-colour-primary);
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-result-artwork {
+	width: 50px;
+	height: 50px;
+	transition: 0.2s;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-result-artwork img {
 	border-radius: 5px;
 	width: 100%;
-	height: 70px;
-	background: var(--colour-grey-three);
+	height: 100%;
+	object-fit: contain;
 }
 
-.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-name {
-	font-size: 13px;
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-result:hover
+	.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-result-artwork {
+	scale: 1.1;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-result-text {
+	display: flex;
+	gap: 4px;
+	flex-direction: column;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-result-type {
+	font-size: 14px;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-page-buttons {
+	display: flex;
+	gap: 8px;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-page-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	border: 0;
+	border-radius: 100%;
+	width: 40px;
+	height: 40px;
+	background: var(--colour-grey-two);
 	color: var(--text-colour-secondary);
+	font-size: 18px;
 	transition: 0.2s;
-	user-select: none;
+	cursor: pointer;
 }
 
-.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item:hover
-	.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-name {
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-page-btn-active {
+	background: var(--colour-grey-three);
 	color: var(--text-colour-primary);
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-page-btn-active:hover {
+	background: var(--colour-grey-four);
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-page-btn:nth-child(1) svg {
+	margin-left: -2px;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-page-btn:nth-child(2) svg {
+	margin-left: 2px;
 }
