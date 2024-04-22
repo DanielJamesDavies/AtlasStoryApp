@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
 				group_id: 1,
 				uid: 1,
 				isPrimaryCharacter: 1,
+				isBackgroundCharacter: 1,
 				character_type_id: 1,
 				"data.name": 1,
 				"data.summaryItems": 1,
@@ -35,6 +36,8 @@ module.exports = async (req, res) => {
 				group_id: character?.group_id,
 				uid: character?.uid,
 				isPrimaryCharacter: character?.isPrimaryCharacter,
+				isBackgroundCharacter: character?.isBackgroundCharacter,
+				character_type_id: character?.character_type_id,
 				data: {
 					name: character?.data?.name,
 					summaryItems: character?.data?.summaryItems,

@@ -14,9 +14,11 @@ module.exports = async (req, res) => {
 		if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
 	}
 
-	const firebase_path = `images/${req.params.id}.webp`;
-	const storageRef = ref(storage, firebase_path);
-	uploadString(storageRef, req.body.newValue.substring(23), "base64");
+	if (req.body.newValue === undefined || !req.body.newValue.startsWith("blob:http")) {
+		const firebase_path = `images/${req.params.id}.webp`;
+		const storageRef = ref(storage, firebase_path);
+		uploadString(storageRef, req.body.newValue === undefined ? "" : req.body.newValue.substring(23), "base64");
+	}
 
 	const oldImage = await Image.findById(req.params.id)
 		.exec()

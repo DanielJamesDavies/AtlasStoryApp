@@ -29,6 +29,8 @@ export const CharactersGroupCharacterCardLogic = ({ characterID }) => {
 			const newCharacter = storyCharacters?.find((e) => e._id === characterID);
 			setCharacter(newCharacter);
 
+			console.log(storyCharacterTypes, newCharacter);
+
 			const newCharacterType = storyCharacterTypes?.find((e) => e._id === newCharacter?.character_type_id);
 			setCharacterType(newCharacterType === undefined ? false : newCharacterType);
 		}

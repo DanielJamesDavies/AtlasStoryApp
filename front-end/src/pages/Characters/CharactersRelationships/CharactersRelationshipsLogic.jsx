@@ -24,6 +24,7 @@ export const CharactersRelationshipsLogic = () => {
 		characterRelationshipsCharacters,
 		setCharacterRelationshipsCharacters,
 		relationshipsFilters,
+		isShowingRelationshipsBackgroundCharacters,
 	} = useContext(CharactersContext);
 
 	const charactersRelationshipChartRef = useRef();
@@ -91,6 +92,7 @@ export const CharactersRelationshipsLogic = () => {
 					const newCharacter = storyCharacters.find((e) => e?._id === character?.character_id);
 					if (!newCharacter) return false;
 					if (!relationshipsFilters?.groups?.includes(newCharacter?.group_id)) return false;
+					if (!isShowingRelationshipsBackgroundCharacters && newCharacter?.isBackgroundCharacter) return false;
 					if (
 						story?.data?.characterRelationshipTypes?.length !== 0 &&
 						storyCharacterRelationships.filter(
@@ -107,7 +109,15 @@ export const CharactersRelationshipsLogic = () => {
 			.filter((e) => e !== false);
 
 		setCharacterRelationshipsCharacters(newCharacterRelationshipsCharacters);
-	}, [story, setCharacterRelationshipsCharacters, storyCharacterRelationships, relationshipsFilters, storyGroups, storyCharacters]);
+	}, [
+		story,
+		setCharacterRelationshipsCharacters,
+		storyCharacterRelationships,
+		relationshipsFilters,
+		storyGroups,
+		storyCharacters,
+		isShowingRelationshipsBackgroundCharacters,
+	]);
 
 	useEffect(() => {
 		getCharacterRelationshipsCharacters();
@@ -118,6 +128,7 @@ export const CharactersRelationshipsLogic = () => {
 		relationshipsFilters,
 		storyGroups,
 		storyCharacters,
+		isShowingRelationshipsBackgroundCharacters,
 	]);
 
 	const [isDisplayingInfo, setIsDisplayingInfo] = useState(false);

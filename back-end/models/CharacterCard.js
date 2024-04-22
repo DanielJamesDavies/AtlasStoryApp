@@ -20,6 +20,7 @@ const CharacterCardSchema = mongoose.Schema({
 		index: true,
 	},
 	isPrimaryCharacter: { type: Boolean, default: false },
+	isBackgroundCharacter: { type: Boolean, default: false },
 	character_type_id: { type: mongoose.Schema.Types.ObjectId },
 	data: {
 		type: {

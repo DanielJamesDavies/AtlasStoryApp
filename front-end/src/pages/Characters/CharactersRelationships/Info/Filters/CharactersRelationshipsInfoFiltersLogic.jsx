@@ -15,7 +15,14 @@ import { CharactersContext } from "../../../CharactersContext";
 // Assets
 
 export const CharactersRelationshipsInfoFiltersLogic = () => {
-	const { story, storyGroups, relationshipsFilters, setRelationshipsFilters } = useContext(CharactersContext);
+	const {
+		story,
+		storyGroups,
+		relationshipsFilters,
+		setRelationshipsFilters,
+		isShowingRelationshipsBackgroundCharacters,
+		setIsShowingRelationshipsBackgroundCharacters,
+	} = useContext(CharactersContext);
 
 	const [isDisplayingFilters, setIsDisplayingFilters] = useState(false);
 
@@ -51,5 +58,18 @@ export const CharactersRelationshipsInfoFiltersLogic = () => {
 		setRelationshipsFilters(newRelationshipsFilters);
 	}
 
-	return { story, storyGroups, isDisplayingFilters, toggleIsDisplayingFilters, relationshipsFilters, toggleFilter };
+	function toggleIsRelationshipsShowingBackgroundCharacters() {
+		setIsShowingRelationshipsBackgroundCharacters((oldValue) => !oldValue);
+	}
+
+	return {
+		story,
+		storyGroups,
+		isDisplayingFilters,
+		toggleIsDisplayingFilters,
+		relationshipsFilters,
+		toggleFilter,
+		isShowingRelationshipsBackgroundCharacters,
+		toggleIsRelationshipsShowingBackgroundCharacters,
+	};
 };

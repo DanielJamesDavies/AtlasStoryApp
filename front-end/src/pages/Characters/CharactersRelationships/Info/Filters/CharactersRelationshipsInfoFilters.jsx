@@ -19,8 +19,16 @@ import { ContentItem } from "../../../../../components/ContentItem/ContentItem";
 // Assets
 
 export const CharactersRelationshipsInfoFilters = () => {
-	const { story, storyGroups, isDisplayingFilters, toggleIsDisplayingFilters, relationshipsFilters, toggleFilter } =
-		CharactersRelationshipsInfoFiltersLogic();
+	const {
+		story,
+		storyGroups,
+		isDisplayingFilters,
+		toggleIsDisplayingFilters,
+		relationshipsFilters,
+		toggleFilter,
+		isShowingRelationshipsBackgroundCharacters,
+		toggleIsRelationshipsShowingBackgroundCharacters,
+	} = CharactersRelationshipsInfoFiltersLogic();
 
 	if (relationshipsFilters === false) return null;
 	return (
@@ -60,6 +68,14 @@ export const CharactersRelationshipsInfoFilters = () => {
 								onClick={() => toggleFilter(relationshipType._id, "relationshipTypes")}
 							/>
 						))}
+					</div>
+					<div className='characters-relationship-info-home-filters-subtitle'>Background Characters</div>
+					<div className='characters-relationship-info-home-filters-list'>
+						<CharactersRelationshipsInfoHomeFilterItem
+							name='Show Background Characters'
+							isActive={isShowingRelationshipsBackgroundCharacters}
+							onClick={() => toggleIsRelationshipsShowingBackgroundCharacters()}
+						/>
 					</div>
 				</ContentItem>
 			)}
