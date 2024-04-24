@@ -76,6 +76,19 @@ const StorySchema = mongoose.Schema({
 				default: [],
 			},
 			groups: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+			characterRelationshipsGroups: {
+				type: [
+					{
+						_id: {
+							type: mongoose.Schema.Types.ObjectId,
+							required: true,
+							auto: true,
+						},
+						reversed: { type: Boolean, default: false },
+					},
+				],
+				default: [],
+			},
 			primaryCharacters: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			characterTypes: { type: [mongoose.Schema.Types.ObjectId], default: [] },
 			characterRelationshipTypes: {

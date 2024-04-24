@@ -4,6 +4,7 @@
 import { CharactersRelationshipsInfoFilters } from "./Filters/CharactersRelationshipsInfoFilters";
 import { CharactersRelationshipsInfoRelationshipTypes } from "./RelationshipTypes/CharactersRelationshipsInfoRelationshipTypes";
 import { CharactersRelationshipsInfoSelectedCharacter } from "./SelectedCharacter/CharactersRelationshipsInfoSelectedCharacter";
+import { Groups } from "./Groups/Groups";
 import { ContentItem } from "../../../../components/ContentItem/ContentItem";
 
 // Logic
@@ -30,6 +31,7 @@ export const CharactersRelationshipsInfo = ({ isDisplayingInfo }) => {
 				<CharactersRelationshipsInfoSelectedCharacter />
 				<CharactersRelationshipsInfoFilters />
 				<CharactersRelationshipsInfoRelationshipTypes />
+				<Groups />
 			</ContentItem>
 		</div>
 	);

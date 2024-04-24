@@ -1,0 +1,16 @@
+.characters-group-info-home-groups-item-item {
+	display: flex;
+	flex-direction: column;
+}
+
+.characters-group-info-home-groups-item-item-primary-content {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.characters-group-info-home-groups-item-item-reverse-toggle-container {
+	font-size: 14px;
+}

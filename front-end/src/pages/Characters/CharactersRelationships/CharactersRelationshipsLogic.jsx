@@ -86,24 +86,47 @@ export const CharactersRelationshipsLogic = () => {
 		)
 			return false;
 
-		let newCharacterRelationshipsCharacters = storyGroups
+		let newCharacterRelationshipsCharacters = story?.data?.characterRelationshipsGroups
 			.map((group) =>
-				group?.data?.characters.map((character) => {
-					const newCharacter = storyCharacters.find((e) => e?._id === character?.character_id);
-					if (!newCharacter) return false;
-					if (!relationshipsFilters?.groups?.includes(newCharacter?.group_id)) return false;
-					if (!isShowingRelationshipsBackgroundCharacters && newCharacter?.isBackgroundCharacter) return false;
-					if (
-						story?.data?.characterRelationshipTypes?.length !== 0 &&
-						storyCharacterRelationships.filter(
-							(r) =>
-								r.character_ids.includes(newCharacter?._id) &&
-								relationshipsFilters?.relationshipTypes?.includes(r?.relationship_type)
-						).length === 0
-					)
-						return false;
-					return newCharacter;
-				})
+				group?.reversed
+					? storyGroups
+							?.find((e) => e?._id === group?._id)
+							?.data?.characters.slice()
+							.reverse()
+							.map((character) => {
+								const newCharacter = storyCharacters.find((e) => e?._id === character?.character_id);
+								if (!newCharacter) return false;
+								if (!relationshipsFilters?.groups?.includes(newCharacter?.group_id)) return false;
+								if (!isShowingRelationshipsBackgroundCharacters && newCharacter?.isBackgroundCharacter) return false;
+								if (
+									story?.data?.characterRelationshipTypes?.length !== 0 &&
+									storyCharacterRelationships.filter(
+										(r) =>
+											r.character_ids.includes(newCharacter?._id) &&
+											relationshipsFilters?.relationshipTypes?.includes(r?.relationship_type)
+									).length === 0
+								)
+									return false;
+								return newCharacter;
+							})
+					: storyGroups
+							?.find((e) => e?._id === group?._id)
+							?.data?.characters.map((character) => {
+								const newCharacter = storyCharacters.find((e) => e?._id === character?.character_id);
+								if (!newCharacter) return false;
+								if (!relationshipsFilters?.groups?.includes(newCharacter?.group_id)) return false;
+								if (!isShowingRelationshipsBackgroundCharacters && newCharacter?.isBackgroundCharacter) return false;
+								if (
+									story?.data?.characterRelationshipTypes?.length !== 0 &&
+									storyCharacterRelationships.filter(
+										(r) =>
+											r.character_ids.includes(newCharacter?._id) &&
+											relationshipsFilters?.relationshipTypes?.includes(r?.relationship_type)
+									).length === 0
+								)
+									return false;
+								return newCharacter;
+							})
 			)
 			.flat(1)
 			.filter((e) => e !== false);

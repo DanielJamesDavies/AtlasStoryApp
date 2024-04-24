@@ -154,6 +154,13 @@ const StoryProvider = ({ children }) => {
 					{ uid: "world-building", items: [] },
 				].filter((e) => newStory.data.notes.findIndex((e2) => e2.uid === e.uid) === -1)
 			);
+
+			if (newStory.data.characterRelationshipsGroups?.length === 0) {
+				newStory.data.characterRelationshipsGroups = JSON.parse(JSON.stringify(newStory.data.groups))?.map((e) => {
+					return { _id: e, reversed: false };
+				});
+			}
+
 			setStory(newStory);
 			setIsAuthorizedToEdit(isInEditorMode.current ? response?.data?.isAuthorizedToEdit : false);
 			setIsActuallyAuthorizedToEdit(response?.data?.isAuthorizedToEdit);

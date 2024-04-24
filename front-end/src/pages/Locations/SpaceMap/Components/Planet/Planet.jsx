@@ -18,13 +18,16 @@ import { useLoader, useFrame } from "@react-three/fiber";
 export const Planet = ({ location_id, position, scale = 1, tilt = 0, dayLength = 1, onClick, addToMapObjectLocations, image }) => {
 	const ref = useRef();
 	const cloudsRef = useRef();
-	const surfaceMap = useLoader(TextureLoader, !image ? "/Assets/Map/Earth/2k_earth_daymap.jpg" : image);
+	const surfaceMap = useLoader(
+		TextureLoader,
+		!image || typeof image !== "string" || !image?.startsWith("data:") ? "/Assets/Map/Earth/2k_earth_daymap.jpg" : image
+	);
 	const earthCloudsMap = useLoader(TextureLoader, "/Assets/Map/Earth/2k_earth_clouds.jpg");
-	const [new_scale, setNewScale] = useState(0);
+	const [new_scale, setNewScale] = useState(0.05);
 
 	useEffect(() => {
 		setNewScale(Math.min(Math.max(scale, 0.001), 0.05));
-	}, [scale, setNewScale]);
+	}, [scale, setNewScale, image]);
 
 	const delta_buffer = useRef(0);
 

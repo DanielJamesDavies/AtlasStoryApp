@@ -306,11 +306,33 @@ const LocationsProvider = ({ children, story_uid }) => {
 
 							addImagesToRecentImages([mapImage]);
 						}
+
+						if (mapImage?.image.startsWith("https://firebasestorage")) {
+							mapImage.image = await new Promise((resolve) => {
+								fetch(mapImage?.image)
+									.then((response) => response.blob())
+									.then((blob) => {
+										const reader = new FileReader();
+										reader.onloadend = () => {
+											resolve(reader.result);
+										};
+										reader.onerror = (error) => {
+											console.error("Image error:", error);
+										};
+										reader.readAsDataURL(blob);
+									})
+									.catch((error) => {
+										console.error("Image error:", error);
+									});
+							});
+						}
+
 						const mapImageReduced = await resizeBase64Image(mapImage?.image, 700, 700);
 						return { ...mapImage, ...{ mapImageReduced }, ...{ location_id: location?._id } };
 					})
 				)
 			).filter((e) => e !== false);
+
 			setLocations3DMapImages(newLocations3DMapImages);
 		}
 
