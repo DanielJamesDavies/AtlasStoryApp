@@ -2,7 +2,7 @@ const Image = require("../../models/Image");
 
 const validateImage = require("./validateImage");
 
-const { storage, ref, uploadString } = require("../FirebaseConfig");
+const { storage, ref, uploadString, deleteObject } = require("../FirebaseConfig");
 
 module.exports = async (req, res) => {
 	if (!req?.params?.id) return res.status(200).send({ errors: [{ message: "Image Not Found" }] });
@@ -14,10 +14,20 @@ module.exports = async (req, res) => {
 		if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
 	}
 
-	if (req.body.newValue === undefined || !req.body.newValue.startsWith("blob:http")) {
-		const firebase_path = `images/${req.params.id}.webp`;
-		const storageRef = ref(storage, firebase_path);
-		uploadString(storageRef, req.body.newValue === undefined ? "" : req.body.newValue.substring(23), "base64");
+	try {
+		if (req.body.newValue === undefined || (!req.body.newValue.startsWith("blob:http") && !req.body.newValue.startsWith("https://"))) {
+			const firebase_path = `images/${req.params.id}.webp`;
+			const storageRef = ref(storage, firebase_path);
+			if (req?.body?.newValue !== "NO_IMAGE") {
+				uploadString(storageRef, req.body.newValue === undefined ? "" : req.body.newValue.substring(23), "base64");
+			} else {
+				deleteObject(storageRef).catch((e) => {
+					console.log("Error in UpdateImage.js. ", e);
+				});
+			}
+		}
+	} catch (e) {
+		console.log("Error in UpdateImage.js. ", e);
 	}
 
 	const oldImage = await Image.findById(req.params.id)

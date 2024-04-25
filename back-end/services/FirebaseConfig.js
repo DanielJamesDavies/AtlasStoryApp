@@ -1,5 +1,5 @@
-const { getStorage, ref, uploadString, getDownloadURL } = require("firebase/storage");
+const { getStorage, ref, uploadString, getDownloadURL, deleteObject } = require("firebase/storage");
 
 const storage = getStorage();
 
-module.exports = { storage, ref, uploadString, getDownloadURL };
+module.exports = { storage, ref, uploadString, getDownloadURL, deleteObject };
