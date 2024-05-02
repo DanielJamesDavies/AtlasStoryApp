@@ -22,6 +22,8 @@ export const CharactersRelationshipsInfoFiltersLogic = () => {
 		setRelationshipsFilters,
 		isShowingRelationshipsBackgroundCharacters,
 		setIsShowingRelationshipsBackgroundCharacters,
+		isShowingRelationshipsCharactersWithNoRelationships,
+		setIsShowingRelationshipsCharactersWithNoRelationships,
 	} = useContext(CharactersContext);
 
 	const [isDisplayingFilters, setIsDisplayingFilters] = useState(false);
@@ -62,6 +64,10 @@ export const CharactersRelationshipsInfoFiltersLogic = () => {
 		setIsShowingRelationshipsBackgroundCharacters((oldValue) => !oldValue);
 	}
 
+	function toggleIsShowingRelationshipsCharactersWithNoRelationships() {
+		setIsShowingRelationshipsCharactersWithNoRelationships((oldValue) => !oldValue);
+	}
+
 	return {
 		story,
 		storyGroups,
@@ -71,5 +77,7 @@ export const CharactersRelationshipsInfoFiltersLogic = () => {
 		toggleFilter,
 		isShowingRelationshipsBackgroundCharacters,
 		toggleIsRelationshipsShowingBackgroundCharacters,
+		isShowingRelationshipsCharactersWithNoRelationships,
+		toggleIsShowingRelationshipsCharactersWithNoRelationships,
 	};
 };

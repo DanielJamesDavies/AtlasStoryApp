@@ -28,6 +28,8 @@ export const CharactersRelationshipsInfoFilters = () => {
 		toggleFilter,
 		isShowingRelationshipsBackgroundCharacters,
 		toggleIsRelationshipsShowingBackgroundCharacters,
+		isShowingRelationshipsCharactersWithNoRelationships,
+		toggleIsShowingRelationshipsCharactersWithNoRelationships,
 	} = CharactersRelationshipsInfoFiltersLogic();
 
 	if (relationshipsFilters === false) return null;
@@ -75,6 +77,14 @@ export const CharactersRelationshipsInfoFilters = () => {
 							name='Show Background Characters'
 							isActive={isShowingRelationshipsBackgroundCharacters}
 							onClick={() => toggleIsRelationshipsShowingBackgroundCharacters()}
+						/>
+					</div>
+					<div className='characters-relationship-info-home-filters-subtitle'>Characters without Relationships</div>
+					<div className='characters-relationship-info-home-filters-list'>
+						<CharactersRelationshipsInfoHomeFilterItem
+							name='Show Characters without Relationships'
+							isActive={isShowingRelationshipsCharactersWithNoRelationships}
+							onClick={() => toggleIsShowingRelationshipsCharactersWithNoRelationships()}
 						/>
 					</div>
 				</ContentItem>

@@ -35,6 +35,7 @@ const CharactersProvider = ({ children, story_uid }) => {
 	const [selectedCharacterRelationshipsCharacterId, setSelectedCharacterRelationshipsCharacterId] = useState(false);
 	const [relationshipsFilters, setRelationshipsFilters] = useState(false);
 	const [isShowingRelationshipsBackgroundCharacters, setIsShowingRelationshipsBackgroundCharacters] = useState(false);
+	const [isShowingRelationshipsCharactersWithNoRelationships, setIsShowingRelationshipsCharactersWithNoRelationships] = useState(false);
 
 	const [createCharacterValues, setCreateCharacterValues] = useState({});
 	const [createGroupValues, setCreateGroupValues] = useState({});
@@ -190,6 +191,8 @@ const CharactersProvider = ({ children, story_uid }) => {
 				setRelationshipsFilters,
 				isShowingRelationshipsBackgroundCharacters,
 				setIsShowingRelationshipsBackgroundCharacters,
+				isShowingRelationshipsCharactersWithNoRelationships,
+				setIsShowingRelationshipsCharactersWithNoRelationships,
 				isDisplayingCreateGroupForm,
 				setIsDisplayingCreateGroupForm,
 				isReorderingGroups,

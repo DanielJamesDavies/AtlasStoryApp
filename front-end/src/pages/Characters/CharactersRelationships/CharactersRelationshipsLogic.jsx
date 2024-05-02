@@ -25,6 +25,7 @@ export const CharactersRelationshipsLogic = () => {
 		setCharacterRelationshipsCharacters,
 		relationshipsFilters,
 		isShowingRelationshipsBackgroundCharacters,
+		isShowingRelationshipsCharactersWithNoRelationships,
 	} = useContext(CharactersContext);
 
 	const charactersRelationshipChartRef = useRef();
@@ -104,7 +105,8 @@ export const CharactersRelationshipsLogic = () => {
 										(r) =>
 											r.character_ids.includes(newCharacter?._id) &&
 											relationshipsFilters?.relationshipTypes?.includes(r?.relationship_type)
-									).length === 0
+									).length === 0 &&
+									!isShowingRelationshipsCharactersWithNoRelationships
 								)
 									return false;
 								return newCharacter;
@@ -122,7 +124,8 @@ export const CharactersRelationshipsLogic = () => {
 										(r) =>
 											r.character_ids.includes(newCharacter?._id) &&
 											relationshipsFilters?.relationshipTypes?.includes(r?.relationship_type)
-									).length === 0
+									).length === 0 &&
+									!isShowingRelationshipsCharactersWithNoRelationships
 								)
 									return false;
 								return newCharacter;
@@ -140,6 +143,7 @@ export const CharactersRelationshipsLogic = () => {
 		storyGroups,
 		storyCharacters,
 		isShowingRelationshipsBackgroundCharacters,
+		isShowingRelationshipsCharactersWithNoRelationships,
 	]);
 
 	useEffect(() => {

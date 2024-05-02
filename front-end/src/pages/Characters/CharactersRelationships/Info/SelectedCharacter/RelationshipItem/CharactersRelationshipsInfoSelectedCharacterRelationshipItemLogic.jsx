@@ -22,7 +22,7 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic =
 		storyCharacterRelationships,
 		setStoryCharacterRelationships,
 		selectedCharacterRelationshipsCharacterId,
-		setStoryCharacterRelationshipsRemovedIds,
+		setCharacterRelationshipsRemovedIds,
 	} = useContext(CharactersContext);
 
 	const [secondCharacter, setSecondCharacter] = useState(false);
@@ -84,7 +84,7 @@ export const CharactersRelationshipsInfoSelectedCharacterRelationshipItemLogic =
 		if (relationshipIndex === -1) return false;
 		newCharacterRelationships[relationshipIndex].isRemoved = true;
 
-		setStoryCharacterRelationshipsRemovedIds((oldCharacterRelationshipsRemovedIds) => {
+		setCharacterRelationshipsRemovedIds((oldCharacterRelationshipsRemovedIds) => {
 			let newCharacterRelationshipsRemovedIds = JSON.parse(JSON.stringify(oldCharacterRelationshipsRemovedIds));
 			const removedIndex = newCharacterRelationshipsRemovedIds.findIndex((e) => e === newCharacterRelationships[relationshipIndex]._id);
 			if (removedIndex !== -1) return newCharacterRelationshipsRemovedIds;
