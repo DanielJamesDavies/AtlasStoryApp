@@ -35,7 +35,7 @@ export const CharactersRelationshipChart = ({
 						key={selectedCharacterRelationshipsCharacterId}
 						className='characters-relationship-chart-selected-character-item'
 						style={{
-							"--characterColour": storyCharacters.find((e) => e._id === selectedCharacterRelationshipsCharacterId)?.data?.colour,
+							"--characterColour": storyCharacters.find((e) => e?._id === selectedCharacterRelationshipsCharacterId)?.data?.colour,
 						}}
 					>
 						<div className='characters-relationship-chart-selected-character-item-face-image'>
@@ -48,7 +48,7 @@ export const CharactersRelationshipChart = ({
 							)}
 						</div>
 						<div className='characters-relationship-chart-selected-character-item-name'>
-							{storyCharacters.find((e) => e._id === selectedCharacterRelationshipsCharacterId)?.data?.name}
+							{storyCharacters.find((e) => e?._id === selectedCharacterRelationshipsCharacterId)?.data?.name}
 						</div>
 					</div>
 				)}

@@ -88,6 +88,7 @@ export const CharactersRelationshipsLogic = () => {
 			return false;
 
 		let newCharacterRelationshipsCharacters = story?.data?.characterRelationshipsGroups
+			.filter((e) => storyGroups.findIndex((e2) => e2?._id === e?._id) !== -1)
 			.map((group) =>
 				group?.reversed
 					? storyGroups

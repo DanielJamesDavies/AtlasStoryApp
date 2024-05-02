@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
 	if (group?.data?.characters?.length !== 0)
 		return res.status(200).send({ errors: [{ message: "Group Contains Characters and Could Not Be Deleted" }] });
 
-	const removeGroupFromStoryResult = await removeGroupFromStory(req.params.id, group.story_id);
+	const removeGroupFromStoryResult = await removeGroupFromStory(group._id, group.story_id);
 	if (removeGroupFromStoryResult?.errors) return res.status(200).send({ errors: removeGroupFromStoryResult?.errors });
 
 	const delete_images_result = await deleteImagesByKey("group_id", group._id);

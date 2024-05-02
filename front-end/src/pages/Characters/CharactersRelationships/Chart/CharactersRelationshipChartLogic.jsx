@@ -55,7 +55,7 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 
 			if (!characterRelationshipsCharacters) return null;
 
-			const charactersOrder = characterRelationshipsCharacters.map((character) => character._id);
+			const charactersOrder = characterRelationshipsCharacters.map((character) => character?._id);
 
 			const newCharacterRelationships = JSON.parse(JSON.stringify(storyCharacterRelationships))
 				.filter(
@@ -67,8 +67,8 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 						!e?.isRemoved
 				)
 				.sort((a, b) =>
-					story.data.characterRelationshipTypes.findIndex((e) => e._id === a.relationship_type) <=
-					story.data.characterRelationshipTypes.findIndex((e) => e._id === b.relationship_type)
+					story.data.characterRelationshipTypes.findIndex((e) => e?._id === a.relationship_type) <=
+					story.data.characterRelationshipTypes.findIndex((e) => e?._id === b.relationship_type)
 						? 1
 						: -1
 				);
@@ -102,7 +102,7 @@ export const CharactersRelationshipChartLogic = ({ charactersRelationshipChartWi
 
 		function drawRelationshipCurve(relationship, isCurrent, canvas, ctx, charactersOrder) {
 			ctx.beginPath();
-			const relationshipType = story?.data?.characterRelationshipTypes.find((e) => e._id === relationship.relationship_type);
+			const relationshipType = story?.data?.characterRelationshipTypes.find((e) => e?._id === relationship.relationship_type);
 			if (relationshipType?.colour) {
 				ctx.strokeStyle = relationshipType?.colour;
 			} else {
