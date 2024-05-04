@@ -23,8 +23,8 @@ export const Headline = () => {
 				<div className='landing-hero-headline-moving-word'>Read Stories</div>
 				<div className='landing-hero-headline-moving-word'>Store Stories</div>
 				<div className='landing-hero-headline-moving-word'>Write Stories</div>
+				<div className='landing-hero-headline-moving-word'>Find Stories</div>
 			</div>
-			{/* A platform for writers to <br /> store and share their stories. */}
 		</div>
 	);
 };

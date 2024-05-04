@@ -1,7 +1,7 @@
-.landing-hero-subheadline {
-	margin: 28px 4px;
+.landing-hero-description {
+	margin: 48px auto;
 	width: calc(100% - 48px);
-	max-width: 660px;
+	max-width: 1000px;
 	color: var(--text-colour-primary);
 	font-size: var(--font-size-h2);
 	font-weight: 500;
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 756px) {
-	.landing-hero-subheadline {
+	.landing-hero-description {
 		margin-left: 6px;
 		margin-right: 6px;
 	}

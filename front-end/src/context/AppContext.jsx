@@ -62,6 +62,8 @@ const AppProvider = ({ children }) => {
 			const response = await APIRequest("/image/" + profilePictureID, "GET");
 			if (response?.error || !response?.data?.image?.image) return false;
 			setUserProfilePicture(response.data.image.image);
+			setTimeout(() => setUserProfilePicture(false), 1);
+			setTimeout(() => setUserProfilePicture(response.data.image.image), 2);
 			return response.data.image.image;
 		}
 

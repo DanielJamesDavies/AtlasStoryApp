@@ -1,13 +1,92 @@
 .landing-hero {
+	position: relative;
 	margin: 24px auto;
-	margin-top: 10vh;
-	max-width: 1250px;
-	min-height: 500px;
-	text-align: left;
+	width: 100%;
+	min-height: 600px;
+	text-align: center;
+}
+
+.landing-hero-backgrounds {
+	position: absolute;
+	z-index: -1;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	overflow: hidden;
+	user-select: none;
+	pointer-events: none;
+}
+
+.landing-hero-plot-poster-container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: calc(100% + 24px);
+	max-width: 1550px;
+}
+
+@media (max-width: 950px) {
+	.landing-hero-plot-poster-container {
+		transform: translate(calc(-50% - 24px), calc(-50% - 48px));
+	}
+}
+
+@media (max-width: 890px) {
+	.landing-hero-plot-poster-container {
+		transform: translate(calc(-50% - 24px), calc(-50% + 64px));
+	}
+}
+
+.landing-hero-plot-character-card-container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, calc(-50% - 48px));
+	width: calc(100% + 24px);
+	max-width: 1550px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+@media (max-width: 950px) {
+	.landing-hero-plot-character-card-container {
+		transform: translate(calc(-50% + 24px), calc(-50% - 48px));
+	}
+}
+
+@media (max-width: 890px) {
+	.landing-hero-plot-character-card-container {
+		transform: translate(calc(-50% + 24px), calc(-50% + 64px));
+	}
 }
 
 .landing-hero-buttons {
+	position: absolute;
+	bottom: 56px;
+	left: 50%;
+	transform: translateX(-50%);
 	display: flex;
+	justify-content: center;
 	align-items: center;
-	gap: 8px;
+	gap: 32px;
+}
+
+@media (max-width: 750px) {
+	.landing-hero-buttons {
+		flex-direction: column;
+		gap: 12px;
+	}
+}
+
+@media (max-width: 500px) {
+	.landing-hero-buttons {
+		bottom: 150px;
+	}
 }

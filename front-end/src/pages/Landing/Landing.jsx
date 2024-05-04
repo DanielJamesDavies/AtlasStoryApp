@@ -2,6 +2,8 @@
 
 // Components
 import { Hero } from "./Hero/Hero";
+import { StoryIcons } from "./StoryIcons/StoryIcons";
+import { Description } from "./Description/Description";
 
 // Logic
 
@@ -18,6 +20,8 @@ export const Landing = () => {
 	return (
 		<div className='landing'>
 			<Hero />
+			<StoryIcons />
+			<Description />
 		</div>
 	);
 };

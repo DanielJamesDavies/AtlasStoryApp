@@ -102,7 +102,7 @@ export const NavigationBarLogic = () => {
 		if (username) {
 			changeLocation("/u/" + username, e.button === 1);
 		} else {
-			changeLocation("/login", e.button === 1);
+			changeLocation("/", e.button === 1);
 		}
 	}
 
@@ -123,6 +123,7 @@ export const NavigationBarLogic = () => {
 	}
 
 	return {
+		username,
 		isActuallyAuthorizedToEdit,
 		isAuthorizedToEdit,
 		isOnStory,

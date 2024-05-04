@@ -14,9 +14,11 @@ import { NavigationBarLogic } from "./NavigationBarLogic";
 import "./NavigationBar.css";
 
 // Assets
+import logo from "../../content/logo.svg";
 
 export const NavigationBar = () => {
 	const {
+		username,
 		isActuallyAuthorizedToEdit,
 		isAuthorizedToEdit,
 		isOnStory,
@@ -33,13 +35,17 @@ export const NavigationBar = () => {
 		<div className={"navigation-bar" + (isOnStory ? " navigation-bar-is-on-story" : "")}>
 			<div className='navigation-bar-btn-container navigation-bar-btn-container-user'>
 				<button className={getBtnClassName("user", userProfilePicture)} onClick={navigateToProfile} onAuxClick={navigateToProfile}>
-					{!userProfilePicture ? (
+					{!username ? (
+						<div className='navigation-bar-btn-logo'>
+							<img src={logo} alt='' draggable={false} />
+						</div>
+					) : !userProfilePicture ? (
 						<div className='navigation-bar-btn-user-placeholder' />
 					) : (
 						<img src={userProfilePicture} alt='' draggable={false} />
 					)}
 				</button>
-				<div className='navigation-bar-btn-label'>My Profile</div>
+				{!username ? null : <div className='navigation-bar-btn-label'>My Profile</div>}
 			</div>
 			<div className='navigation-bar-btn-container'>
 				<button className={getBtnClassName("explore", false)} onClick={navigateToExplore} onAuxClick={navigateToExplore}>

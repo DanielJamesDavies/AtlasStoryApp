@@ -1,4 +1,5 @@
 .landing-hero-explore-btn {
+	position: relative;
 	display: flex;
 	align-items: center;
 	gap: 0 10px;
@@ -9,7 +10,7 @@
 
 	height: fit-content;
 
-	background: var(--colour-grey-three);
+	background: transparent;
 	color: var(--text-colour-primary);
 	font-size: var(--font-size-h2);
 	font-weight: 500;
@@ -18,8 +19,26 @@
 }
 
 .landing-hero-explore-btn:hover {
-	background: var(--colour-grey-five);
 	color: #fff;
+}
+
+.landing-hero-explore-btn::before {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	display: block;
+	content: "";
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	background: var(--colour-grey-three);
+	opacity: 0.6;
+	transition: 0.2s;
+}
+
+.landing-hero-explore-btn:hover::before {
+	background: var(--colour-grey-five);
 }
 
 .landing-hero-explore-btn svg {
@@ -29,5 +48,15 @@
 @media (max-width: 756px) {
 	.landing-hero-explore-btn {
 		margin: 0 6px;
+	}
+}
+
+@media (max-width: 500px) {
+	.landing-hero-explore-btn {
+		width: max-content;
+	}
+
+	.landing-hero-explore-btn::before {
+		opacity: 1;
 	}
 }
