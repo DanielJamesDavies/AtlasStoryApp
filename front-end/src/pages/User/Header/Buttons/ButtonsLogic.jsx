@@ -30,7 +30,7 @@ export const ButtonsLogic = () => {
 		setUserID(false);
 		setUsername(false);
 		setUserProfilePicture(false);
-		changeLocation("/login");
+		changeLocation("/");
 	}
 
 	async function followUser() {

@@ -35,10 +35,6 @@
 }
 
 @media (max-width: 900px) {
-	.home-stories-popular-list {
-		justify-content: center;
-	}
-
 	.home-stories-recommended-list-item-container-extra-space {
 		display: none;
 	}

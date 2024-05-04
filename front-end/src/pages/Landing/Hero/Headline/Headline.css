@@ -59,7 +59,7 @@
 
 .landing-hero-headline-moving-word:first-child {
 	animation: landing-hero-headline-moving-word-first-child 12s infinite linear;
-	animation-delay: 0.5s;
+	animation-delay: -1.2s;
 }
 
 @keyframes landing-hero-headline-moving-word-first-child {
