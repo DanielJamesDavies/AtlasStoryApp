@@ -48,7 +48,7 @@ module.exports = async (req, res) => {
 	try {
 		await location.save();
 	} catch (error) {
-		return res.status(200).send({ errors: [{ message: "Location Could Not Be Created" }] });
+		return res.status(200).send({ errors: [{ message: "Location Could Not Be Created", error }] });
 	}
 
 	try {
@@ -68,7 +68,7 @@ function validateLocation(location) {
 		name: Joi.string().min(1).max(64).required(),
 		item_parent: Joi.string().required(),
 		type: Joi.string().required(),
-		specific_type: Joi.string(),
+		specific_type: Joi.string().optional().allow(false).allow(""),
 	});
 
 	const locationValidationError = locationSchema.validate(location, { abortEarly: false })?.error?.details;
@@ -89,12 +89,12 @@ function validateLocation(location) {
 
 				switch (error.type) {
 					case "string.empty":
-						message = "Please Enter " + keyData.indefiniteArticle + " " + keyData.name;
+						message = "Please Enter " + keyData?.indefiniteArticle + " " + keyData.name;
 						break;
 					case "string.min":
 						message =
 							"Please Enter " +
-							keyData.indefiniteArticle +
+							keyData?.indefiniteArticle +
 							" " +
 							keyData.name +
 							" That Is Above " +
@@ -104,7 +104,7 @@ function validateLocation(location) {
 					case "string.max":
 						message =
 							"Please Enter " +
-							keyData.indefiniteArticle +
+							keyData?.indefiniteArticle +
 							" " +
 							keyData.name +
 							" That Is Below " +

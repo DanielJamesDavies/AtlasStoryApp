@@ -1,5 +1,6 @@
 // Packages
 import { useContext, useRef, useEffect, useState } from "react";
+import { sanitizeSVG } from "@skjnldsv/sanitize-svg";
 
 // Components
 
@@ -191,7 +192,9 @@ export const SurfaceMapLogic = () => {
 
 			setLocationMapImages(mapImages);
 
-			locationsSurfaceMapLoadingCircleContainerRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
+			setTimeout(() => {
+				locationsSurfaceMapLoadingCircleContainerRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
+			}, 500);
 
 			setTimeout(() => {
 				surfaceMapImageNewComponentsRef?.current?.setAttribute("width", surfaceMapImageRef?.current?.clientWidth);
@@ -215,6 +218,23 @@ export const SurfaceMapLogic = () => {
 		locationsSurfaceMapLoadingCircleContainerRef,
 		setLocationMapImages,
 	]);
+
+	const [locationMapComponentsImageSanitized, setLocationMapComponentsImageSanitized] = useState(null);
+
+	useEffect(() => {
+		const get_sanitized_components_image = async () => {
+			if (locationMapComponentsImage === false) return setLocationMapComponentsImageSanitized(false);
+			const new_image = await sanitizeSVG(locationMapComponentsImage);
+			setLocationMapComponentsImageSanitized(new_image);
+			setTimeout(() => {
+				if (!surfaceMapImageComponentsContainerRef?.current?.children?.[0]?.children?.[0]) {
+					setLocationMapComponentsImageSanitized(false);
+					setTimeout(() => setLocationMapComponentsImageSanitized(new_image), 1);
+				}
+			}, 1);
+		};
+		get_sanitized_components_image();
+	}, [locationMapComponentsImage, setLocationMapComponentsImageSanitized]);
 
 	return {
 		surfaceMapContainerRef,
@@ -245,6 +265,6 @@ export const SurfaceMapLogic = () => {
 		surfaceMapPlaces,
 		isPositioningSurfaceMapPlace,
 		locationsSurfaceMapLoadingCircleContainerRef,
-		locationMapComponentsImage,
+		locationMapComponentsImageSanitized,
 	};
 };

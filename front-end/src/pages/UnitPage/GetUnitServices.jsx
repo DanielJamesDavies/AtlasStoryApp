@@ -40,6 +40,7 @@ export const GetUnitServices = ({
 	storyGroups,
 	setLocationMapImages,
 	setLocationMapComponents,
+	setPlotPosterBackground,
 }) => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 	const { isInEditorModeState } = useContext(StoryContext);
@@ -309,6 +310,38 @@ export const GetUnitServices = ({
 		[APIRequest, recentImages, addImagesToRecentImages, setCharacterFaceImage]
 	);
 
+	// Get Plot Poster Background
+	const getPlotPosterBackground = useCallback(
+		async (posterBackgroundID) => {
+			if (!posterBackgroundID) return;
+
+			let posterBackground = false;
+
+			const recentImage = recentImages.current.find((e) => e?._id === posterBackgroundID);
+			if (recentImage?.image) {
+				posterBackground = recentImage;
+			} else {
+				const poster_background_image_response = await APIRequest("/image/" + posterBackgroundID, "GET");
+				if (poster_background_image_response?.errors || !poster_background_image_response?.data?.image?.image) return false;
+
+				if (poster_background_image_response?.data?.is_download_url) {
+					const image_url = await firebaseUrlToLocalUrl(poster_background_image_response?.data?.image?.image);
+					posterBackground = { _id: poster_background_image_response.data.image?._id, image: image_url };
+				} else {
+					posterBackground = poster_background_image_response.data.image;
+				}
+			}
+
+			addImagesToRecentImages([posterBackground]);
+
+			console.log("posterBackground", posterBackground);
+
+			setPlotPosterBackground(posterBackground.image);
+			return posterBackground.image;
+		},
+		[APIRequest, recentImages, addImagesToRecentImages, setPlotPosterBackground]
+	);
+
 	// Get Location Map Images
 	const getLocationMapImages = useCallback(
 		async (mapVersions) => {
@@ -533,6 +566,7 @@ export const GetUnitServices = ({
 		getUnitSoundtrack,
 		getCharacterCardBackground,
 		getCharacterFaceImage,
+		getPlotPosterBackground,
 		getLocationMapImages,
 		getLocationMapComponents,
 	};

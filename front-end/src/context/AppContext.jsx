@@ -61,9 +61,31 @@ const AppProvider = ({ children }) => {
 			if (!profilePictureID) return false;
 			const response = await APIRequest("/image/" + profilePictureID, "GET");
 			if (response?.error || !response?.data?.image?.image) return false;
+
+			if (response.data.image.image.startsWith("https://firebasestorage")) {
+				response.data.image.image = await new Promise((resolve) => {
+					fetch(response.data.image.image)
+						.then((response) => response.blob())
+						.then((blob) => {
+							const reader = new FileReader();
+							reader.onloadend = () => {
+								resolve(reader.result);
+							};
+							reader.onerror = (error) => {
+								console.error("Image error:", error);
+							};
+							reader.readAsDataURL(blob);
+						})
+						.catch((error) => {
+							console.error("Image error:", error);
+						});
+				});
+			}
+
 			setUserProfilePicture(response.data.image.image);
 			setTimeout(() => setUserProfilePicture(false), 1);
 			setTimeout(() => setUserProfilePicture(response.data.image.image), 2);
+
 			return response.data.image.image;
 		}
 

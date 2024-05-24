@@ -27,6 +27,10 @@
 	vertical-align: top;
 }
 
+.story-section-2-full-width {
+	width: 100%;
+}
+
 .story-section-1 .content-item,
 .story-section-2 .content-item {
 	margin: 8px 4px;

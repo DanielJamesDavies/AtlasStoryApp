@@ -9,7 +9,6 @@ import { HierarchyFunctions } from "../HierarchyFunctions";
 // Context
 import { LocationsContext } from "../LocationsContext";
 import { APIContext } from "../../../context/APIContext";
-import { RoutesContext } from "../../../context/RoutesContext";
 
 // Services
 
@@ -31,7 +30,6 @@ export const CreateLocationFormLogic = () => {
 		createLocationsValues,
 	} = useContext(LocationsContext);
 	const { APIRequest } = useContext(APIContext);
-	const { changeLocation } = useContext(RoutesContext);
 	const { getPathToItemInHierarchy, getItemInHierarchyFromPath, changeItemInHierarchy } = HierarchyFunctions();
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -81,6 +79,11 @@ export const CreateLocationFormLogic = () => {
 		if (newNameSplitBySpace.length > 1 && newName.toLowerCase() !== newName) newItemUIDSuggestions.push(newNameSplitBySpace.join("-"));
 
 		setItemUIDSuggestions(newItemUIDSuggestions);
+	}
+
+	function onClickUidSuggestion(e, value) {
+		e?.stopPropagation();
+		changeItemUid({ target: { value: value } });
 	}
 
 	function changeItemType(index) {
@@ -174,7 +177,7 @@ export const CreateLocationFormLogic = () => {
 			story_id: story?._id,
 			uid: itemUid,
 			type: newItemType,
-			specific_type: newSpecificItemType,
+			specific_type: newSpecificItemType || "",
 			position: [0, 0, 0],
 			scale: scale ? scale : 1,
 			tilt: 0,
@@ -214,9 +217,10 @@ export const CreateLocationFormLogic = () => {
 		});
 		if (!response) return;
 		if (response?.errors) return setErrors(response.errors);
-		if (story?.uid) changeLocation("/s/" + story.uid + "/l/" + newLocation?.uid);
 
 		// Close Form
+		setItemUid("");
+		setItemUIDSuggestions([]);
 		setItemName("");
 		setItemType("Unselected");
 		setItemParent("Unselected");
@@ -254,5 +258,6 @@ export const CreateLocationFormLogic = () => {
 		submitCreateHierarchyItem,
 		errors,
 		itemUIDSuggestions,
+		onClickUidSuggestion,
 	};
 };

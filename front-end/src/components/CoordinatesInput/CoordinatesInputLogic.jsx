@@ -51,11 +51,15 @@ export const CoordinatesInputLogic = ({ className, value, onChange }) => {
 		} catch {}
 
 		if (e.target.value === "") newValue[index] = "";
-		if (e.target.value === "-") newValue[index] = "-";
-		if (e.target.value[0] === "-") newValue[index] = -1 * parseFloat(e.target.value.split("-")[1]);
+		if (e.target.value?.trim() === "-") {
+			newValue[index] = "-";
+		} else if (e.target.value[0] === "-") {
+			newValue[index] = -1 * parseFloat(e.target.value.split("-")[1]);
+		}
 		if (e.target.value[e.target.value.length - 1] === ".") newValue[index] = parseFloat(e.target.value).toString() + ".";
 
 		if (JSON.stringify(value) === JSON.stringify(newValue)) return false;
+		if (newValue[index].toString() === "NaN") return false;
 		await onChange(e, newValue);
 	}
 

@@ -12,15 +12,14 @@
 	margin: 0 auto;
 	margin-top: 12px;
 	border-radius: 4px 4px 0 0;
-	width: calc(50% - 6px);
-	height: calc(((((100vw - 76px - 12px - 24px - 6px - 16px - 24px) / 2) * (607 / 441)) / 2) - 6px);
-	max-width: calc(412px * 0.7);
-	max-height: calc(585px * 0.7);
+	width: calc(412px * 0.7);
+	height: calc(585px * 0.7);
 	overflow: hidden;
 }
 
 .unit-page-subpage-settings-card-background-image-image-no-image {
-	height: calc(((((100vw - 76px - 12px - 24px - 6px - 16px - 24px) / 2) * (607 / 441)) / 2) - 6px);
+	width: calc(412px * 0.7);
+	height: calc(585px * 0.7);
 }
 
 .unit-page-subpage-settings-card-background-image-image-alignment {
@@ -29,11 +28,37 @@
 	min-height: 100%;
 }
 
-.unit-page-subpage-settings-card-background-image-image img {
+.unit-page-subpage-settings-card-background-image-image-img {
 	border-radius: inherit;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	display: flex;
+	overflow: visible;
+	transform-origin: top;
+	scale: var(--scale);
+}
+
+.unit-page-subpage-settings-card-background-image-image .image-input {
+	transform-origin: top;
+	scale: var(--scale);
+}
+
+.unit-page-subpage-settings-card-background-image-image-size {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	pointer-events: none;
+	user-select: none;
+
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: flex;
+	overflow: visible;
+	transform-origin: top;
+	scale: var(--scale);
 }
 
 .unit-page-subpage-settings-card-background-image-image-alignment-top-left {
@@ -95,20 +120,14 @@
 	right: 0;
 }
 
-@media (max-width: 1100px) {
-	.unit-page-subpage-settings-card-background-container {
-		margin-right: 0;
-		margin-bottom: 12px;
-		width: 50%;
-	}
-
-	.unit-page-subpage-settings-card-background-image {
-		height: calc((((100vw - 76px - 12px - 24px - 6px - 16px - 24px)) * (607 / 441)) / 2);
-	}
-}
-
 @media (max-width: 750px) {
-	.unit-page-subpage-settings-card-background-image {
-		height: calc((((100vw - 76px - 12px - 24px - 6px - 16px - 24px)) * (607 / 441)) / 2);
+	.unit-page-subpage-settings-card-background-image-image-container,
+	.unit-page-subpage-settings-card-background-image-image-no-image {
+		border-width: 5px;
+
+		width: calc(100vw - 24px - 10px - 24px);
+		max-width: min(calc(441px * 0.7), calc((var(--vh) - var(--navbar-mobile-height) - 8px - 12px - 10px - 24px - 39px - 24px) * (441 / 607)));
+		height: calc((100vw - 24px - 10px - 24px) * (607 / 441));
+		max-height: min(calc(607px * 0.7), calc(var(--vh) - var(--navbar-mobile-height) - 8px - 12px - 10px - 24px - 39px - 24px));
 	}
 }

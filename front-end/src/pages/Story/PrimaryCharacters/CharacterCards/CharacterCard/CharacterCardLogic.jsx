@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef, useCallback } from "react";
 
 // Components
 
@@ -62,5 +62,51 @@ export const CharacterCardLogic = ({ character }) => {
 		setCardStyles(newCardStyles);
 	}, [character, characterType, setCardStyles]);
 
-	return { characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles };
+	const cardRef = useRef();
+	const [cardSize, setCardSize] = useState({});
+
+	const backgroundImageRef = useRef();
+	const [backgroundImageSize, setBackgroundImageSize] = useState({});
+
+	const updateCardSize = useCallback(() => {
+		setCardSize({ width: cardRef?.current?.clientWidth, height: cardRef?.current?.clientHeight });
+		setBackgroundImageSize({ width: backgroundImageRef?.current?.clientWidth, height: backgroundImageRef?.current?.clientHeight });
+	}, [cardRef, setCardSize, backgroundImageRef, setBackgroundImageSize]);
+
+	useEffect(() => {
+		updateCardSize();
+		setTimeout(() => updateCardSize(), 1);
+		setTimeout(() => updateCardSize(), 2);
+		setTimeout(() => updateCardSize(), 3);
+		setTimeout(() => updateCardSize(), 4);
+		setTimeout(() => updateCardSize(), 5);
+		document.addEventListener("visibilitychange", updateCardSize);
+		window.addEventListener("resize", updateCardSize);
+		return () => {
+			document.removeEventListener("visibilitychange", updateCardSize);
+			window.removeEventListener("resize", updateCardSize);
+		};
+	}, [character, updateCardSize]);
+
+	const cardSizeRef = useCallback((node) => {
+		if (node) setCardSize({ width: node?.clientWidth, height: node?.clientHeight });
+		cardRef.current = node;
+	}, []);
+
+	const backgroundImageSizeRef = useCallback((node) => {
+		if (node) setBackgroundImageSize({ width: node?.clientWidth, height: node?.clientHeight });
+		backgroundImageRef.current = node;
+	}, []);
+
+	return {
+		characterType,
+		navigateToCharacter,
+		onCharacterCardMouseDown,
+		cardStyles,
+		cardSizeRef,
+		cardSize,
+		backgroundImageSizeRef,
+		backgroundImageSize,
+		backgroundImageRef,
+	};
 };

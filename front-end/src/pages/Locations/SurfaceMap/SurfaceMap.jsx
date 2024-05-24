@@ -46,7 +46,7 @@ export const SurfaceMap = () => {
 		surfaceMapPlaces,
 		isPositioningSurfaceMapPlace,
 		locationsSurfaceMapLoadingCircleContainerRef,
-		locationMapComponentsImage,
+		locationMapComponentsImageSanitized,
 	} = SurfaceMapLogic();
 
 	return (
@@ -81,7 +81,7 @@ export const SurfaceMap = () => {
 									ref={surfaceMapImageComponentsContainerRef}
 									className={"locations-surface-map-image-components-container"}
 									dangerouslySetInnerHTML={{
-										__html: sanitize(locationMapComponentsImage),
+										__html: locationMapComponentsImageSanitized,
 									}}
 									style={surfaceMapImageComponentsStyles}
 								></div>

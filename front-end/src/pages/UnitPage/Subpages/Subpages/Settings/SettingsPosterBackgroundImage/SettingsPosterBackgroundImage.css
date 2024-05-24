@@ -1,0 +1,28 @@
+.unit-page-subpage-settings-poster-background-container {
+	margin-right: 6px;
+	margin-bottom: 12px;
+}
+
+.unit-page-subpage-settings-poster-background-image {
+	--posterWidth: 340px;
+	--posterHeight: 510px;
+	display: block;
+	margin: 24px auto;
+	width: var(--posterWidth);
+	height: var(--posterHeight);
+	background: var(--colour-grey-three);
+}
+
+.unit-page-subpage-settings-poster-background-image img {
+	border-radius: inherit;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+@media (max-width: 950px) {
+	.unit-page-subpage-settings-poster-background-image {
+		--posterWidth: calc(340 / 510 * (var(--vh) - var(--navbar-mobile-height) - 70px - 40px - 38px - 19px - 24px - 28px - 12px - 16px - 8px));
+		--posterHeight: calc(var(--vh) - var(--navbar-mobile-height) - 70px - 40px - 38px - 19px - 24px - 28px - 12px - 16px - 8px);
+	}
+}

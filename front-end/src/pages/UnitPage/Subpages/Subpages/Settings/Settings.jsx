@@ -19,6 +19,7 @@ import { SettingsCardBackgroundImage } from "./SettingsCardBackgroundImage/Setti
 import { SettingsCardNameColour } from "./SettingsCardNameColour/SettingsCardNameColour";
 import { SettingsFaceImage } from "./SettingsFaceImage/SettingsFaceImage";
 import { SettingsListImage } from "./SettingsListImage/SettingsListImage";
+import { SettingsPosterBackgroundImage } from "./SettingsPosterBackgroundImage/SettingsPosterBackgroundImage";
 import { SettingsDelete } from "./SettingsDelete/SettingsDelete";
 
 // Logic
@@ -57,6 +58,7 @@ export const Settings = () => {
 				<SettingsCardBackgroundImage />
 				<SettingsFaceImage />
 				<SettingsListImage />
+				<SettingsPosterBackgroundImage />
 				<SettingsDelete />
 			</div>
 		</div>

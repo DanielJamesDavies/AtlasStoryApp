@@ -68,7 +68,9 @@ export const CharactersGroupCharacterCard = ({ characterID }) => {
 							<div
 								className='characters-group-character-card-background'
 								style={{
-									transform: `translate(${character?.data?.cardBackgroundProperties?.position.join("px, ")}px)`,
+									transform: `translate(${character?.data?.cardBackgroundProperties?.position
+										.map((e) => Math.sign(e) * (Math.abs(e) / 100) * cardSize?.height)
+										.join("px, ")}px)`,
 									width: isNaN(cardSize?.width * parseFloat(character?.data?.cardBackgroundProperties?.scale))
 										? "100%"
 										: cardSize?.width * parseFloat(character?.data?.cardBackgroundProperties?.scale),

@@ -35,6 +35,7 @@ export const SettingsCardBackgroundImage = () => {
 		saveCardBackground,
 		errors,
 		cardBackgroundSizeRef,
+		backgroundImageSizeRef,
 	} = SettingsCardBackgroundImageLogic();
 
 	if (!["character"].includes(unit_type)) return null;
@@ -61,15 +62,42 @@ export const SettingsCardBackgroundImage = () => {
 								<div
 									className='unit-page-subpage-settings-card-background-image-image'
 									style={{
-										transform: `translate(${unit?.data?.cardBackgroundProperties?.position.join("px, ")}px)`,
+										transform: `translate(${unit?.data?.cardBackgroundProperties?.position
+											.map((e) => Math.sign(e) * (Math.abs(e) / 100) * cardBackgroundSizeRef?.current?.clientHeight)
+											.join("px, ")}px)`,
 										width: isNaN(
 											cardBackgroundSizeRef?.current?.clientWidth * parseFloat(unit?.data?.cardBackgroundProperties?.scale)
 										)
 											? "100%"
 											: cardBackgroundSizeRef?.current?.clientWidth * parseFloat(unit?.data?.cardBackgroundProperties?.scale),
+										"--scale": 1,
 									}}
 								>
-									<img src={characterCardBackground} alt='' />
+									<img
+										ref={backgroundImageSizeRef}
+										src={unit?.data?.cardBackground?.image}
+										alt=''
+										className='unit-page-subpage-settings-card-background-image-image-size'
+									/>
+									<img
+										className='unit-page-subpage-settings-card-background-image-image-img'
+										src={characterCardBackground}
+										alt=''
+										style={{
+											"--scale":
+												Math.max(
+													(parseFloat(unit?.data?.cardBackgroundProperties?.scale) || 1) *
+														(cardBackgroundSizeRef?.current?.clientHeight || (window?.innerWidth > 750 ? 585 : 1)),
+													(cardBackgroundSizeRef?.current?.clientWidth || 412) *
+														(parseFloat(unit?.data?.cardBackgroundProperties?.scale) || 1) *
+														(backgroundImageSizeRef?.current?.clientHeight /
+															backgroundImageSizeRef?.current?.clientWidth)
+												) /
+												((cardBackgroundSizeRef?.current?.clientWidth || (window?.innerWidth > 750 ? 412 : 1)) *
+													(parseFloat(unit?.data?.cardBackgroundProperties?.scale) || 1) *
+													(backgroundImageSizeRef?.current?.clientHeight / backgroundImageSizeRef?.current?.clientWidth)),
+										}}
+									/>
 								</div>
 							)}
 						</div>
@@ -90,18 +118,38 @@ export const SettingsCardBackgroundImage = () => {
 										(characterCardBackground ? "" : " unit-page-subpage-settings-card-background-image-image-no-image")
 									}
 									style={{
-										transform: `translate(${unit?.data?.cardBackgroundProperties?.position.join("px, ")}px)`,
+										transform: `translate(${unit?.data?.cardBackgroundProperties?.position
+											.map((e) => Math.sign(e) * (Math.abs(e) / 100) * cardBackgroundSizeRef?.current?.clientHeight)
+											.join("px, ")}px)`,
 										width: isNaN(
 											cardBackgroundSizeRef?.current?.clientWidth * parseFloat(unit?.data?.cardBackgroundProperties?.scale)
 										)
 											? "100%"
 											: cardBackgroundSizeRef?.current?.clientWidth * parseFloat(unit?.data?.cardBackgroundProperties?.scale),
+										"--scale":
+											Math.max(
+												(parseFloat(unit?.data?.cardBackgroundProperties?.scale) || 1) *
+													(cardBackgroundSizeRef?.current?.clientHeight || (window?.innerWidth > 750 ? 585 : 1)),
+												(cardBackgroundSizeRef?.current?.clientWidth || 412) *
+													(parseFloat(unit?.data?.cardBackgroundProperties?.scale) || 1) *
+													(backgroundImageSizeRef?.current?.clientHeight / backgroundImageSizeRef?.current?.clientWidth)
+											) /
+											((cardBackgroundSizeRef?.current?.clientWidth || (window?.innerWidth > 750 ? 412 : 1)) *
+												(parseFloat(unit?.data?.cardBackgroundProperties?.scale) || 1) *
+												(backgroundImageSizeRef?.current?.clientHeight / backgroundImageSizeRef?.current?.clientWidth)),
 									}}
 								>
+									<img
+										ref={backgroundImageSizeRef}
+										src={unit?.data?.cardBackground?.image}
+										alt=''
+										className='unit-page-subpage-settings-card-background-image-image-size'
+									/>
 									<ImageInput value={characterCardBackground} onChange={changeCardBackground} />
 								</div>
 							</div>
 						</div>
+
 						<LabelContainer label='Alignment' isInline={true}>
 							<AlignmentInput value={unit?.data?.cardBackgroundProperties?.alignment} onChange={changeCardBackgroundAlignment} />
 						</LabelContainer>

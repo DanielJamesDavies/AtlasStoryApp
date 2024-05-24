@@ -91,6 +91,7 @@ export const SettingsCardBackgroundImageLogic = () => {
 	}
 
 	const cardBackgroundSizeRef = useRef();
+	const backgroundImageSizeRef = useRef();
 
 	return {
 		unit_type,
@@ -106,5 +107,6 @@ export const SettingsCardBackgroundImageLogic = () => {
 		saveCardBackground,
 		errors,
 		cardBackgroundSizeRef,
+		backgroundImageSizeRef,
 	};
 };

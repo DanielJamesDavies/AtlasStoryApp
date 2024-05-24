@@ -391,11 +391,13 @@ export const SurfaceMapRegionsLogic = ({
 		mapVersionID,
 	]);
 
-	const createRegionNamesClusters = useCallback(() => {
+	const createRegionNamesClusters = useCallback(async () => {
 		if (!locationMapImage) return false;
 
 		const location = locations.find((e) => e?._id === currentLocationId?.current);
 		const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
+
+		await new Promise((resolve) => setTimeout(resolve, 2));
 
 		// Get Distances Between Components
 		const distances = getDistancesBetweenComponents();
@@ -458,49 +460,53 @@ export const SurfaceMapRegionsLogic = ({
 
 	useEffect(() => {
 		function runCreateRegionNamesClusters() {
-			if (!locationMapImage) return false;
+			try {
+				if (!locationMapImage) return false;
 
-			const location = locations?.find((e) => e?._id === currentLocationId.current);
-			const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
-			if (!location || !mapVersion) return false;
+				const location = locations?.find((e) => e?._id === currentLocationId.current);
+				const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
+				if (!location || !mapVersion) return false;
 
-			const regionComponents = mapVersion?.regions?.map((e) => {
-				return { _id: e?._id, components: e?.components };
-			});
+				const regionComponents = mapVersion?.regions?.map((e) => {
+					return { _id: e?._id, components: e?.components };
+				});
 
-			if (prevRegionComponents?.current === false || prevLocationId.current !== currentLocationId.current) {
-				prevRegionComponents.current = regionComponents?.map(() => 0);
-			}
+				if (prevRegionComponents?.current === false || prevLocationId.current !== currentLocationId.current) {
+					prevRegionComponents.current = regionComponents?.map(() => 0);
+				}
 
-			const region_differences = regionComponents
-				?.map((region, index) => {
-					if (JSON.stringify(region) !== JSON.stringify(prevRegionComponents.current?.[index])) {
-						return region?._id;
-					}
-					return false;
-				})
-				.concat(
-					prevRegionComponents.current?.map((region, index) => {
-						if (region === 0) return false;
-						if (JSON.stringify(region) !== JSON.stringify(regionComponents?.[index])) {
+				const region_differences = regionComponents
+					?.map((region, index) => {
+						if (JSON.stringify(region) !== JSON.stringify(prevRegionComponents.current?.[index])) {
 							return region?._id;
 						}
 						return false;
 					})
-				)
-				?.filter((e) => e !== false);
+					.concat(
+						prevRegionComponents.current?.map((region, index) => {
+							if (region === 0) return false;
+							if (JSON.stringify(region) !== JSON.stringify(regionComponents?.[index])) {
+								return region?._id;
+							}
+							return false;
+						})
+					)
+					?.filter((e) => e !== false);
 
-			if (region_differences.length === 0) return false;
+				if (region_differences.length === 0) return false;
 
-			if (hasRunIntitialCreateRegionNamesClusters.current === false) {
-				hasRunIntitialCreateRegionNamesClusters.current = true;
-				setTimeout(() => createRegionNamesClusters(), 300);
-			} else {
-				setTimeout(() => createRegionNamesClusters(), 5);
+				if (hasRunIntitialCreateRegionNamesClusters.current === false) {
+					hasRunIntitialCreateRegionNamesClusters.current = true;
+					setTimeout(() => createRegionNamesClusters(), 300);
+				} else {
+					setTimeout(() => createRegionNamesClusters(), 5);
+				}
+
+				prevRegionComponents.current = regionComponents;
+				prevLocationId.current = currentLocationId.current;
+			} catch (e) {
+				console.log("Error", e);
 			}
-
-			prevRegionComponents.current = regionComponents;
-			prevLocationId.current = currentLocationId.current;
 		}
 
 		runCreateRegionNamesClusters();

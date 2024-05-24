@@ -17,6 +17,7 @@ import { APIContext } from "../../../../context/APIContext";
 export const RecommendedStoriesLogic = () => {
 	const { APIRequest } = useContext(APIContext);
 	const [recommendedStories, setRecommendedStories] = useState(false);
+	const nc_public_uid = "nova-cosmos-public";
 
 	useEffect(() => {
 		async function getRecommendedStories() {
@@ -27,5 +28,5 @@ export const RecommendedStoriesLogic = () => {
 		getRecommendedStories();
 	}, [setRecommendedStories, APIRequest]);
 
-	return { recommendedStories };
+	return { recommendedStories, nc_public_uid };
 };

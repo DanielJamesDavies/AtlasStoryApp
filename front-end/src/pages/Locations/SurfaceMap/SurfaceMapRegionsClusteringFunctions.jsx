@@ -22,54 +22,63 @@ export const SurfaceMapRegionsClusteringFunctions = ({ surfaceMapImageComponents
 		let max_y = -1;
 
 		let path = component?.getAttribute("d");
-		["M", "L", "H", "V", "C", "S", "Q", "T", "A", "Z"]?.map((char) => {
-			path = path.replaceAll(char, "<>");
-			return true;
-		});
-		path.split("<>")
-			.filter((e) => e.length !== 0)
-			.map((data) => {
-				data = data.trim().replaceAll(",", " ");
 
-				if (data?.split(" ").length >= 2) {
-					if (min_x === -1) min_x = parseFloat(data?.split(" ")[0]);
-					if (max_x === -1) max_x = parseFloat(data?.split(" ")[0]);
-					if (min_y === -1) min_y = parseFloat(data?.split(" ")[1]);
-					if (max_y === -1) max_y = parseFloat(data?.split(" ")[1]);
+		try {
+			["M", "L", "H", "V", "C", "S", "Q", "T", "A", "Z"]?.map((char) => {
+				try {
+					path = path.replaceAll(char, "<>");
+				} catch (e) {
+					console.log("Error in SurfaceMapRegionsClusteringFunctions", e);
 				}
-
-				if (data?.split(" ").length === 2) {
-					if (min_x > parseFloat(data?.split(" ")[0])) min_x = parseFloat(data?.split(" ")[0]);
-					if (min_y > parseFloat(data?.split(" ")[1])) min_y = parseFloat(data?.split(" ")[1]);
-
-					if (max_x < parseFloat(data?.split(" ")[0])) max_x = parseFloat(data?.split(" ")[0]);
-					if (max_y < parseFloat(data?.split(" ")[1])) max_y = parseFloat(data?.split(" ")[1]);
-				} else if (data?.split(" ").length === 4) {
-					if (min_x > parseFloat(data?.split(" ")[0])) min_x = parseFloat(data?.split(" ")[0]);
-					if (min_y > parseFloat(data?.split(" ")[1])) min_y = parseFloat(data?.split(" ")[1]);
-					if (min_x > parseFloat(data?.split(" ")[2])) min_x = parseFloat(data?.split(" ")[2]);
-					if (min_y > parseFloat(data?.split(" ")[3])) min_y = parseFloat(data?.split(" ")[3]);
-
-					if (max_x < parseFloat(data?.split(" ")[0])) max_x = parseFloat(data?.split(" ")[0]);
-					if (max_y < parseFloat(data?.split(" ")[1])) max_y = parseFloat(data?.split(" ")[1]);
-					if (max_x < parseFloat(data?.split(" ")[2])) max_x = parseFloat(data?.split(" ")[2]);
-					if (max_y < parseFloat(data?.split(" ")[3])) max_y = parseFloat(data?.split(" ")[3]);
-				}
-
 				return true;
 			});
+			path.split("<>")
+				.filter((e) => e.length !== 0)
+				.map((data) => {
+					data = data.trim().replaceAll(",", " ");
 
-		min_x -= offset;
-		max_x += offset;
-		min_y -= offset;
-		max_y += offset;
+					if (data?.split(" ").length >= 2) {
+						if (min_x === -1) min_x = parseFloat(data?.split(" ")[0]);
+						if (max_x === -1) max_x = parseFloat(data?.split(" ")[0]);
+						if (min_y === -1) min_y = parseFloat(data?.split(" ")[1]);
+						if (max_y === -1) max_y = parseFloat(data?.split(" ")[1]);
+					}
 
-		return [
-			[min_x, min_y],
-			[max_x, min_y],
-			[min_x, max_y],
-			[max_x, max_y],
-		];
+					if (data?.split(" ").length === 2) {
+						if (min_x > parseFloat(data?.split(" ")[0])) min_x = parseFloat(data?.split(" ")[0]);
+						if (min_y > parseFloat(data?.split(" ")[1])) min_y = parseFloat(data?.split(" ")[1]);
+
+						if (max_x < parseFloat(data?.split(" ")[0])) max_x = parseFloat(data?.split(" ")[0]);
+						if (max_y < parseFloat(data?.split(" ")[1])) max_y = parseFloat(data?.split(" ")[1]);
+					} else if (data?.split(" ").length === 4) {
+						if (min_x > parseFloat(data?.split(" ")[0])) min_x = parseFloat(data?.split(" ")[0]);
+						if (min_y > parseFloat(data?.split(" ")[1])) min_y = parseFloat(data?.split(" ")[1]);
+						if (min_x > parseFloat(data?.split(" ")[2])) min_x = parseFloat(data?.split(" ")[2]);
+						if (min_y > parseFloat(data?.split(" ")[3])) min_y = parseFloat(data?.split(" ")[3]);
+
+						if (max_x < parseFloat(data?.split(" ")[0])) max_x = parseFloat(data?.split(" ")[0]);
+						if (max_y < parseFloat(data?.split(" ")[1])) max_y = parseFloat(data?.split(" ")[1]);
+						if (max_x < parseFloat(data?.split(" ")[2])) max_x = parseFloat(data?.split(" ")[2]);
+						if (max_y < parseFloat(data?.split(" ")[3])) max_y = parseFloat(data?.split(" ")[3]);
+					}
+
+					return true;
+				});
+
+			min_x -= offset;
+			max_x += offset;
+			min_y -= offset;
+			max_y += offset;
+
+			return [
+				[min_x, min_y],
+				[max_x, min_y],
+				[min_x, max_y],
+				[max_x, max_y],
+			];
+		} catch (e) {
+			return [];
+		}
 	}, []);
 
 	const getDistanceBetweenTwoComponents = useCallback(
@@ -186,7 +195,7 @@ export const SurfaceMapRegionsClusteringFunctions = ({ surfaceMapImageComponents
 				if (JSON.stringify(cluster) === JSON.stringify(e)) return false;
 				return {
 					cluster_index,
-					min_dist: Math.min(...e?.map((node) => Math.min(...cluster?.map((cluster_node) => distances[cluster_node][node])))),
+					min_dist: Math.min(...e?.map((node) => Math.min(...cluster?.map((cluster_node) => distances?.[cluster_node]?.[node])))),
 				};
 			})
 			.filter((e) => e !== false && e.min_dist !== -1)

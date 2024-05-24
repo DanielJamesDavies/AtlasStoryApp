@@ -24,14 +24,18 @@ export const Buttons = () => {
 		<div className='story-header-buttons-container'>
 			{!story ? null : (
 				<>
-					<button
-						className={isFollowingStory ? "story-header-follow-btn story-header-follow-btn-is-following" : "story-header-follow-btn"}
-						onClick={onFollowStoryBtnClick}
-					>
-						<div className='story-header-follow-btn-text story-header-follow-btn-text-follow'>Follow</div>
-						<div className='story-header-follow-btn-text story-header-follow-btn-text-following'>Following</div>
-						<div className='story-header-follow-btn-text story-header-follow-btn-text-unfollow'>Unfollow</div>
-					</button>
+					{!user_id ? null : (
+						<button
+							className={
+								isFollowingStory ? "story-header-follow-btn story-header-follow-btn-is-following" : "story-header-follow-btn"
+							}
+							onClick={onFollowStoryBtnClick}
+						>
+							<div className='story-header-follow-btn-text story-header-follow-btn-text-follow'>Follow</div>
+							<div className='story-header-follow-btn-text story-header-follow-btn-text-following'>Following</div>
+							<div className='story-header-follow-btn-text story-header-follow-btn-text-unfollow'>Unfollow</div>
+						</button>
+					)}
 					<IconBtn
 						className='story-header-btn'
 						seamless={true}

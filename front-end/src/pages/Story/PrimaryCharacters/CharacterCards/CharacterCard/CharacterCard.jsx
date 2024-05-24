@@ -15,20 +15,31 @@ import "./CharacterCard.css";
 // Assets
 
 export const CharacterCard = ({ character }) => {
-	const { characterType, navigateToCharacter, onCharacterCardMouseDown, cardStyles } = CharacterCardLogic({
+	const {
+		characterType,
+		navigateToCharacter,
+		onCharacterCardMouseDown,
+		cardStyles,
+		cardSizeRef,
+		cardSize,
+		backgroundImageSizeRef,
+		backgroundImageSize,
+		backgroundImageRef,
+	} = CharacterCardLogic({
 		character,
 	});
 
-	if (!character) return <div className='story-primary-character-card-placeholder' />;
+	if (!character) return <div ref={cardSizeRef} className='story-primary-character-card-placeholder' />;
 	return (
 		<div
+			ref={cardSizeRef}
 			className='story-primary-character-card drag-drop-item-content'
 			onClick={navigateToCharacter}
 			onAuxClick={navigateToCharacter}
 			onMouseDown={onCharacterCardMouseDown}
 			style={cardStyles}
 		>
-			<div className='story-primary-character-card-content'>
+			<div ref={cardSizeRef} className='story-primary-character-card-content'>
 				<div className='story-primary-character-card-top-container'>
 					<div className='story-primary-character-card-top-name'>{character?.data?.name}</div>
 					<div className='story-primary-character-card-character-type'>
@@ -47,8 +58,51 @@ export const CharacterCard = ({ character }) => {
 				</div>
 			</div>
 			{!character?.data?.cardBackground?.image ? null : (
-				<div className='story-primary-character-card-background'>
-					<img src={character?.data?.cardBackground?.image} alt='' />
+				<div className='characters-group-character-card-background-container'>
+					<div
+						className={
+							"characters-group-character-card-background-alignment characters-group-character-card-background-alignment-" +
+							character?.data?.cardBackgroundProperties?.alignment
+						}
+					>
+						<div
+							className='characters-group-character-card-background'
+							style={{
+								transform: `translate(${character?.data?.cardBackgroundProperties?.position
+									.map((e) => Math.sign(e) * (Math.abs(e) / 100) * cardSize?.height)
+									.join("px, ")}px)`,
+								width: isNaN(cardSize?.width * parseFloat(character?.data?.cardBackgroundProperties?.scale))
+									? "100%"
+									: cardSize?.width * parseFloat(character?.data?.cardBackgroundProperties?.scale),
+							}}
+						>
+							<img
+								ref={backgroundImageSizeRef}
+								src={character.data.cardBackground.image}
+								alt=''
+								className='characters-group-character-card-background-image-size'
+							/>
+							<img
+								src={character.data.cardBackground.image}
+								alt=''
+								style={{
+									"--scale":
+										Math.max(
+											(parseFloat(character?.data?.cardBackgroundProperties?.scale) || 1) *
+												(cardSize?.height || (window?.innerWidth > 750 ? 585 : 1)),
+											(cardSize?.width || 412) *
+												(parseFloat(character?.data?.cardBackgroundProperties?.scale) || 1) *
+												(backgroundImageRef?.current?.clientHeight /
+													(backgroundImageSize?.width || backgroundImageRef?.current?.clientWidth))
+										) /
+										((cardSize?.width || (window?.innerWidth > 750 ? 412 : 1)) *
+											(parseFloat(character?.data?.cardBackgroundProperties?.scale) || 1) *
+											((backgroundImageSize?.height || backgroundImageRef?.current?.clientHeight) /
+												(backgroundImageSize?.width || backgroundImageRef?.current?.clientWidth))),
+								}}
+							/>
+						</div>
+					</div>
 				</div>
 			)}
 		</div>

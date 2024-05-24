@@ -45,7 +45,7 @@ export const LocationPositionLogic = () => {
 	}
 
 	async function savePosition(e) {
-		e.stopPropagation();
+		e?.stopPropagation();
 		if (!story?._id) return false;
 
 		const newLocationId = JSON.parse(JSON.stringify(location_id));

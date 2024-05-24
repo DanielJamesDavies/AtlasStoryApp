@@ -57,7 +57,7 @@ export const SpaceMap = () => {
 			onMouseMove={onMouseMove}
 		>
 			<div className='locations-map-loading-circle-container'>
-				<LoadingCircle center={true} size='l' />
+				<LoadingCircle center={true} size='m' />
 			</div>
 			<div className='locations-map-label-container'>
 				{travellingToMapLocationId !== false || !locations?.find((e) => e?._id === hoverMapLocationId)?.data?.name ? null : (

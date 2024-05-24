@@ -64,6 +64,8 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 	const [selectedCharacterRelationshipsCharacterId, setSelectedCharacterRelationshipsCharacterId] = useState(false);
 	const [relationshipsFilters, setRelationshipsFilters] = useState(false);
 
+	const [plotPosterBackground, setPlotPosterBackground] = useState(false);
+
 	const [locationMapImages, setLocationMapImages] = useState(false);
 	const [locationMapComponents, setLocationMapComponents] = useState(false);
 
@@ -241,6 +243,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		getUnitListImage,
 		getCharacterCardBackground,
 		getCharacterFaceImage,
+		getPlotPosterBackground,
 		getLocationMapImages,
 		getLocationMapComponents,
 	} = GetUnitServices({
@@ -276,6 +279,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		storyGroups,
 		setLocationMapImages,
 		setLocationMapComponents,
+		setPlotPosterBackground,
 	});
 
 	useEffect(() => {
@@ -298,6 +302,9 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			if (unit_type === "character") {
 				getCharacterCardBackground(newUnit?.data?.cardBackground);
 				getCharacterFaceImage(newUnit?.data?.faceImage);
+			}
+			if (unit_type === "plot") {
+				getPlotPosterBackground(newUnit?.data?.posterBackground);
 			}
 			if (unit_type === "location") {
 				getLocationMapImages(newUnit?.data?.mapVersions);
@@ -323,6 +330,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			setCharacterRelationshipsCharacters(false);
 			setSelectedCharacterRelationshipsCharacterId(false);
 			setRelationshipsFilters(false);
+			setPlotPosterBackground(false);
 			setUnitPageStyle(false);
 		}
 
@@ -341,6 +349,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		getCharacterRelationships,
 		getCharacterCardBackground,
 		getCharacterFaceImage,
+		getPlotPosterBackground,
 		getLocationMapImages,
 		getLocationMapComponents,
 	]);
@@ -523,6 +532,8 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				setSelectedCharacterRelationshipsCharacterId,
 				relationshipsFilters,
 				setRelationshipsFilters,
+				plotPosterBackground,
+				setPlotPosterBackground,
 				locationMapImages,
 				setLocationMapImages,
 				locationMapComponents,

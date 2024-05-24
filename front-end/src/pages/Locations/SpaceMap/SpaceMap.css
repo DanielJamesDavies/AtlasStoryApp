@@ -20,13 +20,14 @@
 	background: #000000;
 	animation: fade-out 0.5s 1;
 	animation-fill-mode: forwards;
-	animation-delay: 1.2s;
+	animation-delay: 2.5s;
 	pointer-events: none;
 	user-select: none;
 }
 
 .locations-map-is-displaying {
 	animation: fade-in 0.2s 1;
+	animation-delay: 0.5s;
 	animation-fill-mode: forwards;
 	opacity: 0;
 	user-select: none;

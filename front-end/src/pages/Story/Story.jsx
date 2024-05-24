@@ -38,7 +38,14 @@ export const Story = () => {
 						<Description />
 					</div>
 				)}
-				<div className='story-section-2'>
+				<div
+					className={
+						"story-section-2" +
+						(!isAuthorizedToEdit && story?.data?.description?.join("")?.trim()?.length === 0 && story?.data?.genres?.length === 0
+							? " story-section-2-full-width"
+							: "")
+					}
+				>
 					<PrimaryCharacters />
 				</div>
 				<Settings />

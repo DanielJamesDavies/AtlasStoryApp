@@ -45,7 +45,7 @@ export const LocationPathsLogic = () => {
 	}
 
 	function addPath() {
-		const newPath = { from: "Unselected", to: "Unselected", type: "Unselected", isMajor: false };
+		const newPath = { from: "Unselected", to: "Unselected", type: "Unselected", isMajor: false, colour: "#888888" };
 		let newLocation = JSON.parse(JSON.stringify(location));
 		newLocation.paths.push(newPath);
 		changeLocation(newLocation);

@@ -40,6 +40,7 @@ export const CreateLocationForm = () => {
 		submitCreateHierarchyItem,
 		errors,
 		itemUIDSuggestions,
+		onClickUidSuggestion,
 	} = CreateLocationFormLogic();
 
 	return (
@@ -55,7 +56,7 @@ export const CreateLocationForm = () => {
 				</div>
 				<div className='locations-create-location-form-input-container'>
 					<TextInput label='UID' value={itemUid} onChange={changeItemUid} isDark={true} />
-					<SuggestionsMessage suggestions={itemUIDSuggestions} labelContext={"for UID"} />
+					<SuggestionsMessage suggestions={itemUIDSuggestions} labelContext={"for UID"} onClick={onClickUidSuggestion} />
 					{itemUid.length === 0 ? null : (
 						<URLPreviewMessage
 							path={"s/" + story_uid + "/l/" + itemUid}

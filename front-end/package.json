@@ -11,6 +11,7 @@
 		"@react-three/cannon": "^6.5.2",
 		"@react-three/drei": "^9.66.0",
 		"@react-three/fiber": "^8.13.0",
+		"@skjnldsv/sanitize-svg": "^1.0.2",
 		"@testing-library/jest-dom": "^5.16.4",
 		"@testing-library/react": "^13.2.0",
 		"@testing-library/user-event": "^13.5.0",

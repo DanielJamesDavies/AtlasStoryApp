@@ -1,6 +1,6 @@
 .dropdown-options-container {
 	position: fixed;
-	z-index: 100000;
+	z-index: 10000000000;
 	max-height: 0 !important;
 	overflow: hidden;
 	transition: max-height 0.2s cubic-bezier(0, 1, 0, 1);

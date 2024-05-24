@@ -18,7 +18,7 @@ import "./RecommendedStories.css";
 // Assets
 
 export const RecommendedStories = ({ isAuthorized }) => {
-	const { recommendedStories, extraStoryItemSpaces } = RecommendedStoriesLogic();
+	const { recommendedStories, extraStoryItemSpaces, nc_public_uid } = RecommendedStoriesLogic();
 
 	if (recommendedStories?.length === 0) return null;
 	return (
@@ -41,11 +41,17 @@ export const RecommendedStories = ({ isAuthorized }) => {
 			) : (
 				<CarouselContainer speed={0.7} buttonScroll={true}>
 					<div className='home-stories-popular-list'>
-						{recommendedStories.map((story, index) => (
-							<div key={index} className='home-stories-recommended-list-item-container'>
-								<StoryItem story={story} size='m' />
-							</div>
-						))}
+						{recommendedStories
+							.sort((a, b) => {
+								if (a.uid === nc_public_uid) return -1;
+								if (b.uid === nc_public_uid) return 1;
+								return 0;
+							})
+							.map((story, index) => (
+								<div key={index} className='home-stories-recommended-list-item-container'>
+									<StoryItem story={story} size='m' />
+								</div>
+							))}
 						{extraStoryItemSpaces?.map((_, index) => (
 							<div
 								key={index}
