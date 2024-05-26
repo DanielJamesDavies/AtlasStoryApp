@@ -16,8 +16,18 @@ import { SpotifyContext } from "../../../../../../../../context/SpotifyContext";
 // Assets
 
 export const PieceLogic = ({ piece, piecesRef }) => {
-	const { isPlaying, elapsedTime, elapsedTimeRef, layers, openPieceID, setOpenPieceID, pieces, setPieces, lastTimeReleaseTimeline } =
-		useContext(StoryboardContext);
+	const {
+		isPlaying,
+		elapsedTime,
+		elapsedTimeRef,
+		layers,
+		openPieceID,
+		setOpenPieceID,
+		pieces,
+		setPieces,
+		lastTimeReleaseTimeline,
+		content_images,
+	} = useContext(StoryboardContext);
 	const { playSpotifyTrack } = useContext(SpotifyContext);
 
 	const pieceContainerRef = useRef();
@@ -237,5 +247,5 @@ export const PieceLogic = ({ piece, piecesRef }) => {
 		handleInteractionStart(event.touches[0].clientX, event.touches[0].clientY, type, id);
 	};
 
-	return { pieceContainerRef, isInPieceTime, layers, openPieceID, onClick, handleMouseDown, handleTouchStart };
+	return { pieceContainerRef, isInPieceTime, layers, openPieceID, onClick, handleMouseDown, handleTouchStart, content_images };
 };

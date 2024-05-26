@@ -334,8 +334,6 @@ export const GetUnitServices = ({
 
 			addImagesToRecentImages([posterBackground]);
 
-			console.log("posterBackground", posterBackground);
-
 			setPlotPosterBackground(posterBackground.image);
 			return posterBackground.image;
 		},

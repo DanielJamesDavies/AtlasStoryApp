@@ -5,6 +5,8 @@ const Image = require("../../models/Image");
 
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
+const { storage, ref, uploadString, deleteObject } = require("../FirebaseConfig");
+
 module.exports = async (req, res) => {
 	if (!req?.body?.path || JSON.stringify(req?.body?.path) === JSON.stringify(["_id"]))
 		return res.status(200).send({ errors: [{ message: "Invalid Path" }] });
@@ -116,6 +118,62 @@ module.exports = async (req, res) => {
 			newPlot = new Plot(newPlot);
 			newPlot = JSON.parse(JSON.stringify(newPlot));
 
+			break;
+		case JSON.stringify(["data", "storyboard"]):
+			const { layers, pieces, playlists, tracks, images } = req.body.newValue;
+
+			const oldStoryboardImages = JSON.parse(JSON.stringify(newPlot))?.data?.storyboard?.images;
+			const newStoryboardImages = images;
+
+			// Remove Removed Images
+			await Promise.all(
+				oldStoryboardImages.map(async (oldImageID) => {
+					if (newStoryboardImages.findIndex((e) => JSON.stringify(e?.id) === JSON.stringify(oldImageID)) === -1) {
+						try {
+							await deleteObject(ref(storage, `images/${oldImageID}.webp`)).catch((e) => {
+								console.log("Error deleting image from Firebase: ", e);
+							});
+						} catch (error) {}
+
+						try {
+							await Image.deleteOne({ _id: oldImageID });
+						} catch (error) {}
+					}
+					return true;
+				})
+			);
+
+			// Create New Images
+			await Promise.all(
+				newStoryboardImages.map(async (newImage) => {
+					if (oldStoryboardImages.findIndex((e) => JSON.stringify(e) === JSON.stringify(newImage?.id)) === -1) {
+						const image = new Image({
+							_id: newImage?.id,
+							image: newImage?.image,
+							story_id: newPlot.story_id,
+							substory_id: newPlot._id,
+						});
+
+						try {
+							const storageRef = ref(storage, `images/${newImage?.id}.webp`);
+							uploadString(storageRef, newImage?.image === undefined ? "" : newImage?.image.substring(23), "base64");
+						} catch (error) {}
+
+						try {
+							await image.save();
+						} catch (error) {}
+					}
+				})
+			);
+
+			// Update Storyboard
+			newPlot.data.storyboard = {
+				layers,
+				pieces,
+				playlists,
+				tracks,
+				images: images?.map((image) => image?.id),
+			};
 			break;
 		default:
 			if (req.body.path.length > 3 && req.body.path[0] === "data" && req.body.path[1] === "plot" && req.body.path[2] === "clusters") {

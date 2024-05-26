@@ -1,5 +1,5 @@
 // Packages
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaPlus } from "react-icons/fa";
 
 // Components
 import { OpenableComponent } from "../../../../../../../../../components/OpenableComponent/OpenableComponent";
@@ -15,6 +15,7 @@ import { MediaLogic } from "./MediaLogic";
 
 // Styles
 import "./Media.css";
+import { IconBtn } from "../../../../../../../../../components/IconBtn/IconBtn";
 
 // Assets
 
@@ -33,6 +34,8 @@ export const Media = () => {
 		searchMusicPage,
 		changeSearchMusicPage,
 		onClickSearchMusicItem,
+		addImageInputRef,
+		onAddImageInputChange,
 	} = MediaLogic();
 
 	return (
@@ -40,14 +43,27 @@ export const Media = () => {
 			<OpenableComponent className='unit-page-storyboard-editor-multi-tab-pane-content-media-section' title='Simple'>
 				<div className='unit-page-storyboard-editor-multi-tab-pane-content-media-section-list'>
 					{content_simple?.map((content_item, index) => (
-						<Content key={index} content_item={content_item} />
+						<Content key={index} content_item={content_item} type={content_item?.type} />
 					))}
 				</div>
 			</OpenableComponent>
 			<OpenableComponent className='unit-page-storyboard-editor-multi-tab-pane-content-media-section' title='Images'>
+				<div className='unit-page-storyboard-editor-multi-tab-pane-content-media-images-add-container'>
+					<IconBtn
+						className='unit-page-storyboard-editor-multi-tab-pane-content-media-images-add-btn'
+						seamless={true}
+						size='s'
+						icon={<FaPlus />}
+						iconName='plus'
+						onClick={() => addImageInputRef.current.click()}
+						label='Add Image'
+						labelAlignment='left'
+					/>
+					<input ref={addImageInputRef} type='file' accept='image/*' onChange={onAddImageInputChange} />
+				</div>
 				<div className='unit-page-storyboard-editor-multi-tab-pane-content-media-section-list'>
 					{content_images?.map((content_item, index) => (
-						<Content key={index} content_item={content_item} />
+						<Content key={index} content_item={content_item} type='image' />
 					))}
 				</div>
 			</OpenableComponent>
@@ -70,6 +86,9 @@ export const Media = () => {
 										className='unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-result'
 										onClick={() => onClickSearchMusicItem(result)}
 									>
+										<div className='unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-result-plus'>
+											<FaPlus />
+										</div>
 										<div className='unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-music-result-artwork'>
 											{result?.album?.images?.[0]?.url ? (
 												<img src={result?.album?.images?.[0]?.url} alt='' />

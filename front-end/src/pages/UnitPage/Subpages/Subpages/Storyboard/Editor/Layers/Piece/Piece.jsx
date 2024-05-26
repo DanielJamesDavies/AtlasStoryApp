@@ -30,6 +30,7 @@ export const Piece = ({ piece }) => {
 		contextMenuLeft,
 		removePiece,
 		spotifyTracks,
+		content_images,
 	} = PieceLogic({ piece });
 
 	if (!piece) return null;
@@ -85,6 +86,8 @@ export const Piece = ({ piece }) => {
 									) : (
 										""
 									)
+								) : piece?.piece_type === "image" ? (
+									<img src={content_images?.find((e) => e?.id === piece?.content)?.image} alt='' />
 								) : (
 									piece?.content
 								)}

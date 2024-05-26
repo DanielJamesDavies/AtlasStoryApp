@@ -9,17 +9,30 @@ import Fuse from "fuse.js";
 // Context
 import { StoryboardContext } from "../../../../StoryboardContext";
 import { SpotifyContext } from "../../../../../../../../../context/SpotifyContext";
+import { APIContext } from "../../../../../../../../../context/APIContext";
 
 // Services
+import getImageFromFile from "../../../../../../../../../services/GetImageFromFile";
 
 // Styles
 
 // Assets
 
 export const MediaLogic = () => {
-	const { playerHeight, content_simple, content_images, playlists, setPlaylists, tracks, setTracks, spotifyPlaylists, spotifyTracks } =
-		useContext(StoryboardContext);
+	const {
+		playerHeight,
+		content_simple,
+		content_images,
+		playlists,
+		setPlaylists,
+		tracks,
+		setTracks,
+		spotifyPlaylists,
+		spotifyTracks,
+		setContentImages,
+	} = useContext(StoryboardContext);
 	const { SpotifyRequest } = useContext(SpotifyContext);
+	const { APIRequest } = useContext(APIContext);
 
 	const [searchMusicResults, setSearchMusicResults] = useState([]);
 	const [searchMusicValue, setSearchMusicValue] = useState("");
@@ -93,6 +106,37 @@ export const MediaLogic = () => {
 		}
 	}
 
+	const addImageInputRef = useRef();
+
+	async function onAddImageInputChange(e) {
+		const image = await getImageFromFile(e.target.files[0], { maxFileSizeInKBs: undefined });
+		addImageInputRef.current.value = [];
+		if (image?.error || !image?.data) return false;
+
+		const new_id_response = await APIRequest("/new-id/", "GET");
+		if (!new_id_response || new_id_response?.errors || !new_id_response?.data?._id) return false;
+
+		const image_size = new Promise((resolve) => {
+			const img = new Image();
+			img.onload = () => {
+				resolve({ width: img.width, height: img.height });
+			};
+			img.onerror = resolve({ width: 400, height: 400 });
+			img.src = image.data;
+		});
+
+		setContentImages((oldValue) =>
+			oldValue.concat([
+				{
+					id: new_id_response?.data?._id,
+					image: image?.data,
+					width: image_size?.width,
+					height: image_size?.height,
+				},
+			])
+		);
+	}
+
 	return {
 		playerHeight,
 		content_simple,
@@ -107,5 +151,7 @@ export const MediaLogic = () => {
 		searchMusicPage,
 		changeSearchMusicPage,
 		onClickSearchMusicItem,
+		addImageInputRef,
+		onAddImageInputChange,
 	};
 };

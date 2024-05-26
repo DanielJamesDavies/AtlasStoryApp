@@ -38,6 +38,7 @@
 }
 
 .unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-preview {
+	position: relative;
 	display: block;
 	border-radius: 5px;
 	width: 100%;
@@ -85,4 +86,22 @@
 .unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item:hover
 	.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-type {
 	color: var(--text-colour-primary);
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-delete-btn {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	opacity: 0;
+	transition: 0.2s;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item:hover
+	.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-delete-btn {
+	opacity: 1;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-delete-btn:hover {
+	color: var(--colour-red);
 }

@@ -25,6 +25,7 @@ export const PieceLogic = ({ piece }) => {
 		setOpenPieceID,
 		setOpenMultiTabPane,
 		spotifyTracks,
+		content_images,
 	} = useContext(StoryboardContext);
 
 	const pieceContainerRef = useRef();
@@ -192,8 +193,10 @@ export const PieceLogic = ({ piece }) => {
 
 	useEffect(() => {
 		const pieceContainerRefCurrent = pieceContainerRef?.current;
-		pieceContainerRefCurrent.addEventListener("contextmenu", onContextMenu, false);
-		return () => pieceContainerRefCurrent.addEventListener("contextmenu", onContextMenu);
+		if (pieceContainerRefCurrent) {
+			pieceContainerRefCurrent.addEventListener("contextmenu", onContextMenu, false);
+			return () => pieceContainerRefCurrent.addEventListener("contextmenu", onContextMenu);
+		}
 	}, [pieceContainerRef, onContextMenu]);
 
 	useEffect(() => {
@@ -256,5 +259,6 @@ export const PieceLogic = ({ piece }) => {
 		contextMenuLeft,
 		removePiece,
 		spotifyTracks,
+		content_images,
 	};
 };

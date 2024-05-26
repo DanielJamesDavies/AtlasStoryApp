@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 
 // Components
 import { TypeText } from "./TypeText/TypeText";
+import { TypeImage } from "./TypeImage/TypeImage";
 
 // Logic
 
@@ -24,6 +25,9 @@ export const DetailsLogic = () => {
 		switch (pieces?.find((e) => e?.id === openPieceID)?.piece_type) {
 			case "text":
 				setContent(<TypeText />);
+				break;
+			case "image":
+				setContent(<TypeImage />);
 				break;
 			default:
 				setContent(null);

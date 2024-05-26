@@ -15,7 +15,10 @@ import "./Piece.css";
 // Assets
 
 export const Piece = ({ piece, piecesRef }) => {
-	const { pieceContainerRef, isInPieceTime, layers, openPieceID, onClick, handleMouseDown, handleTouchStart } = PieceLogic({ piece, piecesRef });
+	const { pieceContainerRef, isInPieceTime, layers, openPieceID, onClick, handleMouseDown, handleTouchStart, content_images } = PieceLogic({
+		piece,
+		piecesRef,
+	});
 
 	if (piece?.piece_type === "track") return null;
 
@@ -82,7 +85,15 @@ export const Piece = ({ piece, piecesRef }) => {
 					></div>
 				</div>
 			</div>
-			<div className='unit-page-storyboard-player-content-piece'>{piece?.content}</div>
+			<div className='unit-page-storyboard-player-content-piece'>
+				{piece?.piece_type === "image" ? (
+					!content_images?.find((e) => e?.id === piece?.content)?.image ? null : (
+						<img src={content_images?.find((e) => e?.id === piece?.content)?.image} alt='' />
+					)
+				) : (
+					piece?.content
+				)}
+			</div>
 		</div>
 	);
 };

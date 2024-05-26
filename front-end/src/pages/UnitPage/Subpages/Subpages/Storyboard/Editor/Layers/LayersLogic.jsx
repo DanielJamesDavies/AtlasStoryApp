@@ -29,7 +29,6 @@ export const LayersLogic = () => {
 		fullDuration,
 		fromMediaDraggingContent,
 		fromMediaDraggingContentID,
-		setFromMediaDraggingContentID,
 		draggingLayerPiece,
 		setDraggingLayerPiece,
 	} = useContext(StoryboardContext);
@@ -119,65 +118,80 @@ export const LayersLogic = () => {
 	function onLayerDragOver(layer_index) {
 		// From Media Dragging Content
 		const newFromMediaDraggingContent = JSON.parse(JSON.stringify(fromMediaDraggingContent));
-		if (newFromMediaDraggingContent !== false) {
-			let newFromMediaDraggingContentID = JSON.parse(JSON.stringify(fromMediaDraggingContentID));
-			if (newFromMediaDraggingContentID === false) {
-				newFromMediaDraggingContentID = uuidv4();
-				setFromMediaDraggingContentID(newFromMediaDraggingContentID);
-				setPieces((oldValue) => {
-					let newValue = JSON.parse(JSON.stringify(oldValue));
-					let min_length = 1;
-					try {
-						let newContent = "";
-						switch (newFromMediaDraggingContent?.type) {
-							case "text":
-								newContent = "Text";
-								break;
-							case "track":
-								min_length = Math.max(1, (newFromMediaDraggingContent?.content_item?.duration_ms || 0) / 1000);
-								newContent = newFromMediaDraggingContent?.id;
-								break;
-							default:
-								break;
-						}
+		if (newFromMediaDraggingContent === false) return false;
 
-						let new_start_time = elapsedTime;
-						let new_end_time = elapsedTime + min_length;
+		let newFromMediaDraggingContentID = JSON.parse(JSON.stringify(fromMediaDraggingContentID?.current));
+		if (newFromMediaDraggingContentID !== false) return false;
+		newFromMediaDraggingContentID = uuidv4();
+		fromMediaDraggingContentID.current = newFromMediaDraggingContentID;
 
-						if (fullDuration - elapsedTime < min_length) {
-							new_start_time = Math.max(0, fullDuration - min_length);
-							new_end_time = fullDuration;
-						}
-
-						newValue.push({
-							id: newFromMediaDraggingContentID,
-							name: "",
-							piece_type: newFromMediaDraggingContent?.type,
-							content: newContent,
-							start_time: new_start_time,
-							end_time: new_end_time,
-						});
-						return newValue;
-					} catch {
-						return oldValue;
-					}
-				});
-			}
-
-			setLayers((oldValue) => {
-				let newValue = JSON.parse(JSON.stringify(oldValue));
-				try {
-					const index = newValue.findIndex((e) => e.pieces.includes(newFromMediaDraggingContentID));
-					if (index !== layer_index) {
-						if (index !== -1) newValue[index].pieces = newValue[index].pieces.filter((e) => e !== newFromMediaDraggingContentID);
-						newValue[layer_index].pieces.push(newFromMediaDraggingContentID);
-					}
-					return getCleanLayers(newValue);
-				} catch {
-					return getCleanLayers(oldValue);
+		setPieces((oldValue) => {
+			let newValue = JSON.parse(JSON.stringify(oldValue));
+			let min_length = 1;
+			try {
+				let newName = "";
+				let newContent = "";
+				let newWidth = 0;
+				let newHeight = 0;
+				switch (newFromMediaDraggingContent?.type) {
+					case "text":
+						newContent = "Text";
+						break;
+					case "image":
+						newName = "Image";
+						newContent = newFromMediaDraggingContent?.id;
+						min_length = 10;
+						newWidth = newFromMediaDraggingContent?.content_item?.width;
+						newHeight = newFromMediaDraggingContent?.content_item.height;
+						break;
+					case "track":
+						min_length = Math.max(1, (newFromMediaDraggingContent?.content_item?.duration_ms || 0) / 1000);
+						newContent = newFromMediaDraggingContent?.id;
+						break;
+					default:
+						break;
 				}
-			});
-		}
+
+				let new_start_time = elapsedTime;
+				let new_end_time = elapsedTime + min_length;
+
+				if (fullDuration - elapsedTime < min_length) {
+					new_start_time = Math.max(0, fullDuration - min_length);
+					new_end_time = fullDuration;
+				}
+
+				// Create New Piece
+				newValue.push({
+					id: newFromMediaDraggingContentID,
+					name: newName,
+					piece_type: newFromMediaDraggingContent?.type,
+					content: newContent,
+					start_time: new_start_time,
+					end_time: new_end_time,
+					posX: 0,
+					posY: 0,
+					width: newWidth,
+					height: newHeight,
+				});
+				return newValue;
+			} catch {
+				return oldValue;
+			}
+		});
+
+		setLayers((oldValue) => {
+			let newValue = JSON.parse(JSON.stringify(oldValue));
+			try {
+				const index = newValue.findIndex((e) => e.pieces.includes(newFromMediaDraggingContentID));
+				if (index !== layer_index) {
+					if (index !== -1) newValue[index].pieces = newValue[index].pieces.filter((e) => e !== newFromMediaDraggingContentID);
+					newValue[layer_index].pieces.push(newFromMediaDraggingContentID);
+				}
+				return getCleanLayers(newValue);
+			} catch {
+				return getCleanLayers(oldValue);
+			}
+		});
 	}
 
 	function onLayerMouseOver(layer_index) {

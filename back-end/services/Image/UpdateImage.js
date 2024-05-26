@@ -16,8 +16,7 @@ module.exports = async (req, res) => {
 
 	try {
 		if (req.body.newValue === undefined || (!req.body.newValue.startsWith("blob:http") && !req.body.newValue.startsWith("https://"))) {
-			const firebase_path = `images/${req.params.id}.webp`;
-			const storageRef = ref(storage, firebase_path);
+			const storageRef = ref(storage, `images/${req.params.id}.webp`);
 			if (req?.body?.newValue !== "NO_IMAGE") {
 				uploadString(storageRef, req.body.newValue === undefined ? "" : req.body.newValue.substring(23), "base64");
 			} else {

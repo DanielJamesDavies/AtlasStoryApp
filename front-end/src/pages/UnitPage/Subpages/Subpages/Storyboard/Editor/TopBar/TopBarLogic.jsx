@@ -18,7 +18,7 @@ import { APIContext } from "../../../../../../../context/APIContext";
 
 export const TopBarLogic = () => {
 	const { unit_type, story, storyIcon, unit } = useContext(UnitPageContext);
-	const { setIsEditingStoryboard, layers, pieces, playlists, tracks } = useContext(StoryboardContext);
+	const { setIsEditingStoryboard, layers, pieces, playlists, tracks, content_images } = useContext(StoryboardContext);
 	const { APIRequest } = useContext(APIContext);
 
 	function onClickBackBtn() {
@@ -30,11 +30,12 @@ export const TopBarLogic = () => {
 		const newPieces = JSON.parse(JSON.stringify(pieces));
 		const newPlaylists = JSON.parse(JSON.stringify(playlists));
 		const newTracks = JSON.parse(JSON.stringify(tracks));
+		const newImages = JSON.parse(JSON.stringify(content_images));
 
 		const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
 			story_id: story._id,
 			path: ["data", "storyboard"],
-			newValue: { layers: newLayers, pieces: newPieces, playlists: newPlaylists, tracks: newTracks },
+			newValue: { layers: newLayers, pieces: newPieces, playlists: newPlaylists, tracks: newTracks, images: newImages },
 		});
 		if (!response || response?.errors) {
 			return false;

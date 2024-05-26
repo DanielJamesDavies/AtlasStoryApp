@@ -1,12 +1,14 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { UnitPageContext } from "../../../UnitPageContext";
 import { SpotifyContext } from "../../../../../context/SpotifyContext";
+import { APIContext } from "../../../../../context/APIContext";
 
 export const StoryboardContext = createContext();
 
 const StoryboardProvider = ({ children }) => {
 	const { unit } = useContext(UnitPageContext);
 	const { SpotifyRequest, spotify_access_token, isSpotifyPlaying, playSpotifyTrack } = useContext(SpotifyContext);
+	const { APIRequest } = useContext(APIContext);
 
 	const [isPlaying, setIsPlaying] = useState(false);
 
@@ -32,11 +34,11 @@ const StoryboardProvider = ({ children }) => {
 	const [tracks, setTracks] = useState([]);
 
 	const content_simple = [
-		{ id: "1", name: "Text" },
-		{ id: "2", name: "Solid" },
-		{ id: "3", name: "Gradient" },
+		{ id: "1", name: "Text", type: "text" },
+		{ id: "2", name: "Solid", type: "solid" },
+		{ id: "3", name: "Gradient", type: "gradient" },
 	];
-	const content_images = [{ id: "4", name: "Image" }];
+	const [content_images, setContentImages] = useState([]);
 
 	const [spotifyPlaylists, setSpotifyPlaylists] = useState([]);
 	const spotifyPlaylistsRef = useRef([]);
@@ -97,7 +99,7 @@ const StoryboardProvider = ({ children }) => {
 	}, [tracks, updateSpotifyTracks, spotify_access_token]);
 
 	const [fromMediaDraggingContent, setFromMediaDraggingContent] = useState(false);
-	const [fromMediaDraggingContentID, setFromMediaDraggingContentID] = useState(false);
+	const fromMediaDraggingContentID = useRef(false);
 
 	const [draggingLayerPiece, setDraggingLayerPiece] = useState(false);
 
@@ -111,6 +113,11 @@ const StoryboardProvider = ({ children }) => {
 
 	useEffect(() => {
 		setLayers(
+			Array(Math.max(0, 4 - unit?.data?.storyboard?.layers.length))
+				.fill({ pieces: [] })
+				.concat(unit?.data?.storyboard?.layers)
+		);
+		console.log(
 			Array(Math.max(0, 4 - unit?.data?.storyboard?.layers.length))
 				.fill({ pieces: [] })
 				.concat(unit?.data?.storyboard?.layers)
@@ -140,6 +147,25 @@ const StoryboardProvider = ({ children }) => {
 			}
 		}
 	}, [elapsedTime, isSpotifyPlaying, playSpotifyTrack, pieces, isPlaying]);
+
+	// Get Content Images
+	const has_got_content_images = useRef(false);
+	useEffect(() => {
+		async function get_content_images() {
+			if (has_got_content_images?.current || !unit?.data?.storyboard) return false;
+			has_got_content_images.current = true;
+			const newContentImages = await Promise.all(
+				unit?.data?.storyboard?.images?.map(async (image_id) => {
+					if (!image_id) return;
+					const res = await APIRequest("/image/" + image_id, "GET");
+					if (res?.errors || !res?.data?.image?.image) return { id: image_id, image: false };
+					return { id: image_id, image: res?.data?.image?.image };
+				})
+			);
+			setContentImages(newContentImages);
+		}
+		get_content_images();
+	}, [setContentImages, unit, APIRequest]);
 
 	return (
 		<StoryboardContext.Provider
@@ -177,6 +203,7 @@ const StoryboardProvider = ({ children }) => {
 				setTracks,
 				content_simple,
 				content_images,
+				setContentImages,
 				spotifyPlaylists,
 				setSpotifyPlaylists,
 				spotifyTracks,
@@ -184,7 +211,6 @@ const StoryboardProvider = ({ children }) => {
 				fromMediaDraggingContent,
 				setFromMediaDraggingContent,
 				fromMediaDraggingContentID,
-				setFromMediaDraggingContentID,
 				draggingLayerPiece,
 				setDraggingLayerPiece,
 			}}
