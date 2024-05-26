@@ -3,6 +3,14 @@
 	height: var(--player_height);
 }
 
+.unit-page-storyboard-player-container:not(.unit-page-storyboard-player-container-is-editor-player) {
+	animation: fade-in 0.2s 1;
+	animation-fill-mode: forwards;
+	opacity: 0;
+	pointer-events: none;
+	animation-delay: 1.5s;
+}
+
 .unit-page-storyboard-player-container-is-fullscreen .unit-page-storyboard-player {
 	margin: 0 auto;
 	transform-origin: center left;

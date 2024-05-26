@@ -273,23 +273,59 @@ const SpofityProvider = ({ children }) => {
 		}
 	}, [spotify_access_token]);
 
+	const last_play_request = useRef(false);
 	const playSpotifyTrack = useCallback(
-		async (track_uri, options) => {
-			if (device_id === false) return false;
+		async (uri, options) => {
+			// Find Computer Device
+			const devices = await SpotifyRequest(`/me/player/devices`, "GET");
+			const other_computer_devices = devices?.devices
+				.filter((e) => e?.type?.toLowerCase() === "computer" && e?.name !== "Atlas Story App")
+				?.map((e) => e?.id);
+			let new_device_id = JSON.parse(JSON.stringify(device_id));
+			if (other_computer_devices.length !== 0) new_device_id = other_computer_devices[0];
+			if (new_device_id === false) return false;
 
-			const { position_ms, pause } = options;
+			let { position_ms, pause, position, local_uri } = options;
+
+			if (
+				last_play_request?.current !== false &&
+				JSON.stringify({
+					uri: last_play_request?.current?.uri,
+					pause: last_play_request?.current?.pause,
+					position: last_play_request?.current?.position,
+					local_uri: last_play_request?.current?.local_uri,
+				}) === JSON.stringify({ uri, pause, position, local_uri }) &&
+				Math.abs(last_play_request?.current?.position_ms - position_ms) < 200
+			) {
+				return false;
+			}
+			last_play_request.current = { uri, pause, position, local_uri, position_ms };
 
 			try {
+				// Pause Player
 				if (pause) {
-					SpotifyRequest(`/me/player/pause?device_id=${device_id}`, "PUT");
+					SpotifyRequest(`/me/player/pause?device_id=${new_device_id}`, "PUT");
 					isSpotifyPlaying.current = false;
 					return false;
 				}
 
-				let body = { uris: [track_uri] };
+				// Get Local Track Position
+				if (local_uri !== undefined) {
+					const playlist_res = await SpotifyRequest("/playlists/" + encodeURI(uri.replace("spotify:playlist:", "")) + "/tracks");
+					position = playlist_res?.items?.findIndex((e) => e?.track?.uri === local_uri);
+				}
+
+				// Create Body
+				let body = {};
+
+				if (uri.split(":")[1] === "track") body.uris = [uri];
+				if (uri.split(":")[1] === "playlist") body.context_uri = uri;
+
+				if (position !== undefined) body.offset = { position };
 				if (position_ms !== undefined) body.position_ms = position_ms;
 
-				SpotifyRequest(`/me/player/play?device_id=${device_id}`, "PUT", body);
+				// Play Track
+				SpotifyRequest(`/me/player/play?device_id=${new_device_id}`, "PUT", body);
 				isSpotifyPlaying.current = true;
 			} catch {}
 		}, // eslint-disable-next-line

@@ -4,7 +4,7 @@
 	flex-direction: column;
 	padding: 16px;
 	box-sizing: border-box;
-	max-height: calc(var(--player_height) - 26px - 8px);
+	max-height: calc(var(--player_height) - 26px - 8px + 50px - 8px);
 	overflow-y: auto;
 }
 

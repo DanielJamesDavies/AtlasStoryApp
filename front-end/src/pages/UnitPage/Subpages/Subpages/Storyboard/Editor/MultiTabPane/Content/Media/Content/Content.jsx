@@ -24,7 +24,7 @@ export const Content = ({ content_item, type }) => {
 			className='unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item'
 			onDragStart={onDragStart}
 			onDragEnd={onDragEnd}
-			draggable={!["playlist"].includes(type)}
+			draggable={true}
 		>
 			<div className='unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-preview'>
 				{type === "playlist" || type === "track" ? (

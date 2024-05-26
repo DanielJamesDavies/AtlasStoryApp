@@ -117,11 +117,6 @@ const StoryboardProvider = ({ children }) => {
 				.fill({ pieces: [] })
 				.concat(unit?.data?.storyboard?.layers)
 		);
-		console.log(
-			Array(Math.max(0, 4 - unit?.data?.storyboard?.layers.length))
-				.fill({ pieces: [] })
-				.concat(unit?.data?.storyboard?.layers)
-		);
 		setPieces(unit?.data?.storyboard?.pieces);
 		setPlaylists(unit?.data?.storyboard?.playlists);
 		setTracks(unit?.data?.storyboard?.tracks);
@@ -134,7 +129,12 @@ const StoryboardProvider = ({ children }) => {
 			isSpotifyPlaying.current = false;
 			playSpotifyTrack("", { pause: true });
 		} else if (isSpotifyPlaying?.current) {
-			const playing_tracks = pieces?.filter((e) => e?.piece_type === "track" && e?.start_time <= elapsedTime && e?.end_time >= elapsedTime);
+			const playing_tracks = pieces?.filter(
+				(e) =>
+					(e?.piece_type === "track" && e?.start_time <= elapsedTime && e?.end_time >= elapsedTime) ||
+					(e?.piece_type === "playlist" &&
+						e?.playlist?.tracks.findIndex((e2) => e2?.start_time <= elapsedTime && e2?.end_time >= elapsedTime) !== -1)
+			);
 			if (playing_tracks?.length === 0) {
 				isSpotifyPlaying.current = false;
 				playSpotifyTrack("", { pause: true });
@@ -166,6 +166,25 @@ const StoryboardProvider = ({ children }) => {
 		}
 		get_content_images();
 	}, [setContentImages, unit, APIRequest]);
+
+	// Calculate Updated Full Duration
+	useEffect(() => {
+		function update_full_duration() {
+			let new_full_duration = Math.abs(
+				Math.ceil(
+					Math.max(
+						...pieces?.map((e) =>
+							e?.piece_type !== "playlist" ? e?.end_time : Math.max(...e?.playlist?.tracks?.map((e2) => e2?.end_time))
+						)
+					)
+				)
+			);
+			if (new_full_duration === Infinity) new_full_duration = 300;
+			new_full_duration = Math.min(new_full_duration, 86400);
+			setFullDuration(new_full_duration);
+		}
+		update_full_duration();
+	}, [pieces]);
 
 	return (
 		<StoryboardContext.Provider

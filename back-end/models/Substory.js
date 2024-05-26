@@ -106,6 +106,27 @@ const SubstorySchema = mongoose.Schema({
 								posY: { type: Number, default: 0 },
 								width: { type: Number, default: 0 },
 								height: { type: Number, default: 0 },
+								playlist: {
+									type: {
+										playlist_uri: { type: String, default: "" },
+										tracks: {
+											type: [
+												{
+													id: { type: String, default: "" },
+													uri: { type: String, default: "" },
+													source: { type: String, default: "spotify" },
+													name: { type: String, default: "Track" },
+													duration_ms: { type: Number, default: 20 },
+													start_time: { type: Number, default: 0 },
+													end_time: { type: Number, default: 20 },
+													image: { type: String, default: "" },
+												},
+											],
+											default: [],
+										},
+									},
+									default: {},
+								},
 							},
 						],
 						default: [],

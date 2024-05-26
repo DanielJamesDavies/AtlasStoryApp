@@ -47,10 +47,12 @@ export const TypeImageLogic = () => {
 			if (index === -1) return newValue;
 			switch (way) {
 				case "horizontal":
+					newValue[index].height = (1920 / newValue[index].width) * newValue[index].height;
 					newValue[index].width = 1920;
 					newValue[index].posX = 0;
 					break;
 				case "vertical":
+					newValue[index].width = (1080 / newValue[index].height) * newValue[index].width;
 					newValue[index].height = 1080;
 					newValue[index].posY = 0;
 					break;

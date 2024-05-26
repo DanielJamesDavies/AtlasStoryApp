@@ -19,14 +19,12 @@ export const ContentLogic = ({ content_item, type }) => {
 		useContext(StoryboardContext);
 
 	function onDragStart() {
-		if (!["playlist"].includes(type)) setFromMediaDraggingContent({ id: content_item?.id, type, content_item });
+		setFromMediaDraggingContent({ id: content_item?.id, type, content_item });
 	}
 
 	function onDragEnd() {
-		if (!["playlist"].includes(type)) {
-			setFromMediaDraggingContent(false);
-			fromMediaDraggingContentID.current = false;
-		}
+		setFromMediaDraggingContent(false);
+		fromMediaDraggingContentID.current = false;
 	}
 
 	function deleteContentItem() {

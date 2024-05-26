@@ -36,7 +36,42 @@ export const PieceLogic = ({ piece, piecesRef }) => {
 
 	const timeout = useRef();
 
+	const playing_playlist_track_uri = useRef(false);
+	const playing_playlist_track_last_time_release_timeline = useRef(0);
 	const getNewTimeout = useCallback(() => {
+		// Play Platlist Track
+		if (piece?.piece_type === "playlist") {
+			const current_track = piece?.playlist?.tracks?.find((e) => e?.end_time - elapsedTime > 0);
+			if (!isPlaying) {
+				playing_playlist_track_uri.current = false;
+			} else {
+				if (
+					(playing_playlist_track_uri.current !== current_track?.uri ||
+						playing_playlist_track_last_time_release_timeline.current + 600 < lastTimeReleaseTimeline) &&
+					elapsedTimeRef?.current >= current_track?.start_time - 0.05 &&
+					elapsedTimeRef?.current < current_track?.end_time - 0.05
+				) {
+					playing_playlist_track_uri.current = current_track?.uri;
+					playing_playlist_track_last_time_release_timeline.current = JSON.parse(JSON.stringify(lastTimeReleaseTimeline));
+					if (current_track?.uri.split(":")[1] === "track") {
+						playSpotifyTrack(current_track?.uri, {
+							position_ms: (elapsedTimeRef?.current - current_track?.start_time) * 1000,
+							pause: !isPlaying,
+						});
+					} else {
+						// If Local Track
+						playSpotifyTrack(piece?.playlist?.playlist_uri, {
+							local_uri: current_track?.uri,
+							position_ms: (elapsedTimeRef?.current - current_track?.start_time) * 1000,
+							pause: !isPlaying,
+						});
+					}
+				}
+			}
+
+			return true;
+		}
+
 		const time_till_start = piece.start_time - elapsedTime;
 		const time_till_end = piece.end_time - elapsedTime;
 
@@ -58,12 +93,12 @@ export const PieceLogic = ({ piece, piecesRef }) => {
 			setIsInPieceTime(false);
 			clearTimeout(timeout.current);
 		}
-	}, [elapsedTime, isPlaying, piece]);
+	}, [elapsedTime, isPlaying, piece, elapsedTimeRef, playSpotifyTrack, lastTimeReleaseTimeline]);
 
 	useEffect(() => {
 		getNewTimeout();
 		return () => clearTimeout(timeout.current);
-	}, [isPlaying, piece, getNewTimeout]);
+	}, [isPlaying, piece, getNewTimeout, lastTimeReleaseTimeline]);
 
 	const [pieceSlow, setPieceSlow] = useState(piece);
 	const pieceSlowLastTimeUpdated = useRef(0);
@@ -86,6 +121,7 @@ export const PieceLogic = ({ piece, piecesRef }) => {
 		pieceSlowLastTimeUpdated.current = Date.now();
 	}, [piece]);
 
+	// Play Track
 	useEffect(() => {
 		if (pieceSlow?.piece_type === "track") {
 			if (elapsedTimeRef?.current >= pieceSlow?.start_time - 0.05 && elapsedTimeRef?.current < pieceSlow?.end_time - 0.05) {
