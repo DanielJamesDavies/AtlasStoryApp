@@ -1,13 +1,11 @@
-import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { UnitPageContext } from "../../../UnitPageContext";
-import { SpotifyContext } from "../../../../../context/SpotifyContext";
 import { APIContext } from "../../../../../context/APIContext";
 
 export const StoryboardContext = createContext();
 
 const StoryboardProvider = ({ children }) => {
 	const { unit } = useContext(UnitPageContext);
-	const { SpotifyRequest, spotify_access_token, isSpotifyPlaying, playSpotifyTrack } = useContext(SpotifyContext);
 	const { APIRequest } = useContext(APIContext);
 
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -30,8 +28,6 @@ const StoryboardProvider = ({ children }) => {
 
 	const [layers, setLayers] = useState([]);
 	const [pieces, setPieces] = useState([]);
-	const [playlists, setPlaylists] = useState([]);
-	const [tracks, setTracks] = useState([]);
 
 	const content_simple = [
 		{ id: "1", name: "Text", type: "text" },
@@ -39,64 +35,6 @@ const StoryboardProvider = ({ children }) => {
 		{ id: "3", name: "Gradient", type: "gradient" },
 	];
 	const [content_images, setContentImages] = useState([]);
-
-	const [spotifyPlaylists, setSpotifyPlaylists] = useState([]);
-	const spotifyPlaylistsRef = useRef([]);
-
-	const updateSpotifyPlaylists = useCallback(async () => {
-		const playlists_to_get = playlists.filter(
-			(e) => e?.source === "spotify" && spotifyPlaylistsRef?.current?.findIndex((e2) => e2?.id === e?.id) === -1
-		);
-
-		const new_playlists = await Promise.all(
-			playlists_to_get?.map(async (playlist_to_get) => {
-				const playlist_res = await SpotifyRequest("/playlists/" + playlist_to_get?.id);
-				return playlist_res;
-			})
-		);
-
-		setSpotifyPlaylists((oldValue) => {
-			const newValue = oldValue
-				.filter((e) => new_playlists?.findIndex((e2) => e2?.id === e?.id) === -1)
-				.concat(new_playlists)
-				?.filter((e) => e !== false);
-			spotifyPlaylistsRef.current = newValue;
-			return newValue;
-		});
-	}, [spotifyPlaylistsRef, playlists, SpotifyRequest]);
-
-	useEffect(() => {
-		updateSpotifyPlaylists();
-	}, [playlists, updateSpotifyPlaylists, spotify_access_token]);
-
-	const [spotifyTracks, setSpotifyTracks] = useState([]);
-	const spotifyTracksRef = useRef([]);
-
-	const updateSpotifyTracks = useCallback(async () => {
-		const tracks_to_get = tracks.filter(
-			(e) => e?.source === "spotify" && spotifyTracksRef?.current?.findIndex((e2) => e2?.id === e?.id) === -1
-		);
-
-		const new_tracks = await Promise.all(
-			tracks_to_get?.map(async (track_to_get) => {
-				const track_res = await SpotifyRequest("/tracks/" + track_to_get?.id);
-				return track_res;
-			})
-		);
-
-		setSpotifyTracks((oldValue) => {
-			const newValue = oldValue
-				.filter((e) => new_tracks?.findIndex((e2) => e2?.id === e?.id) === -1)
-				.concat(new_tracks)
-				?.filter((e) => e !== false);
-			spotifyTracksRef.current = newValue;
-			return newValue;
-		});
-	}, [spotifyTracksRef, tracks, SpotifyRequest]);
-
-	useEffect(() => {
-		updateSpotifyTracks();
-	}, [tracks, updateSpotifyTracks, spotify_access_token]);
 
 	const [fromMediaDraggingContent, setFromMediaDraggingContent] = useState(false);
 	const fromMediaDraggingContentID = useRef(false);
@@ -118,35 +56,7 @@ const StoryboardProvider = ({ children }) => {
 				.concat(unit?.data?.storyboard?.layers)
 		);
 		setPieces(unit?.data?.storyboard?.pieces);
-		setPlaylists(unit?.data?.storyboard?.playlists);
-		setTracks(unit?.data?.storyboard?.tracks);
-	}, [unit, setLayers, setPieces, setPlaylists, setTracks]);
-
-	// Pause Spotify If No Tracks Playing
-	const hasPausedSpotify = useRef(false);
-	useEffect(() => {
-		if (isSpotifyPlaying?.current && !isPlaying) {
-			isSpotifyPlaying.current = false;
-			playSpotifyTrack("", { pause: true });
-		} else if (isSpotifyPlaying?.current) {
-			const playing_tracks = pieces?.filter(
-				(e) =>
-					(e?.piece_type === "track" && e?.start_time <= elapsedTime && e?.end_time >= elapsedTime) ||
-					(e?.piece_type === "playlist" &&
-						e?.playlist?.tracks.findIndex((e2) => e2?.start_time <= elapsedTime && e2?.end_time >= elapsedTime) !== -1)
-			);
-			if (playing_tracks?.length === 0) {
-				isSpotifyPlaying.current = false;
-				playSpotifyTrack("", { pause: true });
-			}
-		} else {
-			if (hasPausedSpotify?.current === false) {
-				isSpotifyPlaying.current = false;
-				hasPausedSpotify.current = true;
-				playSpotifyTrack("", { pause: true });
-			}
-		}
-	}, [elapsedTime, isSpotifyPlaying, playSpotifyTrack, pieces, isPlaying]);
+	}, [unit, setLayers, setPieces]);
 
 	// Get Content Images
 	const has_got_content_images = useRef(false);
@@ -166,25 +76,6 @@ const StoryboardProvider = ({ children }) => {
 		}
 		get_content_images();
 	}, [setContentImages, unit, APIRequest]);
-
-	// Calculate Updated Full Duration
-	useEffect(() => {
-		function update_full_duration() {
-			let new_full_duration = Math.abs(
-				Math.ceil(
-					Math.max(
-						...pieces?.map((e) =>
-							e?.piece_type !== "playlist" ? e?.end_time : Math.max(...e?.playlist?.tracks?.map((e2) => e2?.end_time))
-						)
-					)
-				)
-			);
-			if (new_full_duration === Infinity) new_full_duration = 300;
-			new_full_duration = Math.min(new_full_duration, 86400);
-			setFullDuration(new_full_duration);
-		}
-		update_full_duration();
-	}, [pieces]);
 
 	return (
 		<StoryboardContext.Provider
@@ -216,17 +107,9 @@ const StoryboardProvider = ({ children }) => {
 				setLayers,
 				pieces,
 				setPieces,
-				playlists,
-				setPlaylists,
-				tracks,
-				setTracks,
 				content_simple,
 				content_images,
 				setContentImages,
-				spotifyPlaylists,
-				setSpotifyPlaylists,
-				spotifyTracks,
-				setSpotifyTracks,
 				fromMediaDraggingContent,
 				setFromMediaDraggingContent,
 				fromMediaDraggingContentID,

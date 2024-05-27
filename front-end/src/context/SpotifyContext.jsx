@@ -273,6 +273,15 @@ const SpofityProvider = ({ children }) => {
 		}
 	}, [spotify_access_token]);
 
+	const getSpotifyPlaybackState = useCallback(
+		async () => {
+			const playback_state = await SpotifyRequest(`/me/player`, "GET");
+			return playback_state;
+		}, // eslint-disable-next-line
+		[SpotifyRequest, spotify_access_token]
+	);
+
+	const [spotify_playback_state, setSpotifyPlaybackState] = useState(false);
 	const last_play_request = useRef(false);
 	const playSpotifyTrack = useCallback(
 		async (uri, options) => {
@@ -327,9 +336,14 @@ const SpofityProvider = ({ children }) => {
 				// Play Track
 				SpotifyRequest(`/me/player/play?device_id=${new_device_id}`, "PUT", body);
 				isSpotifyPlaying.current = true;
+
+				setTimeout(async () => {
+					const playback_state = await getSpotifyPlaybackState();
+					setSpotifyPlaybackState(playback_state);
+				}, 500);
 			} catch {}
 		}, // eslint-disable-next-line
-		[device_id, SpotifyRequest, spotify_access_token]
+		[device_id, SpotifyRequest, spotify_access_token, getSpotifyPlaybackState]
 	);
 
 	const changeSpotifyPlayerVolume = useCallback(
@@ -350,6 +364,8 @@ const SpofityProvider = ({ children }) => {
 				connectDeviceToSpotify,
 				setConnectDeviceToSpotify,
 				isSpotifyPlaying,
+				getSpotifyPlaybackState,
+				spotify_playback_state,
 				playSpotifyTrack,
 				changeSpotifyPlayerVolume,
 			}}

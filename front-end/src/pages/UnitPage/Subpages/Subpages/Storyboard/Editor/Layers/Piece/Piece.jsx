@@ -43,7 +43,7 @@ export const Piece = ({ piece }) => {
 			}
 			style={{
 				"--start_position": piece?.start_time * 32 + "px",
-				"--piece_width": Math.max(...(piece?.playlist?.tracks?.map((track) => track.end_time) || [])) * 32 - piece?.start_time * 32 + "px",
+				"--piece_width": piece?.end_time * 32 - piece?.start_time * 32 + "px",
 			}}
 			onMouseDown={(e) => handleMouseDown(e)}
 			onTouchStart={(e) => handleTouchStart(e)}
@@ -81,51 +81,25 @@ export const Piece = ({ piece }) => {
 					</div>
 				</div>
 				<div className='unit-page-storyboard-editor-layer-piece-content-container'>
-					{piece?.piece_type !== "playlist"
-						? Array(Math.max(0, Math.floor((piece?.end_time * 32 - piece?.start_time * 32) / 120)))
-								.fill(0)
-								.map((_, index) => (
-									<div key={index} className='unit-page-storyboard-editor-layer-piece-content'>
-										{piece?.piece_type === "text" ? (
-											piece?.content
-										) : piece?.piece_type === "track" ? (
-											spotifyTracks?.find((e) => e?.id === piece?.content)?.album?.images?.[0]?.url ? (
-												<img src={spotifyTracks?.find((e) => e?.id === piece?.content)?.album?.images?.[0]?.url} alt='' />
-											) : (
-												""
-											)
-										) : piece?.piece_type === "image" ? (
-											<img src={content_images?.find((e) => e?.id === piece?.content)?.image} alt='' />
-										) : (
-											piece?.content
-										)}
-									</div>
-								))
-						: piece?.playlist?.tracks?.map((playlist_track, index) => (
-								<div
-									key={index}
-									className='unit-page-storyboard-editor-layer-piece-content unit-page-storyboard-editor-layer-piece-content-playlist-track'
-									style={{
-										"--width": Math.max(1, Math.floor(playlist_track?.end_time * 32 - playlist_track?.start_time * 32)) + "px",
-									}}
-								>
-									<div className='unit-page-storyboard-editor-layer-piece-content-playlist-track-artwork'>
-										{playlist_track?.image === undefined || playlist_track?.image?.length === 0 ? null : (
-											<img src={playlist_track?.image} alt='' />
-										)}
-									</div>
-									<div className='unit-page-storyboard-editor-layer-piece-content-playlist-track-name'>
-										{playlist_track?.name}
-										{playlist_track?.artist ? " | " + playlist_track?.artist : ""}
-										{playlist_track?.album ? " | " + playlist_track?.album : ""}
-									</div>
-									<div className='unit-page-storyboard-editor-layer-piece-content-playlist-track-artwork-background'>
-										{playlist_track?.image === undefined || playlist_track?.image?.length === 0 ? null : (
-											<img src={playlist_track?.image} alt='' />
-										)}
-									</div>
-								</div>
-						  ))}
+					{Array(Math.max(0, Math.floor((piece?.end_time * 32 - piece?.start_time * 32) / 120)))
+						.fill(0)
+						.map((_, index) => (
+							<div key={index} className='unit-page-storyboard-editor-layer-piece-content'>
+								{piece?.piece_type === "text" ? (
+									piece?.content
+								) : piece?.piece_type === "track" ? (
+									spotifyTracks?.find((e) => e?.id === piece?.content)?.album?.images?.[0]?.url ? (
+										<img src={spotifyTracks?.find((e) => e?.id === piece?.content)?.album?.images?.[0]?.url} alt='' />
+									) : (
+										""
+									)
+								) : piece?.piece_type === "image" ? (
+									<img src={content_images?.find((e) => e?.id === piece?.content)?.image} alt='' />
+								) : (
+									piece?.content
+								)}
+							</div>
+						))}
 				</div>
 			</div>
 			<div

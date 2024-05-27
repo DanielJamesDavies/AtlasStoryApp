@@ -133,7 +133,6 @@ export const LayersLogic = () => {
 				let newContent = "";
 				let newWidth = 0;
 				let newHeight = 0;
-				let newPlaylist = {};
 				switch (newFromMediaDraggingContent?.type) {
 					case "text":
 						newContent = "Text";
@@ -144,33 +143,6 @@ export const LayersLogic = () => {
 						min_length = 10;
 						newWidth = newFromMediaDraggingContent?.content_item?.width;
 						newHeight = newFromMediaDraggingContent?.content_item.height;
-						break;
-					case "track":
-						min_length = Math.max(1, (newFromMediaDraggingContent?.content_item?.duration_ms || 0) / 1000);
-						newContent = newFromMediaDraggingContent?.id;
-						break;
-					case "playlist":
-						newName = 'Playlist "Nova Cosmos: Apotheosis"';
-						newContent = newFromMediaDraggingContent?.id;
-						let playlist_track_previous_end_time = 0;
-						newPlaylist = {
-							playlist_uri: newFromMediaDraggingContent?.content_item?.uri,
-							tracks: newFromMediaDraggingContent?.content_item?.tracks?.items?.map((item) => {
-								const start_time = playlist_track_previous_end_time;
-								const end_time = start_time + Math.max(1, (item?.track?.duration_ms || 0) / 1000);
-								playlist_track_previous_end_time = end_time;
-								return {
-									id: item?.track?.id,
-									uri: item?.track?.uri,
-									source: "spotify",
-									name: item?.track?.name,
-									duration_ms: item?.track?.duration_ms,
-									start_time: start_time,
-									end_time: end_time,
-									image: item?.track?.album?.images?.[0]?.url,
-								};
-							}),
-						};
 						break;
 					default:
 						break;
@@ -196,7 +168,6 @@ export const LayersLogic = () => {
 					posY: 0,
 					width: newWidth,
 					height: newHeight,
-					playlist: newPlaylist,
 				});
 				return newValue;
 			} catch {
