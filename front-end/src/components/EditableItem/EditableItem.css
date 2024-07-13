@@ -43,6 +43,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding: 0;
 	border: 0;
 	border-radius: 8px;
 	width: 28px;
@@ -50,6 +51,7 @@
 	max-height: 28px;
 	background: var(--colour-grey-three);
 	color: var(--text-colour-primary);
+	font-size: 14px;
 	cursor: pointer;
 	transition: 0.1s;
 }
