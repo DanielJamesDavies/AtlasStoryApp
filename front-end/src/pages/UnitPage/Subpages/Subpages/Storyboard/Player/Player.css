@@ -8,7 +8,7 @@
 	animation-fill-mode: forwards;
 	opacity: 0;
 	pointer-events: none;
-	animation-delay: 1.5s;
+	animation-delay: 0.2s;
 }
 
 .unit-page-storyboard-player-container-is-fullscreen .unit-page-storyboard-player {

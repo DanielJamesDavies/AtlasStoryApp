@@ -105,3 +105,27 @@
 .unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-delete-btn:hover {
 	color: var(--colour-red);
 }
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-preview-icon-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	font-size: 28px;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-preview-icon-container::before {
+	position: absolute;
+	z-index: 0;
+	display: block;
+	content: "";
+	width: 70px;
+	height: 70px;
+	background: radial-gradient(#00ff44 10%, var(--colour-grey-three) 55%);
+	opacity: 0.7;
+}
+
+.unit-page-storyboard-editor-multi-tab-pane-content-media-section-list-item-preview-icon-container svg {
+	position: relative;
+	z-index: 1;
+}

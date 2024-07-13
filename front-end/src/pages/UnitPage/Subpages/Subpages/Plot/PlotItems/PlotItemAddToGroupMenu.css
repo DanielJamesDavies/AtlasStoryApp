@@ -1,11 +1,11 @@
 .unit-page-subpage-plot-item-add-to-group-menu-container {
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: calc(100% + 42px + 4px);
+	left: 0;
 	z-index: 2;
 	padding: 10px 16px;
 	width: 200px;
-	border-radius: 2px;
+	border-radius: 8px;
 	background: var(--colour-grey-three);
 }
 
@@ -21,6 +21,8 @@
 
 .unit-page-subpage-plot-item-add-to-group-menu-title {
 	margin-right: auto;
+	font-size: 14px;
+	font-weight: 600;
 }
 
 .unit-page-subpage-plot-item-add-to-group-menu-slides-container {

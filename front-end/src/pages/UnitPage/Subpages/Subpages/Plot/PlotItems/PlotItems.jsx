@@ -1,7 +1,7 @@
 // Packages
+import { FaPlus } from "react-icons/fa";
 
 // Components
-import { EditableContainer } from "../../../../../../components/EditableContainer/EditableContainer";
 import { DragDropContainer } from "../../../../../../components/DragDropContainer/DragDropContainer";
 import { DragDropItem } from "../../../../../../components/DragDropItem/DragDropItem";
 import { UnitImages } from "../../../UnitImages/UnitImages";
@@ -27,12 +27,11 @@ export const PlotItems = ({ cluster, changeCluster, groupID, isDisplayingCluster
 		isReorderingPlotItems,
 		toggleIsReorderingPlotItems,
 		reorderPlotItems,
-		revertPlotItems,
-		savePlotItems,
+		revertPlotItem,
+		savePlotItem,
 		removePlotItem,
 		plotItemsContainerRef,
 		plotItemsListRef,
-		onPlotItemsListContainerScroll,
 		unitImagesCurrPlotItemID,
 		openUnitImages,
 		closeUnitImages,
@@ -63,72 +62,48 @@ export const PlotItems = ({ cluster, changeCluster, groupID, isDisplayingCluster
 						Clusters
 					</button>
 				</div>
-				<EditableContainer
-					className='unit-page-subpage-plot-items-list-container'
-					isAuthorizedToEdit={isAuthorizedToEdit}
-					onAdd={addPlotItem}
-					onReorder={toggleIsReorderingPlotItems}
-					onRevert={revertPlotItems}
-					onSave={savePlotItems}
-					onScroll={onPlotItemsListContainerScroll}
-					scrollItemsDepth={1}
+				<DragDropContainer
+					className='unit-page-subpage-plot-items-list'
+					enableDragDrop={isReorderingPlotItems}
+					onDropItem={reorderPlotItems}
+					innerRef={plotItemsListRef}
+					includeVerticalDrag={true}
+					absoluteVerticalDrag={true}
 				>
-					<div ref={plotItemsListRef} className='unit-page-subpage-plot-items-list'>
-						{!unit?.data?.plot?.items
-							? null
-							: unit.data.plot.items.map((item, index) => (
-									<div
-										key={index}
-										className={"unit-page-subpage-plot-item-container unit-page-subpage-plot-item-container-" + index}
-									>
-										<PlotItem
-											item={item}
-											plot_index={unit.data.plot.items.findIndex((e) => e?._id === item?._id)}
-											unitImages={unitImages}
-											onPlotItemImageClick={onPlotItemImageClick}
-											removePlotItem={removePlotItem}
-											addPlotItem={addPlotItem}
-											cluster={cluster}
-											groupID={groupID}
-											isEditing={false}
-										/>
-									</div>
-							  ))}
-					</div>
-					<DragDropContainer
-						className='unit-page-subpage-plot-items-list'
-						enableDragDrop={isReorderingPlotItems}
-						onDropItem={reorderPlotItems}
-						innerRef={plotItemsListRef}
-						includeVerticalDrag={true}
-						absoluteVerticalDrag={true}
-					>
-						{!unit?.data?.plot?.items
-							? null
-							: unit.data.plot.items.map((item, index) => (
-									<DragDropItem
-										key={index}
-										index={index}
-										className={"unit-page-subpage-plot-item-container unit-page-subpage-plot-item-container-" + index}
-									>
-										<PlotItem
-											item={item}
-											plot_index={unit.data.plot.items.findIndex((e) => e?._id === item?._id)}
-											unitImages={unitImages}
-											onPlotItemImageClick={onPlotItemImageClick}
-											removePlotItem={removePlotItem}
-											addPlotItem={addPlotItem}
-											cluster={cluster}
-											groupID={groupID}
-											isEditing={true}
-											openUnitImages={openUnitImages}
-											isReorderingPlotItems={isReorderingPlotItems}
-										/>
-									</DragDropItem>
-							  ))}
-					</DragDropContainer>
-					{unitImagesCurrPlotItemID === -1 ? null : <UnitImages onAddImage={addImageToPlotItem} onClose={closeUnitImages} />}
-				</EditableContainer>
+					{!unit?.data?.plot?.items
+						? null
+						: unit.data.plot.items.map((item, index) => (
+								<DragDropItem
+									key={index}
+									index={index}
+									className={"unit-page-subpage-plot-item-container unit-page-subpage-plot-item-container-" + index}
+								>
+									<PlotItem
+										item={item}
+										plot_index={unit.data.plot.items.findIndex((e) => e?._id === item?._id)}
+										unitImages={unitImages}
+										onPlotItemImageClick={onPlotItemImageClick}
+										savePlotItem={savePlotItem}
+										revertPlotItem={revertPlotItem}
+										removePlotItem={removePlotItem}
+										addPlotItem={addPlotItem}
+										cluster={cluster}
+										groupID={groupID}
+										openUnitImages={openUnitImages}
+										isReorderingPlotItems={isReorderingPlotItems}
+										toggleIsReorderingPlotItems={toggleIsReorderingPlotItems}
+										isAuthorizedToEdit={isAuthorizedToEdit}
+									/>
+								</DragDropItem>
+						  ))}
+				</DragDropContainer>
+				<div className='unit-page-subpage-plot-items-add-plot-item-btn-container'>
+					<button className='unit-page-subpage-plot-items-add-plot-item-btn' onClick={addPlotItem}>
+						<FaPlus />
+						<span>Add Plot Item</span>
+					</button>
+				</div>
+				{unitImagesCurrPlotItemID === -1 ? null : <UnitImages onAddImage={addImageToPlotItem} onClose={closeUnitImages} />}
 			</div>
 		);
 
@@ -136,52 +111,27 @@ export const PlotItems = ({ cluster, changeCluster, groupID, isDisplayingCluster
 		<div className='unit-page-subpage-plot-items-container' ref={plotItemsContainerRef}>
 			<div className='unit-page-subpage-plot-items-name'>{cluster?.groups.find((e) => e._id === groupID)?.name}</div>
 			<div className='unit-page-subpage-plot-items-description'>{cluster?.groups.find((e) => e._id === groupID)?.description}</div>
-			<EditableContainer
-				className='unit-page-subpage-plot-items-list-container'
-				isAuthorizedToEdit={isAuthorizedToEdit}
-				onRevert={revertPlotItems}
-				onSave={savePlotItems}
-				onScroll={onPlotItemsListContainerScroll}
-				scrollItemsDepth={1}
-			>
-				<div ref={plotItemsListRef} className='unit-page-subpage-plot-items-list'>
-					{!unit?.data?.plot?.items || !cluster?.groups
-						? null
-						: unit?.data?.plot?.items
-								.filter((e) => cluster.groups.find((e) => e._id === groupID)?.items.includes(e._id))
-								.map((item, index) => (
-									<div key={index} className='unit-page-subpage-plot-item-container'>
-										<PlotItem
-											item={item}
-											removePlotItem={removePlotItem}
-											addPlotItem={addPlotItem}
-											cluster={cluster}
-											groupID={groupID}
-											isEditing={false}
-										/>
-									</div>
-								))}
-				</div>
-				<div ref={plotItemsListRef} className='unit-page-subpage-plot-items-list'>
-					{!unit?.data?.plot?.items || !cluster?.groups
-						? null
-						: unit?.data?.plot?.items
-								.filter((e) => cluster.groups.find((e) => e._id === groupID)?.items.includes(e._id))
-								.map((item, index) => (
-									<div key={index} className='unit-page-subpage-plot-item-container'>
-										<PlotItem
-											item={item}
-											removePlotItem={removePlotItem}
-											addPlotItem={addPlotItem}
-											cluster={cluster}
-											groupID={groupID}
-											isEditing={true}
-										/>
-									</div>
-								))}
-				</div>
-				{unitImagesCurrPlotItemID === -1 ? null : <UnitImages onAddImage={addImageToPlotItem} onClose={closeUnitImages} />}
-			</EditableContainer>
+			<div ref={plotItemsListRef} className='unit-page-subpage-plot-items-list'>
+				{!unit?.data?.plot?.items || !cluster?.groups
+					? null
+					: unit?.data?.plot?.items
+							.filter((e) => cluster.groups.find((e) => e._id === groupID)?.items.includes(e._id))
+							.map((item, index) => (
+								<div key={index} className='unit-page-subpage-plot-item-container'>
+									<PlotItem
+										item={item}
+										removePlotItem={removePlotItem}
+										addPlotItem={addPlotItem}
+										cluster={cluster}
+										groupID={groupID}
+										unitImages={unitImages}
+										onPlotItemImageClick={onPlotItemImageClick}
+										isAuthorizedToEdit={isAuthorizedToEdit}
+									/>
+								</div>
+							))}
+			</div>
+			{unitImagesCurrPlotItemID === -1 ? null : <UnitImages onAddImage={addImageToPlotItem} onClose={closeUnitImages} />}
 		</div>
 	);
 };

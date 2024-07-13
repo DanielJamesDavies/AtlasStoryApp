@@ -30,6 +30,39 @@
 	display: none;
 }
 
+.unit-page-subpage-plot-items-add-plot-item-btn-container {
+	display: flex;
+	justify-content: center;
+}
+
+.unit-page-subpage-plot-items-add-plot-item-btn {
+	display: flex;
+	gap: 6px;
+	justify-content: center;
+	align-items: center;
+	padding: 5px 15px;
+	border: 0;
+	border-radius: 16px;
+	width: 150px;
+	height: 30px;
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.unit-page-subpage-plot-items-add-plot-item-btn:hover {
+	background: var(--colour-grey-four);
+}
+
+.unit-page-subpage-plot-items-add-plot-item-btn svg {
+	font-size: 15px;
+}
+
+.unit-page-subpage-plot-items-add-plot-item-btn span {
+	margin-top: -1px;
+}
+
 @media (max-width: 1200px) {
 	.unit-page-subpage-plot-items-container {
 		padding-right: 0;

@@ -70,8 +70,8 @@ export const PlayerLogic = () => {
 
 	useEffect(() => {
 		updatePlayerScale();
-		const interval = setInterval(() => updatePlayerScale(), 5);
-		setTimeout(() => clearInterval(interval), 100);
+		const interval = setInterval(() => updatePlayerScale(), 2);
+		setTimeout(() => clearInterval(interval), 1000);
 	}, [updatePlayerScale]);
 
 	useEffect(() => {

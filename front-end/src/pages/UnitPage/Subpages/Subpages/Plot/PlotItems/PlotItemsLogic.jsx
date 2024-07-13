@@ -27,8 +27,17 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 		const new_id_response = await APIRequest("/new-id/", "GET");
 		if (!new_id_response || new_id_response?.errors || !new_id_response?.data?._id) return false;
 
-		newUnit.data.plot.items.push({ _id: new_id_response.data._id, name: "New Plot Item", text: [""], images: [], isUnsaved: true });
+		const new_item = { _id: new_id_response.data._id, name: "New Plot Item", text: [""], images: [], isUnsaved: true };
+		newUnit.data.plot.items.push(new_item);
 		setUnit(newUnit);
+
+		const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
+			story_id: story._id,
+			path: ["data", "plot", "items"],
+			task: "add",
+			newValue: new_item,
+		});
+		if (!response || response?.errors) return false;
 	}
 
 	const [isReorderingPlotItems, setIsReorderingPlotItems] = useState(false);
@@ -36,94 +45,134 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 		setIsReorderingPlotItems((oldIsReorderingPlotItems) => !oldIsReorderingPlotItems);
 	}
 
-	function reorderPlotItems(res) {
+	async function reorderPlotItems(res) {
 		if (res.from === undefined || res.to === undefined) return false;
 
 		let newUnit = JSON.parse(JSON.stringify(unit));
 		const tempPlotItem = newUnit.data.plot.items.splice(res.from, 1)[0];
 		newUnit.data.plot.items.splice(res.to, 0, tempPlotItem);
 		setUnit(newUnit);
+
+		setIsReorderingPlotItems(false);
+
+		const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
+			story_id: story._id,
+			path: ["data", "plot", "items"],
+			task: "reorder",
+			newValue: newUnit.data.plot.items?.map((e) => e?._id),
+		});
+		if (!response || response?.errors) return false;
 	}
 
-	async function revertPlotItems() {
-		if (cluster?.isAll) {
-			const response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", {
-				story_id: story._id,
-				path: ["data", "plot", "items"],
-			});
-			if (!response || response?.errors || response?.data?.value === undefined) return false;
+	// async function revertPlotItems() {
+	// 	if (cluster?.isAll) {
+	// 		const response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", {
+	// 			story_id: story._id,
+	// 			path: ["data", "plot", "items"],
+	// 		});
+	// 		if (!response || response?.errors || response?.data?.value === undefined) return false;
 
-			let newUnit = JSON.parse(JSON.stringify(unit));
-			newUnit.data.plot.items = response.data.value;
-			setUnit(newUnit);
+	// 		let newUnit = JSON.parse(JSON.stringify(unit));
+	// 		newUnit.data.plot.items = response.data.value;
+	// 		setUnit(newUnit);
 
-			return true;
-		} else {
-			const group_items_response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", {
-				story_id: story._id,
-				path: ["data", "plot", "clusters", cluster._id, "groups", groupID, "items"],
-			});
-			if (!group_items_response || group_items_response?.errors || !group_items_response?.data?.value) return false;
+	// 		return true;
+	// 	} else {
+	// 		const group_items_response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", {
+	// 			story_id: story._id,
+	// 			path: ["data", "plot", "clusters", cluster._id, "groups", groupID, "items"],
+	// 		});
+	// 		if (!group_items_response || group_items_response?.errors || !group_items_response?.data?.value) return false;
 
-			let newCluster = JSON.parse(JSON.stringify(cluster));
-			const groupIndex = newCluster.groups.findIndex((e) => e._id === groupID);
-			if (groupIndex === -1) return false;
-			newCluster.groups[groupIndex].items = group_items_response.data.value;
-			changeCluster(newCluster);
+	// 		let newCluster = JSON.parse(JSON.stringify(cluster));
+	// 		const groupIndex = newCluster.groups.findIndex((e) => e._id === groupID);
+	// 		if (groupIndex === -1) return false;
+	// 		newCluster.groups[groupIndex].items = group_items_response.data.value;
+	// 		changeCluster(newCluster);
 
-			const items_response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", {
-				story_id: story._id,
-				path: ["data", "plot", "items"],
-			});
-			if (!items_response || items_response?.errors || !items_response?.data?.value) return false;
+	// 		const items_response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", {
+	// 			story_id: story._id,
+	// 			path: ["data", "plot", "items"],
+	// 		});
+	// 		if (!items_response || items_response?.errors || !items_response?.data?.value) return false;
 
-			let newUnit = JSON.parse(JSON.stringify(unit));
-			newUnit.data.plot.items = newUnit.data.plot.items.map((item) => {
-				return group_items_response.data.value.findIndex((e) => e === item._id) === -1 ||
-					items_response.data.value.findIndex((e) => e._id === item._id) === -1
-					? item
-					: items_response.data.value.find((e) => e._id === item._id);
-			});
-			setUnit(newUnit);
+	// 		let newUnit = JSON.parse(JSON.stringify(unit));
+	// 		newUnit.data.plot.items = newUnit.data.plot.items.map((item) => {
+	// 			return group_items_response.data.value.findIndex((e) => e === item._id) === -1 ||
+	// 				items_response.data.value.findIndex((e) => e._id === item._id) === -1
+	// 				? item
+	// 				: items_response.data.value.find((e) => e._id === item._id);
+	// 		});
+	// 		setUnit(newUnit);
 
-			return true;
-		}
+	// 		return true;
+	// 	}
+	// }
+
+	// async function savePlotItems() {
+	// 	if (cluster?.isAll) {
+	// 		let newUnit = JSON.parse(JSON.stringify(unit));
+	// 		newUnit.data.plot.items = newUnit.data.plot.items.map((item) => {
+	// 			let newItem = JSON.parse(JSON.stringify(item));
+	// 			if (newItem?.isUnsaved) delete newItem.isUnsaved;
+	// 			return newItem;
+	// 		});
+
+	// 		const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
+	// 			story_id: story._id,
+	// 			path: ["data", "plot", "items"],
+	// 			newValue: newUnit.data.plot.items,
+	// 		});
+	// 		console.log(response);
+	// 		if (!response || response?.errors) return false;
+
+	// 		setUnit(newUnit);
+	// 		return true;
+	// 	} else {
+	// 		let newUnit = JSON.parse(JSON.stringify(unit));
+	// 		let newCluster = JSON.parse(JSON.stringify(cluster));
+	// 		const groupIndex = newCluster.groups.findIndex((e) => e._id === groupID);
+	// 		if (groupIndex === -1) return false;
+
+	// 		const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
+	// 			story_id: story._id,
+	// 			path: ["data", "plot", "clusters", newCluster._id, "groups", groupID, "items"],
+	// 			newValue: { itemIDs: newCluster.groups[groupIndex].items, items: newUnit.data.plot.items },
+	// 		});
+	// 		if (!response || response?.errors) return false;
+
+	// 		return true;
+	// 	}
+	// }
+
+	async function revertPlotItem(item_id) {
+		const response = await APIRequest("/" + unit_type + "/get-value/" + unit._id, "POST", {
+			story_id: story._id,
+			path: ["data", "plot", "items"],
+		});
+		if (!response || response?.errors) return false;
+		const new_item = response.data.value.find((e) => e?._id === item_id);
+
+		setUnit((oldUnit) => {
+			let newUnit = JSON.parse(JSON.stringify(oldUnit));
+			const item_index = newUnit.data.plot.items.findIndex((e) => e?._id === item_id);
+			newUnit.data.plot.items[item_index] = new_item;
+			return newUnit;
+		});
+		return true;
 	}
 
-	async function savePlotItems() {
-		if (cluster?.isAll) {
-			let newUnit = JSON.parse(JSON.stringify(unit));
-			newUnit.data.plot.items = newUnit.data.plot.items.map((item) => {
-				let newItem = JSON.parse(JSON.stringify(item));
-				if (newItem?.isUnsaved) delete newItem.isUnsaved;
-				return newItem;
-			});
-
-			const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
-				story_id: story._id,
-				path: ["data", "plot", "items"],
-				newValue: newUnit.data.plot.items,
-			});
-			console.log(response);
-			if (!response || response?.errors) return false;
-
-			setUnit(newUnit);
-			return true;
-		} else {
-			let newUnit = JSON.parse(JSON.stringify(unit));
-			let newCluster = JSON.parse(JSON.stringify(cluster));
-			const groupIndex = newCluster.groups.findIndex((e) => e._id === groupID);
-			if (groupIndex === -1) return false;
-
-			const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
-				story_id: story._id,
-				path: ["data", "plot", "clusters", newCluster._id, "groups", groupID, "items"],
-				newValue: { itemIDs: newCluster.groups[groupIndex].items, items: newUnit.data.plot.items },
-			});
-			if (!response || response?.errors) return false;
-
-			return true;
-		}
+	async function savePlotItem(item_id) {
+		const newValue = JSON.parse(JSON.stringify(unit))?.data?.plot?.items?.find((e) => e?._id === item_id);
+		const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
+			story_id: story._id,
+			path: ["data", "plot", "items"],
+			task: "update",
+			item_id: item_id,
+			newValue,
+		});
+		if (!response || response?.errors) return false;
+		return true;
 	}
 
 	async function removePlotItem(itemID) {
@@ -145,12 +194,27 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 			});
 
 			setUnit(newUnit);
+
+			const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
+				story_id: story._id,
+				path: ["data", "plot", "items"],
+				task: "remove",
+				remove_id: itemID,
+			});
+			if (!response || response?.errors) return false;
 		} else {
 			let newCluster = JSON.parse(JSON.stringify(cluster));
 			const groupIndex = newCluster.groups.findIndex((e) => e._id === groupID);
 			if (groupIndex === -1) return false;
 			newCluster.groups[groupIndex].items = newCluster.groups[groupIndex].items.filter((e) => e !== itemID);
 			changeCluster(newCluster);
+
+			const response = await APIRequest("/" + unit_type + "/" + unit._id, "PATCH", {
+				story_id: story._id,
+				path: ["data", "plot", "clusters", newCluster._id, "groups", groupID, "items"],
+				newValue: { itemIDs: newCluster.groups[groupIndex].items },
+			});
+			if (!response || response?.errors) return false;
 		}
 	}
 
@@ -166,20 +230,6 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 	}, [plotItemsContainerRef, cluster]);
 
 	const plotItemsListRef = useRef();
-	function onPlotItemsListContainerScroll(e) {
-		if (
-			Math.sign(e.deltaY) === 1 &&
-			plotItemsContainerRef?.current?.scrollTop !== undefined &&
-			plotItemsContainerRef?.current?.scrollTop !==
-				plotItemsContainerRef?.current?.scrollHeight - plotItemsContainerRef?.current?.clientHeight
-		) {
-			plotItemsContainerRef.current.scrollTop = plotItemsContainerRef?.current?.scrollHeight - plotItemsContainerRef?.current?.clientHeight;
-			return;
-		}
-
-		if (plotItemsListRef?.current?.scrollTop === 0) return;
-		e.stopPropagation();
-	}
 
 	const [unitImagesCurrPlotItemID, setUnitImagesCurrPlotItemID] = useState(-1);
 	function openUnitImages(index) {
@@ -214,12 +264,11 @@ export const PlotItemsLogic = ({ cluster, changeCluster, groupID }) => {
 		isReorderingPlotItems,
 		toggleIsReorderingPlotItems,
 		reorderPlotItems,
-		revertPlotItems,
-		savePlotItems,
+		revertPlotItem,
+		savePlotItem,
 		removePlotItem,
 		plotItemsContainerRef,
 		plotItemsListRef,
-		onPlotItemsListContainerScroll,
 		unitImagesCurrPlotItemID,
 		openUnitImages,
 		closeUnitImages,

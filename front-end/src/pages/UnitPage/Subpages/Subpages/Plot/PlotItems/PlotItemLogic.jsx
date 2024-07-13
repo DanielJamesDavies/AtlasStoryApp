@@ -14,7 +14,7 @@ import { UnitPageContext } from "../../../../UnitPageContext";
 
 // Assets
 
-export const PlotItemLogic = ({ item, plot_index }) => {
+export const PlotItemLogic = ({ item, plot_index, toggleIsReorderingPlotItems }) => {
 	const { unit, setUnit } = useContext(UnitPageContext);
 
 	function changeItemLabel(e) {
@@ -35,13 +35,15 @@ export const PlotItemLogic = ({ item, plot_index }) => {
 
 	const [isDisplayingPlotItemAddToGroupMenu, setIsDisplayingPlotItemAddToGroupMenu] = useState(false);
 
-	function showPlotItemAddToGroupMenu() {
-		setIsDisplayingPlotItemAddToGroupMenu(true);
+	function toggleShowPlotItemAddToGroupMenu() {
+		setIsDisplayingPlotItemAddToGroupMenu((oldValue) => !oldValue);
 	}
 
 	function hidePlotItemAddToGroupMenu() {
 		setIsDisplayingPlotItemAddToGroupMenu(false);
 	}
+
+	const [isReorderingImages, setIsReorderingImages] = useState(false);
 
 	function reorderItemImages(res) {
 		if (res.from === undefined || res.to === undefined) return false;
@@ -49,6 +51,7 @@ export const PlotItemLogic = ({ item, plot_index }) => {
 		const tempItemImage = newUnit.data.plot.items[plot_index].images.splice(res.from, 1)[0];
 		newUnit.data.plot.items[plot_index].images.splice(res.to, 0, tempItemImage);
 		setUnit(newUnit);
+		setIsReorderingImages(false);
 	}
 
 	function changeImageCaption(e, index) {
@@ -67,8 +70,10 @@ export const PlotItemLogic = ({ item, plot_index }) => {
 		changeItemLabel,
 		changeItemText,
 		isDisplayingPlotItemAddToGroupMenu,
-		showPlotItemAddToGroupMenu,
+		toggleShowPlotItemAddToGroupMenu,
 		hidePlotItemAddToGroupMenu,
+		isReorderingImages,
+		setIsReorderingImages,
 		reorderItemImages,
 		changeImageCaption,
 		removeItemImage,

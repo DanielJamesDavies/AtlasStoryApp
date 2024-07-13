@@ -29,6 +29,10 @@ export const DragDropItem = ({
 	setChangedOrder,
 	isUsingTouch,
 	setIsUsingTouch,
+	onMouseDown,
+	onMouseMove,
+	onMouseUp,
+	onMouseLeave,
 }) => {
 	const { dragDropItemClassName, dragDropItemRef, onDragStart, onDragEnd, onDragEnter } = DragDropItemLogic({
 		index,
@@ -57,6 +61,10 @@ export const DragDropItem = ({
 			onDragStart={onDragStart}
 			onDragEnd={onDragEnd}
 			onDragEnter={onDragEnter}
+			onMouseDown={onMouseDown}
+			onMouseMove={onMouseMove}
+			onMouseUp={onMouseUp}
+			onMouseLeave={onMouseLeave}
 		>
 			{children}
 		</div>

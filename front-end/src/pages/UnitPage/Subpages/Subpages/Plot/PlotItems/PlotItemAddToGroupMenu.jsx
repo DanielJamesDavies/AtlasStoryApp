@@ -69,7 +69,7 @@ export const PlotItemAddToGroupMenu = ({ itemID, cluster, isDisplayingPlotItemAd
 					</div>
 					<div className='unit-page-subpage-plot-item-add-to-group-menu-slide'>
 						<div className='unit-page-subpage-plot-item-add-to-group-menu-suggestion-container'>
-							<IconBtn icon={<FaChevronLeft />} iconName='chevron-left' seamless={true} size='s' onClick={goBackToClusters} />
+							<IconBtn icon={<FaChevronLeft />} iconName='chevron-left' seamless={true} size='xs' onClick={goBackToClusters} />
 							<div className='unit-page-subpage-plot-item-add-to-group-menu-suggestion'>Select a Group</div>
 						</div>
 						<div className='unit-page-subpage-plot-item-add-to-group-menu-slide-btns-list'>

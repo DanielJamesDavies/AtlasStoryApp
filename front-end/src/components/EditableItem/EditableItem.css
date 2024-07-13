@@ -1,0 +1,159 @@
+.editable-item-container {
+	position: relative;
+	padding: 12px 8px 13px;
+}
+
+.editable-item-buttons-container {
+	position: absolute;
+	z-index: -1;
+	top: calc(100% - 8px);
+	opacity: 0;
+	pointer-events: none;
+	user-select: none;
+	transition: 0.1s;
+}
+
+.editable-item-buttons-container:hover,
+.editable-item-buttons-container:focus,
+.editable-item-container:hover .editable-item-buttons-container,
+.editable-item-container:focus .editable-item-buttons-container,
+.editable-item-container-is-editing .editable-item-buttons-container,
+.editable-item-container-force-display-buttons .editable-item-buttons-container {
+	z-index: 2;
+	opacity: 1;
+	pointer-events: all;
+}
+
+.editable-item-container-force-hide-buttons .editable-item-buttons-container {
+	opacity: 0 !important;
+	pointer-events: none !important;
+	user-select: none !important;
+}
+
+.editable-item-buttons {
+	display: flex;
+	gap: 4px;
+	padding: 6px 10px;
+	border-radius: 8px;
+	background: var(--colour-grey-three);
+}
+
+.editable-item-buttons-btn {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 0;
+	border-radius: 8px;
+	width: 28px;
+	height: 28px;
+	max-height: 28px;
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+	cursor: pointer;
+	transition: 0.1s;
+}
+
+.editable-item-buttons-btn:hover {
+	background: var(--colour-grey-four);
+}
+
+.editable-item-buttons-btn-small-icon {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	width: 14px;
+	height: 14px;
+	transform: rotate(-8deg);
+	overflow: hidden;
+}
+
+.editable-item-buttons-btn-small-icon svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.editable-item-buttons-btn-small-icon svg:nth-child(1) {
+	z-index: 2;
+}
+
+.editable-item-buttons-btn-small-icon svg:nth-child(2) {
+	z-index: 1;
+	color: var(--colour-grey-three);
+	width: 24px;
+	height: 24px;
+}
+
+.editable-item-buttons-btn-reorder {
+	font-size: 16px;
+}
+
+/* Images */
+
+.editable-item-item-images {
+	display: inline-flex;
+	flex-wrap: wrap;
+	text-align: left;
+	width: 100%;
+}
+
+.editable-item-item-image-item {
+	position: relative;
+	margin: 4px;
+	width: calc((100% / 3) - 8px);
+}
+
+.drag-drop-item-enable-drag-drop .editable-item-item-image-item {
+	-webkit-user-drag: element;
+}
+
+.editable-item-item-image-item img {
+	width: 100%;
+	max-height: max(18vw, 140px);
+	object-fit: contain;
+}
+
+.editable-item-item-image-item-caption {
+	padding: 3px 8px;
+	border-radius: 4px;
+	min-width: 46px;
+	width: max-content;
+	max-width: calc(100% - 16px);
+	word-break: break-word;
+	overflow-wrap: anywhere;
+	background: var(--colour-grey-three);
+}
+
+.editable-item-item-image-item-caption-empty {
+	min-width: 70px;
+}
+
+.editable-item-item-image-item-caption,
+.editable-item-item-image-item-caption input {
+	font-size: var(--font-size-p-m);
+	min-height: 20px;
+}
+
+.editable-item-item-image-item-caption .text-input-label {
+	left: 8px !important;
+}
+
+.editable-item-item-image-item-btns-container {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}
+
+.drag-drop-item-enable-drag-drop.editable-item-item-image-item {
+	animation: wiggle-small infinite 0.7s linear;
+}
+
+.drag-drop-item-enable-drag-drop:nth-child(even).editable-item-item-image-item {
+	animation-delay: 0.1s;
+}
+
+.drag-drop-item-enable-drag-drop.editable-item-item-image-item {
+	-webkit-user-drag: element;
+}

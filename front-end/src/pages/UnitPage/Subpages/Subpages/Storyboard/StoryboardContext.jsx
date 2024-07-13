@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { UnitPageContext } from "../../../UnitPageContext";
 import { APIContext } from "../../../../../context/APIContext";
+import { faFont } from "@fortawesome/free-solid-svg-icons";
 
 export const StoryboardContext = createContext();
 
@@ -30,7 +31,7 @@ const StoryboardProvider = ({ children }) => {
 	const [pieces, setPieces] = useState([]);
 
 	const content_simple = [
-		{ id: "1", name: "Text", type: "text" },
+		{ id: "1", name: "Text", type: "text", icon: faFont },
 		{ id: "2", name: "Solid", type: "solid" },
 		{ id: "3", name: "Gradient", type: "gradient" },
 	];

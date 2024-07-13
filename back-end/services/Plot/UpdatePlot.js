@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Plot = require("../../models/Substory");
 const Image = require("../../models/Image");
 
+const GetValueInNestedObject = require("../GetValueInNestedObject");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
 const { storage, ref, uploadString, deleteObject } = require("../FirebaseConfig");
@@ -212,6 +213,9 @@ module.exports = async (req, res) => {
 								newPlot.data.plot.items[oldItemIndex] = req?.body?.newValue?.items[newItemIndex];
 						});
 						break;
+					} else if (newPath.length === 7 && newPath[6] === "items" && req?.body?.newValue?.itemIDs) {
+						newPlot.data.plot.clusters[clusterIndex].groups[groupIndex].items = req?.body?.newValue?.itemIDs;
+						break;
 					}
 				}
 
@@ -222,6 +226,23 @@ module.exports = async (req, res) => {
 				if (customSubpageIndex === -1) break;
 				newPath[2] = customSubpageIndex;
 				newPlot = ChangeValueInNestedObject(newPlot, newPath, req?.body?.newValue);
+			} else if (req?.body?.task === "reorder" && req?.body?.path && req?.body?.newValue) {
+				const old_array = GetValueInNestedObject(JSON.parse(JSON.stringify(newPlot)), req?.body?.path);
+				const new_array = req?.body?.newValue?.map((e) => old_array.find((e2) => JSON.stringify(e2?._id) === JSON.stringify(e)));
+				newPlot = ChangeValueInNestedObject(newPlot, req?.body?.path, new_array);
+			} else if (req?.body?.task === "remove" && req?.body?.path && req?.body?.remove_id) {
+				const old_array = GetValueInNestedObject(JSON.parse(JSON.stringify(newPlot)), req?.body?.path);
+				const new_array = old_array.filter((e) => e?._id !== req?.body?.remove_id);
+				newPlot = ChangeValueInNestedObject(newPlot, req?.body?.path, new_array);
+			} else if (req?.body?.task === "update" && req?.body?.path && req?.body?.item_id) {
+				let new_array = GetValueInNestedObject(JSON.parse(JSON.stringify(newPlot)), req?.body?.path);
+				const new_array_index = new_array.findIndex((e) => JSON.stringify(e?._id) === JSON.stringify(req?.body?.item_id));
+				new_array[new_array_index] = req?.body?.newValue;
+				newPlot = ChangeValueInNestedObject(newPlot, req?.body?.path, new_array);
+			} else if (req?.body?.task === "add" && req?.body?.path) {
+				let new_array = GetValueInNestedObject(JSON.parse(JSON.stringify(newPlot)), req?.body?.path);
+				new_array.push(req?.body?.newValue);
+				newPlot = ChangeValueInNestedObject(newPlot, req?.body?.path, new_array);
 			} else {
 				newPlot = ChangeValueInNestedObject(newPlot, req?.body?.path, req?.body?.newValue);
 			}
