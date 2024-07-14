@@ -97,12 +97,12 @@ export const PlotItems = ({ cluster, changeCluster, groupID, isDisplayingCluster
 								</DragDropItem>
 						  ))}
 				</DragDropContainer>
-				<div className='unit-page-subpage-plot-items-add-plot-item-btn-container'>
+				{!isAuthorizedToEdit ? null : <div className='unit-page-subpage-plot-items-add-plot-item-btn-container'>
 					<button className='unit-page-subpage-plot-items-add-plot-item-btn' onClick={addPlotItem}>
 						<FaPlus />
 						<span>Add Plot Item</span>
 					</button>
-				</div>
+				</div>}
 				{unitImagesCurrPlotItemID === -1 ? null : <UnitImages onAddImage={addImageToPlotItem} onClose={closeUnitImages} />}
 			</div>
 		);
