@@ -27,7 +27,7 @@ export const SettingsFaceImage = () => {
 		<LabelContainer className='unit-page-subpage-settings-item unit-page-subpage-settings-face-image-container' label='Face Image'>
 			<EditableContainer isAuthorizedToEdit={isAuthorizedToEdit} onRemove={removeFaceImage} onRevert={revertFaceImage} onSave={saveFaceImage}>
 				<div className='unit-page-subpage-settings-face-image-image'>
-					{!characterFaceImage ? null : <img src={characterFaceImage} alt='' />}
+					{!characterFaceImage || characterFaceImage === "NO_IMAGE" ? null : <img src={characterFaceImage} alt='' />}
 				</div>
 				<div>
 					<div className='unit-page-subpage-settings-face-image-image'>

@@ -4,7 +4,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(calc(-50% + (var(--navbar-width) / 2 - 23px)), calc(-50%));
-	width: calc(100vw - var(--navbar-width));
+	min-width: calc(100dvw - var(--navbar-width));
 	max-width: 100%;
 	height: var(--vh);
 	overflow: hidden;
@@ -17,7 +17,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: calc(100vw - var(--navbar-width));
+	width: calc(100dvw - var(--navbar-width));
 	height: var(--vh);
 	overflow: hidden;
 	transition-delay: 0.2s;

@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Components
 
@@ -18,6 +18,29 @@ import { APIContext } from "../../../../../context/APIContext";
 export const GroupsLogic = () => {
 	const { isAuthorizedToEdit, story, setStory, storyGroups } = useContext(CharactersContext);
 	const { APIRequest } = useContext(APIContext);
+
+	useEffect(() => {
+		if (story?.data?.characterRelationshipsGroups && storyGroups) {
+			const storyGroupIDs = storyGroups?.map((e) => e?._id);
+			const characterRelationshipsGroupIDs = story?.data?.characterRelationshipsGroups?.map((e) => e?._id);
+
+			const onlyInCharacterRelationshipsGroupIDs = characterRelationshipsGroupIDs.filter((value) => !storyGroupIDs.includes(value));
+			const onlyInStoryGroupIDs = storyGroupIDs.filter((value) => !characterRelationshipsGroupIDs.includes(value));
+
+			if ([...onlyInCharacterRelationshipsGroupIDs, ...onlyInStoryGroupIDs].length > 0) {
+				setStory((oldStory) => {
+					let newStory = JSON.parse(JSON.stringify(oldStory));
+					newStory.data.characterRelationshipsGroups = newStory.data.characterRelationshipsGroups.filter((e) =>
+						storyGroupIDs.includes(e?._id)
+					);
+					newStory.data.characterRelationshipsGroups = newStory.data.characterRelationshipsGroups.concat(
+						onlyInStoryGroupIDs?.map((id) => ({ _id: id, reversed: false }))
+					);
+					return newStory;
+				});
+			}
+		}
+	}, [setStory, story, storyGroups]);
 
 	async function revertGroups() {
 		const response = await APIRequest("/story/get-value/" + story._id, "POST", {

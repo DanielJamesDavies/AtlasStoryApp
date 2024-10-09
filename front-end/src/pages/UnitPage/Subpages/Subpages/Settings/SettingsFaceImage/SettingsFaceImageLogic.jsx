@@ -28,7 +28,7 @@ export const SettingsFaceImageLogic = () => {
 	}
 
 	function removeFaceImage() {
-		changeFaceImage(undefined);
+		changeFaceImage("NO_IMAGE");
 	}
 
 	async function revertFaceImage() {
