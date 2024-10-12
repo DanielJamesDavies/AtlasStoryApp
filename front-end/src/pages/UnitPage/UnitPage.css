@@ -82,20 +82,31 @@
 }
 
 .unit-page-journal-view-container {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100dvh;
+	background: var(--colour-grey-one);
 	overflow-y: scroll;
+	scroll-behavior: smooth;
 	transition: 0.2s;
+	transition-delay: 0.2s;
 }
 
 .unit-page-journal-view-container-hidden {
 	opacity: 0;
 	pointer-events: none;
 	user-select: none;
-	transition-delay: 0.2s;
+}
+
+.unit-page-journal-view-container .unit-page-journal-view {
+	opacity: 1;
+	transition: 0.2s;
+}
+
+.unit-page-journal-view-container-hidden .unit-page-journal-view {
+	opacity: 0;
 }
 
 @media (max-width: 750px) {

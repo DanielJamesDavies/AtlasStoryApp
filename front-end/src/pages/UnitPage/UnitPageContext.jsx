@@ -404,7 +404,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 			} else {
 				let newLocationParameters = [];
 				if (unit?.data?.versions && unitVersion?._id) newLocationParameters.push({ label: "version", value: unitVersion._id });
-				if (!isOnOverviewSection) newLocationParameters.push({ label: "subpage", value: openSubpageID });
+				if (!isOnOverviewSection && !isOnJournalView) newLocationParameters.push({ label: "subpage", value: openSubpageID });
 				changeLocationParameters(newLocationParameters);
 			}
 			if (["plot"].includes(unit_type)) {
@@ -442,6 +442,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 		unit_type,
 		unit_type_title,
 		changeUnitVersion,
+		isOnJournalView,
 	]);
 
 	const changeUnitVersionItemCopying = useCallback(

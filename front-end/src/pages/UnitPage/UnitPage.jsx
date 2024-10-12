@@ -34,6 +34,7 @@ export const UnitPage = () => {
 		unitPagePrimaryRef,
 		isUnitPageSubpagesHeaderFullSize,
 		isOnJournalView,
+		journalViewContainerRef,
 	} = UnitPageLogic();
 
 	return (
@@ -95,13 +96,14 @@ export const UnitPage = () => {
 				</div>
 			</div>
 			<div
+				ref={journalViewContainerRef}
 				className={
 					isOnJournalView
 						? "unit-page-journal-view-container"
 						: "unit-page-journal-view-container unit-page-journal-view-container-hidden"
 				}
 			>
-				<JournalView />
+				<JournalView journalViewContainerRef={journalViewContainerRef} />
 			</div>
 		</div>
 	);

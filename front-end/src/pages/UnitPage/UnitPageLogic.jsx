@@ -31,11 +31,14 @@ export const UnitPageLogic = () => {
 	const unitPageContainerRef = useRef();
 	const unitOverviewContainerRef = useRef();
 	const unitSubpagesContainerRef = useRef();
+	const journalViewContainerRef = useRef();
 
 	const touchStartCoords = useRef({ x: 0, y: 0 });
 	useEffect(() => {
 		const onWheel = (e) =>
-			!unit || !unitPageStyle || e?.ctrlKey || Math.sign(e?.deltaY) === -1 ? null : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1);
+			isOnJournalView || !unit || !unitPageStyle || e?.ctrlKey || Math.sign(e?.deltaY) === -1
+				? null
+				: setIsOnOverviewSection(Math.sign(e?.deltaY) === -1);
 		const onTouchStart = (e) => {
 			touchStartCoords.current = { x: e.touches[0].pageX, y: e.touches[0].pageY };
 		};
@@ -57,7 +60,7 @@ export const UnitPageLogic = () => {
 			unitPageContainerRefCurrent?.removeEventListener("touchstart", onTouchStart);
 			unitPageContainerRefCurrent?.removeEventListener("touchmove", onTouchMove);
 		};
-	}, [unit, unitPageStyle, unitPageContainerRef, setIsOnOverviewSection]);
+	}, [unit, unitPageStyle, unitPageContainerRef, setIsOnOverviewSection, isOnJournalView]);
 
 	useEffect(() => {
 		const onOverviewWheel = (e) => {
@@ -81,7 +84,7 @@ export const UnitPageLogic = () => {
 			unitOverviewRefCurrent?.removeEventListener("wheel", onOverviewWheel);
 			unitSubpagesRefCurrent?.removeEventListener("wheel", onSubpagesWheel);
 		};
-	}, [unitOverviewContainerRef, unitSubpagesContainerRef, isOnOverviewSection]);
+	}, [unitOverviewContainerRef, unitSubpagesContainerRef, isOnOverviewSection, isOnJournalView]);
 
 	return {
 		unit,
@@ -96,5 +99,6 @@ export const UnitPageLogic = () => {
 		unitPagePrimaryRef,
 		isUnitPageSubpagesHeaderFullSize,
 		isOnJournalView,
+		journalViewContainerRef,
 	};
 };
