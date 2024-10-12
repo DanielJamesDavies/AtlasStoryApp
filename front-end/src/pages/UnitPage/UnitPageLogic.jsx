@@ -25,6 +25,7 @@ export const UnitPageLogic = () => {
 		setIsOnOverviewSection,
 		unitPagePrimaryRef,
 		isUnitPageSubpagesHeaderFullSize,
+		isOnJournalView,
 	} = useContext(UnitPageContext);
 
 	const unitPageContainerRef = useRef();
@@ -94,5 +95,6 @@ export const UnitPageLogic = () => {
 		unitSubpagesContainerRef,
 		unitPagePrimaryRef,
 		isUnitPageSubpagesHeaderFullSize,
+		isOnJournalView,
 	};
 };

@@ -7,6 +7,7 @@ import { PrimaryImage } from "./PrimaryImage/PrimaryImage";
 import { Date } from "./Date/Date";
 import { SummaryItems } from "./SummaryItems/SummaryItems";
 import { LocationProperties } from "./LocationProperties/LocationProperties";
+import { JournalViewBtn } from "./JournalViewBtn/JournalViewBtn";
 
 // Logic
 
@@ -32,6 +33,9 @@ export const Overview = ({ innerRef }) => {
 						<Date />
 						<SummaryItems />
 						<LocationProperties />
+					</div>
+					<div className='unit-page-overview-content-section-3'>
+						<JournalViewBtn />
 					</div>
 				</div>
 				<Background />

@@ -6,6 +6,7 @@ import { Primary } from "./Primary/Primary";
 import { Overview } from "./Overview/Overview";
 import { Subpages } from "./Subpages/Subpages";
 import { SectionSwitcher } from "./SectionSwitcher/SectionSwitcher";
+import { JournalView } from "./JournalView/JournalView";
 
 // Logic
 import { UnitPageLogic } from "./UnitPageLogic";
@@ -32,6 +33,7 @@ export const UnitPage = () => {
 		unitSubpagesContainerRef,
 		unitPagePrimaryRef,
 		isUnitPageSubpagesHeaderFullSize,
+		isOnJournalView,
 	} = UnitPageLogic();
 
 	return (
@@ -73,9 +75,9 @@ export const UnitPage = () => {
 			</div>
 			<div
 				className={
-					unit && unitPageStyle && unitOverviewBackground && unitOverviewForegrounds !== false
-						? "unit-page"
-						: "unit-page unit-page-hidden"
+					"unit-page" +
+					(unit && unitPageStyle && unitOverviewBackground && unitOverviewForegrounds !== false ? "" : " unit-page-hidden") +
+					(isOnJournalView ? "  unit-page-slow-hidden" : "")
 				}
 			>
 				<Primary isMobile={true} />
@@ -91,6 +93,15 @@ export const UnitPage = () => {
 					<SectionSwitcher />
 					<Subpages innerRef={unitSubpagesContainerRef} />
 				</div>
+			</div>
+			<div
+				className={
+					isOnJournalView
+						? "unit-page-journal-view-container"
+						: "unit-page-journal-view-container unit-page-journal-view-container-hidden"
+				}
+			>
+				<JournalView />
 			</div>
 		</div>
 	);

@@ -121,6 +121,7 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 	const [isOnOverviewSection, setIsOnOverviewSection] = useState(true);
 	const [isUnitPageSubpagesHeaderFullSize, setIsUnitPageSubpagesHeaderFullSize] = useState(true);
 	const subpageContainerRef = useRef();
+	const [isOnJournalView, setIsOnJournalView] = useState(false);
 
 	useEffect(() => {
 		if (routesUnitSubpageID) {
@@ -548,6 +549,8 @@ const UnitPageProvider = ({ children, story_uid, unit_uid, unit_type, unit_type_
 				isUnitPageSubpagesHeaderFullSize,
 				setIsUnitPageSubpagesHeaderFullSize,
 				subpageContainerRef,
+				isOnJournalView,
+				setIsOnJournalView,
 				getSubpageItemTopOffset,
 				decrementUnitVersion,
 				incrementUnitVersion,

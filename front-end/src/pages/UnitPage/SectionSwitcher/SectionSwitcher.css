@@ -8,6 +8,7 @@
 	height: 40px;
 	transition: 0.2s;
 	opacity: 1;
+	pointer-events: none;
 }
 
 .unit-page-container-is-authorized .unit-page-section-switcher {
@@ -29,6 +30,7 @@
 	color: var(--text-colour-primary);
 	transition: transform 0.75s;
 	cursor: pointer;
+	pointer-events: all;
 }
 
 .unit-page-section-switcher-btn svg {

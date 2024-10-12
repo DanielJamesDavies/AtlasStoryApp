@@ -1,0 +1,66 @@
+.unit-page-overview-journal-view-btn-container {
+	position: absolute;
+	bottom: 12px;
+	right: 0;
+	z-index: 2;
+}
+
+.unit-page-overview-journal-view-btn {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	border: 0;
+	border-radius: 32px;
+	width: 40px;
+	height: 40px;
+	background: linear-gradient(0deg, var(--unitColour), var(--unitColourTint));
+	color: #fff;
+	cursor: pointer;
+	transition: 0.2s;
+	overflow: hidden;
+}
+
+.unit-page-overview-journal-view-btn:hover {
+	width: 138px;
+}
+
+.unit-page-overview-journal-view-btn svg {
+	margin-left: 6px;
+	font-size: 18px;
+}
+
+.unit-page-overview-journal-view-btn span {
+	opacity: 0;
+	width: 0;
+	white-space: nowrap;
+	font-weight: 600;
+	transition: 0.2s;
+}
+
+.unit-page-overview-journal-view-btn:hover span {
+	opacity: 1;
+	width: unset;
+}
+
+@media (max-width: 750px) {
+	.unit-page-overview-journal-view-btn-container {
+		position: relative;
+		bottom: unset;
+		right: unset;
+		padding-top: 32px;
+		padding-bottom: 48px;
+	}
+
+	.unit-page-overview-journal-view-btn {
+		margin: 0 auto;
+		gap: 12px;
+		justify-content: center;
+		width: 100%;
+		max-width: 195px;
+	}
+
+	.unit-page-overview-journal-view-btn span {
+		opacity: 1;
+		width: unset;
+	}
+}
