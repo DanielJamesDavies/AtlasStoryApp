@@ -50,8 +50,8 @@
 
 .unit-page-journal-view-top-section-unit-image-larger-height {
 	top: 0;
-	left: 0;
-	transform: unset;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 .unit-page-journal-view-top-section-unit-image-background {
