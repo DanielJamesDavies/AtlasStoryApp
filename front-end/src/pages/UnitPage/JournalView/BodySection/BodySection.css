@@ -41,3 +41,7 @@
 .unit-page-journal-view-body-section-piece-text > ul > li:first-child {
 	margin-top: -12px;
 }
+
+.unit-page-journal-view-body-section-piece-text p {
+	text-align: justify;
+}
