@@ -1,4 +1,6 @@
 // Packages
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 
@@ -23,9 +25,13 @@ export const TopSection = () => {
 		storyIcon,
 		unitOverviewBackground,
 		unitOverviewForegrounds,
+		onClickDecrementUnitVersion,
+		onClickIncrementUnitVersion,
 		unitImageContainerRef,
 		unitImageRef,
 		overviewForegroundSizeRef,
+		versionsWidthRef,
+		showImage,
 	} = TopSectionLogic();
 
 	return (
@@ -44,11 +50,14 @@ export const TopSection = () => {
 				?.filter((e) => e && e !== "NO_IMAGE")?.length === 0 ? null : (
 				<div
 					ref={unitImageContainerRef}
-					className='unit-page-journal-view-top-section-unit-image-container'
+					className={
+						"unit-page-journal-view-top-section-unit-image-container" +
+						(!showImage ? " unit-page-journal-view-top-section-unit-image-container-hide-image" : "")
+					}
 					style={{
 						"--top-section-image-scale": Math.max(
-							unitImageContainerRef?.current?.clientWidth / window?.innerWidth,
-							unitImageContainerRef?.current?.clientHeight / window?.innerHeight
+							(unitImageContainerRef?.current?.clientWidth / window?.innerWidth) * (showImage ? 1 : 1),
+							(unitImageContainerRef?.current?.clientHeight / window?.innerHeight) * (showImage ? 1 : 1)
 						),
 					}}
 				>
@@ -56,11 +65,11 @@ export const TopSection = () => {
 						ref={unitImageRef}
 						className={
 							"unit-page-journal-view-top-section-unit-image" +
-							(unitImageContainerRef?.current?.clientHeight <
+							(unitImageContainerRef?.current?.clientHeight * (showImage ? 1 : 1) <
 							unitImageRef?.current?.clientHeight *
 								Math.max(
-									unitImageContainerRef?.current?.clientWidth / window?.innerWidth,
-									unitImageContainerRef?.current?.clientHeight / window?.innerHeight
+									(unitImageContainerRef?.current?.clientWidth / window?.innerWidth) * (showImage ? 1 : 1),
+									(unitImageContainerRef?.current?.clientHeight / window?.innerHeight) * (showImage ? 1 : 1)
 								)
 								? " unit-page-journal-view-top-section-unit-image-larger-height"
 								: "")
@@ -90,18 +99,22 @@ export const TopSection = () => {
 												transform: `translate(${unitVersion?.overviewForeground?.position.join("px, ")}px)`,
 												height: isNaN(
 													overviewForegroundSizeRef?.current?.clientHeight *
-														parseFloat(unitVersion?.overviewForeground?.scale * ((window.innerHeight + 200) / 1300))
+														parseFloat(unitVersion?.overviewForeground?.scale * ((window.innerHeight + 200) / 1300)) *
+														(showImage ? 1 : 1)
 												)
 													? "0px"
 													: overviewForegroundSizeRef?.current?.clientHeight *
-													  parseFloat(unitVersion?.overviewForeground?.scale * ((window.innerHeight + 200) / 1300)),
+													  parseFloat(unitVersion?.overviewForeground?.scale * ((window.innerHeight + 200) / 1300)) *
+													  (showImage ? 1 : 1),
 												maxWidth: isNaN(
 													overviewForegroundSizeRef?.current?.clientWidth *
-														parseFloat(unitVersion?.overviewForeground?.scale)
+														parseFloat(unitVersion?.overviewForeground?.scale) *
+														(showImage ? 1 : 1)
 												)
 													? "0px"
 													: overviewForegroundSizeRef?.current?.clientWidth *
-													  parseFloat(unitVersion?.overviewForeground?.scale),
+													  parseFloat(unitVersion?.overviewForeground?.scale) *
+													  (showImage ? 1 : 1),
 											}}
 										/>
 									)}
@@ -131,6 +144,29 @@ export const TopSection = () => {
 					</div>
 				</div>
 			)}
+			{/* Versions */}
+			<div className='unit-page-journal-view-top-section-unit-versions'>
+				<div ref={versionsWidthRef} className='unit-page-journal-view-top-section-unit-versions-element'>
+					{unit?.data?.versions?.map((version, index) => (
+						<div key={index} className='unit-page-journal-view-top-section-unit-versions-element-title'>
+							{version?.title}
+						</div>
+					))}
+				</div>
+				<button onClick={onClickDecrementUnitVersion}>
+					<FontAwesomeIcon icon={faChevronLeft} />
+				</button>
+				<div
+					className='unit-page-journal-view-top-section-unit-versions-text-container'
+					style={{ "--width": versionsWidthRef?.current?.clientWidth + "px" }}
+				>
+					<div className='unit-page-journal-view-top-section-unit-versions-text-label'>Version</div>
+					<div className='unit-page-journal-view-top-section-unit-versions-text-value'>{unitVersion?.title}</div>
+				</div>
+				<button onClick={onClickIncrementUnitVersion}>
+					<FontAwesomeIcon icon={faChevronRight} />
+				</button>
+			</div>
 		</div>
 	);
 };

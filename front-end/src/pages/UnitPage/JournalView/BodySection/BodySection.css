@@ -45,3 +45,9 @@
 .unit-page-journal-view-body-section-piece-text p {
 	text-align: justify;
 }
+
+@media (max-width: 750px) {
+	.unit-page-journal-view-body-section-piece-text p {
+		text-align: left;
+	}
+}

@@ -130,39 +130,55 @@ export const JournalViewLogic = ({ journalViewContainerRef }) => {
 
 				// Biography
 				if (unitVersion?.biography?.length !== 0) {
-					newBodySections.push({ index: newBodySections?.length, title: "Background", titleStyle: "h1" });
-					unitVersion?.biography?.map((biographyItem) => {
-						let biographySectionsToPush = [];
-						biographyItem?.items?.map((biographyItem2) => {
-							if (biographyItem2?.title) {
-								if (biographyItem2?.text && biographyItem2?.text?.join("\n")?.trim()?.length !== 0) {
-									biographySectionsToPush.push({
-										index: newBodySections?.length,
-										title: biographyItem2?.title,
-										titleStyle: "h3",
-										text: biographyItem2?.text?.join("\n"),
-									});
-								} else {
-									biographySectionsToPush.push({ index: newBodySections?.length, text: biographyItem2?.title });
-								}
-							} else {
-								if (biographyItem2?.text && biographyItem2?.text?.join("\n")?.trim()?.length !== 0) {
-									biographySectionsToPush.push({ index: newBodySections?.length, text: biographyItem2?.text?.join("\n") });
-								}
-							}
-							return true;
-						});
+					let biographySectionsToPush = [];
 
-						if (biographySectionsToPush.length !== 0) {
-							newBodySections.push({ index: newBodySections?.length, title: biographyItem?.name, titleStyle: "h2" });
-							biographySectionsToPush?.map((biographySectionToPush) => {
-								biographySectionToPush.index = newBodySections?.length;
-								newBodySections.push(biographySectionToPush);
-								return true;
+					unitVersion?.biography?.map((biographyItem) => {
+						const numBiographyItemsPushed = biographyItem?.items
+							?.map((biographyItem2) => {
+								if (biographyItem2?.title) {
+									if (biographyItem2?.text && biographyItem2?.text?.join("\n")?.trim()?.length !== 0) {
+										biographySectionsToPush.push({
+											title: biographyItem2?.title,
+											titleStyle: "h3",
+											text: biographyItem2?.text?.join("\n"),
+										});
+										return true;
+									} else {
+										biographySectionsToPush.push({
+											text: biographyItem2?.title,
+										});
+										return true;
+									}
+								} else {
+									if (biographyItem2?.text && biographyItem2?.text?.join("\n")?.trim()?.length !== 0) {
+										biographySectionsToPush.push({
+											text: biographyItem2?.text?.join("\n"),
+										});
+										return true;
+									}
+								}
+								return false;
+							})
+							?.filter((e) => e !== false)?.length;
+
+						if (numBiographyItemsPushed !== 0) {
+							biographySectionsToPush.push({
+								title: biographyItem?.name,
+								titleStyle: "h2",
 							});
 						}
 						return true;
 					});
+
+					if (biographySectionsToPush.length !== 0) {
+						newBodySections.push({ index: newBodySections?.length, title: "Background", titleStyle: "h1" });
+
+						biographySectionsToPush?.map((biographySectionToPush) => {
+							biographySectionToPush.index = newBodySections?.length;
+							newBodySections.push(biographySectionToPush);
+							return true;
+						});
+					}
 				}
 			}
 		}
