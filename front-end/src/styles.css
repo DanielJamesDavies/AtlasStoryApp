@@ -1,7 +1,51 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Palatino+Linotype&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+@font-face {
+	font-family: "Inter";
+	src: url("./content/fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+	font-weight: 100 900;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("./content/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+	font-weight: 100 900;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Newsreader";
+	src: url("./content/fonts/Newsreader/Newsreader-VariableFont_opsz,wght.ttf") format("truetype");
+	font-weight: 100 900;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Newsreader";
+	src: url("./content/fonts/Newsreader/Newsreader-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+	font-weight: 100 900;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Playfair Display";
+	src: url("./content/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
+	font-weight: 100 900;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Playfair Display";
+	src: url("./content/fonts/Playfair_Display/PlayfairDisplay-Italic-VariableFont_wght.ttf") format("truetype");
+	font-weight: 100 900;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Palatino Linotype";
+	src: url("./content/fonts/Palatino_Linotype/palatinolinotype_roman.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
 
 :root {
 	--colour-white: #ffffff;
