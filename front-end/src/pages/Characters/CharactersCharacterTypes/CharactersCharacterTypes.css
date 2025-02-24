@@ -1,5 +1,5 @@
 .characters-character-types-container {
-	margin-bottom: 16px;
+	margin-bottom: 24px;
 	border-radius: 4px;
 	vertical-align: top;
 }
@@ -17,7 +17,7 @@
 
 .characters-character-types-title {
 	margin-top: -1px;
-	margin-bottom: 16px;
+	margin-bottom: 24px;
 	font-size: 32px;
 	font-weight: 600;
 	vertical-align: middle;

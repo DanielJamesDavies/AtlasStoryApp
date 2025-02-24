@@ -22,10 +22,10 @@
 }
 
 .characters-character-types-content-container {
-	margin-top: 12px;
-	min-width: 100%;
+	margin: 0 auto;
+	margin-top: 32px;
 	width: 100%;
-	max-width: 100%;
+	max-width: 1250px;
 }
 
 @media (max-width: 750px) {
