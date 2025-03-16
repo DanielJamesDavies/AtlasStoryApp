@@ -1,6 +1,5 @@
 // Packages
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import ImageTracer from "imagetracerjs";
 
 // Components
 
@@ -74,19 +73,59 @@ export const SettingsMapImageLogic = () => {
 		Marvin.invertColors(imageOut, imageOut);
 		Marvin.thresholding(imageOut, imageOut, 220);
 
-		const svgstring = ImageTracer.imagedataToSVG(imageOut?.imageData, { strokewidth: 4, linefilter: true });
-
-		setLocationMapComponents((oldValue) => {
-			let newValue = JSON.parse(JSON.stringify(oldValue));
-			const index = newValue.findIndex((e) => e?.version_id === mapVersion);
-			if (index === -1) {
-				const mapImageComponents = unit?.data?.mapVersions?.find((e) => e?._id === mapVersion)?.mapImageComponents;
-				newValue.push({ _id: mapImageComponents, version_id: mapVersion, image: svgstring });
-				return newValue;
+		const workerCode = `
+		import ImageTracer from "imagetracerjs";
+		self.onmessage = function(e) {
+			try {
+				const svgstring = ImageTracer.imagedataToSVG(e.data.imageData, { strokewidth: 4, linefilter: true });
+				self.postMessage({ svgstring });
+			} catch (error) {
+				self.postMessage({ error: error.message });
 			}
-			newValue[index].image = svgstring;
-			return newValue;
-		});
+		};
+		`;
+
+		const blob = new Blob([workerCode], { type: "application/javascript" });
+		const worker = new Worker(URL.createObjectURL(blob), { type: "module" });
+
+		const timeoutId = setTimeout(() => {
+			worker.terminate();
+			console.error("Operation timed out and worker was terminated.");
+			const svgstring =
+				'<svg width="2000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg" desc="Created with imagetracer.js version 1.2.6"></svg>';
+			setLocationMapComponents((oldValue) => {
+				let newValue = JSON.parse(JSON.stringify(oldValue));
+				const index = newValue.findIndex((e) => e?.version_id === mapVersion);
+				if (index === -1) {
+					const mapImageComponents = unit?.data?.mapVersions?.find((e) => e?._id === mapVersion)?.mapImageComponents;
+					newValue.push({ _id: mapImageComponents, version_id: mapVersion, image: svgstring });
+					return newValue;
+				}
+				newValue[index].image = svgstring;
+				return newValue;
+			});
+		}, 10000);
+
+		worker.onmessage = function (e) {
+			clearTimeout(timeoutId);
+			if (e.data.error) {
+				console.error("Worker error:", e.data.error);
+				return;
+			}
+			const svgstring = e.data.svgstring;
+			// const svgstring = ImageTracer.imagedataToSVG(imageOut?.imageData, { strokewidth: 4, linefilter: true });
+			setLocationMapComponents((oldValue) => {
+				let newValue = JSON.parse(JSON.stringify(oldValue));
+				const index = newValue.findIndex((e) => e?.version_id === mapVersion);
+				if (index === -1) {
+					const mapImageComponents = unit?.data?.mapVersions?.find((e) => e?._id === mapVersion)?.mapImageComponents;
+					newValue.push({ _id: mapImageComponents, version_id: mapVersion, image: svgstring });
+					return newValue;
+				}
+				newValue[index].image = svgstring;
+				return newValue;
+			});
+		};
 	}
 
 	function removeMapImage() {

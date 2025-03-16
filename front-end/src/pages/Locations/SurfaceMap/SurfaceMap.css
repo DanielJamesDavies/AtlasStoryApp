@@ -647,7 +647,7 @@
 }
 
 .locations-surface-map-container:not(.locations-surface-map-container-regions-filled) .locations-surface-map-place-symbol {
-	height: 4px;
+	height: 9px;
 	opacity: 0;
 	pointer-events: none;
 }
