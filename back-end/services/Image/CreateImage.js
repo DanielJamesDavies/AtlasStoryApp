@@ -7,7 +7,8 @@ const validateImage = require("./validateImage");
 const { storage, ref, uploadString } = require("../FirebaseConfig");
 
 module.exports = async (req, res) => {
-	const imageValidationResult = validateImage(req.body.image);
+	let imageValidationResult = validateImage(req.body.image);
+	if (req?.body?.isLocationMapImage) imageValidationResult.errors = imageValidationResult.errors?.filter((e) => e?.key !== "too-large");
 	if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
 
 	const image_id = new mongoose.Types.ObjectId();

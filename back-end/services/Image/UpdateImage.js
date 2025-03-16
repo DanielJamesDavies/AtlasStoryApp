@@ -10,7 +10,8 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ errors: [{ message: "Invalid New Value" }] });
 
 	if (req?.body?.newValue !== "NO_IMAGE") {
-		const imageValidationResult = validateImage(req.body.newValue);
+		let imageValidationResult = validateImage(req.body.newValue);
+		if (req?.body?.isLocationMapImage) imageValidationResult.errors = imageValidationResult.errors?.filter((e) => e?.key !== "too-large");
 		if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
 	}
 

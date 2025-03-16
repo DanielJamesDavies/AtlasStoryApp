@@ -14,7 +14,7 @@ import getImageFromFile from "../../services/GetImageFromFile";
 
 // Assets
 
-export const ImageInputLogic = ({ className, isCircular, onChange, maxFileSizeInKBs }) => {
+export const ImageInputLogic = ({ className, isCircular, onChange, maxFileSizeInKBs, ignoreMaxFileSize }) => {
 	const inputRef = useRef();
 
 	const [imageInputClassName, setImageInputClassName] = useState(
@@ -38,7 +38,7 @@ export const ImageInputLogic = ({ className, isCircular, onChange, maxFileSizeIn
 	}, [setImageInputClassName, className, isCircular]);
 
 	async function onInputChange(e) {
-		const image = await getImageFromFile(e.target.files[0], { maxFileSizeInKBs: maxFileSizeInKBs });
+		const image = await getImageFromFile(e.target.files[0], { maxFileSizeInKBs, ignoreMaxFileSize });
 		inputRef.current.value = [];
 		if (image?.error || !image?.data) return await onChange(false);
 		await onChange(image.data);

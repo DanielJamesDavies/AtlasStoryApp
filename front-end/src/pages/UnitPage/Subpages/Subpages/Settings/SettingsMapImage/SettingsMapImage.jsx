@@ -67,7 +67,7 @@ export const SettingsMapImage = () => {
 							(!mapVersionImage || mapVersionImage === "NO_IMAGE" ? " unit-page-subpage-settings-map-image-image-no-image" : "")
 						}
 					>
-						<ImageInput value={mapVersionImage} onChange={changeMapImage} />
+						<ImageInput value={mapVersionImage} onChange={changeMapImage} ignoreMaxFileSize={true} />
 					</div>
 					<ErrorMessage errors={errors} />
 				</div>

@@ -30,6 +30,7 @@ export const RegionsLogic = () => {
 		setIsDeletingSurfaceMapComponents,
 		mapVersionID,
 		locationMapComponentsImages,
+		setLocationMapComponentsImages,
 		setIsSelectingSurfaceMapComponents,
 		setRegionSelectingSurfaceMapComponentsFor,
 	} = useContext(LocationsContext);
@@ -207,6 +208,26 @@ export const RegionsLogic = () => {
 		setIsDrawingSurfaceMapComponents(false);
 	}
 
+	function deleteAllSurfaceMapComponents() {
+		setIsDeletingSurfaceMapComponents(false);
+
+		setIsSelectingSurfaceMapComponents(false);
+		setRegionSelectingSurfaceMapComponentsFor(false);
+		setIsDrawingSurfaceMapComponents(false);
+
+		const locationMapComponentsImage = locationMapComponentsImages?.find((e) => e?.location_map_version_id === mapVersionID)?.image;
+		if (!locationMapComponentsImage) return false;
+		const newLocationMapComponentsImage = locationMapComponentsImage.split("<path")[0] + "</svg>";
+
+		setLocationMapComponentsImages((oldValue) => {
+			let newValue = JSON.parse(JSON.stringify(oldValue));
+			const index = newValue?.findIndex((e) => e?.location_map_version_id === mapVersionID);
+			if (index === -1) return newValue;
+			newValue[index].image = newLocationMapComponentsImage;
+			return newValue;
+		});
+	}
+
 	return {
 		isAuthorizedToEdit,
 		location,
@@ -222,6 +243,7 @@ export const RegionsLogic = () => {
 		toggleIsDrawingSurfaceMapComponents,
 		isDeletingSurfaceMapComponents,
 		toggleIsDeletingSurfaceMapComponents,
+		deleteAllSurfaceMapComponents,
 		mapVersionID,
 	};
 };

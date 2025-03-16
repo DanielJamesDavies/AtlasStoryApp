@@ -8,9 +8,13 @@ async function getImageFromFile(file, options) {
 		fr.readAsDataURL(file);
 
 		fr.onload = async () => {
-			const newImage = await resizeBase64Image(fr.result, maxFileSizeInKBs);
-			if (newImage === false) resolve({ error: "Image Too Large." });
-			resolve({ data: newImage });
+			if (!options?.ignoreMaxFileSize) {
+				const newImage = await resizeBase64Image(fr.result, maxFileSizeInKBs);
+				if (newImage === false) resolve({ error: "Image Too Large." });
+				resolve({ data: newImage });
+			} else {
+				resolve({ data: fr.result });
+			}
 		};
 
 		fr.onerror = (error) => {

@@ -35,6 +35,7 @@ export const Regions = () => {
 		toggleIsDrawingSurfaceMapComponents,
 		isDeletingSurfaceMapComponents,
 		toggleIsDeletingSurfaceMapComponents,
+		deleteAllSurfaceMapComponents,
 		mapVersionID,
 	} = RegionsLogic();
 
@@ -87,6 +88,14 @@ export const Regions = () => {
 						>
 							{isDeletingSurfaceMapComponents ? "Stop Deleting Components" : "Start Deleting Components"}
 						</button>
+						{!isDeletingSurfaceMapComponents ? null : (
+							<button
+								className='locations-location-regions-start-btn locations-location-regions-start-btn-active'
+								onClick={deleteAllSurfaceMapComponents}
+							>
+								Delete All Components
+							</button>
+						)}
 					</div>
 					<ErrorMessage errors={errors} />
 					<DragDropContainer
