@@ -16,7 +16,7 @@ import { RoutesContext } from "../../../../../../context/RoutesContext";
 // Assets
 
 export const LocationTitleLogic = () => {
-	const { locations, currentMapLocationId, story, setSelectedLocationId } = useContext(LocationsContext);
+	const { locationTypes, locations, currentMapLocationId, story, setSelectedLocationId } = useContext(LocationsContext);
 	const { changeLocation } = useContext(RoutesContext);
 
 	const goToLocationBtnRef = useRef();
@@ -33,5 +33,5 @@ export const LocationTitleLogic = () => {
 		setSelectedLocationId(false);
 	}
 
-	return { goToLocationBtnRef, goToLocation, onCloseBtnClick };
+	return { locationTypes, locations, currentMapLocationId, goToLocationBtnRef, goToLocation, onCloseBtnClick };
 };

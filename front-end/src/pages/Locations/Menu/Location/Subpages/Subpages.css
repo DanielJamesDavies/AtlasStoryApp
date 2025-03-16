@@ -1,4 +1,18 @@
+.locations-location-subpages-container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+}
+
 .locations-location-subpages {
-	--locationsSubpageHeight: calc(var(--locationContainerHeight) - var(--locationPrimaryHeight));
-	height: var(--locationsSubpageHeight);
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+	--locationsSubpageHeight: calc(var(--locationContainerHeight) - var(--locationPrimaryHeight) - 24px);
+}
+
+.locations-location-subpage-container {
+	padding: 0 8px;
 }

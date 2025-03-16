@@ -39,11 +39,8 @@ export const RegionsItem = ({ regionsItem, index, isEditing, locationChildren, m
 			{!isEditing ? (
 				<ContentItem hasBg={true}>
 					<div className='locations-location-regions-item-title-container'>
+						<ColourPicker value={regionsItem?.colour} onChange={changeRegionsItemColour} enableEdit={false} circular={true} />
 						<div className='locations-location-regions-item-name'>{regionsItem?.name}</div>
-					</div>
-					<div className='locations-location-regions-item-colour-container'>
-						<label>Region Colour</label>
-						<ColourPicker value={regionsItem?.colour} onChange={changeRegionsItemColour} enableEdit={false} />
 					</div>
 				</ContentItem>
 			) : (
@@ -60,15 +57,17 @@ export const RegionsItem = ({ regionsItem, index, isEditing, locationChildren, m
 							/>
 						</div>
 						<div className='locations-location-regions-item-colour-container'>
-							<label>Region Colour</label>
+							<label>Region Colour: </label>
 							<ColourPicker
 								value={regionsItem?.colour}
 								onChange={changeRegionsItemColour}
 								enableEdit={true}
 								pickerVerticalPlacement='bottom'
+								circular={true}
 							/>
 						</div>
 						<div className='locations-location-regions-item-components-container'>
+							<label>Components: </label>
 							{regionSelectingSurfaceMapComponentsFor !== regionsItem?._id ? (
 								<button onClick={startSelectingMapComponents}>Select Components</button>
 							) : (
@@ -78,7 +77,7 @@ export const RegionsItem = ({ regionsItem, index, isEditing, locationChildren, m
 							)}
 						</div>
 						<div className='locations-location-regions-item-location-container'>
-							<label>Location</label>
+							<label>Location: </label>
 							<DropdownContainer
 								value={locations?.find((e) => e?._id === regionsItem?.location)?.data?.name}
 								onChange={changeLocation}

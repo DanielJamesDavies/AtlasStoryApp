@@ -13,73 +13,78 @@ import { useCallback } from "react";
 
 // Assets
 
-export const SurfaceMapRegionsClusteringFunctions = ({ surfaceMapImageComponentsContainerRef, zoom }) => {
-	const getCoordsOfPath = useCallback((component) => {
-		const offset = 8;
-		let min_x = -1;
-		let max_x = -1;
-		let min_y = -1;
-		let max_y = -1;
+export const SurfaceMapRegionsClusteringFunctions = ({ surfaceMapImageComponentsContainerRef, zoom, setLastTimeOfError }) => {
+	const getCoordsOfPath = useCallback(
+		(component) => {
+			const offset = 8;
+			let min_x = -1;
+			let max_x = -1;
+			let min_y = -1;
+			let max_y = -1;
 
-		let path = component?.getAttribute("d");
+			let path = component?.getAttribute("d");
 
-		try {
-			["M", "L", "H", "V", "C", "S", "Q", "T", "A", "Z"]?.map((char) => {
-				try {
-					path = path.replaceAll(char, "<>");
-				} catch (e) {
-					console.log("Error in SurfaceMapRegionsClusteringFunctions", e);
-				}
-				return true;
-			});
-			path.split("<>")
-				.filter((e) => e.length !== 0)
-				.map((data) => {
-					data = data.trim().replaceAll(",", " ");
-
-					if (data?.split(" ").length >= 2) {
-						if (min_x === -1) min_x = parseFloat(data?.split(" ")[0]);
-						if (max_x === -1) max_x = parseFloat(data?.split(" ")[0]);
-						if (min_y === -1) min_y = parseFloat(data?.split(" ")[1]);
-						if (max_y === -1) max_y = parseFloat(data?.split(" ")[1]);
+			try {
+				["M", "L", "H", "V", "C", "S", "Q", "T", "A", "Z"]?.map((char) => {
+					try {
+						path = path.replaceAll(char, "<>");
+					} catch (e) {
+						setLastTimeOfError(Date.now());
+						setTimeout(() => setLastTimeOfError(Date.now()), 500);
+						console.log("Error in SurfaceMapRegionsClusteringFunctions", { path }, e);
 					}
-
-					if (data?.split(" ").length === 2) {
-						if (min_x > parseFloat(data?.split(" ")[0])) min_x = parseFloat(data?.split(" ")[0]);
-						if (min_y > parseFloat(data?.split(" ")[1])) min_y = parseFloat(data?.split(" ")[1]);
-
-						if (max_x < parseFloat(data?.split(" ")[0])) max_x = parseFloat(data?.split(" ")[0]);
-						if (max_y < parseFloat(data?.split(" ")[1])) max_y = parseFloat(data?.split(" ")[1]);
-					} else if (data?.split(" ").length === 4) {
-						if (min_x > parseFloat(data?.split(" ")[0])) min_x = parseFloat(data?.split(" ")[0]);
-						if (min_y > parseFloat(data?.split(" ")[1])) min_y = parseFloat(data?.split(" ")[1]);
-						if (min_x > parseFloat(data?.split(" ")[2])) min_x = parseFloat(data?.split(" ")[2]);
-						if (min_y > parseFloat(data?.split(" ")[3])) min_y = parseFloat(data?.split(" ")[3]);
-
-						if (max_x < parseFloat(data?.split(" ")[0])) max_x = parseFloat(data?.split(" ")[0]);
-						if (max_y < parseFloat(data?.split(" ")[1])) max_y = parseFloat(data?.split(" ")[1]);
-						if (max_x < parseFloat(data?.split(" ")[2])) max_x = parseFloat(data?.split(" ")[2]);
-						if (max_y < parseFloat(data?.split(" ")[3])) max_y = parseFloat(data?.split(" ")[3]);
-					}
-
 					return true;
 				});
+				path.split("<>")
+					.filter((e) => e.length !== 0)
+					.map((data) => {
+						data = data.trim().replaceAll(",", " ");
 
-			min_x -= offset;
-			max_x += offset;
-			min_y -= offset;
-			max_y += offset;
+						if (data?.split(" ").length >= 2) {
+							if (min_x === -1) min_x = parseFloat(data?.split(" ")[0]);
+							if (max_x === -1) max_x = parseFloat(data?.split(" ")[0]);
+							if (min_y === -1) min_y = parseFloat(data?.split(" ")[1]);
+							if (max_y === -1) max_y = parseFloat(data?.split(" ")[1]);
+						}
 
-			return [
-				[min_x, min_y],
-				[max_x, min_y],
-				[min_x, max_y],
-				[max_x, max_y],
-			];
-		} catch (e) {
-			return [];
-		}
-	}, []);
+						if (data?.split(" ").length === 2) {
+							if (min_x > parseFloat(data?.split(" ")[0])) min_x = parseFloat(data?.split(" ")[0]);
+							if (min_y > parseFloat(data?.split(" ")[1])) min_y = parseFloat(data?.split(" ")[1]);
+
+							if (max_x < parseFloat(data?.split(" ")[0])) max_x = parseFloat(data?.split(" ")[0]);
+							if (max_y < parseFloat(data?.split(" ")[1])) max_y = parseFloat(data?.split(" ")[1]);
+						} else if (data?.split(" ").length === 4) {
+							if (min_x > parseFloat(data?.split(" ")[0])) min_x = parseFloat(data?.split(" ")[0]);
+							if (min_y > parseFloat(data?.split(" ")[1])) min_y = parseFloat(data?.split(" ")[1]);
+							if (min_x > parseFloat(data?.split(" ")[2])) min_x = parseFloat(data?.split(" ")[2]);
+							if (min_y > parseFloat(data?.split(" ")[3])) min_y = parseFloat(data?.split(" ")[3]);
+
+							if (max_x < parseFloat(data?.split(" ")[0])) max_x = parseFloat(data?.split(" ")[0]);
+							if (max_y < parseFloat(data?.split(" ")[1])) max_y = parseFloat(data?.split(" ")[1]);
+							if (max_x < parseFloat(data?.split(" ")[2])) max_x = parseFloat(data?.split(" ")[2]);
+							if (max_y < parseFloat(data?.split(" ")[3])) max_y = parseFloat(data?.split(" ")[3]);
+						}
+
+						return true;
+					});
+
+				min_x -= offset;
+				max_x += offset;
+				min_y -= offset;
+				max_y += offset;
+
+				return [
+					[min_x, min_y],
+					[max_x, min_y],
+					[min_x, max_y],
+					[max_x, max_y],
+				];
+			} catch (e) {
+				return [];
+			}
+		},
+		[setLastTimeOfError]
+	);
 
 	const getDistanceBetweenTwoComponents = useCallback(
 		(component1, component2) => {

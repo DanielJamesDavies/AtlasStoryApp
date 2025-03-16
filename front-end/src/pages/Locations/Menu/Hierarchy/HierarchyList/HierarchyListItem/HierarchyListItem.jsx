@@ -46,7 +46,7 @@ export const HierarchyListItem = ({ itemsItem, item, locationTypes, toggleHierar
 				<FaMapMarkerAlt />
 			</div>
 			<div className='locations-hierarchy-list-item-indentations'>
-				{[...Array(itemsItem.level)].map((indentation, index) => (
+				{[...Array(itemsItem.level)].map((_, index) => (
 					<div key={index} className='locations-hierarchy-list-item-indentation' />
 				))}
 			</div>

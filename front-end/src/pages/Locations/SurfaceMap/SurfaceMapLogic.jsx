@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useRef, useEffect, useState } from "react";
+import { useContext, useRef, useEffect, useState, useLayoutEffect } from "react";
 import { sanitizeSVG } from "@skjnldsv/sanitize-svg";
 
 // Components
@@ -43,11 +43,15 @@ export const SurfaceMapLogic = () => {
 	const { recentImages, addImagesToRecentImages } = useContext(RecentDataContext);
 
 	const [isImagePixelated, setIsImagePixelated] = useState(false);
+	const [areRegionsFilled, setAreRegionsFilled] = useState(true);
 	const [isPanning, setIsPanning] = useState(false);
 	const [isScrolling, setIsScrolling] = useState(false);
 	const [regionNamesHTML, setRegionNamesHTML] = useState("");
 	const [regionNamesTexts, setRegionNamesTexts] = useState("");
 	const [surfaceMapPlaces, setSurfaceMapPlaces] = useState(null);
+
+	const [isLoadingImages, setIsLoadingImages] = useState(true);
+	const [lastTimeOfError, setLastTimeOfError] = useState(0);
 
 	const surfaceMapContainerRef = useRef();
 	const surfaceMapImageContainerRef = useRef();
@@ -81,6 +85,7 @@ export const SurfaceMapLogic = () => {
 		zoom,
 		startPos,
 		setIsImagePixelated,
+		setAreRegionsFilled,
 		panning,
 		setIsPanning,
 		setIsScrolling,
@@ -103,6 +108,8 @@ export const SurfaceMapLogic = () => {
 		getDimensionsZoom,
 		max_mobile_width,
 		mapVersionID,
+		isLoadingImages,
+		setLastTimeOfError,
 	});
 
 	SurfaceMapPlacesLogic({
@@ -138,7 +145,7 @@ export const SurfaceMapLogic = () => {
 		lastWindowWidth.current = window.innerWidth;
 	}, [lastWindowWidth]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		async function getLocationMapImage() {
 			if (JSON.stringify(currentLocationId.current) === JSON.stringify(currentMapLocationId)) return false;
 			if (locations?.length === 0) return false;
@@ -147,11 +154,10 @@ export const SurfaceMapLogic = () => {
 			locationsSurfaceMapLoadingCircleContainerRef.current.classList.remove("locations-surface-map-loading-circle-container-loaded");
 
 			setLocationMapImage(false);
+			setIsLoadingImages(true);
 
 			const location = locations?.find((e) => e?._id === currentMapLocationId);
 			const mapVersionID = location?.data?.mapVersions[0]?._id;
-
-			setMapVersionID(mapVersionID);
 
 			const mapComponentsImages = await Promise.all(
 				location?.data?.mapVersions?.map(async (mapVersion, index) => {
@@ -166,8 +172,6 @@ export const SurfaceMapLogic = () => {
 					return { ...mapComponentsImage, ...{ version_id: mapVersion?._id } };
 				})
 			);
-
-			setLocationMapComponentsImages(mapComponentsImages);
 
 			const mapImages = await Promise.all(
 				location?.data?.mapVersions?.map(async (mapVersion, index) => {
@@ -190,11 +194,14 @@ export const SurfaceMapLogic = () => {
 				})
 			);
 
+			setLocationMapComponentsImages(mapComponentsImages);
 			setLocationMapImages(mapImages);
+			setMapVersionID(mapVersionID);
+			setIsLoadingImages(false);
 
 			setTimeout(() => {
 				locationsSurfaceMapLoadingCircleContainerRef.current.classList.add("locations-surface-map-loading-circle-container-loaded");
-			}, 500);
+			}, 750);
 
 			setTimeout(() => {
 				surfaceMapImageNewComponentsRef?.current?.setAttribute("width", surfaceMapImageRef?.current?.clientWidth);
@@ -217,11 +224,12 @@ export const SurfaceMapLogic = () => {
 		setLocationMapComponentsImages,
 		locationsSurfaceMapLoadingCircleContainerRef,
 		setLocationMapImages,
+		lastTimeOfError,
 	]);
 
 	const [locationMapComponentsImageSanitized, setLocationMapComponentsImageSanitized] = useState(null);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const get_sanitized_components_image = async () => {
 			if (locationMapComponentsImage === false) return setLocationMapComponentsImageSanitized(false);
 			const new_image = await sanitizeSVG(locationMapComponentsImage);
@@ -250,6 +258,7 @@ export const SurfaceMapLogic = () => {
 		onTouchStart,
 		onTouchMove,
 		isImagePixelated,
+		areRegionsFilled,
 		enterMovementBox,
 		leaveMovementBox,
 		isPanning,

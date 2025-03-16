@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useCallback, useRef } from "react";
+import { useContext, useEffect, useCallback, useRef, useLayoutEffect } from "react";
 
 // Components
 
@@ -137,6 +137,7 @@ export const SurfaceMapPlacesLogic = ({
 						<div className='locations-surface-map-place-symbol' data-location={place?.location} onClick={onClickPlace}>
 							{getPlaceSymbol(place?.symbol)}
 						</div>
+
 						<div className='locations-surface-map-place-name' data-location={place?.location} onClick={onClickPlace}>
 							{place?.name}
 						</div>
@@ -243,7 +244,7 @@ export const SurfaceMapPlacesLogic = ({
 		}
 	}, [isPositioningSurfaceMapPlace, surfaceMapPositioningPlaceDot]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		updateSurfaceMapPlaces(locations);
 	}, [locations, updateSurfaceMapPlaces, mapVersionID]);
 

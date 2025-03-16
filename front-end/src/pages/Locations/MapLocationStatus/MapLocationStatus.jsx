@@ -12,6 +12,8 @@ import { MapLocationStatusLogic } from "./MapLocationStatusLogic";
 // Styles
 import "./MapLocationStatus.css";
 import { FaChevronLeft } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 // Assets
 
@@ -45,16 +47,24 @@ export const MapLocationStatus = () => {
 				</div>
 				<div className='locations-map-location-status-path'>
 					{statusPath.map((item, index) => (
-						<div key={index} className='locations-map-location-status-path-item'>
-							<div>{item}</div>
-							{index === statusPath.length - 1 ? null : <div className='locations-map-location-status-path-item-arrow'>{">"}</div>}
+						<div key={index} className='locations-map-location-status-path-item-container'>
+							<div className='locations-map-location-status-path-item'>{item}</div>
+							{index === statusPath.length - 1 ? null : (
+								<div className='locations-map-location-status-path-item-arrow'>
+									<FontAwesomeIcon icon={faChevronRight} />
+								</div>
+							)}
 						</div>
 					))}
 				</div>
 			</div>
 			{isOnSpaceMap ? (
 				<>
-					{!hoverMapLocationId && !selectedLocationId ? null : (
+					{(!hoverMapLocationId && !selectedLocationId) ||
+					(!hoverMapLocationId
+						? locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(selectedLocationId))?.data?.name
+						: locations.find((e) => JSON.stringify(e?._id) === JSON.stringify(hoverMapLocationId))?.data?.name
+					)?.trim()?.length === 0 ? null : (
 						<div className='locations-map-location-status-next-location-container'>
 							<div className='locations-map-location-status-divider'>|</div>
 							<div className='locations-map-location-status-next-location'>
@@ -82,7 +92,10 @@ export const MapLocationStatus = () => {
 				</>
 			) : (
 				<>
-					{!surfaceMapHoveringRegion ? null : (
+					{!surfaceMapHoveringRegion ||
+					!locations
+						.find((e) => JSON.stringify(e?._id) === JSON.stringify(currentMapLocationId))
+						?.data?.regions?.find((e) => e?._id === surfaceMapHoveringRegion)?.name ? null : (
 						<div className='locations-map-location-status-next-location-container'>
 							{locations
 								.find((e) => JSON.stringify(e?._id) === JSON.stringify(currentMapLocationId))

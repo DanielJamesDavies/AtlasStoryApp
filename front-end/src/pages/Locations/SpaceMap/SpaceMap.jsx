@@ -67,16 +67,18 @@ export const SpaceMap = () => {
 					</div>
 				)}
 			</div>
-			<Canvas gl={{ powerPreference: "high-performance", antialias: false }}>
-				<Physics gravity={[0, 0, 0]}>
-					<Player isPlayerMovementEnabled={isPlayerMovementEnabled} setIsPlayerMovementEnabled={setIsPlayerMovementEnabled} />
-					<PlayerLookAt />
-					<Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
-					<ambientLight />
-					<pointLight position={[10, 10, 10]} />
-					<Scene setCursorPointer={setCursorPointer} />
-				</Physics>
-			</Canvas>
+			<div className='locations-map-space-map'>
+				<Canvas gl={{ powerPreference: "high-performance", antialias: false }}>
+					<Physics gravity={[0, 0, 0]}>
+						<Player isPlayerMovementEnabled={isPlayerMovementEnabled} setIsPlayerMovementEnabled={setIsPlayerMovementEnabled} />
+						<PlayerLookAt />
+						<Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
+						<ambientLight />
+						<pointLight position={[10, 10, 10]} />
+						<Scene setCursorPointer={setCursorPointer} />
+					</Physics>
+				</Canvas>
+			</div>
 		</div>
 	);
 };

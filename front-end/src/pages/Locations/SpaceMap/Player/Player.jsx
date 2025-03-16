@@ -136,7 +136,7 @@ export const Player = ({ isPlayerMovementEnabled, setIsPlayerMovementEnabled }) 
 						setIsPlayerMovementEnabled(true);
 						setIsPlayerViewControlEnabled(true);
 					}, 200);
-					setTimeout(() => setIsHidingSpaceMap(false), 210);
+					setTimeout(() => setIsHidingSpaceMap(false), 500);
 				}
 			}
 		}

@@ -30,6 +30,7 @@
 
 .locations-hierarchy-is-displaying-location {
 	--locationsHierarchyHeight: calc(var(--vh) * 0.28 - (1 * 10px));
+	display: none;
 	padding-bottom: 0;
 }
 

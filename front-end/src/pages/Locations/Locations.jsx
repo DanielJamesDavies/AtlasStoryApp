@@ -40,7 +40,9 @@ export const Locations = () => {
 
 	if (isOnMap)
 		return (
-			<div className='locations locations-is-on-map'>
+			<div
+				className={"locations locations-is-on-map" + (isOnSpaceMap ? " locations-is-on-map-space-map" : " locations-is-on-map-surface-map")}
+			>
 				<div className='locations-loading-container locations-loading-container-fade'>
 					<div className='locations-loading-loading-circle-container'>
 						<LoadingCircle center={true} />

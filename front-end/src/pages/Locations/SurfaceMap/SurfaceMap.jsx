@@ -31,6 +31,7 @@ export const SurfaceMap = () => {
 		onTouchStart,
 		onTouchMove,
 		isImagePixelated,
+		areRegionsFilled,
 		enterMovementBox,
 		leaveMovementBox,
 		isPanning,
@@ -57,7 +58,8 @@ export const SurfaceMap = () => {
 					"locations-surface-map-container" +
 					(isSelectingSurfaceMapComponents ? " locations-surface-map-container-is-selecting-components" : "") +
 					(isDeletingSurfaceMapComponents ? " locations-surface-map-container-is-deleting-components" : "") +
-					(isPositioningSurfaceMapPlace ? " locations-surface-map-container-is-positioning-place" : "")
+					(isPositioningSurfaceMapPlace ? " locations-surface-map-container-is-positioning-place" : "") +
+					(areRegionsFilled ? " locations-surface-map-container-regions-filled" : "")
 				}
 				onTouchStart={onTouchStart}
 				onTouchMove={onTouchMove}

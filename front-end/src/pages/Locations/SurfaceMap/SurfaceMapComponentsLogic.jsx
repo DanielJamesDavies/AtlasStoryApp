@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useState, useCallback, useRef } from "react";
+import { useContext, useEffect, useState, useCallback, useRef, useLayoutEffect } from "react";
 import { toPath } from "svg-points";
 
 // Components
@@ -337,12 +337,12 @@ export const SurfaceMapComponentsLogic = ({
 		} catch {}
 	}, [surfaceMapImageComponentsContainerRef, surfaceMapImageRef, updateSurfaceMapImageDisplayComponents, zoom]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		setHasSetDefaultComponents(false);
 		setTimeout(() => setDefaultComponents(), 200);
 	}, [locationMapImage, setDefaultComponents, isSelectingSurfaceMapComponents]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const surfaceMapImageComponentsContainerRefCurrent = surfaceMapImageComponentsContainerRef?.current;
 		if (surfaceMapImageComponentsContainerRefCurrent?.children[0]?.children) {
 			Array.from(surfaceMapImageComponentsContainerRefCurrent?.children[0]?.children)?.map((path, index) => {
@@ -365,7 +365,7 @@ export const SurfaceMapComponentsLogic = ({
 		};
 	}, [hasSetDefaultComponents, surfaceMapImageComponentsContainerRef, onClickMapComponent, onMouseOverMapComponent, onMouseOutMapComponent]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		try {
 			Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path, index) => {
 				if (selectedSurfaceMapComponents.includes(index)) path.classList.add("locations-surface-map-image-component-selected");
@@ -566,7 +566,7 @@ export const SurfaceMapComponentsLogic = ({
 		[pointX, pointY, zoom, isDrawingSurfaceMapComponents, surfaceMapImageContainerRef, surfaceMapImageRef]
 	);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const surfaceMapContainerRefCurrent = surfaceMapImageContainerRef?.current;
 		surfaceMapContainerRefCurrent?.addEventListener("mousemove", onMouseMove);
 		surfaceMapContainerRefCurrent?.addEventListener("click", onMouseClick);
@@ -576,13 +576,13 @@ export const SurfaceMapComponentsLogic = ({
 		};
 	}, [onMouseMove, onMouseClick, surfaceMapImageContainerRef]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (surfaceMapImageNewComponentsRef?.current?.children) {
 			Array.from(surfaceMapImageNewComponentsRef.current.children).map((el) => el.remove());
 		}
 	}, [isDrawingSurfaceMapComponents, surfaceMapImageNewComponentsRef]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (!isSelectingSurfaceMapComponents) {
 			Array.from(document.getElementsByClassName("locations-surface-map-image-component-selected")).map((e) =>
 				e.classList.remove("locations-surface-map-image-component-selected")
@@ -590,7 +590,7 @@ export const SurfaceMapComponentsLogic = ({
 		}
 	}, [isSelectingSurfaceMapComponents]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (!isDrawingSurfaceMapComponents && surfaceMapDrawingShapeRef?.current) {
 			isDrawingLine.current = false;
 			isDrawingShape.current = false;

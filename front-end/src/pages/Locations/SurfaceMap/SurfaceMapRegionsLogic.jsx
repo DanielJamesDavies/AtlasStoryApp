@@ -1,5 +1,5 @@
 // Packages
-import { useContext, useEffect, useCallback, useRef } from "react";
+import { useContext, useEffect, useCallback, useRef, useLayoutEffect } from "react";
 
 // Components
 
@@ -31,11 +31,14 @@ export const SurfaceMapRegionsLogic = ({
 	getDimensionsZoom,
 	max_mobile_width,
 	mapVersionID,
+	isLoadingImages,
+	setLastTimeOfError,
 }) => {
 	const { locations, currentMapLocationId, isSelectingSurfaceMapComponents, surfaceMapComponentsList } = useContext(LocationsContext);
 	const { getDistancesBetweenComponents, getClosestCluster, getClusterBoxes } = SurfaceMapRegionsClusteringFunctions({
 		surfaceMapImageComponentsContainerRef,
 		zoom,
+		setLastTimeOfError,
 	});
 
 	const prevLocationId = useRef(false);
@@ -50,7 +53,7 @@ export const SurfaceMapRegionsLogic = ({
 		prevRegionNames.current = false;
 		prevRegionComponents.current = false;
 		hasRunIntitialCreateRegionNamesClusters.current = false;
-	}, [currentMapLocationId, setRegionNamesHTML, setRegionNamesTexts, mapVersionID]);
+	}, [currentMapLocationId, setRegionNamesHTML, setRegionNamesTexts, mapVersionID, isLoadingImages]);
 
 	const setComponentsRegionIDs = useCallback(
 		(isInitial) => {
@@ -101,7 +104,7 @@ export const SurfaceMapRegionsLogic = ({
 	);
 
 	useEffect(() => {
-		setComponentsRegionIDs(true);
+		if (!isLoadingImages) setComponentsRegionIDs(true);
 	}, [
 		setComponentsRegionIDs,
 		isSelectingSurfaceMapComponents,
@@ -111,6 +114,7 @@ export const SurfaceMapRegionsLogic = ({
 		currentMapLocationId,
 		locationMapImage,
 		mapVersionID,
+		isLoadingImages,
 	]);
 
 	const updateRegionsNamesPosition = useCallback(() => {
@@ -208,7 +212,7 @@ export const SurfaceMapRegionsLogic = ({
 					regionNamesTextBoxHeight: regionNamesTextBox?.height,
 				});
 
-				name_div.style = `top: ${a[1]}px; left: ${Math.ceil(a[0])}px;width: ${full_width}px; height: ${full_height}px;`;
+				name_div.style = `top: ${a[1]}px; left: ${Math.ceil(a[0])}px; width: ${full_width}px; height: ${full_height}px;`;
 				name_div.children[0].style = `overflow: visible; width: 100%; max-height: 100%; font-size: ${svg_font_size}px;`;
 				name_div.children[0].setAttribute("viewBox", `0 0 ${text_svg_width} ${text_svg_height}`);
 				name_div.children[0].children[0].style = `font-size: ${svg_font_size * svg_text_scale}px; fill: #fff; letter-spacing: ${
@@ -230,9 +234,10 @@ export const SurfaceMapRegionsLogic = ({
 		]
 	);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		function runUpdateRegionNames() {
 			if (updateRegionsNamesTimeout.current !== false) return false;
+			if (isLoadingImages) return false;
 
 			const location = locations?.find((e) => e?._id === currentLocationId.current);
 			const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
@@ -261,7 +266,7 @@ export const SurfaceMapRegionsLogic = ({
 			prevRegionNames.current = JSON.parse(JSON.stringify(mapVersion?.regions));
 		}
 		runUpdateRegionNames();
-	}, [locations, currentLocationId, updateRegionsNames, mapVersionID]);
+	}, [locations, currentLocationId, updateRegionsNames, mapVersionID, isLoadingImages]);
 
 	const onResize = useCallback(() => {
 		updateRegionsNames();
@@ -270,7 +275,7 @@ export const SurfaceMapRegionsLogic = ({
 		updateRegionsNamesPosition();
 	}, [updateRegionsNames, updateRegionsNamesPosition]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		window.addEventListener("resize", onResize);
 		return () => {
 			window.removeEventListener("resize", onResize);
@@ -373,9 +378,10 @@ export const SurfaceMapRegionsLogic = ({
 			return true;
 		});
 
-		setRegionNamesHTML(new_region_names_html);
-
-		setTimeout(() => updateRegionsNames(), 10);
+		if (!isLoadingImages) {
+			setRegionNamesHTML(new_region_names_html);
+			setTimeout(() => updateRegionsNames(), 10);
+		}
 	}, [
 		locations,
 		currentLocationId,
@@ -389,6 +395,7 @@ export const SurfaceMapRegionsLogic = ({
 		updateRegionsNames,
 		updateRegionNamesTexts,
 		mapVersionID,
+		isLoadingImages,
 	]);
 
 	const createRegionNamesClusters = useCallback(async () => {
@@ -397,7 +404,7 @@ export const SurfaceMapRegionsLogic = ({
 		const location = locations.find((e) => e?._id === currentLocationId?.current);
 		const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
 
-		await new Promise((resolve) => setTimeout(resolve, 2));
+		await new Promise((resolve) => setTimeout(resolve, 5));
 
 		// Get Distances Between Components
 		const distances = getDistancesBetweenComponents();
@@ -458,7 +465,7 @@ export const SurfaceMapRegionsLogic = ({
 		zoom,
 	]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		function runCreateRegionNamesClusters() {
 			try {
 				if (!locationMapImage) return false;
@@ -509,7 +516,7 @@ export const SurfaceMapRegionsLogic = ({
 			}
 		}
 
-		runCreateRegionNamesClusters();
+		if (!isLoadingImages) runCreateRegionNamesClusters();
 	}, [
 		getDistancesBetweenComponents,
 		locations,
@@ -524,5 +531,6 @@ export const SurfaceMapRegionsLogic = ({
 		getClosestCluster,
 		createRegionNamesClusters,
 		mapVersionID,
+		isLoadingImages,
 	]);
 };

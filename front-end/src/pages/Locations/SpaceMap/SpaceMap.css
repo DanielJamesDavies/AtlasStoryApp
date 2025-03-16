@@ -25,16 +25,42 @@
 	user-select: none;
 }
 
+.locations-map-loading-circle-container::before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(180deg, #180a18, #000010, #000a1a, #00120a 110%);
+	opacity: 0.75;
+}
+
 .locations-map-is-displaying {
 	animation: fade-in 0.2s 1;
 	animation-delay: 0.5s;
 	animation-fill-mode: forwards;
-	opacity: 0;
+	/* opacity: 0; */
 	user-select: none;
 	pointer-events: none;
 }
 
 .locations-map-hidden {
+	animation: fade-out 0.1s 1;
+	animation-fill-mode: forwards;
+}
+
+.locations-map-is-displaying .locations-map-space-map {
+	width: 100%;
+	height: 100%;
+	animation: fade-in 0.2s 1;
+	animation-delay: 0.5s;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+
+.locations-map-hidden .locations-map-space-map {
 	animation: fade-out 0.1s 1;
 	animation-fill-mode: forwards;
 }

@@ -22,11 +22,23 @@
 .locations-surface-map-loading-circle-container {
 	position: fixed;
 	z-index: 10;
-	top: 0;
+	top: -4px;
 	left: calc(var(--navbar-width) - 1px);
-	width: calc(100vw - var(--navbar-width) + 1px);
-	height: var(--vh);
+	width: calc(100vw - var(--navbar-width) + 8px);
+	height: calc(var(--vh) + 8px);
 	background: #000;
+}
+
+.locations-surface-map-loading-circle-container::before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(180deg, #180a18, #000010, #000a1a, #00120a 110%);
+	opacity: 0.75;
 }
 
 .locations-surface-map-loading-circle-container:not(.locations-surface-map-loading-circle-container-loaded) .loading-circle-container {
@@ -152,7 +164,7 @@
 
 .locations-surface-map-image-region-names-container {
 	position: absolute;
-	z-index: 2;
+	z-index: 9;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -163,6 +175,7 @@
 
 .locations-surface-map-image-region-names {
 	position: relative;
+	transition: opacity 0.4s;
 }
 
 .locations-surface-map-image-region-name {
@@ -527,6 +540,17 @@
 	opacity: 1;
 }
 
+.locations-surface-map-container:not(.locations-surface-map-container-regions-filled)
+	.locations-surface-map-image-display-components-container
+	svg
+	path {
+	opacity: 0;
+}
+
+.locations-surface-map-container:not(.locations-surface-map-container-regions-filled) .locations-surface-map-image-region-names {
+	opacity: 0;
+}
+
 .locations-surface-map-image-display-components-svg-hover {
 	opacity: 0.6 !important;
 }
@@ -588,6 +612,18 @@
 	transform: translateX(-50%);
 }
 
+.locations-surface-map-container:not(.locations-surface-map-container-regions-filled) .locations-surface-map-place {
+	scale: 0.5;
+	transform-origin: top left;
+}
+
+.locations-surface-map-container:not(.locations-surface-map-container-regions-filled)
+	.locations-surface-map-place:hover
+	.locations-surface-map-place-name {
+	opacity: 1;
+	color: #08d;
+}
+
 .locations-surface-map-place-with-location,
 .locations-surface-map-place-with-location .locations-surface-map-place-symbol,
 .locations-surface-map-place-with-location .locations-surface-map-place-name {
@@ -599,21 +635,34 @@
 }
 
 .locations-surface-map-place-symbol {
+	position: relative;
 	margin: 0 auto;
 	width: fit-content;
 	height: 9px;
 	font-size: 8px;
 	text-align: center;
-	opacity: 0.5;
+	opacity: 0.6;
+	pointer-events: all;
+	transition: 0.2s;
+}
+
+.locations-surface-map-container:not(.locations-surface-map-container-regions-filled) .locations-surface-map-place-symbol {
+	height: 4px;
+	opacity: 0;
+	pointer-events: none;
 }
 
 .locations-surface-map-place-name {
 	font-size: 4px;
-	font-weight: 600;
+	font-weight: 800;
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	width: max-content;
-	max-width: 50px;
+	max-width: 80px;
+	opacity: 0.9;
+	pointer-events: all;
+	transition: 0.2s;
+	-webkit-text-stroke: 0.25px black;
 }
 
 .locations-surface-map-place-container-is-major .locations-surface-map-place {
@@ -625,8 +674,8 @@
 }
 
 .locations-surface-map-place-container-is-major .locations-surface-map-place-symbol {
-	height: 14px;
-	font-size: 12px;
+	height: 12px;
+	font-size: 10px;
 }
 
 .locations-surface-map-place-container-is-major .locations-surface-map-place-name {

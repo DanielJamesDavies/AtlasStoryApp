@@ -10,8 +10,8 @@
 	position: relative;
 	display: flex;
 	align-items: center;
-	padding: 4px;
-	border-radius: 2px;
+	padding: 6px 4px;
+	border-radius: 12px;
 	gap: 0 5px;
 	user-select: none;
 	cursor: pointer;
@@ -19,12 +19,12 @@
 
 .locations-hierarchy-list-item:hover,
 .locations-hierarchy-list-item-hover {
-	background: var(--colour-grey-three);
+	background: var(--colour-grey-two);
 }
 
 .locations-hierarchy-list-item-active,
 .locations-hierarchy-list-item-active:hover {
-	background: var(--colour-grey-four);
+	background: var(--colour-grey-three);
 }
 
 .locations-hierarchy-list-item-current-map-location {
@@ -103,7 +103,7 @@
 }
 
 .locations-hierarchy-list-item-name {
-	font-size: var(--font-size-p-m);
+	font-size: var(--font-size-p-s);
 }
 
 .locations-hierarchy-list-item-btns-container {

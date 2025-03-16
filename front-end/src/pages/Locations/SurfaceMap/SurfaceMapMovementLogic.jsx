@@ -1,5 +1,5 @@
 // Packages
-import { useRef, useEffect, useState, useCallback, useContext } from "react";
+import { useRef, useEffect, useState, useCallback, useContext, useLayoutEffect } from "react";
 
 // Components
 
@@ -23,6 +23,7 @@ export const SurfaceMapMovementLogic = ({
 	zoom,
 	startPos,
 	setIsImagePixelated,
+	setAreRegionsFilled,
 	panning,
 	setIsPanning,
 	setIsScrolling,
@@ -72,7 +73,7 @@ export const SurfaceMapMovementLogic = ({
 		if (window.innerWidth <= max_mobile_width && pointY.current < -max_pointY - 58) pointY.current = -max_pointY - 58;
 	}, [getDimensionsZoom, pointX, pointY, surfaceMapImageContainerRef, surfaceMapImageRef, zoom, isDisplayingHierarchyValue, max_mobile_width]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		isDisplayingHierarchyValue.current = isDisplayingHierarchy;
 		updatePointsForBounds();
 		if (surfaceMapImageContainerRef?.current)
@@ -90,7 +91,7 @@ export const SurfaceMapMovementLogic = ({
 		updateSurfaceMapContainerStyle,
 	]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		function setDefaultPosition() {
 			try {
 				// Minimum Zoom
@@ -153,12 +154,12 @@ export const SurfaceMapMovementLogic = ({
 		updateSurfaceMapContainerStyle();
 	}, [getDimensionsZoom, pointX, pointY, zoom, surfaceMapImageContainerRef, updatePointsForBounds, updateSurfaceMapContainerStyle]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		window.addEventListener("resize", onResize);
 		return () => window.removeEventListener("resize", onResize);
 	}, [onResize]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		zoom.current = 1;
 		panning.current = false;
 		pointX.current = 0;
@@ -228,13 +229,15 @@ export const SurfaceMapMovementLogic = ({
 		let ys = (e.clientY - pointY.current) / zoom.current;
 		let delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
 
+		const zoom_change = 1.5;
 		if (Math.sign(delta) === 1) {
-			zoom.current *= 1.2;
+			zoom.current *= zoom_change;
 		} else {
-			zoom.current /= 1.2;
+			zoom.current /= zoom_change;
 		}
 
 		setIsImagePixelated(zoom.current > 3);
+		setAreRegionsFilled(zoom.current <= 4);
 
 		const { width_zoom, height_zoom } = getDimensionsZoom();
 

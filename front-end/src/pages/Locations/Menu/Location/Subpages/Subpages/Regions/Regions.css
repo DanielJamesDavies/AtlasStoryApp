@@ -7,6 +7,7 @@
 	align-items: center;
 	gap: 4px;
 	margin: 0 4px;
+	margin-bottom: 16px;
 	font-size: 14px;
 }
 
@@ -16,13 +17,13 @@
 	padding-right: 12px;
 
 	width: calc(100% - 12px);
-	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px - 12px);
+	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px - 12px - 16px);
 	overflow-y: overlay;
 	overflow-x: hidden;
 }
 
 .locations-location-regions-items-container.editable-container-is-editing .locations-location-regions-items {
-	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px - 35px - 8px - 12px);
+	height: calc(var(--locationsSubpageHeight) - 32px - 8px - 8px - 35px - 8px - 12px - 16px);
 }
 
 .locations-location-regions-start-btn-container {
