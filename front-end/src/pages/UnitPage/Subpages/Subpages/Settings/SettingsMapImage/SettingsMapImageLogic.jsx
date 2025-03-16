@@ -214,6 +214,7 @@ export const SettingsMapImageLogic = () => {
 			unit_id: unit._id,
 			location_id: newUnit?._id,
 			location_map_version_id: mapVersionId,
+			isLocationMapImage: true,
 		});
 		if (!components_response || components_response?.errors) {
 			if (components_response?.errors) setErrors(components_response.errors);
@@ -246,6 +247,7 @@ export const SettingsMapImageLogic = () => {
 			unit_id: unit._id,
 			location_id: newUnit?._id,
 			location_map_version_id: mapVersionId,
+			isLocationMapImage: true,
 		});
 		if (!response || response?.errors) {
 			if (response?.errors) setErrors(response.errors);
