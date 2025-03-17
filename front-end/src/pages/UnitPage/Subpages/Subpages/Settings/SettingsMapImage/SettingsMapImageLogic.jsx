@@ -91,8 +91,7 @@ export const SettingsMapImageLogic = () => {
 		const timeoutId = setTimeout(() => {
 			worker.terminate();
 			console.error("Operation timed out and worker was terminated.");
-			const svgstring =
-				'<svg width="2000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg" desc="Created with imagetracer.js version 1.2.6"></svg>';
+			const svgstring = '<svg width="2000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>';
 			setLocationMapComponents((oldValue) => {
 				let newValue = JSON.parse(JSON.stringify(oldValue));
 				const index = newValue.findIndex((e) => e?.version_id === mapVersion);
@@ -112,7 +111,7 @@ export const SettingsMapImageLogic = () => {
 				console.error("Worker error:", e.data.error);
 				return;
 			}
-			const svgstring = e.data.svgstring;
+			const svgstring = e?.data?.svgstring || '<svg width="2000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>';
 			// const svgstring = ImageTracer.imagedataToSVG(imageOut?.imageData, { strokewidth: 4, linefilter: true });
 			setLocationMapComponents((oldValue) => {
 				let newValue = JSON.parse(JSON.stringify(oldValue));

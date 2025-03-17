@@ -70,6 +70,8 @@ export const SurfaceMapComponentsLogic = ({
 				const components_id = newLocations[locationIndex].data.mapVersions[versionIndex].mapImageComponents;
 
 				let newLocationMapComponentsImage = JSON.parse(JSON.stringify(locationMapComponentsImage));
+				if (!newLocationMapComponentsImage)
+					newLocationMapComponentsImage = '<svg width="2000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>';
 				newLocationMapComponentsImage = newLocationMapComponentsImage.replaceAll(d, "");
 				setLocationMapComponentsImage(newLocationMapComponentsImage);
 
@@ -479,6 +481,8 @@ export const SurfaceMapComponentsLogic = ({
 					const components_id = newLocations[locationIndex].data.mapVersions[versionIndex].mapImageComponents;
 
 					let newLocationMapComponentsImage = JSON.parse(JSON.stringify(locationMapComponentsImage));
+					if (!newLocationMapComponentsImage)
+						newLocationMapComponentsImage = '<svg width="2000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>';
 					newLocationMapComponentsImage = newLocationMapComponentsImage.replaceAll("</svg>", "") + newPath + "</svg>";
 					setLocationMapComponentsImage(newLocationMapComponentsImage);
 

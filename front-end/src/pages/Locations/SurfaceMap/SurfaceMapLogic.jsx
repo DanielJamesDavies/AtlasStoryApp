@@ -231,8 +231,13 @@ export const SurfaceMapLogic = () => {
 
 	useLayoutEffect(() => {
 		const get_sanitized_components_image = async () => {
-			if (locationMapComponentsImage === false) return setLocationMapComponentsImageSanitized(false);
-			const new_image = await sanitizeSVG(locationMapComponentsImage);
+			if (locationMapComponentsImage === false)
+				return setLocationMapComponentsImageSanitized(
+					'<svg width="2000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>'
+				);
+			const new_image =
+				(await sanitizeSVG(locationMapComponentsImage)) ||
+				'<svg width="2000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>';
 			setLocationMapComponentsImageSanitized(new_image);
 			setTimeout(() => {
 				if (!surfaceMapImageComponentsContainerRef?.current?.children?.[0]?.children?.[0]) {
