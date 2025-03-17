@@ -241,44 +241,48 @@ export const SurfaceMapComponentsLogic = ({
 	}, [setSurfaceMapHoveringRegion]);
 
 	const updateSurfaceMapImageDisplayComponents = useCallback(async () => {
-		const location = locations.find((e) => e?._id === currentMapLocationId);
-		const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
+		try {
+			const location = locations.find((e) => e?._id === currentMapLocationId);
+			const mapVersion = location?.data?.mapVersions.find((e) => e?._id === mapVersionID);
 
-		let newSurfaceMapImageDisplayComponents = [];
+			let newSurfaceMapImageDisplayComponents = [];
 
-		if (!surfaceMapImageComponentsContainerRef?.current?.children[0]?.children) return false;
+			if (!surfaceMapImageComponentsContainerRef?.current?.children[0]?.children) return false;
 
-		Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path) => {
-			let regionID = path?.getAttribute("data-region-id");
-			if (!regionID) return false;
-			const newSurfaceMapImageDisplayComponentsIndex = newSurfaceMapImageDisplayComponents?.findIndex((e) => e?.region?._id === regionID);
-			if (newSurfaceMapImageDisplayComponentsIndex === -1) {
-				newSurfaceMapImageDisplayComponents.push({
-					region: mapVersion?.regions?.find((e) => e?._id === regionID),
-					components: [path],
-				});
-			} else {
-				newSurfaceMapImageDisplayComponents[newSurfaceMapImageDisplayComponentsIndex].components.push(path);
-			}
-			return true;
-		});
+			Array.from(surfaceMapImageComponentsContainerRef?.current?.children[0]?.children)?.map((path) => {
+				let regionID = path?.getAttribute("data-region-id");
+				if (!regionID) return false;
+				const newSurfaceMapImageDisplayComponentsIndex = newSurfaceMapImageDisplayComponents?.findIndex((e) => e?.region?._id === regionID);
+				if (newSurfaceMapImageDisplayComponentsIndex === -1) {
+					newSurfaceMapImageDisplayComponents.push({
+						region: mapVersion?.regions?.find((e) => e?._id === regionID),
+						components: [path],
+					});
+				} else {
+					newSurfaceMapImageDisplayComponents[newSurfaceMapImageDisplayComponentsIndex].components.push(path);
+				}
+				return true;
+			});
 
-		newSurfaceMapImageDisplayComponents = newSurfaceMapImageDisplayComponents
-			.map((e) => {
-				return (
-					`<svg 
+			newSurfaceMapImageDisplayComponents = newSurfaceMapImageDisplayComponents
+				.map((e) => {
+					return (
+						`<svg 
 						width="${surfaceMapImageRef?.current?.clientWidth}"
 						height="${surfaceMapImageRef?.current?.clientHeight}"
 						data-region-id="${e?.region?._id}"
 						style="--regionColour: ${e?.region?.colour}"
 					>` +
-					e?.components?.map((e2) => e2?.outerHTML) +
-					"</svg>"
-				);
-			})
-			.join("");
+						e?.components?.map((e2) => e2?.outerHTML) +
+						"</svg>"
+					);
+				})
+				.join("");
 
-		setSurfaceMapImageDisplayComponents(newSurfaceMapImageDisplayComponents);
+			setSurfaceMapImageDisplayComponents(newSurfaceMapImageDisplayComponents);
+		} catch (e) {
+			console.error("Error Updating Surface Map Components: ", e);
+		}
 		// eslint-disable-next-line
 	}, [surfaceMapImageComponentsContainerRef, surfaceMapImageRef, surfaceMapComponentsList, mapVersionID]);
 
@@ -471,7 +475,11 @@ export const SurfaceMapComponentsLogic = ({
 					const newPathEl = document.createElementNS(xmlns, "path");
 					newPathEl.setAttributeNS(null, "d", polygon);
 					newPathEl.classList.add("locations-surface-map-image-component-is-drawn");
-					surfaceMapImageNewComponentsRef.current.appendChild(newPathEl);
+					try {
+						surfaceMapImageNewComponentsRef.current.appendChild(newPathEl);
+					} catch (e) {
+						console.error("Error adding new component to surface map:", e);
+					}
 
 					let newPath = `<path class='locations-surface-map-image-component-is-drawn' fill="rgb(255,255,255)" stroke="rgb(255,255,255)" stroke-width="4" opacity="1" d="${polygon}" />`;
 
@@ -484,6 +492,7 @@ export const SurfaceMapComponentsLogic = ({
 					if (!newLocationMapComponentsImage)
 						newLocationMapComponentsImage = '<svg width="2000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>';
 					newLocationMapComponentsImage = newLocationMapComponentsImage.replaceAll("</svg>", "") + newPath + "</svg>";
+					console.log("newLocationMapComponentsImage", newLocationMapComponentsImage);
 					setLocationMapComponentsImage(newLocationMapComponentsImage);
 
 					setLocationMapComponentsImages((oldValue) => {
