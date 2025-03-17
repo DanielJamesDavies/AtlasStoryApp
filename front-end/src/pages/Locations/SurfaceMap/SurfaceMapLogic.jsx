@@ -167,8 +167,14 @@ export const SurfaceMapLogic = () => {
 					const map_image_response = await APIRequest("/image/" + mapVersion?.mapImageComponents, "GET");
 					if (map_image_response?.errors || !map_image_response?.data?.image?.image) return false;
 					mapComponentsImage = map_image_response?.data?.image;
+					console.log("mapComponentsImage", { map_image_response, mapComponentsImage });
 
-					if (index === 0) setLocationMapComponentsImage(mapComponentsImage?.image);
+					if (index === 0)
+						setLocationMapComponentsImage(
+							mapComponentsImage?.image.split("https://")[0]?.length === 0
+								? '<svg width="2000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>'
+								: mapComponentsImage?.image
+						);
 					return { ...mapComponentsImage, ...{ version_id: mapVersion?._id } };
 				})
 			);
