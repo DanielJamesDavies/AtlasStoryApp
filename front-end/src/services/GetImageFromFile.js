@@ -13,7 +13,8 @@ async function getImageFromFile(file, options) {
 				if (newImage === false) resolve({ error: "Image Too Large." });
 				resolve({ data: newImage });
 			} else {
-				resolve({ data: fr.result });
+				const newImage = await getWebpImage(fr.result);
+				resolve({ data: newImage });
 			}
 		};
 
@@ -65,6 +66,28 @@ async function resizeBase64Image(base64, maxFileSizeInKBs, attempt) {
 				newBase64 = resizeBase64Image(base64, maxFileSizeInKBs, attempt === undefined ? 2 : attempt + 1);
 
 			resolve(newBase64);
+		};
+	});
+}
+
+async function getWebpImage(base64) {
+	return await new Promise((resolve, reject) => {
+		const image = document.createElement("img");
+		image.crossOrigin = "anonymous";
+		image.src = base64;
+
+		image.onload = (e) => {
+			const canvas = document.createElement("canvas");
+			canvas.width = image.naturalWidth;
+			canvas.height = image.naturalHeight;
+			canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
+			let quality = 1;
+			let newBase64 = canvas.toDataURL("image/webp", quality);
+			resolve(newBase64);
+		};
+
+		image.onerror = (error) => {
+			reject(new Error("Image failed to load: " + error));
 		};
 	});
 }
