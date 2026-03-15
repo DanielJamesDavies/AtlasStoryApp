@@ -6,7 +6,7 @@ const Image = require("../../models/Image");
 const GetValueInNestedObject = require("../GetValueInNestedObject");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
 
-const { storage, ref, uploadString, deleteObject } = require("../FirebaseConfig");
+const { uploadBase64, deleteFile } = require("../R2Config");
 
 module.exports = async (req, res) => {
 	if (!req?.body?.path || JSON.stringify(req?.body?.path) === JSON.stringify(["_id"]))
@@ -130,11 +130,11 @@ module.exports = async (req, res) => {
 			await Promise.all(
 				oldStoryboardImages.map(async (oldImageID) => {
 					if (newStoryboardImages.findIndex((e) => JSON.stringify(e?.id) === JSON.stringify(oldImageID)) === -1) {
-						try {
-							await deleteObject(ref(storage, `images/${oldImageID}.webp`)).catch((e) => {
-								console.log("Error deleting image from Firebase: ", e);
-							});
-						} catch (error) {}
+					try {
+						await deleteFile(`images/${oldImageID}.webp`).catch((e) => {
+							console.log("Error deleting image from R2: ", e);
+						});
+					} catch (error) {}
 
 						try {
 							await Image.deleteOne({ _id: oldImageID });
@@ -156,8 +156,7 @@ module.exports = async (req, res) => {
 						});
 
 						try {
-							const storageRef = ref(storage, `images/${newImage?.id}.webp`);
-							uploadString(storageRef, newImage?.image === undefined ? "" : newImage?.image.substring(23), "base64");
+							uploadBase64(`images/${newImage?.id}.webp`, newImage?.image === undefined ? "" : newImage?.image.substring(23));
 						} catch (error) {}
 
 						try {

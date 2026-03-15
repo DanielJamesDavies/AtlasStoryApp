@@ -2,7 +2,8 @@ const Image = require("../../models/Image");
 
 const validateImage = require("./validateImage");
 
-const { storage, ref, uploadString, deleteObject } = require("../FirebaseConfig");
+const { uploadBase64, deleteFile } = require("../R2Config");
+const { checkStorageQuota, getBase64SizeBytes } = require("./storage-quota");
 
 module.exports = async (req, res) => {
 	if (!req?.params?.id) return res.status(200).send({ errors: [{ message: "Image Not Found" }] });
@@ -15,13 +16,25 @@ module.exports = async (req, res) => {
 		if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
 	}
 
+	const oldImage = await Image.findById(req.params.id)
+		.exec()
+		.catch(() => false);
+
 	try {
 		if (req.body.newValue === undefined || (!req.body.newValue.startsWith("blob:http") && !req.body.newValue.startsWith("https://"))) {
-			const storageRef = ref(storage, `images/${req.params.id}.webp`);
+			const path = `images/${req.params.id}.webp`;
 			if (req?.body?.newValue !== "NO_IMAGE") {
-				uploadString(storageRef, req.body.newValue === undefined ? "" : req.body.newValue.substring(23), "base64");
+				const base64String = req.body.newValue === undefined ? "" : req.body.newValue.substring(23);
+				const file_size_bytes = getBase64SizeBytes(base64String);
+				const existingSizeBytes = oldImage?.file_size_bytes || 0;
+
+				const quota = await checkStorageQuota(file_size_bytes, existingSizeBytes);
+				if (quota.exceeded) return res.status(200).send({ errors: [{ message: "Storage limit reached. No new images can be uploaded at this time." }] });
+
+				req.body._file_size_bytes = file_size_bytes;
+				uploadBase64(path, base64String);
 			} else {
-				deleteObject(storageRef).catch((e) => {
+				deleteFile(path).catch((e) => {
 					console.log("Error in UpdateImage.js. ", e);
 				});
 			}
@@ -29,14 +42,9 @@ module.exports = async (req, res) => {
 	} catch (e) {
 		console.log("Error in UpdateImage.js. ", e);
 	}
-
-	const oldImage = await Image.findById(req.params.id)
-		.exec()
-		.catch(() => false);
 	if (!oldImage) {
 		const newImage = new Image({
 			_id: req.params.id,
-			image: req.body.newValue,
 			user_id: req.body.user_id,
 			story_id: req.body.story_id,
 			character_id: req.body.character_id,
@@ -48,6 +56,7 @@ module.exports = async (req, res) => {
 			event_id: req.body.event_id,
 			object_id: req.body.object_id,
 			lore_item_id: req.body.lore_item_id,
+			file_size_bytes: req.body._file_size_bytes,
 		});
 
 		try {
@@ -60,7 +69,7 @@ module.exports = async (req, res) => {
 		return res.status(200).send({ message: "Success", data: { image: newImage } });
 	} else {
 		let newImage = JSON.parse(JSON.stringify(oldImage));
-		newImage.image = req.body.newValue;
+		if (req.body._file_size_bytes !== undefined) newImage.file_size_bytes = req.body._file_size_bytes;
 
 		try {
 			await Image.findOneAndReplace({ _id: req.params.id }, newImage, { upsert: true });

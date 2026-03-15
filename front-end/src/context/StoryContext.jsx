@@ -6,7 +6,6 @@ import { RecentDataContext } from "./RecentDataContext";
 import { RoutesContext } from "./RoutesContext";
 
 import getColourTint from "../services/GetColourTint";
-import firebaseUrlToLocalUrl from "../services/FirebaseUrlToLocalUrl";
 
 export const StoryContext = createContext();
 
@@ -212,12 +211,7 @@ const StoryProvider = ({ children }) => {
 				const response = await APIRequest("/image/" + iconID, "GET");
 				if (response?.error || !response?.data?.image?.image) return setStoryIcon(false);
 
-				if (response?.data?.is_download_url) {
-					const image_url = await firebaseUrlToLocalUrl(response?.data?.image?.image);
-					icon = { _id: response.data.image?._id, image: image_url };
-				} else {
-					icon = response.data.image;
-				}
+				icon = response.data.image;
 			}
 
 			addImagesToRecentImages([icon]);
@@ -305,12 +299,7 @@ const StoryProvider = ({ children }) => {
 				const response = await APIRequest("/image/" + bannerID, "GET");
 				if (response?.error || !response?.data?.image?.image) return setStoryBanner(false);
 
-				if (response?.data?.is_download_url) {
-					const image_url = await firebaseUrlToLocalUrl(response?.data?.image?.image);
-					banner = { _id: response.data.image?._id, image: image_url };
-				} else {
-					banner = response.data.image;
-				}
+				banner = response.data.image;
 			}
 
 			addImagesToRecentImages([banner]);
@@ -384,12 +373,7 @@ const StoryProvider = ({ children }) => {
 			const card_background_image_response = await APIRequest("/image/" + cardBackgroundId, "GET");
 			if (card_background_image_response?.errors || !card_background_image_response?.data?.image?.image) return false;
 
-			if (card_background_image_response?.data?.is_download_url) {
-				const image_url = await firebaseUrlToLocalUrl(card_background_image_response?.data?.image?.image);
-				return { _id: card_background_image_response.data.image?._id, image: image_url };
-			} else {
-				return card_background_image_response.data.image;
-			}
+		return card_background_image_response.data.image;
 		}
 
 		async function getCharacterFaceImage(faceImageId) {
@@ -401,12 +385,7 @@ const StoryProvider = ({ children }) => {
 			const face_image_response = await APIRequest("/image/" + faceImageId, "GET");
 			if (face_image_response?.errors || !face_image_response?.data?.image?.image) return false;
 
-			if (face_image_response?.data?.is_download_url) {
-				const image_url = await firebaseUrlToLocalUrl(face_image_response?.data?.image?.image);
-				return { _id: face_image_response.data.image?._id, image: image_url };
-			} else {
-				return face_image_response.data.image;
-			}
+		return face_image_response.data.image;
 		}
 
 		async function getStoryCharacterRelationships(story_id) {
@@ -468,12 +447,7 @@ const StoryProvider = ({ children }) => {
 			const poster_background_image_response = await APIRequest("/image/" + posterBackgroundId, "GET");
 			if (poster_background_image_response?.errors || !poster_background_image_response?.data?.image?.image) return false;
 
-			if (poster_background_image_response?.data?.is_download_url) {
-				const image_url = await firebaseUrlToLocalUrl(poster_background_image_response?.data?.image?.image);
-				return { _id: poster_background_image_response.data.image?._id, image: image_url };
-			} else {
-				return poster_background_image_response.data.image;
-			}
+		return poster_background_image_response.data.image;
 		}
 
 		async function getStoryNotesImages(notes) {

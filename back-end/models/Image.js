@@ -14,6 +14,7 @@ const ImageSchema = mongoose.Schema({
 	event_id: mongoose.Schema.Types.ObjectId,
 	object_id: mongoose.Schema.Types.ObjectId,
 	lore_item_id: mongoose.Schema.Types.ObjectId,
+	file_size_bytes: Number,
 });
 
 module.exports = mongoose.model("Image", ImageSchema);

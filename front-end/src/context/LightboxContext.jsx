@@ -3,7 +3,6 @@ import { createContext, useState, useEffect, useContext } from "react";
 import { APIContext } from "./APIContext";
 import { RecentDataContext } from "./RecentDataContext";
 
-import firebaseUrlToLocalUrl from "../services/FirebaseUrlToLocalUrl";
 
 export const LightboxContext = createContext();
 
@@ -35,12 +34,7 @@ const LightboxProvider = ({ children }) => {
 						const image_response = await APIRequest("/image/" + imageID, "GET");
 						if (image_response?.errors || !image_response?.data?.image?.image) return false;
 
-						if (image_response?.data?.is_download_url) {
-							const { image_url, size } = await firebaseUrlToLocalUrl(image_response?.data?.image?.image, true);
-							newImage = { _id: image_response.data.image?._id, image: image_url, size: size };
-						} else {
-							newImage = image_response.data.image;
-						}
+					newImage = image_response.data.image;
 					}
 					newImage.caption = image?.caption;
 					return newImage;
@@ -57,10 +51,7 @@ const LightboxProvider = ({ children }) => {
 					const image_response = await APIRequest("/image/" + image?._id, "GET");
 					if (image_response?.errors || !image_response?.data?.image?.image) return false;
 
-					if (!image_response?.data?.is_download_url) return { _id: image_response.data.image?._id, size: 0 };
-
-					const { size } = await firebaseUrlToLocalUrl(image_response?.data?.image?.image, true);
-					return { _id: image?._id, size };
+					return { _id: image_response.data.image?._id, size: 0 };
 				})
 			);
 

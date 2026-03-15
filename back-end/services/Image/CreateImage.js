@@ -4,28 +4,33 @@ const Image = require("../../models/Image");
 
 const validateImage = require("./validateImage");
 
-const { storage, ref, uploadString } = require("../FirebaseConfig");
+const { uploadBase64 } = require("../R2Config");
+const { checkStorageQuota, getBase64SizeBytes } = require("./storage-quota");
 
 module.exports = async (req, res) => {
 	let imageValidationResult = validateImage(req.body.image);
 	if (req?.body?.isLocationMapImage) imageValidationResult.errors = imageValidationResult.errors?.filter((e) => e?.key !== "too-large");
 	if (imageValidationResult.errors.length > 0) return res.status(200).send({ errors: imageValidationResult.errors });
 
+	const base64String = req.body.newValue.substring(23);
+	const file_size_bytes = getBase64SizeBytes(base64String);
+
+	const quota = await checkStorageQuota(file_size_bytes);
+	if (quota.exceeded) return res.status(200).send({ errors: [{ message: "Storage limit reached. No new images can be uploaded at this time." }] });
+
 	const image_id = new mongoose.Types.ObjectId();
 
-	const firebase_path = `images/${image_id}.webp`;
-	const storageRef = ref(storage, firebase_path);
-	uploadString(storageRef, req.body.newValue.substring(23), "base64");
+	uploadBase64(`images/${image_id}.webp`, base64String);
 
 	const image = new Image({
 		_id: image_id,
-		image: req.body.image,
 		user_id: req.body.user_id,
 		story_id: req.body.story_id,
 		character_id: req.body.character_id,
 		group_id: req.body.group_id,
 		character_type_id: req.body.character_type_id,
 		substory_id: req.body.substory_id,
+		file_size_bytes,
 	});
 
 	try {

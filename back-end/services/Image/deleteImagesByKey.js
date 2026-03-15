@@ -1,6 +1,6 @@
 const Image = require("../../models/Image");
 
-const { storage, ref, deleteObject } = require("../FirebaseConfig");
+const { deleteFile } = require("../R2Config");
 
 module.exports = async (key, id) => {
 	if (!key || !id) return { errors: [{ message: "Invalid Arguments Given" }] };
@@ -13,8 +13,8 @@ module.exports = async (key, id) => {
 
 		await Promise.all(
 			images.map(async (image) => {
-				await deleteObject(ref(storage, `images/${image?._id}.webp`)).catch((e) => {
-					console.log("Error deleting image from Firebase: ", e);
+				await deleteFile(`images/${image?._id}.webp`).catch((e) => {
+					console.log("Error deleting image from R2: ", e);
 				});
 			})
 		);
