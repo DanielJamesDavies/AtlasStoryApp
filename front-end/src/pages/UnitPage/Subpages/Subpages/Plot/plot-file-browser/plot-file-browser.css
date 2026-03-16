@@ -1,0 +1,513 @@
+.plot-file-browser-popup .pop-up-content-container {
+  max-width: 860px;
+}
+
+/* ── Body ────────────────────────────────────────────────────────────────────── */
+
+.plot-file-browser-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+
+  height: var(--popupcontent-height);
+}
+
+/* ── Navigation bar ──────────────────────────────────────────────────────────── */
+
+.plot-file-browser-nav {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--colour-grey-three);
+}
+
+.plot-file-browser-nav-left {
+  display: flex;
+  gap: 2px;
+}
+
+.plot-file-browser-nav-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+
+  width: 30px;
+  height: 30px;
+
+  background: transparent;
+  color: var(--text-colour-tertiary);
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.plot-file-browser-nav-btn:hover:not(:disabled) {
+  background: var(--colour-grey-three);
+  color: var(--text-colour-primary);
+}
+
+.plot-file-browser-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ── Breadcrumb ──────────────────────────────────────────────────────────────── */
+
+.plot-file-browser-breadcrumb {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 0;
+  padding: 0 4px;
+  border: 1px solid var(--colour-grey-three);
+  border-radius: 6px;
+  overflow: hidden;
+
+  height: 30px;
+
+  background: var(--colour-grey-one);
+}
+
+.plot-file-browser-crumb-group {
+  display: flex;
+  align-items: center;
+}
+
+.plot-file-browser-crumb-sep {
+  padding: 0 3px;
+  color: var(--text-colour-tertiary);
+  font-size: 12px;
+  user-select: none;
+}
+
+.plot-file-browser-crumb {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 6px;
+  border: 0;
+  border-radius: 4px;
+
+  background: transparent;
+  color: var(--text-colour-secondary);
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.plot-file-browser-crumb:hover {
+  background: var(--colour-grey-three);
+  color: var(--text-colour-primary);
+}
+
+.plot-file-browser-crumb-root {
+  font-size: 12px;
+  color: var(--text-colour-tertiary);
+}
+
+/* ── Nav action buttons ──────────────────────────────────────────────────────── */
+
+.plot-file-browser-nav-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.plot-file-browser-add-btn {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  padding: 5px 12px;
+  border: 1px solid var(--colour-grey-four);
+  border-radius: 6px;
+
+  background: transparent;
+  color: var(--text-colour-secondary);
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.plot-file-browser-add-btn:hover {
+  background: var(--colour-grey-three);
+  border-color: var(--colour-grey-five);
+  color: var(--text-colour-primary);
+}
+
+.plot-file-browser-add-btn svg {
+  font-size: 11px;
+  color: var(--text-colour-tertiary);
+}
+
+/* ── Creation input row ──────────────────────────────────────────────────────── */
+
+.plot-file-browser-create-row {
+  flex-shrink: 0;
+  padding: 10px 0 2px;
+}
+
+.plot-file-browser-new-item-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--colour-accent);
+  border-radius: 7px;
+
+  background: var(--colour-grey-three);
+}
+
+.plot-file-browser-new-item-icon {
+  color: var(--text-colour-tertiary);
+  font-size: 13px;
+}
+
+.plot-file-browser-new-item-input {
+  flex: 1;
+  border: 0;
+
+  background: transparent;
+  color: var(--text-colour-primary);
+  font-size: 14px;
+  outline: none;
+}
+
+.plot-file-browser-new-item-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  border: 0;
+  border-radius: 4px;
+
+  width: 24px;
+  height: 24px;
+
+  background: transparent;
+  color: var(--text-colour-tertiary);
+  font-size: 11px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.plot-file-browser-new-item-btn:hover {
+  background: var(--colour-grey-four);
+  color: var(--text-colour-primary);
+}
+
+.plot-file-browser-new-item-btn-confirm:hover {
+  color: #4caf50;
+}
+
+/* ── Grid ────────────────────────────────────────────────────────────────────── */
+
+.plot-file-browser-grid {
+	flex: 1;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	align-items: flex-start;
+	gap: 8px;
+	padding: 12px 2px 4px;
+	overflow-y: auto;
+}
+
+.plot-file-browser-grid::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
+
+.plot-file-browser-grid::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: var(--colour-scroll-bar-thumb-background);
+}
+
+.plot-file-browser-empty {
+  width: 100%;
+  margin: 8px 4px 0;
+  color: var(--text-colour-tertiary);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* ── Parent card ─────────────────────────────────────────────────────────────── */
+
+.plot-file-browser-card-parent {
+  opacity: 0.6;
+  transition:
+    opacity 0.15s,
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.plot-file-browser-card-parent:hover,
+.plot-file-browser-card-parent.plot-file-browser-card-drag-over {
+  opacity: 1;
+}
+
+.plot-file-browser-card-up-icon {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.plot-file-browser-card-up-badge {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  font-size: 13px;
+  color: var(--text-colour-tertiary);
+}
+
+.plot-file-browser-card-label-muted {
+  color: var(--text-colour-tertiary);
+}
+
+/* ── Cards ───────────────────────────────────────────────────────────────────── */
+
+.plot-file-browser-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  width: 110px;
+
+  background: transparent;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.plot-file-browser-card:hover {
+  background: var(--colour-grey-three);
+  border-color: var(--colour-grey-four);
+}
+
+.plot-file-browser-card-active,
+.plot-file-browser-card-active:hover {
+  background: color-mix(in srgb, var(--colour-accent) 12%, var(--colour-grey-three));
+  border-color: color-mix(in srgb, var(--colour-accent) 40%, transparent);
+}
+
+.plot-file-browser-card-danger,
+.plot-file-browser-card-danger:hover {
+  background: color-mix(in srgb, var(--colour-red) 15%, transparent);
+  border-color: color-mix(in srgb, var(--colour-red) 35%, transparent);
+}
+
+.plot-file-browser-card-drag-over,
+.plot-file-browser-card-drag-over:hover {
+  background: color-mix(in srgb, var(--colour-accent) 18%, var(--colour-grey-three));
+  border-color: var(--colour-accent);
+}
+
+.plot-file-browser-card-dragging {
+  opacity: 0.4;
+}
+
+.plot-file-browser-card-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 8px;
+  border: 0;
+
+  width: 100%;
+
+  background: transparent;
+  cursor: pointer;
+}
+
+.plot-file-browser-card-icon {
+  font-size: 36px;
+  color: var(--text-colour-tertiary);
+  transition: color 0.15s;
+}
+
+.plot-file-browser-card-active .plot-file-browser-card-icon {
+	color: #ffffff;
+	opacity: 1;
+}
+
+.plot-file-browser-card-drag-over .plot-file-browser-card-icon {
+	color: var(--colour-accent);
+	opacity: 0.85;
+}
+
+.plot-file-browser-card-label {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+	width: 100%;
+	color: var(--text-colour-secondary);
+	font-size: 12px;
+	text-align: center;
+	line-height: 1.3;
+	word-break: break-word;
+}
+
+.plot-file-browser-card:hover .plot-file-browser-card-label,
+.plot-file-browser-card-active .plot-file-browser-card-label {
+  color: var(--text-colour-primary);
+}
+
+.plot-file-browser-card-label-danger {
+  color: var(--colour-red);
+}
+
+.plot-file-browser-card-rename-input {
+  width: 100%;
+  padding: 2px 6px;
+  border: 1px solid var(--colour-accent);
+  border-radius: 4px;
+
+  background: var(--colour-grey-three);
+  color: var(--text-colour-primary);
+  font-size: 12px;
+  text-align: center;
+  outline: none;
+}
+
+/* ── Card action buttons (absolute top corners, appear on hover) ─────────────── */
+
+.plot-file-browser-card-actions {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.plot-file-browser-card:hover .plot-file-browser-card-actions,
+.plot-file-browser-card-active .plot-file-browser-card-actions,
+.plot-file-browser-card-danger .plot-file-browser-card-actions {
+  opacity: 1;
+}
+
+.plot-file-browser-card-action-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  pointer-events: auto;
+
+  width: 22px;
+  height: 22px;
+
+  background: transparent;
+  color: var(--text-colour-tertiary);
+  font-size: 10px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.plot-file-browser-card-action-btn:hover {
+  background: var(--colour-grey-four);
+  color: var(--text-colour-primary);
+}
+
+.plot-file-browser-card-action-btn-danger,
+.plot-file-browser-card-action-btn-danger:hover {
+  color: var(--colour-red);
+}
+
+/* ── Move picker ─────────────────────────────────────────────────────────────── */
+
+.plot-file-browser-move-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  height: var(--popupcontent-height);
+}
+
+.plot-file-browser-move-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--colour-grey-three);
+
+  color: var(--text-colour-secondary);
+  font-size: 14px;
+}
+
+.plot-file-browser-move-picker-header strong {
+  color: var(--text-colour-primary);
+}
+
+.plot-file-browser-move-picker-options {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.plot-file-browser-move-picker-options::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+.plot-file-browser-move-picker-options::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: var(--colour-scroll-bar-thumb-background);
+}
+
+.plot-file-browser-move-option-btn {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  margin-bottom: 2px;
+
+  width: 100%;
+
+  background: transparent;
+  color: var(--text-colour-secondary);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.plot-file-browser-move-option-btn:hover {
+  background: var(--colour-grey-three);
+  color: var(--text-colour-primary);
+}
+
+.plot-file-browser-move-option-btn svg {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--text-colour-tertiary);
+}

@@ -7,6 +7,7 @@ import { useContext, useEffect, useRef } from "react";
 
 // Context
 import { UnitPageContext } from "./UnitPageContext";
+import { AppContext } from "../../context/AppContext";
 
 // Services
 
@@ -15,90 +16,92 @@ import { UnitPageContext } from "./UnitPageContext";
 // Assets
 
 export const UnitPageLogic = () => {
-	const {
-		unit,
-		unit_type,
-		unitPageStyle,
-		unitOverviewBackground,
-		unitOverviewForegrounds,
-		isOnOverviewSection,
-		setIsOnOverviewSection,
-		unitPagePrimaryRef,
-		isUnitPageSubpagesHeaderFullSize,
-		isOnJournalView,
-	} = useContext(UnitPageContext);
+  const {
+    unit,
+    unit_type,
+    unitPageStyle,
+    unitOverviewBackground,
+    unitOverviewForegrounds,
+    isOnOverviewSection,
+    setIsOnOverviewSection,
+    unitPagePrimaryRef,
+    isUnitPageSubpagesHeaderFullSize,
+    isOnJournalView,
+  } = useContext(UnitPageContext);
 
-	const unitPageContainerRef = useRef();
-	const unitOverviewContainerRef = useRef();
-	const unitSubpagesContainerRef = useRef();
-	const journalViewContainerRef = useRef();
+  const { openModalIDs } = useContext(AppContext);
 
-	const touchStartCoords = useRef({ x: 0, y: 0 });
-	useEffect(() => {
-		const onWheel = (e) =>
-			isOnJournalView || !unit || !unitPageStyle || e?.ctrlKey || Math.sign(e?.deltaY) === -1
-				? null
-				: setIsOnOverviewSection(Math.sign(e?.deltaY) === -1);
-		const onTouchStart = (e) => {
-			touchStartCoords.current = { x: e.touches[0].pageX, y: e.touches[0].pageY };
-		};
-		const onTouchMove = (e) => {
-			const touchMoveCoords = { x: e.touches[0].pageX, y: e.touches[0].pageY };
-			if (Math.abs(touchStartCoords.current.y - touchMoveCoords.y) > 24) return (touchStartCoords.current = { x: 0, y: 0 });
-			const deltaX = touchStartCoords.current.x - touchMoveCoords.x;
-			if (Math.abs(deltaX) < window.innerWidth * 0.15) return;
-			setIsOnOverviewSection(Math.sign(deltaX) === -1);
-			touchStartCoords.current = { x: 0, y: 0 };
-		};
+  const unitPageContainerRef = useRef();
+  const unitOverviewContainerRef = useRef();
+  const unitSubpagesContainerRef = useRef();
+  const journalViewContainerRef = useRef();
 
-		const unitPageContainerRefCurrent = unitPageContainerRef?.current;
-		unitPageContainerRefCurrent?.addEventListener("wheel", onWheel);
-		unitPageContainerRefCurrent?.addEventListener("touchstart", onTouchStart);
-		unitPageContainerRefCurrent?.addEventListener("touchmove", onTouchMove);
-		return () => {
-			unitPageContainerRefCurrent?.removeEventListener("wheel", onWheel);
-			unitPageContainerRefCurrent?.removeEventListener("touchstart", onTouchStart);
-			unitPageContainerRefCurrent?.removeEventListener("touchmove", onTouchMove);
-		};
-	}, [unit, unitPageStyle, unitPageContainerRef, setIsOnOverviewSection, isOnJournalView]);
+  const touchStartCoords = useRef({ x: 0, y: 0 });
+  useEffect(() => {
+    const onWheel = (e) =>
+      isOnJournalView || !unit || !unitPageStyle || e?.ctrlKey || Math.sign(e?.deltaY) === -1 || openModalIDs.length > 0
+        ? null
+        : setIsOnOverviewSection(Math.sign(e?.deltaY) === -1);
+    const onTouchStart = (e) => {
+      touchStartCoords.current = { x: e.touches[0].pageX, y: e.touches[0].pageY };
+    };
+    const onTouchMove = (e) => {
+      if (openModalIDs.length > 0) return;
+      const touchMoveCoords = { x: e.touches[0].pageX, y: e.touches[0].pageY };
+      if (Math.abs(touchStartCoords.current.y - touchMoveCoords.y) > 24) return (touchStartCoords.current = { x: 0, y: 0 });
+      const deltaX = touchStartCoords.current.x - touchMoveCoords.x;
+      if (Math.abs(deltaX) < window.innerWidth * 0.15) return;
+      setIsOnOverviewSection(Math.sign(deltaX) === -1);
+      touchStartCoords.current = { x: 0, y: 0 };
+    };
 
-	useEffect(() => {
-		const onOverviewWheel = (e) => {
-			if (
-				unitOverviewRefCurrent?.clientHeight < unitOverviewRefCurrent?.scrollHeight &&
-				unitOverviewRefCurrent?.scrollTop !== unitOverviewRefCurrent?.scrollHeight - unitOverviewRefCurrent?.clientHeight
-			)
-				e.stopPropagation();
-		};
-		const onSubpagesWheel = (e) => {
-			if (unitSubpagesRefCurrent?.clientHeight < unitSubpagesRefCurrent?.scrollHeight && unitSubpagesRefCurrent?.scrollTop !== 0)
-				e.stopPropagation();
-		};
+    const unitPageContainerRefCurrent = unitPageContainerRef?.current;
+    unitPageContainerRefCurrent?.addEventListener("wheel", onWheel);
+    unitPageContainerRefCurrent?.addEventListener("touchstart", onTouchStart);
+    unitPageContainerRefCurrent?.addEventListener("touchmove", onTouchMove);
+    return () => {
+      unitPageContainerRefCurrent?.removeEventListener("wheel", onWheel);
+      unitPageContainerRefCurrent?.removeEventListener("touchstart", onTouchStart);
+      unitPageContainerRefCurrent?.removeEventListener("touchmove", onTouchMove);
+    };
+  }, [unit, unitPageStyle, unitPageContainerRef, setIsOnOverviewSection, isOnJournalView, openModalIDs]);
 
-		const unitOverviewRefCurrent = unitOverviewContainerRef?.current;
-		unitOverviewRefCurrent?.addEventListener("wheel", onOverviewWheel);
+  useEffect(() => {
+    const onOverviewWheel = (e) => {
+      if (
+        unitOverviewRefCurrent?.clientHeight < unitOverviewRefCurrent?.scrollHeight &&
+        unitOverviewRefCurrent?.scrollTop !== unitOverviewRefCurrent?.scrollHeight - unitOverviewRefCurrent?.clientHeight
+      )
+        e.stopPropagation();
+    };
+    const onSubpagesWheel = (e) => {
+      if (unitSubpagesRefCurrent?.clientHeight < unitSubpagesRefCurrent?.scrollHeight && unitSubpagesRefCurrent?.scrollTop !== 0) e.stopPropagation();
+    };
 
-		const unitSubpagesRefCurrent = unitSubpagesContainerRef?.current;
-		unitSubpagesRefCurrent?.addEventListener("wheel", onSubpagesWheel);
-		return () => {
-			unitOverviewRefCurrent?.removeEventListener("wheel", onOverviewWheel);
-			unitSubpagesRefCurrent?.removeEventListener("wheel", onSubpagesWheel);
-		};
-	}, [unitOverviewContainerRef, unitSubpagesContainerRef, isOnOverviewSection, isOnJournalView]);
+    const unitOverviewRefCurrent = unitOverviewContainerRef?.current;
+    unitOverviewRefCurrent?.addEventListener("wheel", onOverviewWheel);
 
-	return {
-		unit,
-		unit_type,
-		unitOverviewBackground,
-		unitOverviewForegrounds,
-		unitPageStyle,
-		isOnOverviewSection,
-		unitPageContainerRef,
-		unitOverviewContainerRef,
-		unitSubpagesContainerRef,
-		unitPagePrimaryRef,
-		isUnitPageSubpagesHeaderFullSize,
-		isOnJournalView,
-		journalViewContainerRef,
-	};
+    const unitSubpagesRefCurrent = unitSubpagesContainerRef?.current;
+    unitSubpagesRefCurrent?.addEventListener("wheel", onSubpagesWheel);
+    return () => {
+      unitOverviewRefCurrent?.removeEventListener("wheel", onOverviewWheel);
+      unitSubpagesRefCurrent?.removeEventListener("wheel", onSubpagesWheel);
+    };
+  }, [unitOverviewContainerRef, unitSubpagesContainerRef, isOnOverviewSection, isOnJournalView]);
+
+  return {
+    unit,
+    unit_type,
+    unitOverviewBackground,
+    unitOverviewForegrounds,
+    unitPageStyle,
+    isOnOverviewSection,
+    unitPageContainerRef,
+    unitOverviewContainerRef,
+    unitSubpagesContainerRef,
+    unitPagePrimaryRef,
+    isUnitPageSubpagesHeaderFullSize,
+    isOnJournalView,
+    journalViewContainerRef,
+  };
 };

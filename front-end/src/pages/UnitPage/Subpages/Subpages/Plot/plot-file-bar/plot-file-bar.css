@@ -1,0 +1,186 @@
+.plot-file-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  padding: 8px 10px;
+  border: 1px solid var(--colour-grey-three);
+  border-radius: 8px;
+
+  background: var(--colour-grey-two);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.25);
+}
+
+.plot-file-bar-files-btn {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 20px;
+
+  background: var(--colour-grey-three);
+  color: var(--text-colour-primary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.plot-file-bar-files-btn:hover {
+  background: var(--colour-grey-four);
+}
+
+.plot-file-bar-files-btn svg {
+  font-size: 13px;
+}
+
+.plot-file-bar-path {
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 2px;
+
+  color: var(--text-colour-secondary);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.plot-file-bar-crumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.plot-file-bar-crumb-name {
+  color: var(--text-colour-tertiary);
+}
+
+.plot-file-bar-crumb-sep {
+  font-size: 9px;
+  color: var(--text-colour-tertiary);
+}
+
+.plot-file-bar-crumb-current {
+  color: var(--text-colour-primary);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plot-file-bar-no-file {
+  color: var(--text-colour-tertiary);
+  font-style: italic;
+}
+
+.plot-file-bar-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.plot-file-bar-initial-btn {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  padding: 6px 13px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+
+  background: var(--colour-grey-three);
+  color: var(--text-colour-tertiary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.plot-file-bar-initial-btn:hover {
+  background: var(--colour-grey-four);
+  color: var(--text-colour-secondary);
+}
+
+.plot-file-bar-initial-btn svg {
+  font-size: 11px;
+}
+
+.plot-file-bar-initial-btn-active,
+.plot-file-bar-initial-btn-active:hover {
+  background: transparent;
+  border: 1px solid var(--colour-grey-three);
+  color: var(--text-colour-secondary);
+  cursor: default;
+}
+
+.plot-file-bar-edit-btn {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  padding: 6px 13px;
+  border: 0;
+  border-radius: 20px;
+
+  background: var(--colour-grey-three);
+  color: var(--text-colour-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.plot-file-bar-edit-btn:hover {
+  background: var(--colour-grey-four);
+  color: var(--text-colour-primary);
+}
+
+.plot-file-bar-edit-btn svg {
+  font-size: 11px;
+}
+
+.plot-file-bar-cancel-btn,
+.plot-file-bar-save-btn {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  padding: 6px 13px;
+  border: 0;
+  border-radius: 20px;
+
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.plot-file-bar-cancel-btn svg,
+.plot-file-bar-save-btn svg {
+  font-size: 11px;
+}
+
+.plot-file-bar-cancel-btn {
+  background: var(--colour-grey-three);
+  color: var(--text-colour-primary);
+}
+
+.plot-file-bar-cancel-btn:hover {
+  background: var(--colour-grey-four);
+  color: var(--text-colour-primary);
+}
+
+.plot-file-bar-save-btn {
+  background: var(--unitColour, #6366f1);
+  color: #fff;
+}
+
+.plot-file-bar-save-btn:hover {
+  opacity: 0.85;
+}
+
+.plot-file-bar-files-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}

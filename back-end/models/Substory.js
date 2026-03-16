@@ -61,9 +61,31 @@ const SubstorySchema = mongoose.Schema({
 						],
 						default: [{ isAll: true, name: "All Plot Items" }],
 					},
+					folders: {
+						type: [
+							{
+								_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
+								name: { type: String, default: "New Folder" },
+								parentId: { type: mongoose.Schema.Types.ObjectId, default: null },
+							},
+						],
+						default: [],
+					},
+				files: {
+					type: [
+						{
+							_id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
+							name: { type: String, default: "New File" },
+							folderId: { type: mongoose.Schema.Types.ObjectId, default: null },
+							content: { type: String, default: "" },
+						},
+					],
+					default: [],
 				},
-				default: {},
+				initialFileID: { type: mongoose.Schema.Types.ObjectId, default: null },
 			},
+			default: {},
+		},
 			soundtrack: {
 				playlist_id: { type: String },
 				tracks: {

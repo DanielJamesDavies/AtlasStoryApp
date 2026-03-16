@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext, useEffect, useCallback } from "react";
 
 import { APIContext } from "./APIContext";
 
@@ -18,6 +18,9 @@ const AppProvider = ({ children }) => {
 	const [accentHoverColour, setAccentHoverColour] = useState(defaultAccentHoverColour);
 	const [accentHSL_H, setAccentHSL_H] = useState(0);
 	const [coverImage, setCoverImage] = useState(false);
+	const [openModalIDs, setOpenModalIDs] = useState([]);
+	const registerModal = useCallback((id) => setOpenModalIDs((prev) => (prev.includes(id) ? prev : [...prev, id])), []);
+	const unregisterModal = useCallback((id) => setOpenModalIDs((prev) => prev.filter((m) => m !== id)), []);
 
 	useEffect(() => {
 		if (username === false) {
@@ -94,9 +97,12 @@ const AppProvider = ({ children }) => {
 				accentHSL_H,
 				changeAccentColour,
 				changeAccentHoverColour,
-				coverImage,
-				setCoverImage,
-			}}
+			coverImage,
+			setCoverImage,
+			openModalIDs,
+			registerModal,
+			unregisterModal,
+		}}
 		>
 			{children}
 		</AppContext.Provider>

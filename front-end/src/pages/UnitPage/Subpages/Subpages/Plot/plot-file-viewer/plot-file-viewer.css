@@ -1,0 +1,227 @@
+.plot-file-viewer-empty-state {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	align-items: center;
+	justify-content: center;
+
+	min-height: 300px;
+
+	color: var(--text-colour-tertiary);
+	font-size: 16px;
+	font-style: italic;
+	text-align: center;
+}
+
+.plot-file-viewer-empty-state > svg {
+	font-size: 40px;
+	opacity: 0.3;
+}
+
+.plot-file-viewer-empty-state p {
+	margin: 0;
+	font-style: italic;
+}
+
+.plot-file-viewer-empty-cta {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	padding: 10px 20px;
+	border: 1px solid var(--colour-grey-three);
+	border-radius: 8px;
+	margin-top: 8px;
+
+	background: var(--colour-grey-two);
+	color: var(--text-colour-secondary);
+	font-size: 15px;
+	font-style: normal;
+	cursor: pointer;
+	transition: 0.15s;
+}
+
+.plot-file-viewer-empty-cta:hover {
+	border-color: var(--unitColour);
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+}
+
+.plot-file-viewer-empty-cta svg {
+	font-size: 14px;
+	opacity: 1;
+}
+
+.plot-file-viewer {
+	margin: 0 auto;
+	padding-bottom: 80px;
+
+	max-width: 750px;
+}
+
+.plot-file-viewer-title {
+	margin-bottom: 32px;
+
+	font-size: 36px;
+	font-weight: 600;
+}
+
+.plot-file-viewer-empty-content {
+	color: var(--text-colour-tertiary);
+	font-size: 16px;
+	font-style: italic;
+}
+
+/* Code blocks */
+
+.plot-file-viewer-content code {
+	padding: 2px 6px;
+	border-radius: 4px;
+
+	background: var(--colour-grey-three);
+	color: var(--text-colour-primary);
+	font-size: 0.88em;
+	font-family: "Courier New", monospace;
+}
+
+.plot-file-viewer-content pre {
+	margin: 1em 0;
+	padding: 1em 1.2em;
+	border-radius: 6px;
+	overflow-x: auto;
+
+	background: var(--colour-grey-two);
+}
+
+.plot-file-viewer-content pre code {
+	padding: 0;
+	background: transparent;
+	font-size: 0.85em;
+}
+
+/* Links */
+
+.plot-file-viewer-content a {
+	color: var(--unitColour);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.plot-file-viewer-content a:hover {
+	opacity: 0.8;
+}
+
+/* Markdown content styling */
+
+.plot-file-viewer-content {
+	font-family: "Newsreader", "Inter", sans-serif;
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 1.7;
+	color: var(--text-colour-primary);
+}
+
+.plot-file-viewer-content p {
+	margin-bottom: 1.2em;
+	text-align: justify;
+}
+
+.plot-file-viewer-content h1 {
+	margin: 1.5em 0 0.5em;
+	font-size: 30px;
+	font-weight: 600;
+}
+
+.plot-file-viewer-content h2 {
+	margin: 1.2em 0 0.4em;
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.plot-file-viewer-content h3 {
+	margin: 1em 0 0.4em;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.plot-file-viewer-content ul,
+.plot-file-viewer-content ol {
+	margin-bottom: 1em;
+	padding-left: 2em;
+}
+
+.plot-file-viewer-content li {
+	margin-bottom: 0.4em;
+}
+
+.plot-file-viewer-content strong {
+	font-weight: 600;
+}
+
+.plot-file-viewer-content em {
+	font-style: italic;
+}
+
+.plot-file-viewer-content hr {
+	margin: 2em 0;
+	border: none;
+	border-top: 1px solid var(--colour-grey-three);
+}
+
+.plot-file-viewer-content blockquote {
+	margin: 1em 0;
+	padding: 0.5em 1em;
+	border-left: 3px solid var(--unitColour);
+	color: var(--text-colour-secondary);
+	font-style: italic;
+}
+
+/* Image rendering */
+
+.plot-file-image-wrapper {
+	display: block;
+	margin: 1.5em 0;
+	text-align: center;
+}
+
+.plot-file-viewer-image {
+	display: block;
+	margin: 0 auto;
+
+	max-width: 100%;
+	max-height: 600px;
+	border-radius: 6px;
+}
+
+.plot-file-image-caption {
+	display: block;
+	margin-top: 8px;
+
+	color: var(--text-colour-tertiary);
+	font-size: 15px;
+	font-style: italic;
+}
+
+.plot-file-image-loading {
+	display: block;
+	margin: 1.5em auto;
+
+	width: 40px;
+	height: 40px;
+	border: 2px solid var(--colour-grey-three);
+	border-top-color: var(--text-colour-tertiary);
+	border-radius: 50%;
+
+	animation: plot-file-image-spin 0.8s linear infinite;
+}
+
+@keyframes plot-file-image-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@media (max-width: 750px) {
+	.plot-file-viewer-content p {
+		text-align: left;
+	}
+}

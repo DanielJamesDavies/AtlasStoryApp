@@ -33,6 +33,7 @@ export const Page = () => {
 			<RoutesContainer />
 			<Lightbox />
 			<DropdownOptions />
+			<div id='portal-root' />
 		</div>
 	);
 };

@@ -1,10 +1,11 @@
 // Packages
+import { useRef } from "react";
 
 // Components
-import { PlotNavigationBar } from "./PlotNavigationBar/PlotNavigationBar";
-import { PlotClusters } from "./PlotClusters/PlotClusters";
-import { PlotItemGroups } from "./PlotItemGroups/PlotItemGroups";
-import { PlotItems } from "./PlotItems/PlotItems";
+import { PlotFileBar } from "./plot-file-bar/plot-file-bar";
+import { PlotFileBrowser } from "./plot-file-browser/plot-file-browser";
+import { PlotFileViewer } from "./plot-file-viewer/plot-file-viewer";
+import { PlotFileEditor } from "./plot-file-editor/plot-file-editor";
 
 // Logic
 import { PlotLogic } from "./PlotLogic";
@@ -20,51 +21,64 @@ import "./Plot.css";
 
 export const Plot = () => {
 	const {
-		cluster,
-		changeCluster,
-		switchCluster,
-		groupID,
-		setGroupID,
-		changeGroup,
-		isDisplayingClusters,
-		setIsDisplayingClusters,
-		toggleIsDisplayingClusters,
-		isDisplayingItemGroups,
-		setIsDisplayingItemGroups,
-		toggleIsDisplayingItemGroups,
+		unit,
+		currentFile,
+		currentFileID,
+		initialFileID,
+		setInitialFile,
+		isFileBrowserOpen,
+		openFileBrowser,
+		closeFileBrowser,
+		selectFile,
+		isEditing,
+		isAuthorizedToEdit,
+		enterEditMode,
+		saveFile,
+		renameFile,
+		revertFile,
 	} = PlotLogic();
+
+	const hasFiles = (unit?.data?.plot?.files?.length ?? 0) > 0;
+	const editorRef = useRef(null);
+	const nameRef = useRef(null);
 
 	return (
 		<div className='unit-page-subpage unit-page-subpage-plot'>
-			<PlotNavigationBar
-				cluster={cluster}
-				isDisplayingClusters={isDisplayingClusters}
-				toggleIsDisplayingClusters={toggleIsDisplayingClusters}
-				isDisplayingItemGroups={isDisplayingItemGroups}
-				toggleIsDisplayingItemGroups={toggleIsDisplayingItemGroups}
+		<PlotFileBar
+			currentFile={currentFile}
+			currentFileID={currentFileID}
+			initialFileID={initialFileID}
+			folders={unit?.data?.plot?.folders || []}
+			onOpenBrowser={openFileBrowser}
+			isEditing={isEditing}
+			isAuthorizedToEdit={isAuthorizedToEdit}
+			onEdit={enterEditMode}
+			onSetInitialFile={setInitialFile}
+			onRevert={revertFile}
+			onSave={() => saveFile(editorRef.current?.getMarkdown() ?? "", nameRef.current?.value)}
+		/>
+			<PlotFileBrowser
+				isOpen={isFileBrowserOpen}
+				onClose={closeFileBrowser}
+				currentFileID={currentFileID}
+				onSelectFile={selectFile}
 			/>
-			<PlotClusters
-				currCluster={cluster}
-				switchCluster={switchCluster}
-				isDisplayingClusters={isDisplayingClusters}
-				setIsDisplayingClusters={setIsDisplayingClusters}
-			/>
-			<PlotItemGroups
-				cluster={cluster}
-				changeCluster={changeCluster}
-				currGroupID={groupID}
-				setGroupID={setGroupID}
-				isDisplayingItemGroups={isDisplayingItemGroups}
-				setIsDisplayingItemGroups={setIsDisplayingItemGroups}
-			/>
-			<PlotItems
-				cluster={cluster}
-				changeCluster={changeCluster}
-				groupID={groupID}
-				changeGroup={changeGroup}
-				isDisplayingClusters={isDisplayingClusters}
-				toggleIsDisplayingClusters={toggleIsDisplayingClusters}
-			/>
+			{isEditing ? (
+				<PlotFileEditor
+					currentFile={currentFile}
+					onSave={saveFile}
+					isAuthorizedToEdit={isAuthorizedToEdit}
+					editorRef={editorRef}
+					nameRef={nameRef}
+				/>
+			) : (
+				<PlotFileViewer
+					currentFile={currentFile}
+					hasFiles={hasFiles}
+					isAuthorizedToEdit={isAuthorizedToEdit}
+					onOpenBrowser={openFileBrowser}
+				/>
+			)}
 		</div>
 	);
 };

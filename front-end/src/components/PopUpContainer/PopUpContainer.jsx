@@ -1,5 +1,6 @@
 // Packages
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { FaTimes } from "react-icons/fa";
 
 // Components
@@ -8,6 +9,7 @@ import { IconBtn } from "../IconBtn/IconBtn";
 // Logic
 
 // Context
+import { AppContext } from "../../context/AppContext";
 
 // Services
 
@@ -16,12 +18,23 @@ import "./PopUpContainer.css";
 
 // Assets
 
-export const PopUpContainer = ({ children, className, title, isDisplaying, onClosePopUp, nullOnHidden, hidePrimary }) => {
+export const PopUpContainer = ({ children, className, title, isDisplaying, onClosePopUp, nullOnHidden, hidePrimary, modalID }) => {
+	const { registerModal, unregisterModal } = useContext(AppContext);
 	const [isOpening, setIsOpening] = useState(true);
 
 	useEffect(() => {
 		setIsOpening(true);
 	}, [isDisplaying]);
+
+	useEffect(() => {
+		if (!modalID) return;
+		if (isDisplaying) {
+			registerModal(modalID);
+		} else {
+			unregisterModal(modalID);
+		}
+		return () => unregisterModal(modalID);
+	}, [isDisplaying, modalID, registerModal, unregisterModal]);
 
 	function onClosePopUpHandler() {
 		setIsOpening(false);
@@ -29,7 +42,8 @@ export const PopUpContainer = ({ children, className, title, isDisplaying, onClo
 	}
 
 	if (!isDisplaying && nullOnHidden) return null;
-	return (
+
+	const modal = (
 		<div
 			className={
 				isDisplaying
@@ -55,4 +69,7 @@ export const PopUpContainer = ({ children, className, title, isDisplaying, onClo
 			<div className='pop-up-background' onClick={onClosePopUpHandler} />
 		</div>
 	);
+
+	const portalRoot = document.getElementById("portal-root") || document.body;
+	return createPortal(modal, portalRoot);
 };

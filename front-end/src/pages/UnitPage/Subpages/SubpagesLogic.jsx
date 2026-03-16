@@ -22,6 +22,7 @@ import { Custom } from "./Subpages/Custom/Custom";
 
 // Context
 import { UnitPageContext } from "../UnitPageContext";
+import { AppContext } from "../../../context/AppContext";
 
 // Services
 
@@ -41,6 +42,8 @@ export const SubpagesLogic = () => {
 		setIsUnitPageSubpagesHeaderFullSize,
 		subpageContainerRef,
 	} = useContext(UnitPageContext);
+
+	const { openModalIDs } = useContext(AppContext);
 
 	useEffect(() => {
 		const subpageContainerRefCurrent = subpageContainerRef?.current;
@@ -99,6 +102,8 @@ export const SubpagesLogic = () => {
 
 	function onSubpagesScrollWheel(e) {
 		if (window?.innerWidth > 750) {
+			if (openModalIDs.length > 0) return;
+
 			const oldIsUnitPageSubpagesHeaderFullSize = JSON.parse(JSON.stringify(isUnitPageSubpagesHeaderFullSize));
 
 			setIsUnitPageSubpagesHeaderFullSize(subpageContainerRef.current.scrollTop === 0 && e?.deltaY < 0);

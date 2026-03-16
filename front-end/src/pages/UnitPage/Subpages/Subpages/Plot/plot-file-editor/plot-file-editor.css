@@ -1,0 +1,306 @@
+.plot-file-editor {
+  margin: 0 auto;
+  padding-bottom: 80px;
+
+  max-width: 750px;
+}
+
+.plot-file-editor-title-input {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 4px 0;
+  border: 1px solid transparent;
+  outline: none;
+
+  background: transparent;
+  color: var(--text-colour-primary);
+  font-family: inherit;
+  font-size: 36px;
+  font-weight: 600;
+  transition: border-color 0.2s;
+}
+
+.plot-file-editor-title-input:hover,
+.plot-file-editor-title-input:focus {
+  border-bottom-color: var(--colour-grey-three);
+}
+
+.plot-file-editor-title-input::placeholder {
+  color: var(--text-colour-tertiary);
+}
+
+/* ── MDXEditor overrides ─────────────────────────────────────────────────── */
+
+.plot-file-editor-mdx {
+  border: 1px solid var(--colour-grey-three);
+  border-radius: 8px;
+
+  color: var(--text-colour-primary);
+  font-family: "Newsreader", "Inter", sans-serif;
+  font-size: 20px;
+}
+
+/* Toolbar */
+.plot-file-editor-mdx [role="toolbar"],
+.plot-file-editor-mdx [class*="_toolbar_"] {
+  flex-wrap: wrap;
+
+  border-bottom: 1px solid var(--colour-grey-three) !important;
+  border-radius: 8px 8px 0 0;
+
+  background: var(--colour-grey-two) !important;
+}
+
+/* Toolbar buttons */
+.plot-file-editor-mdx [role="toolbar"] button,
+.plot-file-editor-mdx [class*="_toolbarRoot_"] button {
+  color: var(--text-colour-primary) !important;
+}
+
+.plot-file-editor-mdx [role="toolbar"] button svg,
+.plot-file-editor-mdx [class*="_toolbarRoot_"] button svg {
+  color: var(--text-colour-primary) !important;
+  fill: currentColor !important;
+}
+
+.plot-file-editor-mdx [role="toolbar"] button:disabled,
+.plot-file-editor-mdx [class*="_toolbarRoot_"] button:disabled,
+.plot-file-editor-mdx [role="toolbar"] button:disabled svg,
+.plot-file-editor-mdx [class*="_toolbarRoot_"] button:disabled svg {
+  color: var(--text-colour-tertiary) !important;
+  opacity: 0.7;
+}
+
+.plot-file-editor-mdx [role="toolbar"] button:hover:not(:disabled),
+.plot-file-editor-mdx [class*="_toolbarRoot_"] button:hover:not(:disabled) {
+  background: var(--colour-grey-three) !important;
+}
+
+.plot-file-editor-mdx [role="toolbar"] button[aria-checked="true"],
+.plot-file-editor-mdx [role="toolbar"] button[data-state="on"] {
+  background: var(--colour-grey-four) !important;
+  color: var(--text-colour-primary) !important;
+}
+
+/* Toolbar separator */
+.plot-file-editor-mdx [class*="_separator_"] {
+  background-color: var(--colour-grey-three) !important;
+}
+
+/* Content editable area */
+.plot-file-editor-mdx [contenteditable] {
+  padding: 24px !important;
+  border-radius: 0 0 8px 8px;
+
+  min-height: 300px;
+
+  background: var(--colour-grey-one) !important;
+  color: var(--text-colour-primary) !important;
+  font-family: "Newsreader", "Inter", sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+}
+
+.plot-file-editor-mdx [contenteditable] p {
+  margin-top: 0.25em !important;
+  margin-bottom: 0.25em !important;
+}
+
+.plot-file-editor-mdx [contenteditable] p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.plot-file-editor-mdx [contenteditable]:focus {
+  outline: none;
+}
+
+/* Lists in editor */
+.plot-file-editor-mdx [contenteditable] ul {
+  margin-bottom: 1em;
+  padding-left: 2em;
+  list-style: disc;
+}
+
+.plot-file-editor-mdx [contenteditable] ol {
+  margin-bottom: 1em;
+  padding-left: 2em;
+  list-style: decimal;
+}
+
+.plot-file-editor-mdx [contenteditable] li {
+  margin-bottom: 0.4em;
+}
+
+/* Headings in editor */
+.plot-file-editor-mdx [contenteditable] h1 {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.plot-file-editor-mdx [contenteditable] h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.plot-file-editor-mdx [contenteditable] h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Blockquote */
+.plot-file-editor-mdx [contenteditable] blockquote {
+  padding: 0.5em 1em;
+  border-left: 3px solid var(--unitColour);
+
+  color: var(--text-colour-secondary);
+  font-style: italic;
+}
+
+/* Inline code */
+.plot-file-editor-mdx [contenteditable] code {
+  padding: 2px 6px;
+  border-radius: 4px;
+
+  background: var(--colour-grey-three);
+  color: var(--text-colour-primary);
+  font-size: 0.9em;
+}
+
+/* HR */
+.plot-file-editor-mdx [contenteditable] hr {
+  border: none;
+  border-top: 1px solid var(--colour-grey-three);
+}
+
+/* Links */
+.plot-file-editor-mdx [contenteditable] a {
+  color: var(--unitColour);
+}
+
+/* ── Custom block type selector ──────────────────────────────────────────────── */
+
+.plot-editor-block-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.plot-editor-block-select-trigger {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 4px 8px;
+  border: 1px solid var(--colour-grey-three);
+  border-radius: 6px;
+
+  min-width: 110px;
+
+  background: var(--colour-grey-two);
+  color: var(--text-colour-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.plot-editor-block-select-trigger:hover {
+  background: var(--colour-grey-three);
+}
+
+.plot-editor-block-select-trigger span {
+  flex: 1;
+  text-align: left;
+}
+
+.plot-editor-block-select-chevron {
+  flex-shrink: 0;
+  font-size: 9px;
+  opacity: 0.6;
+}
+
+.plot-editor-block-select-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 100;
+  overflow: hidden;
+  border: 1px solid var(--colour-grey-three);
+  border-radius: 6px;
+
+  min-width: 130px;
+
+  background: var(--colour-grey-two);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.plot-editor-block-select-option {
+  display: block;
+  width: 100%;
+  padding: 7px 12px;
+  border: 0;
+
+  background: transparent;
+  color: var(--text-colour-secondary);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+
+.plot-editor-block-select-option:hover {
+  background: var(--colour-grey-three);
+  color: var(--text-colour-primary);
+}
+
+.plot-editor-block-select-option-active {
+  color: var(--text-colour-primary);
+  font-weight: 500;
+}
+
+/* Link dialog (scoped to MDXEditor) */
+.plot-file-editor-mdx [class*="_linkDialogPopupContainer_"],
+.plot-file-editor-mdx [class*="_dialogContent_"] {
+  border: 1px solid var(--colour-grey-three) !important;
+  border-radius: 8px !important;
+
+  background: var(--colour-grey-two) !important;
+  color: var(--text-colour-primary) !important;
+}
+
+.plot-file-editor-mdx [class*="_linkDialogInput_"],
+.plot-file-editor-mdx [class*="_dialogInput_"] {
+  border: 1px solid var(--colour-grey-three) !important;
+  border-radius: 4px !important;
+
+  background: var(--colour-grey-one) !important;
+  color: var(--text-colour-primary) !important;
+}
+
+/* Images in the editor */
+.plot-file-editor-mdx [contenteditable] img {
+  display: block;
+  margin: 1em auto;
+
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: 6px;
+}
+
+/* Image dialog (scoped to MDXEditor) */
+.plot-file-editor-mdx [class*="_imageWrapper_"] {
+  border: 1px solid var(--colour-grey-three) !important;
+  border-radius: 8px !important;
+
+  background: var(--colour-grey-two) !important;
+}
+
+.plot-file-editor-mdx [class*="_editImageToolbar_"] {
+  background: var(--colour-grey-two) !important;
+  border-color: var(--colour-grey-three) !important;
+}
+
+@media (max-width: 750px) {
+  .plot-file-editor-mdx [contenteditable] {
+    padding: 16px !important;
+  }
+}

@@ -5,8 +5,27 @@ const Image = require("../../models/Image");
 
 const GetValueInNestedObject = require("../GetValueInNestedObject");
 const ChangeValueInNestedObject = require("../ChangeValueInNestedObject");
+const extractPlotFileImageIDs = require("./extract-plot-file-image-ids");
 
 const { uploadBase64, deleteFile } = require("../R2Config");
+
+/**
+ * Collects the IDs of a folder and all its descendants recursively.
+ */
+function getAllDescendantFolderIDs(folders, rootID) {
+	const ids = [rootID];
+	const queue = [rootID];
+	while (queue.length > 0) {
+		const current = queue.shift();
+		folders
+			.filter((f) => JSON.stringify(f.parentId) === JSON.stringify(current))
+			.forEach((child) => {
+				ids.push(child._id);
+				queue.push(child._id);
+			});
+	}
+	return ids;
+}
 
 module.exports = async (req, res) => {
 	if (!req?.body?.path || JSON.stringify(req?.body?.path) === JSON.stringify(["_id"]))
@@ -175,6 +194,45 @@ module.exports = async (req, res) => {
 				images: images?.map((image) => image?.id),
 			};
 			break;
+		case JSON.stringify(["data", "plot", "folders"]):
+			if (req?.body?.task === "remove" && req?.body?.remove_id) {
+				const removedFolderIDs = getAllDescendantFolderIDs(newPlot.data.plot.folders, req.body.remove_id);
+				newPlot.data.plot.folders = newPlot.data.plot.folders.filter(
+					(f) => !removedFolderIDs.some((id) => JSON.stringify(id) === JSON.stringify(f._id))
+				);
+				newPlot.data.plot.files = newPlot.data.plot.files.filter(
+					(f) => !removedFolderIDs.some((id) => JSON.stringify(id) === JSON.stringify(f.folderId))
+				);
+			} else if (req?.body?.task === "add") {
+				newPlot.data.plot.folders.push(req.body.newValue);
+			} else if (req?.body?.task === "update" && req?.body?.item_id) {
+				const folderIndex = newPlot.data.plot.folders.findIndex(
+					(f) => JSON.stringify(f._id) === JSON.stringify(req.body.item_id)
+				);
+				if (folderIndex !== -1) newPlot.data.plot.folders[folderIndex] = req.body.newValue;
+			}
+			break;
+
+		case JSON.stringify(["data", "plot", "files"]):
+			if (req?.body?.task === "remove" && req?.body?.remove_id) {
+				newPlot.data.plot.files = newPlot.data.plot.files.filter(
+					(f) => JSON.stringify(f._id) !== JSON.stringify(req.body.remove_id)
+				);
+			} else if (req?.body?.task === "add") {
+				newPlot.data.plot.files.push(req.body.newValue);
+			} else if (req?.body?.task === "update" && req?.body?.item_id) {
+				const fileIndex = newPlot.data.plot.files.findIndex(
+					(f) => JSON.stringify(f._id) === JSON.stringify(req.body.item_id)
+				);
+				if (fileIndex !== -1) newPlot.data.plot.files[fileIndex] = req.body.newValue;
+			} else if (req?.body?.task === "reorder" && req?.body?.newValue) {
+				const old_files = newPlot.data.plot.files;
+				newPlot.data.plot.files = req.body.newValue.map((id) =>
+					old_files.find((f) => JSON.stringify(f._id) === JSON.stringify(id))
+				).filter(Boolean);
+			}
+			break;
+
 		default:
 			if (req.body.path.length > 3 && req.body.path[0] === "data" && req.body.path[1] === "plot" && req.body.path[2] === "clusters") {
 				let newPath = JSON.parse(JSON.stringify(req.body.path));

@@ -1,5 +1,4 @@
 .unit-page-images-container-container {
-	transform: translateY(var(--vh));
 	width: calc(100vw - var(--navbar-width));
 }
 
@@ -67,7 +66,7 @@
 	}
 
 	.unit-page-images-container-container {
-		transform: translateX(100vw);
+		width: 100vw;
 	}
 	.unit-page-images-container-container .pop-up-content-container {
 		margin-top: calc(var(--characterPaddingTop) / 2 - var(--navbar-mobile-height) + 12px);
